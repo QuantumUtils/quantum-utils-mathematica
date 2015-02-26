@@ -1,0 +1,2599 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     91906,       2598]
+NotebookOptionsPosition[     87091,       2432]
+NotebookOutlinePosition[     87564,       2453]
+CellTagsIndexPosition[     87484,       2448]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["QSim` Documentation", "Chapter",
+ CellChangeTimes->{{3.6333515346579514`*^9, 3.63335154627586*^9}, {
+  3.633364320690548*^9, 3.63336432261762*^9}, {3.633369638229841*^9, 
+  3.633369639626734*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Section",
+ CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
+  3.633781221006772*^9, 3.633781223062866*^9}}],
+
+Cell["\<\
+QSim is a stand-alone package, and does not require other packages to run.\
+\>", "Text",
+ CellChangeTimes->{{3.633443468023219*^9, 3.6334434910153923`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<QSim`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
+  3.633369630403097*^9, 3.633369649792616*^9}, {3.633371974503627*^9, 
+  3.633371979509849*^9}, {3.6334434946691303`*^9, 3.633443495411319*^9}}],
+
+Cell["\<\
+The following packages are needed to run some code found in this \
+documentation notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.633443504920109*^9, 3.6334435391598387`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<DocTools`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<Tensor`\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.633887955330262*^9, 3.633887977596451*^9}}],
+
+Cell["The following definitions are used for convenience.", "Text",
+ CellChangeTimes->{{3.633888837000455*^9, 3.633888847671471*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"X", ",", "Y", ",", "Z", ",", "UP"}], "}"}], "=", 
+   RowBox[{"TP", "/@", 
+    RowBox[{"{", 
+     RowBox[{"X", ",", "Y", ",", "Z", ",", "U"}], "}"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6338880735729027`*^9, 3.633888088524355*^9}, {
+  3.6338935893977213`*^9, 3.633893606414633*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introduction and Overview", "Section",
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}}],
+
+Cell[TextData[{
+ StyleBox["QSim`", "Input"],
+ " is a general purpose quantum system time-evolution simulator whose primary \
+objective is ease of use. This is in keeping with one of ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\[CloseCurlyQuote]s main advantages over most other languages; rapid and \
+intuitive development of ideas with minimal overhead. A description of the \
+the quantum system, usually a Hamiltonian, and an action on that quantum \
+system are provided, and some observable, quantum state, propogator, etc. is \
+monitored as the system evolves. "
+}], "Text",
+ CellChangeTimes->{{3.63336976465697*^9, 3.6333698346703863`*^9}, {
+  3.633369866272846*^9, 3.633369887648974*^9}, {3.633369949703978*^9, 
+  3.633369955653768*^9}, {3.633370004311841*^9, 3.633370006392604*^9}, {
+  3.633370062385489*^9, 3.633370284437573*^9}, {3.633370463585658*^9, 
+  3.6333704707289658`*^9}}],
+
+Cell[TextData[{
+ "As a quick example, the following computes the expectation value of X\
+\[CircleTimes]Y of the initial state |00\[RightAngleBracket] undergoing \
+evolution with the time-dependent Hamiltonian ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"H", "(", "t", ")"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"cos", "(", "t", ")"}], 
+      RowBox[{"X", "\[CircleTimes]", "X"}]}], "+", 
+     RowBox[{
+      RowBox[{"sin", "(", "t", ")"}], 
+      RowBox[{"Y", "\[CircleTimes]", "Y"}]}]}]}], TraditionalForm]]],
+ ". Note that over half the code is for plotting and not for simulating -- it \
+is really a one liner!"
+}], "Text",
+ CellChangeTimes->{{3.633372742814391*^9, 3.6333727744476213`*^9}, {
+  3.633372805181459*^9, 3.633372857765842*^9}, {3.633894601505192*^9, 
+  3.633894639738811*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Observables", "[", 
+    RowBox[{
+     RowBox[{"EvalPulse", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"Cos", "[", "#", "]"}], 
+          RowBox[{"X", "\[CircleTimes]", "X"}]}], "+", 
+         RowBox[{
+          RowBox[{"Sin", "[", "#", "]"}], 
+          RowBox[{"Y", "\[CircleTimes]", "Y"}]}]}], "&"}], ",", "4", ",", 
+       RowBox[{"PollingInterval", "\[Rule]", "0.1"}], ",", 
+       RowBox[{"InitialState", "\[Rule]", 
+        RowBox[{"Projector", "[", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0", ",", "0", ",", "0"}], "}"}], "]"}]}], ",", 
+       RowBox[{"Observables", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"X", "\[CircleTimes]", "Y"}], "}"}]}]}], "]"}], ",", 
+     RowBox[{"TimeVector", "\[Rule]", "True"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+   RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+   "PlotLabel", "\[Rule]", "\"\<Expectation value of X\[CircleTimes]Y\>\""}], 
+   ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<time\>\"", ",", "None"}], "}"}]}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.633371988065483*^9, 3.6333720701854362`*^9}, {
+  3.633372104294569*^9, 3.633372175515564*^9}, {3.633372338087254*^9, 
+  3.63337235155048*^9}, {3.633372390491395*^9, 3.633372427698889*^9}, {
+  3.633372559844575*^9, 3.6333727200679197`*^9}, {3.633372916631035*^9, 
+  3.6333729261829367`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, 
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.016666666666666666`], 
+    AbsoluteThickness[1.6], LineBox[CompressedData["
+1:eJxdUllMU0EULUvZKsUoCmhSRE2EiLhgQK3NHcDtw6itRmQLCKEGDVL0w8gS
+DdpAkFiWuqBRgxhD/EAUTDBghsUFkbJDFSX0QReE2qdsZa/te+OPN3mZvMyd
+c8499/glpkmS7TkcjtD62c7/yyiuFcjHX4H5UdGuhn2NmP1vhJwLiZrQ1E5M
+ZXhWHqZawU8zLEk6qSb3XRDA0/cORAxiKVP9YLj+JR/7UqR/AIa1m7NE/iM4
+VtE07R87BNwb0sgTzVryngJOnohymtfhAKZBC3TTI+2mPj3B0wP3h+vdmRgD
+fiYTuanLR0FGeRbklBgI/hjktz7hzWYbsK983Ir4C87EHyjMXGcgfDSYOsvq
+hMl6rGqz1W+YDU3g9kfqCP8faG7QR/LGRrAV3MowCW9Of158v2qY6JkC3gtD
+map4CB9hCKchT7rFp5U/QPTNgNjD3bxa2YMZerkZNHHpsiBxC9E7CyJTuBe4
+vMTNVjWKpjmo21BoSkqvAVb/PHxPCI+KCFQBu4VFWEyIln6Cr8DOswSCspqe
+3kENiBiBy3BQEv+44rgO2PkskBJ9fkC//ye556Cjdt4HdKlGYOfloJsbLm+V
+VJlIvx3aXVAx0fSdBnZ+O/Ruu/r22z4aMm1yMuxRVJag+L7SBKwfDkgZ153i
+7WeEB6W2ckBuJfPnLHdGgfXHEX3kz+X6CLRgQxPXOqK2or57p6hBYP3iouDR
+ZDtFaTcwcGouElYtTV0sqwPWPyfkWB9YXtH+Gs/Y7Jl2QpZNCRujSjqIn84o
+t/BuVtLSN8zI83RB8iuXap/KKeKvC9q/x7xon6zDwUy5IuOFeGmncpT47YrW
+esXs3eM9jiWMQDeUnR224+qCkeTHDYWvubNeJjbhdMZAHuo6VE/77KQxu48V
+6PmtqqCD1TRm7FOsQGH58cL7v2mSN3c07qzatmyhMSOv0h2d1TxzyJymMbsP
+PuqOCRHEUjTJHx+Zy/lx1R00yacH+jDJT3NtoUkePZDlWsHRENU//pXomGLh
+4UQ7jf8CsxrXrQ==
+     "]]}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{False, False},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{True, True}, {True, True}},
+  FrameLabel->{{None, None}, {
+     FormBox["\"time\"", TraditionalForm], None}},
+  FrameStyle->Automatic,
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{Automatic, Automatic},
+  GridLinesStyle->Directive[
+    GrayLevel[0.4, 0.5], 
+    AbsoluteThickness[1], 
+    AbsoluteDashing[{1, 2}]],
+  Method->{},
+  PlotLabel->FormBox[
+   "\"Expectation value of X\[CircleTimes]Y\"", TraditionalForm],
+  PlotRange->{{0, 4.}, {-0.9999991316365117, 0.9955763568326632}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.63337233100599*^9, 3.633372430544815*^9, 3.63337256632266*^9, {
+   3.633372604081015*^9, 3.633372720348208*^9}, 3.633372926974234*^9, 
+   3.633888100001267*^9, 3.633891748204486*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Single Pulse Evaluator", "Section",
+ CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
+  3.633372936258585*^9, 3.6333729402331753`*^9}}],
+
+Cell[TextData[{
+ StyleBox["EvalPulse[H,p]", "Input"],
+ " simulates the pulse ",
+ StyleBox["p", "Input"],
+ " under the Hamiltonian ",
+ StyleBox["H", "Input"],
+ ". There are four types of \[OpenCurlyDoubleQuote]pulses\
+\[CloseCurlyDoubleQuote] that ",
+ StyleBox["p", "Input"],
+ " can be:\n\n",
+ Cell[BoxData[GridBox[{
+    {
+     StyleBox["Type", "Text",
+      FontWeight->"Bold"], 
+     StyleBox["Predicate", "Text",
+      FontWeight->"Bold"], 
+     StyleBox["Description", "Text",
+      FontWeight->"Bold"]},
+    {
+     StyleBox[
+      RowBox[{"Drift", " ", "pulse"}], "Text"], 
+     StyleBox["DriftPulseQ", "Input"], 
+     RowBox[{
+      StyleBox[
+       RowBox[{
+       "Evolution", " ", "under", " ", "the", " ", "Hamiltonian", " ", "for", 
+        " ", "some", " ", 
+        RowBox[{"time", ".", " ", "In"}], " ", "this", " ", "case"}], "Text"], 
+      StyleBox[",", "Text"], 
+      StyleBox[" ", "Text"], 
+      RowBox[{
+       StyleBox["p", "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["is", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["just", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["equal", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["to", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["a", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["number", "Text"]}], 
+      StyleBox[",", "Text"], 
+      RowBox[{
+       StyleBox["or", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["a", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["Symbol", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["such", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["as", "Text"], 
+       StyleBox[" ", "Text"], 
+       RowBox[{
+        StyleBox["t", "Input"], 
+        StyleBox[".", "Text"]}]}]}]},
+    {
+     StyleBox[
+      RowBox[{"Shaped", " ", "pulse"}], "Text"], 
+     StyleBox["ShapedPulseQ", "Input"], 
+     RowBox[{
+      RowBox[{
+       StyleBox[
+        RowBox[{
+        "A", " ", "list", " ", "of", " ", "control", " ", "Hamiltonians"}], 
+        "Text"], 
+       StyleBox[",", "Text"], 
+       StyleBox[
+        RowBox[{"time", " ", "spacings"}], "Text"], 
+       StyleBox[",", "Text"], 
+       StyleBox[
+        RowBox[{"and", " ", "amplitudes", " ", "is", " ", "provided"}], 
+        "Text"], 
+       StyleBox[",", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox[
+        RowBox[{"and", " ", "everything", " ", "is", " ", 
+         RowBox[{"simulated", ".", " ", "In"}], " ", "this", " ", "case"}], 
+        "Text"], 
+       StyleBox[",", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["\[IndentingNewLine]", "Text"], 
+       RowBox[{
+        StyleBox["p", "Input"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["is", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["of", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["the", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["form", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox[
+         RowBox[{"{", 
+          RowBox[{"pulse", ",", 
+           RowBox[{"{", 
+            RowBox[{"Hctl1", ",", "Hctl2", ",", "..."}], "}"}]}], "}"}], 
+         "Input"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["where", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["pulse", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["is", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["either", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["a", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["text", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["file", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox[
+         RowBox[{"(", 
+          RowBox[{"eg", ".", " ", "CVS"}], ")"}], "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["containing", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["the", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["shaped", "Text"], 
+        StyleBox[" ", "Text"], 
+        StyleBox["pulse", "Text"]}], 
+       StyleBox[",", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox[
+        RowBox[{"or", " ", "the"}], "Text"]}], 
+      StyleBox[" ", "Text"], 
+      StyleBox["\[IndentingNewLine]", "Text",
+       Background->RGBColor[0.94, 0.88, 0.94]], 
+      StyleBox[
+       RowBox[{"shaped", " ", "pulse", " ", 
+        RowBox[{"itself", ".", " ", "A"}], " ", "shaped", " ", "pulse", " ", 
+        "is", " ", "of", " ", "the", " ", "form"}], "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["\[IndentingNewLine]", "Text"], 
+      RowBox[{
+       StyleBox[
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"dt1", ",", "a11", ",", "a12", ",", "a13", ",", "..."}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"dt2", ",", "a21", ",", "a22", ",", "a23", ",", "..."}], 
+           "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"dt2", ",", "a21", ",", "a22", ",", "a23", ",", "..."}], 
+           "}"}], ",", "..."}], "}"}], "Input"], 
+       StyleBox[".", "Text"]}]}]},
+    {
+     StyleBox[
+      RowBox[{"Unitary", " ", "pulse"}], "Text"], 
+     StyleBox["UnitaryPulseQ", "Input"], 
+     RowBox[{
+      StyleBox[
+       RowBox[{
+       "The", " ", "Hamiltonian", " ", "is", " ", "ignored", " ", "and", " ", 
+        "some", " ", "other", " ", "unitary", " ", "is", " ", 
+        RowBox[{"applied", ".", " ", "This"}], " ", "kind", " ", "of", " ", 
+        "pulse", " ", "only", " ", "really", " ", "makes", " ", "within", " ",
+         "pulse", " ", 
+        RowBox[{"sequences", ".", " ", 
+         StyleBox[
+          StyleBox["\[IndentingNewLine]", "Text",
+           Background->RGBColor[0.94, 0.88, 0.94]], "Text",
+          Background->RGBColor[0.94, 0.88, 0.94]], "In"}], " ", "this", " ", 
+        "case"}], "Text"], 
+      StyleBox[",", "Text"], 
+      StyleBox[" ", "Text"], 
+      RowBox[{
+       StyleBox["p", "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["is", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["of", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["the", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["form", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox[
+        RowBox[{"{", 
+         RowBox[{"U", ",", "t"}], "}"}], "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["where", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["U", "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["is", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["the", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["unitary", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["matrix", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["and", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["t", "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["is", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["how", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["much", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["time", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["the", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["pulse", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["should", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox[
+        RowBox[{"take", "."}], "Text"]}]}]},
+    {
+     StyleBox[
+      RowBox[{"Channel", " ", "pulse"}], "Text"], 
+     StyleBox["ChannelPulseQ", "Input"], 
+     StyleBox[
+      RowBox[{
+       RowBox[{
+        RowBox[{"The", " ", "Hamiltonian", " ", "is", " ", "ignored"}], ",", 
+        " ", 
+        RowBox[{
+        "and", " ", "the", " ", "supplied", " ", "superoperator", " ", "is", 
+         " ", 
+         RowBox[{"applied", ".", " ", "Similar"}], " ", "to", " ", "a", " ", 
+         "unitary", " ", "pulse"}], ",", " ", 
+        RowBox[{"a", " ", "superoperator", " ", "pulse"}]}], " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "only", " ", "really", " ", "makes", " ", "sense", " ", "in", " ", 
+        "the", " ", "context", " ", "of", " ", "a", " ", "pulse", " ", 
+        RowBox[{"sequence", ".", " ", "Also"}], " ", "note", " ", "that", " ",
+         "you", " ", "cannot", " ", "expect", " ", "any", " ", "unitaries", 
+        " ", "to", " ", "be"}], " ", "\[IndentingNewLine]", 
+       RowBox[{
+       "returned", " ", "from", " ", "a", " ", "simulation", " ", "involving",
+         " ", "a", " ", "superoperator", " ", 
+        RowBox[{
+         RowBox[{"pulse", ":", " ", 
+          RowBox[{
+          "it", " ", "is", " ", "required", " ", "that", " ", "an", " ", 
+           "initial", " ", "state", " ", "be", " ", "given", " ", "with", " ",
+            "this", " ", "kind", " ", "of", " ", "pulse"}]}], "."}]}]}], 
+      "Text"]}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}}]], "Text",
+  CellChangeTimes->{{3.633371471943419*^9, 3.6333715774911737`*^9}, {
+   3.63337161470093*^9, 3.6333716646456614`*^9}, {3.6333717491172037`*^9, 
+   3.633371835409844*^9}, {3.633371867624339*^9, 3.633371868053253*^9}, {
+   3.633373410565125*^9, 3.633373434679229*^9}}],
+ "\n\nThe Hamiltonian can be time dependent or time independent. In the \
+former case the Hamiltonian ",
+ StyleBox["H", "Input"],
+ " is a matrix, and in the latter case, the Hamiltonian ",
+ StyleBox["H", "Input"],
+ " is a single parameter function returning a matrix. Alternatively, the \
+first argument of EvalPulse can not be a Hamiltonian at all, but rather a \
+Lindblad representation, ",
+ StyleBox["L=", "Input"],
+ StyleBox["LindbladForm", "Input"],
+ StyleBox["[H,L1,L2,...,Ln]", "Input"],
+ ". where ",
+ StyleBox["H", "Input"],
+ " is time dependent or independent as described earlier, and ",
+ StyleBox["L1", "Input"],
+ ",...,",
+ StyleBox["Ln", "Input"],
+ " are (time independent) Lindblad matrices.\n\n",
+ Cell[BoxData[GridBox[{
+    {
+     StyleBox["Type", "Text",
+      FontWeight->"Bold"], 
+     StyleBox["Predicate", "Text",
+      FontWeight->"Bold"], 
+     StyleBox["Description", "Text",
+      FontWeight->"Bold"]},
+    {
+     StyleBox[
+      RowBox[{"Time", " ", "independent", " ", "Hamiltonian"}], "Text"], 
+     StyleBox["DriftHamConstQ", "Input"], 
+     StyleBox[
+      RowBox[{"A", " ", 
+       RowBox[{"matrix", "."}]}], "Text"]},
+    {
+     StyleBox[
+      RowBox[{"Time", " ", "dependent", " ", "Hamiltonian"}], "Text"], 
+     StyleBox["DriftHamNonConstQ", "Input"], 
+     StyleBox[
+      RowBox[{
+      "A", " ", "single", " ", "parameter", " ", "function", " ", "returning",
+        " ", "a", " ", 
+       RowBox[{"matrix", "."}]}], "Text"]},
+    {
+     StyleBox[
+      RowBox[{"Time", " ", "independent", " ", "Lindblad"}], "Text"], 
+     StyleBox["LindbladConstQ", "Input"], 
+     RowBox[{
+      StyleBox[
+       RowBox[{"A", " ", "Lindblad", " ", "representation"}], "Text"], 
+      StyleBox[",", "Text"], 
+      StyleBox[
+       RowBox[{"L", "=", 
+        RowBox[{"LindbladForm", "[", 
+         RowBox[{"H", ",", "L1", ",", "L2", ",", "...", ",", "Ln"}], "]"}]}], 
+       "Input"], 
+      StyleBox[",", "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["\[IndentingNewLine]", "Text"], 
+      RowBox[{
+       StyleBox["where", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["H", "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["satisfies", "Text"], 
+       StyleBox[" ", "Text"], 
+       RowBox[{
+        StyleBox["DriftHamConstQ", "Input"], 
+        StyleBox[".", "Text"]}]}]}]},
+    {
+     StyleBox[
+      RowBox[{"Time", " ", "dependent", " ", "Lindblad"}], "Text"], 
+     StyleBox["LindbladNonConstQ", "Input"], 
+     RowBox[{
+      StyleBox[
+       RowBox[{"A", " ", "Lindblad", " ", "representation"}], "Text"], 
+      StyleBox[",", "Text"], 
+      StyleBox[
+       RowBox[{"L", "=", 
+        RowBox[{"LindbladForm", "[", 
+         RowBox[{"H", ",", "L1", ",", "L2", ",", "...", ",", "Ln"}], "]"}]}], 
+       "Input"], 
+      StyleBox[",", "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["\[IndentingNewLine]", "Text"], 
+      RowBox[{
+       StyleBox["where", "Text"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["H", "Input"], 
+       StyleBox[" ", "Text"], 
+       StyleBox["satisfies", "Text"], 
+       StyleBox[" ", "Text"], 
+       RowBox[{
+        StyleBox["DriftHamNonConstQ", "Input"], 
+        StyleBox[".", "Text"]}]}]}]}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}}]], "Text",
+  CellChangeTimes->{{3.633371471943419*^9, 3.6333715774911737`*^9}, {
+   3.63337161470093*^9, 3.6333716646456614`*^9}, {3.6333717491172037`*^9, 
+   3.633371835409844*^9}, {3.633371867624339*^9, 3.633371868053253*^9}, {
+   3.633373410565125*^9, 3.633373434679229*^9}}],
+ "\n\nThe particular simulator invoked by ",
+ StyleBox["Evalpulse[H,p]", "Input"],
+ " depends on which predicates ",
+ StyleBox["H", "Input"],
+ " and ",
+ StyleBox["p", "Input"],
+ " satisfy."
+}], "Text",
+ CellChangeTimes->{{3.63388816236535*^9, 3.633888200740765*^9}, {
+  3.633888231781764*^9, 3.633888405011918*^9}, {3.633888704051396*^9, 
+  3.633888716449648*^9}, {3.633894462728293*^9, 3.633894462728364*^9}, {
+  3.633955012170801*^9, 3.633955050551543*^9}},
+ CellTags->"EvalPulse::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Subsection",
+ CellChangeTimes->{{3.6333730907777243`*^9, 3.633373091656231*^9}, {
+   3.633378288498308*^9, 3.633378289345796*^9}, 3.633888861496685*^9}],
+
+Cell["\<\
+Examples of these options being used appear in subsequent subsections.\
+\>", "Text",
+ CellChangeTimes->{{3.633377919615526*^9, 3.6333779317278347`*^9}, {
+  3.633888802864767*^9, 3.633888805063006*^9}, {3.633892828102755*^9, 
+  3.633892828534786*^9}}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox["Option", "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Default", " ", "Value"}], "Text",
+     FontWeight->Bold], 
+    StyleBox["Description", "Text",
+     FontWeight->Bold]},
+   {"StepSize", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "StepSize", " ", "is", " ", "a", " ", "simulation", " ", "option", " ", 
+      "that", " ", "chooses", " ", "the", " ", "time", " ", "discretization", 
+      " ", "when", " ", "the", " ", "internal", " ", "Hamiltonian", " ", "is",
+       " ", "time", " ", 
+      RowBox[{"dependent", ".", " ", "Can"}], " ", "be", " ", "set", " ", 
+      "to", " ", 
+      RowBox[{"Automatic", "."}]}], "Text"]},
+   {"PollingInterval", "Off", 
+    StyleBox[
+     RowBox[{
+     "PollingInterval", " ", "is", " ", "a", " ", "simulation", " ", "option",
+       " ", "that", " ", "specifies", " ", "the", " ", "time", " ", 
+      "interval", " ", "at", " ", "which", " ", "results", " ", "of", " ", 
+      "the", " ", "simulation", " ", "should", " ", "be", " ", 
+      RowBox[{"returned", ".", " ", "The"}], " ", "default", " ", "value", 
+      " ", "is", " ", 
+      RowBox[{"Off", "."}]}], "Text"]},
+   {"InitialState", "None", 
+    StyleBox[
+     RowBox[{"InitialState", " ", "is", " ", "a", " ", "simulation", " ", 
+      RowBox[{"option", ".", " ", "Set"}], " ", "this", " ", "option", " ", 
+      "to", " ", "the", " ", "initial", " ", "density", " ", "matrix", " ", 
+      "of", " ", "your", " ", 
+      RowBox[{"system", ".", " ", "The"}], " ", "default", " ", "value", " ", 
+      "is", " ", 
+      RowBox[{"None", "."}]}], "Text"]},
+   {"Observables", "None", 
+    StyleBox[
+     RowBox[{
+      RowBox[{"Observables", " ", "is", " ", "three", " ", 
+       RowBox[{"things", ":", " ", 
+        RowBox[{
+         RowBox[{"(", "1", ")"}], " ", "simulation", " ", "option", " ", 
+         "which", " ", "can", " ", "be", " ", "set", " ", "to", " ", "a", " ",
+          "list", " ", "of", " ", "observables", " ", 
+         RowBox[{"(", 
+          RowBox[{"list", " ", "of", " ", "hermitian", " ", "matrices"}], 
+          ")"}]}]}]}], ",", " ", 
+      RowBox[{
+       RowBox[{"(", "2", ")"}], " ", "an", " ", "element", " ", "of", " ", 
+       "the", " ", "SimulationOutput", " ", "list"}], ",", " ", 
+      RowBox[{"and", " ", 
+       RowBox[{"(", "3", ")"}], " ", "a", " ", "function", " ", 
+       RowBox[{"Observables", "[", "data", "]"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"Observables", "[", 
+         RowBox[{"data", ",", "n"}], "]"}], ")"}], " ", "which", " ", 
+       "extracts", " ", "all", " ", "observable", " ", "values", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"n", "'"}], "th", " ", "observable", " ", "values"}], ")"}], 
+       " ", "from", " ", "data"}], ",", " ", 
+      RowBox[{
+      "where", " ", "data", " ", "is", " ", "in", " ", "the", " ", "format", 
+       " ", "that", " ", "EvalPulse", " ", 
+       RowBox[{"outputs", "."}]}]}], "Text"]},
+   {"Functions", "None", 
+    StyleBox[
+     RowBox[{
+      RowBox[{"Functions", " ", "is", " ", "three", " ", 
+       RowBox[{"things", ":", " ", 
+        RowBox[{
+         RowBox[{"(", "1", ")"}], " ", "simulation", " ", "option", " ", 
+         "which", " ", "can", " ", "be", " ", "set", " ", "to", " ", "a", " ",
+          "list", " ", "of", " ", "functions", " ", "which", " ", "take", " ",
+          "a", " ", "square", " ", "matrix", " ", "as", " ", "input"}]}]}], 
+      ",", " ", 
+      RowBox[{
+       RowBox[{"(", "2", ")"}], " ", "an", " ", "element", " ", "of", " ", 
+       "the", " ", "SimulationOutput", " ", "list"}], ",", " ", 
+      RowBox[{"and", " ", 
+       RowBox[{"(", "3", ")"}], " ", "a", " ", "function", " ", 
+       RowBox[{"Functions", "[", "data", "]"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"Functions", "[", 
+         RowBox[{"data", ",", "n"}], "]"}], ")"}], " ", "which", " ", 
+       "extracts", " ", "all", " ", "function", " ", "values", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"n", "'"}], "th", " ", "function", " ", "values"}], ")"}], 
+       " ", "from", " ", "data"}], ",", " ", 
+      RowBox[{
+      "where", " ", "data", " ", "is", " ", "in", " ", "the", " ", "format", 
+       " ", "that", " ", "EvalPulse", " ", 
+       RowBox[{"outputs", "."}]}]}], "Text"]},
+   {"SimulationOutput", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{"SimulationOutput", " ", "is", " ", "a", " ", "simulation", " ", 
+       RowBox[{"option", ".", " ", "Set"}], " ", "this", " ", "option", " ", 
+       "to", " ", "be", " ", "one", " ", "of"}], ",", " ", 
+      RowBox[{"or", " ", "a", " ", "nonempty", " ", "subset", " ", "of"}], 
+      ",", " ", 
+      RowBox[{"the", " ", "list", " ", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "Unitaries", ",", "States", ",", "Observables", ",", "Functions"}], 
+         "}"}], ".", " ", "These"}], " ", "will", " ", "be", " ", "the", " ", 
+       "values", " ", 
+       RowBox[{"(", 
+        RowBox[{"and", " ", "order"}], ")"}], " ", "of", " ", "the", " ", 
+       "simulation", " ", 
+       RowBox[{"output", ".", " ", "The"}], " ", "default", " ", "value", " ",
+        "is", " ", 
+       RowBox[{"Automatic", "."}]}]}], "Text"]},
+   {"SequenceMode", "False", 
+    StyleBox[
+     RowBox[{
+      RowBox[{"SequenceMode", " ", "is", " ", "a", " ", "simulation", " ", 
+       RowBox[{"option", ".", " ", "If"}], " ", "set", " ", "to", " ", 
+       "True"}], ",", " ", 
+      RowBox[{
+      "EvalPulse", " ", "returns", " ", "the", " ", "final", " ", "state", 
+       " ", 
+       RowBox[{"(", 
+        RowBox[{"or", " ", "None"}], ")"}], " ", "in", " ", "addition", " ", 
+       "to", " ", "the", " ", "usual", " ", 
+       RowBox[{"output", "."}]}]}], "Text"]},
+   {"NumericEvaluation", "True", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "NumericEvaluation", " ", "is", " ", "a", " ", "simulation", " ", 
+       RowBox[{"option", ".", " ", "If"}], " ", "set", " ", "to", " ", 
+       "True"}], ",", " ", 
+      RowBox[{
+      "N", " ", "is", " ", "called", " ", "on", " ", "all", " ", "times", " ",
+        "inside", " ", "MatrixExp"}], ",", " ", 
+      RowBox[{"and", " ", "if", " ", "set", " ", "to", " ", "False"}], ",", 
+      " ", 
+      RowBox[{"N", " ", "is", " ", "not", " ", 
+       RowBox[{"called", ".", " ", "The"}], " ", "default", " ", "value", " ",
+        "is", " ", 
+       RowBox[{"True", "."}]}]}], "Text"]},
+   {"LindbladQ", "False", 
+    StyleBox[
+     RowBox[{
+      RowBox[{"LindbladQ", "[", "L", "]"}], " ", "returns", " ", "True", " ", 
+      "iff", " ", "one", " ", "of", " ", 
+      RowBox[{"DriftHamConstQ", "[", "L", "]"}], " ", "or", " ", 
+      RowBox[{"DriftHamNonConstQ", "[", "L", "]"}], " ", "is", " ", 
+      RowBox[{"True", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
+  GridBoxItemSize->{"Columns" -> {Automatic, Automatic, {
+       Scaled[0.5]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633888766453781*^9}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Running a Simulation", "Subsection",
+ CellChangeTimes->{{3.6338891194940033`*^9, 3.63388913179596*^9}}],
+
+Cell["\<\
+Running a simulation is as easy as specifying a Hamiltonian and a pulse. \
+Interpretting the output is discussed in the next section.\
+\>", "Text",
+ CellChangeTimes->{{3.6338896337057047`*^9, 3.633889694528308*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6338894061309433`*^9, 3.63388941113804*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Unitaries", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.5403023058681397`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.5403023058681398`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.633889411366568*^9, 3.633889427382352*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Numeric vs Symbolic Computation", "Subsubsection",
+ CellChangeTimes->{{3.633889480756652*^9, 3.6338894865379753`*^9}}],
+
+Cell[TextData[{
+ "By default, the option ",
+ StyleBox["NumericEvaluation", "Input"],
+ " is ",
+ StyleBox["True", "Input"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.633889488411524*^9, 3.633889510770359*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "1"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Unitaries", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.5403023058681397`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.5403023058681398`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.63388951657432*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "If set to ",
+ StyleBox["False", "Input"],
+ ", ",
+ StyleBox["EvalPulse", "Input"],
+ " will atempt to solve the system symbolically. This will of course only \
+succeed in a reasonable amount of time for simple systems."
+}], "Text",
+ CellChangeTimes->{{3.633889531291685*^9, 3.633889601770529*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "t", ",", 
+   RowBox[{"NumericEvaluation", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.633889608816267*^9, 3.6338896179632998`*^9}, 
+   3.633889726916603*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Unitaries", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Cos", "[", "t", "]"}], ",", 
+           RowBox[{
+            RowBox[{"-", "\[ImaginaryI]"}], " ", 
+            RowBox[{"Sin", "[", "t", "]"}]}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "\[ImaginaryI]"}], " ", 
+            RowBox[{"Sin", "[", "t", "]"}]}], ",", 
+           RowBox[{"Cos", "[", "t", "]"}]}], "}"}]}], "}"}]}], "}"}]}], "}"}],
+    ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "t"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.633889618233161*^9, 3.633889727320833*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Simulation Output Format", "Subsection",
+ CellChangeTimes->{{3.63388908556599*^9, 3.6338890958432083`*^9}}],
+
+Cell[TextData[{
+ "As seen in the examples of the previous section, the output of ",
+ StyleBox["EvalPulse", "Input"],
+ " is a list of types with corresponding data of the form ",
+ StyleBox["{{Type1,data1},{Type2,data2},...}", "Input"],
+ ". The six types are:"
+}], "Text",
+ CellChangeTimes->{{3.633889840872843*^9, 3.633889993072253*^9}, {
+  3.633890497773944*^9, 3.6338905129468412`*^9}}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox["Type", "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Data", " ", "Description"}], "Text",
+     FontWeight->Bold]},
+   {
+    StyleBox["TimeVector", "Input"], 
+    StyleBox[
+     RowBox[{
+     "A", " ", "list", " ", "of", " ", "times", "  ", "indexing", " ", "the", 
+      " ", "data", " ", "of", " ", "other", " ", 
+      RowBox[{"types", ".", " ", "The"}], " ", "only", " ", "type", " ", 
+      "which", " ", "is", " ", "always", " ", 
+      RowBox[{"output", "."}]}], "Text"]},
+   {
+    StyleBox["Unitaries", "Input"], 
+    StyleBox[
+     RowBox[{
+      RowBox[{"A", " ", "list", " ", "of", " ", "unitary", " ", "matrices"}], 
+      ",", " ", 
+      RowBox[{
+      "corresponding", " ", "to", " ", "the", " ", "TimeVector", " ", 
+       RowBox[{"times", "."}]}]}], "Text"]},
+   {
+    StyleBox["States", "Input"], 
+    StyleBox[
+     RowBox[{
+      RowBox[{"A", " ", "list", " ", "of", " ", "density", " ", "matrices"}], 
+      ",", " ", 
+      RowBox[{
+      "corresponding", " ", "to", " ", "the", " ", "TimeVector", " ", 
+       RowBox[{"times", "."}]}]}], "Text"]},
+   {
+    StyleBox["Functions", "Input"], 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "A", " ", "list", " ", "of", " ", "function", " ", "return", " ", 
+       "values"}], ",", " ", 
+      RowBox[{
+      "corresponding", " ", "to", " ", "the", " ", "TimeVector", " ", 
+       RowBox[{"times", "."}]}]}], "Text"]},
+   {
+    StyleBox["Observables", "Input"], 
+    StyleBox[
+     RowBox[{
+      RowBox[{"A", " ", "list", " ", "observable", " ", "values"}], ",", " ", 
+      
+      RowBox[{
+      "corresponding", " ", "to", " ", "the", " ", "TimeVector", " ", 
+       RowBox[{"times", "."}]}]}], "Text"]},
+   {
+    StyleBox["Superoperators", "Input"], 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "A", " ", "list", " ", "of", " ", "superoperator", " ", "matrices"}], 
+      ",", " ", 
+      RowBox[{
+      "corresponding", " ", "to", " ", "the", " ", "TimeVector", " ", 
+       RowBox[{"times", "."}]}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
+  GridBoxItemSize->{"Columns" -> {10, {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ CellChangeTimes->{{3.633890080906797*^9, 3.633890288589489*^9}, {
+  3.6338903227327957`*^9, 3.633890417749401*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Polling Interval", "Subsubsection",
+ CellChangeTimes->{{3.633889748400216*^9, 3.633889751295128*^9}}],
+
+Cell[TextData[{
+ "The times at which the simulation is polled for output data can be changed \
+with the option ",
+ StyleBox["PollingData", "Input"],
+ ", which specifies an interval of time. The polling times are recorded in ",
+ StyleBox["TimeVector", "Input"],
+ ". By default, the system is polled at two positions, time zero and the \
+final time. Each of the other ouput types return a value for each polling \
+time. "
+}], "Text",
+ CellChangeTimes->{{3.633891825930208*^9, 3.633891897282811*^9}, {
+  3.633892121233941*^9, 3.6338922097299767`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Important Note: ",
+  FontWeight->"Bold"],
+ "The ",
+ StyleBox["PollingInterval", "Input"],
+ " does not affect the resolution at which the system is simulated, it only \
+affects the interval at which an output is demanded; ",
+ StyleBox["PollingInterval", "Input"],
+ " is completely unrelated to the ",
+ StyleBox["StepSize", "Input"],
+ " of a time dependent Hamiltonian, or the pulse widths of a ",
+ StyleBox["ShapedPulseQ", "Input"],
+ ". These times need not be even multiples of each other."
+}], "Text",
+ CellChangeTimes->{{3.6338919011400023`*^9, 3.633892051186865*^9}, {
+  3.633892089593808*^9, 3.633892099703917*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "1", ",", 
+   RowBox[{"PollingInterval", "\[Rule]", "0.1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.633892217840783*^9, 3.633892220647493*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Unitaries", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.9950041652780258`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.09983341664682817`", " ", "\[ImaginaryI]"}]}]}], "}"}],
+          ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.09983341664682817`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.9950041652780258`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.9800665778412417`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}]}], "}"}],
+          ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.9800665778412417`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.9553364891256062`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}]}], "}"}],
+          ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.9553364891256062`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.38941834230865063`", " ", "\[ImaginaryI]"}]}]}], "}"}],
+          ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.38941834230865063`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.877582561890373`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.4794255386042032`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.4794255386042032`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.877582561890373`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.7173560908995232`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.7173560908995232`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078972`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078972`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       FractionBox["1", "10"], ",", 
+       FractionBox["1", "5"], ",", 
+       FractionBox["3", "10"], ",", 
+       FractionBox["2", "5"], ",", 
+       FractionBox["1", "2"], ",", 
+       FractionBox["3", "5"], ",", 
+       FractionBox["7", "10"], ",", 
+       FractionBox["4", "5"], ",", 
+       FractionBox["9", "10"], ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",\
+
+ CellChangeTimes->{3.6338922209238863`*^9}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Default Output Types", "Subsubsection",
+ CellChangeTimes->{{3.6338912866720457`*^9, 3.633891292890733*^9}}],
+
+Cell[TextData[{
+ "The (non-",
+ StyleBox["TimeVector", "Input"],
+ ") output types returned by a given simulation are by default chosen \
+automatically using common sense rules:\n\t\[KeyBar] If no ",
+ StyleBox["InitialState", "Input"],
+ " or ",
+ StyleBox["Functions", "Input"],
+ " options are given, ",
+ StyleBox["Unitaries", "Input"],
+ " is the only output type\n\t\[KeyBar] If ",
+ StyleBox["InitialState", "Input"],
+ " is given as an option, but neither ",
+ StyleBox["Observables", "Input"],
+ " nor ",
+ StyleBox["Functions", "Input"],
+ " is, ",
+ StyleBox["States", "Input"],
+ " is the only output type",
+ StyleBox["\n", "Input"],
+ "\t\[KeyBar] If ",
+ StyleBox["InitialState", "Input"],
+ " is given as an option, and either of Observables or ",
+ StyleBox["Functions", "Input"],
+ " is also, ",
+ StyleBox["Observables", "Input"],
+ " or ",
+ StyleBox["Functions", "Input"],
+ " will be the output type\n\t\[KeyBar] If ",
+ StyleBox["Unitaries", "Input"],
+ " was supposed to be an automatic output type but the evolution was not pure \
+(e.g. using ",
+ StyleBox["LindbladForm", "Input"],
+ ") ",
+ StyleBox["Superoperators", "Input"],
+ " will be the return type."
+}], "Text",
+ CellChangeTimes->{{3.633890556027627*^9, 3.6338905823802156`*^9}, {
+   3.6338907251324*^9, 3.633890725372651*^9}, {3.633890756026918*^9, 
+   3.633890991130487*^9}, {3.63389103508836*^9, 3.633891082682818*^9}, {
+   3.63389113676904*^9, 3.6338912205673723`*^9}, 3.633955062860015*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "1"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "1", ",", 
+   RowBox[{"InitialState", "\[Rule]", "UP"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.633891367710721*^9, 3.633891394560453*^9}, {
+  3.633893635154131*^9, 3.6338936353582172`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Unitaries", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.5403023058681397`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.5403023058681398`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6338913824971046`*^9, 3.633891394927464*^9}, 
+   3.633891756430385*^9, 3.633893636036036*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"States", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.2919265817264287`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.4546487134128408`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.4546487134128408`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.7080734182735712`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6338913824971046`*^9, 3.633891394927464*^9}, 
+   3.633891756430385*^9, 3.633893636038872*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Manual Selection of Ouput Types", "Subsubsection",
+ CellChangeTimes->{{3.633890464833466*^9, 3.633890486453369*^9}, {
+  3.6338912976319017`*^9, 3.633891302639765*^9}}],
+
+Cell[TextData[{
+ "Use the option ",
+ StyleBox["SimulationOutput", "Input"],
+ " to force certain output types (",
+ StyleBox["TimeVector", "Input"],
+ " is always included):"
+}], "Text",
+ CellChangeTimes->{{3.63389131222364*^9, 3.633891334368251*^9}, {
+  3.633891408752163*^9, 3.63389145055811*^9}, {3.6338917768376207`*^9, 
+  3.633891784383589*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EvalPulse", "[", 
+  RowBox[{"X", ",", "1", ",", 
+   RowBox[{"InitialState", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"SimulationOutput", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"States", ",", "Unitaries"}], "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6338914685801477`*^9, 3.633891477670837*^9}, {
+  3.633891767807466*^9, 3.633891768088518*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"States", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.2919265817264287`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.4546487134128408`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.4546487134128408`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.7080734182735712`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"Unitaries", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.5403023058681397`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+            RowBox[{"0.8414709848078965`", " ", "\[ImaginaryI]"}]}], ",", 
+           RowBox[{"0.5403023058681398`", "\[VeryThinSpace]", "+", 
+            RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.6338914781123543`*^9, {3.633891758415807*^9, 3.633891768662437*^9}}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Parsing Output Data", "Subsubsection",
+ CellChangeTimes->{{3.633892278272501*^9, 3.633892283529697*^9}}],
+
+Cell[TextData[{
+ "To extract one of the data objects from a simulation output ",
+ StyleBox["{{Type1,data1},{Type2,data2},...}", "Input"],
+ ", the given type ",
+ StyleBox["Head", "Input"],
+ " can be used: ",
+ StyleBox["Type2[{{Type1,data1},{Type2,data2},...}]", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.63389230989622*^9, 3.6338923648412724`*^9}}],
+
+Cell["\<\
+For example, if we want to extract the unitary matrices from a simulation, we \
+can do as follows:\
+\>", "Text",
+ CellChangeTimes->{{3.633892390543036*^9, 3.633892412294902*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"outputdata", "=", 
+   RowBox[{"EvalPulse", "[", 
+    RowBox[{"X", ",", "1", ",", 
+     RowBox[{"PollingInterval", "\[Rule]", "0.1"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Unitaries", "[", "outputdata", "]"}]}], "Input",
+ CellChangeTimes->{{3.633892428868169*^9, 3.633892442993608*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.9950041652780258`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.09983341664682817`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.09983341664682817`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.9950041652780258`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.9800665778412417`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.9800665778412417`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.9553364891256062`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.9553364891256062`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.38941834230865063`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.38941834230865063`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.877582561890373`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.4794255386042032`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.4794255386042032`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.877582561890373`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.7173560908995232`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.7173560908995232`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.8414709848078972`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.8414709848078972`", " ", "\[ImaginaryI]"}]}], ",", 
+       RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.633892439995737*^9, 3.633892443143649*^9}}]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Functions and ",
+ Cell[BoxData[
+  FormBox["Observables", TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Subsection",
+ CellChangeTimes->{{3.633892481599763*^9, 3.633892488661618*^9}}],
+
+Cell[TextData[{
+ "In addition to tracking ",
+ StyleBox["States", "Input"],
+ " and ",
+ StyleBox["Unitaries", "Input"],
+ " of a system as it evolves, ",
+ StyleBox["EvalPulse", "Input"],
+ " can also track ",
+ StyleBox["Observables", "Input"],
+ " and ",
+ StyleBox["Functions", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.633893099960019*^9, 3.63389312989894*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Observables", "Subsubsection",
+ CellChangeTimes->{{3.6338931598032103`*^9, 3.6338931610215883`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Observables", "Input"],
+ " as an option to ",
+ StyleBox["EvalPulse", "Input"],
+ " should be a list of matrices ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["A", "1"], ",", 
+     SubscriptBox["A", "2"], ",", "...", ",", 
+     SubscriptBox["A", "n"]}], "}"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", each the same dimension as your Hamiltonian. An ",
+ StyleBox["InitialState", "Input"],
+ " is required to use ",
+ StyleBox["Observables", "Input"],
+ ". At each ",
+ StyleBox["PollingInterval", "Input"],
+ ", the expression ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["a", "i"], "(", "t", ")"}], "=", 
+    RowBox[{"Tr", "(", 
+     RowBox[{
+      RowBox[{"\[Rho]", "(", "t", ")"}], ".", 
+      SubscriptBox["A", "i"]}], ")"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is computed for each ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "\[LessSlantEqual]", "i", "\[LessSlantEqual]", "n"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Rho]", "(", "t", ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the state of the system at the time ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". The output data for ",
+ StyleBox["Observables", "Input"],
+ " is therefore of the form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["a", "1"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", 
+       RowBox[{
+        SubscriptBox["a", "2"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", "...", ",", 
+       RowBox[{
+        SubscriptBox["a", "n"], "(", 
+        SubscriptBox["t", "0"], ")"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["a", "1"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", 
+       RowBox[{
+        SubscriptBox["a", "2"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", "...", ",", 
+       RowBox[{
+        SubscriptBox["a", "n"], "(", 
+        SubscriptBox["t", "0"], ")"}]}], "}"}], ",", "..."}], "}"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6338931702283497`*^9, 3.633893531273799*^9}, {
+  3.633893921479403*^9, 3.633893958511776*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"outputdata", "=", 
+  RowBox[{"EvalPulse", "[", 
+   RowBox[{"X", ",", "1", ",", 
+    RowBox[{"PollingInterval", "\[Rule]", "0.1"}], ",", 
+    RowBox[{"InitialState", "\[Rule]", "UP"}], ",", 
+    RowBox[{"Observables", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Y", ",", "Z"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.633893553481814*^9, 3.633893576231687*^9}, {
+  3.633893649145504*^9, 3.633893670384593*^9}, {3.633893780320011*^9, 
+  3.6338937893201838`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Observables", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.19866933079506127`"}], ",", "0.9800665778412417`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.38941834230865063`"}], ",", "0.9210609940028853`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.5646424733950356`"}], ",", "0.8253356149096787`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.7173560908995232`"}], ",", "0.6967067093471658`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.8414709848078972`"}], ",", "0.54030230586814`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.9320390859672272`"}], ",", "0.3623577544766737`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.9854497299884611`"}], ",", "0.16996714290024084`"}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.9995736030415062`"}], ",", 
+         RowBox[{"-", "0.029199522301289027`"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.9738476308781965`"}], ",", 
+         RowBox[{"-", "0.2272020946930875`"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.9092974268256828`"}], ",", 
+         RowBox[{"-", "0.4161468365471432`"}]}], "}"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       FractionBox["1", "10"], ",", 
+       FractionBox["1", "5"], ",", 
+       FractionBox["3", "10"], ",", 
+       FractionBox["2", "5"], ",", 
+       FractionBox["1", "2"], ",", 
+       FractionBox["3", "5"], ",", 
+       FractionBox["7", "10"], ",", 
+       FractionBox["4", "5"], ",", 
+       FractionBox["9", "10"], ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",\
+
+ CellChangeTimes->{
+  3.6338935671083717`*^9, {3.63389364971294*^9, 3.633893670841331*^9}, {
+   3.6338937812717257`*^9, 3.633893789660407*^9}}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Output ",
+ StyleBox["Observables", "Input"],
+ " data can be collected with ",
+ StyleBox["Observables", "Input"],
+ ". Note that the data is transposed to make it easier to plot."
+}], "Text",
+ CellChangeTimes->{{3.633893680927047*^9, 3.633893732711205*^9}, {
+  3.633893809568169*^9, 3.633893825590701*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Observables", "[", "outputdata", "]"}]], "Input",
+ CellChangeTimes->{{3.633893713436782*^9, 3.633893725802437*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     RowBox[{"-", "0.19866933079506127`"}], ",", 
+     RowBox[{"-", "0.38941834230865063`"}], ",", 
+     RowBox[{"-", "0.5646424733950356`"}], ",", 
+     RowBox[{"-", "0.7173560908995232`"}], ",", 
+     RowBox[{"-", "0.8414709848078972`"}], ",", 
+     RowBox[{"-", "0.9320390859672272`"}], ",", 
+     RowBox[{"-", "0.9854497299884611`"}], ",", 
+     RowBox[{"-", "0.9995736030415062`"}], ",", 
+     RowBox[{"-", "0.9738476308781965`"}], ",", 
+     RowBox[{"-", "0.9092974268256828`"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "0.9800665778412417`", ",", "0.9210609940028853`", ",", 
+     "0.8253356149096787`", ",", "0.6967067093471658`", ",", 
+     "0.54030230586814`", ",", "0.3623577544766737`", ",", 
+     "0.16996714290024084`", ",", 
+     RowBox[{"-", "0.029199522301289027`"}], ",", 
+     RowBox[{"-", "0.2272020946930875`"}], ",", 
+     RowBox[{"-", "0.4161468365471432`"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.633893723188435*^9, 3.633893726025558*^9}, 
+   3.6338937950371017`*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Note that the ",
+ StyleBox["TimeVector", "Input"],
+ " option adds corresponding times to the data:"
+}], "Text",
+ CellChangeTimes->{{3.633893737150906*^9, 3.633893751879657*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Observables", "[", 
+  RowBox[{"outputdata", ",", 
+   RowBox[{"TimeVector", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.633893761889097*^9, 3.633893764233719*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "10"], ",", 
+       RowBox[{"-", "0.19866933079506127`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "5"], ",", 
+       RowBox[{"-", "0.38941834230865063`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "10"], ",", 
+       RowBox[{"-", "0.5646424733950356`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["2", "5"], ",", 
+       RowBox[{"-", "0.7173560908995232`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "2"], ",", 
+       RowBox[{"-", "0.8414709848078972`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "5"], ",", 
+       RowBox[{"-", "0.9320390859672272`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["7", "10"], ",", 
+       RowBox[{"-", "0.9854497299884611`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["4", "5"], ",", 
+       RowBox[{"-", "0.9995736030415062`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["9", "10"], ",", 
+       RowBox[{"-", "0.9738476308781965`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", 
+       RowBox[{"-", "0.9092974268256828`"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "10"], ",", "0.9800665778412417`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "5"], ",", "0.9210609940028853`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "10"], ",", "0.8253356149096787`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["2", "5"], ",", "0.6967067093471658`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "2"], ",", "0.54030230586814`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "5"], ",", "0.3623577544766737`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["7", "10"], ",", "0.16996714290024084`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["4", "5"], ",", 
+       RowBox[{"-", "0.029199522301289027`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["9", "10"], ",", 
+       RowBox[{"-", "0.2272020946930875`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", 
+       RowBox[{"-", "0.4161468365471432`"}]}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.633893764915202*^9, 3.633893799912567*^9}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Functions", "Subsubsection",
+ CellChangeTimes->{{3.633893153708068*^9, 3.633893154628105*^9}}],
+
+Cell[TextData[{
+ StyleBox["Functions", "Input"],
+ " as an option to ",
+ StyleBox["EvalPulse", "Input"],
+ " should be a list of functions ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["f", "1"], ",", 
+     SubscriptBox["f", "2"], ",", "...", ",", 
+     SubscriptBox["f", "n"]}], "}"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". At each ",
+ StyleBox["PollingInterval", "Input"],
+ ", if an ",
+ StyleBox["InitialState", "Input"],
+ " was entered, the expression ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["a", "i"], "(", "t", ")"}], "=", 
+    RowBox[{
+     SubscriptBox["f", "i"], "(", 
+     RowBox[{"\[Rho]", "(", "t", ")"}], ")"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is computed for each ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "\[LessSlantEqual]", "i", "\[LessSlantEqual]", "n"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Rho]", "(", "t", ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the state of the system at the time ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", and if an Initial state was not entered, the expression ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["a", "i"], "(", "t", ")"}], "=", 
+    RowBox[{
+     SubscriptBox["f", "i"], "(", 
+     RowBox[{"U", "(", "t", ")"}], ")"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is computed for each ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "\[LessSlantEqual]", "i", "\[LessSlantEqual]", "n"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "(", "t", ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is the unitary propagator matrix of the system at the time ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". The output data for ",
+ StyleBox["Functions", "Input"],
+ " is therefore of the form ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["a", "1"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", 
+       RowBox[{
+        SubscriptBox["a", "2"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", "...", ",", 
+       RowBox[{
+        SubscriptBox["a", "n"], "(", 
+        SubscriptBox["t", "0"], ")"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["a", "1"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", 
+       RowBox[{
+        SubscriptBox["a", "2"], "(", 
+        SubscriptBox["t", "0"], ")"}], ",", "...", ",", 
+       RowBox[{
+        SubscriptBox["a", "n"], "(", 
+        SubscriptBox["t", "0"], ")"}]}], "}"}], ",", "..."}], "}"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ". Note that the ouput format of the functions need not be a scalar; it can \
+be anything, unlike the examples below."
+}], "Text",
+ CellChangeTimes->{{3.6338931702283497`*^9, 3.633893531273799*^9}, {
+  3.633893892921871*^9, 3.6338941659263153`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"outputdata", "=", 
+  RowBox[{"EvalPulse", "[", 
+   RowBox[{"X", ",", "1", ",", 
+    RowBox[{"PollingInterval", "\[Rule]", "0.1"}], ",", 
+    RowBox[{"Functions", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Re", "@", 
+         RowBox[{"Tr", "[", 
+          RowBox[{"#", ".", "#"}], "]"}]}], "&"}], ",", 
+       RowBox[{
+        RowBox[{"First", "[", 
+         RowBox[{"Eigenvalues", "[", 
+          RowBox[{"#", ",", "1"}], "]"}], "]"}], "&"}]}], "}"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.633893553481814*^9, 3.633893576231687*^9}, {
+   3.633893649145504*^9, 3.633893670384593*^9}, {3.633893780320011*^9, 
+   3.6338937893201838`*^9}, {3.633894134832122*^9, 3.633894136115155*^9}, {
+   3.633894175094647*^9, 3.633894241385557*^9}, 3.63389427786481*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Functions", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1.9601331556824835`", ",", 
+         RowBox[{"0.9950041652780259`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.09983341664682821`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"1.8421219880057706`", ",", 
+         RowBox[{"0.9800665778412416`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"1.6506712298193573`", ",", 
+         RowBox[{"0.9553364891256061`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"1.3934134186943317`", ",", 
+         RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+          RowBox[{"0.3894183423086507`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"1.08060461173628`", ",", 
+         RowBox[{"0.8775825618903731`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.47942553860420334`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"0.7247155089533474`", ",", 
+         RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"0.3399342858004817`", ",", 
+         RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.058399044602578054`"}], ",", 
+         RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.7173560908995231`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.454404189386175`"}], ",", 
+         RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+          RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.8322936730942864`"}], ",", 
+         RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "-", 
+          RowBox[{"0.8414709848078971`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"TimeVector", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       FractionBox["1", "10"], ",", 
+       FractionBox["1", "5"], ",", 
+       FractionBox["3", "10"], ",", 
+       FractionBox["2", "5"], ",", 
+       FractionBox["1", "2"], ",", 
+       FractionBox["3", "5"], ",", 
+       FractionBox["7", "10"], ",", 
+       FractionBox["4", "5"], ",", 
+       FractionBox["9", "10"], ",", "1"}], "}"}]}], "}"}]}], "}"}]], "Output",\
+
+ CellChangeTimes->{
+  3.6338935671083717`*^9, {3.63389364971294*^9, 3.633893670841331*^9}, {
+   3.6338937812717257`*^9, 3.633893789660407*^9}, {3.633894225353684*^9, 
+   3.633894241811208*^9}, 3.6338942782413483`*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Output ",
+ StyleBox["Functions", "Input"],
+ " data can be collected with ",
+ StyleBox["Functions", "Input"],
+ ". Note that the data is transposed to make it easier to plot."
+}], "Text",
+ CellChangeTimes->{{3.633893680927047*^9, 3.633893732711205*^9}, {
+  3.633893809568169*^9, 3.633893825590701*^9}, {3.6338943077082653`*^9, 
+  3.633894311367701*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Functions", "[", "outputdata", "]"}]], "Input",
+ CellChangeTimes->{{3.633893713436782*^9, 3.633893725802437*^9}, {
+  3.633894304202394*^9, 3.633894305050096*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "2", ",", "1.9601331556824835`", ",", "1.8421219880057706`", ",", 
+     "1.6506712298193573`", ",", "1.3934134186943317`", ",", 
+     "1.08060461173628`", ",", "0.7247155089533474`", ",", 
+     "0.3399342858004817`", ",", 
+     RowBox[{"-", "0.058399044602578054`"}], ",", 
+     RowBox[{"-", "0.454404189386175`"}], ",", 
+     RowBox[{"-", "0.8322936730942864`"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", 
+     RowBox[{"0.9950041652780259`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.09983341664682821`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.9800665778412416`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.9553364891256061`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+      RowBox[{"0.3894183423086507`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.8775825618903731`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.47942553860420334`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.7173560908995231`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+      RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "-", 
+      RowBox[{"0.8414709848078971`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.633893723188435*^9, 3.633893726025558*^9}, 
+   3.6338937950371017`*^9, {3.633894301967884*^9, 3.633894321725281*^9}}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Note that the ",
+ StyleBox["TimeVector", "Input"],
+ " option adds corresponding times to the data:"
+}], "Text",
+ CellChangeTimes->{{3.633893737150906*^9, 3.633893751879657*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Functions", "[", 
+  RowBox[{"outputdata", ",", 
+   RowBox[{"TimeVector", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.633893761889097*^9, 3.633893764233719*^9}, {
+  3.633894316357627*^9, 3.6338943172451277`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "10"], ",", "1.9601331556824835`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "5"], ",", "1.8421219880057706`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "10"], ",", "1.6506712298193573`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["2", "5"], ",", "1.3934134186943317`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "2"], ",", "1.08060461173628`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "5"], ",", "0.7247155089533474`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["7", "10"], ",", "0.3399342858004817`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["4", "5"], ",", 
+       RowBox[{"-", "0.058399044602578054`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["9", "10"], ",", 
+       RowBox[{"-", "0.454404189386175`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", 
+       RowBox[{"-", "0.8322936730942864`"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "10"], ",", 
+       RowBox[{"0.9950041652780259`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.09983341664682821`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "5"], ",", 
+       RowBox[{"0.9800665778412416`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.19866933079506127`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "10"], ",", 
+       RowBox[{"0.9553364891256061`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.29552020666133966`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["2", "5"], ",", 
+       RowBox[{"0.9210609940028853`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.3894183423086507`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["1", "2"], ",", 
+       RowBox[{"0.8775825618903731`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.47942553860420334`", " ", "\[ImaginaryI]"}]}]}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["3", "5"], ",", 
+       RowBox[{"0.8253356149096785`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.5646424733950357`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["7", "10"], ",", 
+       RowBox[{"0.7648421872844887`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.6442176872376915`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["4", "5"], ",", 
+       RowBox[{"0.6967067093471657`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.7173560908995231`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox["9", "10"], ",", 
+       RowBox[{"0.6216099682706648`", "\[VeryThinSpace]", "+", 
+        RowBox[{"0.783326909627484`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+     
+     RowBox[{"{", 
+      RowBox[{"1", ",", 
+       RowBox[{"0.54030230586814`", "\[VeryThinSpace]", "-", 
+        RowBox[{"0.8414709848078971`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.633893764915202*^9, 3.633893799912567*^9, 
+  3.633894318577614*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+
+Cell["Plotting Simulation Results", "Subsection",
+ CellChangeTimes->{{3.6338893606269703`*^9, 3.6338893644047327`*^9}}],
+
+Cell["Time Dependent Hamiltonians", "Subsection",
+ CellChangeTimes->{{3.633889244901174*^9, 3.633889249829838*^9}}],
+
+Cell["Lindbladians", "Subsection",
+ CellChangeTimes->{{3.633378370466507*^9, 3.633378383874476*^9}}],
+
+Cell["Implementation Details", "Subsection",
+ CellChangeTimes->{{3.6334434314442463`*^9, 3.63344343435846*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Pulse Sequence Evaluator", "Section",
+ CellChangeTimes->{{3.633352040880207*^9, 3.633352042744746*^9}, {
+  3.633378019548696*^9, 3.6333780237702847`*^9}}],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.633353594145348*^9, 3.633353606545936*^9}, 
+   3.63337842175532*^9}]
+}, Closed]],
+
+Cell["Evaluating over Distributions", "Section",
+ CellChangeTimes->{{3.633378034250717*^9, 3.633378039410379*^9}}]
+}, Open  ]]
+},
+WindowSize->{1280, 1000},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "EvalPulse::usage"->{
+  Cell[8224, 214, 13318, 374, 616, "Text",
+   CellTags->"EvalPulse::usage"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"EvalPulse::usage", 87383, 2442}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[422, 15, 202, 3, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[649, 22, 142, 2, 65, "Section"],
+Cell[794, 26, 166, 3, 31, "Text"],
+Cell[963, 31, 282, 4, 32, "Input"],
+Cell[1248, 37, 182, 4, 31, "Text"],
+Cell[1433, 43, 215, 3, 55, "Input"],
+Cell[1651, 48, 133, 1, 31, "Text"],
+Cell[1787, 51, 353, 9, 32, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2177, 65, 110, 1, 65, "Section"],
+Cell[2290, 68, 899, 16, 72, "Text"],
+Cell[3192, 86, 812, 20, 53, "Text"],
+Cell[CellGroupData[{
+Cell[4029, 110, 1669, 40, 143, "Input"],
+Cell[5701, 152, 2312, 52, 267, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8062, 210, 159, 2, 65, "Section"],
+Cell[8224, 214, 13318, 374, 616, "Text",
+ CellTags->"EvalPulse::usage"],
+Cell[CellGroupData[{
+Cell[21567, 592, 169, 2, 45, "Subsection"],
+Cell[21739, 596, 260, 5, 31, "Text"],
+Cell[22002, 603, 7151, 163, 659, "Text"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[29190, 771, 109, 1, 37, "Subsection"],
+Cell[29302, 774, 225, 4, 33, "Text"],
+Cell[CellGroupData[{
+Cell[29552, 782, 152, 3, 32, "Input"],
+Cell[29707, 787, 1203, 33, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30947, 825, 124, 1, 35, "Subsubsection"],
+Cell[31074, 828, 204, 7, 33, "Text"],
+Cell[CellGroupData[{
+Cell[31303, 839, 85, 2, 32, "Input"],
+Cell[31391, 843, 1178, 33, 32, "Output"]
+}, Open  ]],
+Cell[32584, 879, 313, 8, 33, "Text"],
+Cell[CellGroupData[{
+Cell[32922, 891, 239, 5, 32, "Input"],
+Cell[33164, 898, 1022, 32, 32, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[34247, 937, 113, 1, 37, "Subsection"],
+Cell[34363, 940, 387, 8, 52, "Text"],
+Cell[34753, 950, 2421, 70, 165, "Text"],
+Cell[CellGroupData[{
+Cell[37199, 1024, 107, 1, 35, "Subsubsection"],
+Cell[37309, 1027, 548, 11, 77, "Text"],
+Cell[37860, 1040, 646, 15, 77, "Text"],
+Cell[CellGroupData[{
+Cell[38531, 1059, 207, 4, 32, "Input"],
+Cell[38741, 1065, 7514, 178, 213, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[46304, 1249, 113, 1, 29, "Subsubsection"],
+Cell[46420, 1252, 1448, 40, 116, "Text"],
+Cell[CellGroupData[{
+Cell[47893, 1296, 342, 7, 55, "Input"],
+Cell[48238, 1305, 1253, 34, 32, "Output"],
+Cell[49494, 1341, 1250, 34, 32, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50793, 1381, 173, 2, 35, "Subsubsection"],
+Cell[50969, 1385, 347, 9, 33, "Text"],
+Cell[CellGroupData[{
+Cell[51341, 1398, 533, 14, 32, "Input"],
+Cell[51877, 1414, 2190, 60, 55, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[54116, 1480, 110, 1, 29, "Subsubsection"],
+Cell[54229, 1483, 354, 9, 55, "Text"],
+Cell[54586, 1494, 188, 4, 33, "Text"],
+Cell[CellGroupData[{
+Cell[54799, 1502, 339, 8, 55, "Input"],
+Cell[55141, 1512, 6327, 155, 231, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[61529, 1674, 210, 6, 36, "Subsection"],
+Cell[61742, 1682, 364, 13, 33, "Text"],
+Cell[CellGroupData[{
+Cell[62131, 1699, 106, 1, 35, "Subsubsection"],
+Cell[62240, 1702, 2375, 79, 77, "Text"],
+Cell[CellGroupData[{
+Cell[64640, 1785, 498, 11, 32, "Input"],
+Cell[65141, 1798, 2238, 65, 103, "Output"]
+}, Open  ]],
+Cell[67394, 1866, 322, 8, 33, "Text"],
+Cell[CellGroupData[{
+Cell[67741, 1878, 139, 2, 32, "Input"],
+Cell[67883, 1882, 1104, 25, 55, "Output"]
+}, Open  ]],
+Cell[69002, 1910, 195, 5, 33, "Text"],
+Cell[CellGroupData[{
+Cell[69222, 1919, 204, 4, 32, "Input"],
+Cell[69429, 1925, 2722, 83, 169, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[72200, 2014, 100, 1, 29, "Subsubsection"],
+Cell[72303, 2017, 3134, 102, 121, "Text"],
+Cell[CellGroupData[{
+Cell[75462, 2123, 823, 20, 32, "Input"],
+Cell[76288, 2145, 3183, 79, 125, "Output"]
+}, Open  ]],
+Cell[79486, 2227, 369, 9, 33, "Text"],
+Cell[CellGroupData[{
+Cell[79880, 2240, 186, 3, 32, "Input"],
+Cell[80069, 2245, 1970, 36, 77, "Output"]
+}, Open  ]],
+Cell[82054, 2284, 195, 5, 33, "Text"],
+Cell[CellGroupData[{
+Cell[82274, 2293, 253, 5, 32, "Input"],
+Cell[82530, 2300, 3616, 99, 209, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[86185, 2404, 119, 1, 37, "Subsection"],
+Cell[86307, 2407, 115, 1, 37, "Subsection"],
+Cell[86425, 2410, 100, 1, 36, "Subsection"],
+Cell[86528, 2413, 111, 1, 37, "Subsection"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[86676, 2419, 160, 2, 51, "Section"],
+Cell[86839, 2423, 107, 2, 33, "Text"]
+}, Closed]],
+Cell[86961, 2428, 114, 1, 51, "Section"]
+}, Open  ]]
+}
+]
+*)
+

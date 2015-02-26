@@ -1,0 +1,238 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6751,        229]
+NotebookOptionsPosition[      5192,        168]
+NotebookOutlinePosition[      5791,        193]
+CellTagsIndexPosition[      5678,        187]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["UnitTesting` Documentation", "Chapter",
+ CellChangeTimes->{{3.6333515346579514`*^9, 3.63335154627586*^9}, {
+  3.633364320690548*^9, 3.63336432261762*^9}, {3.633459692992848*^9, 
+  3.633459695695156*^9}, {3.63352627649533*^9, 3.633526278958379*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Section",
+ CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
+  3.633781254199301*^9, 3.633781256261158*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<UnitTesting`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
+  3.633459703938384*^9, 3.633459707396385*^9}, {3.633526282103736*^9, 
+  3.633526283991441*^9}}]
+}, Open  ]],
+
+Cell["Introduction and Overview", "Section",
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}, {
+  3.633878695511993*^9, 3.633878696655075*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Test Cases and Harnesses", "Section",
+ CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
+  3.633441643373975*^9, 3.633441643471745*^9}, {3.633459727021635*^9, 
+  3.633459727820011*^9}, {3.633526289590464*^9, 3.6335262930624027`*^9}, {
+  3.63378126135916*^9, 3.633781261452849*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["TestCase", "Subsection",
+ CellChangeTimes->{{3.633352631378475*^9, 3.6333526519246817`*^9}, {
+  3.63345974116625*^9, 3.633459743554513*^9}, {3.633526295046337*^9, 
+  3.6335262964706697`*^9}}],
+
+Cell[TextData[{
+ StyleBox["TestCase[name,expr]", "Input"],
+ " generates a new test case named ",
+ StyleBox["name", "Input"],
+ " that asserts that ",
+ StyleBox["expr", "Input"],
+ " is ",
+ StyleBox["True", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.633878618596291*^9, 3.633878624938266*^9}},
+ CellTags->"TestCase::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.6333526560119343`*^9, 3.633352677447281*^9}, {
+  3.633526596934445*^9, 3.633526597134924*^9}}],
+
+Cell[TextData[{
+ "The following test case will ",
+ StyleBox["fail",
+  FontSlant->"Italic"],
+ ". That is, it will generate a test that runs without an error, but that \
+does not satisfy the postconditions that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"2", " ", "\[Equal]", " ", "3"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.633526421774765*^9, 3.633526470064369*^9}}],
+
+Cell[BoxData[
+ RowBox[{"TestCase", "[", 
+  RowBox[{"\"\<foo`bar\>\"", ",", 
+   RowBox[{"2", "\[Equal]", "3"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6335264056639423`*^9, 3.633526418936651*^9}}],
+
+Cell[TextData[{
+ "By contrast, the following test case will cause an ",
+ StyleBox["error",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6335264745985737`*^9, 3.6335264891103992`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"TestCase", "[", 
+  RowBox[{"\"\<foo`bad\>\"", ",", 
+   RowBox[{"0", "/", "0"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6335264906888733`*^9, 3.633526499240017*^9}}]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["RunAllTests", "Subsection",
+ CellChangeTimes->{{3.6335265055504847`*^9, 3.633526507574844*^9}}],
+
+Cell[TextData[{
+ StyleBox["RunAllTests[]", "Input"],
+ " runs all previously registered unit tests and reports on which if any \
+failed or generated errors."
+}], "Text",
+ CellChangeTimes->{3.6338786671801777`*^9},
+ CellTags->"RunAllTests::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.633526541390602*^9, 3.633526545774642*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RunAllTests", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.633526546432682*^9, 3.633526549179888*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"foo`bar:\\tFailed\"\>"], "Print",
+ CellChangeTimes->{
+  3.63352657177526*^9, 3.6335266248302917`*^9, 3.633526667800214*^9, {
+   3.633526701498966*^9, 3.6335267311422577`*^9}, 3.633526763039488*^9, 
+   3.6335268894276114`*^9, 3.633527022952025*^9}],
+
+Cell[BoxData["\<\"foo`bad:\\tError\"\>"], "Print",
+ CellChangeTimes->{
+  3.63352657177526*^9, 3.6335266248302917`*^9, 3.633526667800214*^9, {
+   3.633526701498966*^9, 3.6335267311422577`*^9}, 3.633526763039488*^9, 
+   3.6335268894276114`*^9, 3.6335270229525423`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\<\"foo`bar\"\>", "\[Rule]", "\<\"F\"\>"}], ",", 
+   RowBox[{"\<\"foo`bad\"\>", "\[Rule]", "\<\"E\"\>"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.633526571776484*^9, 3.6335266248399477`*^9, 3.633526667828912*^9, {
+   3.633526701512787*^9, 3.6335267311432858`*^9}, 3.633526763068252*^9, 
+   3.633526889440852*^9, 3.6335270229740477`*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1280, 1000},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "TestCase::usage"->{
+  Cell[1973, 59, 326, 11, 33, "Text",
+   CellTags->"TestCase::usage"]},
+ "RunAllTests::usage"->{
+  Cell[3644, 119, 245, 6, 33, "Text",
+   CellTags->"RunAllTests::usage"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"TestCase::usage", 5483, 178},
+ {"RunAllTests::usage", 5580, 181}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 254, 3, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[859, 29, 142, 2, 65, "Section"],
+Cell[1004, 33, 241, 4, 32, "Input"]
+}, Open  ]],
+Cell[1260, 40, 159, 2, 65, "Section"],
+Cell[CellGroupData[{
+Cell[1444, 46, 304, 4, 51, "Section"],
+Cell[CellGroupData[{
+Cell[1773, 54, 197, 3, 44, "Subsection"],
+Cell[1973, 59, 326, 11, 33, "Text",
+ CellTags->"TestCase::usage"],
+Cell[CellGroupData[{
+Cell[2324, 74, 149, 2, 35, "Subsubsection"],
+Cell[2476, 78, 418, 12, 33, "Text"],
+Cell[2897, 92, 197, 4, 32, "Input"],
+Cell[3097, 98, 201, 6, 33, "Text"],
+Cell[3301, 106, 190, 4, 32, "Input"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3540, 116, 101, 1, 36, "Subsection"],
+Cell[3644, 119, 245, 6, 33, "Text",
+ CellTags->"RunAllTests::usage"],
+Cell[CellGroupData[{
+Cell[3914, 129, 98, 1, 35, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[4037, 134, 125, 2, 32, "Input"],
+Cell[CellGroupData[{
+Cell[4187, 140, 265, 4, 23, "Print"],
+Cell[4455, 146, 266, 4, 23, "Print"]
+}, Open  ]],
+Cell[4736, 153, 392, 8, 32, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

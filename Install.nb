@@ -1,0 +1,602 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     23338,        593]
+NotebookOptionsPosition[     21498,        527]
+NotebookOutlinePosition[     21855,        543]
+CellTagsIndexPosition[     21812,        540]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["QuantumUtils Installer", "Subtitle",
+ CellChangeTimes->{{3.525435306978644*^9, 3.5254353108091707`*^9}}],
+
+Cell["\<\
+To run this installer, please use the menu option \
+\[OpenCurlyDoubleQuote]Evaluation \[Rule] Evaluate Notebook\
+\[CloseCurlyDoubleQuote]. Do not save this notebook when you are done.\
+\>", "Text",
+ CellChangeTimes->{{3.525435319618247*^9, 3.525435354473632*^9}, {
+  3.525435788389865*^9, 3.525435789686059*^9}, {3.633365097573757*^9, 
+  3.633365145820388*^9}, {3.633452344485634*^9, 3.6334523550548687`*^9}}],
+
+Cell[TextData[{
+ "This installer places quantum-utils-mathematica packages inside of your ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " Applications folder (i.e. $UserbaseDirectory/Applications). To uninstall, \
+simply remove relevant files from the Applications folder. If you are running \
+a Unix-like host (Linux, MacOS, etc), symlinks will be used and therefore \
+reinstallation is only necessary when a new version introduces a new package, \
+or renames an old package. Under windows, the packages from \
+quantum-utils-mathematica are copied to the Applications folder rather than \
+having links placed there, and therefore reinstallation will be necessary for \
+each new version. Advanced users may wish to read the rest of this \
+installation notebook and make changes. "
+}], "Text",
+ CellChangeTimes->{{3.633365148334189*^9, 3.633365351212462*^9}, {
+  3.633365388124751*^9, 3.63336544847682*^9}, {3.633365480460787*^9, 
+  3.633365608956689*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["$UserBaseDirectory"], "Input",
+ CellChangeTimes->{{3.6333651904975653`*^9, 3.633365193890123*^9}}],
+
+Cell[BoxData["\<\"/home/ihincks/.Mathematica\"\>"], "Output",
+ CellChangeTimes->{
+  3.633365194429966*^9, 3.6333658229983807`*^9, 3.633366902188854*^9, 
+   3.6333669378174553`*^9, 3.6333671472356777`*^9, {3.633367199006448*^9, 
+   3.6333672098684196`*^9}, 3.633367245924893*^9, 3.633367720164558*^9, 
+   3.633367853165657*^9, {3.63336803930175*^9, 3.6333680432480593`*^9}, 
+   3.633368141028508*^9, 3.633369690337843*^9, 3.633372304106594*^9, 
+   3.6334522736835947`*^9, 3.633525333137247*^9, 3.633525622153723*^9, 
+   3.6335258542070312`*^9, 3.633878338562758*^9, 3.6338783824557667`*^9, 
+   3.633880997426256*^9, 3.633881307850278*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Known Limitations", "Subsection",
+ CellChangeTimes->{{3.525446500284173*^9, 3.52544650373918*^9}}],
+
+Cell["\<\
+The symbolic link installer requires Windows Vista or 2008+ when under a \
+Windows host. All Unix-like operating systems should be supported, but this \
+is not tested.\
+\>", "Text",
+ CellDingbat->"\[FilledSmallCircle]",
+ CellChangeTimes->{{3.525446504688546*^9, 3.525446549683077*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Manifest", "Subsection",
+ CellChangeTimes->{{3.5254354567930307`*^9, 3.525435458280403*^9}}],
+
+Cell["The following files will be installed by this notebook.", "Text",
+ CellChangeTimes->{{3.525435477848207*^9, 3.525435491800005*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$QuantumUtilsManifest", "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"FileNameJoin", "[", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", "#"}], "}"}], "]"}], 
+       "]"}], "&"}], ")"}], "/@", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<QuantumUtils.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<DocTools.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<QUDoc.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<QUOptions.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<UnitTesting.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<LindbladSolver.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<Predicates.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<QSim.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<QuantumChannel.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<QuantumSystems.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<Tensor.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<Visualization.m\>\""}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<src\>\"", ",", "\"\<GRAPE.m\>\""}], "}"}]}], 
+     "\[IndentingNewLine]", "}"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.525435460945401*^9, 3.525435474616168*^9}, {
+   3.525436279523308*^9, 3.525436292080901*^9}, {3.5275319840706244`*^9, 
+   3.5275319914551907`*^9}, {3.538424658630368*^9, 3.538424665643517*^9}, {
+   3.539015377900811*^9, 3.539015398666514*^9}, {3.544541802379562*^9, 
+   3.544541807044261*^9}, {3.551706792725366*^9, 3.551706793121585*^9}, {
+   3.557440101259891*^9, 3.557440106598503*^9}, {3.557530964106531*^9, 
+   3.557530974385173*^9}, {3.557582745326285*^9, 3.5575827884580603`*^9}, 
+   3.5577525639454327`*^9, {3.563296683595324*^9, 3.5632966898827267`*^9}, {
+   3.569612542466778*^9, 3.569612557204349*^9}, {3.592589809048706*^9, 
+   3.592589815599374*^9}, {3.592763999053545*^9, 3.5927640038182707`*^9}, {
+   3.593116718961628*^9, 3.593116722531275*^9}, {3.5982061879004793`*^9, 
+   3.598206190335371*^9}, {3.6051865317657537`*^9, 3.605186548316201*^9}, {
+   3.614602734498918*^9, 3.6146027416356497`*^9}, {3.633364958350953*^9, 
+   3.6333649617394342`*^9}, {3.633364996272625*^9, 3.6333649968022223`*^9}, 
+   3.6333669342880573`*^9, 3.633367607753078*^9, {3.633369680326208*^9, 
+   3.633369686644578*^9}, {3.633372289565797*^9, 3.633372312719523*^9}, {
+   3.633377213388245*^9, 3.6333772227886477`*^9}, {3.6334591735150623`*^9, 
+   3.633459182501458*^9}, 3.633525328152709*^9, {3.6337146884074697`*^9, 
+   3.633714691798613*^9}, {3.633717600443721*^9, 3.633717748583317*^9}, {
+   3.6337207642720137`*^9, 3.6337207730157547`*^9}, {3.633899842231369*^9, 
+   3.633899856603963*^9}, {3.6339001527287188`*^9, 3.633900162604114*^9}, {
+   3.633911644016655*^9, 3.633911644369728*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Installation Paths", "Subsection",
+ CellChangeTimes->{{3.525435499040495*^9, 3.525435513415448*^9}}],
+
+Cell["\<\
+This installer will place notebooks into the following directory:\
+\>", "Text",
+ CellChangeTimes->{{3.52543555501688*^9, 3.525435566383361*^9}, {
+  3.525435668879895*^9, 3.525435669790971*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$QuantumUtilsInstallPath", " ", "=", " ", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{"$UserBaseDirectory", " ", ",", " ", "\"\</Applications\>\""}], 
+     "}"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5254355153637877`*^9, 3.525435551557489*^9}, {
+  3.5254356734103937`*^9, 3.525435747588125*^9}, {3.5275320821303473`*^9, 
+  3.527532089593379*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Default Installation Methods", "Subsection",
+ CellChangeTimes->{{3.525435943485697*^9, 3.525435948052216*^9}}],
+
+Cell["\<\
+Under Windows, we will install via copying whereas under Unix-like hosts, we \
+will default to installing by symlinks. This way, we remain consistent with \
+expected behavior under each respective operating system. In either case, \
+uninstalling consists of simply removing the files or symlinks placed by this \
+notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.525435953837185*^9, 3.525435966204111*^9}, 
+   3.52543603513251*^9, {3.525436065307613*^9, 3.525436088291637*^9}, {
+   3.525444214890197*^9, 3.525444241212552*^9}, {3.5254463212617197`*^9, 
+   3.5254463260941133`*^9}, {3.5254463738772697`*^9, 3.525446417716638*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$QuantumUtilsDefaultInstallationMethods", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\"\<Windows\>\"", "\[Rule]", "CopyInstaller"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<MacOSX\>\"", "\[Rule]", "SymLinkInstaller"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<Unix\>\"", "\[Rule]", "SymLinkInstaller"}]}], 
+    "\[IndentingNewLine]", "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.525436089553322*^9, 3.52543612270824*^9}}],
+
+Cell["To override the defaults, change this line:", "Text",
+ CellChangeTimes->{{3.525436132812014*^9, 3.525436139442808*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InstallationMethod", "=", 
+   RowBox[{
+   "$OperatingSystem", "/.", "$QuantumUtilsDefaultInstallationMethods"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.525436125966613*^9, 3.5254361846987877`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Installation via Copying", "Section",
+ CellChangeTimes->{{3.525435416186328*^9, 3.525435419144558*^9}, {
+  3.525435775190999*^9, 3.525435780269595*^9}}],
+
+Cell[TextData[{
+ "This method copies the current version of all QuantumUtils notebooks into \
+the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " applications directory. Thus, QuantumUtils must be reinstalled whenever \
+updates are to be applied. This is the only installation method supported by \
+Windows at the moment."
+}], "Text",
+ CellChangeTimes->{{3.525435792822315*^9, 3.525435863316667*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"CopyInstaller", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"copyfn", ",", "delfn", ",", "newfile"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"$InstallationSuccessful", "=", "False"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"newfile", "[", "file_", "]"}], ":=", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{"$QuantumUtilsInstallPath", ",", " ", 
+          RowBox[{
+           RowBox[{"FileNameSplit", "[", "file", "]"}], 
+           "\[LeftDoubleBracket]", 
+           RowBox[{"-", "1"}], "\[RightDoubleBracket]"}]}], "}"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"delfn", "[", "file_", "]"}], ":=", 
+       RowBox[{"Which", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"DirectoryQ", "[", 
+          RowBox[{"newfile", "[", "file", "]"}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"DeleteDirectory", "[", 
+          RowBox[{
+           RowBox[{"newfile", "[", "file", "]"}], ",", 
+           RowBox[{"DeleteContents", "\[Rule]", "True"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"FileExistsQ", "[", 
+          RowBox[{"newfile", "[", "file", "]"}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"DeleteFile", "[", 
+          RowBox[{"newfile", "[", "file", "]"}], "]"}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"copyfn", "[", "file_", "]"}], ":=", 
+       RowBox[{"CopyFile", "[", 
+        RowBox[{"file", ",", 
+         RowBox[{"newfile", "[", "file", "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Check", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Map", "[", 
+            RowBox[{"delfn", ",", "$QuantumUtilsManifest"}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Map", "[", 
+            RowBox[{"copyfn", ",", "$QuantumUtilsManifest"}], "]"}], ";"}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Abort", "[", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}],
+         "\[IndentingNewLine]", "$InstallationSuccessful"}], "=", "True"}], 
+      ";"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5254359685954533`*^9, 3.525435971968472*^9}, {
+   3.525436218358471*^9, 3.5254362587643757`*^9}, {3.525436296355434*^9, 
+   3.5254363311133423`*^9}, {3.52753201540971*^9, 3.527532035821933*^9}, 
+   3.584201401177031*^9, 3.584462639106015*^9, {3.586196245276492*^9, 
+   3.586196248138856*^9}, {3.633366737846429*^9, 3.633366749834128*^9}, {
+   3.6333667866859217`*^9, 3.6333667869944572`*^9}, {3.63336703423059*^9, 
+   3.633367099971985*^9}, {3.633367137344747*^9, 3.633367140191794*^9}, {
+   3.633367242157856*^9, 3.6333672433779163`*^9}, 3.633368067493248*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Installation via Symbolic Link", "Section",
+ CellChangeTimes->{{3.525435421553417*^9, 3.525435430408475*^9}, {
+  3.5254357690714703`*^9, 3.5254357734775143`*^9}}],
+
+Cell["\<\
+The following function adds quotations to string expressions so that special \
+characters in directory names will be run correction.\
+\>", "Text",
+ CellChangeTimes->{{3.557057551647327*^9, 3.557057574588867*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"StringQuote", "[", "expr_", "]"}], ":=", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{"\"\<\\\"\>\"", ",", "expr", ",", "\"\<\\\"\>\""}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.557057368280011*^9, 3.5570573954575853`*^9}}],
+
+Cell[TextData[{
+ "This method",
+ StyleBox[" ",
+  FontSlant->"Italic"],
+ "places links to QuantumUtils into the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " applications directory. As such, updates to QuantumUtils are automatically \
+reflected."
+}], "Text",
+ CellChangeTimes->{{3.525435431825179*^9, 3.525435453672186*^9}, {
+  3.525435866222183*^9, 3.525435935020404*^9}, {3.525446316144227*^9, 
+  3.525446316494594*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SymLinkInstaller", "::", "badRunCode"}], " ", "=", " ", 
+   "\"\<Non-zero runcode `1` returned while using Run to create symlink for \
+`2`\>\""}], ";"}]], "Input",
+ CellChangeTimes->{{3.633367523154132*^9, 3.633367582185259*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SymLinkInstaller", "[", "]"}], ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"cmdname", ",", " ", "symlinkfn", ",", "runCodes"}], "}"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"$InstallationSuccessful", "=", "False"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cmdname", " ", "=", " ", 
+       RowBox[{"$OperatingSystem", " ", "/.", " ", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\"\<Windows\>\"", "\[Rule]", "\"\<mklink\>\""}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"\"\<MacOSX\>\"", "\[Rule]", "\"\<ln -sf\>\""}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"\"\<Unix\>\"", "\[Rule]", "\"\<ln -sf\>\""}]}], 
+         "\[IndentingNewLine]", "}"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"symlinkfn", "[", "file_", "]"}], ":=", " ", 
+       RowBox[{"Run", "[", 
+        RowBox[{"cmdname", ",", " ", 
+         RowBox[{"StringQuote", "[", "file", "]"}], ",", 
+         RowBox[{"StringQuote", "[", "$QuantumUtilsInstallPath", "]"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Check", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"runCodes", "=", 
+          RowBox[{"Map", "[", 
+           RowBox[{"symlinkfn", ",", " ", "$QuantumUtilsManifest"}], "]"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"Table", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+              "runCodes", "\[LeftDoubleBracket]", "n", 
+               "\[RightDoubleBracket]"}], "=!=", "0"}], ",", 
+             RowBox[{"Message", "[", 
+              RowBox[{
+               RowBox[{"SymLinkInstaller", "::", "badRunCode"}], ",", 
+               RowBox[{
+               "runCodes", "\[LeftDoubleBracket]", "n", 
+                "\[RightDoubleBracket]"}], ",", 
+               RowBox[{
+               "$QuantumUtilsManifest", "\[LeftDoubleBracket]", "n", 
+                "\[RightDoubleBracket]"}]}], "]"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"n", ",", 
+             RowBox[{"Length", "@", "runCodes"}]}], "}"}]}], 
+          "\[IndentingNewLine]", "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Abort", "[", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"$InstallationSuccessful", "=", "True"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.525435979160592*^9, 3.525435983480468*^9}, {
+   3.5254363840857162`*^9, 3.5254364033218527`*^9}, {3.525436521020783*^9, 
+   3.525436546501786*^9}, {3.5254462446849337`*^9, 3.52544629532658*^9}, {
+   3.557057582793292*^9, 3.5570575907616653`*^9}, {3.6333667535845547`*^9, 
+   3.633366760642056*^9}, {3.6333667964119*^9, 3.6333667967480593`*^9}, {
+   3.633367113149303*^9, 3.633367133194345*^9}, {3.633367204303544*^9, 
+   3.633367257674914*^9}, {3.6333673846369753`*^9, 3.633367506086434*^9}, {
+   3.633367622731634*^9, 3.633367708659686*^9}, {3.6333679566781683`*^9, 
+   3.633367957883765*^9}, 3.633368064586405*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["QuantumUtils Configuration", "Section",
+ CellChangeTimes->{{3.633449932576322*^9, 3.6334499359418793`*^9}, {
+  3.6335241501571913`*^9, 3.633524162701441*^9}}],
+
+Cell["\<\
+We set an option on $FrontEnd specifying the absolute location of the \
+documentation path. This lets QDoc know where to open documentation, and \
+helps LoadUsages locate documentation.\
+\>", "Text",
+ CellChangeTimes->{{3.633547735506798*^9, 3.633547810085165*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DocumentationInstaller", "[", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"fid", ",", "filename", ",", "docpath"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"$InstallationSuccessful", "=", "False"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SetOptions", "[", 
+       RowBox[{"$FrontEnd", ",", 
+        RowBox[{"QUOptions`QuantumUtilsOptions", "\[Rule]", 
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{"QUOptions`Private`DocumentationPath", "\[Rule]", 
+           RowBox[{"FileNameJoin", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<doc\>\""}], 
+             "}"}], "]"}]}], "\[IndentingNewLine]", "}"}]}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"$InstallationSuccessful", "=", "True"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.633450109457098*^9, 3.633450160570983*^9}, {
+   3.6334502339519377`*^9, 3.6334505021409607`*^9}, {3.633450559981111*^9, 
+   3.6334505946565723`*^9}, {3.633450649093802*^9, 3.633450680414763*^9}, {
+   3.6334508588236847`*^9, 3.633450860991736*^9}, 3.6334509421745768`*^9, {
+   3.633452204292471*^9, 3.633452253080497*^9}, {3.633525005568437*^9, 
+   3.633525007223021*^9}, 3.633525093432356*^9, 3.63352559589603*^9, {
+   3.6337147240666437`*^9, 3.633714726924653*^9}, 3.633878324558148*^9, 
+   3.633878378135371*^9, 3.633880994550046*^9, 3.633881304041563*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Actual Installation", "Section",
+ CellChangeTimes->{{3.5254359898933783`*^9, 3.52543600998776*^9}}],
+
+Cell["\<\
+We have now defined everything we need to run the installer, and will proceed \
+to do so.\
+\>", "Text",
+ CellChangeTimes->{{3.5254360112205343`*^9, 3.525436025451297*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"InstallationMethod", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DocumentationInstaller", "[", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"If", "[", 
+  RowBox[{"$InstallationSuccessful", ",", "\[IndentingNewLine]", 
+   RowBox[{"ChoiceDialog", "[", 
+    RowBox[{
+    "\"\<Installation of quantum-utils-mathematica seems to have been \
+successful!\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<OK\>\"", "\[Rule]", "Null"}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ChoiceDialog", "[", 
+    RowBox[{
+    "\"\<Installation appears to have failed...see bottom of notebook for \
+messages.\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<OK\>\"", "\[Rule]", "Null"}], "}"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.525436026387775*^9, 3.525436055128552*^9}, {
+  3.633366770187891*^9, 3.6333667764874477`*^9}, {3.633366820775969*^9, 
+  3.633366884520808*^9}, {3.633366975087285*^9, 3.6333669788347187`*^9}, {
+  3.6333671566907053`*^9, 3.633367178029696*^9}, {3.633452153077476*^9, 
+  3.6334521587672787`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1280, 1000},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 110, 1, 51, "Subtitle"],
+Cell[692, 25, 419, 7, 30, "Text"],
+Cell[1114, 34, 962, 16, 87, "Text"],
+Cell[CellGroupData[{
+Cell[2101, 54, 112, 1, 28, "Input"],
+Cell[2216, 57, 637, 9, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2890, 71, 104, 1, 44, "Subsection"],
+Cell[2997, 74, 295, 6, 30, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3329, 85, 98, 1, 44, "Subsection"],
+Cell[3430, 88, 137, 1, 30, "Text"],
+Cell[3570, 91, 3622, 74, 267, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7229, 170, 106, 1, 44, "Subsection"],
+Cell[7338, 173, 203, 4, 30, "Text"],
+Cell[7544, 179, 414, 9, 28, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7995, 193, 116, 1, 44, "Subsection"],
+Cell[8114, 196, 635, 10, 49, "Text"],
+Cell[8752, 208, 514, 11, 97, "Input"],
+Cell[9269, 221, 125, 1, 30, "Text"],
+Cell[9397, 224, 237, 6, 28, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9671, 235, 158, 2, 64, "Section"],
+Cell[9832, 239, 407, 9, 49, "Text"],
+Cell[10242, 250, 3003, 68, 301, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13282, 323, 168, 2, 64, "Section"],
+Cell[13453, 327, 222, 4, 30, "Text"],
+Cell[13678, 333, 280, 7, 28, "Input"],
+Cell[13961, 342, 430, 12, 30, "Text"],
+Cell[14394, 356, 276, 6, 28, "Input"],
+Cell[14673, 364, 3288, 71, 318, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17998, 440, 164, 2, 65, "Section"],
+Cell[18165, 444, 275, 5, 55, "Text"],
+Cell[18443, 451, 1571, 32, 165, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20051, 488, 105, 1, 65, "Section"],
+Cell[20159, 491, 181, 4, 33, "Text"],
+Cell[20343, 497, 1127, 26, 143, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

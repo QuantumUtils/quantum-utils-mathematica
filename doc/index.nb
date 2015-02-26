@@ -1,0 +1,418 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13458,        409]
+NotebookOptionsPosition[     12413,        370]
+NotebookOutlinePosition[     12770,        386]
+CellTagsIndexPosition[     12727,        383]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Quantum Utils Documentation", "Chapter",
+ CellChangeTimes->{{3.633439785011228*^9, 3.633439797185196*^9}}],
+
+Cell[TextData[{
+ "To more easily navigate this documentation, it is advised that you check \
+the ",
+ StyleBox["\[OpenCurlyDoubleQuote]Show open/close icon for cell groups\
+\[CloseCurlyDoubleQuote]",
+  FontSlant->"Italic"],
+ " checkbox in the ",
+ StyleBox["Edit > Preferences > Interface",
+  FontSlant->"Italic"],
+ " dialog."
+}], "Text",
+ CellChangeTimes->{{3.63344027560156*^9, 3.633440378911942*^9}, {
+  3.633782637054619*^9, 3.633782637973031*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Quantum Utils Packages", "Section",
+ CellChangeTimes->{{3.633439803464673*^9, 3.633439816454121*^9}, {
+  3.633714165568389*^9, 3.6337141717213373`*^9}, {3.6337828870995502`*^9, 
+  3.633782887211052*^9}}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"GRAPE\"\>", True->
+        StyleBox["\<\"GRAPE\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/GRAPE.nb", None},
+       ButtonNote->"api-doc/GRAPE.nb"],
+      Annotation[#, "api-doc/GRAPE.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+     "An", " ", "implementation", " ", "of", " ", "GRadient", " ", "Ascent", 
+      " ", "Pulse", " ", 
+      RowBox[{"Engineering", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633782299539555*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"Predicates\"\>", True->
+        StyleBox["\<\"Predicates\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/Predicates.nb", None},
+       ButtonNote->"api-doc/Predicates.nb"],
+      Annotation[#, "api-doc/Predicates.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+     "Provides", " ", "type", " ", "testing", " ", "functions", " ", "used", 
+      " ", "by", " ", "other", " ", 
+      RowBox[{"packages", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.63378229959678*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"QSim\"\>", True->
+        StyleBox["\<\"QSim\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/QSim.nb", None},
+       ButtonNote->"api-doc/QSim.nb"],
+      Annotation[#, "api-doc/QSim.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "A", " ", "general", " ", "purpose", " ", "quantum", " ", "system", " ",
+        "time"}], "-", 
+      RowBox[{
+      "evolution", " ", "simulator", " ", "whose", " ", "primary", " ", 
+       "objective", " ", "is", " ", "ease", " ", "of", " ", 
+       RowBox[{"use", "."}]}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633782299656609*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"QuantumChannel\"\>", True->
+        StyleBox["\<\"QuantumChannel\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/QuantumChannel.nb", None},
+       ButtonNote->"api-doc/QuantumChannel.nb"],
+      Annotation[#, "api-doc/QuantumChannel.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Describe", " ", 
+      RowBox[{"me", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633782299675387*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"QuantumSystems\"\>", True->
+        StyleBox["\<\"QuantumSystems\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/QuantumSystems.nb", None},
+       ButtonNote->"api-doc/QuantumSystems.nb"],
+      Annotation[#, "api-doc/QuantumSystems.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Describe", " ", 
+      RowBox[{"me", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633782299751358*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"Tensor\"\>", True->
+        StyleBox["\<\"Tensor\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/Tensor.nb", None},
+       ButtonNote->"api-doc/Tensor.nb"],
+      Annotation[#, "api-doc/Tensor.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Describe", " ", 
+      RowBox[{"me", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633782299823944*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"Visualization\"\>", True->
+        StyleBox["\<\"Visualization\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/Visualization.nb", None},
+       ButtonNote->"api-doc/Visualization.nb"],
+      Annotation[#, "api-doc/Visualization.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "Provides", " ", "a", " ", "suite", " ", "of", " ", "tools", " ", "for",
+        " ", "displaying", " ", "matrices"}], ",", " ", 
+      RowBox[{"quantum", " ", "states"}], ",", " ", "data", ",", " ", 
+      RowBox[{"etc", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633782299892654*^9}]
+}, Open  ]],
+
+Cell["Tutorials", "Section",
+ CellChangeTimes->{{3.633714486518713*^9, 3.6337144877822523`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["For Developers", "Section",
+ CellChangeTimes->{{3.633782534637989*^9, 3.633782539150456*^9}, 
+   3.633782842027483*^9}],
+
+Cell["\<\
+This section contains code for generating parts of this documentation; it may \
+be ignored by non-developers.\
+\>", "Text",
+ CellChangeTimes->{{3.633782361064987*^9, 3.6337823970232973`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<DocTools`\>\"", "]"}], ";"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell["Link Generators", "Subsection",
+ CellChangeTimes->{{3.633782548334853*^9, 3.6337825524150476`*^9}}],
+
+Cell["Run  these functions and copy the output cells to above.", "Text",
+ CellChangeTimes->{{3.633782861524413*^9, 3.6337828764446917`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QUPackages", ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"NotebookLink", "[", 
+        RowBox[{
+         RowBox[{"\"\<api-doc/\>\"", "<>", "#1", "<>", "\"\<.nb\>\""}], ",", 
+         "#1", ",", "#2"}], "]"}], ";"}], ")"}], "&"}], "@@@", 
+    RowBox[{"Sort", "[", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"\"\<BraKet\>\"", ",", "\"\<Describe me.\>\""}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<GRAPE\>\"", ",", 
+         "\"\<An implementation of GRadient Ascent Pulse Engineering.\>\""}], 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Predicates\>\"", ",", 
+         "\"\<Provides type testing functions used by other packages.\>\""}], 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<QSim\>\"", ",", 
+         "\"\<A general purpose quantum system time-evolution simulator whose \
+primary objective is ease of use.\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<QuantumChannel\>\"", ",", "\"\<Describe me.\>\""}], 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<QuantumSystems\>\"", ",", "\"\<Describe me.\>\""}], 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Tensor\>\"", ",", "\"\<Describe me.\>\""}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Visualization\>\"", ",", 
+         "\"\<Provides a suite of tools for displaying matrices, quantum \
+states, data, etc.\>\""}], "}"}]}], "\[IndentingNewLine]", "}"}], "]"}]}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.633782706723302*^9, 3.6337827110747337`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Tutorials", ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"NotebookLink", "[", 
+        RowBox[{
+         RowBox[{"\"\<tutorials/\>\"", "<>", "#1", "<>", "\"\<.nb\>\""}], ",",
+          "#2", ",", "#3"}], "]"}], ";"}], ")"}], "&"}], "@@@", 
+    RowBox[{"Sort", "[", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<notebook-name\>\"", ",", "\"\<Display Name\>\"", ",", 
+        "\"\<Description.\>\""}], "}"}], "\[IndentingNewLine]", "}"}], 
+     "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6337827186036654`*^9, 3.633782794937052*^9}}]
+}, Closed]]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{1280, 1000},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 112, 1, 65, "Chapter"],
+Cell[695, 25, 450, 12, 30, "Text"],
+Cell[CellGroupData[{
+Cell[1170, 41, 209, 3, 64, "Section"],
+Cell[1382, 46, 1068, 30, 33, "Text"],
+Cell[2453, 78, 1100, 30, 33, "Text"],
+Cell[3556, 110, 1221, 34, 33, "Text"],
+Cell[4780, 146, 1017, 28, 33, "Text"],
+Cell[5800, 176, 1017, 28, 33, "Text"],
+Cell[6820, 206, 977, 28, 33, "Text"],
+Cell[7800, 236, 1218, 32, 33, "Text"]
+}, Open  ]],
+Cell[9033, 271, 96, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[9154, 276, 125, 2, 50, "Section"],
+Cell[9282, 280, 201, 4, 30, "Text"],
+Cell[9486, 286, 92, 2, 28, "Input"],
+Cell[CellGroupData[{
+Cell[9603, 292, 105, 1, 44, "Subsection"],
+Cell[9711, 295, 140, 1, 30, "Text"],
+Cell[9854, 298, 1862, 47, 182, "Input"],
+Cell[11719, 347, 654, 18, 63, "Input"]
+}, Closed]]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

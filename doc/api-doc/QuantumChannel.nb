@@ -1,0 +1,1194 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     37366,       1185]
+NotebookOptionsPosition[     32866,       1032]
+NotebookOutlinePosition[     34919,       1101]
+CellTagsIndexPosition[     34420,       1084]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["QuantumChannel Documentation", "Chapter",
+ CellChangeTimes->{{3.6333515346579514`*^9, 3.63335154627586*^9}, {
+  3.633364320690548*^9, 3.63336432261762*^9}, {3.633781291117386*^9, 
+  3.633781292159832*^9}, {3.633781364287074*^9, 3.633781398056273*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Section",
+ CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
+  3.6337812001050663`*^9, 3.633781202247016*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<QuantumChannel`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
+  3.633781146956828*^9, 3.633781148275402*^9}, {3.633781294331254*^9, 
+  3.633781296275483*^9}, {3.633781369011711*^9, 3.633781370275049*^9}, {
+  3.633781401233733*^9, 3.633781403767733*^9}}],
+
+Cell["\<\
+The following packages are needed to run some code found in this \
+documentation notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.633781139005548*^9, 3.6337811426309013`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<DocTools`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633880510985729*^9, 3.6338805145229187`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introduction and Overview", "Section",
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}}],
+
+Cell["\<\
+QuantumChannel provides tools for storing, manipulating, and using quantum \
+channels, as well as tools for converting between representations. Tests for \
+properties such as complete positivity are included, and some common measures \
+such as process fidelity. The dimensions of the input and output spaces do \
+not necessarily have to match. Arbitrary bases can be used for basis \
+dependent representations.\
+\>", "Text",
+ CellChangeTimes->{{3.6337959305984907`*^9, 3.633796216955276*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Quantum Channels", "Section",
+ CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
+  3.633441643373975*^9, 3.633441643471745*^9}, {3.633795856617426*^9, 
+  3.633795859078514*^9}, {3.633880663540921*^9, 3.633880663641457*^9}}],
+
+Cell[TextData[{
+ StyleBox["QuantumChannel", "Input"],
+ " is the ",
+ StyleBox["Head", "Input"],
+ " used to internally represent quantum channels. A valid quantum channel \
+will be stored as\n",
+ StyleBox["QuantumChannel[obj,{ChannelRep->rep, InputDim->dIm, \
+OutputDim->dOut, Basis->basis}]", "Input"],
+ " \nwhere\n\t\[OpenCurlyQuote]",
+ StyleBox["obj", "Input"],
+ "\[CloseCurlyQuote] is the matrix or appropriate object of the channel in \
+the current representation,\n\t\[OpenCurlyQuote]",
+ StyleBox["rep", "Input"],
+ "\[CloseCurlyQuote] is the label which specifies the representation of \
+\[OpenCurlyQuote]",
+ StyleBox["obj", "Input"],
+ "\[CloseCurlyQuote], valid representations are ",
+ StyleBox["Unitary", "Input"],
+ ", ",
+ StyleBox["Super", "Input"],
+ ", ",
+ StyleBox["Choi", "Input"],
+ ", ",
+ StyleBox["Chi", "Input"],
+ ", ",
+ StyleBox["Kraus", "Input"],
+ ", ",
+ StyleBox["Stinespring", "Input"],
+ ", ",
+ StyleBox["SysEnv", "Input"],
+ ",\n\t\[OpenCurlyQuote]",
+ StyleBox["dIn", "Input"],
+ "\[CloseCurlyQuote] is the dimension of the input Hilbert space of the \
+channel,\n\t\[OpenCurlyQuote]",
+ StyleBox["dOut", "Input"],
+ "\[CloseCurlyQuote] is the dimension of the output Hilbert space of the \
+channel,\n\t\[OpenCurlyQuote]",
+ StyleBox["basis", "Input"],
+ "\[CloseCurlyQuote] the the vectorization convention basis used to represent \
+the channel in the ",
+ StyleBox["Choi", "Input"],
+ " and ",
+ StyleBox["Super", "Input"],
+ " representations.\n\nWhen displayed as output in the Mathematica GUI a ",
+ StyleBox["QuantumChannel", "Input"],
+ " is displayed as: ",
+ StyleBox["rep[obj, <params>]", "Input"],
+ ".\n\nThe physical matrix for the channel may be extracted by ",
+ StyleBox["First[chan]", "Input"],
+ "\nThe parameters may be extracted by ",
+ StyleBox["ChannelParameters[chan]", "Input"],
+ " to return the list, or by ",
+ StyleBox["ChannelRep[chan]", "Input"],
+ ", ",
+ StyleBox["InputDim[chan]", "Input"],
+ ", ",
+ StyleBox["OutputDim[chan]", "Input"],
+ ", ",
+ StyleBox["Basis[chan]]", "Input"],
+ " to return individual parameters.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " may have its representation transformed by: ",
+ StyleBox["newRep[chan]", "Input"],
+ "\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " may be applied to a state to compute its evolution by ",
+ StyleBox["chan[state]", "Input"],
+ "\nwhere \[OpenCurlyQuote]",
+ StyleBox["state", "Input"],
+ "\[CloseCurlyQuote] is either a vector of dimension \[OpenCurlyQuote]",
+ StyleBox["dIn", "Input"],
+ "\[CloseCurlyQuote], a square matrix of size",
+ StyleBox[" \[OpenCurlyQuote]dIn\[CloseCurlyQuote]", "Input"],
+ "x",
+ StyleBox["\[CloseCurlyQuote]dIn\[CloseCurlyQuote]", "Input"],
+ ", or its vectorized form.\nIf the input is a vectorized matrix, it is \
+assumed to be vectorized in the basis corresponding to ",
+ StyleBox["chan", "Input"],
+ ".\n\nThe construction of quantum channel is achieved by applying the \
+appropriate rep function to an operator.\nE.g. ",
+ StyleBox["Unitary[U], Super[S],  Kraus[{K1,K2,...,Kn}]", "Input"],
+ ".\nChannels input this way will assume the default ",
+ StyleBox["Vec", "Input"],
+ " Basis and attempt to automatically calculate the input and output \
+dimensions. \nInput and output dimensions, and basis may be specified \
+manually using options.\nE.g. ",
+ StyleBox["Super[S,Basis->\[CloseCurlyQuote]\[CloseCurlyQuote]Pauli\
+\[CloseCurlyQuote]\[CloseCurlyQuote]]", "Input"],
+ ", or ",
+ StyleBox["Choi[M, InputDim->4, OutputDim->2]", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.633875945145649*^9, {3.633876064568118*^9, 3.633876066814527*^9}},
+ CellTags->"QuantumChannel::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Subsection",
+ CellChangeTimes->{{3.633876118299673*^9, 3.6338761189954023`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"DisplayOptions", "[", "QuantumChannel", "]"}]], "Input",
+ CellChangeTimes->{{3.63387612178483*^9, 3.633876150511211*^9}}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox["Option", "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Default", " ", "Value"}], "Text",
+     FontWeight->Bold], 
+    StyleBox["Description", "Text",
+     FontWeight->Bold]},
+   {"InputDim", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["InputDim", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "the", " ", "input", " ", "dimension", 
+       " ", "option", " ", "for", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["QuantumChannel", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "Additionally"}]}], ",", " ", 
+      RowBox[{
+       TagBox[
+        StyleBox[
+         RowBox[{"InputDim", "[", "chan", "]"}], "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "returns", " ", "the", " ", "dimension", " ", "of",
+        " ", "the", " ", "input", " ", "space", " ", "of", " ", "the", " ", 
+       TagBox[
+        StyleBox["QuantumChannel", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], "."}]}]}], "Text"]},
+   {"OutputDim", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["OutputDim", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "the", " ", "output", " ", "dimension", 
+       " ", "option", " ", "for", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["QuantumChannel", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "Additionally"}]}], ",", " ", 
+      RowBox[{
+       TagBox[
+        StyleBox[
+         RowBox[{"OutputDim", "[", "chan", "]"}], "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "returns", " ", "the", " ", "dimension", " ", "of",
+        " ", "the", " ", "output", " ", "space", " ", "of", " ", "the", " ", 
+       TagBox[
+        StyleBox["QuantumChannel", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], "."}]}]}], "Text"]},
+   {"Basis", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TagBox[
+         StyleBox["Basis", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], " ", "is", " ", "the", " ", "option", " ", "for", " ", 
+        
+        TagBox[
+         StyleBox["QuantumChannel", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], " ", "which", " ", "specifies", " ", "the", " ", 
+        "representation", " ", "basis"}], ";", " ", 
+       RowBox[{"see", " ", 
+        RowBox[{
+         TagBox[
+          StyleBox["Tensor`Basis", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], ".", " ", "Additionally"}]}]}], ",", " ", 
+      RowBox[{
+       TagBox[
+        StyleBox[
+         RowBox[{"Basis", "[", "chan", "]"}], "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "returns", " ", "the", " ", "vectorization", " ", 
+       "basis", " ", "for", " ", "the", " ", 
+       TagBox[
+        StyleBox["QuantumChannel", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "This"}], " ", "basis", " ", "used", " ", 
+       "for", " ", "the", " ", 
+       TagBox[
+        StyleBox["Super", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "and", " ", 
+       TagBox[
+        StyleBox["Choi", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "representations", " ", "of", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], "."}]}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
+  GridBoxItemSize->{"Columns" -> {Automatic, Automatic, {
+       Scaled[0.5]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633880600085744*^9}],
+
+Cell[CellGroupData[{
+
+Cell["InputDim", "Subsubsection",
+ CellChangeTimes->{{3.633880167408497*^9, 3.633880168394268*^9}}],
+
+Cell[TextData[{
+ StyleBox["InputDim", "Input"],
+ " is the input dimension option for ",
+ StyleBox["QuantumChannel", "Input"],
+ ". Additionally, ",
+ StyleBox["InputDim[chan]", "Input"],
+ " returns the dimension of the input space of the ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.6338803228652163`*^9, {3.633880368704123*^9, 3.6338804152569437`*^9}},
+ CellTags->"InputDim::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["OutputDim", "Subsubsection",
+ CellChangeTimes->{{3.633880170290258*^9, 3.6338801727177362`*^9}}],
+
+Cell[TextData[{
+ StyleBox["OutputDim", "Input"],
+ " is the output dimension option for ",
+ StyleBox["QuantumChannel", "Input"],
+ ". Additionally, ",
+ StyleBox["OutputDim[chan]", "Input"],
+ " returns the dimension of the output space of the ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.633880279144161*^9, {3.6338804225189447`*^9, 3.6338804377859783`*^9}},
+ CellTags->"OutputDim::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Basis", "Subsubsection",
+ CellChangeTimes->{{3.633880176808527*^9, 3.6338801772159224`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Basis", "Input"],
+ " is the option for ",
+ StyleBox["QuantumChannel", "Input"],
+ " which specifies the representation basis; see ",
+ StyleBox["Tensor`Basis", "Input"],
+ ". Additionally, ",
+ StyleBox["Basis[chan]", "Input"],
+ " returns the vectorization basis for the ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input"],
+ ". This basis used for the ",
+ StyleBox["Super", "Input"],
+ " and ",
+ StyleBox["Choi", "Input"],
+ " representations of ",
+ StyleBox["chan", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.633880189338952*^9, 3.633880191566524*^9}, {
+  3.633880425487042*^9, 3.633880481103354*^9}},
+ CellTags->"Basis::usage"],
+
+Cell[TextData[{
+ "Note that ",
+ StyleBox["Basis", "Input"],
+ " is also defined in the ",
+ StyleBox["T", "Input"],
+ StyleBox["ensor", "Input"],
+ StyleBox["`", "Input"],
+ " package."
+}], "Text",
+ CellChangeTimes->{{3.6338802140101423`*^9, 3.6338802270980797`*^9}}]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Unitary", "Subsection",
+ CellChangeTimes->{{3.6337962557881613`*^9, 3.6337962610770197`*^9}, {
+  3.633880645526568*^9, 3.633880645607448*^9}}],
+
+Cell[TextData[{
+ StyleBox["Unitary[mat,opts]", "Input"],
+ " specifies that a matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the Unitary representation.\n",
+ StyleBox["Unitary[chan,opts]", "Input"],
+ " returns the ",
+ StyleBox["QuantumChannel", "Input"],
+ " \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] in its current representation while applying any \
+specified ",
+ StyleBox["opts", "Input"],
+ ".\n\nAllowed options are\n",
+ StyleBox["Basis", "Input"],
+ "->basis - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " for transformations into the ",
+ StyleBox["Super", "Input"],
+ " and ",
+ StyleBox["Choi", "Input"],
+ " representations. The default ",
+ StyleBox["Basis", "Input"],
+ " option is the default ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " option.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["Unitary", "Input"],
+ " representation may be applied to a state to compute its evolution. \nIf ",
+ StyleBox["chan = Unitary[U]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns a vector formed from applying the unitary to the input state ",
+ StyleBox["vec", "Input"],
+ ", where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns a square matrix formed from applying chan to input state ",
+ StyleBox["mat", "Input"],
+ ", where ",
+ StyleBox["mat", "Input"],
+ " is a square matrix.\n - ",
+ StyleBox["chan[vecMat]", "Input"],
+ " returns a vector formed from applying chan to the vectorized input matrix ",
+ StyleBox["vecMat", "Input"],
+ ", ",
+ StyleBox["vecMat", "Input"],
+ " is a vector or column vector corresponding to a vectorized matrix.\n\nSee ",
+ StyleBox["QuantumChannel", "Input"],
+ " for further information."
+}], "Text",
+ CellChangeTimes->{{3.633876240380179*^9, 3.633876243746312*^9}, {
+  3.6338766358316917`*^9, 3.633876636878728*^9}},
+ CellTags->"Unitary::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Super", "Subsection",
+ CellChangeTimes->{{3.6338763682175217`*^9, 3.6338763687523737`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Super[mat,opts]", "Input"],
+ " specifies that a matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the ",
+ StyleBox["Super", "Input"],
+ " representation.\n",
+ StyleBox["Super[chan,opts]", "Input"],
+ " transforms the ",
+ StyleBox["QuantumChannel", "Input"],
+ " \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] into the ",
+ StyleBox["Super", "Input"],
+ " representation while applying any specified ",
+ StyleBox["opts", "Input"],
+ ".\n\nAllowed options are\n",
+ StyleBox["Basis->basis", "Input"],
+ " - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " of the input matrix, and specifies the ",
+ StyleBox["Basis", "Input"],
+ " to transform into when transforming to the ",
+ StyleBox["Super", "Input"],
+ " representation. \nThe default ",
+ StyleBox["Basis", "Input"],
+ " option is the default ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " option. Eg: ",
+ StyleBox["Basis->\[CloseCurlyDoubleQuote]Pauli\[CloseCurlyDoubleQuote]", 
+  "Input"],
+ " may be used to specify the input is a superoperator in the Pauli basis, or \
+to transform a ",
+ StyleBox["Super", "Input"],
+ " ",
+ StyleBox["QuantumChannel", "Input"],
+ " into the ",
+ StyleBox["Pauli", "Input"],
+ " basis.\nSee ",
+ StyleBox["Basis", "Input"],
+ " for further information.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["Super", "Input"],
+ " representation may be applied to a state to compute its evolution. \nIf ",
+ StyleBox["chan = Super[S]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns ",
+ StyleBox["chan[Projector[vec]]", "Input"],
+ ", where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns the the square matrix output for apply ",
+ StyleBox["chan", "Input"],
+ " to input state ",
+ StyleBox["mat", "Input"],
+ ", where mat is a square matrix.\n - ",
+ StyleBox["chan[vecMat]", "Input"],
+ " returns ",
+ StyleBox["S.vecMat", "Input"],
+ ", where ",
+ StyleBox["vecMat", "Input"],
+ " is a vector or column vector corresponding to a vectorized matrix.\n\nSee \
+QuantumChannel for further information."
+}], "Text",
+ CellChangeTimes->{
+  3.63387635498042*^9, {3.6338764115644093`*^9, 3.6338764197635927`*^9}, {
+   3.633876643071212*^9, 3.633876643751851*^9}},
+ CellTags->"Super::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Choi", "Subsection",
+ CellChangeTimes->{{3.633796263044033*^9, 3.633796269626878*^9}, {
+  3.633876480912574*^9, 3.633876481307466*^9}}],
+
+Cell[TextData[{
+ StyleBox["Choi[mat,opts]", "Input"],
+ " specifies that the matrix ",
+ StyleBox["mat", "Input"],
+ " is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the ",
+ StyleBox["Choi", "Input"],
+ " representation.\n",
+ StyleBox["Choi[chan,opts]", "Input"],
+ " transforms the ",
+ StyleBox["QuantumChannel", "Input"],
+ " \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] into the ",
+ StyleBox["Choi", "Input"],
+ " representation while applying any specified ",
+ StyleBox["opts", "Input"],
+ ".\n\nAllowed options are\n",
+ StyleBox["InputDim->din", "Input"],
+ " - Specifies the dimension of the input space. If this is not specified it \
+will attempt to infer the output space for input matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] automatically. If this is fails it will return an error.\
+\n",
+ StyleBox["OutputDim->dOut", "Input"],
+ " - Specifies the dimension of the output space. If this is not specified it \
+will attempt to infer the output space for input matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] automatically. If this is fails it will return an error.\
+\n",
+ StyleBox["Basis->basis", "Input"],
+ " - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " of the input matrix, and specifies the ",
+ StyleBox["Basis", "Input"],
+ " to transform into when transforming to the ",
+ StyleBox["Choi", "Input"],
+ " representation. \nThe default ",
+ StyleBox["Basis", "Input"],
+ " option is the default ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " option. Eg: ",
+ StyleBox["Basis->\[CloseCurlyDoubleQuote]Pauli\[CloseCurlyDoubleQuote]", 
+  "Input"],
+ " may be used to specify the input is a ",
+ StyleBox["Choi", "Input"],
+ " matrix in the Pauli basis (aka a ",
+ StyleBox["Chi", "Input"],
+ " matrix), or to transform a ",
+ StyleBox["Choi", "Input"],
+ " ",
+ StyleBox["QuantumChannel", "Input"],
+ " into the Pauli basis (into a ",
+ StyleBox["Chi", "Input"],
+ " matrix).\nSee ",
+ StyleBox["Basis", "Input"],
+ " for further information.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["Choi", "Input"],
+ " representation may be applied to a state to compute its evolution. \nIf ",
+ StyleBox["chan = Choi[A]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns chan[Projector[vec]], where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns a square matrix formed from applying ",
+ StyleBox["chan", "Input"],
+ " to input state ",
+ StyleBox["mat", "Input"],
+ ", where ",
+ StyleBox["mat", "Input"],
+ " is a square matrix.\n -",
+ StyleBox[" chan[vecMat]", "Input"],
+ " returns a vector formed from applying ",
+ StyleBox["chan", "Input"],
+ " to the vectorized input matrix ",
+ StyleBox["vecMat", "Input"],
+ ", ",
+ StyleBox["vecMat", "Input"],
+ " is a vector or column vector corresponding to a vectorized matrix.\n\nSee ",
+ StyleBox["QuantumChannel", "Input"],
+ " for further information."
+}], "Text",
+ CellChangeTimes->{
+  3.63387649664464*^9, {3.633876546740224*^9, 3.633876549523045*^9}, {
+   3.633876646744666*^9, 3.633876648671681*^9}},
+ CellTags->"Choi::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Chi", "Subsection",
+ CellChangeTimes->{{3.63387660916857*^9, 3.633876609423325*^9}}],
+
+Cell[TextData[{
+ StyleBox["Chi[mat,opts]", "Input"],
+ " specifies that the matrix mat is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the ",
+ StyleBox["Choi", "Input"],
+ " representation in the Pauli basis, which is also known as a Chi-matrix.\n\
+",
+ StyleBox["Chi[chan,opts]", "Input"],
+ " transforms the ",
+ StyleBox["QuantumChannel", "Input"],
+ " \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] into the ",
+ StyleBox["Choi", "Input"],
+ " representation in the Pauli basis.\n\nAllowed options are\n",
+ StyleBox["InputDim->din", "Input"],
+ " - Specifies the dimension of the input space. If this is not specified it \
+will attempt to infer the output space for input matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] automatically. If this is fails it will return an error.\
+\n",
+ StyleBox["OutputDim->dOut", "Input"],
+ " - Specifies the dimension of the output space. If this is not specified it \
+will attempt to infer the output space for input matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] automatically. If this is fails it will return an error.\
+\n",
+ StyleBox["Basis->basis", "Input"],
+ " - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " of the input matrix. If this is not specified it defaults to Pauli basis. \
+If this option is set ",
+ StyleBox["Chi", "Input"],
+ " functions identically to ",
+ StyleBox["Choi", "Input"],
+ ".\nSee ",
+ StyleBox["Basis", "Input"],
+ " and ",
+ StyleBox["Choi", "Input"],
+ " for further information.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["Chi", "Input"],
+ " (",
+ StyleBox["Choi", "Input"],
+ ") representation may be applied to a state to compute its evolution. \nIf \
+",
+ StyleBox["chan = Chi[A]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns ",
+ StyleBox["chan[Projector[vec]]", "Input"],
+ ", where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns a square matrix formed from applying ",
+ StyleBox["chan", "Input"],
+ " to input state ",
+ StyleBox["mat", "Input"],
+ ", where ",
+ StyleBox["mat", "Input"],
+ " is a square matrix.\n - ",
+ StyleBox["chan[vecMat]", "Input"],
+ " returns a vector formed from applying ",
+ StyleBox["chan", "Input"],
+ " to the vectorized input matrix ",
+ StyleBox["vecMat", "Input"],
+ ", ",
+ StyleBox["vecMat", "Input"],
+ " is a vector or column vector corresponding to a vectorized matrix.\n\nSee ",
+ StyleBox["QuantumChannel", "Input"],
+ " for further information."
+}], "Text",
+ CellChangeTimes->{
+  3.6338766221158457`*^9, {3.6338766528311768`*^9, 3.633876659230603*^9}},
+ CellTags->"Chi::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Kraus", "Subsection",
+ CellChangeTimes->{{3.633876758543516*^9, 3.633876759053301*^9}}],
+
+Cell[TextData[{
+ StyleBox["Kraus[{a1,...,an,opts]", "Input"],
+ " specifies that a list of matrices ",
+ StyleBox["{a1,...,an}", "Input"],
+ " is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the ",
+ StyleBox["Kraus", "Input"],
+ " representation.\n",
+ StyleBox["Kraus[{{a1,...,an},{b1,...,bn}},opts]", "Input"],
+ " specifies that a list of matrices is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the generalized ",
+ StyleBox["Kraus", "Input"],
+ " representation.\n",
+ StyleBox["Kraus[chan,opts]", "Input"],
+ " transforms the ",
+ StyleBox["QuantumChannel", "Input"],
+ " \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] into the ",
+ StyleBox["Kraus", "Input"],
+ " representation while applying any specified ",
+ StyleBox["opts", "Input"],
+ ".\n\nAllowed options are\n",
+ StyleBox["Basis->basis", "Input"],
+ " - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " for the ",
+ StyleBox["Super", "Input"],
+ " representation. The default ",
+ StyleBox["Basis", "Input"],
+ " option is the default ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " option.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["Kraus", "Input"],
+ " representation may be applied to a state to compute its evolution. \nIf ",
+ StyleBox["chan = Kraus[{K1,...,Kn}]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns ",
+ StyleBox["chan[Projector[vec]]", "Input"],
+ ", where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns a square matrix formed from applying ",
+ StyleBox["chan", "Input"],
+ " to input state ",
+ StyleBox["mat", "Input"],
+ ", where ",
+ StyleBox["mat", "Input"],
+ " is a square matrix.\n - ",
+ StyleBox["chan[vecMat]", "Input"],
+ " returns a vector formed from applying ",
+ StyleBox["chan", "Input"],
+ " to the vectorized input matrix ",
+ StyleBox["vecMat", "Input"],
+ ", ",
+ StyleBox["vecMat", "Input"],
+ " is a vector or column vector corresponding to a vectorized matrix.\n\nSee ",
+ StyleBox["QuantumChannel", "Input"],
+ " for further information."
+}], "Text",
+ CellChangeTimes->{{3.6338767698490334`*^9, 3.633876812918076*^9}, 
+   3.633876934206915*^9},
+ CellTags->"Kraus::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Stinespring", "Subsection",
+ CellChangeTimes->{{3.633876873077907*^9, 3.6338768760129013`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Stinespring[mat,opts]", "Input"],
+ " specifies that the matrix ",
+ StyleBox["mat", "Input"],
+ " is a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the ",
+ StyleBox["Stinespring", "Input"],
+ " representation.\n",
+ StyleBox["Stinespring[{mat1,mat2},opts]", "Input"],
+ " specifies that the matrices ",
+ StyleBox["{mat1,mat2}", "Input"],
+ " are a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the generalized ",
+ StyleBox["Stinespring", "Input"],
+ " representation.\n",
+ StyleBox["Stinespring[chan,opts]", "Input"],
+ " transforms the ",
+ StyleBox["QuantumChannel", "Input"],
+ " \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] into the ",
+ StyleBox["Stinespring", "Input"],
+ " representation while applying any specified ",
+ StyleBox["opts", "Input"],
+ ".\n\nAllowed options are\n",
+ StyleBox["OutputDim->dOut", "Input"],
+ " - Specifies the dimension of the output space. If this is not specified it \
+will attempt to infer the output space for input matrix \[OpenCurlyQuote]",
+ StyleBox["mat", "Input"],
+ "\[CloseCurlyQuote] automatically. If this is fails it will return an error.\
+\n",
+ StyleBox["Basis->basis", "Input"],
+ " - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " for the ",
+ StyleBox["Super", "Input"],
+ " representation. The default ",
+ StyleBox["Basis", "Input"],
+ " option is the default ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " option.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["Stinespring", "Input"],
+ " representation may be applied to a state to compute its evolution. \nIf ",
+ StyleBox["chan = Stinespring[A]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns ",
+ StyleBox["chan[Projector[vec]]", "Input"],
+ ", where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns a square matrix formed from applying ",
+ StyleBox["chan", "Input"],
+ " to input state ",
+ StyleBox["mat", "Input"],
+ ", where ",
+ StyleBox["mat", "Input"],
+ " is a square matrix.\n - ",
+ StyleBox["chan[vecMat]", "Input"],
+ " returns a vector formed from applying chan to the vectorized input matrix ",
+ StyleBox["vecMat", "Input"],
+ ", ",
+ StyleBox["vecMat", "Input"],
+ " is a vector or column vector corresponding to a vectorized matrix.\n\nSee ",
+ StyleBox["QuantumChannel", "Input"],
+ " for further information."
+}], "Text",
+ CellChangeTimes->{{3.6338768794257174`*^9, 3.6338768894376783`*^9}, {
+  3.6338769286735773`*^9, 3.633876931478866*^9}},
+ CellTags->"Stinespring::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["System-Environment", "Subsection",
+ CellChangeTimes->{{3.63387698689329*^9, 3.633876998473349*^9}}],
+
+Cell[TextData[{
+ StyleBox["SysEnv[{mat,vec},opts]", "Input"],
+ " specifies that the matrix ",
+ StyleBox["mat", "Input"],
+ " and vector ",
+ StyleBox["vec", "Input"],
+ " a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the ",
+ StyleBox["SysEnv", "Input"],
+ " representation.\n",
+ StyleBox["SysEnv[{{mat1,mat2},vec},opts]", "Input"],
+ " specifies that the matrices ",
+ StyleBox["{mat1,mat2}", "Input"],
+ " and vector ",
+ StyleBox["vec", "Input"],
+ " are a ",
+ StyleBox["QuantumChannel", "Input"],
+ " and in the generalized ",
+ StyleBox["SysEnv", "Input"],
+ " representation.\n",
+ StyleBox["SysEnv[chan,opts]", "Input"],
+ " transforms the QuantumChannel \[OpenCurlyQuote]",
+ StyleBox["chan", "Input"],
+ "\[CloseCurlyQuote] into the ",
+ StyleBox["SysEnv", "Input"],
+ " representation while applying any specified ",
+ StyleBox["opts", "Input"],
+ ".\n\nAllowed options are\n",
+ StyleBox["Basis->basis", "Input"],
+ " - This specifies the ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " for the ",
+ StyleBox["Super", "Input"],
+ " representation. The default ",
+ StyleBox["Basis", "Input"],
+ " option is the default ",
+ StyleBox["Vec", "Input"],
+ " ",
+ StyleBox["Basis", "Input"],
+ " option.\n\nA ",
+ StyleBox["QuantumChannel", "Input"],
+ " in ",
+ StyleBox["SysEnv", "Input"],
+ " representation may be applied to a state to compute its evolution. \nIf ",
+ StyleBox["chan = SysEnv[{U,v}]", "Input"],
+ ":\n - ",
+ StyleBox["chan[vec]", "Input"],
+ " returns chan[Projector[vec]], where ",
+ StyleBox["vec", "Input"],
+ " is a vector or column vector.\n - ",
+ StyleBox["chan[mat]", "Input"],
+ " returns a square matrix formed from applying chan to input state ",
+ StyleBox["mat", "Input"],
+ ", where ",
+ StyleBox["mat", "Input"],
+ " is a square matrix.\n - ",
+ StyleBox["chan[vecMat]", "Input"],
+ " returns a vector formed from applying chan to the vectorized input matrix ",
+ StyleBox["vecMat", "Input"],
+ ", ",
+ StyleBox["vecMat", "Input"],
+ " is a ",
+ StyleBox["vector", "Input"],
+ " or column vector corresponding to a vectorized matrix.\n\nSee ",
+ StyleBox["QuantumChannel", "Input"],
+ " for further information."
+}], "Text",
+ CellChangeTimes->{{3.633877010896421*^9, 3.633877031452065*^9}},
+ CellTags->"SysEnv::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ChannelRep", "Subsection",
+ CellChangeTimes->{{3.633880029286785*^9, 3.633880032834477*^9}}],
+
+Cell[TextData[{
+ StyleBox["ChannelRep[chan]", "Input"],
+ " returns the representaiton of the ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{3.633880053122923*^9},
+ CellTags->"ChannelRep::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ChannelParameters", "Subsection",
+ CellChangeTimes->{{3.633880036481862*^9, 3.633880041105516*^9}}],
+
+Cell[TextData[{
+ StyleBox["ChannelParameters[chan]", "Input"],
+ " returns the parameters of the ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input"],
+ ". This is a list of ",
+ StyleBox["{ChannelRep->rep, InputDim->dIn, OutputDim->dOut, Basis->basis}", 
+  "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6338800857154617`*^9, 3.6338800883147593`*^9}},
+ CellTags->"ChannelParameters::usage"]
+}, Closed]]
+}, Closed]],
+
+Cell["Predicates", "Section",
+ CellChangeTimes->{{3.6337958894851093`*^9, 3.633795890575067*^9}}],
+
+Cell["Channel Functions", "Section",
+ CellChangeTimes->{{3.6337958629257603`*^9, 3.633795866880727*^9}}],
+
+Cell["Special Channels", "Section",
+ CellChangeTimes->{{3.633795871486487*^9, 3.633795874039425*^9}}]
+}, Open  ]]
+},
+WindowSize->{1631, 1026},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Basis::usage"->{
+  Cell[12117, 358, 678, 22, 55, "Text",
+   CellTags->"Basis::usage"]},
+ "ChannelParameters::usage"->{
+  Cell[32104, 1006, 411, 12, 33, "Text",
+   CellTags->"ChannelParameters::usage"]},
+ "ChannelRep::usage"->{
+  Cell[31701, 989, 258, 9, 33, "Text",
+   CellTags->"ChannelRep::usage"]},
+ "Chi::usage"->{
+  Cell[21372, 657, 2700, 79, 363, "Text",
+   CellTags->"Chi::usage"]},
+ "Choi::usage"->{
+  Cell[18048, 555, 3194, 94, 407, "Text",
+   CellTags->"Choi::usage"]},
+ "InputDim::usage"->{
+  Cell[10928, 314, 452, 14, 33, "Text",
+   CellTags->"InputDim::usage"]},
+ "Kraus::usage"->{
+  Cell[24205, 744, 2247, 72, 319, "Text",
+   CellTags->"Kraus::usage"]},
+ "OutputDim::usage"->{
+  Cell[11522, 336, 457, 14, 33, "Text",
+   CellTags->"OutputDim::usage"]},
+ "QuantumChannel::usage"->{
+  Cell[2616, 74, 3598, 94, 539, "Text",
+   CellTags->"QuantumChannel::usage"]},
+ "Stinespring::usage"->{
+  Cell[26593, 824, 2594, 78, 341, "Text",
+   CellTags->"Stinespring::usage"]},
+ "Super::usage"->{
+  Cell[15441, 470, 2426, 76, 341, "Text",
+   CellTags->"Super::usage"]},
+ "SysEnv::usage"->{
+  Cell[29332, 910, 2231, 71, 319, "Text",
+   CellTags->"SysEnv::usage"]},
+ "Unitary::usage"->{
+  Cell[13260, 401, 2044, 61, 297, "Text",
+   CellTags->"Unitary::usage"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Basis::usage", 33154, 1042},
+ {"ChannelParameters::usage", 33256, 1045},
+ {"ChannelRep::usage", 33364, 1048},
+ {"Chi::usage", 33456, 1051},
+ {"Choi::usage", 33545, 1054},
+ {"InputDim::usage", 33639, 1057},
+ {"Kraus::usage", 33732, 1060},
+ {"OutputDim::usage", 33828, 1063},
+ {"QuantumChannel::usage", 33931, 1066},
+ {"Stinespring::usage", 34036, 1069},
+ {"Super::usage", 34134, 1072},
+ {"SysEnv::usage", 34227, 1075},
+ {"Unitary::usage", 34322, 1078}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 257, 3, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[862, 29, 144, 2, 65, "Section"],
+Cell[1009, 33, 339, 5, 32, "Input"],
+Cell[1351, 40, 182, 4, 33, "Text"],
+Cell[1536, 46, 142, 2, 32, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1715, 53, 110, 1, 65, "Section"],
+Cell[1828, 56, 502, 8, 55, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2367, 69, 246, 3, 65, "Section"],
+Cell[2616, 74, 3598, 94, 539, "Text",
+ CellTags->"QuantumChannel::usage"],
+Cell[CellGroupData[{
+Cell[6239, 172, 97, 1, 45, "Subsection"],
+Cell[6339, 175, 145, 2, 32, "Input"],
+Cell[6487, 179, 4314, 128, 207, "Text"],
+Cell[CellGroupData[{
+Cell[10826, 311, 99, 1, 35, "Subsubsection"],
+Cell[10928, 314, 452, 14, 33, "Text",
+ CellTags->"InputDim::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[11417, 333, 102, 1, 29, "Subsubsection"],
+Cell[11522, 336, 457, 14, 33, "Text",
+ CellTags->"OutputDim::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[12016, 355, 98, 1, 29, "Subsubsection"],
+Cell[12117, 358, 678, 22, 55, "Text",
+ CellTags->"Basis::usage"],
+Cell[12798, 382, 262, 9, 33, "Text"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[13109, 397, 148, 2, 37, "Subsection"],
+Cell[13260, 401, 2044, 61, 297, "Text",
+ CellTags->"Unitary::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[15341, 467, 97, 1, 37, "Subsection"],
+Cell[15441, 470, 2426, 76, 341, "Text",
+ CellTags->"Super::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[17904, 551, 141, 2, 36, "Subsection"],
+Cell[18048, 555, 3194, 94, 407, "Text",
+ CellTags->"Choi::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[21279, 654, 90, 1, 36, "Subsection"],
+Cell[21372, 657, 2700, 79, 363, "Text",
+ CellTags->"Chi::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[24109, 741, 93, 1, 36, "Subsection"],
+Cell[24205, 744, 2247, 72, 319, "Text",
+ CellTags->"Kraus::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[26489, 821, 101, 1, 37, "Subsection"],
+Cell[26593, 824, 2594, 78, 341, "Text",
+ CellTags->"Stinespring::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[29224, 907, 105, 1, 37, "Subsection"],
+Cell[29332, 910, 2231, 71, 319, "Text",
+ CellTags->"SysEnv::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[31600, 986, 98, 1, 37, "Subsection"],
+Cell[31701, 989, 258, 9, 33, "Text",
+ CellTags->"ChannelRep::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[31996, 1003, 105, 1, 36, "Subsection"],
+Cell[32104, 1006, 411, 12, 33, "Text",
+ CellTags->"ChannelParameters::usage"]
+}, Closed]]
+}, Closed]],
+Cell[32542, 1022, 97, 1, 51, "Section"],
+Cell[32642, 1025, 104, 1, 51, "Section"],
+Cell[32749, 1028, 101, 1, 51, "Section"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

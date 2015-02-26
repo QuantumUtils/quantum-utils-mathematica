@@ -1,0 +1,482 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18981,        473]
+NotebookOptionsPosition[     17025,        401]
+NotebookOutlinePosition[     17593,        424]
+CellTagsIndexPosition[     17508,        419]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["QuantumSystems Documentation", "Chapter",
+ CellChangeTimes->{{3.6333515346579514`*^9, 3.63335154627586*^9}, {
+  3.633364320690548*^9, 3.63336432261762*^9}, {3.633781291117386*^9, 
+  3.633781292159832*^9}, {3.633781364287074*^9, 3.633781398056273*^9}, {
+  3.6337814322542763`*^9, 3.633781434518094*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Section",
+ CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
+  3.6337812001050663`*^9, 3.633781202247016*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<QuantumSystems`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
+  3.633781146956828*^9, 3.633781148275402*^9}, {3.633781294331254*^9, 
+  3.633781296275483*^9}, {3.633781369011711*^9, 3.633781370275049*^9}, {
+  3.633781401233733*^9, 3.633781430288822*^9}}],
+
+Cell["\<\
+The following packages are needed to run some code found in this \
+documentation notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.633781139005548*^9, 3.6337811426309013`*^9}}]
+}, Open  ]],
+
+Cell["Introduction and Overview", "Section",
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Section One", "Section",
+ CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
+  3.633441643373975*^9, 3.633441643471745*^9}}],
+
+Cell["\<\
+These sections (at the alt-4 level) enclose a collection of related features \
+in PackageName`. Optionally include an overview of this section. For a simple \
+package, only one section may be necessary, in which case it can be named \
+\[OpenCurlyDoubleQuote]Documentation\[CloseCurlyDoubleQuote]. Otherwise, its \
+name should be descriptive of its content.\
+\>", "Text",
+ CellChangeTimes->{{3.633352718874905*^9, 3.633352796074266*^9}, {
+  3.633352907529645*^9, 3.633352990643149*^9}, {3.633364346082567*^9, 
+  3.633364348179593*^9}}],
+
+Cell["\<\
+Make sure to close these sections and subsections after you edit and save \
+them, so that they are closed when the next person opens up this document. \
+Delete this cell in a real documentation notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.633352498409808*^9, 3.6333525070688953`*^9}, {
+  3.633352539680212*^9, 3.633352547934619*^9}, {3.6333525922295628`*^9, 
+  3.6333526099751253`*^9}, {3.633352698037365*^9, 3.6333527113282022`*^9}, {
+  3.633352882671589*^9, 3.6333528847360783`*^9}}],
+
+Cell["\<\
+For a very long or complicated package, this section can contain a list of \
+hyperlinks to other notebooks. See dev-guide/DocTools-usage.nb for some \
+details on this.\
+\>", "Text",
+ CellChangeTimes->{{3.633353670049192*^9, 3.6333537929798117`*^9}, {
+  3.6333540326406937`*^9, 3.633354036175269*^9}, {3.6334416154785757`*^9, 
+  3.6334416341572027`*^9}}],
+
+Cell["\<\
+If a package mainly exposes one or two powerful functions with tons of \
+options, it is appropriate to give an overview of that function here, where \
+each feature describes an option or something like that.\
+\>", "Text",
+ CellChangeTimes->{{3.6333768171261597`*^9, 3.633376884812766*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Feature 1", "Subsection",
+ CellChangeTimes->{{3.633352631378475*^9, 3.6333526519246817`*^9}}],
+
+Cell["\<\
+A feature is a single function or a group of very closely related functions \
+from PackageName`. If a single function, name it the same as the function, \
+otherwise, give a descriptive name.\
+\>", "Text",
+ CellChangeTimes->{{3.6333528322698936`*^9, 3.633352846397736*^9}, {
+  3.633352891416999*^9, 3.633352899980638*^9}, {3.6333530077222557`*^9, 
+  3.6333530365601177`*^9}, {3.633364356626809*^9, 3.633364357940261*^9}}],
+
+Cell["Include the usage string for each function here, eg:", "Text",
+ CellChangeTimes->{{3.633353080254806*^9, 3.633353109741432*^9}, {
+  3.633353272636252*^9, 3.6333532729137573`*^9}, {3.633354091708905*^9, 
+  3.633354092199955*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"?", "KroneckerProduct"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "MinimalBy"}]}], "Input",
+ CellChangeTimes->{{3.633353111582952*^9, 3.633353152870214*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["\<\"\!\(\*RowBox[{\\\"KroneckerProduct\\\", \\\"[\\\", \
+RowBox[{SubscriptBox[StyleBox[\\\"m\\\", \\\"TI\\\"], StyleBox[\\\"1\\\", \
+\\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"m\\\", \\\"TI\\\"], \
+StyleBox[\\\"2\\\", \\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\
+\"TR\\\"]}], \\\"]\\\"}]\) constructs the Kronecker product of the arrays \
+\!\(\*SubscriptBox[StyleBox[\\\"m\\\", \\\"TI\\\"], StyleBox[\\\"i\\\", \
+\\\"TI\\\"]]\).\"\>", "MSG"], "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/KroneckerProduct"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.633353153149815*^9},
+ CellTags->"Info3633335153-4635662"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["\<\"\\!\\(\\*RowBox[{\\\"MinimalBy\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"{\\\", RowBox[{SubscriptBox[StyleBox[\\\"e\\\", \
+\\\"TI\\\"], StyleBox[\\\"1\\\", \\\"TR\\\"]], \\\",\\\", \
+SubscriptBox[StyleBox[\\\"e\\\", \\\"TI\\\"], StyleBox[\\\"2\\\", \
+\\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\
+\"}], \\\",\\\", StyleBox[\\\"f\\\", \\\"TI\\\"]}], \\\"]\\\"}]\\) returns a \
+list of the \\!\\(\\*SubscriptBox[StyleBox[\\\"e\\\", \\\"TI\\\"], \
+StyleBox[\\\"i\\\", \\\"TI\\\"]]\\) for which the value of \
+\\!\\(\\*RowBox[{StyleBox[\\\"f\\\", \\\"TI\\\"], \\\"[\\\", \
+SubscriptBox[StyleBox[\\\"e\\\", \\\"TI\\\"], StyleBox[\\\"i\\\", \
+\\\"TI\\\"]], \\\"]\\\"}]\\) is \
+minimal.\\n\\!\\(\\*RowBox[{\\\"MinimalBy\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"{\\\", RowBox[{SubscriptBox[StyleBox[\\\"e\\\", \
+\\\"TI\\\"], StyleBox[\\\"1\\\", \\\"TR\\\"]], \\\",\\\", \
+SubscriptBox[StyleBox[\\\"e\\\", \\\"TI\\\"], StyleBox[\\\"2\\\", \
+\\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\
+\"}], \\\",\\\", StyleBox[\\\"f\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"n\\\
+\", \\\"TI\\\"]}], \\\"]\\\"}]\\) returns a list of the \
+\\!\\(\\*SubscriptBox[StyleBox[\\\"e\\\", \\\"TI\\\"], StyleBox[\\\"i\\\", \\\
+\"TI\\\"]]\\) corresponding to the \\!\\(\\*StyleBox[\\\"n\\\", \
+\\\"TI\\\"]\\) smallest \\!\\(\\*RowBox[{StyleBox[\\\"f\\\", \\\"TI\\\"], \
+\\\"[\\\", SubscriptBox[StyleBox[\\\"e\\\", \\\"TI\\\"], StyleBox[\\\"i\\\", \
+\\\"TI\\\"]], \\\"]\\\"}]\\).\\n\\!\\(\\*RowBox[{\\\"MinimalBy\\\", \
+\\\"[\\\", StyleBox[\\\"f\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents an \
+operator form of MinimalBy that can be applied to an expression.\"\>", "MSG"],
+   "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/MinimalBy"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.633353153227255*^9},
+ CellTags->"Info3633335153-4635662"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.633354110058621*^9, 3.633354110780126*^9}}],
+
+Cell["\<\
+If the function has options, enumerate and/or describe them here. If the \
+options have usage text, use the DisplayOptions function provided by \
+DocTools` as demonstrated below. If options are complicated, enumerate them \
+here, but provide an example in a later section.\
+\>", "Text",
+ CellChangeTimes->{{3.633354117552045*^9, 3.633354132974325*^9}, {
+  3.633354224096858*^9, 3.633354258990128*^9}, {3.633354332072023*^9, 
+  3.633354388688039*^9}, {3.633376907405157*^9, 3.633376935974557*^9}}],
+
+Cell[BoxData[
+ RowBox[{"DisplayOptions", "[", "NDSolve", "]"}]], "Input",
+ CellChangeTimes->{{3.633354159237212*^9, 3.633354163480837*^9}, {
+  3.6333542908439713`*^9, 3.6333543146748953`*^9}, {3.633376941532482*^9, 
+  3.633376970259624*^9}}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox["Option", "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Default", " ", "Value"}], "Text",
+     FontWeight->Bold], 
+    StyleBox["Description", "Text",
+     FontWeight->Bold]},
+   {"AccuracyGoal", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "AccuracyGoal", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      "various", " ", "numerical", " ", "operations", " ", "which", " ", 
+      "specifies", " ", "how", " ", "many", " ", "effective", " ", "digits", 
+      " ", "of", " ", "accuracy", " ", "should", " ", "be", " ", "sought", 
+      " ", "in", " ", "the", " ", "final", " ", 
+      RowBox[{"result", ".", " "}]}], "Text"]},
+   {"Compiled", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "Compiled", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      "various", " ", "numerical", " ", "and", " ", "plotting", " ", 
+      "functions", " ", "which", " ", "specifies", " ", "whether", " ", "the",
+       " ", "expressions", " ", "they", " ", "work", " ", "with", " ", 
+      "should", " ", "automatically", " ", "be", " ", 
+      RowBox[{"compiled", ".", " "}]}], "Text"]},
+   {"DependentVariables", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "DependentVariables", " ", "is", " ", "an", " ", "option", " ", "for", 
+      " ", "NDSolve", " ", "and", " ", "other", " ", "functions", " ", "that",
+       " ", "specifies", " ", "the", " ", "list", " ", "of", " ", "all", " ", 
+      "objects", " ", "that", " ", "should", " ", "be", " ", "considered", 
+      " ", "as", " ", "dependent", " ", "variables", " ", "in", " ", 
+      "equations", " ", "that", " ", "have", " ", "been", " ", 
+      RowBox[{"supplied", "."}]}], "Text"]},
+   {"DiscreteVariables", 
+    RowBox[{"{", "}"}], 
+    StyleBox[
+     RowBox[{
+     "DiscreteVariables", " ", "is", " ", "an", " ", "option", " ", "for", 
+      " ", "NDSolve", " ", "and", " ", "other", " ", "functions", " ", "that",
+       " ", "specifies", " ", "variables", " ", "that", " ", "only", " ", 
+      "change", " ", "at", " ", "discrete", " ", "times", " ", "in", " ", "a",
+       " ", "temporal", " ", 
+      RowBox[{"integration", "."}]}], "Text"]},
+   {"EvaluationMonitor", "None", 
+    StyleBox[
+     RowBox[{
+     "EvaluationMonitor", " ", "is", " ", "an", " ", "option", " ", "for", 
+      " ", "various", " ", "numerical", " ", "computation", " ", "and", " ", 
+      "plotting", " ", "functions", " ", "that", " ", "gives", " ", "an", " ",
+       "expression", " ", "to", " ", "evaluate", " ", "whenever", " ", 
+      "functions", " ", "derived", " ", "from", " ", "the", " ", "input", " ",
+       "are", " ", "evaluated", " ", 
+      RowBox[{"numerically", ".", " "}]}], "Text"]},
+   {"InterpolationOrder", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "InterpolationOrder", " ", "is", " ", "an", " ", "option", " ", "for", 
+       " ", "Interpolation"}], ",", " ", 
+      RowBox[{"as", " ", "well", " ", "as", " ", "ListLinePlot"}], ",", " ", 
+      "ListPlot3D", ",", " ", "ListContourPlot", ",", " ", 
+      RowBox[{"and", " ", "related", " ", "functions"}], ",", " ", 
+      RowBox[{
+      "that", " ", "specifies", " ", "what", " ", "order", " ", "of", " ", 
+       "interpolation", " ", "to", " ", 
+       RowBox[{"use", "."}]}]}], "Text"]},
+   {"MaxStepFraction", 
+    FractionBox["1", "10"], 
+    StyleBox[
+     RowBox[{
+     "MaxStepFraction", " ", "is", " ", "an", " ", "option", " ", "to", " ", 
+      "functions", " ", "like", " ", "NDSolve", " ", "that", " ", "specifies",
+       " ", "the", " ", "maximum", " ", "fraction", " ", "of", " ", "the", 
+      " ", "total", " ", "range", " ", "to", " ", "cover", " ", "in", " ", 
+      "a", " ", "single", " ", 
+      RowBox[{"step", "."}]}], "Text"]},
+   {"MaxSteps", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "MaxSteps", " ", "is", " ", "an", " ", "option", " ", "to", " ", 
+      "functions", " ", "like", " ", "NDSolve", " ", "that", " ", "specifies",
+       " ", "the", " ", "maximum", " ", "number", " ", "of", " ", "steps", 
+      " ", "to", " ", "take", " ", "in", " ", "generating", " ", "a", " ", 
+      RowBox[{"result", "."}]}], "Text"]},
+   {"MaxStepSize", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "MaxStepSize", " ", "is", " ", "an", " ", "option", " ", "to", " ", 
+      "functions", " ", "like", " ", "NDSolve", " ", "that", " ", "specifies",
+       " ", "the", " ", "maximum", " ", "size", " ", "of", " ", "a", " ", 
+      "single", " ", "step", " ", "used", " ", "in", " ", "generating", " ", 
+      "a", " ", 
+      RowBox[{"result", "."}]}], "Text"]},
+   {"Method", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "Method", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+       "various", " ", "algorithm"}], "-", 
+      RowBox[{
+      "intensive", " ", "functions", " ", "that", " ", "specifies", " ", 
+       "what", " ", "internal", " ", "methods", " ", "they", " ", "should", 
+       " ", 
+       RowBox[{"use", "."}]}]}], "Text"]},
+   {"NormFunction", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "NormFunction", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      "functions", " ", "such", " ", "as", " ", "FindFit", " ", "and", " ", 
+      "NDSolve", " ", "which", " ", "gives", " ", "a", " ", "function", " ", 
+      "to", " ", "be", " ", "minimized", " ", "in", " ", "generating", " ", 
+      RowBox[{"results", "."}]}], "Text"]},
+   {"PrecisionGoal", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "PrecisionGoal", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      "various", " ", "numerical", " ", "operations", " ", "which", " ", 
+      "specifies", " ", "how", " ", "many", " ", "effective", " ", "digits", 
+      " ", "of", " ", "precision", " ", "should", " ", "be", " ", "sought", 
+      " ", "in", " ", "the", " ", "final", " ", 
+      RowBox[{"result", ".", " "}]}], "Text"]},
+   {"StartingStepSize", "Automatic", 
+    StyleBox[
+     RowBox[{
+     "StartingStepSize", " ", "is", " ", "an", " ", "option", " ", "to", " ", 
+      "NDSolve", " ", "and", " ", "related", " ", "functions", " ", "that", 
+      " ", "specifies", " ", "the", " ", "initial", " ", "step", " ", "size", 
+      " ", "to", " ", "use", " ", "in", " ", "trying", " ", "to", " ", 
+      "generate", " ", 
+      RowBox[{"results", "."}]}], "Text"]},
+   {"StepMonitor", "None", 
+    StyleBox[
+     RowBox[{
+     "StepMonitor", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      "iterative", " ", "numerical", " ", "computation", " ", "functions", 
+      " ", "that", " ", "gives", " ", "an", " ", "expression", " ", "to", " ",
+       "evaluate", " ", "whenever", " ", "a", " ", "step", " ", "is", " ", 
+      "taken", " ", "by", " ", "the", " ", "numerical", " ", "method", " ", 
+      RowBox[{"used", ".", " "}]}], "Text"]},
+   {"WorkingPrecision", "MachinePrecision", 
+    StyleBox[
+     RowBox[{
+     "WorkingPrecision", " ", "is", " ", "an", " ", "option", " ", "for", " ",
+       "various", " ", "numerical", " ", "operations", " ", "that", " ", 
+      "specifies", " ", "how", " ", "many", " ", "digits", " ", "of", " ", 
+      "precision", " ", "should", " ", "be", " ", "maintained", " ", "in", 
+      " ", "internal", " ", 
+      RowBox[{"computations", ".", " "}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
+  GridBoxItemSize->{
+   "Columns" -> {Automatic, Automatic, {50}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{1.}}, "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.633377172510384*^9}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.6333526560119343`*^9, 3.633352677447281*^9}}],
+
+Cell["An example of the functions above.", "Text",
+ CellChangeTimes->{{3.633353289494131*^9, 3.633353292042674*^9}, {
+  3.633353329879971*^9, 3.633353335497634*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 2", "Subsubsection",
+ CellChangeTimes->{{3.633352670719235*^9, 3.633352673931554*^9}}],
+
+Cell["Another example of the functions above.", "Text",
+ CellChangeTimes->{{3.6333533427610064`*^9, 3.633353349179962*^9}}]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Feature 2", "Subsection",
+ CellChangeTimes->{{3.6333526394457684`*^9, 3.633352654851429*^9}}],
+
+Cell["Same as feature 1, etc., etc.", "Text",
+ CellChangeTimes->{{3.633353572827725*^9, 3.633353602935569*^9}}]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Section Two", "Section",
+ CellChangeTimes->{{3.633352040880207*^9, 3.633352042744746*^9}}],
+
+Cell["Same as Section One, etc., etc.", "Text",
+ CellChangeTimes->{{3.633353594145348*^9, 3.633353606545936*^9}}]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{1280, 1000},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3633335153-4635662"->{
+  Cell[4618, 122, 767, 15, 44, "Print",
+   CellTags->"Info3633335153-4635662"],
+  Cell[5388, 139, 2000, 34, 82, "Print",
+   CellTags->"Info3633335153-4635662"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3633335153-4635662", 17323, 411}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 308, 4, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[913, 30, 144, 2, 65, "Section"],
+Cell[1060, 34, 339, 5, 32, "Input"],
+Cell[1402, 41, 182, 4, 33, "Text"]
+}, Open  ]],
+Cell[1599, 48, 110, 1, 65, "Section"],
+Cell[CellGroupData[{
+Cell[1734, 53, 146, 2, 51, "Section"],
+Cell[1883, 57, 544, 9, 55, "Text"],
+Cell[2430, 68, 496, 8, 55, "Text"],
+Cell[2929, 78, 363, 7, 33, "Text"],
+Cell[3295, 87, 299, 5, 55, "Text"],
+Cell[CellGroupData[{
+Cell[3619, 96, 99, 1, 44, "Subsection"],
+Cell[3721, 99, 430, 7, 55, "Text"],
+Cell[4154, 108, 234, 3, 33, "Text"],
+Cell[CellGroupData[{
+Cell[4413, 115, 180, 3, 55, "Input"],
+Cell[CellGroupData[{
+Cell[4618, 122, 767, 15, 44, "Print",
+ CellTags->"Info3633335153-4635662"],
+Cell[5388, 139, 2000, 34, 82, "Print",
+ CellTags->"Info3633335153-4635662"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7437, 179, 98, 1, 35, "Subsubsection"],
+Cell[7538, 182, 506, 8, 55, "Text"],
+Cell[8047, 192, 241, 4, 32, "Input"],
+Cell[8291, 198, 7613, 160, 734, "Text"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[15941, 363, 102, 1, 29, "Subsubsection"],
+Cell[16046, 366, 165, 2, 33, "Text"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[16248, 373, 100, 1, 29, "Subsubsection"],
+Cell[16351, 376, 123, 1, 33, "Text"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[16523, 383, 99, 1, 36, "Subsection"],
+Cell[16625, 386, 111, 1, 33, "Text"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[16785, 393, 96, 1, 51, "Section"],
+Cell[16884, 396, 113, 1, 33, "Text"]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
