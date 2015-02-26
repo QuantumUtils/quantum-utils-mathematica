@@ -1,6 +1,6 @@
-# QuantumUtils
+# QuantumUtils for Mathematica
 
-QuantumUtils is a Mathematica software library for quantum information scientists. Features include:
+QuantumUtils for Mathematica is a software library for quantum information scientists. Features include:
 
  - Multi-partite tensor manipulations
  - Quantum system modelling including qudits, circuits, spins, and cavities
@@ -14,13 +14,13 @@ Once this repository is cloned onto your computer, open the *Install.nb* noteboo
 
 The installation places and/or symlinks files in your *`$UserBaseDirectory`/Applications* folder. 
 
-## Using QuantumUtils Mathematica
+## Using QuantumUtils for Mathematica
 
-Packages from the QuantumUtils library can then be loaded by invoking the `Needs` function, for example:
+Packages from the QuantumUtils for Mathematica library can then be loaded by invoking the `Needs` function, for example:
 
-    Needs["QSim`"];
+    Needs["QuantumChannel`"];
     
-All packages provided by QuantumUtils can be loaded simultaneously by needsing QuantumUtils`:
+All packages provided by QuantumUtils for Mathematica can be loaded simultaneously by needsing QuantumUtils`:
 
     Needs["QuantumUtils`"]
     
@@ -29,8 +29,6 @@ All packages provided by QuantumUtils can be loaded simultaneously by needsing Q
 Documentation is stored as *.nb* notebooks in the *doc* folder. The documentation index can be opened from within Mathematica at any time by evaluating:
 
     <<QUDoc`
-    
-Note the necessary backtick.
 
 Additionally, each function implemented by QuantumUtils should come with a `usage` tag. This tag can be displayed using the `?` symbol as with built-in functions:
 
