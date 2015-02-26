@@ -1,6 +1,12 @@
 # QuantumUtils
 
-QuantumUtils is a Mathematica library blah blah blah
+QuantumUtils is a Mathematica software library for quantum information scientists. Features include:
+
+ - Multi-partite tensor manipulations
+ - Quantum system modelling including qudits, circuits, spins, and cavities
+ - Quantum channels in multiple representations
+ - Numerical and symbolic simulators for open and closed quantum system evolution
+ - An implementation of GRadient Ascent Pulse Engineering including distortions
 
 ## Installation
 
