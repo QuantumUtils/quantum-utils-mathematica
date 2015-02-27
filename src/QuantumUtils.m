@@ -36,7 +36,8 @@ BeginPackage["QuantumUtils`",{
 	"QuantumChannel`",
 	"LindbladSolver`",
 	"QSim`",
-	"GRAPE`"
+	"GRAPE`",
+	"Visualization`"	
 }];
 
 

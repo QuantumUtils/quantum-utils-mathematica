@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    188696,       4287]
-NotebookOptionsPosition[    183508,       4113]
-NotebookOutlinePosition[    184879,       4158]
-CellTagsIndexPosition[    184550,       4147]
+NotebookDataLength[    183018,       4156]
+NotebookOptionsPosition[    177948,       3985]
+NotebookOutlinePosition[    179362,       4032]
+CellTagsIndexPosition[    179033,       4021]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -31,52 +31,10 @@ Cell["Preamble", "Section",
  CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
   3.633781241567971*^9, 3.633781243127653*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<Visualization`\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
-  3.633459703938384*^9, 3.633459707396385*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Attributes", "::", "attnf"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(HoldRestComplete\\)\[NoBreak] is not a \
-known attribute. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\
-\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/Attributes/attnf\\\", ButtonNote -> \
-\\\"Attributes::attnf\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.633703441626316*^9, 3.633703523904957*^9, 
-  3.633704594723797*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"SetDelayed", "::", "write"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Tag \[NoBreak]\\!\\(NormalMatrixQ\\)\[NoBreak] in \
-\[NoBreak]\\!\\(NormalMatrixQ[M_]\\)\[NoBreak] is Protected. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/write\\\", \
-ButtonNote -> \\\"SetDelayed::write\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.633703441626316*^9, 3.633703523904957*^9, 
-  3.6337045947775707`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"SetDelayed", "::", "write"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Tag \[NoBreak]\\!\\(SquareMatrixQ\\)\[NoBreak] in \
-\[NoBreak]\\!\\(SquareMatrixQ[M_]\\)\[NoBreak] is Protected. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/write\\\", \
-ButtonNote -> \\\"SetDelayed::write\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.633703441626316*^9, 3.633703523904957*^9, 
-  3.633704594827805*^9}]
-}, Open  ]]
+  3.633459703938384*^9, 3.633459707396385*^9}}]
 }, Open  ]],
 
 Cell["Introduction and Overview", "Section",
@@ -95,38 +53,19 @@ Cell["ComplexMatrixPlot", "Subsection",
  CellChangeTimes->{{3.633352631378475*^9, 3.6333526519246817`*^9}, {
   3.63345974116625*^9, 3.633459743554513*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   StyleBox[
-    RowBox[{"ComplexMatrixPlot", "[", "A", "]"}], "Input"], "is", " ", 
-   "designed", " ", "to", " ", "graphically", " ", "display", " ", "complex", 
-   " ", 
-   RowBox[{"matrices", ".", "The"}], " ", "element", " ", "amplitudes", " ", 
-   "are", " ", "displayed", " ", "as", " ", "heights", " ", "of", " ", "a", 
-   " ", "3", "D", " ", "bar", " ", "graph"}], ",", 
-  RowBox[{
-  "with", " ", "the", " ", "sign", " ", "of", " ", "a", " ", "height", " ", 
-   "determined", " ", "by", " ", "which", " ", "half", " ", "of", " ", "the", 
-   " ", "imaginary", " ", "plane", " ", "it", " ", "lies", " ", "in"}], ",", 
-  RowBox[{
-   RowBox[{"top", " ", "or", " ", 
-    RowBox[{"bottom", ".", "The"}], " ", "color", " ", "of", " ", "a", " ", 
-    "bar", " ", "represents", " ", "the", " ", "absolute", " ", "value", " ", 
-    "of", " ", "its", " ", "argument"}], ";", 
-   RowBox[{
-    RowBox[{"a", " ", "phase", " ", "of", " ", 
-     RowBox[{"\[Pi]", "/", "2"}], " ", "and"}], "-", 
-    RowBox[{
-     RowBox[{"\[Pi]", "/", "2"}], " ", "will", " ", "have", " ", "the", " ", 
-     "same", " ", "color", " ", 
-     RowBox[{
-      RowBox[{"(", 
-       RowBox[{
-       "but", " ", "their", " ", "heights", " ", "will", " ", "have", " ", 
-        "opposite", " ", "signs"}], ")"}], "."}]}]}]}]}]], "Text",
- CellChangeTimes->{{3.6334609572312317`*^9, 3.633460972160935*^9}, {
-  3.6337018763719683`*^9, 3.633701877658983*^9}},
+Cell[TextData[{
+ StyleBox["ComplexMatrixPlot[A] ", "Input",
+  FontWeight->"Bold"],
+ "is designed to graphically display complex matrices.The element amplitudes \
+are displayed as heights of a 3D bar graph,with the sign of a height \
+determined by which half of the imaginary plane it lies in,top or bottom.The \
+color of a bar represents the absolute value of its argument;a phase of \
+\[Pi]/2 and-\[Pi]/2 will have the same color (but their heights will have \
+opposite signs)."
+}], "Text",
+ CellChangeTimes->{
+  3.63405101823304*^9, 3.634051131266315*^9, {3.63405147532617*^9, 
+   3.634051475742031*^9}},
  CellTags->"ComplexMatrixPlot::usage"],
 
 Cell[CellGroupData[{
@@ -1731,7 +1670,7 @@ OmSFnaE5yyDY6gl6Fs9eMMcMO8Pu4P5lnQ/RxTpnmVxD7Ax/QXrd2Uz0mWdL
  CellChangeTimes->{{3.633700537849766*^9, 3.633700599930601*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1739,36 +1678,30 @@ Cell["BlockForm", "Subsection",
  CellChangeTimes->{{3.6333526394457684`*^9, 3.633352654851429*^9}, {
   3.633459759056725*^9, 3.633459761036483*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   StyleBox[
-    RowBox[{"BlockForm", "[", 
-     RowBox[{"A", ",", "n"}], "]"}], "Input"], "is", " ", "similar", " ", 
-   "to", " ", 
-   StyleBox["MatrixForm", "Input"]}], ",", 
-  RowBox[{"but", " ", "prints", " ", "the", " ", "matrix", " ", 
-   StyleBox["A", "Input"], 
-   StyleBox[" ", "Input"], "in", " ", "block", " ", "form", " ", "with", " ", 
-   "dividers", " ", "every", " ", 
-   StyleBox["n", "Input"], 
-   StyleBox[" ", "Input"], "columns", " ", "and", " ", 
-   RowBox[{"rows", ".", "If"}], " ", "the", " ", "argument", " ", 
-   StyleBox["n", "Input"], 
-   StyleBox[" ", "Input"], "is", " ", "omitted"}], ",", " ", 
-  RowBox[{
-   StyleBox[
-    RowBox[{
-     RowBox[{"Length", "[", "A", "]"}], "/", "p"}], "Input"], 
-   StyleBox[" ", "Input"], "is", " ", "assumed"}], ",", 
-  RowBox[{"where", " ", 
-   StyleBox["p", "Input"], 
-   StyleBox[" ", "Input"], "is", " ", "the", " ", "smallest", " ", "prime", 
-   " ", "factor", " ", "of", " ", 
-   RowBox[{
-    StyleBox[
-     RowBox[{"Length", "[", "A", "]"}], "Input"], "."}]}]}]], "Text",
- CellChangeTimes->{{3.633700860754767*^9, 3.633700922708621*^9}},
+Cell[TextData[{
+ StyleBox["BlockForm[A,n]", "Input",
+  FontWeight->"Bold"],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ "is similar to ",
+ StyleBox["MatrixForm", "Input"],
+ ",but prints the matrix ",
+ StyleBox["A", "Input"],
+ " in block form with dividers every n columns and rows.If the argument n is \
+omitted, ",
+ StyleBox["Length[A]/p", "Input",
+  FontWeight->"Bold"],
+ " is assumed,where ",
+ StyleBox["p", "Input",
+  FontWeight->"Bold"],
+ " is the smallest prime factor of ",
+ StyleBox["Length[A]", "Input",
+  FontWeight->"Bold"],
+ "."
+}], "Text",
+ CellChangeTimes->{
+  3.6340511727280617`*^9, {3.6340512636676607`*^9, 3.6340512644777603`*^9}, {
+   3.63405156175956*^9, 3.634051565078553*^9}},
  CellTags->"BlockForm::usage"],
 
 Cell[CellGroupData[{
@@ -1920,7 +1853,7 @@ Cell[BoxData[
  CellChangeTimes->{3.633701041401278*^9}]
 }, Open  ]]
 }, Closed]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1933,21 +1866,17 @@ Cell[CellGroupData[{
 Cell["BlochPlot", "Subsection",
  CellChangeTimes->{{3.633703384175787*^9, 3.633703386518056*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   StyleBox[
-    RowBox[{"BlochPlot", "[", "state", "]"}], "Input"], 
-   StyleBox[" ", "Input"], "plots", 
-   StyleBox[" ", "Input"], 
-   StyleBox["state", "Input"], 
-   StyleBox[" ", "Input"], "on", " ", "a", " ", "3", "D", " ", "Bloch", " ", 
-   "sphere"}], ",", 
-  RowBox[{
-  "where", " ", "the", " ", "state", " ", "can", " ", "be", " ", "a", " ", 
-   "pure", " ", "state", " ", "or", " ", "a", " ", "density", " ", 
-   RowBox[{"matrix", "."}]}]}]], "Text",
- CellChangeTimes->{{3.633704300418047*^9, 3.633704355001663*^9}},
+Cell[TextData[{
+ StyleBox["BlochPlot[state]", "Input"],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ "plots ",
+ StyleBox["state", "Input"],
+ " on a 3D Bloch sphere,where the ",
+ StyleBox["state", "Input"],
+ " can be a pure state or a density matrix."
+}], "Text",
+ CellChangeTimes->{3.634051248629797*^9},
  CellTags->"BlochPlot::usage"],
 
 Cell[CellGroupData[{
@@ -2375,72 +2304,58 @@ J7z//z97wf8A8nzCiw==
  CellChangeTimes->{{3.6337034659243717`*^9, 3.633703494181971*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["BlochPlot2D", "Subsection",
  CellChangeTimes->{{3.633703388935305*^9, 3.633703391262722*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   StyleBox[
-    RowBox[{"BlochPlot2D", "[", "state", "]"}], "Input"], 
-   StyleBox[" ", "Input"], "plots", 
-   StyleBox[" ", "Input"], 
-   StyleBox["state", "Input"], 
-   StyleBox[" ", "Input"], "onto", " ", "XZ"}], ",", " ", "YZ", ",", " ", 
-  RowBox[{"and", " ", "XY", "  ", "2", "D", " ", "projections"}], ",", 
-  RowBox[{
-  "where", " ", "the", " ", "state", " ", "can", " ", "be", " ", "a", " ", 
-   "pure", " ", "state", " ", "or", " ", "a", " ", "density", " ", 
-   RowBox[{"matrix", "."}]}]}]], "Text",
- CellChangeTimes->{{3.633704300418047*^9, 3.633704355001663*^9}, {
-  3.63370438669431*^9, 3.633704409351214*^9}, {3.633704522944481*^9, 
-  3.6337045239963007`*^9}},
+Cell[TextData[{
+ StyleBox["BlochPlot2D[state]", "Input"],
+ " plots ",
+ StyleBox["state", "Input"],
+ " onto XZ, YZ, and XY  2D projections,where the ",
+ StyleBox["state", "Input"],
+ " can be a pure state or a density matrix."
+}], "Text",
+ CellChangeTimes->{3.6340512281334*^9},
  CellTags->"BlochPlot2D::usage"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ListBlochPlot", "Subsection",
  CellChangeTimes->{{3.63370339265213*^9, 3.63370340136805*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ListBlochPlot", "[", "states", "]"}], "Input"], 
-  StyleBox[" ", "Input"], "plots", " ", "a", " ", "list", " ", "of", " ", 
-  "density", " ", "matrices", " ", "onto", " ", "a", " ", "3", "D", " ", 
-  "Bloch", " ", 
-  RowBox[{"sphere", "."}]}]], "Text",
- CellChangeTimes->{{3.633704300418047*^9, 3.633704355001663*^9}, {
-  3.6337044437359667`*^9, 3.633704466175931*^9}, {3.6337045041337643`*^9, 
-  3.63370450440924*^9}},
+Cell[TextData[{
+ StyleBox["ListBlochPlot[states]", "Input"],
+ " plots a list of states onto a 3D Bloch sphere, where the ",
+ StyleBox["states", "Input"],
+ " can be a list of pure state vectors or a list of density matrix."
+}], "Text",
+ CellChangeTimes->{
+  3.634051217389686*^9, {3.634051376585363*^9, 3.634051385226553*^9}, {
+   3.6340514186856937`*^9, 3.634051421866949*^9}},
  CellTags->"ListBlochPlot::usage"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ListBlochPlot2D", "Subsection",
  CellChangeTimes->{{3.633703404255406*^9, 3.6337034078398867`*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   StyleBox[
-    RowBox[{"ListBlochPlot2D", "[", "states", "]"}], "Input"], 
-   StyleBox[" ", "Input"], "plots", " ", "a", " ", "list", " ", "of", " ", 
-   "density", " ", "matrices", " ", "onto", " ", "XZ"}], ",", " ", "YZ", ",", 
-  " ", 
-  RowBox[{"and", " ", "XY", " ", "2", "D", " ", 
-   RowBox[{"projections", "."}]}]}]], "Text",
- CellChangeTimes->{{3.633704300418047*^9, 3.633704355001663*^9}, {
-  3.6337044437359667`*^9, 3.6337045199274282`*^9}},
+Cell[TextData[{
+ StyleBox["ListBlochPlot2D[states]", "Input"],
+ " plots a list of states onto XZ, YZ, and XY 2D projections, where the ",
+ StyleBox["states", "Input"],
+ " can be a list of pure state vectors or a list of density matrix."
+}], "Text",
+ CellChangeTimes->{
+  3.63405120635367*^9, {3.634051387959518*^9, 3.634051412674863*^9}},
  CellTags->"ListBlochPlot2D::usage"]
-}, Closed]]
-}, Open  ]],
+}, Open  ]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2456,79 +2371,36 @@ Cell["FourierListPlot", "Subsection",
  CellChangeTimes->{{3.633702160143949*^9, 3.633702165246875*^9}, {
   3.633702612717472*^9, 3.633702612816992*^9}}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   StyleBox[
-    RowBox[{"FourierListPlot", "[", 
-     RowBox[{"data", ",", " ", 
-      RowBox[{"{", 
-       RowBox[{"mint", ",", "maxt"}], "}"}], ",", " ", "function"}], "]"}], 
-    "Input"], 
-   StyleBox[" ", "Input"], "is", " ", "very", " ", "similar", " ", "to", 
-   StyleBox[" ", "Input"], 
-   StyleBox[
-    RowBox[{"ListPlot", "[", "data", "]"}], "Input"]}], ",", 
-  RowBox[{"except", " ", "that", " ", "the", " ", 
-   RowBox[{"(", 
-    RowBox[{"single", " ", "sided", " ", "spectrum"}], ")"}], " ", "discrete",
-    " ", "Fourier", " ", "transform", " ", "of", " ", "data", " ", 
-   RowBox[{"(", 
-    RowBox[{"or", " ", "each", " ", "sublist", " ", "thereof"}], ")"}], " ", 
-   "is", " ", 
-   RowBox[{"plotted", ".", 
-    StyleBox[" ", "Input"], 
-    StyleBox["mint", "Input"]}], 
-   StyleBox[" ", "Input"], "and", 
-   StyleBox[" ", "Input"], 
-   StyleBox["maxt", "Input"], 
-   StyleBox[" ", "Input"], "are", " ", "the", " ", "minimum", " ", "and", " ",
-    "maximum", " ", "time", " ", "domain", " ", "points"}], ",", 
-  RowBox[{
-  "with", " ", "an", " ", "assumed", " ", "linear", " ", "spacing", " ", "on",
-    " ", "the", " ", 
-   RowBox[{"data", ".", "function"}], " ", "is", " ", "a", " ", "function", 
-   " ", "or", " ", "list", " ", "of", " ", "functions", " ", "you", " ", 
-   "want", " ", "to", " ", "plot"}], ",", 
-  RowBox[{"eg", ".", 
-   StyleBox[" ", "Input"], 
-   StyleBox["Abs", "Input"]}], ",", 
-  RowBox[{"or", 
-   StyleBox[" ", "Input"], 
-   RowBox[{
-    StyleBox[
-     RowBox[{"{", 
-      RowBox[{"Re", ",", "Im"}], "}"}], "Input"], ".", "All"}], " ", 
-   "options", " ", "available", " ", 
-   StyleBox[
-    RowBox[{"to", 
-     StyleBox["ListPlot", "Input"], "may"}]], " ", "be", " ", "added"}], ",", 
-  
-  RowBox[{
-   RowBox[{"e", ".", "g", ".", 
-    StyleBox[" ", "Input"], 
-    StyleBox["Joined", "Input"]}], 
-   StyleBox["->", "Input"], 
-   RowBox[{
-    RowBox[{
-     StyleBox["True", "Input"], ".", "Of"}], " ", "special", " ", "note", " ", 
-    StyleBox[
-     RowBox[{"is", 
-      StyleBox["DataRange", "Input"]}]]}]}], ",", 
-  RowBox[{"which", " ", "must", " ", "either", " ", "be", 
-   StyleBox[" ", "Input"], 
-   StyleBox["Automatic", "Input"], 
-   StyleBox[" ", "Input"], "or", 
-   StyleBox[" ", "Input"], 
-   StyleBox[
-    RowBox[{"{", 
-     RowBox[{"minf", ",", "maxf"}], "}"}], "Input"], 
-   StyleBox[" ", "Input"], "which", " ", "are", " ", "in", " ", "units", " ", 
-   "of", " ", 
-   RowBox[{"frequency", "."}]}]}]], "Text",
- CellChangeTimes->{{3.633701853692761*^9, 3.633701867330762*^9}, {
-  3.633701935586158*^9, 3.6337019510652637`*^9}, {3.633702129620514*^9, 
-  3.633702129764613*^9}, {3.633702225407642*^9, 3.633702225446888*^9}},
+Cell[TextData[{
+ StyleBox["FourierListPlot[data,{mint,maxt},function] ", "Input"],
+ "is very similar to ",
+ StyleBox["ListPlot[data]", "Input"],
+ ",except that the (single sided spectrum) discrete Fourier transform of data \
+(or each sublist thereof) is plotted. ",
+ StyleBox["mint", "Input"],
+ " and ",
+ StyleBox["maxt", "Input"],
+ " are the minimum and maximum time domain points,with an assumed linear \
+spacing on the data.function is a function or list of functions you want to \
+plot,eg. ",
+ StyleBox["Abs", "Input"],
+ ",or ",
+ StyleBox["{Re,Im}", "Input"],
+ ". All options available to ",
+ StyleBox["ListPlot", "Input"],
+ " may be added,e.g. ",
+ StyleBox["Joined\[Rule]True", "Input"],
+ ".Of special note is ",
+ StyleBox["DataRange", "Input"],
+ ", which must either be ",
+ StyleBox["Automatic", "Input"],
+ " or ",
+ StyleBox["{minf,maxf}", "Input"],
+ " which are in units of frequency."
+}], "Text",
+ CellChangeTimes->{
+  3.634051196668297*^9, {3.634051493034835*^9, 3.6340514955065393`*^9}, {
+   3.634051531126143*^9, 3.634051557552231*^9}},
  CellTags->"FourierListPlot::usage"],
 
 Cell[CellGroupData[{
@@ -4107,13 +3979,15 @@ ez+CUF9ulzbTTPMhCILDeZ6Cv+l+yoJQOu8YcP0MO38QmqPS7idconrMbqhK
  CellChangeTimes->{{3.633702984783779*^9, 3.633703023844262*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1280, 1000},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
-FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+WindowMargins->{{1282, Automatic}, {Automatic, -11}},
+ShowCellTags->True,
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -4122,171 +3996,166 @@ StyleDefinitions->"Default.nb"
 (*CellTagsOutline
 CellTagsIndex->{
  "ComplexMatrixPlot::usage"->{
-  Cell[3333, 97, 1497, 32, 98, "Text",
+  Cell[1680, 55, 645, 13, 80, "Text",
    CellTags->"ComplexMatrixPlot::usage"]},
  "BlockForm::usage"->{
-  Cell[74444, 1741, 1175, 30, 76, "Text",
+  Cell[71939, 1680, 724, 24, 62, "Text",
    CellTags->"BlockForm::usage"]},
  "BlochPlot::usage"->{
-  Cell[81557, 1935, 593, 15, 31, "Text",
+  Cell[78601, 1868, 329, 11, 42, "Text",
    CellTags->"BlochPlot::usage"]},
  "BlochPlot2D::usage"->{
-  Cell[106583, 2384, 744, 17, 31, "Text",
+  Cell[103363, 2313, 309, 9, 42, "Text",
    CellTags->"BlochPlot2D::usage"]},
  "ListBlochPlot::usage"->{
-  Cell[107466, 2409, 502, 11, 31, "Text",
+  Cell[103811, 2330, 412, 9, 42, "Text",
    CellTags->"ListBlochPlot::usage"]},
  "ListBlochPlot2D::usage"->{
-  Cell[108113, 2428, 525, 12, 31, "Text",
+  Cell[104368, 2347, 375, 8, 42, "Text",
    CellTags->"ListBlochPlot2D::usage"]},
  "FourierListPlot::usage"->{
-  Cell[109175, 2458, 2749, 73, 142, "Text",
+  Cell[105280, 2373, 1084, 30, 101, "Text",
    CellTags->"FourierListPlot::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ComplexMatrixPlot::usage", 183808, 4123},
- {"BlockForm::usage", 183913, 4126},
- {"BlochPlot::usage", 184013, 4129},
- {"BlochPlot2D::usage", 184114, 4132},
- {"ListBlochPlot::usage", 184220, 4135},
- {"ListBlochPlot2D::usage", 184330, 4138},
- {"FourierListPlot::usage", 184442, 4141}
+ {"ComplexMatrixPlot::usage", 178296, 3997},
+ {"BlockForm::usage", 178400, 4000},
+ {"BlochPlot::usage", 178499, 4003},
+ {"BlochPlot2D::usage", 178600, 4006},
+ {"ListBlochPlot::usage", 178705, 4009},
+ {"ListBlochPlot2D::usage", 178814, 4012},
+ {"FourierListPlot::usage", 178925, 4015}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 211, 3, 66, "Chapter"],
+Cell[580, 22, 211, 3, 65, "Chapter"],
 Cell[CellGroupData[{
-Cell[816, 29, 142, 2, 65, "Section"],
-Cell[CellGroupData[{
-Cell[983, 35, 194, 3, 32, "Input"],
-Cell[1180, 40, 512, 11, 23, "Message"],
-Cell[1695, 53, 550, 11, 23, "Message"],
-Cell[2248, 66, 548, 11, 23, "Message"]
-}, Open  ]]
+Cell[816, 29, 142, 2, 64, "Section"],
+Cell[961, 33, 194, 3, 28, "Input"]
 }, Open  ]],
-Cell[2823, 81, 110, 1, 65, "Section"],
+Cell[1170, 39, 110, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[2958, 86, 192, 3, 51, "Section"],
+Cell[1305, 44, 192, 3, 50, "Section"],
 Cell[CellGroupData[{
-Cell[3175, 93, 155, 2, 45, "Subsection"],
-Cell[3333, 97, 1497, 32, 98, "Text",
+Cell[1522, 51, 155, 2, 44, "Subsection"],
+Cell[1680, 55, 645, 13, 80, "Text",
  CellTags->"ComplexMatrixPlot::usage"],
 Cell[CellGroupData[{
-Cell[4855, 133, 98, 1, 35, "Subsubsection"],
-Cell[4956, 136, 260, 7, 33, "Text"],
-Cell[5219, 145, 30860, 675, 3671, "Text"]
+Cell[2350, 72, 98, 1, 35, "Subsubsection"],
+Cell[2451, 75, 260, 7, 31, "Text"],
+Cell[2714, 84, 30860, 675, 2833, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[36116, 825, 151, 2, 29, "Subsubsection"],
-Cell[36270, 829, 158, 3, 33, "Text"],
+Cell[33611, 764, 151, 2, 29, "Subsubsection"],
+Cell[33765, 768, 158, 3, 33, "Text"],
 Cell[CellGroupData[{
-Cell[36453, 836, 322, 10, 32, "Input"],
-Cell[36778, 848, 21240, 501, 298, "Output"]
+Cell[33948, 775, 322, 10, 32, "Input"],
+Cell[34273, 787, 21240, 501, 298, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[58067, 1355, 102, 1, 29, "Subsubsection"],
-Cell[58172, 1358, 166, 3, 33, "Text"],
+Cell[55562, 1294, 102, 1, 29, "Subsubsection"],
+Cell[55667, 1297, 166, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[58363, 1365, 809, 25, 32, "Input"],
-Cell[59175, 1392, 15057, 338, 297, "Output"]
+Cell[55858, 1304, 809, 25, 30, "Input"],
+Cell[56670, 1331, 15057, 338, 297, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[74293, 1737, 148, 2, 36, "Subsection"],
-Cell[74444, 1741, 1175, 30, 76, "Text",
+Cell[71788, 1676, 148, 2, 44, "Subsection"],
+Cell[71939, 1680, 724, 24, 62, "Text",
  CellTags->"BlockForm::usage"],
 Cell[CellGroupData[{
-Cell[75644, 1775, 100, 1, 35, "Subsubsection"],
+Cell[72688, 1708, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[75769, 1780, 308, 9, 32, "Input"],
-Cell[76080, 1791, 2398, 55, 130, "Output"]
+Cell[72813, 1713, 308, 9, 32, "Input"],
+Cell[73124, 1724, 2398, 55, 130, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78515, 1851, 343, 10, 32, "Input"],
-Cell[78861, 1863, 2400, 56, 130, "Output"]
+Cell[75559, 1784, 343, 10, 32, "Input"],
+Cell[75905, 1796, 2400, 56, 130, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[81334, 1927, 98, 1, 65, "Section"],
+Cell[78378, 1860, 98, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[81457, 1932, 97, 1, 44, "Subsection"],
-Cell[81557, 1935, 593, 15, 31, "Text",
+Cell[78501, 1865, 97, 1, 44, "Subsection"],
+Cell[78601, 1868, 329, 11, 42, "Text",
  CellTags->"BlochPlot::usage"],
 Cell[CellGroupData[{
-Cell[82175, 1954, 96, 1, 35, "Subsubsection"],
+Cell[78955, 1883, 96, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[82296, 1959, 177, 4, 32, "Input"],
-Cell[82476, 1965, 23944, 409, 406, "Output"]
+Cell[79076, 1888, 177, 4, 32, "Input"],
+Cell[79256, 1894, 23944, 409, 406, "Output"]
 }, Open  ]]
-}, Closed]]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[106481, 2381, 99, 1, 36, "Subsection"],
-Cell[106583, 2384, 744, 17, 31, "Text",
- CellTags->"BlochPlot2D::usage"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[107364, 2406, 99, 1, 36, "Subsection"],
-Cell[107466, 2409, 502, 11, 31, "Text",
- CellTags->"ListBlochPlot::usage"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[108005, 2425, 105, 1, 36, "Subsection"],
-Cell[108113, 2428, 525, 12, 31, "Text",
- CellTags->"ListBlochPlot2D::usage"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[108687, 2446, 308, 4, 65, "Section"],
+Cell[103261, 2310, 99, 1, 44, "Subsection"],
+Cell[103363, 2313, 309, 9, 42, "Text",
+ CellTags->"BlochPlot2D::usage"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[109020, 2454, 152, 2, 44, "Subsection"],
-Cell[109175, 2458, 2749, 73, 142, "Text",
+Cell[103709, 2327, 99, 1, 44, "Subsection"],
+Cell[103811, 2330, 412, 9, 42, "Text",
+ CellTags->"ListBlochPlot::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[104260, 2344, 105, 1, 44, "Subsection"],
+Cell[104368, 2347, 375, 8, 42, "Text",
+ CellTags->"ListBlochPlot2D::usage"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[104792, 2361, 308, 4, 50, "Section"],
+Cell[CellGroupData[{
+Cell[105125, 2369, 152, 2, 44, "Subsection"],
+Cell[105280, 2373, 1084, 30, 101, "Text",
  CellTags->"FourierListPlot::usage"],
 Cell[CellGroupData[{
-Cell[111949, 2535, 100, 1, 35, "Subsubsection"],
-Cell[112052, 2538, 164, 5, 33, "Text"],
-Cell[112219, 2545, 24844, 547, 3038, "Text"]
+Cell[106389, 2407, 100, 1, 35, "Subsubsection"],
+Cell[106492, 2410, 164, 5, 33, "Text"],
+Cell[106659, 2417, 24844, 547, 3038, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[137100, 3097, 204, 3, 29, "Subsubsection"],
-Cell[137307, 3102, 181, 4, 33, "Text"],
-Cell[137491, 3108, 817, 24, 32, "Input"],
+Cell[131540, 2969, 204, 3, 29, "Subsubsection"],
+Cell[131747, 2974, 181, 4, 33, "Text"],
+Cell[131931, 2980, 817, 24, 32, "Input"],
 Cell[CellGroupData[{
-Cell[138333, 3136, 517, 13, 32, "Input"],
-Cell[138853, 3151, 4138, 78, 240, "Output"]
+Cell[132773, 3008, 517, 13, 32, "Input"],
+Cell[133293, 3023, 4138, 78, 240, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[143028, 3234, 668, 16, 55, "Input"],
-Cell[143699, 3252, 19551, 392, 243, "Output"]
+Cell[137468, 3106, 668, 16, 55, "Input"],
+Cell[138139, 3124, 19551, 392, 243, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[163299, 3650, 159, 2, 29, "Subsubsection"],
-Cell[163461, 3654, 132, 1, 33, "Text"],
-Cell[163596, 3657, 1243, 39, 55, "Input"],
+Cell[157739, 3522, 159, 2, 29, "Subsubsection"],
+Cell[157901, 3526, 132, 1, 33, "Text"],
+Cell[158036, 3529, 1243, 39, 55, "Input"],
 Cell[CellGroupData[{
-Cell[164864, 3700, 510, 13, 32, "Input"],
-Cell[165377, 3715, 14182, 287, 245, "Output"]
+Cell[159304, 3572, 510, 13, 32, "Input"],
+Cell[159817, 3587, 14182, 287, 245, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[179608, 4008, 158, 2, 29, "Subsubsection"],
-Cell[179769, 4012, 186, 5, 33, "Text"],
-Cell[179958, 4019, 702, 22, 32, "Input"],
+Cell[174048, 3880, 158, 2, 29, "Subsubsection"],
+Cell[174209, 3884, 186, 5, 33, "Text"],
+Cell[174398, 3891, 702, 22, 32, "Input"],
 Cell[CellGroupData[{
-Cell[180685, 4045, 426, 11, 32, "Input"],
-Cell[181114, 4058, 2330, 48, 236, "Output"]
+Cell[175125, 3917, 426, 11, 32, "Input"],
+Cell[175554, 3930, 2330, 48, 236, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }
