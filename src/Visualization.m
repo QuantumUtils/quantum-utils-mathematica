@@ -37,12 +37,13 @@ Needs["UnitTesting`"];
 Needs["QUOptions`"];
 Needs["DocTools`"];
 Needs["Predicates`"];
+Needs["Tensor`"]
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualization.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -71,14 +72,21 @@ AssignUsage[ListBlochPlot2D,$Usages];
 AssignUsage[FourierListPlot,$Usages];
 
 
-(* ::Section::Closed:: *)
+(* ::Subsection:: *)
+(*Error Messages*)
+
+
+BlochPlot::input = "Input must be a state vector or density matrix.";
+
+
+(* ::Section:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
@@ -114,16 +122,20 @@ BlockForm[mat_,n_]:=
 BlockForm[mat_]:=BlockForm[mat,First@Last@FactorInteger[Length[mat],2]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Bloch Plots*)
 
 
-With[{r=1},
-	xy=ParametricPlot3D[{r Cos[\[Theta]],r Sin[\[Theta]],0},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
-	yz=ParametricPlot3D[{0,r Cos[\[Theta]],r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
-	xz=ParametricPlot3D[{r Cos[\[Theta]],0,r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+(* ::Subsubsection::Closed:: *)
+(*Bloch Sphere Display Components*)
 
-bloch=Show[
+
+With[{r=1},
+$BlochSphereXY=ParametricPlot3D[{r Cos[\[Theta]],r Sin[\[Theta]],0},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+$BlochSphereYZ=ParametricPlot3D[{0,r Cos[\[Theta]],r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+$BlochSphereXZ=ParametricPlot3D[{r Cos[\[Theta]],0,r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+
+$BlochSphere=Show[
 Graphics3D[{
 Opacity[.3],
 	Sphere[{0,0,0},r],
@@ -136,9 +148,9 @@ Text[Style["|+X\[RightAngleBracket]",FontSize->14,FontWeight->Bold,FontColor->Gr
 Text[Style["|-X\[RightAngleBracket]",FontSize->14,FontWeight->Bold,FontColor->GrayLevel[.3]],{-1.15 r,0,0}],
 Text[Style["|+Y\[RightAngleBracket]",FontSize->14,FontWeight->Bold,FontColor->GrayLevel[.3]],{0,1.15 r,0}],
 Text[Style["|-Y\[RightAngleBracket]",FontSize->14,FontWeight->Bold,FontColor->GrayLevel[.3]],{0,-1.15 r,0}]}],
-xy,xz,yz,Boxed->False];
+$BlochSphereXY,$BlochSphereXZ,$BlochSphereYZ,Boxed->False];
 
-blochXZ=Graphics[{
+$BlochCircleXZ=Graphics[{
 Circle[{0,0},1],
 Line[{{1,0},{-1,0}}],
 Line[{{0,1},{0,-1}}],
@@ -146,7 +158,7 @@ Text[Style["|+X\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{1.15,0}],
 	Text[Style["|-X\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{-1.15,0}],Text[Style["|+Z\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,1.15}],
 	Text[Style["|-Z\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,-1.15 }]}];
 
-blochXY=Graphics[{
+$BlochCircleXY=Graphics[{
 Circle[{0,0},1],
 Line[{{1,0},{-1,0}}],
 Line[{{0,1},{0,-1}}],
@@ -154,7 +166,7 @@ Text[Style["|+X\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{1.15,0}],
 	Text[Style["|-X\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{-1.15,0}],Text[Style["|+Y\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,1.15}],
 	Text[Style["|-Y\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,-1.15 }]}];
 
-blochYZ=Graphics[{
+$BlochCircleYZ=Graphics[{
 Circle[{0,0},1],
 Line[{{1,0},{-1,0}}],
 Line[{{0,1},{0,-1}}],
@@ -166,37 +178,34 @@ Text[Style["|+Z\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,1.15}],
 ];
 
 
-BlochPlot[state_]:=Module[{\[Rho]},
-If[GeneralVectorQ[state],\[Rho]=Projector[state],
-If[SquareMatrixQ[state],\[Rho]=state,Print["Invalid Input"]]];
-Show[bloch,
+(* ::Subsubsection:: *)
+(*Bloch Sphere Plotting*)
+
+
+BlochCoordinates[state_]:=
+	With[{
+		mat=Which[
+			GeneralVectorQ[state],Projector[state],
+			SquareMatrixQ[state], state,
+			True, Message[BlochPlot::input]]},
+	Map[Tr[ConjugateTranspose[PauliMatrix[#]].mat]&,Range[3]]
+	]
+
+
+BlochPlot[state_,opts:OptionsPattern[Graphics3D]]:= 
+	With[{p=BlochCoordinates[state]},
+	Show[$BlochSphere,
 	Graphics3D[{
-		{Green,Thickness[0.01],Line[{{0,0,0},{Tr[\[Rho].X],Tr[\[Rho].Y],Tr[\[Rho].Z]}}]},
-		{Green,PointSize[0.02], Point[{Tr[\[Rho].X],Tr[\[Rho].Y],Tr[\[Rho].Z]}]}
-	}]
+		{Green,Thickness[0.01],Line[{{0,0,0},p}]},
+		{Green,PointSize[0.02], Point[p]}
+	},opts]
 ]];
 
 
-BlochPlot2D[state_]:=Module[{\[Rho]},
-	If[GeneralVectorQ[state],\[Rho]=Projector[state],
-	If[SquareMatrixQ[state],\[Rho]=state,Print["Invalid Input"]]];
-GraphicsRow[{
-Show[blochXZ,Graphics[
-	{Red,Thickness[0.01],Line[{{0,0},{Tr[\[Rho].X],Tr[\[Rho].Z]}}]},
-	{Red,PointSize[0.03],Point[{Tr[\[Rho].X],Tr[\[Rho].Z]}]}]],
-Show[blochYZ,Graphics[
-	{Red,Thickness[0.01],Line[{{0,0},{Tr[\[Rho].Y],Tr[\[Rho].Z]}}]},
-	{Red,PointSize[0.03],Point[{Tr[\[Rho].Y],Tr[\[Rho].Z]}]}]],
-Show[blochXY,Graphics[
-	{Red,Thickness[0.01],Line[{{0,0},{Tr[\[Rho].X],Tr[\[Rho].Y]}}]},
-	{Red,PointSize[0.03],Point[{Tr[\[Rho].X],Tr[\[Rho].Y]}]}]]
-},ImageSize->Large]]
-
-
 ListBlochPlot[\[Rho]list_,opt:OptionsPattern[Graphics3D]]:=
-	With[{plotdat=1.02*Chop[{Tr[#.X],Tr[#.Y],Tr[#.Z]}&/@\[Rho]list],d=Length[\[Rho]list]},
+	With[{plotdat=Map[BlochCoordinates,\[Rho]list],d=Length[\[Rho]list]},
 		Show[
-			bloch,
+			$BlochSphere,
 			Graphics3D[{
 				Table[
 					{Blend[{Yellow,Red},1-j/d],PointSize@If[1<j<d,0.01,0.03], 
@@ -208,30 +217,50 @@ ListBlochPlot[\[Rho]list_,opt:OptionsPattern[Graphics3D]]:=
 	]
 
 
+(* ::Subsubsection:: *)
+(*Bloch Sphere 2D Projection*)
+
+
+BlochPlot2D[state_]:=
+	With[{p=BlochCoordinates[state]},
+	GraphicsRow[{
+		Show[$BlochCircleXZ,Graphics[
+			{Red,Thickness[0.01],Line[{{0,0},Part[p,{1,3}]}]},
+			{Red,PointSize[0.03],Point[Part[p,{1,3}]]}]],
+		Show[$BlochCircleYZ,Graphics[
+			{Red,Thickness[0.01],Line[{{0,0},Part[p,{2,3}]}]},
+			{Red,PointSize[0.03],Point[Part[p,{2,3}]]}]],
+		Show[$BlochCircleXY,Graphics[
+			{Red,Thickness[0.01],Line[{{0,0},Part[p,{1,2}]}]},
+			{Red,PointSize[0.03],Point[Part[p,{1,2}]]}]]
+			},ImageSize->Large]]
+
+
 ListBlochPlot2D[\[Rho]list_]:=
 With[{
-	plotdatX=Chop[Tr[#.X]&/@\[Rho]list],
-	plotdatY=Chop[Tr[#.Y]&/@\[Rho]list],
-	plotdatZ=Chop[Tr[#.Z]&/@\[Rho]list],
+	ps=Map[BlochCoordinates,\[Rho]list],
 	d=Length[\[Rho]list]},
 GraphicsRow[{
-	Show[blochXZ,
-		Graphics[{Table[{Blend[{Red,Blue},1-j/d],PointSize[0.02], 
-		Point[{plotdatX[[j]],plotdatZ[[j]]}]},{j,d}]}]
-		],
-	Show[blochYZ,
-		Graphics[{Table[{Blend[{Red,Blue},1-j/d],PointSize[0.02], 
-		Point[{plotdatY[[j]],plotdatZ[[j]]}]},{j,d}]}]
-		],
-	Show[blochXY,
-		Graphics[{Table[{Blend[{Red,Blue},1-j/d],PointSize[0.02], 
-		Point[{plotdatX[[j]],plotdatY[[j]]}]},{j,d}]}]
-		]
+	Show[$BlochCircleXZ,
+		Graphics[{
+			Map[{Blend[{Red,Blue},1-#/d],PointSize[0.02],Point[Part[ps,#,{1,3}]]}&,
+			Range[d]]
+		}]],
+	Show[$BlochCircleYZ,
+		Graphics[{
+			Map[{Blend[{Red,Blue},1-#/d],PointSize[0.02],Point[Part[ps,#,{2,3}]]}&,
+			Range[d]]
+		}]],
+	Show[$BlochCircleXY,
+		Graphics[{
+			Map[{Blend[{Red,Blue},1-#/d],PointSize[0.02],Point[Part[ps,#,{1,2}]]}&,
+			Range[d]]
+		}]]
 },ImageSize->Large]
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Special Plotting Functions*)
 
 
