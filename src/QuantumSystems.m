@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -33,7 +33,7 @@ BeginPackage["QuantumSystems`",{"Predicates`","Tensor`"}];
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -110,7 +110,7 @@ KetForm::usage =
 'op' may be a matrix, vector, columm-vector, or row-vector."
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Quantum Gates*)
 
 
@@ -271,11 +271,13 @@ SpinTPRules[S_]:= SpinTPRules[S] =
 
 
 SetAttributes[Spin,HoldAllComplete]
-Spin[expr_][S_]:=With[{spin=Rationalize[S]},
+Spin[expr_][S_,SparseArray]:=With[{spin=Rationalize[S]},
 	If[SpinQ[spin],
 		TP[expr,Replace->SpinTPRules[S]],
 		Message[Spin::spin]
 	]]
+
+Spin[expr_][S_]:=Normal[Spin[expr][S,SparseArray]]
 
 
 (* ::Subsubsection:: *)
@@ -297,14 +299,16 @@ CavityTPRules[n_]:= CavityTPRules[n] =
 
 
 SetAttributes[Cavity,HoldAllComplete]
-Cavity[expr_][n_Integer]:=
+Cavity[expr_][n_Integer,SparseArray]:=
 	If[Positive[n],
 		TP[expr,Replace->CavityTPRules[n]],
 		Message[Cavity::int]
 	]
 
+Cavity[expr_][n_Integer]:=Normal[Cavity[expr][n,SparseArray]]
 
-(* ::Subsubsection:: *)
+
+(* ::Subsubsection::Closed:: *)
 (*Quantum States*)
 
 
@@ -389,7 +393,7 @@ $QStateMatRules={
 "Bell4"->$QStateMatBell4, "B4"->$QStateMatBell4};
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Bra-Ket Notation*)
 
 
@@ -515,7 +519,7 @@ KetFormMatrix[mat_]:=
 	]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Quantum Gates*)
 
 
@@ -625,7 +629,7 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*State Measures*)
 
 
@@ -753,7 +757,7 @@ EntanglementF[op_]:=
 	]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Random Matrices*)
 
 
@@ -761,22 +765,37 @@ EntanglementF[op_]:=
 (*Needs updating to being random with respect to proper measures*)
 
 
-RandomUnitary[n_]:=With[
-	{QR=QRDecomposition[RandomComplex[{0,1+I},{n,n}]/Sqrt[2]]},
-		QR[[1]].DiagonalMatrix[Diagonal[QR[[2]]]/Abs[Diagonal[QR[[2]]]]]
-];
+RandomNormal[]:=RandomVariate[NormalDistribution[0,1]]
+RandomNormal[dims_]:=RandomVariate[NormalDistribution[0,1],dims]
 
 
-RandomDensity[n_,rank_]:=
-	With[
-	{A=RandomVariate[NormalDistribution[0,1],{n,rank}]+I*RandomVariate[NormalDistribution[0,1],{n,rank}]},
-	Chop[#/Tr[#]]&[A.ConjugateTranspose[A]]
+GinibreMatrix[n_,r_]:=RandomNormal[{n,r}]+I*RandomNormal[{n,r}]
+
+
+RandomUnitary[n_]:=Orthogonalize[GinibreMatrix[n,n]]
+
+
+RandomDensity[n_]:=RandomDensity[n,n]
+RandomDensity[n_,rank_]:=RandomDensity[n,rank,"HS"]
+
+RandomDensity[n_,rank_,"HS"]:=
+	With[{G=GinibreMatrix[n,rank]},
+	#/Tr[#]&[G.ConjugateTranspose[G]]
+	]
+
+
+RandomDensity[n_,rank_,"Bures"]:=
+	With[{
+		G=GinibreMatrix[n,rank],
+		U=RandomUnitary[n],
+		id=IdentityMatrix[n]},
+	#/Tr[#]&[(id+U).G.ConjugateTranspose[G].(id+ConjugateTranspose[U])]
 	]
 
 
 RandomHermitian[n_,tr_:1]:=With[
-	{A=RandomComplex[{0,1+I},{n,n}]},
-	Chop[tr*#/Tr[MatrixPower[#.#,1/2]]]&@(A+ConjugateTranspose[A])
+	{A=GinibreMatrix[n,n]RandomComplex[{0,1+I},{n,n}]},
+	tr*#/Tr[MatrixPower[#.#,1/2]]&[A+ConjugateTranspose[A]]
 ];
 
 
