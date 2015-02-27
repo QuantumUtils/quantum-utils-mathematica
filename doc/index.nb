@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     13458,        409]
-NotebookOptionsPosition[     12413,        370]
-NotebookOutlinePosition[     12770,        386]
-CellTagsIndexPosition[     12727,        383]
+NotebookDataLength[     15078,        445]
+NotebookOptionsPosition[     13986,        405]
+NotebookOutlinePosition[     14343,        421]
+CellTagsIndexPosition[     14300,        418]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -147,6 +147,35 @@ Cell[BoxData[GridBox[{
 Cell[BoxData[GridBox[{
    {
     StyleBox[
+     ButtonBox[
+      StyleBox["LindbladSolver", "Text",
+       FontWeight->Bold],
+      BaseStyle->"Hyperlink",
+      ButtonData->{
+        FrontEnd`FileName[{"api-doc"}, "LindbladSolver.nb", CharacterEncoding -> 
+         "UTF-8"], None}], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+     "A", " ", "set", " ", "of", " ", "functions", " ", "for", " ", 
+      "numerically", " ", "or", " ", "symbolically", " ", "solving", " ", 
+      RowBox[{"Schrodinger", "'"}], "s", " ", "equation", " ", "and", " ", 
+      "Lindblad", " ", "master", " ", 
+      RowBox[{"equations", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ CellChangeTimes->{
+  3.633782299656609*^9, {3.634058820676228*^9, 3.634058896960932*^9}, {
+   3.634058937732007*^9, 3.6340589480271273`*^9}, 3.6340589795824013`*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
      TagBox[
       ButtonBox[
        PaneSelectorBox[{False->"\<\"QuantumChannel\"\>", True->
@@ -161,8 +190,11 @@ Cell[BoxData[GridBox[{
       Annotation[#, "api-doc/QuantumChannel.nb", "Hyperlink"]& ], "Text",
      FontWeight->Bold], 
     StyleBox[
-     RowBox[{"Describe", " ", 
-      RowBox[{"me", "."}]}], "Text"]}
+     RowBox[{
+     "Tools", " ", "for", " ", "constructing", " ", "and", " ", 
+      "manipulating", " ", "quantum", " ", "channels", " ", "in", " ", 
+      "various", " ", 
+      RowBox[{"representations", "."}]}], "Text"]}
   },
   GridBoxAlignment->{"Columns" -> {{Left}}},
   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
@@ -170,9 +202,8 @@ Cell[BoxData[GridBox[{
       Scaled[0.15], {
        Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
     "RowsIndexed" -> {}}]], "Text",
- GeneratedCell->True,
- CellAutoOverwrite->True,
- CellChangeTimes->{3.633782299675387*^9}],
+ CellChangeTimes->{
+  3.633782299675387*^9, {3.634059007315003*^9, 3.634059058534374*^9}}],
 
 Cell[BoxData[GridBox[{
    {
@@ -191,8 +222,12 @@ Cell[BoxData[GridBox[{
       Annotation[#, "api-doc/QuantumSystems.nb", "Hyperlink"]& ], "Text",
      FontWeight->Bold], 
     StyleBox[
-     RowBox[{"Describe", " ", 
-      RowBox[{"me", "."}]}], "Text"]}
+     RowBox[{
+      RowBox[{
+      "Tools", " ", "for", " ", "modelling", " ", "quantum", " ", "systems", 
+       " ", "of", " ", "qudits"}], ",", " ", "spins", ",", " ", 
+      RowBox[{"cavities", " ", "and", " ", 
+       RowBox[{"circuits", "."}]}]}], "Text"]}
   },
   GridBoxAlignment->{"Columns" -> {{Left}}},
   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
@@ -200,9 +235,8 @@ Cell[BoxData[GridBox[{
       Scaled[0.15], {
        Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
     "RowsIndexed" -> {}}]], "Text",
- GeneratedCell->True,
- CellAutoOverwrite->True,
- CellChangeTimes->{3.633782299751358*^9}],
+ CellChangeTimes->{
+  3.633782299751358*^9, {3.6340590281864233`*^9, 3.634059061255835*^9}}],
 
 Cell[BoxData[GridBox[{
    {
@@ -221,8 +255,10 @@ Cell[BoxData[GridBox[{
       Annotation[#, "api-doc/Tensor.nb", "Hyperlink"]& ], "Text",
      FontWeight->Bold], 
     StyleBox[
-     RowBox[{"Describe", " ", 
-      RowBox[{"me", "."}]}], "Text"]}
+     RowBox[{
+     "A", " ", "package", " ", "of", " ", "tensor", " ", "manipulations", " ",
+       "for", " ", "multipartite", " ", "quantum", " ", 
+      RowBox[{"systems", "."}]}], "Text"]}
   },
   GridBoxAlignment->{"Columns" -> {{Left}}},
   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
@@ -230,9 +266,8 @@ Cell[BoxData[GridBox[{
       Scaled[0.15], {
        Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
     "RowsIndexed" -> {}}]], "Text",
- GeneratedCell->True,
- CellAutoOverwrite->True,
- CellChangeTimes->{3.633782299823944*^9}],
+ CellChangeTimes->{
+  3.633782299823944*^9, {3.634059065294876*^9, 3.6340590793363533`*^9}}],
 
 Cell[BoxData[GridBox[{
    {
@@ -393,21 +428,22 @@ Cell[1170, 41, 209, 3, 64, "Section"],
 Cell[1382, 46, 1068, 30, 33, "Text"],
 Cell[2453, 78, 1100, 30, 33, "Text"],
 Cell[3556, 110, 1221, 34, 33, "Text"],
-Cell[4780, 146, 1017, 28, 33, "Text"],
-Cell[5800, 176, 1017, 28, 33, "Text"],
-Cell[6820, 206, 977, 28, 33, "Text"],
-Cell[7800, 236, 1218, 32, 33, "Text"]
+Cell[4780, 146, 1089, 27, 33, "Text"],
+Cell[5872, 175, 1174, 30, 33, "Text"],
+Cell[7049, 207, 1214, 31, 33, "Text"],
+Cell[8266, 240, 1104, 29, 33, "Text"],
+Cell[9373, 271, 1218, 32, 33, "Text"]
 }, Open  ]],
-Cell[9033, 271, 96, 1, 64, "Section"],
+Cell[10606, 306, 96, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[9154, 276, 125, 2, 50, "Section"],
-Cell[9282, 280, 201, 4, 30, "Text"],
-Cell[9486, 286, 92, 2, 28, "Input"],
+Cell[10727, 311, 125, 2, 50, "Section"],
+Cell[10855, 315, 201, 4, 30, "Text"],
+Cell[11059, 321, 92, 2, 28, "Input"],
 Cell[CellGroupData[{
-Cell[9603, 292, 105, 1, 44, "Subsection"],
-Cell[9711, 295, 140, 1, 30, "Text"],
-Cell[9854, 298, 1862, 47, 182, "Input"],
-Cell[11719, 347, 654, 18, 63, "Input"]
+Cell[11176, 327, 105, 1, 44, "Subsection"],
+Cell[11284, 330, 140, 1, 30, "Text"],
+Cell[11427, 333, 1862, 47, 182, "Input"],
+Cell[13292, 382, 654, 18, 63, "Input"]
 }, Closed]]
 }, Closed]]
 }, Open  ]]

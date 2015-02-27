@@ -29,8 +29,14 @@
 BeginPackage["LindbladSolver`"];
 
 
+Needs["UnitTesting`"];
+Needs["QUOptions`"];
+Needs["DocTools`"];
 Needs["Tensor`"]
 Needs["QuantumChannel`"]
+
+
+$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "LindbladSolver.nb"}]];
 
 
 (* ::Section:: *)
@@ -41,75 +47,19 @@ Needs["QuantumChannel`"]
 (*Main Functions*)
 
 
-ODESolver::usage = 
-"ODESolver[mat,{init,t0_,tf_},opts] numerically solves the matrix first order ODE x'[t] = mat[t].x[t] from time t0 to tf for initial condition x[t0]=init.
-'mat' may be either a matrix, or a pure function of a single variable (t) which evaluates to a matrix.
-This is done by calling NDSolveValue, and returns the interpolation function for the coefficients of the vector x.
-These may be put into the form of a function of time by calling Through[sol[t]] on the solution sol.
-
-ODESolver[mat,{init,t0},opts] attempts to analytically solve the matrix ODE by calling DSolveValue rather than NDSolveValue for initial condition x[t0]=init.
-If successful it returns the solution vector x as a function of time.
-
-ODESolver[mat,opts] attempts to analytically solve the matrix ODE by calling DSolveValue without an initial condition. 
-If successful it returns the solution vector x as a function of time in terms of constants C[j] which can later be evaluated for different initial conditions.
-
-NDSolveValue and DSolveValue options will be passed to the respective function.
-There is an additional option Symbol->''x'' which allows for specififying a custom symbol to be used for the elements of the vector x in the solution.
-This can be used to pass custom options to NDSolveValue such as EvaluationMonitor in terms of these coefficients.";
-
-
-SchrodingerSolver::usage = 
-"SchrodingerSolver[mat,{init,t0_,tf_},opts] numerically solves the Schrodinger equation x'[t] = -I*mat.x[t] from time t0 to tf for initial condition x[t0]=init.
-'mat' may be either a matrix, or a pure function of a single variable (t) which evaluates to a matrix.
-This is done by calling ODESolver, which then calls NDSolveValue, and returns the interpolation function for the coefficients of the vector x.
-These may be put into the form of a function of time by calling Through[sol[t]] on the solution sol.
-
-SchrodingerSolver[mat,{init,t0},opts] attempts to analytically solve the matrix ODE by calling DSolveValue rather than NDSolveValue for initial condition x[t0]=init.
-If successful it returns the solution vector x as a function of time.
-
-SchrodingerSolver[mat,opts] attempts to analytically solve the matrix ODE by calling DSolveValue without an initial condition. 
-If successful it returns the solution vector x as a function of time in terms of constants C[j] which can later be evaluated for different initial conditions.
-
-NDSolveValue and DSolveValue options will be passed to the respective function.
-There is an additional option Symbol->''x'' which allows for specififying a custom symbol to be used for the elements of the vector x in the solution.
-This can be used to pass custom options to NDSolveValue such as EvaluationMonitor in terms of these coefficients.";
-
-
-LindbladSolver::usage = 
-"LindbladSolver[mat,{init,t0_,tf_},opts] numerically solves the Schrodinger equation Vec[x]'[t] = -mat.Vec[x][t] from time t0 to tf for initial condition x[t0]=init.
-'mat' may be either a matrix or QuantumChannel, or a pure function of a single variable (t) which evaluates to a matrix or QuantumChannel.
-This is done by calling ODESolver, which then calls NDSolveValue, and returns the interpolation function for the coefficients of the vector x.
-These may be put into the form of a function of time by calling Through[sol[t]] on the solution sol.
-
-LindbladSolver[{ham,cOps},{init,t0_,tf_},opts] calls LindbladSolver for a Lindblad dissipator with Hamiltonian term ham, and collapose operators cOps.
-'ham' may be either a matrix, or a pure function of a single variable (t) which evaluates to a matrix.
-'cOps' may be a list of matrices, a list of pure functions of a single variable (t) which evaluate to matrices, or a pure function which evalutes to a list of matrices.
-
-LindbladSolver[mat,{init,t0},opts] attempts to analytically solve the matrix ODE by calling DSolveValue rather than NDSolveValue for initial condition x[t0]=init.
-If successful it returns the solution vector x as a function of time.
-
-LindbladSolver[{ham,cOps},{init,t0},opts] attempts to analytically solve the matrix ODE by calling DSolveValue rather than NDSolveValue for initial condition x[t0]=init.
-If successful it returns the solution vector x as a function of time.
-
-Lindblad[mat,opts] attempts to analytically solve the matrix ODE by calling DSolveValue without an initial condition. 
-If successful it returns the solution vector x as a function of time in terms of constants C[j] which can later be evaluated for different initial conditions.
-
-Lindblad[{ham,cOps},opts] attempts to analytically solve the matrix ODE by calling DSolveValue without an initial condition. 
-If successful it returns the solution vector x as a function of time in terms of constants C[j] which can later be evaluated for different initial conditions.
-
-NDSolveValue and DSolveValue options will be passed to the respective function.
-There is an additional option Symbol->''x'' which allows for specififying a custom symbol to be used for the elements of the vector x in the solution.
-This can be used to pass custom options to NDSolveValue such as EvaluationMonitor in terms of these coefficients.";
+AssignUsage[ODESolver,$Usages];
+AssignUsage[SchrodingerSolver,$Usages];
+AssignUsage[LindbladSolver,$Usages];
 
 
 (* ::Subsection:: *)
 (*Utility Functions*)
 
 
-ODECoefficients::usage = "Write me...";
-ODEVariables::usage = "Write me...";
-ODEInitialConditions::usage = "Write me...";
-ODEFirstOrderSystem::usage = "Write me...";
+AssignUsage[ODECoefficients,$Usages];
+AssignUsage[ODEVariables,$Usages];
+AssignUsage[ODEInitialConditions,$Usages];
+AssignUsage[ODEFirstOrderSystem,$Usages];
 
 
 (* ::Subsection:: *)
@@ -151,6 +101,12 @@ PreformatLindblad[ham_,collapseOps_List]:=
 		+If[cOps1==={},0,LindbladDissipator[cOps1]]
 	]]
 ]]
+
+
+PreformatHamiltonian[ham_]:=
+	Function[t,
+		Evaluate[-I*PreformatGenerator[ham,t]]
+	]
 
 
 PreformatState[initState_]:=
@@ -268,7 +224,7 @@ ODESolver[generator_,{initState_,t0_?NumericQ,tf_?NumericQ},opts:OptionsPattern[
 SchrodingerSolver[ham_,{initState_,t0_?NumericQ,tf_?NumericQ},opts:OptionsPattern[ODESolver]]:=
 		Function[t,Evaluate[
 			Through[
-				ODESolver[-I*ham,{initState,t0,tf},opts][t]
+				ODESolver[PreformatHamiltonian[ham],{initState,t0,tf},opts][t]
 	]]]
 
 
@@ -327,9 +283,9 @@ ODESolver[generator_,opts:OptionsPattern[ODESolver]]:=
 
 
 SchrodingerSolver[ham_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
-	ODESolver[-I*ham,{initState,t0},opts]
+	ODESolver[PreformatHamiltonian[ham],{initState,t0},opts]
 
-SchrodingerSolver[ham_,opts:OptionsPattern[ODESolver]]:=ODESolver[-I*ham,opts]
+SchrodingerSolver[ham_,opts:OptionsPattern[ODESolver]]:=ODESolver[PreformatHamiltonian[ham],opts]
 
 
 (* ::Subsubsection:: *)
