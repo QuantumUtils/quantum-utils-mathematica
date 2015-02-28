@@ -1,8 +1,11 @@
+(* ::Package:: *)
+
 #!/usr/local/bin/MathematicaScript -script
 
 Needs["UnitTesting`"];
 
 Needs["Predicates`"];
+Needs["LindbladSolver`"]
 
 Print["Running tests..."];
 results = RunAllTests[];

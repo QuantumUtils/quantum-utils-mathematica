@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -43,7 +43,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "LindbladSol
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Main Functions*)
 
 
@@ -52,7 +52,7 @@ AssignUsage[SchrodingerSolver,$Usages];
 AssignUsage[LindbladSolver,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Utility Functions*)
 
 
@@ -62,7 +62,7 @@ AssignUsage[ODEInitialConditions,$Usages];
 AssignUsage[ODEFirstOrderSystem,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error Handling*)
 
 
@@ -76,11 +76,12 @@ ODESolver::initcond = "Input state must be a square matrix or vector.";
 Begin["`Private`"];
 
 
-FilterOptions[targetFun_,opts___]:=Sequence@@FilterRules[{opts},Options[targetFun]];
-
-
-(* ::Subsubsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preformating State and Lindblad*)
+
+
+(* ::Text:: *)
+(*These functions process the generator input for time-dependent or time-independent matrices and quantum channels.*)
 
 
 PreformatGenerator[generator_,t_]:=
@@ -117,8 +118,12 @@ PreformatState[initState_]:=
 	]
 
 
+(* ::Subsection::Closed:: *)
+(*Setting up the ODE*)
+
+
 (* ::Subsubsection:: *)
-(*Setting Up ODE*)
+(*First order system of equations*)
 
 
 (* ::Text:: *)
@@ -154,6 +159,10 @@ ODEFirstOrderSystem[generator_,{t_,sym_},opts:OptionsPattern[ODEFirstOrderSystem
 				D[ODEVariables[{Length[op],t,sym}],t]
 				==op.ODEVariables[{Length[op],t,sym}]]
 	]]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Compiling part of ODE*)
 
 
 (* ::Text:: *)
@@ -192,8 +201,19 @@ CompileFirstOrderODE[generator,{t,sym}]=
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsection::Closed:: *)
 (*Numerically Solving ODE*)
+
+
+(* ::Subsubsection:: *)
+(*General ODE Solver*)
+
+
+(* ::Text:: *)
+(*Filter option function for passing options to NDSolveValue and DSolveValue*)
+
+
+FilterOptions[targetFun_,opts___]:=Sequence@@FilterRules[{opts},Options[targetFun]];
 
 
 Options[ODESolver]=Join[{Symbol->"x"},Options[ODEFirstOrderSystem],Options[NDSolve]];
@@ -214,7 +234,7 @@ ODESolver[generator_,{initState_,t0_?NumericQ,tf_?NumericQ},opts:OptionsPattern[
 
 
 (* ::Subsubsection:: *)
-(*Schrodinger Equation Case*)
+(*Schrodinger Equation Solver*)
 
 
 (* ::Text:: *)
@@ -229,7 +249,7 @@ SchrodingerSolver[ham_,{initState_,t0_?NumericQ,tf_?NumericQ},opts:OptionsPatter
 
 
 (* ::Subsubsection:: *)
-(*Lindblad Equation Case*)
+(*Lindblad Equation Solver*)
 
 
 (* ::Text:: *)
@@ -250,8 +270,12 @@ LindbladSolver[
 		LindbladSolver[PreformatLindblad[ham,collapseOps],{initState,t0,tf},opts]
 
 
-(* ::Subsubsection:: *)
-(*Symbolically Solving ODE*)
+(* ::Subsection::Closed:: *)
+(*Symbolically Solver ODE*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*General Solver*)
 
 
 ODESolver[generator_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
@@ -279,7 +303,7 @@ ODESolver[generator_,opts:OptionsPattern[ODESolver]]:=
 
 
 (* ::Subsubsection:: *)
-(*Symbolic Schrodingers*)
+(*Schrodinger Equation Solver*)
 
 
 SchrodingerSolver[ham_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
@@ -289,7 +313,7 @@ SchrodingerSolver[ham_,opts:OptionsPattern[ODESolver]]:=ODESolver[PreformatHamil
 
 
 (* ::Subsubsection:: *)
-(*Symbolic Lindblad*)
+(*Lindblad Equation Solver*)
 
 
 LindbladSolver[generator_,opts:OptionsPattern[ODESolver]]:=
@@ -308,6 +332,145 @@ LindbladSolver[{ham_,collapseOps_List},opts:OptionsPattern[ODESolver]]:=
 
 LindbladSolver[{ham_,collapseOps_List},{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
 		LindbladSolver[PreformatLindblad[ham,collapseOps],{initState,t0},opts]
+
+
+(* ::Subsection::Closed:: *)
+(*End Private*)
+
+
+End[];
+
+
+(* ::Section::Closed:: *)
+(*Unit Testing*)
+
+
+Begin["`Private`"];
+
+
+(* ::Subsubsection:: *)
+(*Preformating State and Lindblad*)
+
+
+TestCase["LindbladSolver:PreformatGenerator", 
+	Block[{t,a},
+		And[
+		Norm@Simplify[
+				PreformatGenerator[Sin[#]*Array[a,{2,2}]&,t]-Sin[t]*Array[a,{2,2}]
+				]===0,
+		Norm@Simplify[
+			PreformatGenerator[Array[a,{2,2}],t]-Array[a,{2,2}]
+			]===0]
+	]
+];
+
+
+TestCase["LindbladSolver:PreformatLindblad",
+	Block[{t,
+		ham=PauliMatrix[3],
+		cOp={{{0,1},{0,0}}},
+		L=DiagonalMatrix[{0,2*I,-2*I,0}],
+		D={{0,0,0,1},{0,-1/2,0,0},{0,0,-1/2,0},{0,0,0,-1}}},
+	And[
+		Norm@Simplify[PreformatLindblad[ham,cOp][t]-L-D]===0,
+		Norm@Simplify[PreformatLindblad[0,cOp][t]-D]===0,
+		Norm@Simplify[PreformatLindblad[ham,{}][t]-L]===0]
+	]]
+
+
+TestCase["LindbladSolver:PreformatHamiltonian",
+	Block[{ham=PauliMatrix[1],t},
+	And[
+		Norm@Simplify[PreformatHamiltonian[ham][t]+I*ham]===0,
+		Norm@Simplify[PreformatHamiltonian[Cos[#]*ham&][t]+I*Cos[t]*ham]===0
+	]
+	]]
+
+
+TestCase["LindbladSolver:PreformatState", 
+	And[
+		PreformatState[{{"a",0},{0,"b"}}]==={"a",0,0,"b"},
+		PreformatState[{{"a"},{"b"}}]==={"a","b"},
+		PreformatState[{"a","b"}]==={"a","b"}]	
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Setting Up ODE*)
+
+
+TestCase["LindbladSolver:ODEInitialConditions",
+	ODEInitialConditions[{0,1},{0,"x"}]===And["x"[1][0]==0,"x"[2][0]==1]
+]
+
+
+TestCase["LindbladSolver:ODEFirstOrderSystem",
+	Block[{t},
+	ODEFirstOrderSystem[{{0,"a"[1]},{"a"[2],0}},{t,"x"}]===And[
+	Derivative[1]["x"[1]][t]=="a"[1] "x"[2][t],Derivative[1]["x"[2]][t]=="a"[2] "x"[1][t]]
+	]]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Solving ODE*)
+
+
+TestCase["LindbladSolver:ODESolver.Numeric", 
+With[{sol=ODESolver[-2*Pi*I*PauliMatrix[1],{{0,1},0,1}]},
+	And[MatchQ[sol,{__InterpolatingFunction}],
+		TrueQ[Abs[Through[sol[1]].{0,1}]^2-1<=0.0001]]
+]]
+
+
+TestCase["LindbladSolver:ODESolver.Symbolic", 
+Block[{t,sol},
+	sol=ODESolver[-2*Pi*I*PauliMatrix[1],{{0,1},0}][t];
+	TrueQ[sol=={-I*Sin[2*Pi*t],Cos[2*Pi*t]}]
+	]]
+
+
+TestCase["LindbladSolver:SchrodingerSolver.Numeric", 
+Block[{t},
+	MatchQ[
+		SchrodingerSolver[Cos[#]PauliMatrix[1]&,{{0,1},0,1}][t],
+		{InterpolatingFunction[__][t],InterpolatingFunction[__][t]}
+	]]]
+
+
+TestCase["LindbladSolver:SchordingerSolver.Symbolic",
+	Block[{t,a,b},
+		SchrodingerSolver[PauliMatrix[3],{{a,b},0}][t]==={a*Exp[-I*t],b*Exp[I*t]}
+	]]
+
+
+TestCase["LindbladSolver:LindbladSolver.Numeric", 
+	Block[{init={{1,0},{0,0}},sol,t},
+		sol=LindbladSolver[{Cos[#]PauliMatrix[1]&,{{{0,1},{0,0}}}},
+				{{{1,0},{0,0}},0,1}];
+		And[
+			Chop@Norm[sol[0]-init]===0,
+			MatchQ[sol[t],
+				{{InterpolatingFunction[__][t],InterpolatingFunction[__][t]},
+				{InterpolatingFunction[__][t],InterpolatingFunction[__][t]}}]
+		]
+	]]
+
+
+TestCase["LindbladSolver:LindbladSolver.Symbolic", 
+	Block[{sol,t},
+		sol=LindbladSolver[{0,{{{0,0},{1,0}}}},{{{1,0},{0,0}},0}][t];
+		Norm@Simplify[sol-{{Exp[-t],0},{0,1-Exp[-t]}}]===0
+	]]
+
+
+TestCase["LindbladSolver:LindbladSolver.QuantumChannel", 
+	Block[{sol,t,chan},
+		chan=QuantumChannel[
+				{{-1,0,0,0},{0,-(1/2),0,0},{0,0,-(1/2),0},{1,0,0,0}},
+				{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}];
+		sol=LindbladSolver[chan,{{{1,0},{0,0}},0}][t];
+		Norm@Simplify[sol-{{Exp[-t],0},{0,1-Exp[-t]}}]===0
+	]]
 
 
 (* ::Subsection::Closed:: *)

@@ -58,7 +58,7 @@ AssignUsage[{TestCase, RunAllTests}, $Usages];
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Test Cases and Harnesses*)
 
 
@@ -83,7 +83,7 @@ RunOneTest[name_ -> expr_] := Module[{result},
 	];
 
 	name -> (result /. {
-		True -> ".",
+		True -> "T",
 		False -> "F",
 		$Failed -> "E",
 		_ -> "?"
