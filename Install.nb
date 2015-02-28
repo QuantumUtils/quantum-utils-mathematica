@@ -10,18 +10,23 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     23338,        593]
-NotebookOptionsPosition[     21498,        527]
-NotebookOutlinePosition[     21855,        543]
-CellTagsIndexPosition[     21812,        540]
+NotebookDataLength[     23364,        606]
+NotebookOptionsPosition[     21388,        535]
+NotebookOutlinePosition[     21750,        551]
+CellTagsIndexPosition[     21707,        548]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell["QuantumUtils Installer", "Subtitle",
- CellChangeTimes->{{3.525435306978644*^9, 3.5254353108091707`*^9}}],
+Cell[TextData[{
+ "QuantumUtils for ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\nInstaller"
+}], "Title",
+ CellChangeTimes->{{3.6341496747488213`*^9, 3.634149689464222*^9}}],
 
 Cell["\<\
 To run this installer, please use the menu option \
@@ -52,23 +57,6 @@ installation notebook and make changes. "
 
 Cell[CellGroupData[{
 
-Cell[BoxData["$UserBaseDirectory"], "Input",
- CellChangeTimes->{{3.6333651904975653`*^9, 3.633365193890123*^9}}],
-
-Cell[BoxData["\<\"/home/ihincks/.Mathematica\"\>"], "Output",
- CellChangeTimes->{
-  3.633365194429966*^9, 3.6333658229983807`*^9, 3.633366902188854*^9, 
-   3.6333669378174553`*^9, 3.6333671472356777`*^9, {3.633367199006448*^9, 
-   3.6333672098684196`*^9}, 3.633367245924893*^9, 3.633367720164558*^9, 
-   3.633367853165657*^9, {3.63336803930175*^9, 3.6333680432480593`*^9}, 
-   3.633368141028508*^9, 3.633369690337843*^9, 3.633372304106594*^9, 
-   3.6334522736835947`*^9, 3.633525333137247*^9, 3.633525622153723*^9, 
-   3.6335258542070312`*^9, 3.633878338562758*^9, 3.6338783824557667`*^9, 
-   3.633880997426256*^9, 3.633881307850278*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
 Cell["Known Limitations", "Subsection",
  CellChangeTimes->{{3.525446500284173*^9, 3.52544650373918*^9}}],
 
@@ -83,8 +71,15 @@ is not tested.\
 
 Cell[CellGroupData[{
 
-Cell["Manifest", "Subsection",
- CellChangeTimes->{{3.5254354567930307`*^9, 3.525435458280403*^9}}],
+Cell["Manifest", "Section",
+ CellChangeTimes->{{3.634149814407981*^9, 3.6341498425648823`*^9}, {
+  3.6341499140607862`*^9, 3.634149923543811*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Installed Packages", "Subsection",
+ CellChangeTimes->{{3.5254354567930307`*^9, 3.525435458280403*^9}, {
+  3.634149847920252*^9, 3.634149852499592*^9}}],
 
 Cell["The following files will be installed by this notebook.", "Text",
  CellChangeTimes->{{3.525435477848207*^9, 3.525435491800005*^9}}],
@@ -185,8 +180,10 @@ Cell[BoxData[
      RowBox[{"$UserBaseDirectory", " ", ",", " ", "\"\</Applications\>\""}], 
      "}"}], "]"}]}], ";"}]], "Input",
  CellChangeTimes->{{3.5254355153637877`*^9, 3.525435551557489*^9}, {
-  3.5254356734103937`*^9, 3.525435747588125*^9}, {3.5275320821303473`*^9, 
-  3.527532089593379*^9}}]
+   3.5254356734103937`*^9, 3.525435747588125*^9}, {3.5275320821303473`*^9, 
+   3.527532089593379*^9}, {3.6341501176772118`*^9, 3.6341501244135923`*^9}, 
+   3.634150158312275*^9, {3.6341502157773533`*^9, 3.634150236172014*^9}, {
+   3.6341504301448383`*^9, 3.634150436020206*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -229,13 +226,24 @@ Cell[BoxData[
    "$OperatingSystem", "/.", "$QuantumUtilsDefaultInstallationMethods"}]}], 
   ";"}]], "Input",
  CellChangeTimes->{{3.525436125966613*^9, 3.5254361846987877`*^9}}]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Installation via Copying", "Section",
- CellChangeTimes->{{3.525435416186328*^9, 3.525435419144558*^9}, {
-  3.525435775190999*^9, 3.525435780269595*^9}}],
+Cell["Installation", "Section",
+ CellChangeTimes->{{3.634149707476592*^9, 3.634149709422063*^9}, {
+  3.6341498625678177`*^9, 3.6341498634227743`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Installation Methods", "Subsection",
+ CellChangeTimes->{{3.634149768586576*^9, 3.634149772219473*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Install via copying", "Subsubsection",
+ CellChangeTimes->{{3.634149774502894*^9, 3.634149781646448*^9}}],
 
 Cell[TextData[{
  "This method copies the current version of all QuantumUtils notebooks into \
@@ -317,13 +325,12 @@ Cell[BoxData[
    3.6333667866859217`*^9, 3.6333667869944572`*^9}, {3.63336703423059*^9, 
    3.633367099971985*^9}, {3.633367137344747*^9, 3.633367140191794*^9}, {
    3.633367242157856*^9, 3.6333672433779163`*^9}, 3.633368067493248*^9}]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
-Cell["Installation via Symbolic Link", "Section",
- CellChangeTimes->{{3.525435421553417*^9, 3.525435430408475*^9}, {
-  3.5254357690714703`*^9, 3.5254357734775143`*^9}}],
+Cell["Install via symbolic link", "Subsubsection",
+ CellChangeTimes->{{3.634149783963932*^9, 3.6341497880932217`*^9}}],
 
 Cell["\<\
 The following function adds quotations to string expressions so that special \
@@ -434,13 +441,13 @@ Cell[BoxData[
    3.633367257674914*^9}, {3.6333673846369753`*^9, 3.633367506086434*^9}, {
    3.633367622731634*^9, 3.633367708659686*^9}, {3.6333679566781683`*^9, 
    3.633367957883765*^9}, 3.633368064586405*^9}]
-}, Open  ]],
+}, Closed]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
-Cell["QuantumUtils Configuration", "Section",
- CellChangeTimes->{{3.633449932576322*^9, 3.6334499359418793`*^9}, {
-  3.6335241501571913`*^9, 3.633524162701441*^9}}],
+Cell["QuantumUtils Configuration", "Subsection",
+ CellChangeTimes->{{3.634149868530657*^9, 3.63414987137716*^9}}],
 
 Cell["\<\
 We set an option on $FrontEnd specifying the absolute location of the \
@@ -486,8 +493,8 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["Actual Installation", "Section",
- CellChangeTimes->{{3.5254359898933783`*^9, 3.52543600998776*^9}}],
+Cell["Actual Installation", "Subsection",
+ CellChangeTimes->{{3.634149875213026*^9, 3.6341498781384687`*^9}}],
 
 Cell["\<\
 We have now defined everything we need to run the installer, and will proceed \
@@ -522,11 +529,12 @@ messages.\>\"", ",",
   3.633366884520808*^9}, {3.633366975087285*^9, 3.6333669788347187`*^9}, {
   3.6333671566907053`*^9, 3.633367178029696*^9}, {3.633452153077476*^9, 
   3.6334521587672787`*^9}}]
+}, Closed]]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1280, 1000},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowSize->{1280, 1002},
+WindowMargins->{{1276, Automatic}, {Automatic, -23}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -543,56 +551,61 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[579, 22, 110, 1, 51, "Subtitle"],
-Cell[692, 25, 419, 7, 30, "Text"],
-Cell[1114, 34, 962, 16, 87, "Text"],
+Cell[579, 22, 182, 6, 148, "Title"],
+Cell[764, 30, 419, 7, 30, "Text"],
+Cell[1186, 39, 962, 16, 87, "Text"],
 Cell[CellGroupData[{
-Cell[2101, 54, 112, 1, 28, "Input"],
-Cell[2216, 57, 637, 9, 28, "Output"]
+Cell[2173, 59, 104, 1, 44, "Subsection"],
+Cell[2280, 62, 295, 6, 30, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2890, 71, 104, 1, 44, "Subsection"],
-Cell[2997, 74, 295, 6, 30, "Text"]
+Cell[2612, 73, 146, 2, 64, "Section"],
+Cell[CellGroupData[{
+Cell[2783, 79, 157, 2, 44, "Subsection"],
+Cell[2943, 83, 137, 1, 30, "Text"],
+Cell[3083, 86, 3622, 74, 267, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3329, 85, 98, 1, 44, "Subsection"],
-Cell[3430, 88, 137, 1, 30, "Text"],
-Cell[3570, 91, 3622, 74, 267, "Input"]
+Cell[6742, 165, 106, 1, 44, "Subsection"],
+Cell[6851, 168, 203, 4, 30, "Text"],
+Cell[7057, 174, 592, 11, 28, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7229, 170, 106, 1, 44, "Subsection"],
-Cell[7338, 173, 203, 4, 30, "Text"],
-Cell[7544, 179, 414, 9, 28, "Input"]
+Cell[7686, 190, 116, 1, 44, "Subsection"],
+Cell[7805, 193, 635, 10, 49, "Text"],
+Cell[8443, 205, 514, 11, 97, "Input"],
+Cell[8960, 218, 125, 1, 30, "Text"],
+Cell[9088, 221, 237, 6, 28, "Input"]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7995, 193, 116, 1, 44, "Subsection"],
-Cell[8114, 196, 635, 10, 49, "Text"],
-Cell[8752, 208, 514, 11, 97, "Input"],
-Cell[9269, 221, 125, 1, 30, "Text"],
-Cell[9397, 224, 237, 6, 28, "Input"]
+Cell[9374, 233, 150, 2, 64, "Section"],
+Cell[CellGroupData[{
+Cell[9549, 239, 108, 1, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[9682, 244, 110, 1, 35, "Subsubsection"],
+Cell[9795, 247, 407, 9, 49, "Text"],
+Cell[10205, 258, 3003, 68, 301, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[13245, 331, 118, 1, 29, "Subsubsection"],
+Cell[13366, 334, 222, 4, 30, "Text"],
+Cell[13591, 340, 280, 7, 28, "Input"],
+Cell[13874, 349, 430, 12, 30, "Text"],
+Cell[14307, 363, 276, 6, 28, "Input"],
+Cell[14586, 371, 3288, 71, 318, "Input"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[17923, 448, 113, 1, 36, "Subsection"],
+Cell[18039, 451, 275, 5, 49, "Text"],
+Cell[18317, 458, 1571, 32, 131, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9671, 235, 158, 2, 64, "Section"],
-Cell[9832, 239, 407, 9, 49, "Text"],
-Cell[10242, 250, 3003, 68, 301, "Input"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[13282, 323, 168, 2, 64, "Section"],
-Cell[13453, 327, 222, 4, 30, "Text"],
-Cell[13678, 333, 280, 7, 28, "Input"],
-Cell[13961, 342, 430, 12, 30, "Text"],
-Cell[14394, 356, 276, 6, 28, "Input"],
-Cell[14673, 364, 3288, 71, 318, "Input"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[17998, 440, 164, 2, 65, "Section"],
-Cell[18165, 444, 275, 5, 55, "Text"],
-Cell[18443, 451, 1571, 32, 165, "Input"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[20051, 488, 105, 1, 65, "Section"],
-Cell[20159, 491, 181, 4, 33, "Text"],
-Cell[20343, 497, 1127, 26, 143, "Input"]
+Cell[19925, 495, 109, 1, 44, "Subsection"],
+Cell[20037, 498, 181, 4, 30, "Text"],
+Cell[20221, 504, 1127, 26, 114, "Input"]
+}, Closed]]
 }, Open  ]]
 }, Open  ]]
 }
