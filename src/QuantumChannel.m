@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -37,7 +37,7 @@ Needs["QuantumSystems`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declarations*)
 
 
@@ -66,118 +66,47 @@ AssignUsage[ChannelRep,$Usages];
 AssignUsage[ChannelParameters,$Usages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channel Functions*)
 
 
 Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume];
 
 
-ProcessFidelity::usage = 
-"ProcessFidelity[chan] returns the process fidelity of comparing channel chan with the identity channel.
-ProcessFidelity[chan1,chan2] returns the process fidelity of comparing chan1 to chan2.
-The process fidelity of two channels with superoperators S1 and S2 is Tr[S2\[HermitianConjugate].S1].";
-
-GateFidelity::usage = 
-"GateFidelity[state,chan1,chan2] returns the gate fidelity Fidelity[chan2[state],chan1[state]] of the QuantumChannel 'chan1' with respect to 'chan2' for the input state.
-'state' may be a vector or a density matrix.
-GateFidelity[state,chan] returns gate fidelity with respect to the identity channel.";
-
-AverageGateFidelity::usage = 
-"AverageGateFidelity[chan1] returns the average gate fidelity of the QuantumChannel chan1 with respect to the identity channel.
-AverageGateFidelity[chan1,chan2] returns the average gate fidelity of QuantumChannel chan1 with respect to chan2. This is given by AverageGateFidelity[ConjugateTranspose[chan2].chan1]";
-
-EntanglementFidelity::usage = 
-"EntanglementFidelity[state,chan] returns the entanglement fidelity of the QuantumChannel chan1 with respect to the identity channel for the input state.
-The input state may be a vector or a density matrix.
-EntanglementFidelity[state,chan1,chan2] returns the entanglement fidelity with respect to the channel chan2 instead of the indentity channel. This is given by EntanglementFidelity[state,ConjugateTranspose[chan2].chan1]";
+AssignUsage[ProcessFidelity,$Usages];
+AssignUsage[GateFidelity,$Usages];
+AssignUsage[AverageGateFidelity,$Usages];
+AssignUsage[EntanglementFidelity,$Usages];
+AssignUsage[ChannelVolume,$Usages];
 
 
-ChannelVolume::usage = 
-"ChannelVolume[chan] returns the volume of the hyperellipsoidal image of the Bloch (hyper)sphere under the action of a channel as a multiple of the unit hypersphere volume.";
-
-
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Predicates*)
 
 
 Unprotect[CompletelyPositiveQ,TracePreservingQ,HermitianPreservingQ,UnitalQ,PauliChannelQ];
 
 
-CompletelyPositiveQ::usage = 
-"CompletelyPositiveQ[chan] yeilds True if the QuantumChannel chan is a completely positive channel, and yields False otherwise.
-CompletelyPositiveQ[chan,Simplify->fun] applies the pure function CompletelyPositiveQ[fun[choi]] where choi is the Choi matrix representaiton of chan. 
-This may be used to simplify the expression with assumptions for symbolic channels.
-Eg. CompletelyPositiveQ[chan,FullSimplify[#,{a,b,c}\[Element]Reals]&], or CompletelyPositiveQ[chan,ComplexExpand]";
-
-TracePreservingQ::usage = 
-"TracePreservingQ[chan] yeilds True if he QuantumChannel chan is a trace preserving channel, and yields False otherwise.
-TracePreservingQ[chan,Simplify->fun] applies the pure function TracePreservingQ[fun[choi]] where choi is the Choi matrix representaiton of chan. 
-This may be used to simplify the expression with assumptions for symbolic channels.
-Eg. TracePreservingQ[chan,FullSimplify[#,{a,b,c}\[Element]Reals]&], or TracePreservingQ[chan,ComplexExpand]";
-
-HermitianPreservingQ::usage= 
-"HermitianPreservingQ[chan] yeilds True if he QuantumChannel chan is a Hermitian preserving channel, and yields False otherwise.
-HermitianPreservingQ[chan,Simplify->fun] applies the pure function HermitianPreservingQ[fun[choi]] where choi is the Choi matrix representaiton of chan. 
-This may be used to simplify the expression with assumptions for symbolic channels.
-Eg. HermitianPreservingQ[chan,FullSimplify[#,{a,b,c}\[Element]Reals]&], or HermitianPreservingQ[chan,ComplexExpand]";
-
-UnitalQ::usage = 
-"UnitalQ[chan] yeilds True if he QuantumChannel chan is a unital channel, and yields False otherwise.
-UnitalQ[chan,Simplify->fun] applies the pure function UnitalQ[fun[choi]] where choi is the Choi matrix representaiton of chan. 
-This may be used to simplify the expression with assumptions for symbolic channels.
-Eg. UnitalQ[chan,FullSimplify[#,{a,b,c}\[Element]Reals]&], or UnitalQ[chan,ComplexExpand]";
-
-PauliChannelQ::usage =
-"PauliChanneQ[chan] yeilds True if he QuantumChannel chan is a a Pauli channel, and yields False otherwise.
-A Pauli channel is a channel where the Choi matrix is diagonal when represented in the Pauli basis.
-PauliChanneQ[chan,Simplify->fun] applies the pure function PauliChanneQ[fun[choi]] where choi is the Pauli basis Choi matrix representaiton of chan. 
-This may be used to simplify the expression with assumptions for symbolic channels.
-Eg. PauliChanneQ[chan,FullSimplify[#,{a,b,c}\[Element]Reals]&], or PauliChanneQ[chan,ComplexExpand]";
+AssignUsage[CompletelyPositiveQ,$Usages];
+AssignUsage[TracePreservingQ,$Usages];
+AssignUsage[HermitianPreservingQ,$Usages];
+AssignUsage[UnitalQ,$Usages];
+AssignUsage[PauliChannelQ,$Usages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Special Channels*)
 
 
 Unprotect[ComChannel,AComChannel,Lindblad,LindbladDissipator,SwapChannel,PartialTrChannel];
 
 
-ComChannel::usage = 
-"ComChannel[A] returns a QuantumChannel in the Super representation corresponding to the commutator superoperator Ad[A] defined by Ad[A][B] = A.B - B.A
-The input A must be a matrix or a Unitary QuantumChannel.";
-
-AComChannel::usage = 
-"AComChannel[A] returns a QuantumChannel in the Super representation corresponding to the anti-commutator superoperator AAd[A] defined by Ad[A][B] = A.B + B.A
-The input A must be a matrix or a Unitary QuantumChannel.";
-
-
-LindbladDissipator::usage = 
-"LindbladDissipaator[A] returns a QuantumChannel in the Super representation corresponding to the Lindblad dissipator D[A] defined by D[A][B] = A.B.A\[HermitianConjugate]- A\[HermitianConjugate].A.B/2 - B.A\[HermitianConjugate].A/2
-The input A must be a matrix or a Unitary QuantumChannel.
-LindbladDissipator[A1,...,An] returns LindbladDissipator[A1] + ... + LindbladDissipator[An].
-LindbladDissipator[{A1,...,An}] returns LindbladDissipator[A1] + ... + LindbladDissipator[An].";
-
-
-Lindblad::usage =
-"Lindblad[mat] returns -I*ComChannel[mat], the Lindblad equation QuantumChannel for Hamiltonian evolution under mat.
-Lindblad[{mat1,...,matm}] returns LindbladDissipator[mat1,...,matn], the Lindblad equation QuantumChannel for dissipative evolution with collapse operators mat1,...,matn.
-Lindblad[op1,op2,...,opn] evaluates each element of the Sequence op1,...,opn as either a Hamiltonian or list of collapse ops and returns the QuantumChannel for the sum of the results.  ";
-
-
-SwapChannel::usage = 
-"SwapChannel[outputs,dims] returns a QuantumChannel in the Super representation corresponding to a permutation of subsystems of the input Hilbert space.
-'outputs' specifies the order of the input subsystems in the output space.
-'dims' is the list of all the input Hilbert space subsystem dimensions. 
-If 'dims' is an interger all subsystems are assumed to have this dimensions.
-If 'dims' is not specified all subsystems are assumed to have dimension 2.
-Eg. To swap two subsystems of dimensions d1 d2: SwapChannel[{2,1},{d1,d2}].";
-
-
-PartialTrChannel::usage = 
-"PartialTrChannel[dims, trlist] returns a QuantumChannel in the Super representation corresponding to the partial trace PartialTr[#,dims,trlist].
-'dims' is the list of all the input Hilbert space subsystem dimensions.
-'trlist' is the list of the subsystems to be traced over.";
+AssignUsage[ComChannel,$Usages];
+AssignUsage[AComChannel,$Usages];
+AssignUsage[LindbladDissipator,$Usages];
+AssignUsage[Lindblad,$Usages];
+AssignUsage[SwapChannel,$Usages];
+AssignUsage[PartialTrChannel,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -806,7 +735,7 @@ chan_QuantumChannel[state_]:=
 	]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channel Operations*)
 
 
@@ -889,7 +818,7 @@ QuantumChannel/:Dot[chans__QuantumChannel]:=
 	]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Superoperator Functions*)
 
 
@@ -904,15 +833,15 @@ ChannelFunction[chan_QuantumChannel,rep_,fn_Function]:=ChannelFunction[rep[chan]
 (*Transpose, Conjugate, Conjugate Transpose*)
 
 
-QuantumChannel/:Transpose[chan_,QuantumChannel]:=
+QuantumChannel/:Transpose[chan_QuantumChannel]:=
 		ChannelRep[chan][ChannelFunction[Super[chan,Basis->"Col"],Transpose]]
 
 
-QuantumChannel/:ConjugateTranspose[chan_,QuantumChannel]:=
+QuantumChannel/:ConjugateTranspose[chan_QuantumChannel]:=
 		ChannelRep[chan][ChannelFunction[Super[chan,Basis->"Col"],ConjugateTranspose]]
 
 
-QuantumChannel/:Conjugate[chan_,QuantumChannel]:=
+QuantumChannel/:Conjugate[chan_QuantumChannel]:=
 		ChannelRep[chan][ChannelFunction[Super[chan,Basis->"Col"],Conjugate]]
 
 
@@ -983,7 +912,7 @@ QuantumChannel/:func[chan_QuantumChannel,opts___]:=
 	ChannelFunction[chan,func[#,opts]&]],$ChannelSimplifyFunctions];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Fidelity and Volume*)
 
 
@@ -1026,7 +955,7 @@ EntanglementFidelity[state_,chan_QuantumChannel]:=
 EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=EntanglementFidelity[state,ConjugateTranspose[Super[chan2]].chan2]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Special Channels*)
 
 
@@ -1116,6 +1045,10 @@ PartialTrChannel[sysDims_,trlist_]:=
 
 
 End[];
+
+
+(* ::Section:: *)
+(*Unit Testing*)
 
 
 (* ::Section::Closed:: *)
