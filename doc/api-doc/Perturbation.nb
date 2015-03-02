@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    125756,       3172]
-NotebookOptionsPosition[    117363,       2901]
-NotebookOutlinePosition[    119678,       2966]
-CellTagsIndexPosition[    119078,       2950]
+NotebookDataLength[    124898,       3142]
+NotebookOptionsPosition[    116622,       2875]
+NotebookOutlinePosition[    118937,       2940]
+CellTagsIndexPosition[    118337,       2924]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -2822,7 +2822,7 @@ N2v43/9JI7L52z/as/B/Qi8oKg==
    3.634321920767069*^9, 3.634321987929991*^9}, {3.6343220302394257`*^9, 
    3.634322068942733*^9}, 3.634322166079812*^9}]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2856,33 +2856,7 @@ function is memoized."
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.6343119551595488`*^9, 3.634312050941765*^9}, {
   3.634312142856188*^9, 3.6343121463880777`*^9}},
- CellTags->"ZassenhausGenerator::usage"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"Com", "[", 
-  RowBox[{
-   RowBox[{"TP", "[", "X", "]"}], ",", 
-   RowBox[{"TP", "[", "Y", "]"}], ",", "2"}], "]"}]], "Input",
- CellChangeTimes->{{3.63431340828867*^9, 3.634313415932081*^9}, {
-  3.6343134788624372`*^9, 3.634313479061269*^9}, {3.634316662399085*^9, 
-  3.634316662607367*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{"0", ",", 
-     RowBox[{
-      RowBox[{"-", "4"}], " ", "\[ImaginaryI]"}]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"4", " ", "\[ImaginaryI]"}], ",", "0"}], "}"}]}], 
-  "}"}]], "Output",
- CellChangeTimes->{{3.634313416219097*^9, 3.634313479554965*^9}, {
-  3.634316660722131*^9, 3.634316662812036*^9}}]
-}, Open  ]]
+ CellTags->"ZassenhausGenerator::usage"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2949,18 +2923,18 @@ CellTagsIndex->{
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"AverageHamiltonianTerm::usage", 117668, 2911},
- {"AverageHamiltonian::usage", 117790, 2914},
- {"FirstOrderEigenvector::usage", 117911, 2917},
- {"MagnusConvergenceTest::usage", 118035, 2920},
- {"MagnusExpansionTerm::usage", 118157, 2923},
- {"MagnusExpansion::usage", 118271, 2926},
- {"MagnusGenerator::usage", 118382, 2929},
- {"SecondOrderEigenvalue::usage", 118500, 2932},
- {"ZassenhausExpansion::usage", 118622, 2935},
- {"ZassenhausGenerator::usage", 118744, 2938},
- {"ZassenhausSeries::usage", 118861, 2941},
- {"ZassenhausTerm::usage", 118973, 2944}
+ {"AverageHamiltonianTerm::usage", 116927, 2885},
+ {"AverageHamiltonian::usage", 117049, 2888},
+ {"FirstOrderEigenvector::usage", 117170, 2891},
+ {"MagnusConvergenceTest::usage", 117294, 2894},
+ {"MagnusExpansionTerm::usage", 117416, 2897},
+ {"MagnusExpansion::usage", 117530, 2900},
+ {"MagnusGenerator::usage", 117641, 2903},
+ {"SecondOrderEigenvalue::usage", 117759, 2906},
+ {"ZassenhausExpansion::usage", 117881, 2909},
+ {"ZassenhausGenerator::usage", 118003, 2912},
+ {"ZassenhausSeries::usage", 118120, 2915},
+ {"ZassenhausTerm::usage", 118232, 2918}
  }
 *)
 (*NotebookFileOutline
@@ -3157,20 +3131,16 @@ Cell[CellGroupData[{
 Cell[53468, 1694, 1807, 42, 187, "Input"],
 Cell[55278, 1738, 59900, 1084, 260, "Output"]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[115239, 2829, 108, 1, 44, "Subsection"],
 Cell[115350, 2832, 859, 26, 51, "Text",
- CellTags->"ZassenhausGenerator::usage"],
-Cell[CellGroupData[{
-Cell[116234, 2862, 314, 7, 32, "Input"],
-Cell[116551, 2871, 387, 12, 32, "Output"]
-}, Open  ]]
+ CellTags->"ZassenhausGenerator::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[116987, 2889, 97, 1, 44, "Subsection"],
-Cell[117087, 2892, 236, 4, 31, "Text"]
+Cell[116246, 2863, 97, 1, 44, "Subsection"],
+Cell[116346, 2866, 236, 4, 31, "Text"]
 }, Closed]]
 }, Open  ]]
 }, Open  ]]
