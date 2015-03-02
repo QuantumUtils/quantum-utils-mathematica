@@ -76,7 +76,7 @@ ODESolver::initcond = "Input state must be a square matrix or vector.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preformating State and Lindblad*)
 
 
@@ -112,13 +112,13 @@ PreformatHamiltonian[ham_]:=
 
 PreformatState[initState_]:=
 	Which[
-		SquareMatrixQ[initState], Flatten@Vec[initState],
-		GeneralVectorQ[initState], Flatten[initState],
+		SquareMatrixQ[initState], Flatten@Vec[Normal[initState]],
+		GeneralVectorQ[initState], Flatten[Normal[initState]],
 		True, Message[ODESolver::initcond]
 	]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Setting up the ODE*)
 
 
