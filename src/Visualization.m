@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preample*)
 
 
@@ -51,12 +51,19 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualizati
 (*Matrices*)
 
 
+Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm];
+
+
 AssignUsage[ComplexMatrixPlot,$Usages];
 AssignUsage[BlockForm,$Usages];
+AssignUsage[MatrixListForm,$Usages];
 
 
 (* ::Subsection:: *)
 (*Bloch Plots*)
+
+
+Unprotect[BlochPlot,BlochPlot2D,ListBlochPlot,ListBlochPlot2D];
 
 
 AssignUsage[BlochPlot,$Usages];
@@ -66,7 +73,20 @@ AssignUsage[ListBlochPlot2D,$Usages];
 
 
 (* ::Subsection:: *)
+(*Eigensystems*)
+
+
+Unprotect[EigensystemForm];
+
+
+AssignUsage[EigensystemForm,$Usages];
+
+
+(* ::Subsection:: *)
 (*Special Plotting Functions*)
+
+
+Unprotect[FourierListPlot];
 
 
 AssignUsage[FourierListPlot,$Usages];
@@ -86,7 +106,7 @@ BlochPlot::input = "Input must be a state vector or density matrix.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices*)
 
 
@@ -122,7 +142,10 @@ BlockForm[mat_,n_]:=
 BlockForm[mat_]:=BlockForm[mat,First@Last@FactorInteger[Length[mat],2]]
 
 
-(* ::Subsection:: *)
+MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
+
+
+(* ::Subsection::Closed:: *)
 (*Bloch Plots*)
 
 
@@ -178,7 +201,7 @@ Text[Style["|+Z\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,1.15}],
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Bloch Sphere Plotting*)
 
 
@@ -217,7 +240,7 @@ ListBlochPlot[\[Rho]list_,opt:OptionsPattern[Graphics3D]]:=
 	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Bloch Sphere 2D Projection*)
 
 
@@ -260,7 +283,17 @@ GraphicsRow[{
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
+(*Eigensystems*)
+
+
+EigensystemForm[sys_]:=Grid[
+	({#[[1]],"\[DownArrow]",MatrixForm[#[[2]]]}&/@(sys\[Transpose]))\[Transpose],
+	ItemSize->Full
+];
+
+
+(* ::Subsection::Closed:: *)
 (*Special Plotting Functions*)
 
 
@@ -288,7 +321,7 @@ FourierListPlot[data_,{mint_,maxt_},function_,opt:OptionsPattern[ListPlot]]:=
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*End Private*)
 
 
@@ -297,6 +330,12 @@ End[];
 
 (* ::Section::Closed:: *)
 (*End Package*)
+
+
+Protect[ComplexMatrixPlot,BlockForm,MatrixListForm];
+Protect[BlochPlot,BlochPlot2D,ListBlochPlot,ListBlochPlot2D];
+Protect[EigensystemForm];
+Protect[FourierListPlot];
 
 
 EndPackage[];
