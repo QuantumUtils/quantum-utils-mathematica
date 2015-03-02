@@ -22,14 +22,21 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
 BeginPackage["Tensor`",{"Predicates`"}];
 
 
-(* ::Section:: *)
+Needs["DocTools`"]
+Needs["QUOptions`"]
+
+
+$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
+
+
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
 
 
@@ -40,77 +47,30 @@ BeginPackage["Tensor`",{"Predicates`"}];
 Unprotect[CircleTimes,BlockMatrix,UnitArray,ArrayPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
 
 
-CircleTimes::usage = "CircleTimes[vec1,...,vecn] returns the vector formed by taking the tensor product of all vectors.
-CircleTimes[op1,..,opn] returns the Array from taking the tensor product of arrays op1 through opn.
-CircleTimes[op, n] returns CircleTimes[op1,...,opn].";
-
-
-BlockMatrix::usage = "Returns the diagonal block matrix of the input matrices.";
-
-
-Com::usage = "Shorthand for the commutator of two matrices.";
-ACom::usage= "Shorthand for the anti-commutator of two matrices.";
-
-
-OuterProduct::usage="OuterProduct[vec1,vec2] returns the matrix vec1\[CircleTimes]vec2\[HermitianConjugate] by taking the outer product of two vectors." ;
-Projector::usage="Projector[v] returns the rank-1 projection operator vec1\[CircleTimes]vec1\[HermitianConjugate].";
-
-
-UnitArray::usage = "
-UnitArray[{d1,...,dn},{i1,...,in}] returns the unit rank-n array with dimensions {d1,...,dn} with a 1 at index {i1,...,in} and zeros elsewhere.
-UnitArray[{d1,...,dn},{i1,...,in}, SparseArray] returns the unit array as a SparseArray. ";
-
-
-ArrayPermutations::usage = "
-ArrayPermutations[{A1,n1},{A2,n2},...,{Ak,nk}] returns a sum of all permutations of CircleTimes of n1 copies of A1, n2  copies of A2 etc. ";
-
-
-SwapMatrix::usage= 
-"SwapMatrix[{d1,...,dn},{i1,...,in}] returns the permutation matrix for mapping a subsystem k with dimension dk, to subsystem ik.
-SwapMatrix[d,{i1,...,in}] returns the permutation matrix for mapping a subsystem k to subsystem ik where all subsystems have dimension d.
-SwapMatrix[ds,{i1,...,in},SparseArray] returns the permutation matrix as a SparseArray.";
+AssignUsage[CircleTimes,$Usages];
+AssignUsage[BlockMatrix,$Usages];
+AssignUsage[UnitArray,$Usages];
+AssignUsage[ArrayPermutations,$Usages];
+AssignUsage[SwapMatrix,$Usages];
+AssignUsage[Com,$Usages];
+AssignUsage[ACom,$Usages];
+AssignUsage[OuterProduct,$Usages];
+AssignUsage[Projector,$Usages];
 
 
 (* ::Subsection::Closed:: *)
 (*Matrix-Tensor Manipulations*)
 
 
-Unprotect[MatrixToTensor,MatrixTranspose,Swap,BipartiteTranspose,Reshuffle,Unravel,Reravel];
+Unprotect[MatrixToTensor,MatrixTranspose,Swap,Reshuffle,Unravel,Reravel];
 
 
-MatrixToTensor::usage = 
-"MatrixToTensor[mat,{{dL1,..dLn},{dR1,...,dRk}}] transforms the matrix mat into a a rank-(n+k) tensor if Dimesensions[mat] = {dL1*...*dLn, dR1*...*dRk}.
-MatrixToTensor[mat,{d1,...,dn}] transforms the matrix mat into a a rank-n tensor if Times@@Dimesensions[mat] = d1*...*dn.
-MatrixToTensor[mat,{d1,..dn}] transforms the matrix mat into a a rank-2n tensor if Dimesensions[mat] = {d1*...*dn, d1*...*dn}.";
-
-
-MatrixTranspose::usage = 
-"MatrixTranspose[mat,dims,perm] yields the matrix resulting from TensorTranspose[MatrixToTensor[mat,dims],perm].";
-
-
-Swap::usage = 
-"Swap[op,{d1,...,dn},perm] yields the matrix or vector resulting from permuting subystems of dimensions dj as listed by perm.
-Swap[op,d,perm] yields the matrix or vector resulting from permuting subystems of dimensions d as listed by perm.
-If d isn't specified the default is d=2.";
-
-
-Reshuffle::usage = "
-Reshuffle[mat,{dl1,dl2,dr1,dr2d}] yields the column reshuffled matrix of the bipartite matrix 'mat' with dimensions {dl1*dl2, dr1*dr2}.
-Reshuffle[mat] yields the column reshuffled matrix of the bipartite matrix 'mat' with dimensions {dl*dl, dr*dr}.
-Reshuffle[mat,{dl1,dl2,dr1,dr2d}, Basis->''Row''] yields the column reshuffled matrix of the bipartite matrix 'mat' with dimensions {dl1*dl2, dr1*dr2}.
-Reshuffle[mat, Basis->''Row''] yields the column reshuffled matrix of the bipartite matrix 'mat' with dimensions {dl*dl, dr*dr}.";
-
-
-Unravel::usage = 
-"Unravel[op,{d1,..,dn}] yields the unraveled form of 'op' where op has n subsystems each of dimension {dj^2,dj^2}.
-Unravel[op,d] yields the unravelled form of op where op has subsystems of dimension {d^2,d^2}.
-If d is not specified then it defaults to d=2.";
-
-
-Reravel::usage = 
-"Reravel[op,{d1,..,dn}] yields the reraveled form of 'op' where op has n subsystems each of dimension {dj^2,dj^2}.
-Reravel[op,d] yields the reravelled form of op where op has subsystems of dimension {d^2,d^2}.
-If d is not specified then it defaults to d=2.";
+AssignUsage[MatrixToTensor,$Usages];
+AssignUsage[MatrixTranspose,$Usages];
+AssignUsage[Swap,$Usages];
+AssignUsage[Reshuffle,$Usages];
+AssignUsage[Unravel,$Usages];
+AssignUsage[Reravel,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -120,25 +80,10 @@ If d is not specified then it defaults to d=2.";
 Unprotect[PartialTr,TensorPairContract,MatrixContract,MatrixPairContract];
 
 
-PartialTr::usage =
-"PartialTrace[mat, {d1,d2,...,dn},{i1,..,ik}] yields the matrix resulting from the partial trace over subsystems i1,..,ik of the mat, where subsystem j has dimensions dj.";
-
-
-TensorPairContract::usage = 
-"TensorPairContract[tenor1_,tenor2_,{{s11,s12},{s21,s22},...}] yields the tensor resulting from contracting index si1 of tensor1 with index si2 of tensor 2.
-If the contract list is the empty list {} it yields TensorProduct[tensor1,tensor2]";
-
-
-MatrixContract::usage = 
-"MatrixContract[mat,dims,{{s11,s12},{s21,s22},...}] yields the contraction of mat in the pairs {si1, si2} of slots by reshaping mat to a tensor MatrixToTensor[mat,dims].
-It functions as TensorContract[MatrixToTensor[mat,dims],{{s11,s12},{s21,s22},...}] and reshapes the ouput tensor to the appropriate dimensional matrix.";
-
-
-MatrixPairContract::usage = 
-"MatrixPairContract[{mat1_,dims1},{mat2,dims2},{{s11,s12},{s21,s22},...}] yields the matrix resulting from contracting index si1 of tensor1 with index si2 of tensor2, wheretensorj = MatrixToTensor[matj,dimsj].
-If the contract list is the empty list {} it yields KroneckerProduct[mat1,mat2]";
-
-
+AssignUsage[PartialTr,$Usages];
+AssignUsage[TensorPairContract,$Usages];
+AssignUsage[MatrixContract,$Usages];
+AssignUsage[MatrixPairContract,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -148,27 +93,9 @@ If the contract list is the empty list {} it yields KroneckerProduct[mat1,mat2]"
 Unprotect[Basis,BasisLabels,ExpressInBasis];
 
 
-Basis::usage = 
-"Basis[basis,n] returns the matrix basis for n subsystems with subsytem basis 'basis'.
-'basis' may either be a list of matrices {b1,...,bn} or a string for named bases.
-Supported named bases are:
-  ''Pauli'' for the normalized Pauli basis,
-  ''PO'' for the product operator basis (unnormalized Pauli basis)";
-
-
-BasisLabels::usage = 
-"BasisLabels[basis,n] returns the basis labels for n subsystems with subsytem basis 'basis'.
-'basis' may either be a list of string labels {s1,...,sn} or a string for named bases.
-Supported named bases are:
-  ''Pauli'' for the normalized Pauli basis,
-  ''PO'' for the product operator basis (unnormalized Pauli basis)";
-
-
-ExpressInBasis::usage = 
-"ExpressInBasis[op,opts] expresses operator op in terms of basis elements for a basis.
-Options are:
-  Basis->basis, with default basis value ''PO'' (See Basis for more details)
-  BasisLabels->labels, with default value False. If 'labels' is True it will use the labels for a named basis, 'labels' may also be a list of string labels (See BasisLabels for more details).";
+AssignUsage[Basis,$Usages];
+AssignUsage[BasisLabels,$Usages];
+AssignUsage[ExpressInBasis,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -178,40 +105,21 @@ Options are:
 Unprotect[Vec,Devec,ProductIdentity,BasisMatrix,BasisTransformation];
 
 
-Vec::usage = "Vec[A] vectorizes a matrix A using the currently selected vectorization convention.";
-Devec::usage = "Devec[v] de-vectorizes a vector v using the currently selected vectorization convention";
-ProductIdentity::usage = "ProductIdentity[A,C] returns a matrix M such that M.Vec[B]=Vec[A.B.C] for matrices A,B and C.";
-
-
-BasisMatrix::usage = 
-"BasisMatrix[basis1->basis2, arg] returns the change of basis unitary matrix for transforming a vectorized matrix in basis 1 to basis 2.
-'basis1', 'basis2' may be either ''Col'', ''Row'', ''Pauli'' or a list of matrices.
-If basis1 or basis2 are ''Pauli'' or lists of matrices 'arg' is optional. If arg is an integer it specifies the number of subsystems with the given basis.
-If both 'basis1' and 'basis2' are ''Col'' or ''Row'' 'arg' is manditory and specifies the dimension of the vectorized matrix (either {dL,dR} or d for square matrices).";
-
-BasisTransformation::usage =
-"BasisTransformation[op, basis1->basis2] transforms an operator in vectorization basis1 to an operator in vectorization basis2.
-op may be a matrix (which acts on vectorized matrices), or a vector (vectorized matrix).
-basis1 and basis2 may be either ''Col'', ''Row'', ''Pauli'', or a list of matrices.";
+AssignUsage[Vec,$Usages];
+AssignUsage[Devec,$Usages];
+AssignUsage[ProductIdentity,$Usages];
+AssignUsage[BasisMatrix,$Usages];
+AssignUsage[BasisTransformation,$Usages];
 
 
 (* ::Subsection::Closed:: *)
-(*Tensor Parser*)
+(*Tensor Product Parser*)
 
 
 Unprotect[TP];
 
 
-TP::usage="TP[str,opts] converts an input string into the tensor product of matrices. 
-TP has options Replace and Method. Allowed operators are + -, i is used for the imaginary number, and any integers or symbols not specified in the Replace option are treated as scalars.
-
-Method is the method used to combine operators, the default method is CircleTimes.
-Replace is a list of operator replacement rules for the input string, the default Replace is 
-{''I''->PauliMatrix[0], ''X''->PauliMatrix[1],''Y''->PauliMatrix[2],''Z''->PauliMatrix[3},
-''P''->{{0,1},{0,0}}, ''M''->{{0,0},{1,0}}, ''U''->{{1,0},{0,0}}, ''D''->{{0,0},{0,1}},
-''H''->{{1,1},{1,-1}}/Sqrt[2], ''S''->{{1,0},{0,I}}, ''T''->{{1,0},{0,Exp[I*Pi/4]}}}.
-
-For example XX+iYY -> CircleTimes[X,X]+I*CircleTimes[Y,Y].";
+AssignUsage[TP,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -247,14 +155,14 @@ Unravel::dims="Invalid specification of subsystem dimension.";
 BasisMatrix::dims = "Dimensions of input system must be specified.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices and Operations*)
 
 
@@ -616,7 +524,7 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{pairs___List}]:=
 MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix Bases*)
 
 
@@ -859,8 +767,8 @@ BasisTransformation[op_,Rule[basis1_,basis2_]]:=
 		Rule["Col",basis2]]]
 
 
-(* ::Subsection:: *)
-(*Tensor Parser*)
+(* ::Subsection::Closed:: *)
+(*Tensor Product Parser*)
 
 
 (* ::Subsubsection:: *)
@@ -976,14 +884,14 @@ TP[str_,opts:OptionsPattern[TP]]:=Total[
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
 Protect[CircleTimes,BlockMatrix,UnitArray,ArrayPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
 Protect[Basis,BasisLabels,ExpressInBasis];
 Protect[Vec,Devec,ProductIdentity,BasisMatrix,BasisTransformation,Rules];
-Protect[MatrixToTensor,MatrixTranspose,Swap,BipartiteTranspose,Reshuffle,Unravel,Reravel];
+Protect[MatrixToTensor,MatrixTranspose,Swap,Reshuffle,Unravel,Reravel];
 Protect[PartialTr,TensorPairContract,MatrixContract,MatrixPairContract];
 Protect[TP];
 

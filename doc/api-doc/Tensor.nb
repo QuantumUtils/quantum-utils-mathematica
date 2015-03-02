@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     18965,        473]
-NotebookOptionsPosition[     17009,        401]
-NotebookOutlinePosition[     17577,        424]
-CellTagsIndexPosition[     17492,        419]
+NotebookDataLength[     46992,       1288]
+NotebookOptionsPosition[     36480,        948]
+NotebookOutlinePosition[     40904,       1084]
+CellTagsIndexPosition[     39789,       1051]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -53,7 +53,8 @@ Cell[CellGroupData[{
 
 Cell["Section One", "Section",
  CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
-  3.633441643373975*^9, 3.633441643471745*^9}}],
+  3.633441643373975*^9, 3.633441643471745*^9}, {3.63431054665984*^9, 
+  3.634310549415275*^9}}],
 
 Cell["\<\
 These sections (at the alt-4 level) enclose a collection of related features \
@@ -387,21 +388,568 @@ Cell["Feature 2", "Subsection",
 Cell["Same as feature 1, etc., etc.", "Text",
  CellChangeTimes->{{3.633353572827725*^9, 3.633353602935569*^9}}]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Section Two", "Section",
- CellChangeTimes->{{3.633352040880207*^9, 3.633352042744746*^9}}],
+Cell["Matrices and Matrix operations", "Section",
+ CellChangeTimes->{{3.633352040880207*^9, 3.633352042744746*^9}, {
+  3.634310557380536*^9, 3.634310559663636*^9}, {3.6343107475388527`*^9, 
+  3.634310749520076*^9}}],
 
-Cell["Same as Section One, etc., etc.", "Text",
- CellChangeTimes->{{3.633353594145348*^9, 3.633353606545936*^9}}]
-}, Closed]]
+Cell[CellGroupData[{
+
+Cell["CircleTimes", "Subsection",
+ CellChangeTimes->{{3.6343107215521727`*^9, 3.634310729011115*^9}}],
+
+Cell["\<\
+CircleTimes[vec1,...,vecn] returns the vector formed by taking the tensor \
+product of all vectors.
+CircleTimes[op1,..,opn] returns the Array from taking the tensor product of \
+arrays op1 through opn.
+CircleTimes[op, n] returns CircleTimes[op1,...,opn].\[CloseCurlyDoubleQuote];\
+\
+\>", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.634311328002417*^9},
+ CellTags->"CircleTimes::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ArrayPermutations", "Subsection",
+ CellChangeTimes->{{3.634310810427404*^9, 3.634310812373498*^9}, 
+   3.634310973563674*^9}],
+
+Cell["\<\
+ArrayPermutations[{A1,n1},{A2,n2},...,{Ak,nk}] returns a sum of all \
+permutations of CircleTimes of n1 copies of A1, n2  copies of A2 etc. \
+\[OpenCurlyDoubleQuote];\
+\>", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.6343112851955433`*^9},
+ CellTags->"ArrayPermutations::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["SwapMatrix", "Subsection",
+ CellChangeTimes->{{3.63431080413785*^9, 3.634310805342319*^9}, 
+   3.634310974879772*^9}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]SwapMatrix[{d1,...,dn},{i1,...,in}] returns the \
+permutation matrix for mapping a subsystem k with dimension dk, to subsystem \
+ik.
+SwapMatrix[d,{i1,...,in}] returns the permutation matrix for mapping a \
+subsystem k to subsystem ik where all subsystems have dimension d.
+SwapMatrix[ds,{i1,...,in},SparseArray] returns the permutation matrix as a \
+SparseArray.\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.634311280729559*^9},
+ CellTags->"SwapMatrix::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["BlockMatrix", "Subsection",
+ CellChangeTimes->{{3.6343107352332087`*^9, 3.634310736975686*^9}, 
+   3.6343109763759604`*^9}],
+
+Cell["Returns the diagonal block matrix of the input matrices.\
+\[CloseCurlyDoubleQuote];", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.6343113232100773`*^9},
+ CellTags->"BlockMatrix::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["UnitArray", "Subsection",
+ CellChangeTimes->{{3.634310781740144*^9, 3.634310784765884*^9}, {
+  3.634310977647337*^9, 3.634310979987252*^9}}],
+
+Cell["\<\
+UnitArray[{d1,...,dn},{i1,...,in}] returns the unit rank-n array with \
+dimensions {d1,...,dn} with a 1 at index {i1,...,in} and zeros elsewhere.
+UnitArray[{d1,...,dn},{i1,...,in}, SparseArray] returns the unit array as a \
+SparseArray. \[OpenCurlyDoubleQuote];\
+\>", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.634311290955184*^9},
+ CellTags->"UnitArray::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Com and ACom", "Subsection",
+ CellChangeTimes->{{3.634310739888934*^9, 3.6343107593858128`*^9}, {
+  3.6343114120583*^9, 3.634311416084159*^9}}],
+
+Cell["Shorthand for the commutator of two \
+matrices.\[CloseCurlyDoubleQuote];", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.634311311339786*^9},
+ CellTags->"Com::usage"],
+
+Cell["Shorthand for the anti-commutator of two matrices.\
+\[CloseCurlyDoubleQuote];", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.634311316190063*^9},
+ CellTags->"ACom::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["OuterProduct and Projector", "Subsection",
+ CellChangeTimes->{{3.634310765820191*^9, 3.6343107737409554`*^9}, {
+  3.634310982597848*^9, 3.63431099021356*^9}}],
+
+Cell["\<\
+OuterProduct[vec1,vec2] returns the matrix vec1\[CircleTimes]vec2\
+\[HermitianConjugate] by taking the outer product of two vectors.\
+\[CloseCurlyDoubleQuote] ;\
+\>", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.6343113040391827`*^9},
+ CellTags->"OuterProduct::usage"],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]Projector[v] returns the rank-1 projection operator \
+vec1\[CircleTimes]vec1\[HermitianConjugate].\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.634311297818637*^9},
+ CellTags->"Projector::usage"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Matrix-Tensor Manipulations", "Section",
+ CellChangeTimes->{{3.634310842692814*^9, 3.634310845707429*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["MatrixToTensor", "Subsection",
+ CellChangeTimes->{{3.6343111988578568`*^9, 3.6343112006351967`*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]MatrixToTensor[mat,{{dL1,..dLn},{dR1,...,dRk}}] \
+transforms the matrix mat into a a rank-(n+k) tensor if Dimesensions[mat] = \
+{dL1*...*dLn, dR1*...*dRk}.
+MatrixToTensor[mat,{d1,...,dn}] transforms the matrix mat into a a rank-n \
+tensor if Times@@Dimesensions[mat] = d1*...*dn.
+MatrixToTensor[mat,{d1,..dn}] transforms the matrix mat into a a rank-2n \
+tensor if Dimesensions[mat] = {d1*...*dn, d1*...*dn}.\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311207861146*^9},
+ CellTags->"MatrixToTensor::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MatrixTranspose", "Subsection",
+ CellChangeTimes->{{3.634311211120685*^9, 3.634311212965885*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]MatrixTranspose[mat,dims,perm] yields the matrix \
+resulting from TensorTranspose[MatrixToTensor[mat,dims],perm].\
+\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311220033101*^9},
+ CellTags->"MatrixTranspose::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Swap", "Subsection",
+ CellChangeTimes->{{3.6343112271179*^9, 3.634311227623914*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]Swap[op,{d1,...,dn},perm] yields the matrix or vector \
+resulting from permuting subystems of dimensions dj as listed by perm.
+Swap[op,d,perm] yields the matrix or vector resulting from permuting \
+subystems of dimensions d as listed by perm.
+If d isn\[CloseCurlyQuote]t specified the default is d=2.\
+\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311231947031*^9},
+ CellTags->"Swap::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reshuffle", "Subsection",
+ CellChangeTimes->{{3.6343112381666803`*^9, 3.634311239875751*^9}}],
+
+Cell["\<\
+Reshuffle[mat,{dl1,dl2,dr1,dr2d}] yields the column reshuffled matrix of the \
+bipartite matrix \[OpenCurlyQuote]mat\[CloseCurlyQuote] with dimensions \
+{dl1*dl2, dr1*dr2}.
+Reshuffle[mat] yields the column reshuffled matrix of the bipartite matrix \
+\[OpenCurlyQuote]mat\[CloseCurlyQuote] with dimensions {dl*dl, dr*dr}.
+Reshuffle[mat,{dl1,dl2,dr1,dr2d}, \
+Basis->\[CloseCurlyQuote]\[CloseCurlyQuote]Row\[CloseCurlyQuote]\
+\[CloseCurlyQuote]] yields the column reshuffled matrix of the bipartite \
+matrix \[OpenCurlyQuote]mat\[CloseCurlyQuote] with dimensions {dl1*dl2, \
+dr1*dr2}.
+Reshuffle[mat, Basis->\[CloseCurlyQuote]\[CloseCurlyQuote]Row\
+\[CloseCurlyQuote]\[CloseCurlyQuote]] yields the column reshuffled matrix of \
+the bipartite matrix \[OpenCurlyQuote]mat\[CloseCurlyQuote] with dimensions \
+{dl*dl, dr*dr}.\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311242646834*^9},
+ CellTags->"Reshuffle::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Unravel", "Subsection",
+ CellChangeTimes->{{3.634311250315641*^9, 3.634311251058013*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]Unravel[op,{d1,..,dn}] yields the unraveled form of \
+\[OpenCurlyQuote]op\[CloseCurlyQuote] where op has n subsystems each of \
+dimension {dj^2,dj^2}.
+Unravel[op,d] yields the unravelled form of op where op has subsystems of \
+dimension {d^2,d^2}.
+If d is not specified then it defaults to d=2.\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311252963114*^9},
+ CellTags->"Unravel::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reravel", "Subsection",
+ CellChangeTimes->{{3.634311255040511*^9, 3.634311257357457*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]Reravel[op,{d1,..,dn}] yields the reraveled form of \
+\[OpenCurlyQuote]op\[CloseCurlyQuote] where op has n subsystems each of \
+dimension {dj^2,dj^2}.
+Reravel[op,d] yields the reravelled form of op where op has subsystems of \
+dimension {d^2,d^2}.
+If d is not specified then it defaults to d=2.\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311262322356*^9},
+ CellTags->"Reravel::usage"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Matrix-Tensor Contractions", "Section",
+ CellChangeTimes->{{3.634310848811734*^9, 3.634310852772456*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["PartialTr", "Subsection",
+ CellChangeTimes->{{3.634311147006694*^9, 3.6343111484129133`*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]PartialTrace[mat, {d1,d2,...,dn},{i1,..,ik}] yields \
+the matrix resulting from the partial trace over subsystems i1,..,ik of the \
+mat, where subsystem j has dimensions dj.\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.6343111552573557`*^9},
+ CellTags->"PartialTr::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["TensorPairContract", "Subsection",
+ CellChangeTimes->{{3.634311158065545*^9, 3.634311160854965*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]TensorPairContract[tenor1_,tenor2_,{{s11,s12},{s21,s22}\
+,...}] yields the tensor resulting from contracting index si1 of tensor1 with \
+index si2 of tensor 2.
+If the contract list is the empty list {} it yields \
+TensorProduct[tensor1,tensor2]\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311165270151*^9},
+ CellTags->"TensorPairContract::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MatrixContract", "Subsection",
+ CellChangeTimes->{{3.634311167256405*^9, 3.6343111691462803`*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]MatrixContract[mat,dims,{{s11,s12},{s21,s22},...}] \
+yields the contraction of mat in the pairs {si1, si2} of slots by reshaping \
+mat to a tensor MatrixToTensor[mat,dims].
+It functions as \
+TensorContract[MatrixToTensor[mat,dims],{{s11,s12},{s21,s22},...}] and \
+reshapes the ouput tensor to the appropriate dimensional matrix.\
+\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311173190103*^9},
+ CellTags->"MatrixContract::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MatrixPairContract", "Subsection",
+ CellChangeTimes->{{3.6343111798567142`*^9, 3.63431118236517*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]MatrixPairContract[{mat1_,dims1},{mat2,dims2},{{s11,\
+s12},{s21,s22},...}] yields the matrix resulting from contracting index si1 \
+of tensor1 with index si2 of tensor2, wheretensorj = \
+MatrixToTensor[matj,dimsj].
+If the contract list is the empty list {} it yields \
+KroneckerProduct[mat1,mat2]\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{{3.634311185833832*^9, 3.6343111891488733`*^9}},
+ CellTags->"MatrixPairContract::usage"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Operator Bases", "Section",
+ CellChangeTimes->{{3.634310858014436*^9, 3.6343108658449507`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Basis", "Subsection",
+ CellChangeTimes->{{3.634311102400095*^9, 3.634311102860838*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]Basis[basis,n] returns the matrix basis for n \
+subsystems with subsytem basis \[OpenCurlyQuote]basis\[CloseCurlyQuote].
+\[OpenCurlyQuote]basis\[CloseCurlyQuote] may either be a list of matrices \
+{b1,...,bn} or a string for named bases.
+Supported named bases are:
+  \[OpenCurlyQuote]\[CloseCurlyQuote]Pauli\[CloseCurlyQuote]\[CloseCurlyQuote]\
+ for the normalized Pauli basis,
+  \[OpenCurlyQuote]\[CloseCurlyQuote]PO\[CloseCurlyQuote]\[CloseCurlyQuote] \
+for the product operator basis (unnormalized Pauli basis)\
+\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{{3.6343111181549892`*^9, 3.634311128056398*^9}},
+ CellTags->"Basis::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["BasisLabels", "Subsection",
+ CellChangeTimes->{{3.634311104007863*^9, 3.634311106675256*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]BasisLabels[basis,n] returns the basis labels for n \
+subsystems with subsytem basis \[OpenCurlyQuote]basis\[CloseCurlyQuote].
+\[OpenCurlyQuote]basis\[CloseCurlyQuote] may either be a list of string \
+labels {s1,...,sn} or a string for named bases.
+Supported named bases are:
+  \[OpenCurlyQuote]\[CloseCurlyQuote]Pauli\[CloseCurlyQuote]\[CloseCurlyQuote]\
+ for the normalized Pauli basis,
+  \[OpenCurlyQuote]\[CloseCurlyQuote]PO\[CloseCurlyQuote]\[CloseCurlyQuote] \
+for the product operator basis (unnormalized Pauli basis)\
+\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311123104019*^9},
+ CellTags->"BasisLabels::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ExpressInBasis", "Subsection",
+ CellChangeTimes->{{3.634311108372843*^9, 3.63431111019592*^9}}],
+
+Cell["\<\
+\[OpenCurlyDoubleQuote]ExpressInBasis[op,opts] expresses operator op in terms \
+of basis elements for a basis.
+Options are:
+  Basis->basis, with default basis value \
+\[OpenCurlyQuote]\[CloseCurlyQuote]PO\[CloseCurlyQuote]\[CloseCurlyQuote] \
+(See Basis for more details)
+  BasisLabels->labels, with default value False. If \[OpenCurlyQuote]labels\
+\[CloseCurlyQuote] is True it will use the labels for a named basis, \
+\[OpenCurlyQuote]labels\[CloseCurlyQuote] may also be a list of string labels \
+(See BasisLabels for more details).\[CloseCurlyDoubleQuote];\
+\>", "Text",
+ CellChangeTimes->{3.634311133927567*^9},
+ CellTags->"ExpressInBasis::usage"],
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.6343115904944897`*^9, 3.634311591135709*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Vectorization", "Section",
+ CellChangeTimes->{{3.634310868499579*^9, 3.634310869782322*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Vec", "Subsection",
+ CellChangeTimes->{{3.634310922061626*^9, 3.634310922387836*^9}, {
+  3.634310955192596*^9, 3.6343109717760973`*^9}}],
+
+Cell["\<\
+Vec[A] vectorizes a matrix A using the currently selected vectorization \
+convention.\
+\>", "Text",
+ CellChangeTimes->{{3.634311052959324*^9, 3.634311056263317*^9}},
+ CellTags->"Vec::usage"],
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.634311058006653*^9, 3.634311058580744*^9}}],
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.634311059806551*^9, 3.6343110619107723`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Devec", "Subsection",
+ CellChangeTimes->{{3.634310927945176*^9, 3.63431092862017*^9}, {
+  3.634310959534721*^9, 3.6343109606146193`*^9}, {3.634311002194971*^9, 
+  3.634311002284896*^9}}],
+
+Cell["\<\
+Devec[v] de-vectorizes a vector v using the currently selected vectorization \
+convention.\
+\>", "Text",
+ CellChangeTimes->{{3.634311041530568*^9, 3.6343110439895277`*^9}},
+ CellTags->"Devec::usage"],
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.634311058006653*^9, 3.634311058580744*^9}}],
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.634311059806551*^9, 3.6343110619107723`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ProductIdentity", "Subsection",
+ CellChangeTimes->{{3.634310931285899*^9, 3.634310935696518*^9}, 
+   3.63431100098005*^9}],
+
+Cell["\<\
+ProductIdentity[A,C] returns a matrix M such that M.Vec[B]=Vec[A.B.C] for \
+matrices A,B and C.\
+\>", "Text",
+ CellChangeTimes->{{3.6343110346563396`*^9, 3.6343110456207457`*^9}},
+ CellTags->"ProductIdentity::usage"],
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.634311058006653*^9, 3.634311058580744*^9}}],
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.634311059806551*^9, 3.6343110619107723`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Changing Vec Basis", "Subsection",
+ CellChangeTimes->{{3.6343109399484663`*^9, 3.6343109519416733`*^9}}],
+
+Cell["\<\
+BasisMatrix[basis1->basis2, arg] returns the change of basis unitary matrix \
+for transforming a vectorized matrix in basis 1 to basis 2.
+\[OpenCurlyQuote]basis1\[CloseCurlyQuote], \[OpenCurlyQuote]basis2\
+\[CloseCurlyQuote] may be either \[OpenCurlyQuote]\[CloseCurlyQuote]Col\
+\[CloseCurlyQuote]\[CloseCurlyQuote], \[OpenCurlyQuote]\[CloseCurlyQuote]Row\
+\[CloseCurlyQuote]\[CloseCurlyQuote], \
+\[OpenCurlyQuote]\[CloseCurlyQuote]Pauli\[CloseCurlyQuote]\[CloseCurlyQuote] \
+or a list of matrices.
+If basis1 or basis2 are \[OpenCurlyQuote]\[CloseCurlyQuote]Pauli\
+\[CloseCurlyQuote]\[CloseCurlyQuote] or lists of matrices \
+\[OpenCurlyQuote]arg\[CloseCurlyQuote] is optional. If arg is an integer it \
+specifies the number of subsystems with the given basis.
+If both \[OpenCurlyQuote]basis1\[CloseCurlyQuote] and \[OpenCurlyQuote]basis2\
+\[CloseCurlyQuote] are \[OpenCurlyQuote]\[CloseCurlyQuote]Col\
+\[CloseCurlyQuote]\[CloseCurlyQuote] or \
+\[OpenCurlyQuote]\[CloseCurlyQuote]Row\[CloseCurlyQuote]\[CloseCurlyQuote] \
+\[OpenCurlyQuote]arg\[CloseCurlyQuote] is manditory and specifies the \
+dimension of the vectorized matrix (either {dL,dR} or d for square matrices).\
+\[CloseCurlyDoubleQuote];
+\
+\>", "Text",
+ CellChangeTimes->{3.634311025702045*^9},
+ CellTags->"BasisMatrix::usage"],
+
+Cell["\<\
+BasisTransformation[op, basis1->basis2] transforms an operator in \
+vectorization basis1 to an operator in vectorization basis2.
+op may be a matrix (which acts on vectorized matrices), or a vector \
+(vectorized matrix).
+basis1 and basis2 may be either \[OpenCurlyQuote]\[CloseCurlyQuote]Col\
+\[CloseCurlyQuote]\[CloseCurlyQuote], \[OpenCurlyQuote]\[CloseCurlyQuote]Row\
+\[CloseCurlyQuote]\[CloseCurlyQuote], \
+\[OpenCurlyQuote]\[CloseCurlyQuote]Pauli\[CloseCurlyQuote]\[CloseCurlyQuote], \
+or a list of matrices.\
+\>", "Text",
+ CellChangeTimes->{3.634311013135188*^9},
+ CellTags->"BasisTransformation::usage"],
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.634311079023025*^9, 3.634311079944573*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tensor Product Parser", "Section",
+ CellChangeTimes->{{3.634310871446907*^9, 3.634310874991136*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["TP Parser", "Subsection",
+ CellChangeTimes->{{3.634310887276719*^9, 3.634310891236371*^9}}],
+
+Cell["\<\
+TP[str,opts] converts an input string into the tensor product of matrices. 
+TP has options Replace and Method. Allowed operators are + -, i is used for \
+the imaginary number, and any integers or symbols not specified in the \
+Replace option are treated as scalars.
+
+Method is the method used to combine operators, the default method is \
+CircleTimes.
+Replace is a list of operator replacement rules for the input string, the \
+default Replace is 
+{\[OpenCurlyQuote]\[CloseCurlyQuote]I\[CloseCurlyQuote]\[CloseCurlyQuote]->\
+PauliMatrix[0], \[OpenCurlyQuote]\[CloseCurlyQuote]X\[CloseCurlyQuote]\
+\[CloseCurlyQuote]->PauliMatrix[1],\[CloseCurlyQuote]\[CloseCurlyQuote]Y\
+\[CloseCurlyQuote]\[CloseCurlyQuote]->PauliMatrix[2],\[CloseCurlyQuote]\
+\[CloseCurlyQuote]Z\[CloseCurlyQuote]\[CloseCurlyQuote]->PauliMatrix[3},
+\[OpenCurlyQuote]\[CloseCurlyQuote]P\[CloseCurlyQuote]\[CloseCurlyQuote]->{{0,\
+1},{0,0}}, \[OpenCurlyQuote]\[CloseCurlyQuote]M\[CloseCurlyQuote]\
+\[CloseCurlyQuote]->{{0,0},{1,0}}, \[OpenCurlyQuote]\[CloseCurlyQuote]U\
+\[CloseCurlyQuote]\[CloseCurlyQuote]->{{1,0},{0,0}}, \[OpenCurlyQuote]\
+\[CloseCurlyQuote]D\[CloseCurlyQuote]\[CloseCurlyQuote]->{{0,0},{0,1}},
+\[OpenCurlyQuote]\[CloseCurlyQuote]H\[CloseCurlyQuote]\[CloseCurlyQuote]->{{1,\
+1},{1,-1}}/Sqrt[2], \[OpenCurlyQuote]\[CloseCurlyQuote]S\[CloseCurlyQuote]\
+\[CloseCurlyQuote]->{{1,0},{0,I}}, \[OpenCurlyQuote]\[CloseCurlyQuote]T\
+\[CloseCurlyQuote]\[CloseCurlyQuote]->{{1,0},{0,Exp[I*Pi/4]}}}.
+
+For example XX+iYY -> CircleTimes[X,X]+I*CircleTimes[Y,Y].\
+\>", "Text",
+ CellChangeTimes->{3.634310902718301*^9},
+ CellTags->"TP::usage"],
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.6343109070325747`*^9, 3.6343109076839952`*^9}}],
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.634310908943316*^9, 3.634310909978795*^9}}]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1280, 1000},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
-FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+WindowSize->{1280, 979},
+WindowMargins->{{1276, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -409,71 +957,338 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
+ "ACom::usage"->{
+  Cell[20090, 495, 194, 4, 30, "Text",
+   CellTags->"ACom::usage"]},
+ "ArrayPermutations::usage"->{
+  Cell[17745, 423, 306, 7, 30, "Text",
+   CellTags->"ArrayPermutations::usage"]},
+ "BasisLabels::usage"->{
+  Cell[28608, 743, 673, 13, 106, "Text",
+   CellTags->"BasisLabels::usage"]},
+ "BasisMatrix::usage"->{
+  Cell[32307, 855, 1297, 23, 106, "Text",
+   CellTags->"BasisMatrix::usage"]},
+ "BasisTransformation::usage"->{
+  Cell[33607, 880, 619, 12, 68, "Text",
+   CellTags->"BasisTransformation::usage"]},
+ "Basis::usage"->{
+  Cell[27787, 722, 682, 13, 106, "Text",
+   CellTags->"Basis::usage"]},
+ "BlockMatrix::usage"->{
+  Cell[18924, 459, 209, 4, 30, "Text",
+   CellTags->"BlockMatrix::usage"]},
+ "CircleTimes::usage"->{
+  Cell[17161, 404, 413, 10, 68, "Text",
+   CellTags->"CircleTimes::usage"]},
+ "Com::usage"->{
+  Cell[19899, 489, 188, 4, 30, "Text",
+   CellTags->"Com::usage"]},
+ "Devec::usage"->{
+  Cell[31142, 816, 209, 5, 30, "Text",
+   CellTags->"Devec::usage"]},
+ "ExpressInBasis::usage"->{
+  Cell[29422, 764, 662, 13, 87, "Text",
+   CellTags->"ExpressInBasis::usage"]},
  "Info3633335153-4635662"->{
-  Cell[4602, 122, 767, 15, 44, "Print",
+  Cell[4650, 123, 767, 15, 44, "Print",
    CellTags->"Info3633335153-4635662"],
-  Cell[5372, 139, 2000, 34, 82, "Print",
-   CellTags->"Info3633335153-4635662"]}
+  Cell[5420, 140, 2000, 34, 82, "Print",
+   CellTags->"Info3633335153-4635662"]},
+ "MatrixContract::usage"->{
+  Cell[26413, 681, 480, 10, 49, "Text",
+   CellTags->"MatrixContract::usage"]},
+ "MatrixPairContract::usage"->{
+  Cell[27040, 699, 476, 9, 68, "Text",
+   CellTags->"MatrixPairContract::usage"]},
+ "MatrixToTensor::usage"->{
+  Cell[21357, 537, 558, 10, 68, "Text",
+   CellTags->"MatrixToTensor::usage"]},
+ "MatrixTranspose::usage"->{
+  Cell[22058, 555, 266, 6, 30, "Text",
+   CellTags->"MatrixTranspose::usage"]},
+ "OuterProduct::usage"->{
+  Cell[20488, 508, 295, 7, 30, "Text",
+   CellTags->"OuterProduct::usage"]},
+ "PartialTr::usage"->{
+  Cell[25405, 651, 320, 6, 30, "Text",
+   CellTags->"PartialTr::usage"]},
+ "ProductIdentity::usage"->{
+  Cell[31725, 836, 226, 5, 30, "Text",
+   CellTags->"ProductIdentity::usage"]},
+ "Projector::usage"->{
+  Cell[20786, 517, 276, 6, 30, "Text",
+   CellTags->"Projector::usage"]},
+ "Reravel::usage"->{
+  Cell[24681, 628, 437, 9, 68, "Text",
+   CellTags->"Reravel::usage"]},
+ "Reshuffle::usage"->{
+  Cell[23035, 586, 939, 17, 87, "Text",
+   CellTags->"Reshuffle::usage"]},
+ "SwapMatrix::usage"->{
+  Cell[18214, 439, 541, 11, 68, "Text",
+   CellTags->"SwapMatrix::usage"]},
+ "Swap::usage"->{
+  Cell[22454, 569, 442, 9, 68, "Text",
+   CellTags->"Swap::usage"]},
+ "TensorPairContract::usage"->{
+  Cell[25871, 665, 398, 8, 49, "Text",
+   CellTags->"TensorPairContract::usage"]},
+ "TP::usage"->{
+  Cell[34609, 909, 1623, 28, 201, "Text",
+   CellTags->"TP::usage"]},
+ "UnitArray::usage"->{
+  Cell[19319, 472, 391, 8, 49, "Text",
+   CellTags->"UnitArray::usage"]},
+ "Unravel::usage"->{
+  Cell[24109, 611, 437, 9, 68, "Text",
+   CellTags->"Unravel::usage"]},
+ "Vec::usage"->{
+  Cell[30504, 795, 200, 5, 30, "Text",
+   CellTags->"Vec::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Info3633335153-4635662", 17307, 411}
+ {"ACom::usage", 36792, 959},
+ {"ArrayPermutations::usage", 36892, 962},
+ {"BasisLabels::usage", 36999, 965},
+ {"BasisMatrix::usage", 37102, 968},
+ {"BasisTransformation::usage", 37214, 971},
+ {"Basis::usage", 37318, 974},
+ {"BlockMatrix::usage", 37415, 977},
+ {"CircleTimes::usage", 37516, 980},
+ {"Com::usage", 37610, 983},
+ {"Devec::usage", 37697, 986},
+ {"ExpressInBasis::usage", 37795, 989},
+ {"Info3633335153-4635662", 37904, 992},
+ {"MatrixContract::usage", 38094, 997},
+ {"MatrixPairContract::usage", 38206, 1000},
+ {"MatrixToTensor::usage", 38317, 1003},
+ {"MatrixTranspose::usage", 38426, 1006},
+ {"OuterProduct::usage", 38532, 1009},
+ {"PartialTr::usage", 38632, 1012},
+ {"ProductIdentity::usage", 38735, 1015},
+ {"Projector::usage", 38838, 1018},
+ {"Reravel::usage", 38933, 1021},
+ {"Reshuffle::usage", 39028, 1024},
+ {"SwapMatrix::usage", 39127, 1027},
+ {"Swap::usage", 39221, 1030},
+ {"TensorPairContract::usage", 39322, 1033},
+ {"TP::usage", 39421, 1036},
+ {"UnitArray::usage", 39514, 1039},
+ {"Unravel::usage", 39609, 1042},
+ {"Vec::usage", 39698, 1045}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 300, 4, 66, "Chapter"],
+Cell[580, 22, 300, 4, 65, "Chapter"],
 Cell[CellGroupData[{
-Cell[905, 30, 144, 2, 65, "Section"],
-Cell[1052, 34, 331, 5, 32, "Input"],
-Cell[1386, 41, 182, 4, 33, "Text"]
+Cell[905, 30, 144, 2, 64, "Section"],
+Cell[1052, 34, 331, 5, 28, "Input"],
+Cell[1386, 41, 182, 4, 30, "Text"]
 }, Open  ]],
-Cell[1583, 48, 110, 1, 65, "Section"],
+Cell[1583, 48, 110, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[1718, 53, 146, 2, 51, "Section"],
-Cell[1867, 57, 544, 9, 55, "Text"],
-Cell[2414, 68, 496, 8, 55, "Text"],
-Cell[2913, 78, 363, 7, 33, "Text"],
-Cell[3279, 87, 299, 5, 55, "Text"],
+Cell[1718, 53, 194, 3, 50, "Section"],
+Cell[1915, 58, 544, 9, 49, "Text"],
+Cell[2462, 69, 496, 8, 49, "Text"],
+Cell[2961, 79, 363, 7, 30, "Text"],
+Cell[3327, 88, 299, 5, 49, "Text"],
 Cell[CellGroupData[{
-Cell[3603, 96, 99, 1, 44, "Subsection"],
-Cell[3705, 99, 430, 7, 55, "Text"],
-Cell[4138, 108, 234, 3, 33, "Text"],
+Cell[3651, 97, 99, 1, 44, "Subsection"],
+Cell[3753, 100, 430, 7, 55, "Text"],
+Cell[4186, 109, 234, 3, 33, "Text"],
 Cell[CellGroupData[{
-Cell[4397, 115, 180, 3, 55, "Input"],
+Cell[4445, 116, 180, 3, 55, "Input"],
 Cell[CellGroupData[{
-Cell[4602, 122, 767, 15, 44, "Print",
+Cell[4650, 123, 767, 15, 44, "Print",
  CellTags->"Info3633335153-4635662"],
-Cell[5372, 139, 2000, 34, 82, "Print",
+Cell[5420, 140, 2000, 34, 82, "Print",
  CellTags->"Info3633335153-4635662"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7421, 179, 98, 1, 35, "Subsubsection"],
-Cell[7522, 182, 506, 8, 55, "Text"],
-Cell[8031, 192, 241, 4, 32, "Input"],
-Cell[8275, 198, 7613, 160, 734, "Text"]
+Cell[7469, 180, 98, 1, 35, "Subsubsection"],
+Cell[7570, 183, 506, 8, 55, "Text"],
+Cell[8079, 193, 241, 4, 32, "Input"],
+Cell[8323, 199, 7613, 160, 734, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[15925, 363, 102, 1, 29, "Subsubsection"],
-Cell[16030, 366, 165, 2, 33, "Text"]
+Cell[15973, 364, 102, 1, 29, "Subsubsection"],
+Cell[16078, 367, 165, 2, 33, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[16232, 373, 100, 1, 29, "Subsubsection"],
-Cell[16335, 376, 123, 1, 33, "Text"]
+Cell[16280, 374, 100, 1, 29, "Subsubsection"],
+Cell[16383, 377, 123, 1, 33, "Text"]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[16507, 383, 99, 1, 36, "Subsection"],
-Cell[16609, 386, 111, 1, 33, "Text"]
+Cell[16555, 384, 99, 1, 36, "Subsection"],
+Cell[16657, 387, 111, 1, 33, "Text"]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[16769, 393, 96, 1, 51, "Section"],
-Cell[16868, 396, 113, 1, 33, "Text"]
-}, Closed]]
+Cell[16817, 394, 215, 3, 64, "Section"],
+Cell[CellGroupData[{
+Cell[17057, 401, 101, 1, 44, "Subsection"],
+Cell[17161, 404, 413, 10, 68, "Text",
+ CellTags->"CircleTimes::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17611, 419, 131, 2, 44, "Subsection"],
+Cell[17745, 423, 306, 7, 30, "Text",
+ CellTags->"ArrayPermutations::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18088, 435, 123, 2, 44, "Subsection"],
+Cell[18214, 439, 541, 11, 68, "Text",
+ CellTags->"SwapMatrix::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18792, 455, 129, 2, 44, "Subsection"],
+Cell[18924, 459, 209, 4, 30, "Text",
+ CellTags->"BlockMatrix::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19170, 468, 146, 2, 44, "Subsection"],
+Cell[19319, 472, 391, 8, 49, "Text",
+ CellTags->"UnitArray::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19747, 485, 149, 2, 44, "Subsection"],
+Cell[19899, 489, 188, 4, 30, "Text",
+ CellTags->"Com::usage"],
+Cell[20090, 495, 194, 4, 30, "Text",
+ CellTags->"ACom::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20321, 504, 164, 2, 44, "Subsection"],
+Cell[20488, 508, 295, 7, 30, "Text",
+ CellTags->"OuterProduct::usage"],
+Cell[20786, 517, 276, 6, 30, "Text",
+ CellTags->"Projector::usage"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21111, 529, 112, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[21248, 534, 106, 1, 44, "Subsection"],
+Cell[21357, 537, 558, 10, 68, "Text",
+ CellTags->"MatrixToTensor::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21952, 552, 103, 1, 44, "Subsection"],
+Cell[22058, 555, 266, 6, 30, "Text",
+ CellTags->"MatrixTranspose::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22361, 566, 90, 1, 44, "Subsection"],
+Cell[22454, 569, 442, 9, 68, "Text",
+ CellTags->"Swap::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22933, 583, 99, 1, 44, "Subsection"],
+Cell[23035, 586, 939, 17, 87, "Text",
+ CellTags->"Reshuffle::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24011, 608, 95, 1, 44, "Subsection"],
+Cell[24109, 611, 437, 9, 68, "Text",
+ CellTags->"Unravel::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24583, 625, 95, 1, 44, "Subsection"],
+Cell[24681, 628, 437, 9, 68, "Text",
+ CellTags->"Reravel::usage"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25167, 643, 111, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[25303, 648, 99, 1, 44, "Subsection"],
+Cell[25405, 651, 320, 6, 30, "Text",
+ CellTags->"PartialTr::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25762, 662, 106, 1, 44, "Subsection"],
+Cell[25871, 665, 398, 8, 49, "Text",
+ CellTags->"TensorPairContract::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26306, 678, 104, 1, 44, "Subsection"],
+Cell[26413, 681, 480, 10, 49, "Text",
+ CellTags->"MatrixContract::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26930, 696, 107, 1, 44, "Subsection"],
+Cell[27040, 699, 476, 9, 68, "Text",
+ CellTags->"MatrixPairContract::usage"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27565, 714, 101, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[27691, 719, 93, 1, 44, "Subsection"],
+Cell[27787, 722, 682, 13, 106, "Text",
+ CellTags->"Basis::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28506, 740, 99, 1, 44, "Subsection"],
+Cell[28608, 743, 673, 13, 106, "Text",
+ CellTags->"BasisLabels::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29318, 761, 101, 1, 44, "Subsection"],
+Cell[29422, 764, 662, 13, 87, "Text",
+ CellTags->"ExpressInBasis::usage"],
+Cell[30087, 779, 100, 1, 35, "Subsubsection"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30236, 786, 98, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[30359, 791, 142, 2, 44, "Subsection"],
+Cell[30504, 795, 200, 5, 30, "Text",
+ CellTags->"Vec::usage"],
+Cell[30707, 802, 98, 1, 35, "Subsubsection"],
+Cell[30808, 805, 102, 1, 29, "Subsubsection"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30947, 811, 192, 3, 44, "Subsection"],
+Cell[31142, 816, 209, 5, 30, "Text",
+ CellTags->"Devec::usage"],
+Cell[31354, 823, 98, 1, 35, "Subsubsection"],
+Cell[31455, 826, 102, 1, 29, "Subsubsection"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31594, 832, 128, 2, 44, "Subsection"],
+Cell[31725, 836, 226, 5, 30, "Text",
+ CellTags->"ProductIdentity::usage"],
+Cell[31954, 843, 98, 1, 35, "Subsubsection"],
+Cell[32055, 846, 102, 1, 29, "Subsubsection"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32194, 852, 110, 1, 44, "Subsection"],
+Cell[32307, 855, 1297, 23, 106, "Text",
+ CellTags->"BasisMatrix::usage"],
+Cell[33607, 880, 619, 12, 68, "Text",
+ CellTags->"BasisTransformation::usage"],
+Cell[34229, 894, 100, 1, 35, "Subsubsection"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34378, 901, 106, 1, 64, "Section"],
+Cell[CellGroupData[{
+Cell[34509, 906, 97, 1, 44, "Subsection"],
+Cell[34609, 909, 1623, 28, 201, "Text",
+ CellTags->"TP::usage"],
+Cell[36235, 939, 102, 1, 35, "Subsubsection"],
+Cell[36340, 942, 100, 1, 29, "Subsubsection"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]]
 }
 ]
