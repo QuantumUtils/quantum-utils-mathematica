@@ -36,7 +36,7 @@ Needs["QUOptions`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -155,14 +155,14 @@ Unravel::dims="Invalid specification of subsystem dimension.";
 BasisMatrix::dims = "Dimensions of input system must be specified.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices and Operations*)
 
 
@@ -196,18 +196,24 @@ ArrayPermutations[arrayNums__]:=
 	Message[ArrayPermutations::input]]
 
 
-Clear[Com]
-Com[A_,B_]:=A.B-B.A
-Com[A_,B_,0]:=B
-Com[A_,B_,1]:=Com[A,B]
-Com[A_,B_,n_Integer]:=Com[A,B,n]=Com[A,Com[A,B,n-1]]
+Com[A_,B_,n_]:=
+	Block[{Com},
+		Com[A,B,0]:=B;
+		Com[A,B,1]:=A.B-B.A;
+		Com[A,B,m_?Positive]:=Com[A,B,m]=Com[A,Com[A,B,m-1]];
+		Com[A,B,n]
+	];
+Com[A_,B_]:=Com[A,B,1]
 
 
-Clear[ACom]
-ACom[A_,B_]:=A.B+B.A
-ACom[A_,B_,0]:=B
-ACom[A_,B_,1]:=ACom[A,B]
-ACom[A_,B_,n_Integer]:=ACom[A,B,n]=ACom[A,ACom[A,B,n-1]]
+ACom[A_,B_,n_]:=
+	Block[{ACom},
+		ACom[A,B,0]:=B;
+		ACom[A,B,1]:=A.B+B.A;
+		ACom[A,B,m_?Positive]:=ACom[A,B,m]=ACom[A,ACom[A,B,m-1]];
+		ACom[A,B,n]
+	];
+ACom[A_,B_]:=ACom[A,B,1]
 
 
 OuterProduct[u_,v_]:=KroneckerProduct[Flatten[u],Conjugate[Flatten[v]]];
