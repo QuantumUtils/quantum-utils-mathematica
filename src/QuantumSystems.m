@@ -29,108 +29,30 @@
 BeginPackage["QuantumSystems`",{"Predicates`","Tensor`"}];
 
 
-(* ::Section:: *)
+Needs["DocTools`"]
+Needs["QUOptions`"]
+
+
+$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
+
+
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
 
 
 (* ::Subsection::Closed:: *)
-(*States and Operators*)
+(*States, Operators and Gates*)
 
 
-Unprotect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
+Unprotect[Spin,Cavity,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
 
 
-(* ::Text:: *)
-(*Spin Operators*)
-
-
-Spin::usage =
-"Spin[X][J] returns the matrix representation of the Spin-X operator with total spin value J.
-Spin[Y][J] returns the matrix representation of the Spin-X operator with total spin value J.
-Spin[Z][J] returns the matrix representation of the Spin-X operator with total spin value J.
-Spin[P][J] returns the matrix representation of the Spin-Plus ladder operator with total spin value J.
-Spin[M][J] returns the matrix representation of the Spin-Minus ladder operator with total spin value J.
-Spin[I][J] returns the identity matrix of the same dimension as a spin operator with total spin value J.
-
-Spin[expr] may be used to store a symbolic spin matrix and wont be evaluated until it is applied to an argument Spin[expr][J].
-expr may consist of any string or symbols and is evaluated according to the TP parser where
-{I,X,Y,Z,P,M} are replaced with the corresponding Spin matrix. 
-
-Examples:
-- Spin[ZII+IZI+IIZ][1/2] returns the total Spin-Z operator for a system of three Spin-1/2 subsystems.
-- Spin[X+iY][1/2] returns the same matrix as Spin[P][1/2].";
-
-
-(* ::Text:: *)
-(*Cavity Operators*)
-
-
-Cavity::usage =
-"Cavity[a][n] returns the matrix representation of the annihilation operator for a cavity truncated to dimension n.
-Cavity[c][n] returns the matrix representation of the creation operator a\[HermitianConjugate] for a cavity truncated to dimension n.
-Cavity[N][n] returns the matrix representation of the number operator N=a\[HermitianConjugate].a for a cavity truncated to dimension n.
-Cavity[I][n] returns the identity matrix for a cavity truncated to dimension n.
-
-Cavity[expr] may be used to store a symbolic cavity matrix and wont be evaluated until it is applied to an argument Cavity[expr][n].
-expr may consist of any string or symbols and is evaluated according to the TP parser where
-{a,c,N,I} are replaced with the corresponding Cavity matrix.
-
-Examples: 
-- Cavity[i(a-c)][10] returns the quadratute operator I*(a-a\[HermitianConjugate]) truncated to a 10 level cavity.
-- Cavity[a+c][10] returns the quadratute operator a+a\[HermitianConjugate] truncated to a 10 level cavity.
-- Cavity[ac+ca][5] returns the operator (a\[CircleTimes]b\[HermitianConjugate]+a\[HermitianConjugate]\[CircleTimes]b) for two cavities truncated to a 5 levels.";
-
-
-(* ::Text:: *)
-(*Quantum States*)
-
-
-QState::usage = 
-"QState[{x1,y1,z1},{x2,y2,z2},...] yields density matrix formed from the tensor product of qubit states with Bloch vectors {xj,yj,zj}.
-QState[expr] yields the density matrix for the tensor product of states formed from the TP of expr where allowd Qubit states are:
-H,V,D,A,R,L  for polarization states,
-Zp,Zm,Xp,Xm,Yp,Ym, for Spin-1/2 operator eigenstates,
-Bell1,Bell2,Bell3,Bell4 or B1,B2,B3,B4 for the 2-Qubit Bell-basis states,
-I for the maximally mixed Qubit states.
-QState[expr,VectorQ->True] yields the a state vector for QState[expr].
-QState[expr,ColumnVectorQ->True] yields the a {d,1}-dimensional state column vector for QState[expr] 
-Note that 'I'  cannot be used in expr for VectorQ, and ColumnVectorQ cases.";
-
-
-(* ::Text:: *)
-(*BraKet Display Form*)
-
-
-VecForm::usage = 
-"VecForm[expr] converts an expression in KetForm to a matrix. If expr is a already a matrix it returns expr.";
-
-
-KetForm::usage = 
-"KetForm[vec] converts 'op' into Bra-Ket notation.
-'op' may be a matrix, vector, columm-vector, or row-vector."
-
-
-(* ::Subsection::Closed:: *)
-(*Quantum Gates*)
-
-
-Unprotect[CGate];
-
-
-CGate::usage = "
-CGate[dims,gate,targ,ctrl,opts] yeilds the matrix for the controlled gate 'gate' actubg in subsystem 'targ' which is activated by state 1 one subsystem 'ctrl'.
-Options are Control->val, where val is the basis element (labeled from 0,...,d-1) to apply 'gate' on. The default is 1.
-'dims' may either be a list of subsystem dimensions, or an integer if all subsytems are of equal dimension. 
-If dim is given as an integer it assumes the number of subsystems is the largest value of 'targ' or 'ctrl'.
-If dim is not specified it is assumes that dimentions are equal to that of 'gate'.
-
-CGate[dims,{g1,...,gn},{t1,...,tn},{c1,...,ck},opts] yields a controlled gate where multiple gates gj are triggered on subsytems tj, for specific control string of multiple control subsystems cj.
-Control->val, sets control value for each control subsystem to be val. The default is 1.
-Control->{v1,...,vk} allows for specifying custom control values for each control subsystem.
-
-Ex: CNOT Gate with 1st qubit contorl and 2nd qubit target
-	CGate[TP[X],2,1]
-Toffoli Gate: CGate[TP[X],3,{1,2}]";
+AssignUsage[Spin,$Usages];
+AssignUsage[Cavity,$Usages];
+AssignUsage[QState,$Usages];
+AssignUsage[KetForm,$Usages];
+AssignUsage[VecForm,$Usages];
+AssignUsage[CGate,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -141,29 +63,20 @@ Unprotect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Unprotect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];
 
 
-EntropyH::usage = "EntropyH[{p1,...,pn}] yields the base-2 Shannon entropy of the represented distribution.";
-EntropyS::usage = "EntropyS[mat] yields von-Neumann entropy of a density matrix 'mat'.";
+AssignUsage[EntropyH,$Usages];
+AssignUsage[EntropyS,$Usages];
+AssignUsage[RelativeEntropyS,$Usages];
+AssignUsage[MutualInformationS,$Usages];
 
 
-RelativeEntropyS::usage = "RelativeEntropyS[mat1,mat2] yields the relative entropy S(mat1||mat2) for two matrices.";
+AssignUsage[Purity,$Usages];
+AssignUsage[PNorm,$Usages];
+AssignUsage[Fidelity,$Usages];
 
 
-MutualInformationS::usage = 
-"MutualInformation[mat1,{d1,d2}] calculates the mutual information of state on a bitartite density matrix mat with subsystem dimensions d1 and d2.
-MutualInformation[mat1] assumes that subsystems have equal dimension.";
-
-
-Purity::uage="Purity[mat] calculates the purity Tr[mat\[HermitianConjugate].mat] of a density matrix \[Rho].";
-PNorm::usage="PNorm[A,p] computes the p-norm of a matrix or vector A where p=1,2,...\[Infinity]. If no value of p is specified it defaults to p = \[Infinity] for matrixs, and p=2 for vectors";
-Fidelity::usage="Computes the Fidelity of two operators or vectors A and B.";
-
-
-EntangledQ::usage="EntangledQ[mat,{d1,d2}] test if bipartite state mat with subsystems of dimension d1 and d2 is entangled by the Positive Partial Transpose test. 
-If da and db are not specified they are assumed to be of the equal dimension.";
-Concurrence::usage="Concurrence[op] computes the Concurrence for a 2-qubit state 'op'.
-'op' may be either a density matrix or state vector.";
-EntanglementF::usage="EntanglementF[op] computes the entanglement of formation for a 2-qubit state 'op'.
-'op' may be either a density matrix or state vector.";
+AssignUsage[EntangledQ,$Usages];
+AssignUsage[Concurrence,$Usages];
+AssignUsage[EntanglementF,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -173,9 +86,9 @@ EntanglementF::usage="EntanglementF[op] computes the entanglement of formation f
 Unprotect[RandomUnitary,RandomDensity,RandomHermitian];
 
 
-RandomUnitary::usage="RandomUnitary[n] generates a random N\[Times]N Unitary matrix that is (supposedly) uniform over the Haar measure.";
-RandomDensity::usage="RandomDensity[n] generates a random N\[Times]N density matrix.";
-RandomHermitian::usage="RandomHermitian[n] generates a random N\[Times]N Hermitian matrix with unit 1-norm.";
+AssignUsage[RandomUnitary,$Usages];
+AssignUsage[RandomDensity,$Usages];
+AssignUsage[RandomHermitian,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -236,11 +149,11 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Spin Operators*)
 
 
@@ -280,7 +193,7 @@ Spin[expr_][S_,SparseArray]:=With[{spin=Rationalize[S]},
 Spin[expr_][S_]:=Normal[Spin[expr][S,SparseArray]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Cavity Operators*)
 
 
@@ -293,8 +206,8 @@ CavityN[n_Integer]:= CavityN[n] = DiagonalMatrix[SparseArray@Range[0,n-1]]
 
 CavityTPRules[n_]:= CavityTPRules[n] = 
 	MapThread[Rule,
-			{{"I","a","c","N"},
-			{CavityI[n],CavityA[n],CavityC[n],CavityN[n]}}
+			{{"I","a","c","n","N"},
+			{CavityI[n],CavityA[n],CavityC[n],CavityN[n],CavityN[n]}}
 	]
 
 
@@ -344,9 +257,9 @@ $QStateVecXm={1,-1}/Sqrt[2];
 $QStateVecYp={1,I}/Sqrt[2];
 $QStateVecYm={1,-I}/Sqrt[2];
 $QStateVecBell1={1,0,0,1}/Sqrt[2];
-$QStateVecBell2={1,0,0,-1}/Sqrt[2];
-$QStateVecBell3={0,1,1,0}/Sqrt[2];
-$QStateVecBell4={0,1,-1,0}/Sqrt[2];
+$QStateVecBell2={0,1,1,0}/Sqrt[2];
+$QStateVecBell3={0,1,-1,0}/Sqrt[2];
+$QStateVecBell4={1,0,0,-1}/Sqrt[2];
 
 
 $QStateVecRules={
@@ -407,15 +320,11 @@ KetDimensions[num_]:={2,1+num};
 
 VecForm[obj_]:=
 	Which[
-		ListQ[obj],
-			obj,
+		NumericQ[obj],obj,
+		ListQ[obj],obj,
 		MatchQ[obj,Plus[_,__]],
 			VecForm[First[obj]]+VecForm[Rest[obj]],
-		MatchQ[obj,Times[_,Ket[__]]],
-			Times[First[obj],VecForm[Rest[obj]]],
-		MatchQ[obj,Times[_,Bra[__]]],
-			Times[First[obj],VecForm[Rest[obj]]],
-		MatchQ[obj,Times[_,KetBra[{__},{__}]]],
+		MatchQ[obj,Times[_,__]],
 			Times[First[obj],VecForm[Rest[obj]]],
 		MatchQ[obj,Ket[{__}]],
 			Partition[CircleTimes@@UnitVector@@@Map[KetDimensions,First@obj],1],
@@ -629,11 +538,11 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*State Measures*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Entropy*)
 
 
@@ -757,7 +666,7 @@ EntanglementF[op_]:=
 	]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Random Matrices*)
 
 
@@ -806,7 +715,7 @@ RandomHermitian[n_,tr_:1]:=With[
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
