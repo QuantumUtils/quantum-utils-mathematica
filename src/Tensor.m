@@ -149,6 +149,13 @@ Unravel::dims="Invalid specification of subsystem dimension.";
 
 
 (* ::Subsubsection:: *)
+(*Tensor Contractions*)
+
+
+PartialTr::input = "Input must be a square matrix, vector, or column vector.";
+
+
+(* ::Subsubsection:: *)
 (*Vectorization*)
 
 
@@ -162,7 +169,7 @@ BasisMatrix::dims = "Dimensions of input system must be specified.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices and Operations*)
 
 
@@ -241,7 +248,7 @@ SwapMatrix[d_Integer,perm_List,SparseArray]:=SwapMatrix[ConstantArray[d,Length[p
 SwapMatrix[d_Integer,perm_List]:= Normal@SwapMatrix[d,perm,SparseArray]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrix-Tensor Manipulations*)
 
 
@@ -306,23 +313,23 @@ MatrixTranspose[mat_,dims_,translist_]:=
 Options[Reshuffle]={Basis->"Col"};
 
 
-Reshuffle[m_,dims_,OptionsPattern[Reshuffle]]:=
-	Which[
-		OptionValue[Basis]==="Col",
-			ColReshuffle[m,dims],
-		OptionValue[Basis]==="Row",
-			RowReshuffle[m,dims],
-		True,
-			Message[Reshuffle::conv]
-		]
-
-
 Reshuffle[m_,opts:OptionsPattern[Reshuffle]]:=
 	With[{d=Sqrt[Dimensions[m]]},
 		If[MatrixQ[m]&&AllQ[IntegerQ,d],
-			Reshuffle[m,Riffle[d,d],opts],
+			Reshuffle[m,Riffle[d,d],Basis->OptionValue[Basis]],
 			Message[Reshuffle::dims]
 		]]
+
+
+Reshuffle[m_,{d1_,d2_,d3_,d4_},OptionsPattern[Reshuffle]]:=
+	Which[
+		OptionValue[Basis]==="Col",
+			ColReshuffle[m,{d1,d2,d3,d4}],
+		OptionValue[Basis]==="Row",
+			RowReshuffle[m,{d1,d2,d3,d4}],
+		True,
+			Message[Reshuffle::conv]
+		]
 
 
 ColReshuffle[m_,{dL1_,dL2_,dR1_,dR2_}]:=
@@ -457,7 +464,7 @@ Unravel[op_,sysDim_Integer:2,opts:OptionsPattern[Unravel]]:=
 Reravel[args__]:=Unravel[args,Unravel->False]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrix-Tensor Contractions*)
 
 
@@ -465,10 +472,15 @@ Reravel[args__]:=Unravel[args,Unravel->False]
 (*Partial Trace*)
 
 
-PartialTr[mat_,dimList_,trList_]:=
+PartialTr[op_,dimList_,trList_]:=
 	With[{tensorDims=Join[dimList,dimList],
 		contractIndex={#,#+Length[dimList]}&/@trList,
-		nSys=Length[dimList]-Length[trList]},
+		nSys=Length[dimList]-Length[trList],
+		mat=Which[
+				GeneralVectorQ[op],Projector[op],
+				SquareMatrixQ[op],op,
+				True,Message[PartialTr::input]
+			]},
 	Flatten[
 		TensorContract[ArrayReshape[mat,tensorDims],contractIndex],
 		{Range[nSys],nSys+Range[nSys]}]
@@ -500,7 +512,6 @@ MatrixContractDims[mat_,matTensDims_,contr_List]:=
 	]
 
 
-
 MatrixContract[mat_,dims_,{pairs___List}]:=
 	With[{tdims=MatrixToTensorDims[mat,dims]},
 		ArrayReshape[
@@ -524,7 +535,7 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{pairs___List}]:=
 			{pairs}]
 	, Times[
 		MatrixContractDims[mat1,tdims1,First/@{pairs}],
-		MatrixContractDims[mat1,tdims1,Last/@{pairs}]]]
+		MatrixContractDims[mat2,tdims2,Last/@{pairs}]]]
 	]
 
 MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
