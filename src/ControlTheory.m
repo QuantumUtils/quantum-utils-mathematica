@@ -2,7 +2,7 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
-(*Perturbation*)
+(*ControlTheory*)
 
 
 (* ::Subsection::Closed:: *)
@@ -98,7 +98,7 @@ GenerateLieAlgebra::moreargs = "At least two input generators required. Remember
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Lie Algebra Generation*)
 
 
