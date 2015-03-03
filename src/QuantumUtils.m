@@ -30,13 +30,15 @@
 
 
 BeginPackage["QuantumUtils`",{
+	"ControlTheory`",
+	"GRAPE`",
+	"LindbladSolver`",
 	"Predicates`",
-	"Tensor`",
+	"Perturbation`",
+	"QSim`",
 	"QuantumSystems`",
 	"QuantumChannel`",
-	"LindbladSolver`",
-	"QSim`",
-	"GRAPE`",
+	"Tensor`",
 	"Visualization`"	
 }];
 

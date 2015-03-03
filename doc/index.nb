@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     17603,        510]
-NotebookOptionsPosition[     16494,        470]
-NotebookOutlinePosition[     16828,        485]
-CellTagsIndexPosition[     16785,        482]
+NotebookDataLength[     19071,        548]
+NotebookOptionsPosition[     17922,        507]
+NotebookOutlinePosition[     18256,        522]
+CellTagsIndexPosition[     18213,        519]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -49,6 +49,38 @@ Cell[BoxData[GridBox[{
     StyleBox[
      TagBox[
       ButtonBox[
+       PaneSelectorBox[{False->"\<\"ControlTheory\"\>", True->
+        StyleBox["\<\"ControlTheory\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/ControlTheory.nb", None},
+       ButtonNote->"api-doc/ControlTheory.nb"],
+      Annotation[#, "api-doc/ControlTheory.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+     "A", " ", "package", " ", "of", " ", "tools", " ", "commonly", " ", 
+      "used", " ", "in", " ", "quantum", " ", "control", " ", 
+      RowBox[{"theory", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.634330419388689*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
        PaneSelectorBox[{False->"\<\"GRAPE\"\>", True->
         StyleBox["\<\"GRAPE\"\>", "HyperlinkActive"]}, Dynamic[
          CurrentValue["MouseOver"]],
@@ -74,7 +106,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.6343048792677183`*^9}],
+ CellChangeTimes->{3.634330419447154*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -108,7 +140,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634304879324798*^9}],
+ CellChangeTimes->{3.634330419506834*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -144,7 +176,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634304879396879*^9}],
+ CellChangeTimes->{3.634330419570326*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -176,7 +208,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634304879416444*^9}],
+ CellChangeTimes->{3.634330419640901*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -212,7 +244,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.6343048794858294`*^9}],
+ CellChangeTimes->{3.634330419693947*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -245,7 +277,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.63430487956057*^9}],
+ CellChangeTimes->{3.634330419779409*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -279,7 +311,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634304879623303*^9}],
+ CellChangeTimes->{3.634330419860723*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -311,7 +343,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634304879704825*^9}],
+ CellChangeTimes->{3.6343304199412727`*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -345,7 +377,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634304879776533*^9}]
+ CellChangeTimes->{3.63433042001727*^9}]
 }, Open  ]],
 
 Cell["Tutorials", "Section",
@@ -355,7 +387,7 @@ Cell[CellGroupData[{
 
 Cell["For Developers", "Section",
  CellChangeTimes->{{3.633782534637989*^9, 3.633782539150456*^9}, 
-   3.633782842027483*^9}],
+   3.633782842027483*^9, {3.634330436067616*^9, 3.6343304361317883`*^9}}],
 
 Cell["\<\
 This section contains code for generating parts of this documentation; it may \
@@ -389,6 +421,11 @@ Cell[BoxData[
     RowBox[{"Sort", "[", 
      RowBox[{"{", "\[IndentingNewLine]", 
       RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<ControlTheory\>\"", ",", 
+         "\"\<A package of tools commonly used in quantum control \
+theory.\>\""}], "}"}], ",", "\[IndentingNewLine]", 
        RowBox[{"{", 
         RowBox[{
         "\"\<GRAPE\>\"", ",", 
@@ -443,7 +480,7 @@ etc.\>\""}], "}"}]}], "\[IndentingNewLine]", "}"}], "]"}]}]}], ";"}]], "Input",\
   3.634304483566258*^9, 3.634304488601351*^9}, {3.634304522124975*^9, 
   3.634304670732671*^9}, {3.634304754845304*^9, 3.634304782289897*^9}, {
   3.634304823067761*^9, 3.634304824888101*^9}, {3.6343048563233967`*^9, 
-  3.6343048566199427`*^9}}],
+  3.6343048566199427`*^9}, {3.634330367541362*^9, 3.634330395525217*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -489,26 +526,27 @@ Cell[580, 22, 112, 1, 66, "Chapter"],
 Cell[695, 25, 450, 12, 31, "Text"],
 Cell[CellGroupData[{
 Cell[1170, 41, 209, 3, 65, "Section"],
-Cell[1382, 46, 1070, 30, 33, "Text"],
-Cell[2455, 78, 1247, 32, 33, "Text"],
-Cell[3705, 112, 1347, 34, 33, "Text"],
-Cell[5055, 148, 1101, 30, 33, "Text"],
-Cell[6159, 180, 1223, 34, 33, "Text"],
-Cell[7385, 216, 1172, 31, 33, "Text"],
-Cell[8560, 249, 1211, 32, 33, "Text"],
-Cell[9774, 283, 1101, 30, 33, "Text"],
-Cell[10878, 315, 1201, 32, 33, "Text"]
+Cell[1382, 46, 1136, 30, 33, "Text"],
+Cell[2521, 78, 1068, 30, 33, "Text"],
+Cell[3592, 110, 1247, 32, 33, "Text"],
+Cell[4842, 144, 1347, 34, 33, "Text"],
+Cell[6192, 180, 1101, 30, 33, "Text"],
+Cell[7296, 212, 1221, 34, 33, "Text"],
+Cell[8520, 248, 1173, 31, 33, "Text"],
+Cell[9696, 281, 1211, 32, 33, "Text"],
+Cell[10910, 315, 1103, 30, 33, "Text"],
+Cell[12016, 347, 1200, 32, 33, "Text"]
 }, Open  ]],
-Cell[12094, 350, 96, 1, 65, "Section"],
+Cell[13231, 382, 96, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[12215, 355, 125, 2, 51, "Section"],
-Cell[12343, 359, 201, 4, 31, "Text"],
-Cell[12547, 365, 92, 2, 32, "Input"],
+Cell[13352, 387, 173, 2, 51, "Section"],
+Cell[13528, 391, 201, 4, 31, "Text"],
+Cell[13732, 397, 92, 2, 32, "Input"],
 Cell[CellGroupData[{
-Cell[12664, 371, 105, 1, 44, "Subsection"],
-Cell[12772, 374, 140, 1, 31, "Text"],
-Cell[12915, 377, 2882, 68, 253, "Input"],
-Cell[15800, 447, 654, 18, 77, "Input"]
+Cell[13849, 403, 105, 1, 44, "Subsection"],
+Cell[13957, 406, 140, 1, 31, "Text"],
+Cell[14100, 409, 3125, 73, 275, "Input"],
+Cell[17228, 484, 654, 18, 77, "Input"]
 }, Closed]]
 }, Closed]]
 }, Open  ]]
