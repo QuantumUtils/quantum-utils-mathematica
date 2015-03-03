@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     38917,       1138]
-NotebookOptionsPosition[     34327,        988]
-NotebookOutlinePosition[     36155,       1045]
-CellTagsIndexPosition[     35700,       1031]
+NotebookDataLength[     40053,       1163]
+NotebookOptionsPosition[     35423,       1012]
+NotebookOutlinePosition[     37252,       1069]
+CellTagsIndexPosition[     36796,       1055]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -106,9 +106,8 @@ generators ",
  StyleBox["basis", "Input"],
  ", and ",
  StyleBox["basis", "Input"],
- " is a list of matrices that span the ",
- StyleBox["basis", "Input"],
- ". \n\n",
+ " is a list of linearly independent matrices which span the matrix Lie \
+algebra.\n\n",
  StyleBox["Notes",
   FontWeight->"Bold",
   FontSlant->"Italic",
@@ -129,25 +128,31 @@ system drift and control Hamiltonians as input generators, and ensure ",
  StyleBox["AssumeHamiltonians", "Input"],
  " is ",
  StyleBox["True", "Input"],
- " (it is by default). To have complete control of a quantum system, it is \
-required that the resulting Lie algebra have dimension at least ",
+ " (it is by default). \n",
+ StyleBox["\[Bullet]",
+  FontColor->GrayLevel[0]],
+ " To have complete control of a quantum system, it is required that the \
+resulting Lie algebra have dimension at least ",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SuperscriptBox["d", "2"], "-", "1"}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    SuperscriptBox["d", "2"], "-", "1"}], TraditionalForm]]],
  ", where ",
  Cell[BoxData[
-  FormBox["d", TraditionalForm]],
-  FormatType->"TraditionalForm"],
- " is the Hilbert space dimension."
+  FormBox["d", TraditionalForm]]],
+ " is the Hilbert space dimension.\n",
+ StyleBox["\[Bullet]",
+  FontColor->GrayLevel[0]],
+ " The free-basis elements are chosen using the Phillip Hall basis algorithm"
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.634330561147408*^9, 3.634330600514605*^9}, {
   3.634330651205419*^9, 3.634330696599441*^9}, {3.634330769771941*^9, 
   3.6343308639556017`*^9}, {3.6343325977198772`*^9, 3.6343326053441553`*^9}, {
   3.634333236971307*^9, 3.634333384797036*^9}, {3.6343334632673597`*^9, 
-  3.634333482579919*^9}, {3.634334269518077*^9, 3.634334326309326*^9}},
+  3.634333482579919*^9}, {3.634334269518077*^9, 3.634334326309326*^9}, {
+  3.63439528485697*^9, 3.634395338649721*^9}, {3.634395407273575*^9, 
+  3.634395487239188*^9}, {3.634396258581321*^9, 3.634396298643025*^9}},
  CellTags->"GenerateLieAlgebra::usage"],
 
 Cell[CellGroupData[{
@@ -159,7 +164,12 @@ Cell["\<\
 D\[CloseCurlyQuote]Alessandro, D., 2007. Introduction to Quantum Control and \
 Dynamics, 1st ed. Chapman and Hall/CRC.\
 \>", "Text",
- CellChangeTimes->{{3.634334206555003*^9, 3.6343342083485613`*^9}}]
+ CellChangeTimes->{{3.634334206555003*^9, 3.6343342083485613`*^9}}],
+
+Cell["\<\
+Phillip Hall algorithm: http://planning.cs.uiuc.edu/node834.html\
+\>", "Text",
+ CellChangeTimes->{{3.634395346389385*^9, 3.634395358248818*^9}}]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -184,44 +194,32 @@ Cell[BoxData[GridBox[{
        " ", "in", " ", "their", " ", "matrix", " ", 
       RowBox[{"representation", "."}]}], "Text"]},
    {"Orthogonalize", "True", 
-    StyleBox[
+    RowBox[{
      RowBox[{
-      RowBox[{"Orthogonalize", "[", 
-       RowBox[{"{", 
-        RowBox[{
-         SubscriptBox[
-          StyleBox["v", "TI"], 
-          StyleBox["1", "TR"]], ",", 
-         SubscriptBox[
-          StyleBox["v", "TI"], 
-          StyleBox["2", "TR"]], ",", 
-         StyleBox["\[Ellipsis]", "TR"]}], "}"}], "]"}], " ", "gives", " ", 
-      "an", " ", "orthonormal", " ", "basis", " ", "found", " ", "by", " ", 
-      "orthogonalizing", " ", "the", " ", "vectors", " ", 
+      StyleBox["If", "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["True", "Input"]}], 
+     StyleBox[",", "Text"], 
+     StyleBox[" ", "Text"], 
+     RowBox[{
+      StyleBox["the", "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["output", "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["basis", "Input"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["is", "Text"], 
+      StyleBox[" ", "Text"], 
+      StyleBox["orthogonal", "Text"]}], 
+     StyleBox[",", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox[
       RowBox[{
-       SubscriptBox[
-        StyleBox["v", "TI"], 
-        StyleBox["i", "TI"]], ".", "\n", 
-       RowBox[{"Orthogonalize", "[", 
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{
-           SubscriptBox[
-            StyleBox["e", "TI"], 
-            StyleBox["1", "TR"]], ",", 
-           SubscriptBox[
-            StyleBox["e", "TI"], 
-            StyleBox["2", "TR"]], ",", 
-           StyleBox["\[Ellipsis]", "TR"]}], "}"}], ",", 
-         StyleBox["f", "TI"]}], "]"}]}], " ", "gives", " ", "a", " ", "basis",
-       " ", "for", " ", "the", " ", 
-      SubscriptBox[
-       StyleBox["e", "TI"], 
-       StyleBox["i", "TI"]], " ", "orthonormal", " ", "with", " ", "respect", 
-      " ", "to", " ", "the", " ", "inner", " ", "product", " ", "function", 
-      " ", 
-      RowBox[{
-       StyleBox["f", "TI"], "."}]}], "Text"]},
+      "and", " ", "the", " ", "algorithm", " ", "uses", " ", "an", " ", 
+       "orthogonal", " ", "basis", " ", "in", " ", "its", " ", 
+       RowBox[{"calculations", ".", " ", "This"}], " ", "improves", " ", 
+       "numerical", " ", "stability", " ", "and", " ", 
+       RowBox[{"efficiency", "."}]}], "Text"]}]},
    {"NumericalLieAlgebra", "False", 
     StyleBox[
      RowBox[{"Whether", " ", "or", " ", "not", " ", "to", " ", "call", " ", 
@@ -234,13 +232,24 @@ Cell[BoxData[GridBox[{
    {"VSField", "Reals", 
     StyleBox[
      RowBox[{
-      RowBox[{"The", " ", "field", " ", "of", " ", "the", " ", "Lie", " ", 
-       RowBox[{"algebra", ".", " ", "This"}], " ", "is", " ", "necessary", 
-       " ", "as", " ", "two", " ", "linearly", " ", "independent", " ", 
-       "vectors", " ", "in", " ", "one", " ", "vector", " ", "space", " ", 
-       "may", " ", "not", " ", "be", " ", "linearly", " ", "independent", " ",
-        "in", " ", "the", " ", "same", " ", "space", " ", "but", " ", "with", 
-       " ", "a", " ", "different", " ", "field"}], ",", " ", 
+      RowBox[{
+      "The", " ", "field", " ", "of", " ", "the", " ", "Lie", " ", 
+       "algebra"}], ",", " ", 
+      RowBox[{"either", " ", 
+       TagBox[
+        StyleBox["Reals", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "or", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["Complex", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "This"}], " ", "is", " ", "necessary", " ", 
+       "as", " ", "two", " ", "linearly", " ", "independent", " ", "vectors", 
+       " ", "in", " ", "one", " ", "vector", " ", "space", " ", "may", " ", 
+       "not", " ", "be", " ", "linearly", " ", "independent", " ", "in", " ", 
+       "the", " ", "same", " ", "space", " ", "but", " ", "with", " ", "a", 
+       " ", "different", " ", "field"}], ",", " ", 
       RowBox[{
        RowBox[{
         RowBox[{"e", ".", "g", ".", " ", 
@@ -474,9 +483,9 @@ Cell[BoxData[GridBox[{
   GridBoxItemSize->{"Columns" -> {Automatic, Automatic, {
        Scaled[0.5]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
     "RowsIndexed" -> {}}]], "Text",
- GeneratedCell->True,
- CellAutoOverwrite->True,
- CellChangeTimes->{3.634333442830209*^9}],
+ CellChangeTimes->{
+  3.634395120071556*^9, {3.634396430967825*^9, 3.6343964416653347`*^9}, {
+   3.63439648529278*^9, 3.634396568950224*^9}}],
 
 Cell[CellGroupData[{
 
@@ -498,26 +507,29 @@ Cell["VSField", "Subsubsection",
  CellChangeTimes->{{3.634331025257421*^9, 3.634331026456582*^9}}],
 
 Cell[TextData[{
- "The field of the Lie algebra. This is necessary as two linearly independent \
-vectors in one vector space may not be linearly independent in the same space \
-but with a different field, e.g. ",
+ "The field of the Lie algebra, either ",
+ StyleBox["Reals", "Input"],
+ " or ",
+ StyleBox["Complex", "Input"],
+ ". This is necessary as two linearly independent vectors in one vector space \
+may not be linearly independent in the same space but with a different field, \
+e.g. ",
  Cell[BoxData[
   FormBox[
    RowBox[{"(", 
-    RowBox[{"1", ",", "0"}], ")"}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"1", ",", "0"}], ")"}], TraditionalForm]]],
  " and ",
  Cell[BoxData[
   FormBox[
    RowBox[{"(", 
-    RowBox[{"i", ",", "0"}], ")"}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{"i", ",", "0"}], ")"}], TraditionalForm]]],
  ". In the case of anti-hermitian generators (quantum theory), the real \
 vector space is used."
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.63433103372034*^9, 3.634331240041471*^9}, {
-  3.634331621558449*^9, 3.63433162530208*^9}},
+  3.634331621558449*^9, 3.63433162530208*^9}, {3.6343950363694477`*^9, 
+  3.634395044143812*^9}},
  CellTags->"VSField::usage"]
 }, Open  ]],
 
@@ -724,12 +736,16 @@ Cell[BoxData[{
   "]"}], "\[IndentingNewLine]", "labels", "\[IndentingNewLine]", 
  RowBox[{"basis", "//", "MatrixListForm"}]}], "Input",
  CellChangeTimes->{{3.634332645544158*^9, 3.634332661426464*^9}, {
-  3.634332887874597*^9, 3.634332889787505*^9}, {3.634333058956403*^9, 
-  3.634333074456367*^9}, {3.6343331506282597`*^9, 3.634333187506667*^9}}],
+   3.634332887874597*^9, 3.634332889787505*^9}, {3.634333058956403*^9, 
+   3.634333074456367*^9}, {3.6343331506282597`*^9, 3.634333187506667*^9}, 
+   3.634395527956313*^9, {3.634395666867566*^9, 3.6343956800832663`*^9}, {
+   3.634396608679371*^9, 3.634396612288747*^9}}],
 
 Cell[BoxData["\<\"Dimension: 3\"\>"], "Print",
  CellChangeTimes->{{3.634333171294609*^9, 3.634333187815991*^9}, 
-   3.6343337271314898`*^9}],
+   3.6343337271314898`*^9, {3.634395524111643*^9, 3.634395550808226*^9}, 
+   3.634395599861759*^9, {3.634395647230783*^9, 3.634395680544506*^9}, {
+   3.6343965921593103`*^9, 3.634396612619556*^9}, 3.6343966491850853`*^9}],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -740,7 +756,11 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"G", "[", "1", "]"}], ",", 
      RowBox[{"G", "[", "2", "]"}]}], "}"}]}], "}"}]], "Output",
- CellChangeTimes->{3.634333187850479*^9, 3.634333727192985*^9}],
+ CellChangeTimes->{
+  3.634333187850479*^9, 3.634333727192985*^9, {3.634395524142859*^9, 
+   3.634395550837936*^9}, 3.634395599868321*^9, {3.634395647252955*^9, 
+   3.634395680569879*^9}, {3.634396592202182*^9, 3.634396612660242*^9}, 
+   3.634396649240135*^9}],
 
 Cell[BoxData[
  TemplateBox[{TagBox[
@@ -777,7 +797,11 @@ Cell[BoxData[
     Function[BoxForm`e$, 
      MatrixForm[BoxForm`e$]]]},
   "RowDefault"]], "Output",
- CellChangeTimes->{3.634333187850479*^9, 3.634333727277136*^9}]
+ CellChangeTimes->{
+  3.634333187850479*^9, 3.634333727192985*^9, {3.634395524142859*^9, 
+   3.634395550837936*^9}, 3.634395599868321*^9, {3.634395647252955*^9, 
+   3.634395680569879*^9}, {3.634396592202182*^9, 3.634396612660242*^9}, 
+   3.634396649244452*^9}]
 }, Open  ]]
 }, Closed]],
 
@@ -996,50 +1020,50 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "AssumeHamiltonians::usage"->{
-  Cell[21758, 608, 1036, 27, 54, "Text",
-   CellTags->"AssumeHamiltonians::usage"]},
  "GenerateLieAlgebra::usage"->{
-  Cell[3125, 81, 2444, 69, 216, "Text",
+  Cell[3125, 81, 2719, 74, 236, "Text",
    CellTags->"GenerateLieAlgebra::usage"]},
- "GeneratorSymbols::usage"->{
-  Cell[22941, 643, 545, 16, 53, "Text",
-   CellTags->"GeneratorSymbols::usage"]},
- "G::usage"->{
-  Cell[23489, 661, 314, 9, 32, "Text",
-   CellTags->"G::usage"]},
  "LieOperation::usage"->{
-  Cell[18152, 485, 254, 6, 31, "Text",
+  Cell[18466, 494, 254, 6, 31, "Text",
    CellTags->"LieOperation::usage"]},
+ "VSField::usage"->{
+  Cell[18858, 508, 837, 24, 53, "Text",
+   CellTags->"VSField::usage"]},
  "LinearIndependenceFun::usage"->{
-  Cell[19465, 528, 860, 28, 74, "Text",
+  Cell[19847, 540, 860, 28, 74, "Text",
    CellTags->"LinearIndependenceFun::usage"]},
- "NumericalLieAlgebra::usage"->{
-  Cell[23953, 678, 262, 7, 32, "Text",
-   CellTags->"NumericalLieAlgebra::usage"]},
  "StoppingDepth::usage"->{
-  Cell[20471, 564, 308, 8, 32, "Text",
+  Cell[20853, 576, 308, 8, 32, "Text",
    CellTags->"StoppingDepth::usage"]},
  "StoppingDimension::usage"->{
-  Cell[20927, 580, 683, 20, 54, "Text",
+  Cell[21309, 592, 683, 20, 54, "Text",
    CellTags->"StoppingDimension::usage"]},
- "VSField::usage"->{
-  Cell[18544, 499, 769, 21, 52, "Text",
-   CellTags->"VSField::usage"]}
+ "AssumeHamiltonians::usage"->{
+  Cell[22140, 620, 1036, 27, 54, "Text",
+   CellTags->"AssumeHamiltonians::usage"]},
+ "GeneratorSymbols::usage"->{
+  Cell[23323, 655, 545, 16, 53, "Text",
+   CellTags->"GeneratorSymbols::usage"]},
+ "G::usage"->{
+  Cell[23871, 673, 314, 9, 32, "Text",
+   CellTags->"G::usage"]},
+ "NumericalLieAlgebra::usage"->{
+  Cell[24335, 690, 262, 7, 32, "Text",
+   CellTags->"NumericalLieAlgebra::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"AssumeHamiltonians::usage", 34628, 998},
- {"GenerateLieAlgebra::usage", 34745, 1001},
- {"GeneratorSymbols::usage", 34859, 1004},
- {"G::usage", 34956, 1007},
- {"LieOperation::usage", 35048, 1010},
- {"LinearIndependenceFun::usage", 35160, 1013},
- {"NumericalLieAlgebra::usage", 35280, 1016},
- {"StoppingDepth::usage", 35391, 1019},
- {"StoppingDimension::usage", 35500, 1022},
- {"VSField::usage", 35604, 1025}
+ {"GenerateLieAlgebra::usage", 35724, 1022},
+ {"LieOperation::usage", 35834, 1025},
+ {"VSField::usage", 35932, 1028},
+ {"LinearIndependenceFun::usage", 36040, 1031},
+ {"StoppingDepth::usage", 36154, 1034},
+ {"StoppingDimension::usage", 36263, 1037},
+ {"AssumeHamiltonians::usage", 36378, 1040},
+ {"GeneratorSymbols::usage", 36493, 1043},
+ {"G::usage", 36590, 1046},
+ {"NumericalLieAlgebra::usage", 36689, 1049}
  }
 *)
 (*NotebookFileOutline
@@ -1058,84 +1082,85 @@ Cell[2545, 66, 383, 6, 31, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[2965, 77, 157, 2, 65, "Section"],
-Cell[3125, 81, 2444, 69, 216, "Text",
+Cell[3125, 81, 2719, 74, 236, "Text",
  CellTags->"GenerateLieAlgebra::usage"],
 Cell[CellGroupData[{
-Cell[5594, 154, 100, 1, 35, "Subsubsection"],
-Cell[5697, 157, 210, 4, 31, "Text"]
+Cell[5869, 159, 100, 1, 35, "Subsubsection"],
+Cell[5972, 162, 210, 4, 31, "Text"],
+Cell[6185, 168, 154, 3, 31, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[5944, 166, 97, 1, 37, "Subsection"],
-Cell[6044, 169, 11977, 309, 767, "Text"],
+Cell[6376, 176, 97, 1, 37, "Subsection"],
+Cell[6476, 179, 11859, 308, 748, "Text"],
 Cell[CellGroupData[{
-Cell[18046, 482, 103, 1, 35, "Subsubsection"],
-Cell[18152, 485, 254, 6, 31, "Text",
+Cell[18360, 491, 103, 1, 35, "Subsubsection"],
+Cell[18466, 494, 254, 6, 31, "Text",
  CellTags->"LieOperation::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18443, 496, 98, 1, 35, "Subsubsection"],
-Cell[18544, 499, 769, 21, 52, "Text",
+Cell[18757, 505, 98, 1, 35, "Subsubsection"],
+Cell[18858, 508, 837, 24, 53, "Text",
  CellTags->"VSField::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[19350, 525, 112, 1, 35, "Subsubsection"],
-Cell[19465, 528, 860, 28, 74, "Text",
+Cell[19732, 537, 112, 1, 35, "Subsubsection"],
+Cell[19847, 540, 860, 28, 74, "Text",
  CellTags->"LinearIndependenceFun::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[20362, 561, 106, 1, 35, "Subsubsection"],
-Cell[20471, 564, 308, 8, 32, "Text",
+Cell[20744, 573, 106, 1, 35, "Subsubsection"],
+Cell[20853, 576, 308, 8, 32, "Text",
  CellTags->"StoppingDepth::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[20816, 577, 108, 1, 35, "Subsubsection"],
-Cell[20927, 580, 683, 20, 54, "Text",
+Cell[21198, 589, 108, 1, 35, "Subsubsection"],
+Cell[21309, 592, 683, 20, 54, "Text",
  CellTags->"StoppingDimension::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[21647, 605, 108, 1, 35, "Subsubsection"],
-Cell[21758, 608, 1036, 27, 54, "Text",
+Cell[22029, 617, 108, 1, 35, "Subsubsection"],
+Cell[22140, 620, 1036, 27, 54, "Text",
  CellTags->"AssumeHamiltonians::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[22831, 640, 107, 1, 35, "Subsubsection"],
-Cell[22941, 643, 545, 16, 53, "Text",
+Cell[23213, 652, 107, 1, 35, "Subsubsection"],
+Cell[23323, 655, 545, 16, 53, "Text",
  CellTags->"GeneratorSymbols::usage"],
-Cell[23489, 661, 314, 9, 32, "Text",
+Cell[23871, 673, 314, 9, 32, "Text",
  CellTags->"G::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[23840, 675, 110, 1, 35, "Subsubsection"],
-Cell[23953, 678, 262, 7, 32, "Text",
+Cell[24222, 687, 110, 1, 35, "Subsubsection"],
+Cell[24335, 690, 262, 7, 32, "Text",
  CellTags->"NumericalLieAlgebra::usage"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[24264, 691, 151, 2, 37, "Subsection"],
-Cell[24418, 695, 452, 12, 33, "Text"],
+Cell[24646, 703, 151, 2, 37, "Subsection"],
+Cell[24800, 707, 452, 12, 33, "Text"],
 Cell[CellGroupData[{
-Cell[24895, 711, 729, 16, 99, "Input"],
-Cell[25627, 729, 140, 2, 23, "Print"],
-Cell[25770, 733, 316, 9, 32, "Output"],
-Cell[26089, 744, 1311, 35, 74, "Output"]
+Cell[25277, 723, 855, 18, 99, "Input"],
+Cell[26135, 743, 334, 4, 23, "Print"],
+Cell[26472, 749, 513, 13, 32, "Output"],
+Cell[26988, 764, 1508, 39, 74, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[27449, 785, 145, 2, 37, "Subsection"],
-Cell[27597, 789, 665, 15, 53, "Text"],
+Cell[28545, 809, 145, 2, 37, "Subsection"],
+Cell[28693, 813, 665, 15, 53, "Text"],
 Cell[CellGroupData[{
-Cell[28287, 808, 1119, 25, 77, "Input"],
-Cell[29409, 835, 365, 5, 23, "Print"],
-Cell[29777, 842, 2802, 89, 77, "Output"]
+Cell[29383, 832, 1119, 25, 77, "Input"],
+Cell[30505, 859, 365, 5, 23, "Print"],
+Cell[30873, 866, 2802, 89, 77, "Output"]
 }, Open  ]],
-Cell[32594, 934, 190, 4, 31, "Text"],
+Cell[33690, 958, 190, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[32809, 942, 903, 23, 77, "Input"],
-Cell[33715, 967, 141, 2, 23, "Print"]
+Cell[33905, 966, 903, 23, 77, "Input"],
+Cell[34811, 991, 141, 2, 23, "Print"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[33893, 974, 101, 1, 35, "Subsubsection"],
-Cell[33997, 977, 278, 5, 51, "Text"]
+Cell[34989, 998, 101, 1, 35, "Subsubsection"],
+Cell[35093, 1001, 278, 5, 51, "Text"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]

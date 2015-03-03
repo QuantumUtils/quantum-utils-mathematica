@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    349065,       8218]
-NotebookOptionsPosition[    342199,       7988]
-NotebookOutlinePosition[    343872,       8041]
-CellTagsIndexPosition[    343458,       8028]
+NotebookDataLength[    349115,       8219]
+NotebookOptionsPosition[    342248,       7989]
+NotebookOutlinePosition[    343921,       8042]
+CellTagsIndexPosition[    343507,       8029]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,7 +29,8 @@ Cell[CellGroupData[{
 
 Cell["Preamble", "Section",
  CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
-  3.633781241567971*^9, 3.633781243127653*^9}}],
+  3.633781241567971*^9, 3.633781243127653*^9}, {3.634394140686543*^9, 
+  3.634394140736664*^9}}],
 
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<Visualization`\>\"", "]"}]], "Input",
@@ -45,7 +46,7 @@ documentation notebook.\
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<Tensor`\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.634314144340521*^9, 3.634314148861907*^9}}]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -7996,46 +7997,46 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
+ "ComplexMatrixPlot::usage"->{
+  Cell[2258, 74, 678, 14, 72, "Text",
+   CellTags->"ComplexMatrixPlot::usage"]},
+ "BlockForm::usage"->{
+  Cell[72550, 1700, 757, 25, 53, "Text",
+   CellTags->"BlockForm::usage"]},
+ "MatrixListForm::usage"->{
+  Cell[79117, 1883, 443, 13, 32, "Text",
+   CellTags->"MatrixListForm::usage"]},
  "BlochPlot::usage"->{
-  Cell[81515, 1957, 362, 12, 32, "Text",
+  Cell[81564, 1958, 362, 12, 32, "Text",
    CellTags->"BlochPlot::usage"]},
  "BlochPlot2D::usage"->{
-  Cell[105868, 2395, 342, 10, 32, "Text",
+  Cell[105917, 2396, 342, 10, 32, "Text",
    CellTags->"BlochPlot2D::usage"]},
- "BlockForm::usage"->{
-  Cell[72501, 1699, 757, 25, 53, "Text",
-   CellTags->"BlockForm::usage"]},
- "ComplexMatrixPlot::usage"->{
-  Cell[2209, 73, 678, 14, 72, "Text",
-   CellTags->"ComplexMatrixPlot::usage"]},
- "EigensystemForm::usage"->{
-  Cell[264856, 6228, 430, 13, 32, "Text",
-   CellTags->"EigensystemForm::usage"]},
- "FourierListPlot::usage"->{
-  Cell[269498, 6375, 1117, 31, 95, "Text",
-   CellTags->"FourierListPlot::usage"]},
  "ListBlochPlot::usage"->{
-  Cell[110507, 2527, 445, 10, 32, "Text",
+  Cell[110556, 2528, 445, 10, 32, "Text",
    CellTags->"ListBlochPlot::usage"]},
  "ListBlochPlot2D::usage"->{
-  Cell[163399, 3658, 408, 9, 32, "Text",
+  Cell[163448, 3659, 408, 9, 32, "Text",
    CellTags->"ListBlochPlot2D::usage"]},
- "MatrixListForm::usage"->{
-  Cell[79068, 1882, 443, 13, 32, "Text",
-   CellTags->"MatrixListForm::usage"]}
+ "EigensystemForm::usage"->{
+  Cell[264905, 6229, 430, 13, 32, "Text",
+   CellTags->"EigensystemForm::usage"]},
+ "FourierListPlot::usage"->{
+  Cell[269547, 6376, 1117, 31, 95, "Text",
+   CellTags->"FourierListPlot::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"BlochPlot::usage", 342491, 7998},
- {"BlochPlot2D::usage", 342592, 8001},
- {"BlockForm::usage", 342694, 8004},
- {"ComplexMatrixPlot::usage", 342801, 8007},
- {"EigensystemForm::usage", 342911, 8010},
- {"FourierListPlot::usage", 343023, 8013},
- {"ListBlochPlot::usage", 343134, 8016},
- {"ListBlochPlot2D::usage", 343244, 8019},
- {"MatrixListForm::usage", 343354, 8022}
+ {"ComplexMatrixPlot::usage", 342548, 7999},
+ {"BlockForm::usage", 342652, 8002},
+ {"MatrixListForm::usage", 342756, 8005},
+ {"BlochPlot::usage", 342860, 8008},
+ {"BlochPlot2D::usage", 342961, 8011},
+ {"ListBlochPlot::usage", 343067, 8014},
+ {"ListBlochPlot2D::usage", 343177, 8017},
+ {"EigensystemForm::usage", 343288, 8020},
+ {"FourierListPlot::usage", 343400, 8023}
  }
 *)
 (*NotebookFileOutline
@@ -8043,178 +8044,178 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 211, 3, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[816, 29, 142, 2, 65, "Section"],
-Cell[961, 33, 194, 3, 32, "Input"],
-Cell[1158, 38, 182, 4, 31, "Text"],
-Cell[1343, 44, 138, 2, 32, "Input"]
+Cell[816, 29, 191, 3, 65, "Section"],
+Cell[1010, 34, 194, 3, 32, "Input"],
+Cell[1207, 39, 182, 4, 31, "Text"],
+Cell[1392, 45, 138, 2, 32, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1567, 52, 110, 1, 51, "Section"],
+Cell[1680, 55, 166, 3, 31, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1518, 51, 110, 1, 65, "Section"],
-Cell[1631, 54, 166, 3, 31, "Text"]
-}, Open  ]],
+Cell[1883, 63, 192, 3, 65, "Section"],
 Cell[CellGroupData[{
-Cell[1834, 62, 192, 3, 65, "Section"],
-Cell[CellGroupData[{
-Cell[2051, 69, 155, 2, 45, "Subsection"],
-Cell[2209, 73, 678, 14, 72, "Text",
+Cell[2100, 70, 155, 2, 45, "Subsection"],
+Cell[2258, 74, 678, 14, 72, "Text",
  CellTags->"ComplexMatrixPlot::usage"],
 Cell[CellGroupData[{
-Cell[2912, 91, 98, 1, 35, "Subsubsection"],
-Cell[3013, 94, 260, 7, 31, "Text"],
-Cell[3276, 103, 30860, 675, 2833, "Text"]
+Cell[2961, 92, 98, 1, 35, "Subsubsection"],
+Cell[3062, 95, 260, 7, 31, "Text"],
+Cell[3325, 104, 30860, 675, 2833, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[34173, 783, 151, 2, 29, "Subsubsection"],
-Cell[34327, 787, 158, 3, 31, "Text"],
+Cell[34222, 784, 151, 2, 29, "Subsubsection"],
+Cell[34376, 788, 158, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[34510, 794, 322, 10, 32, "Input"],
-Cell[34835, 806, 21240, 501, 296, "Output"]
+Cell[34559, 795, 322, 10, 32, "Input"],
+Cell[34884, 807, 21240, 501, 296, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[56124, 1313, 102, 1, 29, "Subsubsection"],
-Cell[56229, 1316, 166, 3, 31, "Text"],
+Cell[56173, 1314, 102, 1, 29, "Subsubsection"],
+Cell[56278, 1317, 166, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[56420, 1323, 809, 25, 32, "Input"],
-Cell[57232, 1350, 15057, 338, 297, "Output"]
+Cell[56469, 1324, 809, 25, 32, "Input"],
+Cell[57281, 1351, 15057, 338, 297, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[72350, 1695, 148, 2, 44, "Subsection"],
-Cell[72501, 1699, 757, 25, 53, "Text",
+Cell[72399, 1696, 148, 2, 44, "Subsection"],
+Cell[72550, 1700, 757, 25, 53, "Text",
  CellTags->"BlockForm::usage"],
 Cell[CellGroupData[{
-Cell[73283, 1728, 100, 1, 35, "Subsubsection"],
+Cell[73332, 1729, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[73408, 1733, 308, 9, 32, "Input"],
-Cell[73719, 1744, 2398, 55, 116, "Output"]
+Cell[73457, 1734, 308, 9, 32, "Input"],
+Cell[73768, 1745, 2398, 55, 116, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[76154, 1804, 343, 10, 32, "Input"],
-Cell[76500, 1816, 2400, 56, 116, "Output"]
+Cell[76203, 1805, 343, 10, 32, "Input"],
+Cell[76549, 1817, 2400, 56, 116, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78961, 1879, 104, 1, 44, "Subsection"],
-Cell[79068, 1882, 443, 13, 32, "Text",
+Cell[79010, 1880, 104, 1, 44, "Subsection"],
+Cell[79117, 1883, 443, 13, 32, "Text",
  CellTags->"MatrixListForm::usage"],
 Cell[CellGroupData[{
-Cell[79536, 1899, 98, 1, 35, "Subsubsection"],
+Cell[79585, 1900, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[79659, 1904, 285, 8, 32, "Input"],
-Cell[79947, 1914, 1272, 27, 80, "Output"]
+Cell[79708, 1905, 285, 8, 32, "Input"],
+Cell[79996, 1915, 1272, 27, 80, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[81292, 1949, 98, 1, 65, "Section"],
+Cell[81341, 1950, 98, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[81415, 1954, 97, 1, 44, "Subsection"],
-Cell[81515, 1957, 362, 12, 32, "Text",
+Cell[81464, 1955, 97, 1, 44, "Subsection"],
+Cell[81564, 1958, 362, 12, 32, "Text",
  CellTags->"BlochPlot::usage"],
 Cell[CellGroupData[{
-Cell[81902, 1973, 96, 1, 35, "Subsubsection"],
+Cell[81951, 1974, 96, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[82023, 1978, 177, 4, 32, "Input"],
-Cell[82203, 1984, 23502, 401, 406, "Output"]
+Cell[82072, 1979, 177, 4, 32, "Input"],
+Cell[82252, 1985, 23502, 401, 406, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[105766, 2392, 99, 1, 44, "Subsection"],
-Cell[105868, 2395, 342, 10, 32, "Text",
+Cell[105815, 2393, 99, 1, 44, "Subsection"],
+Cell[105917, 2396, 342, 10, 32, "Text",
  CellTags->"BlochPlot2D::usage"],
 Cell[CellGroupData[{
-Cell[106235, 2409, 100, 1, 35, "Subsubsection"],
+Cell[106284, 2410, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[106360, 2414, 815, 28, 32, "Input"],
-Cell[107178, 2444, 3166, 73, 213, "Output"]
+Cell[106409, 2415, 815, 28, 32, "Input"],
+Cell[107227, 2445, 3166, 73, 213, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[110405, 2524, 99, 1, 44, "Subsection"],
-Cell[110507, 2527, 445, 10, 32, "Text",
+Cell[110454, 2525, 99, 1, 44, "Subsection"],
+Cell[110556, 2528, 445, 10, 32, "Text",
  CellTags->"ListBlochPlot::usage"],
 Cell[CellGroupData[{
-Cell[110977, 2541, 97, 1, 35, "Subsubsection"],
+Cell[111026, 2542, 97, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[111099, 2546, 485, 15, 51, "Input"],
-Cell[111587, 2563, 51643, 1085, 406, "Output"]
+Cell[111148, 2547, 485, 15, 51, "Input"],
+Cell[111636, 2564, 51643, 1085, 406, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[163291, 3655, 105, 1, 44, "Subsection"],
-Cell[163399, 3658, 408, 9, 32, "Text",
+Cell[163340, 3656, 105, 1, 44, "Subsection"],
+Cell[163448, 3659, 408, 9, 32, "Text",
  CellTags->"ListBlochPlot2D::usage"],
 Cell[CellGroupData[{
-Cell[163832, 3671, 98, 1, 35, "Subsubsection"],
+Cell[163881, 3672, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[163955, 3676, 461, 14, 51, "Input"],
-Cell[164419, 3692, 100134, 2520, 213, "Output"]
+Cell[164004, 3677, 461, 14, 51, "Input"],
+Cell[164468, 3693, 100134, 2520, 213, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[264626, 6220, 99, 1, 65, "Section"],
+Cell[264675, 6221, 99, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[264750, 6225, 103, 1, 45, "Subsection"],
-Cell[264856, 6228, 430, 13, 32, "Text",
+Cell[264799, 6226, 103, 1, 45, "Subsection"],
+Cell[264905, 6229, 430, 13, 32, "Text",
  CellTags->"EigensystemForm::usage"],
 Cell[CellGroupData[{
-Cell[265311, 6245, 97, 1, 35, "Subsubsection"],
+Cell[265360, 6246, 97, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[265433, 6250, 203, 5, 32, "Input"],
-Cell[265639, 6257, 3298, 98, 114, "Output"]
+Cell[265482, 6251, 203, 5, 32, "Input"],
+Cell[265688, 6258, 3298, 98, 114, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[269010, 6363, 308, 4, 65, "Section"],
+Cell[269059, 6364, 308, 4, 65, "Section"],
 Cell[CellGroupData[{
-Cell[269343, 6371, 152, 2, 44, "Subsection"],
-Cell[269498, 6375, 1117, 31, 95, "Text",
+Cell[269392, 6372, 152, 2, 44, "Subsection"],
+Cell[269547, 6376, 1117, 31, 95, "Text",
  CellTags->"FourierListPlot::usage"],
 Cell[CellGroupData[{
-Cell[270640, 6410, 100, 1, 35, "Subsubsection"],
-Cell[270743, 6413, 164, 5, 31, "Text"],
-Cell[270910, 6420, 24844, 547, 2297, "Text"]
+Cell[270689, 6411, 100, 1, 35, "Subsubsection"],
+Cell[270792, 6414, 164, 5, 31, "Text"],
+Cell[270959, 6421, 24844, 547, 2297, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[295791, 6972, 204, 3, 29, "Subsubsection"],
-Cell[295998, 6977, 181, 4, 31, "Text"],
-Cell[296182, 6983, 817, 24, 32, "Input"],
+Cell[295840, 6973, 204, 3, 29, "Subsubsection"],
+Cell[296047, 6978, 181, 4, 31, "Text"],
+Cell[296231, 6984, 817, 24, 32, "Input"],
 Cell[CellGroupData[{
-Cell[297024, 7011, 517, 13, 32, "Input"],
-Cell[297544, 7026, 4138, 78, 238, "Output"]
+Cell[297073, 7012, 517, 13, 32, "Input"],
+Cell[297593, 7027, 4138, 78, 238, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[301719, 7109, 668, 16, 55, "Input"],
-Cell[302390, 7127, 19551, 392, 245, "Output"]
+Cell[301768, 7110, 668, 16, 55, "Input"],
+Cell[302439, 7128, 19551, 392, 245, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[321990, 7525, 159, 2, 29, "Subsubsection"],
-Cell[322152, 7529, 132, 1, 31, "Text"],
-Cell[322287, 7532, 1243, 39, 55, "Input"],
+Cell[322039, 7526, 159, 2, 29, "Subsubsection"],
+Cell[322201, 7530, 132, 1, 31, "Text"],
+Cell[322336, 7533, 1243, 39, 55, "Input"],
 Cell[CellGroupData[{
-Cell[323555, 7575, 510, 13, 32, "Input"],
-Cell[324068, 7590, 14182, 287, 242, "Output"]
+Cell[323604, 7576, 510, 13, 32, "Input"],
+Cell[324117, 7591, 14182, 287, 242, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[338299, 7883, 158, 2, 29, "Subsubsection"],
-Cell[338460, 7887, 186, 5, 32, "Text"],
-Cell[338649, 7894, 702, 22, 32, "Input"],
+Cell[338348, 7884, 158, 2, 29, "Subsubsection"],
+Cell[338509, 7888, 186, 5, 32, "Text"],
+Cell[338698, 7895, 702, 22, 32, "Input"],
 Cell[CellGroupData[{
-Cell[339376, 7920, 426, 11, 32, "Input"],
-Cell[339805, 7933, 2330, 48, 233, "Output"]
+Cell[339425, 7921, 426, 11, 32, "Input"],
+Cell[339854, 7934, 2330, 48, 233, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
