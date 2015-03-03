@@ -29,8 +29,9 @@
 BeginPackage["Tensor`",{"Predicates`"}];
 
 
-Needs["DocTools`"]
-Needs["QUOptions`"]
+Needs["DocTools`"];
+Needs["QUOptions`"];
+Needs["UnitTesting`"];
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
