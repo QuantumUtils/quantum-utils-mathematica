@@ -465,7 +465,7 @@ Unravel[op_,sysDim_Integer:2,opts:OptionsPattern[Unravel]]:=
 Reravel[args__]:=Unravel[args,Unravel->False]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix-Tensor Contractions*)
 
 
@@ -542,7 +542,7 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{pairs___List}]:=
 MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrix Bases*)
 
 
@@ -621,8 +621,8 @@ ExpressInBasis[op_,opts:OptionsPattern[]]:=
 ExpressInBasisCoeffs[op_,basis_]:=
 	With[{opBasis=CheckNamedBasis[basis]},
 	With[{
-	n=Log[Length[opBasis],Length[Flatten[op]]]},
-		Map[Tr[ConjugateTranspose[#].op]&,Basis[opBasis,n]]
+	n=Log[Length@Flatten@First[opBasis],Length[Flatten[op]]]},
+		Map[Tr[ConjugateTranspose[#].op]/Tr[ConjugateTranspose[#].#]&,Basis[opBasis,n]]
 	]]
 
 
