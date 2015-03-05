@@ -22,13 +22,14 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
 BeginPackage["QuantumSystems`",{"Predicates`","Tensor`"}];
 
 
+Needs["UnitTesting`"];
 Needs["DocTools`"]
 Needs["QUOptions`"]
 
@@ -36,7 +37,7 @@ Needs["QUOptions`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -95,7 +96,7 @@ AssignUsage[RandomHermitian,$Usages];
 (*Error Messages*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -538,7 +539,7 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*State Measures*)
 
 
@@ -574,9 +575,27 @@ MutualInformationS[mat_]:=With[{d=Sqrt@Length[mat]},
 	]]
 
 
+(* ::Text:: *)
+(**)
+(*Function for computing the matrix-log of singular matrices. It returns -\[Infinity] for zero eigenvalues*)
+
+
+MatrixLogZero[base_,A_]:=
+	With[{sys=Eigensystem[A]},
+		Total[
+			ReplaceAll[
+				Log[base,First[sys]],
+				{DirectedInfinity[-1]->-"\[Infinity]",DirectedInfinity[1]->"\[Infinity]"}
+			]*Map[Projector@*Normalize,Last[sys]]
+	]]
+
+
 RelativeEntropyS[A_,B_]:=
 	If[AllQ[SquareMatrixQ,{A,B}],
-		-EntropyS[A]-Tr[A.MatrixLog[B]],
+		ReplaceAll[
+			-EntropyS[A]-Tr[A.MatrixLogZero[2,B]],
+			"\[Infinity]"->DirectedInfinity[1]
+		],
 	Message[RelativeEntropyS::sqmat]
 ]
 
@@ -621,7 +640,7 @@ Fidelity[A_,B_]:=With[{
 	]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Entanglement Measures*)
 
 
@@ -631,7 +650,7 @@ EntangledQ[op_,{da_Integer,db_Integer},fn_]:=
 		SquareMatrixQ[op],
 			With[{vals=fn[Eigenvalues[MatrixTranspose[op,{da,db,da,db},{1,4,2,3}]]]},
 			If[AnyQ[Negative,vals],True,
-			If[Length[mat]<=6,False,"Indeterminate"]]],
+			If[Length[op]<=6,False,"Indeterminate"]]],
 		True,Message[EntangledQ::input]
 	]
 
@@ -666,7 +685,7 @@ EntanglementF[op_]:=
 	]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Random Matrices*)
 
 
@@ -701,6 +720,8 @@ RandomDensity[n_,rank_,"Bures"]:=
 	#/Tr[#]&[(id+U).G.ConjugateTranspose[G].(id+ConjugateTranspose[U])]
 	]
 
+RandomDensity[n_,"Bures"]:=RandomDensity[n,n,"Bures"]
+
 
 RandomHermitian[n_,tr_:1]:=With[
 	{A=GinibreMatrix[n,n]RandomComplex[{0,1+I},{n,n}]},
@@ -715,7 +736,7 @@ RandomHermitian[n_,tr_:1]:=With[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 

@@ -22,13 +22,14 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
 BeginPackage["QuantumChannel`",{"Tensor`","Predicates`"}];
 
 
+Needs["UnitTesting`"];
 Needs["DocTools`"]
 Needs["QUOptions`"]
 Needs["QuantumSystems`"]
@@ -37,11 +38,11 @@ Needs["QuantumSystems`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Quantum Channels*)
 
 
@@ -66,7 +67,7 @@ AssignUsage[ChannelRep,$Usages];
 AssignUsage[ChannelParameters,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Channel Functions*)
 
 
@@ -80,7 +81,7 @@ AssignUsage[EntanglementFidelity,$Usages];
 AssignUsage[ChannelVolume,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Predicates*)
 
 
@@ -94,7 +95,7 @@ AssignUsage[UnitalQ,$Usages];
 AssignUsage[PauliChannelQ,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Special Channels*)
 
 
@@ -105,7 +106,6 @@ AssignUsage[ComChannel,$Usages];
 AssignUsage[AComChannel,$Usages];
 AssignUsage[LindbladDissipator,$Usages];
 AssignUsage[Lindblad,$Usages];
-AssignUsage[SwapChannel,$Usages];
 AssignUsage[PartialTrChannel,$Usages];
 
 
@@ -141,7 +141,7 @@ Lindblad::input = "Input must be a matrix, list of matrices, or sequence of matr
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Predicates*)
 
 
@@ -210,9 +210,9 @@ UnitalQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 
 
 PauliChannelQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
-	With[{op=Chi[chan],
+	With[{op=First[Chi[chan]],
 	fun=OptionValue[Simplify]},
-		AllMatchQ[0,Flatten[op-DiagonalMatrix[Diagonal[op]]]
+		AllMatchQ[0,fun[Flatten[op-DiagonalMatrix[Diagonal[op]]]]
 		]]
 
 
@@ -238,7 +238,7 @@ Basis[chan_QuantumChannel]:=Basis/.ChannelParameters[chan]
 Format[chan_QuantumChannel]:=ToString[ChannelRep[chan]][First[chan],"<params>"]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Constructing Channels*)
 
 
@@ -321,7 +321,7 @@ SysEnv[op_?SysEnvQ,OptionsPattern[QuantumChannel]]:=
 		If[And[outOpt===Automatic,Not[IntegerQ[First[dims]/dEnv]]],
 			Message[QuantumChannel::dims],Null];
 		
-		QuantumChannel[SparseArray[op], 
+		QuantumChannel[op, 
 			{ChannelRep->SysEnv,
 				InputDim->If[inOpt===Automatic,Last[dims]/dEnv,inOpt],
 				OutputDim->If[outOpt===Automatic,First[dims]/dEnv,outOpt],
@@ -735,7 +735,7 @@ chan_QuantumChannel[state_]:=
 	]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Channel Operations*)
 
 
@@ -794,8 +794,6 @@ QuantumChannel/:Plus[chans__QuantumChannel]:=
 CheckDotDims[chans__]:=
 	With[{inDims=Most[InputDim/@{chans}],
 		outDims=Rest[OutputDim/@{chans}]},
-	Print[inDims];
-	Print[outDims];
 	inDims===outDims
 	]
 
@@ -805,8 +803,8 @@ QuantumChannel/:Dot[chans__QuantumChannel]:=
 		With[{
 		rep=ChannelRep@First@{chans},
 		basis=Basis@First@{chans},
-		inDim=InputDim@First@{chans},
-		outDim=OutputDim@Last@{chans}},
+		inDim=InputDim@Last@{chans},
+		outDim=OutputDim@First@{chans}},
 		rep[QuantumChannel[
 			Apply[Dot,First[Super[#,Basis->"Col"]]&/@{chans}],
 			{ChannelRep->Super,
@@ -941,8 +939,8 @@ AverageGateFidelity[chan1_QuantumChannel,chan2_QuantumChannel]:=
 	AverageGateFidelity[ConjugateTranspose[Super[chan2]].Super[chan1]]
 
 
-GateFidelity[state_,chan_QuantumChannel]:=Fidelity[state,chan[state]]
-GateFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=Fidelity[chan2[state],chan1[state]]
+GateFidelity[state_,chan_QuantumChannel]:=Fidelity[state,chan[state]]^2
+GateFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=Fidelity[chan2[state],chan1[state]]^2
 
 
 EntanglementFidelity[state_,chan_QuantumChannel]:=
@@ -955,7 +953,7 @@ EntanglementFidelity[state_,chan_QuantumChannel]:=
 EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=EntanglementFidelity[state,ConjugateTranspose[Super[chan2]].chan2]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Special Channels*)
 
 
@@ -1013,17 +1011,6 @@ Lindblad[op_]:=
 
 
 Lindblad[ops__]:=Total@Map[Lindblad,{ops}]
-
-
-SwapChannel[output_List,dims_List]:=
-	Super[Flatten[
-	ArrayReshape[
-		IdentityMatrix[(Times@@dims)^2,SparseArray]
-	,Flatten[ConstantArray[dims,4]]]
-	,{Join[output,Length[dims]+output],2*Length[dims]+Range[2*Length[dims]]}]]
-
-
-SwapChannel[output_List,d_Integer:2]:=SwapChannel[output,ConstantArray[d,Length[output]]]
 
 
 PartialTrChannel[sysDims_,trlist_]:=

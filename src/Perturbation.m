@@ -46,17 +46,16 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Perturbatio
 (*Magnus Expansion*)
 
 
-Unprotect[MagnusExpansionTerm,MagnusExpansion,MagnusGenerator,MagnusConvergenceTest];
-ClearAll[MagnusExpansionTerm,MagnusGenerator];
+Unprotect[MagnusExpansionTerm,MagnusExpansion,MagnusConvergenceTest,ClearMagnusCache];
 
 
 AssignUsage[MagnusExpansionTerm,$Usages];
 AssignUsage[MagnusExpansion,$Usages];
-AssignUsage[MagnusGenerator,$Usages];
 AssignUsage[MagnusConvergenceTest,$Usages];
+AssignUsage[ClearMagnusCache,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Average Hamiltonian*)
 
 
@@ -67,7 +66,7 @@ AssignUsage[AverageHamiltonianTerm,$Usages];
 AssignUsage[AverageHamiltonian,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix Perturbations*)
 
 
@@ -82,14 +81,13 @@ AssignUsage[SecondOrderEigenvalue,$Usages];
 (*Zassenhaus Expansion*)
 
 
-Unprotect[ZassenhausTerm,ZassenhausSeries,ZassenhausExpansion,ZaussenhausGenerator];
-ClearAll[ZassenhausGenerator,ZassenhausTerm];
+Unprotect[ZassenhausTerm,ZassenhausSeries,ZassenhausExpansion,ClearZassenhausCache];
 
 
 AssignUsage[ZassenhausTerm,$Usages];
 AssignUsage[ZassenhausSeries,$Usages];
-AssignUsage[ZassenhausGenerator,$Usages];
 AssignUsage[ZassenhausExpansion,$Usages];
+AssignUsage[ClearZassenhausCache,$Usages];
 
 
 (* ::Section:: *)
@@ -99,70 +97,108 @@ AssignUsage[ZassenhausExpansion,$Usages];
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Magnus Expansion*)
 
 
-Options[MagnusGenerator]={Simplify->Identity,Chop->False};
-Options[MagnusExpansionTerm]=Options[MagnusGenerator];
-Options[MagnusExpansion]=Options[MagnusGenerator];
+(* ::Text:: *)
+(*Clear memoized values*)
+
+
+Clear[MagnusGenerator,MagnusExpansionTermCached]
+
+
+ClearMagnusCache[]:=(
+	DownValues[MagnusGenerator]=Part[DownValues[MagnusGenerator],{-1}];
+	DownValues[MagnusExpansionTermCached]=Part[DownValues[MagnusExpansionTermCached],{-1}];)
+
+
+(* ::Text:: *)
+(*Set Options*)
+
+
+Options[MagnusExpansionTerm]={Simplify->Identity,Chop->False,NIntegrate->False};
+Options[MagnusGenerator]=Options[MagnusExpansionTerm];
+Options[MagnusExpansionTermCached]=Options[MagnusExpansionTerm];
+Options[MagnusExpansion]=Options[MagnusExpansionTerm];
 Options[MagnusConvergenceTest]={NIntegrate->False};
 
 
-MagnusGenerator[{At_,t_,T_},{n_,1},opt:OptionsPattern[]]:=
-	MagnusGenerator[{At,t,T},{n,1},opt]=
-		Module[{fn=OptionValue[Simplify]},
-			If[fn===True,fn=Simplify];
-			If[OptionValue[Chop],fn=fn@*Chop];
-			fn@Com[MagnusExpansionTerm[{At,t,T},n-1,opt],At/.{t->T}]
-		];
+(* ::Text:: *)
+(*Generator term for magnus expansion*)
 
-MagnusGenerator[{At_,t_,T_},{n_,j_},opt:OptionsPattern[]]:=
-	MagnusGenerator[{At,t,T},{n,j},opt]=
-		Module[{fn=OptionValue[Simplify]},
+
+MagnusGenerator[{A_,t0_,tf_},{n_,j_},opt:OptionsPattern[]]:=
+	MagnusGenerator[{A,t0,tf},{n,j},opt]=
+		Block[{fn=OptionValue[Simplify]},
 			If[fn===True,fn=Simplify];
 			If[OptionValue[Chop],fn=fn@*Chop];
-			fn@If[j===n-1,
-				Com[MagnusExpansionTerm[{At,t,T},1,opt],(At/.{t->T}),n-1],
-				Total[
-					Com[MagnusExpansionTerm[{At,t,T},#,opt],MagnusGenerator[{At,t,T},{n-#,j-1},opt]]&/@Range[n-j]
+			fn@Which[
+				j===1,
+					Com[MagnusExpansionTerm[{A,t0,tf},n-1,opt],A[tf]],
+				j===n-1,
+					Com[MagnusExpansionTerm[{A,t0,tf},1,opt],A[tf],n-1],
+				True,	
+					Total@Map[
+						Com[
+							MagnusExpansionTerm[{A,t0,tf},#,opt],
+							MagnusGenerator[{A,t0,tf},{n-#,j-1},opt]
+						]&,Range[n-j]
+						]
 				]
+			];
+
+
+(* ::Text:: *)
+(*Memoized Magnus expansion term*)
+
+
+MagnusExpansionTermCached[{A_,t0_,tf_},k_,opt:OptionsPattern[]]:=
+	MagnusExpansionTermCached[{A,t0,tf},k,opt]=
+		Block[{fn=OptionValue[Simplify]},
+			If[fn===True,fn=Simplify];
+			If[OptionValue[Chop],fn=fn@*Chop];
+			fn@If[k===1,
+				If[OptionValue[NIntegrate],
+					NIntegrate[A[t],{t,t0,tf}],
+					Integrate[A[t],{t,t0,tf}]
+				],
+				Total@Map[(BernoulliB[#]/#!)*
+					If[OptionValue[NIntegrate],
+						NIntegrate[MagnusGenerator[{A,t0,t1},{k,#},opt],{t1,t0,tf}],
+						Integrate[MagnusGenerator[{A,t0,t1},{k,#},opt],{t1,t0,tf}]
+					]&,
+					Range[k-1]]
 			]
 		];
 
 
-MagnusExpansionTerm[{At_,t_,T_},1,opt:OptionsPattern[]]:=
-	MagnusExpansionTerm[{At,t,T},1,opt]=
-		Module[{fn=OptionValue[Simplify]},
-			If[fn===True,fn=Simplify];
-			If[OptionValue[Chop],fn=fn@*Chop];
-			fn@Integrate[At,{t,0,T}]
-		];
-
-MagnusExpansionTerm[{At_,t_,T_},k_,opt:OptionsPattern[]]:=
-	MagnusExpansionTerm[{At,t,T},k,opt]=
-		Module[{fn=OptionValue[Simplify],t1},
-			If[fn===True,fn=Simplify];
-			If[OptionValue[Chop],fn=fn@*Chop];
-			fn@Total[BernoulliB[#]*Integrate[MagnusGenerator[{At,t,t1},{k,#},opt],{t1,0,T}]/#!&/@Range[k-1]]
-		];
 
 
-MagnusExpansion[{At_,t_,T_},order_,opt:OptionsPattern[]]:=Table[MagnusExpansionTerm[{At,t,T},n,opt],{n,order}];
+(* ::Text:: *)
+(*Calling Magnus Expansion Term and sum of terms*)
 
 
-$Assumptions
+MagnusExpansionTerm[{A_,t0_,tf_},k_,opt:OptionsPattern[]]:=
+	MagnusExpansionTermCached[{A,t0,tf},k,opt]
+
+MagnusExpansionTerm[{A_,tf_},k_,opt:OptionsPattern[]]:=MagnusExpansionTerm[{A,0,tf},k,opt]
 
 
-MagnusConvergenceTest[{At_,t_,T_},OptionsPattern[]]:=Module[{},
+MagnusExpansion[{A_,t0_,tf_},order_,opt:OptionsPattern[]]:=Map[MagnusExpansionTerm[{A,t0,tf},#,opt]&,Range[order]];
+MagnusExpansion[{A_,tf_},order_,opt:OptionsPattern[]]:=MagnusExpansion[{A,0,tf},order,opt]
+
+
+MagnusConvergenceTest[{A_,t0_,tf_},opts:OptionsPattern[]]:=
 	If[OptionValue[NIntegrate],
-		NIntegrate[Norm[At,"Frobenius"],{t,0,T}],
-		Integrate[Norm[At,"Frobenius"],{t,0,T}]
+		NIntegrate[Norm[A[t],"Frobenius"],{t,t0,tf}],
+		Integrate[Norm[A[t],"Frobenius"],{t,t0,tf}]
 	]
-];
+
+MagnusConvergenceTest[{A_,tf_},opts:OptionsPattern[]]:=MagnusConvergenceTest[{A,0,tf},opts]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Average Hamiltonian*)
 
 
@@ -170,14 +206,17 @@ Options[AverageHamiltonianTerm]=Options[MagnusGenerator];
 Options[AverageHamiltonian]=Options[MagnusGenerator];
 
 
-AverageHamiltonianTerm[{Ht_,t_,T_},k_,opt:OptionsPattern[]]:=
-	(-I)^k*MagnusExpansionTerm[{Ht,t,T},k+1,opt]/T
+AverageHamiltonianTerm[{H_,t0_,tf_},k_,opt:OptionsPattern[]]:=
+	(-I)^k*MagnusExpansionTerm[{H,t0,tf},k+1,opt]/(tf-t0)
+
+AverageHamiltonianTerm[{H_,tf_},k_,opt:OptionsPattern[]]:=AverageHamiltonianTerm[{H,0,tf},k,opt]
 
 
-AverageHamiltonian[{Ht_,t_,T_},order_,opt:OptionsPattern[]]:=
+AverageHamiltonian[{H_,t0_,tf_},order_,opt:OptionsPattern[]]:=
 	Total[
-		Array[(-I)^(#-1)/T&,order+1]*MagnusExpansion[{Ht,t,T},order+1,opt]
+		Array[(-I)^(#-1)/(tf-t0)&,order+1]*MagnusExpansion[{H,t0,tf},order+1,opt]
 	]
+AverageHamiltonian[{H_,tf_},order_,opt:OptionsPattern[]]:=AverageHamiltonian[{H,0,tf},order,opt]
 
 
 (* ::Subsection::Closed:: *)
@@ -326,7 +365,7 @@ SecondOrderEigenvalue[A_,B_,\[Lambda]_:All,output_:"sum"]:=
 	]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Zassenhaus Expansion*)
 
 
@@ -334,44 +373,82 @@ SecondOrderEigenvalue[A_,B_,\[Lambda]_:All,output_:"sum"]:=
 (*The generator form is taken from "Efficient Computation of the Zassenhaus formula" F. Casas, A. Murua, M. Nadinic, Computer Physics Communications 183 (2012) 2386-2391.*)
 
 
-ZassenhausGenerator[X_,Y_,1,k_]:=
-	ZassenhausGenerator[X,Y,1,k]=
-		Sum[
-			(-1)^k/(j!(k-j)!) Com[Y,Com[X,Y,j],k-j],
-			{j,1,k}
-		];
+(* ::Subsubsection:: *)
+(*Generator Function*)
+
+
+(* ::Text:: *)
+(*Clear memoized values*)
+
+
+Clear[ZassenhausGenerator,ZassenhausTermCached];
+
+
+ClearZassenhausCache[]:=(
+	DownValues[ZassenhausGenerator]=Part[DownValues[ZassenhausGenerator],{-1}];
+	DownValues[ZassenhausTermCached]=Part[DownValues[ZassenhausTermCached],{-1}];)
+
+
 ZassenhausGenerator[X_,Y_,n_,k_]:=
 	ZassenhausGenerator[X,Y,n,k]=
-		Sum[(-1)^j/j! 
+	If[n===1,
+		Total@Map[
+			(-1)^k/(#!(k-#)!) Com[Y,Com[X,Y,#],k-#]&,
+			Range[k]
+		],
+		Total@Map[(-1)^#/(#!) 
 			Com[
-				ZassenhausTerm[X,Y,n],
-				ZassenhausGenerator[X,Y,n-1,k-n*j],j
-			],
-			{j,0,Floor[k/n]-1}
-		];
-
-
-ZassenhausTerm[X_,Y_,0]:=X
-ZassenhausTerm[X_,Y_,1]:=Y
-ZassenhausTerm[X_,Y_,n_]:=
-	ZassenhausTerm[X,Y,n]=
-		1/n ZassenhausGenerator[
-			X,Y,
-			If[n>=5,Floor[(n-1)/2],1],
-			n-1
+				ZassenhausTermCached[X,Y,n],
+				ZassenhausGenerator[X,Y,n-1,k-n*#],#
+			]&,
+			Range[0,Floor[k/n]-1]
 		]
+	];
+
+
+ZassenhausTermCached[X_,Y_,n_]:=
+	ZassenhausTermCached[X,Y,n]=
+		Which[
+			n===0, X,
+			n===1, Y,
+			IntegerQ[n], (1/n)*ZassenhausGenerator[X,Y,If[n>=5,Floor[(n-1)/2],1],n-1]
+		]
+
+
+(* ::Subsubsection:: *)
+(*Expansion Terms*)
+
+
+ZassenhausTerm[X_,Y_,n_]:=ZassenhausTermCached[X,Y,n]
 
 
 ZassenhausSeries[X_,Y_,n_]:=ZassenhausTerm[X,Y,#]&/@Range[0,n]
 
 
-ZassenhausExpansion[\[Lambda]_:1,X_,Y_,0]:=
-	ZassenhausExpansion[\[Lambda],X,Y,0]=MatrixExp[\[Lambda] X];
-ZassenhausExpansion[\[Lambda]_:1,X_,Y_,1]:=
-	ZassenhausExpansion[\[Lambda],X,Y,1]=ZassenhausExpansion[\[Lambda],X,Y,0].MatrixExp[\[Lambda] Y];
-ZassenhausExpansion[\[Lambda]_:1,X_,Y_,n_]:=
-	ZassenhausExpansion[\[Lambda],X,Y,n]=
-		ZassenhausExpansion[\[Lambda],X,Y,n-1].MatrixExp[\[Lambda]^n*ZassenhausTerm[X,Y,n]];
+(* ::Subsubsection:: *)
+(*MatrixExp Expansion*)
+
+
+(* ::Text:: *)
+(*Cached function*)
+
+
+Clear[ZassenhausExpansionCached];
+
+
+ZassenhausExpansionCached[\[Lambda]_,X_,Y_,n_]:=
+	ZassenhausExpansionCached[\[Lambda],X,Y,n]=
+		Which[
+			n===0,
+				MatrixExp[\[Lambda] X],
+			n===1,
+				ZassenhausExpansionCached[\[Lambda],X,Y,0].MatrixExp[\[Lambda] Y],
+			IntegerQ[n],
+				ZassenhausExpansionCached[\[Lambda],X,Y,n-1].MatrixExp[(\[Lambda]^n)*ZassenhausTerm[X,Y,n]]
+		]
+
+
+ZassenhausExpansion[\[Lambda]_:1,X_,Y_,n_]:=ZassenhausExpansionCached[\[Lambda],X,Y,n]
 
 
 (* ::Subsection::Closed:: *)
@@ -385,7 +462,7 @@ End[];
 (*Unit Testing*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
@@ -393,10 +470,10 @@ End[];
 (*The commented sections represent functions which need unprotection for memoization to work.*)
 
 
-Protect[(*MagnusExpansionTerm,MagnusGenerator,*)MagnusExpansion,MagnusConvergenceTest];
+Protect[MagnusExpansionTerm,MagnusExpansion,MagnusConvergenceTest,ClearMagnusCache];
 Protect[AverageHamiltonianTerm,AverageHamiltonian];
 Protect[FirstOrderEigenvector,SecondOrderEigenvalue];
-Protect[ZassenhausSeries(*,ZassenhausGenerator,ZassenhausTerm,ZassenhausExpansion*)];
+Protect[ZassenhausSeries,ZassenhausTerm,ZassenhausExpansion,ClearZassenhausCache];
 
 
 EndPackage[];
