@@ -46,7 +46,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "GRAPE.nb"}]
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Options*)
 
 
@@ -74,7 +74,53 @@ AssignUsage[
 
 
 (* ::Subsection::Closed:: *)
-(*Utility Functions*)
+(*Pulse Object*)
+
+
+Unprotect[
+	Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
+	InternalHamiltonian,AmplitudeRange,ExitMessage,
+	ToPulse,SimForm,
+	PulseRemoveKeys,PulseReplaceKey,
+	PulsePhaseRotate,PulsePhaseRamp
+];
+
+
+AssignUsage[
+	{
+		Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
+		InternalHamiltonian,AmplitudeRange,ExitMessage,
+		ToPulse,SimForm,
+		PulseRemoveKeys,PulseReplaceKey,
+		PulsePhaseRotate,PulsePhaseRamp
+	},
+	$Usages
+];
+
+
+(* ::Subsection:: *)
+(*UtilityFunction and Targets*)
+
+
+Unprotect[
+	UtilityFunction,UtilityGradient,
+	PropagatorFromPulse,PropagatorListFromPulse,
+	CoherentSubspaces
+];
+
+
+AssignUsage[
+	{
+		UtilityFunction,UtilityGradient,
+		PropagatorFromPulse,PropagatorListFromPulse,
+		CoherentSubspaces
+	},
+	$Usages
+];
+
+
+(* ::Subsection::Closed:: *)
+(*Helper Functions*)
 
 
 GenerateRandomPulse::usage = "GenerateRandomPulse[dts,\[Epsilon]Range]";
@@ -230,54 +276,18 @@ RingdownPenalty::usage = "RingdownPenalty[\[Epsilon],startIndex,qmax] returns a 
 (*Unitary Evaluators*)
 
 
-UnitaryFromPulse::usage = "UnitaryFromPulse[pulse,Hint,Hcontrol,Hint]";
-UnitaryListFromPulse::usage = "UnitaryFromPulse[pulse,Hint,Hcontrol]";
+PropagatorFromPulse::usage = "PropagatorFromPulse[pulse,Hint,Hcontrol,Hint]";
+PropagatorListFromPulse::usage = "PropagatorListFromPulse[pulse,Hint,Hcontrol]";
 
 
 (* ::Subsection::Closed:: *)
-(*Objective and Derivative Functions*)
-
-
-GCoherentSubspaces::usage = "GCoherentSubspaces is a GRAPE header which can be used as an input for the target argument: e.g. GCoherenteSubspaces[{X1,...,Xn},{Y1,...,Yn}] tries to find a unitary so that UXi=Y_i for all matrices Xi and Yi. This is a generalization of GStatesToStates.";
-
-
-ObjectiveFunction::usage = "ObjectiveFunction[Ucalc,target]";
-CalculateDerivatives::usage = "CalculateDerivatives[Hint_,target_,timeSteps_,pulse_,fcontrol_,fcontrolDer_,Hcontrol_,PulseModifier_]";
-
-
-(* ::Subsection:: *)
-(*Pulse and Output Formatting*)
-
-
-Pulse::usage = "Pulse is a Header which contains the output of FindPulse. Pulse is also a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-TimeSteps::usage = "TimeSteps is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-UtilityValue::usage = "UtilityValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-PenaltyValue::usage = "PenaltyValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-RawUtilityValue::usage = "UtilityValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-Target::usage = "Target is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-ControlHamiltonians::usage = "ControlHamiltonian is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-InternalHamiltonian::usage = "Internalhamiltonian is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-AmplitudeRange::usage = "Range of the amplitudes.";
+(*Plotting*)
 
 
 GShowFidelity::usage = "GShowFidelity is an option for pulse plotting functions that controls whether or not fidelity information is printed.";
 
 
-ToPulse::usage = "ToPulse[pulsemat] makes a Pulse object containing pulsemat[[All,1]] as the TimeSteps, pulsemat[[All,2;;-1]] and a few other default values.";
-
-
-SimForm::usage = "SimForm[Pulse[...],distort:True] takes the output from FindPulse and turns it into the format EvalPulse from NVSim wants, i.e., {pulse,Hcontrol} where pulse={{dt1,amp11,amp12,...,amp1k},{dt2,amp21,amp22,...,amp2k},...}. If distort is True (default value), DistortionOperator is applied to the pulse, otherwise it is not.";
-
-
-RemovePulseHeader::usage = "RemovePulseHeader[pulse,header1,header2,...] returns a copy of pulse with the specifies headers removed. For example, RemovePulseHeader[pulse,TimeSteps] will return pulse, but without the TimeSteps.";
-ReplacePulseHeader::usage = "ReplacePulseHeader[pulse,header,newval] will return a copy of pulse with the value of the specified header replaced with newval.";
-
-
 DividePulse::usage = "SplitPulse[Pulse[...],n] takes a Pulse object, divides the time step by n, and duplicates each pulse step n times. This means the pulse sequence remains unchanged under simulation.";
-
-
-PulsePhaseRotate::usage = "PulsePhaseRotate[Pulse[...],\[Phi]] returns a new Pulse[...] where the phase between the amplitudes, assumed to be in x,y coordinates, has been rotated by a constant angle \[Phi] (radians).";
-PulsePhaseRamp::usage = "PulsePhaseShift[Pulse[...],\[Omega]] returns a new Pulse[...] where the whole pulse has been phase ramped by a ramp of slope 2\[Pi]*\[Omega]. The pulse is assumed to be in x,y coordinates.";
 
 
 PulsePlot::usage = "PulsePlot[Pulse[...], OptionsPattern[]] takes the output from FindPulse and plots the control amplitudes. The options are DistortionOperator (True or False, use the DistortionOperator or don't use it. Default is False.), Normalize (False or a real number by which to normalize. Default is False.), and PlotLabel (A list of subtitles. Default is {\"X\",\"Y\"}).";
@@ -305,11 +315,14 @@ LegendIsCell::usage = "LegendIsCell is an option for 2D RobustnessPlots which wh
 DistortionOperatorSweep::usage = "DistortionOperatorSweep is an option for RobustnessPlots which when True indicates that the distortion contains a robustness parameter which is being swept and therefore needs to be calculated each time on the inner loop. Default is False.";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Exporters*)
 
 
-ExportJCAMP::usage = "ExportJCAMP[filename, pulse_Pulse, OptionsPattern[]] exports the given pulse in the JCAMP format as readable by Bruker NMR spectrometers. The pulse should have two control fields, x and y. See Options[ExportJCAMP] for possible options.";
+Unprotect[ExportJCAMP,ExportSHP];
+
+
+AssignUsage[{ExportJCAMP,ExportSHP},$Usages]
 
 
 JCAMPTitle::usage = "JCAMPTitle is an ExportJCAMP option with default value Automatic, which sets the title to the filename.Otherwise it should be a string.";
@@ -325,9 +338,6 @@ JCAMPShapeBWFac::usage = "JCAMPShapeBWFac is an ExportJCAMP option with default 
 JCAMPShapeIntegFac::usage = "JCAMPShapeIntegFac is an ExportJCAMP option with default value '1.000000e+00' (string, not number)."; 
 JCAMPShapeMode::usage = "JCAMPShapeMode is an ExportJCAMP option with default value '1' (string, not number).";
 JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option with default being the integer 1. This is the number the amplitudes are divided by before writing to the JCAMP file.";
-
-
-ExportNV::usage = "Export[filename, pulse_Pulse] exports a Pulse structure to a .shp file. This file has two columns, amplitude and phase, where amplitude is between 0 and 1 (1 is referenced to the Amplitude Range), and phase is between 0 and 1 (1 means 2\[Pi]).";
 
 
 (* ::Subsection::Closed:: *)
@@ -1117,7 +1127,7 @@ RingdownPenalty[\[Epsilon]_,startIndex_,qmax_]:=Module[
 (*Takes a pulse and finds the overall unitary.*)
 
 
-UnitaryFromPulse[pulse_,Hint_,Hcontrol_]:=
+PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
 	Module[{step=1,dt,dts,amps},
 		{dts,amps} = SplitPulse[pulse];
 		(* Notice the delay equal on dt! Not a bug. *)
@@ -1130,7 +1140,7 @@ UnitaryFromPulse[pulse_,Hint_,Hcontrol_]:=
 	]
 
 
-UnitaryListFromPulse[pulse_,Hint_,Hcontrol_]:=
+PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
 	Module[{dts,dt,step=1,amps},
 		{dts,amps} = SplitPulse[pulse];
 		dt := dts[[step++]];
@@ -1153,16 +1163,16 @@ UnitaryListFromPulse[pulse_,Hint_,Hcontrol_]:=
 (*We divide by the dimension to make the maximum value of the objective function equal to 1.*)
 
 
-ObjectiveFunction[Ucalc_,Utarget_List]:=Abs[Tr[Ucalc\[ConjugateTranspose].Utarget]/Length[Ucalc]]^2;
+UtilityFunction[Ucalc_,Utarget_List]:=Abs[Tr[Ucalc\[ConjugateTranspose].Utarget]/Length[Ucalc]]^2;
 
 
-CalculateDerivatives[pulse_,Hint_,Hcontrol_,Utarget_List]:=
+UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 	Module[
 		{
 			dim=Length[Hint],
 			dts,amps,Uforw,Uback,gradient,cost,unitaries
 		},
-		unitaries=UnitaryListFromPulse[pulse,Hint,Hcontrol];
+		unitaries=PropagatorListFromPulse[pulse,Hint,Hcontrol];
 
 		{dts, amps} = SplitPulse[pulse];
 
@@ -1172,7 +1182,7 @@ CalculateDerivatives[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 			-2 Re[Tr[Uback[[i]]\[ConjugateTranspose].(I dts[[i]] Hcontrol[[j]].Uforw[[i]])]*Tr[Uforw[[i]]\[ConjugateTranspose].Uback[[i]]]],
 			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/dim^2;
-		cost=ObjectiveFunction[Last[Uforw],Utarget];
+		cost=UtilityFunction[Last[Uforw],Utarget];
 		{cost,gradient}
 	];
 
@@ -1181,7 +1191,7 @@ CalculateDerivatives[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 (*Coherent Subspaces*)
 
 
-ObjectiveFunction[Ucalc_,target_GCoherentSubspaces]:=
+UtilityFunction[Ucalc_,target_CoherentSubspaces]:=
 	With[
 		{Xs=target[[1]],Ys=target[[2]]},
 		Sum[
@@ -1191,7 +1201,7 @@ ObjectiveFunction[Ucalc_,target_GCoherentSubspaces]:=
 	]
 
 
-CalculateDerivatives[pulse_,Hint_,Hcontrol_,target_GCoherentSubspaces]:=
+UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	Module[
 		{
 			dim=Length[Hint],
@@ -1201,7 +1211,7 @@ CalculateDerivatives[pulse_,Hint_,Hcontrol_,target_GCoherentSubspaces]:=
 			numSubspaces,
 			dts,amps
 		},
-		unitaries=UnitaryListFromPulse[pulse,Hint,Hcontrol];
+		unitaries=PropagatorListFromPulse[pulse,Hint,Hcontrol];
 
 		{dts, amps} = SplitPulse[pulse];
 
@@ -1219,12 +1229,12 @@ CalculateDerivatives[pulse_,Hint_,Hcontrol_,target_GCoherentSubspaces]:=
 			],
 			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/numSubspaces;
-		performIndex=ObjectiveFunction[Last[Uforw],target];
+		performIndex=UtilityFunction[Last[Uforw],target];
 		{performIndex,derivs}
 	];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Pulse and Output Formatting*)
 
 
@@ -1387,7 +1397,7 @@ PulsePlot[pulse_, opt : OptionsPattern[]]:=If[Not@OptionValue@DistortionOperator
 
 
 PulseFourierPlot[pulse_,controlNames_:{"X","Y"},normalization_:(2*\[Pi]),freqSpace_:False]:=
-	Module[{fid=ObjectiveFunction@pulse,data=Pulse@pulse,dt=First@TimeSteps@pulse,T,len},
+	Module[{fid=UtilityFunction@pulse,data=Pulse@pulse,dt=First@TimeSteps@pulse,T,len},
 		If[freqSpace,
 			data=DistortionOperator[pulse][AddTimeSteps[TimeSteps@pulse,data],False];
 			len=Length[data];
@@ -1427,7 +1437,7 @@ DiscreteFourierPlot[s,{-T/2,3T/2},Abs,Joined->True,PlotRange->{{\[Omega]LO-\[Ome
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Implementations*)
 
 
@@ -1624,7 +1634,7 @@ Module[
 							prob=distPs[[d]];
 
 							(* If the distortion depends on the distribution, we evaluate it here, replacing what we can.
-							Anything else will get replaced in the call to CalculateDerivatives below. *)
+							Anything else will get replaced in the call to UtilityGradient below. *)
 							If[distortionDependsOnDist,
 								tracedDistortion = Trace[DistortionFn[pulse, True], TraceDepth -> 1][[-1]];
 			
@@ -1632,7 +1642,7 @@ Module[
 							];
 
 							(* Generate the unitaries and evaluate derivatives at (current distorted) pulse *)
-							{objFunVal,objFunGrad}=CalculateDerivatives[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps,target/.reps];
+							{objFunVal,objFunGrad}=UtilityGradient[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps,target/.reps];
 
 							(* Calculate the pulse penalty and penalty gradient *)
 							{penalty, penaltyGrad} = PulsePenaltyFn[distortedPulse/.reps, True];
@@ -1732,7 +1742,7 @@ Module[
 					testFn = With[{distortedPulse=DistortionFn[pulse+AddTimeSteps[0,#*stepSize*(\[Epsilon]max^2*#&/@goodDirec)], False]},
 							Sum[
 								With[{reps=distReps[[d]], prob=distPs[[d]]},
-									prob*(ObjectiveFunction[UnitaryFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
+									prob*(UtilityFunction[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
 										PulsePenaltyFn[distortedPulse/.reps, False])
 								],
 								{d, distNum}
@@ -1950,7 +1960,7 @@ RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:Optio
 					If[OptionValue[DistortionOperatorSweep],
 						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
-					{x, Fcn@ObjectiveFunction[
+					{x, Fcn@UtilityFunction[
 						Last@Unitaries@EvalPulse[
 							Hint/.reps,
 							simpulse/.reps
@@ -2002,7 +2012,7 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 					If[OptionValue[DistortionOperatorSweep],
 						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
-					Fcn@ObjectiveFunction[
+					Fcn@UtilityFunction[
 						Last@Unitaries@EvalPulse[
 							Hint/.reps,
 							simpulse/.reps
@@ -2190,10 +2200,10 @@ ExportJCAMP[filename_,pulse_,OptionsPattern[]]:=Module[
 
 
 (* ::Subsubsection:: *)
-(*NV*)
+(*SHP*)
 
 
-ExportNV[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
+ExportSHP[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 	{max, amps, phases, f},
 	max = Norm[Last/@(pulse@AmplitudeRange)];
 
@@ -2219,12 +2229,34 @@ ExportNV[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
-(* ::Text:: *)
-(*This is its own section so that EndPackage is not part of the last real section -- the bugs that are caused by a misplaced EndPackage are extremely difficult to troubleshoot.*)
+Protect[
+	Repetitions,ParameterDistribution,DistortionOperator,ForceDistortionDependence,
+	PulsePenalty,DerivativeMask,PostIterationFunction,PulseLegalizer,
+	ControlLimitPolicy,MonitorFunction,InitialStepSize,MinimumStepSize,
+	LineSearchMethod,MinimumImprovement,MinimumIterations,MaximumIterations,
+	SkipChecks,VerboseAscent,
+	Ignore,ProjectGradient
+];
+
+
+Protect[
+	Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
+	InternalHamiltonian,AmplitudeRange,ExitMessage,
+	ToPulse,SimForm,
+	PulseRemoveKeys,PulseReplaceKey,
+	PulsePhaseRotate,PulsePhaseRamp
+];
+
+
+Protect[
+	UtilityFunction,UtilityGradient,
+	PropagatorFromPulse,PropagatorListFromPulse,
+	CoherentSubspaces
+];
 
 
 EndPackage[];

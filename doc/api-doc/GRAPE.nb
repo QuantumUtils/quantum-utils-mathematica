@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     78544,       2314]
-NotebookOptionsPosition[     66488,       1949]
-NotebookOutlinePosition[     72225,       2110]
-CellTagsIndexPosition[     70707,       2070]
+NotebookDataLength[     99415,       2957]
+NotebookOptionsPosition[     85515,       2538]
+NotebookOutlinePosition[     92162,       2723]
+CellTagsIndexPosition[     90397,       2677]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1899,7 +1899,7 @@ Cell[TextData[{
  CellTags->"PulsePhaseRotate::usage"],
 
 Cell[TextData[{
- StyleBox["PulsePhaseShift[", "Input"],
+ StyleBox["PulsePhaseRamp[", "Input"],
  StyleBox["pulse", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
@@ -1918,15 +1918,326 @@ Cell[TextData[{
 coordinates."
 }], "Text",
  CellDingbat->"\[FilledSquare]",
- CellChangeTimes->{{3.634504215393125*^9, 3.6345042925703783`*^9}},
- CellTags->"PulsePhaseShift::usage"]
+ CellChangeTimes->{{3.634504215393125*^9, 3.6345042925703783`*^9}, {
+  3.634505086078783*^9, 3.634505086492641*^9}},
+ CellTags->"PulsePhaseRamp::usage"]
 }, Open  ]]
 }, Open  ]],
 
-Cell["Targets and Associated Utility Functions", "Section",
+Cell[CellGroupData[{
+
+Cell["UtilityFunction and Targets", "Section",
  CellChangeTimes->{{3.634482803736505*^9, 3.634482808097674*^9}, {
   3.6344835036124*^9, 3.6344835049300613`*^9}, {3.634484924513543*^9, 
-  3.634484925168857*^9}, {3.63449802383902*^9, 3.63449803014158*^9}}],
+  3.634484925168857*^9}, {3.63449802383902*^9, 3.63449803014158*^9}, {
+  3.634564027689345*^9, 3.634564038623632*^9}}],
+
+Cell[TextData[{
+ StyleBox["UtilityFunction[", "Input"],
+ StyleBox["S", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["target", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the utility function value of the propagator ",
+ StyleBox["S", "Input"],
+ " with respect to the ",
+ StyleBox["target", "Input"],
+ ". In a closed system, ",
+ StyleBox["S", "Input"],
+ " will be a unitary matrix corresponding to the time evolution of a given \
+pulse. The particular utility function invoked will depend on the ",
+ StyleBox["target", "Input"],
+ ". If ",
+ StyleBox["target", "Input"],
+ " is a matrix, the average fidelity ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"\[LeftBracketingBar]", 
+     RowBox[{
+      RowBox[{"Tr", "(", 
+       RowBox[{
+        RowBox[{"target", "\[ConjugateTranspose]"}], ".", "S"}], ")"}], "/", 
+      "d"}], "\[RightBracketingBar]"}], "2"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " will be used. Other possible forms of ",
+ StyleBox["target", "Input"],
+ " are ",
+ StyleBox["CoherentSubspaces", "Input"],
+ " and ",
+ StyleBox["StateToState", "Input"],
+ ".\n\n",
+ StyleBox["Note\t",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nIn the presence of a ",
+ StyleBox["ParameterDistribution", "Input"],
+ ", ",
+ StyleBox["S", "Input"],
+ " will correspond to a single point from the distribution and hence will \
+still be unitary in the case where the system is closed, even though the \
+effective map weighted over all elements of the ",
+ StyleBox["ParameterDistribution", "Input"],
+ " will be in general be non-unitary."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634564077807438*^9, 3.6345641420315332`*^9}, {
+   3.6345642545660763`*^9, 3.6345642689576406`*^9}, {3.634564371813291*^9, 
+   3.634564782409417*^9}, {3.63456482678848*^9, 3.634565073402807*^9}, 
+   3.634565113681534*^9, {3.63456520124124*^9, 3.634565219338629*^9}},
+ CellTags->"UtilityFunction::usage"],
+
+Cell[TextData[{
+ StyleBox["UtilityGradient[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hint", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hcontrol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["target", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a tuple ",
+ StyleBox["{utilityValue,gradient}", "Input"],
+ " where ",
+ StyleBox["utilityValue", "Input"],
+ " is the value of ",
+ StyleBox["UtilityFunction", "Input"],
+ " with the given ",
+ StyleBox["pulse", "Input"],
+ " and Hamiltonians and ",
+ StyleBox["gradient", "Input"],
+ " is the gradient of the utility function at the same point. The ",
+ StyleBox["gradient", "Input"],
+ " will be an array of dimensions equal to that of ",
+ StyleBox["pulse", "Input"],
+ ", where ",
+ StyleBox["pulse", "Input"],
+ " is in the format of ",
+ StyleBox["initialGuess", "Input"],
+ " from ",
+ StyleBox["FindPulse", "Input"],
+ ". See ",
+ StyleBox["UtilityFunction", "Input"],
+ " for a description of ",
+ StyleBox["target", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6345651496789503`*^9, 3.6345651709690866`*^9}, {
+  3.634565230927505*^9, 3.634565346482071*^9}, {3.63456563062276*^9, 
+  3.634565669790134*^9}, {3.634566853812652*^9, 3.634566880365993*^9}, {
+  3.634566915988715*^9, 3.634566946012767*^9}},
+ CellTags->"UtilityGradient::usage"],
+
+Cell[TextData[{
+ StyleBox["PropagatorFromPulse[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hint", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hcontrol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the total evolution propagator ",
+ StyleBox["S", "Input"],
+ " (as seen by ",
+ StyleBox["UtilityFunction", "Input"],
+ ") due to the given ",
+ StyleBox["pulse", "Input"],
+ " and Hamiltonians. In the case of a closed system, ",
+ StyleBox["S", "Input"],
+ " will be a unitary matrix.\n\n",
+ StyleBox["Note",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nThis function is used by ",
+ StyleBox["UtilityGradient", "Input"],
+ " when evaluating ",
+ StyleBox["utilityValue", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634567380255889*^9, 3.634567519016796*^9}, 
+   3.634567581138217*^9},
+ CellTags->"PropagatorFromPulse::usage"],
+
+Cell[TextData[{
+ StyleBox["PropagatorListFromPulse[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hint", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hcontrol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a list of propagators due to each step in the given ",
+ StyleBox["pulse", "Input"],
+ " evolving under the given Hamiltonians. In the case of a closed system, \
+this will be a list of unitary matrices.\n\n",
+ StyleBox["Note",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nThis function is used by ",
+ StyleBox["UtilityGradient", "Input"],
+ " when evaluating the ",
+ StyleBox["gradient", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634567380255889*^9, 3.634567519016796*^9}, {
+  3.63456757406404*^9, 3.634567667375107*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Coherent Subspaces", "Subsection",
+ CellChangeTimes->{{3.634563963156466*^9, 3.634563972904812*^9}}],
+
+Cell[TextData[{
+ StyleBox["CoherentSubspaces", "Input"],
+ " is a type of target for ",
+ StyleBox["FindPulse", "Input"],
+ ". ",
+ StyleBox["CoherenteSubspaces[", "Input"],
+ StyleBox["{X1,...,Xn}", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["{Y1,...,Yn}", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " tries to find a pulse which produces a unitary ",
+ Cell[BoxData[
+  FormBox["U", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"U", ".", 
+     SubscriptBox["X", "k"]}], "=", 
+    RowBox[{
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"i", " ", 
+       SubscriptBox["\[Phi]", "k"]}]], 
+     SubscriptBox["Y", "k"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " for all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"1", "\[LessEqual]", "k", "\[LessEqual]", "n"}], TraditionalForm]],
+  
+  FormatType->"TraditionalForm"],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Phi]", "k"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is an arbitrary phase. If each index ",
+ Cell[BoxData[
+  FormBox["k", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is represents a different orthogonal subspace of the Hilbert space, then \
+this utility function essentially asks for a unitary that preserves relative \
+phases within each subspace, but does not care what the phase is between \
+subspaces. This is implemented as\n\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    UnderoverscriptBox["\[Sum]", 
+     RowBox[{"k", "=", "1"}], "n"], 
+    RowBox[{"|", 
+     RowBox[{
+      RowBox[{"Tr", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"U", ".", 
+           SubscriptBox["X", "k"]}], ")"}], "\[ConjugateTranspose]"}], ".", 
+        SubscriptBox["Y", "k"]}], "]"}], "/", 
+      SubscriptBox["n", "k"]}], 
+     SuperscriptBox["|", "2"], 
+     RowBox[{"/", "n"}]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["n", "k"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " is equal to ",
+ StyleBox["Length[Xk]", "Input"],
+ ". It is straightforward to prove that this quantity lies between 0 and 1, \
+and that it is equal to 1 if and only if the relationship described above is \
+true.\n\n",
+ StyleBox["Note",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nFor this to be well defined, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "k"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " must have the same dimensions as ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "k"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " for each ",
+ Cell[BoxData[
+  FormBox["k", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ".\nThis will not always be possible. For example, if the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["X", "k"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\[CloseCurlyQuote]s are pairwise orthogonal, but the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["Y", "k"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\[CloseCurlyQuote]s are not, no unitary will be able to acheive the maximum \
+utility value."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634567895943604*^9, 3.634568117426813*^9}, {
+  3.634568196915889*^9, 3.6345682331159077`*^9}, {3.634568270954966*^9, 
+  3.634568549236607*^9}, {3.634568658755707*^9, 3.6345686611199713`*^9}, {
+  3.63456870641962*^9, 3.6345690001279593`*^9}, {3.6345690371176767`*^9, 
+  3.634569038373735*^9}, {3.634569072920521*^9, 3.634569089477949*^9}},
+ CellTags->"CoherentSubspaces::usage"]
+}, Open  ]],
+
+Cell["StateToState", "Subsection",
+ CellChangeTimes->{{3.634563987816186*^9, 3.634563992941358*^9}}]
+}, Open  ]],
 
 Cell["Distortions", "Section",
  CellChangeTimes->{{3.634482642542852*^9, 3.634482649991726*^9}}],
@@ -1937,18 +2248,296 @@ Cell["Distributions", "Section",
 Cell["Pulse Penalties", "Section",
  CellChangeTimes->{{3.634482659363901*^9, 3.6344826640243053`*^9}}],
 
-Cell["Evaluators", "Section",
- CellChangeTimes->{{3.634482677464252*^9, 3.6344826794732237`*^9}}],
-
 Cell["Plotting Tools", "Section",
  CellChangeTimes->{{3.634482829144292*^9, 3.634482831296011*^9}}],
 
+Cell[CellGroupData[{
+
 Cell["Exporters", "Section",
- CellChangeTimes->{{3.634482821775557*^9, 3.634482823301466*^9}}]
+ CellChangeTimes->{{3.634482821775557*^9, 3.634482823301466*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["ExportJCAMP", "Subsection",
+ CellChangeTimes->{{3.634570140286075*^9, 3.634570142588636*^9}}],
+
+Cell[TextData[{
+ StyleBox["ExportJCAMP[", "Input"],
+ StyleBox["filename", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " exports the ",
+ StyleBox["Pulse", "Input"],
+ " object ",
+ StyleBox["pulse", "Input"],
+ " in the JCAMP format as readable by Bruker NMR spectrometers. The ",
+ StyleBox["pulse", "Input"],
+ " should have two control fields, x and y.\n\n",
+ StyleBox["Options",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n",
+ StyleBox["JCAMPTitle", "Input"],
+ ", ",
+ StyleBox["JCAMPDX", "Input"],
+ ", ",
+ StyleBox["JCAMPDataType", "Input"],
+ ", ",
+ StyleBox["JCAMPOrigin", "Input"],
+ ", ",
+ StyleBox["JCAMPUser", "Input"],
+ ", ",
+ StyleBox["JCAMPDate", "Input"],
+ ", ",
+ StyleBox["JCAMPTime", "Input"],
+ ", ",
+ StyleBox["JCAMPShapeExMode", "Input"],
+ ", ",
+ StyleBox["JCAMPShapeToTrot", "Input"],
+ ", ",
+ StyleBox["JCAMPShapeBWFac", "Input"],
+ ", ",
+ StyleBox["JCAMPShapeIntegFac", "Input"],
+ ", ",
+ StyleBox["JCAMPShapeMode", "Input"],
+ ", ",
+ StyleBox["JCAMPCalibrationFactor", "Input"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6345701494794273`*^9, 3.634570202797042*^9}, {
+  3.634570239140877*^9, 3.6345702679965878`*^9}, {3.634570356213738*^9, 
+  3.6345705858789473`*^9}},
+ CellTags->"ExportJCAMP::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.6345702214926558`*^9, 3.6345702223804607`*^9}}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox["Option", "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Default", " ", "Value"}], "Text",
+     FontWeight->Bold], 
+    StyleBox["Description", "Text",
+     FontWeight->Bold]},
+   {"JCAMPTitle", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPTitle", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option", 
+       " ", "with", " ", "default", " ", "value", " ", "Automatic"}], ",", 
+      " ", 
+      RowBox[{
+      "which", " ", "sets", " ", "the", " ", "title", " ", "to", " ", "the", 
+       " ", 
+       RowBox[{"filename", ".", "Otherwise"}], " ", "it", " ", "should", " ", 
+       "be", " ", "a", " ", 
+       RowBox[{"string", "."}]}]}], "Text"]},
+   {"JCAMPDX", "\"\<5.00 Bruker JCAMP library\>\"", 
+    StyleBox[
+     RowBox[{
+     "JCAMPDX", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option", " ", 
+      "with", " ", "default", " ", 
+      RowBox[{"value", " ", "'"}], "5.00", " ", "Bruker", " ", "JCAMP", " ", 
+      RowBox[{
+       RowBox[{"library", "'"}], "."}]}], "Text"]},
+   {"JCAMPDataType", "\"\<Shape Data\>\"", 
+    StyleBox[
+     RowBox[{
+     "JCAMPDataType", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option",
+       " ", "with", " ", "default", " ", 
+      RowBox[{"value", " ", "'"}], "Shape", " ", 
+      RowBox[{
+       RowBox[{"Data", "'"}], "."}]}], "Text"]},
+   {"JCAMPOrigin", "\"\<Quantum-Utils Mathematica GRAPE\>\"", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPOrigin", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option", 
+       " ", "with", " ", "default", " ", 
+       RowBox[{"value", " ", "'"}], "Quantum"}], "-", 
+      RowBox[{"Utils", " ", "Mathematica", " ", 
+       RowBox[{
+        RowBox[{"GRAPE", "'"}], "."}]}]}], "Text"]},
+   {"JCAMPUser", "\"\<nmruser\>\"", 
+    StyleBox[
+     RowBox[{
+     "JCAMPUser", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option", 
+      " ", "with", " ", "default", " ", 
+      RowBox[{"value", " ", "'"}], 
+      RowBox[{
+       RowBox[{"nmruser", "'"}], ".", " ", "Should"}], " ", "be", " ", "your",
+       " ", "username", " ", "on", " ", "the", " ", 
+      RowBox[{"spectrometer", "."}]}], "Text"]},
+   {"JCAMPDate", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPDate", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option", 
+       " ", "with", " ", "default", " ", "value", " ", "Automatic"}], ",", 
+      " ", 
+      RowBox[{"which", " ", "sets", " ", "the", " ", "date", " ", "to", " ", 
+       RowBox[{"today", "."}]}]}], "Text"]},
+   {"JCAMPTime", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPTime", " ", "is", " ", "an", " ", "ExportJCAMP", " ", "option", 
+       " ", "with", " ", "default", " ", "value", " ", "Automatic"}], ",", 
+      " ", 
+      RowBox[{"which", " ", "uses", " ", "the", " ", "current", " ", 
+       RowBox[{"time", "."}]}]}], "Text"]},
+   {"JCAMPShapeExMode", "\"\<None\>\"", 
+    StyleBox[
+     RowBox[{
+     "JCAMPShapeExMode", " ", "is", " ", "an", " ", "ExportJCAMP", " ", 
+      "option", " ", "with", " ", "default", " ", 
+      RowBox[{"value", " ", "'"}], 
+      RowBox[{
+       RowBox[{"None", "'"}], "."}]}], "Text"]},
+   {"JCAMPShapeToTrot", "\"\<9.000000e+01\>\"", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPShapeToTrot", " ", "is", " ", "an", " ", "ExportJCAMP", " ", 
+       "option", " ", "with", " ", "default", " ", 
+       RowBox[{"value", " ", "'"}], "9.000000", "e"}], "+", 
+      RowBox[{
+       RowBox[{"01", "'"}], " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"string", ",", " ", 
+          RowBox[{"not", " ", "number"}]}], ")"}], "."}]}]}], "Text"]},
+   {"JCAMPShapeBWFac", "\"\<1.000000e+00\>\"", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPShapeBWFac", " ", "is", " ", "an", " ", "ExportJCAMP", " ", 
+       "option", " ", "with", " ", "default", " ", 
+       RowBox[{"value", " ", "'"}], "1.000000", "e"}], "+", 
+      RowBox[{
+       RowBox[{"00", "'"}], " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"string", ",", " ", 
+          RowBox[{"not", " ", "number"}]}], ")"}], "."}]}]}], "Text"]},
+   {"JCAMPShapeIntegFac", "\"\<1.000000e+00\>\"", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+      "JCAMPShapeIntegFac", " ", "is", " ", "an", " ", "ExportJCAMP", " ", 
+       "option", " ", "with", " ", "default", " ", 
+       RowBox[{"value", " ", "'"}], "1.000000", "e"}], "+", 
+      RowBox[{
+       RowBox[{"00", "'"}], " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"string", ",", " ", 
+          RowBox[{"not", " ", "number"}]}], ")"}], "."}]}]}], "Text"]},
+   {"JCAMPShapeMode", "\"\<1\>\"", 
+    StyleBox[
+     RowBox[{
+     "JCAMPShapeMode", " ", "is", " ", "an", " ", "ExportJCAMP", " ", 
+      "option", " ", "with", " ", "default", " ", 
+      RowBox[{"value", " ", "'"}], 
+      RowBox[{"1", "'"}], " ", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"string", ",", " ", 
+         RowBox[{"not", " ", "number"}]}], ")"}], "."}]}], "Text"]},
+   {"JCAMPCalibrationFactor", "1", 
+    StyleBox[
+     RowBox[{
+     "JCAMPCalibrationFactor", " ", "is", " ", "an", " ", "ExportJCAMP", " ", 
+      "option", " ", "with", " ", "default", " ", "being", " ", "the", " ", 
+      "integer", " ", "1.", " ", "This", " ", "is", " ", "the", " ", "number",
+       " ", "the", " ", "amplitudes", " ", "are", " ", "divided", " ", "by", 
+      " ", "before", " ", "writing", " ", "to", " ", "the", " ", "JCAMP", " ", 
+      RowBox[{"file", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
+  GridBoxItemSize->{"Columns" -> {Automatic, Automatic, {
+       Scaled[0.5]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.634570346096311*^9}]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ExportSHP", "Subsection",
+ CellChangeTimes->{{3.6345706490642147`*^9, 3.634570650888245*^9}}],
+
+Cell[TextData[{
+ StyleBox["ExportSHP[", "Input"],
+ StyleBox["filename", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["scalePower", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["digits", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " exports a ",
+ StyleBox["Pulse", "Input"],
+ " object ",
+ StyleBox["pulse", "Input"],
+ " to a ",
+ StyleBox[".shp",
+  FontSlant->"Italic"],
+ " file. This file has two columns, amplitude and phase, where amplitude is \
+between 0 and 1 and phase is between 0 and 1 (1 refers to 1 circle, i.e. 2\
+\[Pi] in radians). The input pulse is assumed to have two control lines, x \
+and y. The arguments ",
+ StyleBox["scalePower", "Input"],
+ " and ",
+ StyleBox["digits", "Input"],
+ " are optional. The default value for ",
+ StyleBox["scalePower", "Input"],
+ " is ",
+ StyleBox["Automatic", "Input"],
+ ", which divides the amplitudes by the maximum value in ",
+ StyleBox["AmplitudeRange", "Input"],
+ ". If ",
+ StyleBox["scalePower", "Input"],
+ " is a number, the amplitudes are normalized by this. The argument ",
+ StyleBox["digits", "Input"],
+ " sets the number of digits written to file for each amplitude and phase. \
+The default is ",
+ StyleBox["6", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634570656154717*^9, 3.634570690249646*^9}, {
+  3.634570734834426*^9, 3.634570758737123*^9}, {3.63457078875309*^9, 
+  3.634571005832945*^9}},
+ CellTags->"ExportSHP::usage"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1631, 1026},
-WindowMargins->{{0, Automatic}, {Automatic, 1050}},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -2062,49 +2651,73 @@ CellTagsIndex->{
  "PulsePhaseRotate::usage"->{
   Cell[64113, 1875, 782, 23, 52, "Text",
    CellTags->"PulsePhaseRotate::usage"]},
- "PulsePhaseShift::usage"->{
-  Cell[64898, 1900, 677, 21, 32, "Text",
-   CellTags->"PulsePhaseShift::usage"]}
+ "PulsePhaseRamp::usage"->{
+  Cell[64898, 1900, 724, 22, 32, "Text",
+   CellTags->"PulsePhaseRamp::usage"]},
+ "UtilityFunction::usage"->{
+  Cell[65977, 1934, 2052, 58, 135, "Text",
+   CellTags->"UtilityFunction::usage"]},
+ "UtilityGradient::usage"->{
+  Cell[68032, 1994, 1533, 49, 74, "Text",
+   CellTags->"UtilityGradient::usage"]},
+ "PropagatorFromPulse::usage"->{
+  Cell[69568, 2045, 1062, 36, 91, "Text",
+   CellTags->"PropagatorFromPulse::usage"]},
+ "CoherentSubspaces::usage"->{
+  Cell[71736, 2120, 3730, 114, 238, "Text",
+   CellTags->"CoherentSubspaces::usage"]},
+ "ExportJCAMP::usage"->{
+  Cell[76245, 2263, 1408, 52, 112, "Text",
+   CellTags->"ExportJCAMP::usage"]},
+ "ExportSHP::usage"->{
+  Cell[83823, 2482, 1652, 51, 74, "Text",
+   CellTags->"ExportSHP::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"FindPulse::usage", 66783, 1959},
- {"Repetitions::usage", 66885, 1962},
- {"ParameterDistribution::usage", 66997, 1965},
- {"DistortionOperator::usage", 67119, 1968},
- {"ForceDistortionDependence::usage", 67245, 1971},
- {"PulsePenalty::usage", 67363, 1974},
- {"DerivativeMask::usage", 67471, 1977},
- {"PostIterationFunction::usage", 67587, 1980},
- {"PulseLegalizer::usage", 67703, 1983},
- {"ControlLimitPolicy::usage", 67816, 1986},
- {"Ignore::usage", 67921, 1989},
- {"ProjectGradient::usage", 68022, 1992},
- {"MonitorFunction::usage", 68132, 1995},
- {"InitialStepSize::usage", 68243, 1998},
- {"MinimumStepSize::usage", 68354, 2001},
- {"LineSearchMethod::usage", 68466, 2004},
- {"MinimumImprovement::usage", 68581, 2007},
- {"MinimumIterations::usage", 68697, 2010},
- {"MaximumIterations::usage", 68812, 2013},
- {"SkipChecks::usage", 68920, 2016},
- {"VerboseAscent::usage", 69024, 2019},
- {"Pulse::usage", 69123, 2022},
- {"TimeSteps::usage", 69220, 2025},
- {"UtilityValue::usage", 69322, 2028},
- {"PenaltyValue::usage", 69426, 2031},
- {"Target::usage", 69525, 2034},
- {"ControlHamiltonians::usage", 69631, 2037},
- {"InternalHamiltonian::usage", 69750, 2040},
- {"AmplitudeRange::usage", 69864, 2043},
- {"ExitMessage::usage", 69970, 2046},
- {"ToPulse::usage", 70069, 2049},
- {"SimForm::usage", 70164, 2052},
- {"PulseRemoveKey::usage", 70266, 2055},
- {"PulseReplaceKeys::usage", 70377, 2058},
- {"PulsePhaseRotate::usage", 70490, 2061},
- {"PulsePhaseShift::usage", 70602, 2064}
+ {"FindPulse::usage", 85807, 2548},
+ {"Repetitions::usage", 85909, 2551},
+ {"ParameterDistribution::usage", 86021, 2554},
+ {"DistortionOperator::usage", 86143, 2557},
+ {"ForceDistortionDependence::usage", 86269, 2560},
+ {"PulsePenalty::usage", 86387, 2563},
+ {"DerivativeMask::usage", 86495, 2566},
+ {"PostIterationFunction::usage", 86611, 2569},
+ {"PulseLegalizer::usage", 86727, 2572},
+ {"ControlLimitPolicy::usage", 86840, 2575},
+ {"Ignore::usage", 86945, 2578},
+ {"ProjectGradient::usage", 87046, 2581},
+ {"MonitorFunction::usage", 87156, 2584},
+ {"InitialStepSize::usage", 87267, 2587},
+ {"MinimumStepSize::usage", 87378, 2590},
+ {"LineSearchMethod::usage", 87490, 2593},
+ {"MinimumImprovement::usage", 87605, 2596},
+ {"MinimumIterations::usage", 87721, 2599},
+ {"MaximumIterations::usage", 87836, 2602},
+ {"SkipChecks::usage", 87944, 2605},
+ {"VerboseAscent::usage", 88048, 2608},
+ {"Pulse::usage", 88147, 2611},
+ {"TimeSteps::usage", 88244, 2614},
+ {"UtilityValue::usage", 88346, 2617},
+ {"PenaltyValue::usage", 88450, 2620},
+ {"Target::usage", 88549, 2623},
+ {"ControlHamiltonians::usage", 88655, 2626},
+ {"InternalHamiltonian::usage", 88774, 2629},
+ {"AmplitudeRange::usage", 88888, 2632},
+ {"ExitMessage::usage", 88994, 2635},
+ {"ToPulse::usage", 89093, 2638},
+ {"SimForm::usage", 89188, 2641},
+ {"PulseRemoveKey::usage", 89290, 2644},
+ {"PulseReplaceKeys::usage", 89401, 2647},
+ {"PulsePhaseRotate::usage", 89514, 2650},
+ {"PulsePhaseRamp::usage", 89625, 2653},
+ {"UtilityFunction::usage", 89735, 2656},
+ {"UtilityGradient::usage", 89848, 2659},
+ {"PropagatorFromPulse::usage", 89964, 2662},
+ {"CoherentSubspaces::usage", 90082, 2665},
+ {"ExportJCAMP::usage", 90194, 2668},
+ {"ExportSHP::usage", 90297, 2671}
  }
 *)
 (*NotebookFileOutline
@@ -2297,17 +2910,47 @@ Cell[CellGroupData[{
 Cell[64002, 1872, 108, 1, 45, "Subsection"],
 Cell[64113, 1875, 782, 23, 52, "Text",
  CellTags->"PulsePhaseRotate::usage"],
-Cell[64898, 1900, 677, 21, 32, "Text",
- CellTags->"PulsePhaseShift::usage"]
+Cell[64898, 1900, 724, 22, 32, "Text",
+ CellTags->"PulsePhaseRamp::usage"]
 }, Open  ]]
 }, Open  ]],
-Cell[65602, 1925, 267, 3, 65, "Section"],
-Cell[65872, 1930, 96, 1, 51, "Section"],
-Cell[65971, 1933, 97, 1, 51, "Section"],
-Cell[66071, 1936, 102, 1, 51, "Section"],
-Cell[66176, 1939, 97, 1, 51, "Section"],
-Cell[66276, 1942, 99, 1, 51, "Section"],
-Cell[66378, 1945, 94, 1, 51, "Section"]
+Cell[CellGroupData[{
+Cell[65671, 1928, 303, 4, 65, "Section"],
+Cell[65977, 1934, 2052, 58, 135, "Text",
+ CellTags->"UtilityFunction::usage"],
+Cell[68032, 1994, 1533, 49, 74, "Text",
+ CellTags->"UtilityGradient::usage"],
+Cell[69568, 2045, 1062, 36, 91, "Text",
+ CellTags->"PropagatorFromPulse::usage"],
+Cell[70633, 2083, 969, 30, 110, "Text"],
+Cell[CellGroupData[{
+Cell[71627, 2117, 106, 1, 45, "Subsection"],
+Cell[71736, 2120, 3730, 114, 238, "Text",
+ CellTags->"CoherentSubspaces::usage"]
+}, Open  ]],
+Cell[75481, 2237, 100, 1, 44, "Subsection"]
+}, Open  ]],
+Cell[75596, 2241, 96, 1, 65, "Section"],
+Cell[75695, 2244, 97, 1, 51, "Section"],
+Cell[75795, 2247, 102, 1, 51, "Section"],
+Cell[75900, 2250, 99, 1, 51, "Section"],
+Cell[CellGroupData[{
+Cell[76024, 2255, 94, 1, 51, "Section"],
+Cell[CellGroupData[{
+Cell[76143, 2260, 99, 1, 45, "Subsection"],
+Cell[76245, 2263, 1408, 52, 112, "Text",
+ CellTags->"ExportJCAMP::usage"],
+Cell[CellGroupData[{
+Cell[77678, 2319, 102, 1, 35, "Subsubsection"],
+Cell[77783, 2322, 5889, 151, 385, "Text"]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[83721, 2479, 99, 1, 45, "Subsection"],
+Cell[83823, 2482, 1652, 51, 74, "Text",
+ CellTags->"ExportSHP::usage"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]]
 }
 ]
