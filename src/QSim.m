@@ -33,6 +33,9 @@ BeginPackage["QSim`"];
 (*The following packages are needed, but their contexts should not be loaded globally.*)
 
 
+Needs["QuantumChannel`"];
+Needs["LindbladSolver`"];
+Needs["Predicates`"];
 Needs["UnitTesting`"];
 Needs["QUOptions`"];
 Needs["DocTools`"];
@@ -41,11 +44,11 @@ Needs["DocTools`"];
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QSim.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Predicates*)
 
 
@@ -77,7 +80,6 @@ LindbladNonConstQ::usage = "LindbladNonConst[L] returns True iff L has Head Lind
 LindbladQ::usage = "LindbladQ[L] returns True iff one of DriftHamConstQ[L] or DriftHamNonConstQ[L] is True.";
 
 
-DensityMatrixQ::usage = "DensityMatrixQ[\[Rho]] returns True iff \[Rho] is a square matrix.";
 ObservableListQ::usage = "ObservableListQ[obs] returns True iff obs is a list of square matrices.";
 FunctionListQ::usage = "FunctionListQ[lst] retruns True iff lst is a List.";
 
@@ -88,7 +90,7 @@ DistributionQ::usage = "DistributionQ[dist] returns True iff dist is of the form
 Else=True;
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Options and Helper Functions*)
 
 
@@ -115,15 +117,12 @@ FormatOutputAndReturn::usage="FormatOutputAndReturn[] returns all privately stor
 
 
 GetPulseShapeMatrix::usage = "GetPulseShapeMatrix[in] returns in if in is a matrix, but if in is a file name, returns the contents of that file as a matrix.";
-GetStepSize::usage = "GetStepSize[H,stepsize:Automatic] returns a fifth of the biggest element of H[0] if stepsize is Automatic, and stepsize otherwise.";
+GetStepSize::usage = "GetStepSize[H,p,stepsize:Automatic] returns a fifth of the biggest element of H[0] if stepsize is Automatic, and stepsize otherwise.";
 GetPollingInterval::usage = "GetPollingInterval[pollingInterval,T] returns T if pollingInterval is Off, and pollingInterval otherwise.";
 
 
 DivideEvenly::usage = "DivideEvenly[dt,T] returns the largest number no bigger than dt such that T/dt is an integer.";
 MakeMultipleOf::usage = "MakeMultipleOf[dt,T] returns the largest integer multiple of dt smaller than T. (And if T<dt, just returns dt.)";
-
-
-LindbladSuper::usage = "LindbladSuper[L_?LindbladQ] returns I times the super generator of the given LindbladForm in column stacking convention.";
 
 
 (* ::Subsection::Closed:: *)
@@ -166,14 +165,14 @@ DrawSequence::usage = "DrawSequence[seq] outputs a grahpical representation of t
 EvalPulse::badControlDim = "The internal Hamiltonian dimension, `1`, is neither equal to nor a multiple of (one of) the control Hamiltonian dimension(s), `2`.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Predicates*)
 
 
@@ -186,7 +185,13 @@ PulseShapeMatrixQ[M_]:=MatrixQ[M]
 PulseShapeQ[in_]:=PulseShapeFileQ[in]||PulseShapeMatrixQ[in]
 
 
-ShapedPulseQ[p_]:=ListQ[p]&&(Length[p]==2)&&ListQ[p[[2]]]&&PulseShapeQ[p[[1]]]
+ShapedPulseQ[p_]:=
+	And[
+		ListQ[p],
+		Length[p]==2,
+		ListQ[p[[2]]],
+		PulseShapeQ[p[[1]]]
+	]
 
 
 DriftPulseQ[p_]:=(NumericQ[p]&&p\[Element]Reals)||(Head[p]===Symbol)
@@ -195,7 +200,7 @@ DriftPulseQ[p_]:=(NumericQ[p]&&p\[Element]Reals)||(Head[p]===Symbol)
 UnitaryPulseQ[p_]:=ListQ[p]&&SquareMatrixQ[p[[1]]]&&(p[[2]]\[Element]Reals)
 
 
-ChannelPulseQ[p_]:=ListQ[p]&&Superoperator`ChannelQ[p[[1]]]&&(p[[2]]\[Element]Reals)
+ChannelPulseQ[p_]:=And[ListQ[p],QuantumChannel===Head[p[[1]]],p[[2]]\[Element]Reals]
 
 
 PulseQ[p_]:=Or@@(Through[{ShapedPulseQ,DriftPulseQ,UnitaryPulseQ,ChannelPulseQ}[p]])
@@ -213,19 +218,25 @@ DriftHamNonConstQ[H_]:=SquareMatrixQ[H[0.0]]
 DriftHamQ[H_]:=DriftHamConstQ[H]||DriftHamNonConstQ[H]
 
 
-LindbladConstQ[L_]:=(Head[L]===LindbladForm)&&DriftHamConstQ[First@L]&&(And@@(SquareMatrixQ/@(Rest@L)))
+LindbladConstQ[L_]:=
+	And[
+		Head[L]===LindbladForm,
+		DriftHamConstQ[First[L]]
+		AllQ[DriftHamConstQ, Last[L]]
+	]
 
 
-LindbladNonConstQ[L_]:=(Head[L]===LindbladForm)&&DriftHamNonConstQ[First@L]&&(And@@(SquareMatrixQ/@(Rest@L)))
+LindbladNonConstQ[L_]:=
+	And[
+		Head[L]===LindbladForm,
+		AnyQ[DriftHamConstQ, Append[Last[L],First[L]]]
+	]
 
 
 LindbladQ[L_]:=LindbladConstQ[L]||LindbladNonConstQ[L]
 
 
 ObservableListQ[obs_]:=ListQ[obs]&&(And@@(SquareMatrixQ/@obs))
-
-
-DensityMatrixQ[\[Rho]_]:=SquareMatrixQ[\[Rho]]
 
 
 FunctionListQ[lst_]:=ListQ[lst]
@@ -263,10 +274,14 @@ GetPulseShapeMatrix[in_?PulseShapeMatrixQ]:=in//N
 (*If the step size is set to Automatic, let it be a tenth of the biggest element of H maximized over time, otherwise, the user has given the stepsize.*)
 
 
-GetStepSize[H_,stepsize_:Automatic]:=
+GetStepSize[H_,p_,stepsize_:Automatic]:=
 	If[stepsize===Automatic,
-		Module[{t,max},
-			max=Sqrt[NMaximize[Max[Abs[H[t]]^2],t][[1]]];
+		Module[{t,max,cons},
+			cons=Which[
+					ShapedPulseQ[p], 0<=t<=Last[p[[1,All,1]]],
+					DriftPulseQ[p], 0<=t<=p,
+					True, 0<=t];
+			max=Sqrt[NMaximize[{Max[Abs[H[t]]^2],cons},t][[1]]];
 			(* we round down to one significant digit *)
 			With[{m=10^Floor[Log10[#]]},Round[#/m]m]&[1/(10*max)]
 		],
@@ -305,35 +320,16 @@ CheckStepSizeVsTotalTime[dt_,T_]:=
 
 
 (* ::Text:: *)
-(*Use column stacking. This means Roth's lemma reads ABC=devec(C\[Transpose]\[CircleTimes]A vec(B))*)
-
-
-vec[\[Rho]_]:=Flatten[\[Rho]\[Transpose]]
-devec[\[Rho]_]:=Partition[\[Rho],Sqrt[Length@\[Rho]]]\[Transpose]
-
-
-adjointsuper[H_]:=-I(\[DoubleStruckOne]\[CircleTimes]H - H\[Transpose]\[CircleTimes]\[DoubleStruckOne])
-conjugation[U_]:=U\[Conjugate]\[CircleTimes]U
-lindbladtermsuper[L_]:=L\[Conjugate]\[CircleTimes]L-With[{LL=L\[ConjugateTranspose].L},\[DoubleStruckOne]\[CircleTimes]LL+LL\[Transpose]\[CircleTimes]\[DoubleStruckOne]]/2
-
-
-LindbladSuper[L_?LindbladConstQ]:=I*(adjointsuper[First@L]+Total[lindbladtermsuper/@(List@@Rest[L])])
-LindbladSuper[L_?LindbladNonConstQ]:=Function[t,
-	Evaluate[I*(adjointsuper[First[L][t]]+Total[lindbladtermsuper/@(List@@Rest[L])])]
-]
-
-
-(* ::Text:: *)
 (*We are nice and allow the control hamiltonians to be input either in regular space, or superoperator space. In either case we need the imaginary fix.*)
 
 
 MakeSuperPulse[L_?LindbladConstQ,p_?ShapedPulseQ]:=With[{dim=Length@First@L},{
 	First@p,
-	If[Length[#]===dim, {I*adjointsuper[#]}, {I*#}]&/@(Last@p)
+	If[Length[#]===dim, {First@ComChannel[#]}, {I*#}]&/@(Last@p)
 }]
 MakeSuperPulse[L_?LindbladNonConstQ,p_?ShapedPulseQ]:=With[{dim=Length[First@L][0]},Print[here];{
 	First@p,
-	If[Length[#]===dim, {I*adjointsuper[#]}, {I*#}]&/@(Last@p)
+	If[Length[#]===dim, {First@ComChannel[#]}, {I*#}]&/@(Last@p)
 }]
 
 
@@ -382,15 +378,21 @@ InitializePrivateVariables[H_,OptionsPattern[SimulationOptions]]:=
 
 		(* initialize the outputList *)
 		If[OptionValue[SimulationOutput]===Automatic,
-			If[DensityMatrixQ[staVar],
-					outputList=If[ObservableListQ[obsVar],{Observables},{}];,
-					outputList=If[FunctionListQ[funVar],{},{Unitaries}];
-			];
-			If[FunctionListQ[funVar],AppendTo[outputList,Functions]];
-			If[Length[outputList]===0,outputList={States}];,
+		(* Automatic Case *)
+			outputList = 
+				If[SquareMatrixQ[staVar],
+					If[ObservableListQ[obsVar],{Observables},{}],
+					If[FunctionListQ[funVar],{},{Unitaries}]
+				];
+			If[FunctionListQ[funVar],
+				AppendTo[outputList,Functions]];
+			If[Length[outputList]===0,
+				outputList={States}];,
+		(* Manual Case *)
 			outputList=OptionValue[SimulationOutput];
-			If[Not[ListQ[outputList]],outputList={outputList}];
-			If[Not[DensityMatrixQ[staVar]]&&(MemberQ[outputList,States]||MemberQ[outputList,Observables]||MemberQ[outputList,Functions]),
+			If[Not[ListQ[outputList]],
+				outputList={outputList}];
+			If[Not[SquareMatrixQ[staVar]]&&AnyQ[MemberQ[outputList,#]&,{States,Observables,Functions}],
 				Print["Warning: You asked for an output which requires an InitialState, but no InitialState was specified."]
 			];
 			If[DriftHamQ@H,
@@ -406,9 +408,9 @@ InitializePrivateVariables[H_,OptionsPattern[SimulationOptions]]:=
 		];
 
 		(* The functions can act either on the states or the unitaries/superoperators. The behaviour is to act on states if InitialState exists, and on unitaries/superoperators if not. *)
-		If[DensityMatrixQ[staVar],
+		If[SquareMatrixQ[staVar],
 			If[OptionValue[LindbladQ],
-				funAct[U_]:=(#[devec[U.vec[staVar]]])&/@funVar;,
+				funAct[U_]:=(#[Devec[U.Vec[staVar]]])&/@funVar;,
 				funAct[U_]:=(#[U.staVar.U\[ConjugateTranspose]])&/@funVar;
 			],
 			funAct[U_]:=(#[U])&/@funVar;			
@@ -454,24 +456,24 @@ InitializePrivateVariables[H_,OptionsPattern[SimulationOptions]]:=
 			(* for each returnKey we need a different AppendReturnables *)
 			Which[
 				returnKey==1,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[sosVals,S];),
-				returnKey==2,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[staVals,devec[S.vec[staVar]]];),
-				returnKey==3,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,devec[S.vec[staVar]]];),
-				returnKey==4,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[obsVals,Re[Tr[#.devec[S.vec[staVar]]]]&/@obsVar];),
-				returnKey==5,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[obsVals,Re[Tr[#.devec[S.vec[staVar]]]]&/@obsVar];),
-				returnKey==6,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];],
-				returnKey==7,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];],
+				returnKey==2,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[staVals,Devec[S.Vec[staVar]]];),
+				returnKey==3,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,Devec[S.Vec[staVar]]];),
+				returnKey==4,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[obsVals,Re[Tr[#.Devec[S.Vec[staVar]]]]&/@obsVar];),
+				returnKey==5,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[obsVals,Re[Tr[#.Devec[S.Vec[staVar]]]]&/@obsVar];),
+				returnKey==6,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];],
+				returnKey==7,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];],
 				returnKey==8,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[funVals,funAct[S]];),
 				returnKey==9,AppendReturnables[S_,t_]:=(AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[funVals,funAct[S]];),
-				returnKey==10,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[staVals,\[Rho]];AppendTo[funVals,funAct[S]]],
-				returnKey==11,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,\[Rho]];AppendTo[funVals,funAct[S]]],
-				returnKey==12,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
-				returnKey==13,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
-				returnKey==14,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
-				returnKey==15,AppendReturnables[S_,t_]:=With[{\[Rho]=devec[S.vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
+				returnKey==10,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[staVals,\[Rho]];AppendTo[funVals,funAct[S]]],
+				returnKey==11,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,\[Rho]];AppendTo[funVals,funAct[S]]],
+				returnKey==12,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
+				returnKey==13,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
+				returnKey==14,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
+				returnKey==15,AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},AppendTo[timVals,t];AppendTo[sosVals,S];AppendTo[staVals,\[Rho]];AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];AppendTo[funVals,funAct[S]]],
 				Else,AppendReturnables[S_,t_]:=Null
 			];
 		];
-	)
+)
 
 
 (* ::Subsubsection::Closed:: *)
@@ -526,15 +528,11 @@ Functions[data_,OptionsPattern[{TimeVector->False}]]:=
 Functions[data_,n_,opt:OptionsPattern[{TimeVector->False}]]:=Functions[data,opt][[n]]
 
 
-(* ::Subsubsection:: *)
-(*Epilog*)
-
-
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Single Pulse Evaluator*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Shaped Pulse Evaluators*)
 
 
@@ -624,7 +622,7 @@ EvalPulse[H_?DriftHamNonConstQ,p_?ShapedPulseQ,opts:OptionsPattern[SimulationOpt
 		T=Last@dtAcc;
 
 		dim=Length[H[0.0]];
-		ds=GetStepSize[H,OptionValue[StepSize]];
+		ds=GetStepSize[H,p,OptionValue[StepSize]];
 		pt=GetPollingInterval[OptionValue[PollingInterval],T,ds];
 
 		(* Check size of/resize control Hamiltonians *)
@@ -753,7 +751,7 @@ EvalPulse[H_?DriftHamNonConstQ,T_?DriftPulseQ,opts:OptionsPattern[SimulationOpti
 
 		InitializePrivateVariables[H,opts];
 
-		dt=GetStepSize[H,OptionValue[StepSize]];
+		dt=GetStepSize[H,T,OptionValue[StepSize]];
 		dt=CheckStepSizeVsTotalTime[dt,T];
 		dim=Length[H[0]];
 
@@ -806,12 +804,12 @@ EvalPulse[H_?DriftHamNonConstQ,T_?DriftPulseQ,opts:OptionsPattern[SimulationOpti
 
 MakeSuperPulse[L_?LindbladConstQ,p_?ShapedPulseQ]:=If[
 	Length[First@Last@p]===Length[First@L], 
-	{First@p,I * adjointsuper/@(Last@p)},
+	{First@p, First[ComChannel[#]]&/@(Last@p)},
 	{First@p,I * Last@p}
 ]
 MakeSuperPulse[L_?LindbladNonConstQ,p_?ShapedPulseQ]:=If[
 	Length[First@Last@p]===Length[First[L][0]], 
-	{First@p,I * adjointsuper/@(Last@p)},
+	{First@p, First[ComChannel[#]]&/@(Last@p)},
 	{First@p,I * Last@p}
 ]
 
@@ -833,15 +831,19 @@ MakeSuperPulse[L_?LindbladQ,p_?DriftPulseQ]:=p
 (*Since all MatrixExp calls in the DriftHamQ evaluators include the "-i" factor in front of the Hamiltonian, we need to be sure to multiply our super operators by "i" to undo this.*)
 
 
-EvalPulse[L_?LindbladQ,p_?PulseQ,opts:OptionsPattern[SimulationOptions]]:=EvalPulse[
-	LindbladSuper@L,
+EvalPulse[L_?LindbladQ,p_?PulseQ,opts:OptionsPattern[SimulationOptions]]:=
+	EvalPulse[
+	If[LindbladNonConstQ[L],
+		Function[t, Evaluate[I*(LindbladSolver`Private`PreformatLindblad@@L)[t]]],
+		I*First[Lindblad@@L]
+	],
 	MakeSuperPulse[L,p],
 	LindbladQ->True,
 	opts
-]
+	]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulse Sequence Evaluator*)
 
 
@@ -914,7 +916,7 @@ EvalPulseOverDist[H_?DriftHamQ,pulse_?PulseQ,distribution_?DistributionQ,opt:Opt
 		AddHead[Superoperators,Sum[probs[[n]]Superoperators[allData[[n]]],{n,Length@probs}]]
 	];
 	If[MemberQ[heads,Unitaries],
-		AddHead[Superoperators,Sum[probs[[n]](conjugation/@Unitaries[allData[[n]]]),{n,Length@probs}]]
+		AddHead[Superoperators,Sum[probs[[n]](First[Super@Unitary[#]]&/@Unitaries[allData[[n]]]),{n,Length@probs}]]
 	];
 	out
 ]
@@ -948,7 +950,7 @@ EvalPulseSequenceOverDist[H_?DriftHamQ,pulse_?PulseSequenceQ,distribution_?Distr
 		AddHead[Superoperators,Sum[probs[[n]]Superoperators[allData[[n]]],{n,Length@probs}]]
 	];
 	If[MemberQ[heads,Unitaries],
-		AddHead[Superoperators,Sum[probs[[n]](conjugation/@Unitaries[allData[[n]]]),{n,Length@probs}]]
+		AddHead[Superoperators,Sum[probs[[n]](First[Super@Unitary[#]]&/@Unitaries[allData[[n]]]),{n,Length@probs}]]
 	];
 	out
 ]
