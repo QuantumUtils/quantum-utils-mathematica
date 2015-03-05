@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    303753,       9327]
-NotebookOptionsPosition[    284006,       8695]
-NotebookOutlinePosition[    288460,       8825]
-CellTagsIndexPosition[    287311,       8793]
+NotebookDataLength[    309726,       9519]
+NotebookOptionsPosition[    289383,       8869]
+NotebookOutlinePosition[    293991,       9003]
+CellTagsIndexPosition[    292799,       8970]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -8689,12 +8689,186 @@ Cell[BoxData[
   3.6344903116860037`*^9, 3.634490322628244*^9}}]
 }, Open  ]]
 }, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["FunctionChannel", "Subsection",
+ CellChangeTimes->{{3.634507989258745*^9, 3.634507992609972*^9}}],
+
+Cell[TextData[{
+ StyleBox["FunctionChannel[", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox["fun", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[",InputDim\[Rule]", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox["dIn", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["]", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" returns a ",
+  FontColor->GrayLevel[0]],
+ StyleBox["QuantumChannel", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" in the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["Choi", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" representation constructed using the Choi-Jamiolkowski \
+isomorphism to apply the function ",
+  FontColor->GrayLevel[0]],
+ StyleBox["fun", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" to one half of a maximally entangled state on a ",
+  FontColor->GrayLevel[0]],
+ StyleBox["dIn", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["-dimensional input space. \n\[Bullet]",
+  FontColor->GrayLevel[0]],
+ StyleBox[" fun", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" may be any function that acts on ",
+  FontColor->GrayLevel[0]],
+ StyleBox["{", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox["dIn,dIn", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["}", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" dimensional square matrices and returns a matrix or complex \
+number. \n",
+  FontColor->GrayLevel[0]],
+ StyleBox["\nOptions",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" ", "Input"],
+ StyleBox["InputDim\[Rule]", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox["dIn", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox["   specifies the dimension of the input space. If this is not \
+specified it will result in an error.",
+  FontColor->GrayLevel[0]],
+ "\n",
+ StyleBox["\[Bullet]",
+  FontColor->GrayLevel[0]],
+ StyleBox[" Basis\[Rule]", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox["basis", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" specifies the ",
+  FontColor->GrayLevel[0]],
+ StyleBox["Vec", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" ",
+  FontColor->GrayLevel[0]],
+ StyleBox["Basis", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" to convert the Choi matrix into. The default ",
+  FontColor->GrayLevel[0]],
+ StyleBox["Basis", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" option is ",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[OpenCurlyDoubleQuote]Col", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox["\[CloseCurlyDoubleQuote].",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellDingbat->"\[FilledSmallSquare]",
+ CellChangeTimes->{
+  3.6341654212791452`*^9, {3.6341663649964046`*^9, 3.634166518911268*^9}, {
+   3.634299858739788*^9, 3.6342998657406263`*^9}, {3.634508010227269*^9, 
+   3.634508283816236*^9}, {3.634508391359995*^9, 3.634508483135076*^9}, {
+   3.634508540847795*^9, 3.634508547951694*^9}, {3.6345085818635187`*^9, 
+   3.634508618647541*^9}},
+ CellTags->"FunctionChannel::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.634508646525309*^9, 3.6345086488772717`*^9}}],
+
+Cell[TextData[{
+ "Construct the non-completely positive map corresponding to the ",
+ StyleBox["Transpose", "Input"],
+ " operation on a 2-dimensional input space:"
+}], "Text",
+ CellChangeTimes->{{3.634508651573255*^9, 3.634508676437319*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"FunctionChannel", "[", 
+  RowBox[{"Transpose", ",", 
+   RowBox[{"InputDim", "\[Rule]", "2"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"%", "//", "MatrixForm"}]}], "Input",
+ CellChangeTimes->{{3.63450867739073*^9, 3.634508710229341*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\<\"Choi\"\>", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "1", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}], 
+   ",", "\<\"<params>\"\>"}], "]"}]], "Output",
+ CellChangeTimes->{{3.6345086833135233`*^9, 3.634508710609786*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"1", "0", "0", "0"},
+     {"0", "0", "1", "0"},
+     {"0", "1", "0", "0"},
+     {"0", "0", "0", "1"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.6345086833135233`*^9, 3.6345087106122103`*^9}}]
+}, Open  ]]
+}, Closed]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{904, 755},
-WindowMargins->{{Automatic, -1066}, {Automatic, 94}},
+WindowMargins->{{Automatic, 0}, {Automatic, 94}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -8704,122 +8878,126 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "QuantumChannel::usage"->{
-  Cell[2884, 79, 17481, 587, 1130, "Text",
-   CellTags->"QuantumChannel::usage"]},
- "InputDim::usage"->{
-  Cell[26886, 881, 1077, 35, 51, "Text",
-   CellTags->"InputDim::usage"]},
- "OutputDim::usage"->{
-  Cell[28105, 924, 1059, 34, 51, "Text",
-   CellTags->"OutputDim::usage"]},
- "Basis::usage"->{
-  Cell[29302, 966, 1583, 52, 71, "Text",
-   CellTags->"Basis::usage"]},
- "Unitary::usage"->{
-  Cell[31350, 1039, 6748, 236, 402, "Text",
-   CellTags->"Unitary::usage"]},
- "Super::usage"->{
-  Cell[40944, 1376, 8215, 287, 443, "Text",
-   CellTags->"Super::usage"]},
- "Choi::usage"->{
-  Cell[57001, 1902, 8874, 305, 522, "Text",
-   CellTags->"Choi::usage"]},
- "Chi::usage"->{
-  Cell[85194, 2831, 7863, 269, 522, "Text",
-   CellTags->"Chi::usage"]},
- "Kraus::usage"->{
-  Cell[97302, 3233, 8765, 315, 461, "Text",
-   CellTags->"Kraus::usage"]},
- "Stinespring::usage"->{
-  Cell[110002, 3689, 8533, 298, 501, "Text",
-   CellTags->"Stinespring::usage"]},
- "SysEnv::usage"->{
-  Cell[120246, 4054, 8507, 308, 461, "Text",
-   CellTags->"SysEnv::usage"]},
- "ChannelRep::usage"->{
-  Cell[131462, 4454, 787, 26, 31, "Text",
-   CellTags->"ChannelRep::usage"]},
- "ChannelParameters::usage"->{
-  Cell[133356, 4524, 1556, 53, 51, "Text",
-   CellTags->"ChannelParameters::usage"]},
- "CompletelyPositiveQ::usage"->{
-  Cell[136317, 4629, 3631, 125, 184, "Text",
-   CellTags->"CompletelyPositiveQ::usage"]},
- "TracePreservingQ::usage"->{
-  Cell[143094, 4862, 3625, 123, 148, "Text",
-   CellTags->"TracePreservingQ::usage"]},
- "HermitianPreservingQ::usage"->{
-  Cell[146915, 4994, 3442, 115, 185, "Text",
-   CellTags->"HermitianPreservingQ::usage"]},
- "UnitalQ::usage"->{
-  Cell[150519, 5118, 3670, 124, 129, "Text",
-   CellTags->"UnitalQ::usage"]},
- "PauliChannelQ::usage"->{
-  Cell[156167, 5308, 3727, 125, 148, "Text",
-   CellTags->"PauliChannelQ::usage"]},
- "ProcessFidelity::usage"->{
-  Cell[160984, 5474, 2383, 80, 90, "Text",
-   CellTags->"ProcessFidelity::usage"]},
- "GateFidelity::usage"->{
-  Cell[165220, 5624, 3080, 107, 90, "Text",
-   CellTags->"GateFidelity::usage"]},
- "AverageGateFidelity::usage"->{
-  Cell[172983, 5884, 2362, 76, 109, "Text",
-   CellTags->"AverageGateFidelity::usage"]},
- "EntanglementFidelity::usage"->{
-  Cell[177443, 6038, 3278, 110, 130, "Text",
-   CellTags->"EntanglementFidelity::usage"]},
- "ChannelVolume::usage"->{
-  Cell[203478, 6682, 750, 19, 50, "Text",
-   CellTags->"ChannelVolume::usage"]},
- "ComChannel::usage"->{
-  Cell[205419, 6750, 2551, 93, 71, "Text",
-   CellTags->"ComChannel::usage"]},
  "AComChannel::usage"->{
   Cell[209551, 6901, 2554, 94, 71, "Text",
    CellTags->"AComChannel::usage"]},
+ "AverageGateFidelity::usage"->{
+  Cell[172983, 5884, 2362, 76, 109, "Text",
+   CellTags->"AverageGateFidelity::usage"]},
+ "Basis::usage"->{
+  Cell[29302, 966, 1583, 52, 71, "Text",
+   CellTags->"Basis::usage"]},
+ "ChannelParameters::usage"->{
+  Cell[133356, 4524, 1556, 53, 51, "Text",
+   CellTags->"ChannelParameters::usage"]},
+ "ChannelRep::usage"->{
+  Cell[131462, 4454, 787, 26, 31, "Text",
+   CellTags->"ChannelRep::usage"]},
+ "ChannelVolume::usage"->{
+  Cell[203478, 6682, 750, 19, 50, "Text",
+   CellTags->"ChannelVolume::usage"]},
+ "Chi::usage"->{
+  Cell[85194, 2831, 7863, 269, 522, "Text",
+   CellTags->"Chi::usage"]},
+ "Choi::usage"->{
+  Cell[57001, 1902, 8874, 305, 522, "Text",
+   CellTags->"Choi::usage"]},
+ "ComChannel::usage"->{
+  Cell[205419, 6750, 2551, 93, 71, "Text",
+   CellTags->"ComChannel::usage"]},
+ "CompletelyPositiveQ::usage"->{
+  Cell[136317, 4629, 3631, 125, 184, "Text",
+   CellTags->"CompletelyPositiveQ::usage"]},
+ "EntanglementFidelity::usage"->{
+  Cell[177443, 6038, 3278, 110, 130, "Text",
+   CellTags->"EntanglementFidelity::usage"]},
+ "FunctionChannel::usage"->{
+  Cell[284109, 8698, 3282, 105, 168, "Text",
+   CellTags->"FunctionChannel::usage"]},
+ "GateFidelity::usage"->{
+  Cell[165220, 5624, 3080, 107, 90, "Text",
+   CellTags->"GateFidelity::usage"]},
+ "HermitianPreservingQ::usage"->{
+  Cell[146915, 4994, 3442, 115, 185, "Text",
+   CellTags->"HermitianPreservingQ::usage"]},
+ "InputDim::usage"->{
+  Cell[26886, 881, 1077, 35, 51, "Text",
+   CellTags->"InputDim::usage"]},
+ "Kraus::usage"->{
+  Cell[97302, 3233, 8765, 315, 461, "Text",
+   CellTags->"Kraus::usage"]},
  "LindbladDissipator::usage"->{
   Cell[214699, 7084, 5405, 196, 149, "Text",
    CellTags->"LindbladDissipator::usage"]},
  "Lindblad::usage"->{
   Cell[223316, 7389, 3702, 128, 169, "Text",
    CellTags->"Lindblad::usage"]},
+ "OutputDim::usage"->{
+  Cell[28105, 924, 1059, 34, 51, "Text",
+   CellTags->"OutputDim::usage"]},
  "PartialTrChannel::usage"->{
   Cell[268539, 8304, 3155, 111, 111, "Text",
-   CellTags->"PartialTrChannel::usage"]}
+   CellTags->"PartialTrChannel::usage"]},
+ "PauliChannelQ::usage"->{
+  Cell[156167, 5308, 3727, 125, 148, "Text",
+   CellTags->"PauliChannelQ::usage"]},
+ "ProcessFidelity::usage"->{
+  Cell[160984, 5474, 2383, 80, 90, "Text",
+   CellTags->"ProcessFidelity::usage"]},
+ "QuantumChannel::usage"->{
+  Cell[2884, 79, 17481, 587, 1130, "Text",
+   CellTags->"QuantumChannel::usage"]},
+ "Stinespring::usage"->{
+  Cell[110002, 3689, 8533, 298, 501, "Text",
+   CellTags->"Stinespring::usage"]},
+ "Super::usage"->{
+  Cell[40944, 1376, 8215, 287, 443, "Text",
+   CellTags->"Super::usage"]},
+ "SysEnv::usage"->{
+  Cell[120246, 4054, 8507, 308, 461, "Text",
+   CellTags->"SysEnv::usage"]},
+ "TracePreservingQ::usage"->{
+  Cell[143094, 4862, 3625, 123, 148, "Text",
+   CellTags->"TracePreservingQ::usage"]},
+ "UnitalQ::usage"->{
+  Cell[150519, 5118, 3670, 124, 129, "Text",
+   CellTags->"UnitalQ::usage"]},
+ "Unitary::usage"->{
+  Cell[31350, 1039, 6748, 236, 402, "Text",
+   CellTags->"Unitary::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"QuantumChannel::usage", 284329, 8706},
- {"InputDim::usage", 284434, 8709},
- {"OutputDim::usage", 284532, 8712},
- {"Basis::usage", 284627, 8715},
- {"Unitary::usage", 284720, 8718},
- {"Super::usage", 284816, 8721},
- {"Choi::usage", 284909, 8724},
- {"Chi::usage", 285000, 8727},
- {"Kraus::usage", 285092, 8730},
- {"Stinespring::usage", 285192, 8733},
- {"SysEnv::usage", 285294, 8736},
- {"ChannelRep::usage", 285395, 8739},
- {"ChannelParameters::usage", 285504, 8742},
- {"CompletelyPositiveQ::usage", 285623, 8745},
- {"TracePreservingQ::usage", 285743, 8748},
- {"HermitianPreservingQ::usage", 285864, 8751},
- {"UnitalQ::usage", 285976, 8754},
- {"PauliChannelQ::usage", 286081, 8757},
- {"ProcessFidelity::usage", 286194, 8760},
- {"GateFidelity::usage", 286304, 8763},
- {"AverageGateFidelity::usage", 286419, 8766},
- {"EntanglementFidelity::usage", 286542, 8769},
- {"ChannelVolume::usage", 286660, 8772},
- {"ComChannel::usage", 286765, 8775},
- {"AComChannel::usage", 286869, 8778},
- {"LindbladDissipator::usage", 286981, 8781},
- {"Lindblad::usage", 287092, 8784},
- {"PartialTrChannel::usage", 287201, 8787}
+ {"AComChannel::usage", 289699, 8880},
+ {"AverageGateFidelity::usage", 289812, 8883},
+ {"Basis::usage", 289920, 8886},
+ {"ChannelParameters::usage", 290023, 8889},
+ {"ChannelRep::usage", 290133, 8892},
+ {"ChannelVolume::usage", 290238, 8895},
+ {"Chi::usage", 290336, 8898},
+ {"Choi::usage", 290427, 8901},
+ {"ComChannel::usage", 290525, 8904},
+ {"CompletelyPositiveQ::usage", 290637, 8907},
+ {"EntanglementFidelity::usage", 290761, 8910},
+ {"FunctionChannel::usage", 290881, 8913},
+ {"GateFidelity::usage", 290993, 8916},
+ {"HermitianPreservingQ::usage", 291109, 8919},
+ {"InputDim::usage", 291222, 8922},
+ {"Kraus::usage", 291316, 8925},
+ {"LindbladDissipator::usage", 291423, 8928},
+ {"Lindblad::usage", 291534, 8931},
+ {"OutputDim::usage", 291636, 8934},
+ {"PartialTrChannel::usage", 291742, 8937},
+ {"PauliChannelQ::usage", 291856, 8940},
+ {"ProcessFidelity::usage", 291969, 8943},
+ {"QuantumChannel::usage", 292081, 8946},
+ {"Stinespring::usage", 292189, 8949},
+ {"Super::usage", 292290, 8952},
+ {"SysEnv::usage", 292385, 8955},
+ {"TracePreservingQ::usage", 292492, 8958},
+ {"UnitalQ::usage", 292600, 8961},
+ {"Unitary::usage", 292699, 8964}
  }
 *)
 (*NotebookFileOutline
@@ -9324,6 +9502,20 @@ Cell[CellGroupData[{
 Cell[282076, 8642, 330, 7, 46, "Input"],
 Cell[282409, 8651, 1158, 27, 63, "Output"],
 Cell[283570, 8680, 372, 8, 28, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[284003, 8695, 103, 1, 44, "Subsection"],
+Cell[284109, 8698, 3282, 105, 168, "Text",
+ CellTags->"FunctionChannel::usage"],
+Cell[CellGroupData[{
+Cell[287416, 8807, 100, 1, 35, "Subsubsection"],
+Cell[287519, 8810, 240, 5, 31, "Text"],
+Cell[CellGroupData[{
+Cell[287784, 8819, 263, 5, 46, "Input"],
+Cell[288050, 8826, 537, 14, 28, "Output"],
+Cell[288590, 8842, 729, 20, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]

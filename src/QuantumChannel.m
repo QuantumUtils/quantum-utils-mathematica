@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -38,7 +38,7 @@ Needs["QuantumSystems`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declarations*)
 
 
@@ -99,7 +99,7 @@ AssignUsage[PauliChannelQ,$Usages];
 (*Special Channels*)
 
 
-Unprotect[ComChannel,AComChannel,Lindblad,LindbladDissipator,SwapChannel,PartialTrChannel];
+Unprotect[ComChannel,AComChannel,Lindblad,LindbladDissipator,PartialTrChannel,FunctionChannel];
 
 
 AssignUsage[ComChannel,$Usages];
@@ -107,6 +107,7 @@ AssignUsage[AComChannel,$Usages];
 AssignUsage[LindbladDissipator,$Usages];
 AssignUsage[Lindblad,$Usages];
 AssignUsage[PartialTrChannel,$Usages];
+AssignUsage[FunctionChannel,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -134,14 +135,17 @@ LindbladDissipator::input = "Input must be a matrix, list of matrices, or sequen
 Lindblad::input = "Input must be a matrix, list of matrices, or sequence of matrices.";
 
 
-(* ::Section:: *)
+FunctionChannel::indims = "InputDims option must be an integer.";
+
+
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Predicates*)
 
 
@@ -220,8 +224,11 @@ PauliChannelQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 (*Options and Formatting*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Options*)
+
+
+Options[QuantumChannel]={InputDim->Automatic,OutputDim->Automatic,Basis->Automatic};
 
 
 ChannelParameters[chan_QuantumChannel]:=Last@chan
@@ -231,7 +238,7 @@ OutputDim[chan_QuantumChannel]:=OutputDim/.ChannelParameters[chan]
 Basis[chan_QuantumChannel]:=Basis/.ChannelParameters[chan]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Display formatting of channels*)
 
 
@@ -240,9 +247,6 @@ Format[chan_QuantumChannel]:=ToString[ChannelRep[chan]][First[chan],"<params>"]
 
 (* ::Subsection::Closed:: *)
 (*Constructing Channels*)
-
-
-Options[QuantumChannel]={InputDim->Automatic,OutputDim->Automatic,Basis->Automatic};
 
 
 Super[m_?MatrixQ,OptionsPattern[QuantumChannel]]:=
@@ -953,7 +957,7 @@ EntanglementFidelity[state_,chan_QuantumChannel]:=
 EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=EntanglementFidelity[state,ConjugateTranspose[Super[chan2]].chan2]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Special Channels*)
 
 
@@ -1027,6 +1031,26 @@ PartialTrChannel[sysDims_,trlist_]:=
 	]
 
 
+FunctionChannel[func_,opts:OptionsPattern[QuantumChannel]]:=
+	With[{dim=OptionValue[InputDim]},
+		If[IntegerQ[dim],
+		With[{
+		basis=OptionValue[Basis],
+		choi=Choi[Sum[
+				CircleTimes[
+					UnitArray[{dim,dim},{i,j}],
+					func[UnitArray[{dim,dim},{i,j}]]
+				],{i,dim},{j,dim}]
+			,Basis->"Col",InputDim->dim]},
+		If[basis===Automatic,
+			choi,
+			Choi[choi,Basis->basis]
+		]],
+			Message[FunctionChannel::indims]
+		]
+	]
+
+
 (* ::Subsection::Closed:: *)
 (*End Private*)
 
@@ -1046,7 +1070,7 @@ Protect[Choi,Super,Chi,Kraus,Stinespring,Unitary,SysEnv];
 Protect[QuantumChannel,ChannelRep,InputDim,OutputDim,Basis];
 Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume];
 Protect[CompletelyPositiveQ,TracePreservingQ,HermitianPreservingQ,UnitalQ,PauliChannelQ];
-Unprotect[ComChannel,AComChannel,LindbladDissipator,Lindblad,SwapChannel,PartialTrChannel];
+Unprotect[ComChannel,AComChannel,LindbladDissipator,Lindblad,PartialTrChannel,FunctionChannel];
 
 
 EndPackage[];
