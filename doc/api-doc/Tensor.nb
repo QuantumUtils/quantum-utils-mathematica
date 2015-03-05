@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    214437,       7025]
-NotebookOptionsPosition[    195229,       6395]
-NotebookOutlinePosition[    199544,       6525]
-CellTagsIndexPosition[    198430,       6493]
+NotebookDataLength[    214529,       7028]
+NotebookOptionsPosition[    195316,       6398]
+NotebookOutlinePosition[    199636,       6528]
+CellTagsIndexPosition[    198522,       6496]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -106,7 +106,7 @@ Cell[TextData[{
   FontSlant->"Italic"],
  "\n",
  StyleBox["CircleTimes[", "Input"],
- StyleBox["op, n", "Input",
+ StyleBox["op\[Rule]n", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox["]", "Input"],
@@ -124,11 +124,14 @@ Cell[TextData[{
  StyleBox["op", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
- "\[CloseCurlyDoubleQuote];"
+ StyleBox[".",
+  FontWeight->"Plain",
+  FontSlant->"Italic"]
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{
-  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}},
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}},
  CellTags->"CircleTimes::usage"],
 
 Cell[CellGroupData[{
@@ -6394,7 +6397,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{640, 755},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{-1377, Automatic}, {99, Automatic}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -6404,122 +6407,122 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "ACom::usage"->{
-  Cell[21592, 765, 3428, 141, 91, "Text",
-   CellTags->"ACom::usage"]},
- "ArrayPermutations::usage"->{
-  Cell[6294, 205, 810, 29, 51, "Text",
-   CellTags->"ArrayPermutations::usage"]},
- "BasisLabels::usage"->{
-  Cell[131530, 4442, 1431, 42, 149, "Text",
-   CellTags->"BasisLabels::usage"]},
- "BasisMatrix::usage"->{
-  Cell[178375, 5906, 3385, 95, 208, "Text",
-   CellTags->"BasisMatrix::usage"]},
- "BasisTransformation::usage"->{
-  Cell[181763, 6003, 1482, 45, 110, "Text",
-   CellTags->"BasisTransformation::usage"]},
- "Basis::usage"->{
-  Cell[106524, 3682, 2319, 73, 228, "Text",
-   CellTags->"Basis::usage"]},
- "BlockMatrix::usage"->{
-  Cell[12370, 419, 538, 17, 51, "Text",
-   CellTags->"BlockMatrix::usage"]},
  "CircleTimes::usage"->{
-  Cell[2558, 78, 1546, 53, 149, "Text",
+  Cell[2558, 78, 1633, 56, 149, "Text",
    CellTags->"CircleTimes::usage"]},
+ "ArrayPermutations::usage"->{
+  Cell[6381, 208, 810, 29, 51, "Text",
+   CellTags->"ArrayPermutations::usage"]},
+ "SwapMatrix::usage"->{
+  Cell[9080, 299, 1967, 72, 189, "Text",
+   CellTags->"SwapMatrix::usage"]},
+ "BlockMatrix::usage"->{
+  Cell[12457, 422, 538, 17, 51, "Text",
+   CellTags->"BlockMatrix::usage"]},
+ "UnitArray::usage"->{
+  Cell[15558, 528, 1195, 43, 91, "Text",
+   CellTags->"UnitArray::usage"]},
  "Com::usage"->{
-  Cell[18081, 620, 3508, 143, 91, "Text",
+  Cell[18168, 623, 3508, 143, 91, "Text",
    CellTags->"Com::usage"]},
- "Devec::usage"->{
-  Cell[162688, 5399, 1688, 49, 168, "Text",
-   CellTags->"Devec::usage"]},
- "ExpressInBasis::usage"->{
-  Cell[134695, 4530, 1920, 65, 209, "Text",
-   CellTags->"ExpressInBasis::usage"]},
- "MatrixContract::usage"->{
-  Cell[98521, 3399, 1859, 65, 149, "Text",
-   CellTags->"MatrixContract::usage"]},
- "MatrixPairContract::usage"->{
-  Cell[102585, 3544, 1871, 67, 147, "Text",
-   CellTags->"MatrixPairContract::usage"]},
+ "ACom::usage"->{
+  Cell[21679, 768, 3428, 141, 91, "Text",
+   CellTags->"ACom::usage"]},
+ "OuterProduct::usage"->{
+  Cell[27529, 993, 914, 32, 51, "Text",
+   CellTags->"OuterProduct::usage"]},
+ "Projector::usage"->{
+  Cell[28446, 1027, 818, 29, 31, "Text",
+   CellTags->"Projector::usage"]},
+ "TP::usage"->{
+  Cell[33304, 1191, 3801, 106, 492, "Text",
+   CellTags->"TP::usage"]},
  "MatrixToTensor::usage"->{
-  Cell[43571, 1506, 2617, 103, 188, "Text",
+  Cell[43658, 1509, 2617, 103, 188, "Text",
    CellTags->"MatrixToTensor::usage"]},
  "MatrixTranspose::usage"->{
-  Cell[52525, 1825, 1325, 37, 149, "Text",
+  Cell[52612, 1828, 1325, 37, 149, "Text",
    CellTags->"MatrixTranspose::usage"]},
- "OuterProduct::usage"->{
-  Cell[27442, 990, 914, 32, 51, "Text",
-   CellTags->"OuterProduct::usage"]},
- "PartialTr::usage"->{
-  Cell[88131, 3042, 2042, 70, 170, "Text",
-   CellTags->"PartialTr::usage"]},
- "ProductIdentity::usage"->{
-  Cell[169640, 5624, 2100, 67, 188, "Text",
-   CellTags->"ProductIdentity::usage"]},
- "Projector::usage"->{
-  Cell[28359, 1024, 818, 29, 31, "Text",
-   CellTags->"Projector::usage"]},
- "Reravel::usage"->{
-  Cell[84589, 2912, 2360, 86, 189, "Text",
-   CellTags->"Reravel::usage"]},
- "Reshuffle::usage"->{
-  Cell[71927, 2486, 3277, 111, 306, "Text",
-   CellTags->"Reshuffle::usage"]},
- "SwapMatrix::usage"->{
-  Cell[8993, 296, 1967, 72, 189, "Text",
-   CellTags->"SwapMatrix::usage"]},
  "Swap::usage"->{
-  Cell[59926, 2067, 3005, 118, 189, "Text",
+  Cell[60013, 2070, 3005, 118, 189, "Text",
    CellTags->"Swap::usage"]},
- "TensorPairContract::usage"->{
-  Cell[95708, 3295, 1417, 52, 71, "Text",
-   CellTags->"TensorPairContract::usage"]},
- "TP::usage"->{
-  Cell[33217, 1188, 3801, 106, 492, "Text",
-   CellTags->"TP::usage"]},
- "UnitArray::usage"->{
-  Cell[15471, 525, 1195, 43, 91, "Text",
-   CellTags->"UnitArray::usage"]},
+ "Reshuffle::usage"->{
+  Cell[72014, 2489, 3277, 111, 306, "Text",
+   CellTags->"Reshuffle::usage"]},
  "Unravel::usage"->{
-  Cell[79121, 2725, 2935, 105, 248, "Text",
+  Cell[79208, 2728, 2935, 105, 248, "Text",
    CellTags->"Unravel::usage"]},
+ "Reravel::usage"->{
+  Cell[84676, 2915, 2360, 86, 189, "Text",
+   CellTags->"Reravel::usage"]},
+ "PartialTr::usage"->{
+  Cell[88218, 3045, 2042, 70, 170, "Text",
+   CellTags->"PartialTr::usage"]},
+ "TensorPairContract::usage"->{
+  Cell[95795, 3298, 1417, 52, 71, "Text",
+   CellTags->"TensorPairContract::usage"]},
+ "MatrixContract::usage"->{
+  Cell[98608, 3402, 1859, 65, 149, "Text",
+   CellTags->"MatrixContract::usage"]},
+ "MatrixPairContract::usage"->{
+  Cell[102672, 3547, 1871, 67, 147, "Text",
+   CellTags->"MatrixPairContract::usage"]},
+ "Basis::usage"->{
+  Cell[106611, 3685, 2319, 73, 228, "Text",
+   CellTags->"Basis::usage"]},
+ "BasisLabels::usage"->{
+  Cell[131617, 4445, 1431, 42, 149, "Text",
+   CellTags->"BasisLabels::usage"]},
+ "ExpressInBasis::usage"->{
+  Cell[134782, 4533, 1920, 65, 209, "Text",
+   CellTags->"ExpressInBasis::usage"]},
  "Vec::usage"->{
-  Cell[153987, 5118, 1718, 50, 168, "Text",
-   CellTags->"Vec::usage"]}
+  Cell[154074, 5121, 1718, 50, 168, "Text",
+   CellTags->"Vec::usage"]},
+ "Devec::usage"->{
+  Cell[162775, 5402, 1688, 49, 168, "Text",
+   CellTags->"Devec::usage"]},
+ "ProductIdentity::usage"->{
+  Cell[169727, 5627, 2100, 67, 188, "Text",
+   CellTags->"ProductIdentity::usage"]},
+ "BasisMatrix::usage"->{
+  Cell[178462, 5909, 3385, 95, 208, "Text",
+   CellTags->"BasisMatrix::usage"]},
+ "BasisTransformation::usage"->{
+  Cell[181850, 6006, 1482, 45, 110, "Text",
+   CellTags->"BasisTransformation::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ACom::usage", 195537, 6406},
- {"ArrayPermutations::usage", 195640, 6409},
- {"BasisLabels::usage", 195747, 6412},
- {"BasisMatrix::usage", 195853, 6415},
- {"BasisTransformation::usage", 195967, 6418},
- {"Basis::usage", 196075, 6421},
- {"BlockMatrix::usage", 196175, 6424},
- {"CircleTimes::usage", 196277, 6427},
- {"Com::usage", 196371, 6430},
- {"Devec::usage", 196461, 6433},
- {"ExpressInBasis::usage", 196564, 6436},
- {"MatrixContract::usage", 196676, 6439},
- {"MatrixPairContract::usage", 196791, 6442},
- {"MatrixToTensor::usage", 196907, 6445},
- {"MatrixTranspose::usage", 197020, 6448},
- {"OuterProduct::usage", 197130, 6451},
- {"PartialTr::usage", 197231, 6454},
- {"ProductIdentity::usage", 197338, 6457},
- {"Projector::usage", 197446, 6460},
- {"Reravel::usage", 197543, 6463},
- {"Reshuffle::usage", 197642, 6466},
- {"SwapMatrix::usage", 197745, 6469},
- {"Swap::usage", 197840, 6472},
- {"TensorPairContract::usage", 197946, 6475},
- {"TP::usage", 198048, 6478},
- {"UnitArray::usage", 198143, 6481},
- {"Unravel::usage", 198240, 6484},
- {"Vec::usage", 198334, 6487}
+ {"CircleTimes::usage", 195636, 6409},
+ {"ArrayPermutations::usage", 195744, 6412},
+ {"SwapMatrix::usage", 195850, 6415},
+ {"BlockMatrix::usage", 195952, 6418},
+ {"UnitArray::usage", 196052, 6421},
+ {"Com::usage", 196145, 6424},
+ {"ACom::usage", 196234, 6427},
+ {"OuterProduct::usage", 196332, 6430},
+ {"Projector::usage", 196433, 6433},
+ {"TP::usage", 196525, 6436},
+ {"MatrixToTensor::usage", 196625, 6439},
+ {"MatrixTranspose::usage", 196738, 6442},
+ {"Swap::usage", 196840, 6445},
+ {"Reshuffle::usage", 196937, 6448},
+ {"Unravel::usage", 197037, 6451},
+ {"Reravel::usage", 197135, 6454},
+ {"PartialTr::usage", 197234, 6457},
+ {"TensorPairContract::usage", 197344, 6460},
+ {"MatrixContract::usage", 197458, 6463},
+ {"MatrixPairContract::usage", 197573, 6466},
+ {"Basis::usage", 197680, 6469},
+ {"BasisLabels::usage", 197780, 6472},
+ {"ExpressInBasis::usage", 197889, 6475},
+ {"Vec::usage", 197990, 6478},
+ {"Devec::usage", 198082, 6481},
+ {"ProductIdentity::usage", 198186, 6484},
+ {"BasisMatrix::usage", 198296, 6487},
+ {"BasisTransformation::usage", 198410, 6490}
  }
 *)
 (*NotebookFileOutline
@@ -6540,488 +6543,488 @@ Cell[CellGroupData[{
 Cell[2214, 68, 215, 3, 64, "Section"],
 Cell[CellGroupData[{
 Cell[2454, 75, 101, 1, 44, "Subsection"],
-Cell[2558, 78, 1546, 53, 149, "Text",
+Cell[2558, 78, 1633, 56, 149, "Text",
  CellTags->"CircleTimes::usage"],
 Cell[CellGroupData[{
-Cell[4129, 135, 102, 1, 35, "Subsubsection"],
-Cell[4234, 138, 111, 1, 30, "Text"],
+Cell[4216, 138, 102, 1, 35, "Subsubsection"],
+Cell[4321, 141, 111, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[4370, 143, 222, 6, 28, "Input"],
-Cell[4595, 151, 137, 3, 28, "Output"]
+Cell[4457, 146, 222, 6, 28, "Input"],
+Cell[4682, 154, 137, 3, 28, "Output"]
 }, Open  ]],
-Cell[4747, 157, 109, 1, 30, "Text"],
+Cell[4834, 160, 109, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[4881, 162, 221, 6, 28, "Input"],
-Cell[5105, 170, 994, 24, 160, "Output"]
+Cell[4968, 165, 221, 6, 28, "Input"],
+Cell[5192, 173, 994, 24, 160, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6160, 201, 131, 2, 44, "Subsection"],
-Cell[6294, 205, 810, 29, 51, "Text",
+Cell[6247, 204, 131, 2, 44, "Subsection"],
+Cell[6381, 208, 810, 29, 51, "Text",
  CellTags->"ArrayPermutations::usage"],
 Cell[CellGroupData[{
-Cell[7129, 238, 98, 1, 35, "Subsubsection"],
-Cell[7230, 241, 191, 3, 30, "Text"],
+Cell[7216, 241, 98, 1, 35, "Subsubsection"],
+Cell[7317, 244, 191, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[7446, 248, 364, 11, 28, "Input"],
-Cell[7813, 261, 993, 24, 160, "Output"]
+Cell[7533, 251, 364, 11, 28, "Input"],
+Cell[7900, 264, 993, 24, 160, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8867, 292, 123, 2, 44, "Subsection"],
-Cell[8993, 296, 1967, 72, 189, "Text",
+Cell[8954, 295, 123, 2, 44, "Subsection"],
+Cell[9080, 299, 1967, 72, 189, "Text",
  CellTags->"SwapMatrix::usage"],
 Cell[CellGroupData[{
-Cell[10985, 372, 98, 1, 35, "Subsubsection"],
-Cell[11086, 375, 99, 1, 30, "Text"],
+Cell[11072, 375, 98, 1, 35, "Subsubsection"],
+Cell[11173, 378, 99, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[11210, 380, 239, 6, 28, "Input"],
-Cell[11452, 388, 725, 20, 92, "Output"]
+Cell[11297, 383, 239, 6, 28, "Input"],
+Cell[11539, 391, 725, 20, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12238, 415, 129, 2, 44, "Subsection"],
-Cell[12370, 419, 538, 17, 51, "Text",
+Cell[12325, 418, 129, 2, 44, "Subsection"],
+Cell[12457, 422, 538, 17, 51, "Text",
  CellTags->"BlockMatrix::usage"],
 Cell[CellGroupData[{
-Cell[12933, 440, 100, 1, 35, "Subsubsection"],
+Cell[13020, 443, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[13058, 445, 545, 17, 28, "Input"],
-Cell[13606, 464, 1655, 50, 126, "Output"]
+Cell[13145, 448, 545, 17, 28, "Input"],
+Cell[13693, 467, 1655, 50, 126, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15322, 521, 146, 2, 44, "Subsection"],
-Cell[15471, 525, 1195, 43, 91, "Text",
+Cell[15409, 524, 146, 2, 44, "Subsection"],
+Cell[15558, 528, 1195, 43, 91, "Text",
  CellTags->"UnitArray::usage"],
 Cell[CellGroupData[{
-Cell[16691, 572, 99, 1, 35, "Subsubsection"],
-Cell[16793, 575, 99, 1, 30, "Text"],
+Cell[16778, 575, 99, 1, 35, "Subsubsection"],
+Cell[16880, 578, 99, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[16917, 580, 289, 8, 28, "Input"],
-Cell[17209, 590, 659, 19, 74, "Output"]
+Cell[17004, 583, 289, 8, 28, "Input"],
+Cell[17296, 593, 659, 19, 74, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[17929, 616, 149, 2, 44, "Subsection"],
-Cell[18081, 620, 3508, 143, 91, "Text",
+Cell[18016, 619, 149, 2, 44, "Subsection"],
+Cell[18168, 623, 3508, 143, 91, "Text",
  CellTags->"Com::usage"],
-Cell[21592, 765, 3428, 141, 91, "Text",
+Cell[21679, 768, 3428, 141, 91, "Text",
  CellTags->"ACom::usage"],
 Cell[CellGroupData[{
-Cell[25045, 910, 102, 1, 35, "Subsubsection"],
+Cell[25132, 913, 102, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[25172, 915, 241, 6, 28, "Input"],
-Cell[25416, 923, 752, 21, 58, "Output"]
+Cell[25259, 918, 241, 6, 28, "Input"],
+Cell[25503, 926, 752, 21, 58, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[26205, 949, 254, 7, 28, "Input"],
-Cell[26462, 958, 752, 21, 58, "Output"]
+Cell[26292, 952, 254, 7, 28, "Input"],
+Cell[26549, 961, 752, 21, 58, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[27275, 986, 164, 2, 44, "Subsection"],
-Cell[27442, 990, 914, 32, 51, "Text",
+Cell[27362, 989, 164, 2, 44, "Subsection"],
+Cell[27529, 993, 914, 32, 51, "Text",
  CellTags->"OuterProduct::usage"],
-Cell[28359, 1024, 818, 29, 31, "Text",
+Cell[28446, 1027, 818, 29, 31, "Text",
  CellTags->"Projector::usage"],
 Cell[CellGroupData[{
-Cell[29202, 1057, 100, 1, 35, "Subsubsection"],
+Cell[29289, 1060, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[29327, 1062, 306, 8, 28, "Input"],
-Cell[29636, 1072, 1191, 34, 58, "Output"]
+Cell[29414, 1065, 306, 8, 28, "Input"],
+Cell[29723, 1075, 1191, 34, 58, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[30864, 1111, 262, 7, 28, "Input"],
-Cell[31129, 1120, 1784, 52, 80, "Output"]
+Cell[30951, 1114, 262, 7, 28, "Input"],
+Cell[31216, 1123, 1784, 52, 80, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32986, 1180, 106, 1, 64, "Section"],
+Cell[33073, 1183, 106, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[33117, 1185, 97, 1, 44, "Subsection"],
-Cell[33217, 1188, 3801, 106, 492, "Text",
+Cell[33204, 1188, 97, 1, 44, "Subsection"],
+Cell[33304, 1191, 3801, 106, 492, "Text",
  CellTags->"TP::usage"],
 Cell[CellGroupData[{
-Cell[37043, 1298, 102, 1, 35, "Subsubsection"],
-Cell[37148, 1301, 138, 2, 28, "Input"],
-Cell[37289, 1305, 4126, 122, 391, "Text"]
+Cell[37130, 1301, 102, 1, 35, "Subsubsection"],
+Cell[37235, 1304, 138, 2, 28, "Input"],
+Cell[37376, 1308, 4126, 122, 391, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[41452, 1432, 147, 2, 29, "Subsubsection"],
+Cell[41539, 1435, 147, 2, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[41624, 1438, 233, 5, 28, "Input"],
-Cell[41860, 1445, 862, 25, 92, "Output"]
+Cell[41711, 1441, 233, 5, 28, "Input"],
+Cell[41947, 1448, 862, 25, 92, "Output"]
 }, Open  ]],
-Cell[42737, 1473, 163, 3, 30, "Text"],
+Cell[42824, 1476, 163, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[42925, 1480, 166, 4, 28, "Input"],
-Cell[43094, 1486, 158, 4, 28, "Output"]
+Cell[43012, 1483, 166, 4, 28, "Input"],
+Cell[43181, 1489, 158, 4, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[43325, 1498, 112, 1, 64, "Section"],
+Cell[43412, 1501, 112, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[43462, 1503, 106, 1, 44, "Subsection"],
-Cell[43571, 1506, 2617, 103, 188, "Text",
+Cell[43549, 1506, 106, 1, 44, "Subsection"],
+Cell[43658, 1509, 2617, 103, 188, "Text",
  CellTags->"MatrixToTensor::usage"],
 Cell[CellGroupData[{
-Cell[46213, 1613, 98, 1, 35, "Subsubsection"],
-Cell[46314, 1616, 158, 3, 30, "Text"],
+Cell[46300, 1616, 98, 1, 35, "Subsubsection"],
+Cell[46401, 1619, 158, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[46497, 1623, 486, 14, 46, "Input"],
-Cell[46986, 1639, 2574, 80, 80, "Output"],
-Cell[49563, 1721, 95, 1, 28, "Output"]
+Cell[46584, 1626, 486, 14, 46, "Input"],
+Cell[47073, 1642, 2574, 80, 80, "Output"],
+Cell[49650, 1724, 95, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[49707, 1728, 102, 1, 29, "Subsubsection"],
-Cell[49812, 1731, 125, 1, 30, "Text"],
+Cell[49794, 1731, 102, 1, 29, "Subsubsection"],
+Cell[49899, 1734, 125, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[49962, 1736, 378, 10, 46, "Input"],
-Cell[50343, 1748, 1940, 64, 80, "Output"],
-Cell[52286, 1814, 72, 1, 28, "Output"]
+Cell[50049, 1739, 378, 10, 46, "Input"],
+Cell[50430, 1751, 1940, 64, 80, "Output"],
+Cell[52373, 1817, 72, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52419, 1822, 103, 1, 44, "Subsection"],
-Cell[52525, 1825, 1325, 37, 149, "Text",
+Cell[52506, 1825, 103, 1, 44, "Subsection"],
+Cell[52612, 1828, 1325, 37, 149, "Text",
  CellTags->"MatrixTranspose::usage"],
 Cell[CellGroupData[{
-Cell[53875, 1866, 102, 1, 35, "Subsubsection"],
-Cell[53980, 1869, 159, 3, 30, "Text"],
+Cell[53962, 1869, 102, 1, 35, "Subsubsection"],
+Cell[54067, 1872, 159, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[54164, 1876, 651, 19, 46, "Input"],
-Cell[54818, 1897, 3143, 100, 92, "Output"]
+Cell[54251, 1879, 651, 19, 46, "Input"],
+Cell[54905, 1900, 3143, 100, 92, "Output"]
 }, Open  ]],
-Cell[57976, 2000, 97, 1, 30, "Text"],
+Cell[58063, 2003, 97, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[58098, 2005, 946, 30, 65, "Input"],
-Cell[59047, 2037, 725, 20, 92, "Output"]
+Cell[58185, 2008, 946, 30, 65, "Input"],
+Cell[59134, 2040, 725, 20, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[59833, 2064, 90, 1, 44, "Subsection"],
-Cell[59926, 2067, 3005, 118, 189, "Text",
+Cell[59920, 2067, 90, 1, 44, "Subsection"],
+Cell[60013, 2070, 3005, 118, 189, "Text",
  CellTags->"Swap::usage"],
 Cell[CellGroupData[{
-Cell[62956, 2189, 149, 2, 35, "Subsubsection"],
-Cell[63108, 2193, 101, 1, 30, "Text"],
+Cell[63043, 2192, 149, 2, 35, "Subsubsection"],
+Cell[63195, 2196, 101, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[63234, 2198, 568, 17, 46, "Input"],
-Cell[63805, 2217, 6275, 202, 126, "Output"]
+Cell[63321, 2201, 568, 17, 46, "Input"],
+Cell[63892, 2220, 6275, 202, 126, "Output"]
 }, Open  ]],
-Cell[70095, 2422, 111, 1, 30, "Text"],
+Cell[70182, 2425, 111, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[70231, 2427, 818, 26, 46, "Input"],
-Cell[71052, 2455, 712, 21, 46, "Output"]
+Cell[70318, 2430, 818, 26, 46, "Input"],
+Cell[71139, 2458, 712, 21, 46, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[71825, 2483, 99, 1, 44, "Subsection"],
-Cell[71927, 2486, 3277, 111, 306, "Text",
+Cell[71912, 2486, 99, 1, 44, "Subsection"],
+Cell[72014, 2489, 3277, 111, 306, "Text",
  CellTags->"Reshuffle::usage"],
 Cell[CellGroupData[{
-Cell[75229, 2601, 98, 1, 35, "Subsubsection"],
-Cell[75330, 2604, 1048, 25, 119, "Text"]
+Cell[75316, 2604, 98, 1, 35, "Subsubsection"],
+Cell[75417, 2607, 1048, 25, 119, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[76415, 2634, 100, 1, 29, "Subsubsection"],
-Cell[76518, 2637, 153, 3, 30, "Text"],
+Cell[76502, 2637, 100, 1, 29, "Subsubsection"],
+Cell[76605, 2640, 153, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[76696, 2644, 575, 17, 46, "Input"],
-Cell[77274, 2663, 465, 12, 28, "Output"]
+Cell[76783, 2647, 575, 17, 46, "Input"],
+Cell[77361, 2666, 465, 12, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[77776, 2680, 697, 20, 46, "Input"],
-Cell[78476, 2702, 486, 13, 28, "Output"]
+Cell[77863, 2683, 697, 20, 46, "Input"],
+Cell[78563, 2705, 486, 13, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[79023, 2722, 95, 1, 44, "Subsection"],
-Cell[79121, 2725, 2935, 105, 248, "Text",
+Cell[79110, 2725, 95, 1, 44, "Subsection"],
+Cell[79208, 2728, 2935, 105, 248, "Text",
  CellTags->"Unravel::usage"],
 Cell[CellGroupData[{
-Cell[82081, 2834, 98, 1, 35, "Subsubsection"],
-Cell[82182, 2837, 983, 25, 135, "Text"]
+Cell[82168, 2837, 98, 1, 35, "Subsubsection"],
+Cell[82269, 2840, 983, 25, 135, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[83202, 2867, 98, 1, 29, "Subsubsection"],
+Cell[83289, 2870, 98, 1, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[83325, 2872, 786, 21, 46, "Input"],
-Cell[84114, 2895, 316, 7, 28, "Output"]
+Cell[83412, 2875, 786, 21, 46, "Input"],
+Cell[84201, 2898, 316, 7, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[84491, 2909, 95, 1, 44, "Subsection"],
-Cell[84589, 2912, 2360, 86, 189, "Text",
+Cell[84578, 2912, 95, 1, 44, "Subsection"],
+Cell[84676, 2915, 2360, 86, 189, "Text",
  CellTags->"Reravel::usage"],
 Cell[CellGroupData[{
-Cell[86974, 3002, 99, 1, 35, "Subsubsection"],
-Cell[87076, 3005, 124, 1, 30, "Text"],
+Cell[87061, 3005, 99, 1, 35, "Subsubsection"],
+Cell[87163, 3008, 124, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[87225, 3010, 302, 8, 28, "Input"],
-Cell[87530, 3020, 290, 6, 28, "Output"]
+Cell[87312, 3013, 302, 8, 28, "Input"],
+Cell[87617, 3023, 290, 6, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[87893, 3034, 111, 1, 64, "Section"],
+Cell[87980, 3037, 111, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[88029, 3039, 99, 1, 44, "Subsection"],
-Cell[88131, 3042, 2042, 70, 170, "Text",
+Cell[88116, 3042, 99, 1, 44, "Subsection"],
+Cell[88218, 3045, 2042, 70, 170, "Text",
  CellTags->"PartialTr::usage"],
 Cell[CellGroupData[{
-Cell[90198, 3116, 102, 1, 35, "Subsubsection"],
-Cell[90303, 3119, 200, 4, 30, "Text"],
+Cell[90285, 3119, 102, 1, 35, "Subsubsection"],
+Cell[90390, 3122, 200, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[90528, 3127, 449, 12, 28, "Input"],
-Cell[90980, 3141, 3167, 101, 92, "Output"]
+Cell[90615, 3130, 449, 12, 28, "Input"],
+Cell[91067, 3144, 3167, 101, 92, "Output"]
 }, Open  ]],
-Cell[94162, 3245, 144, 1, 30, "Text"],
+Cell[94249, 3248, 144, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[94331, 3250, 452, 12, 28, "Input"],
-Cell[94786, 3264, 752, 21, 74, "Output"]
+Cell[94418, 3253, 452, 12, 28, "Input"],
+Cell[94873, 3267, 752, 21, 74, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[95599, 3292, 106, 1, 44, "Subsection"],
-Cell[95708, 3295, 1417, 52, 71, "Text",
+Cell[95686, 3295, 106, 1, 44, "Subsection"],
+Cell[95795, 3298, 1417, 52, 71, "Text",
  CellTags->"TensorPairContract::usage"],
 Cell[CellGroupData[{
-Cell[97150, 3351, 100, 1, 35, "Subsubsection"],
-Cell[97253, 3354, 139, 1, 30, "Text"],
+Cell[97237, 3354, 100, 1, 35, "Subsubsection"],
+Cell[97340, 3357, 139, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[97417, 3359, 863, 27, 63, "Input"],
-Cell[98283, 3388, 70, 1, 28, "Output"]
+Cell[97504, 3362, 863, 27, 63, "Input"],
+Cell[98370, 3391, 70, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[98414, 3396, 104, 1, 44, "Subsection"],
-Cell[98521, 3399, 1859, 65, 149, "Text",
+Cell[98501, 3399, 104, 1, 44, "Subsection"],
+Cell[98608, 3402, 1859, 65, 149, "Text",
  CellTags->"MatrixContract::usage"],
 Cell[CellGroupData[{
-Cell[100405, 3468, 100, 1, 35, "Subsubsection"],
-Cell[100508, 3471, 162, 3, 30, "Text"],
+Cell[100492, 3471, 100, 1, 35, "Subsubsection"],
+Cell[100595, 3474, 162, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[100695, 3478, 447, 14, 46, "Input"],
-Cell[101145, 3494, 1269, 40, 92, "Output"]
+Cell[100782, 3481, 447, 14, 46, "Input"],
+Cell[101232, 3497, 1269, 40, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[102475, 3541, 107, 1, 44, "Subsection"],
-Cell[102585, 3544, 1871, 67, 147, "Text",
+Cell[102562, 3544, 107, 1, 44, "Subsection"],
+Cell[102672, 3547, 1871, 67, 147, "Text",
  CellTags->"MatrixPairContract::usage"],
 Cell[CellGroupData[{
-Cell[104481, 3615, 99, 1, 35, "Subsubsection"],
-Cell[104583, 3618, 139, 1, 30, "Text"],
+Cell[104568, 3618, 99, 1, 35, "Subsubsection"],
+Cell[104670, 3621, 139, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[104747, 3623, 1308, 38, 97, "Input"],
-Cell[106058, 3663, 171, 3, 28, "Output"]
+Cell[104834, 3626, 1308, 38, 97, "Input"],
+Cell[106145, 3666, 171, 3, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[106302, 3674, 101, 1, 64, "Section"],
+Cell[106389, 3677, 101, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[106428, 3679, 93, 1, 44, "Subsection"],
-Cell[106524, 3682, 2319, 73, 228, "Text",
+Cell[106515, 3682, 93, 1, 44, "Subsection"],
+Cell[106611, 3685, 2319, 73, 228, "Text",
  CellTags->"Basis::usage"],
 Cell[CellGroupData[{
-Cell[108868, 3759, 153, 2, 35, "Subsubsection"],
-Cell[109024, 3763, 115, 1, 30, "Text"],
+Cell[108955, 3762, 153, 2, 35, "Subsubsection"],
+Cell[109111, 3766, 115, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[109164, 3768, 220, 4, 28, "Input"],
-Cell[109387, 3774, 2991, 90, 67, "Output"]
+Cell[109251, 3771, 220, 4, 28, "Input"],
+Cell[109474, 3777, 2991, 90, 67, "Output"]
 }, Open  ]],
-Cell[112393, 3867, 122, 1, 30, "Text"],
+Cell[112480, 3870, 122, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[112540, 3872, 194, 4, 28, "Input"],
-Cell[112737, 3878, 11822, 331, 318, "Output"]
+Cell[112627, 3875, 194, 4, 28, "Input"],
+Cell[112824, 3881, 11822, 331, 318, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[124608, 4215, 100, 1, 29, "Subsubsection"],
-Cell[124711, 4218, 211, 4, 30, "Text"],
+Cell[124695, 4218, 100, 1, 29, "Subsubsection"],
+Cell[124798, 4221, 211, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[124947, 4226, 513, 15, 28, "Input"],
-Cell[125463, 4243, 1659, 51, 67, "Output"]
+Cell[125034, 4229, 513, 15, 28, "Input"],
+Cell[125550, 4246, 1659, 51, 67, "Output"]
 }, Open  ]],
-Cell[127137, 4297, 170, 2, 30, "Text"],
+Cell[127224, 4300, 170, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[127332, 4303, 552, 17, 28, "Input"],
-Cell[127887, 4322, 3480, 110, 113, "Output"]
+Cell[127419, 4306, 552, 17, 28, "Input"],
+Cell[127974, 4325, 3480, 110, 113, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[131428, 4439, 99, 1, 44, "Subsection"],
-Cell[131530, 4442, 1431, 42, 149, "Text",
+Cell[131515, 4442, 99, 1, 44, "Subsection"],
+Cell[131617, 4445, 1431, 42, 149, "Text",
  CellTags->"BasisLabels::usage"],
 Cell[CellGroupData[{
-Cell[132986, 4488, 98, 1, 35, "Subsubsection"],
-Cell[133087, 4491, 122, 1, 30, "Text"],
+Cell[133073, 4491, 98, 1, 35, "Subsubsection"],
+Cell[133174, 4494, 122, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[133234, 4496, 164, 3, 28, "Input"],
-Cell[133401, 4501, 1129, 19, 46, "Output"]
+Cell[133321, 4499, 164, 3, 28, "Input"],
+Cell[133488, 4504, 1129, 19, 46, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[134591, 4527, 101, 1, 44, "Subsection"],
-Cell[134695, 4530, 1920, 65, 209, "Text",
+Cell[134678, 4530, 101, 1, 44, "Subsection"],
+Cell[134782, 4533, 1920, 65, 209, "Text",
  CellTags->"ExpressInBasis::usage"],
 Cell[CellGroupData[{
-Cell[136640, 4599, 100, 1, 35, "Subsubsection"],
-Cell[136743, 4602, 1506, 36, 199, "Text"]
+Cell[136727, 4602, 100, 1, 35, "Subsubsection"],
+Cell[136830, 4605, 1506, 36, 199, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[138286, 4643, 100, 1, 29, "Subsubsection"],
-Cell[138389, 4646, 124, 1, 30, "Text"],
+Cell[138373, 4646, 100, 1, 29, "Subsubsection"],
+Cell[138476, 4649, 124, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[138538, 4651, 280, 8, 28, "Input"],
-Cell[138821, 4661, 6797, 203, 296, "Output"]
+Cell[138625, 4654, 280, 8, 28, "Input"],
+Cell[138908, 4664, 6797, 203, 296, "Output"]
 }, Open  ]],
-Cell[145633, 4867, 117, 1, 30, "Text"],
+Cell[145720, 4870, 117, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[145775, 4872, 354, 10, 46, "Input"],
-Cell[146132, 4884, 7514, 217, 296, "Output"]
+Cell[145862, 4875, 354, 10, 46, "Input"],
+Cell[146219, 4887, 7514, 217, 296, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[153719, 5109, 98, 1, 64, "Section"],
+Cell[153806, 5112, 98, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[153842, 5114, 142, 2, 44, "Subsection"],
-Cell[153987, 5118, 1718, 50, 168, "Text",
+Cell[153929, 5117, 142, 2, 44, "Subsection"],
+Cell[154074, 5121, 1718, 50, 168, "Text",
  CellTags->"Vec::usage"],
 Cell[CellGroupData[{
-Cell[155730, 5172, 98, 1, 35, "Subsubsection"],
-Cell[155831, 5175, 1364, 32, 139, "Text"]
+Cell[155817, 5175, 98, 1, 35, "Subsubsection"],
+Cell[155918, 5178, 1364, 32, 139, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[157232, 5212, 149, 2, 29, "Subsubsection"],
-Cell[157384, 5216, 168, 2, 30, "Text"],
+Cell[157319, 5215, 149, 2, 29, "Subsubsection"],
+Cell[157471, 5219, 168, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[157577, 5222, 269, 8, 28, "Input"],
-Cell[157849, 5232, 909, 28, 92, "Output"]
+Cell[157664, 5225, 269, 8, 28, "Input"],
+Cell[157936, 5235, 909, 28, 92, "Output"]
 }, Open  ]],
-Cell[158773, 5263, 138, 1, 30, "Text"],
+Cell[158860, 5266, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[158936, 5268, 344, 10, 28, "Input"],
-Cell[159283, 5280, 881, 28, 92, "Output"]
+Cell[159023, 5271, 344, 10, 28, "Input"],
+Cell[159370, 5283, 881, 28, 92, "Output"]
 }, Open  ]],
-Cell[160179, 5311, 182, 2, 30, "Text"],
+Cell[160266, 5314, 182, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[160386, 5317, 344, 10, 28, "Input"],
-Cell[160733, 5329, 1699, 58, 136, "Output"]
+Cell[160473, 5320, 344, 10, 28, "Input"],
+Cell[160820, 5332, 1699, 58, 136, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[162493, 5394, 192, 3, 44, "Subsection"],
-Cell[162688, 5399, 1688, 49, 168, "Text",
+Cell[162580, 5397, 192, 3, 44, "Subsection"],
+Cell[162775, 5402, 1688, 49, 168, "Text",
  CellTags->"Devec::usage"],
 Cell[CellGroupData[{
-Cell[164401, 5452, 98, 1, 35, "Subsubsection"],
-Cell[164502, 5455, 120, 1, 30, "Text"]
+Cell[164488, 5455, 98, 1, 35, "Subsubsection"],
+Cell[164589, 5458, 120, 1, 30, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[164659, 5461, 149, 2, 35, "Subsubsection"],
-Cell[164811, 5465, 202, 4, 30, "Text"],
+Cell[164746, 5464, 149, 2, 35, "Subsubsection"],
+Cell[164898, 5468, 202, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[165038, 5473, 266, 6, 28, "Input"],
-Cell[165307, 5481, 809, 23, 58, "Output"]
+Cell[165125, 5476, 266, 6, 28, "Input"],
+Cell[165394, 5484, 809, 23, 58, "Output"]
 }, Open  ]],
-Cell[166131, 5507, 138, 1, 30, "Text"],
+Cell[166218, 5510, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[166294, 5512, 342, 9, 28, "Input"],
-Cell[166639, 5523, 777, 22, 58, "Output"]
+Cell[166381, 5515, 342, 9, 28, "Input"],
+Cell[166726, 5526, 777, 22, 58, "Output"]
 }, Open  ]],
-Cell[167431, 5548, 182, 2, 30, "Text"],
+Cell[167518, 5551, 182, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[167638, 5554, 340, 9, 28, "Input"],
-Cell[167981, 5565, 1467, 48, 80, "Output"]
+Cell[167725, 5557, 340, 9, 28, "Input"],
+Cell[168068, 5568, 1467, 48, 80, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[169509, 5620, 128, 2, 44, "Subsection"],
-Cell[169640, 5624, 2100, 67, 188, "Text",
+Cell[169596, 5623, 128, 2, 44, "Subsection"],
+Cell[169727, 5627, 2100, 67, 188, "Text",
  CellTags->"ProductIdentity::usage"],
 Cell[CellGroupData[{
-Cell[171765, 5695, 98, 1, 35, "Subsubsection"],
-Cell[171866, 5698, 93, 1, 30, "Text"]
+Cell[171852, 5698, 98, 1, 35, "Subsubsection"],
+Cell[171953, 5701, 93, 1, 30, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[171996, 5704, 148, 2, 29, "Subsubsection"],
-Cell[172147, 5708, 117, 1, 30, "Text"],
+Cell[172083, 5707, 148, 2, 29, "Subsubsection"],
+Cell[172234, 5711, 117, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[172289, 5713, 1114, 36, 80, "Input"],
-Cell[173406, 5751, 4535, 136, 92, "Output"],
-Cell[177944, 5889, 257, 7, 28, "Output"]
+Cell[172376, 5716, 1114, 36, 80, "Input"],
+Cell[173493, 5754, 4535, 136, 92, "Output"],
+Cell[178031, 5892, 257, 7, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[178262, 5903, 110, 1, 44, "Subsection"],
-Cell[178375, 5906, 3385, 95, 208, "Text",
+Cell[178349, 5906, 110, 1, 44, "Subsection"],
+Cell[178462, 5909, 3385, 95, 208, "Text",
  CellTags->"BasisMatrix::usage"],
-Cell[181763, 6003, 1482, 45, 110, "Text",
+Cell[181850, 6006, 1482, 45, 110, "Text",
  CellTags->"BasisTransformation::usage"],
 Cell[CellGroupData[{
-Cell[183270, 6052, 101, 1, 35, "Subsubsection"],
-Cell[183374, 6055, 272, 5, 49, "Text"],
+Cell[183357, 6055, 101, 1, 35, "Subsubsection"],
+Cell[183461, 6058, 272, 5, 49, "Text"],
 Cell[CellGroupData[{
-Cell[183671, 6064, 218, 5, 28, "Input"],
-Cell[183892, 6071, 1133, 38, 132, "Output"]
+Cell[183758, 6067, 218, 5, 28, "Input"],
+Cell[183979, 6074, 1133, 38, 132, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[185062, 6114, 316, 7, 28, "Input"],
-Cell[185381, 6123, 269, 8, 37, "Output"]
+Cell[185149, 6117, 316, 7, 28, "Input"],
+Cell[185468, 6126, 269, 8, 37, "Output"]
 }, Open  ]],
-Cell[185665, 6134, 139, 1, 30, "Text"],
+Cell[185752, 6137, 139, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[185829, 6139, 243, 6, 28, "Input"],
-Cell[186075, 6147, 6445, 150, 424, "Output"]
+Cell[185916, 6142, 243, 6, 28, "Input"],
+Cell[186162, 6150, 6445, 150, 424, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[192557, 6302, 296, 8, 28, "Input"],
-Cell[192856, 6312, 663, 19, 46, "Output"]
+Cell[192644, 6305, 296, 8, 28, "Input"],
+Cell[192943, 6315, 663, 19, 46, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[193568, 6337, 153, 2, 29, "Subsubsection"],
-Cell[193724, 6341, 217, 4, 30, "Text"],
+Cell[193655, 6340, 153, 2, 29, "Subsubsection"],
+Cell[193811, 6344, 217, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[193966, 6349, 275, 6, 28, "Input"],
-Cell[194244, 6357, 271, 8, 37, "Output"]
+Cell[194053, 6352, 275, 6, 28, "Input"],
+Cell[194331, 6360, 271, 8, 37, "Output"]
 }, Open  ]],
-Cell[194530, 6368, 141, 1, 30, "Text"],
+Cell[194617, 6371, 141, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[194696, 6373, 221, 5, 28, "Input"],
-Cell[194920, 6380, 245, 8, 37, "Output"]
+Cell[194783, 6376, 221, 5, 28, "Input"],
+Cell[195007, 6383, 245, 8, 37, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]

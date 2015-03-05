@@ -170,7 +170,7 @@ BasisMatrix::dims = "Dimensions of input system must be specified.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices and Operations*)
 
 
@@ -186,15 +186,20 @@ UnitArray[dims_List,ind_List,SparseArray]:=
 UnitArray[dims_List,ind_List]:=Normal@UnitArray[dims,ind,SparseArray]
 
 
+CircleTimes[first_?NumericQ,rest___]:=first*CircleTimes[rest]
 CircleTimes[first_?ArrayQ]:=first
 CircleTimes[first_?VectorQ,last_?VectorQ]:=Flatten[KroneckerProduct[first,last]]
 CircleTimes[first_?VectorQ,last_?ArrayQ]:=KroneckerProduct[Partition[first,1],last]
+CircleTimes[first_?ArrayQ,last_?NumericQ]:=last*first
 CircleTimes[first_?ArrayQ,last_?VectorQ]:=KroneckerProduct[first,Partition[last,1]]
 CircleTimes[first_?ArrayQ,last_?ArrayQ]:=KroneckerProduct[first,last]
-CircleTimes[first_?ArrayQ,rest__?ArrayQ]:=CircleTimes[CircleTimes[first,First[{rest}]],Sequence@@Rest[{rest}]]
+CircleTimes[first_?ArrayQ,last_Rule]:=CircleTimes[first,CircleTimes[last]]
+CircleTimes[first_?ArrayQ,rest__]:=CircleTimes[CircleTimes[first,First[{rest}]],Sequence@@Rest[{rest}]]
+CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
 
 
-CircleTimes[A_?ArrayQ,n_Integer]:=CircleTimes@@ConstantArray[A,n];
+(*CircleTimes[A_?ArrayQ,n_Integer]:=CircleTimes@@ConstantArray[A,n];*)
+CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
 
 
 ArrayPermutations[arrayNums__]:=
@@ -249,7 +254,7 @@ SwapMatrix[d_Integer,perm_List,SparseArray]:=SwapMatrix[ConstantArray[d,Length[p
 SwapMatrix[d_Integer,perm_List]:= Normal@SwapMatrix[d,perm,SparseArray]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix-Tensor Manipulations*)
 
 
