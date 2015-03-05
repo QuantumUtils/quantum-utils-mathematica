@@ -35,11 +35,42 @@ BeginPackage["GRAPE`"];
 
 Needs["UnitTesting`"];
 Needs["QUOptions`"];
+Needs["DocTools`"];
 Needs["QSim`"];
 
 
-(* ::Section::Closed:: *)
+$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "GRAPE.nb"}]];
+
+
+(* ::Section:: *)
 (*Usage Declaration*)
+
+
+(* ::Subsection:: *)
+(*Options*)
+
+
+Unprotect[
+	Repetitions,ParameterDistribution,DistortionOperator,ForceDistortionDependence,
+	PulsePenalty,DerivativeMask,PostIterationFunction,PulseLegalizer,
+	ControlLimitPolicy,MonitorFunction,InitialStepSize,MinimumStepSize,
+	LineSearchMethod,MinimumImprovement,MinimumIterations,MaximumIterations,
+	SkipChecks,VerboseAscent,
+	Ignore,ProjectGradient
+];
+
+
+AssignUsage[
+	{
+		Repetitions,ParameterDistribution,DistortionOperator,ForceDistortionDependence,
+		PulsePenalty,DerivativeMask,PostIterationFunction,PulseLegalizer,
+		ControlLimitPolicy,MonitorFunction,InitialStepSize,MinimumStepSize,
+		LineSearchMethod,MinimumImprovement,MinimumIterations,MaximumIterations,
+		SkipChecks,VerboseAscent,
+		Ignore,ProjectGradient
+	},
+	$Usages
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -59,7 +90,7 @@ LegalisePulse::usage = "LegalisePulse[pulse,\[Epsilon]Range] limits the power of
 NormalizePulse::usage = "NormalizePulse[pulse,\[Epsilon]Range] scales and translates the pulse amplitues to the interval [0,1].";
 
 
-FidelityProgressBar::usage = "FidelityProgressBar[GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] displays a graphical progress bar showing the current fidelity. The default value of GMonitorFunction.";
+FidelityProgressBar::usage = "FidelityProgressBar[GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] displays a graphical progress bar showing the current fidelity. The default value of MonitorFunction.";
 HistogramProgressBar::usage = "HistogramProgressBar[GRAPE,GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton]";
 PulsePlotMonitorFunction::usage = "PulsePlotMonitorFunction[GRAPE,GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] draws a quick plot of the control amplitudes.";
 
@@ -79,12 +110,12 @@ Options[GenerateAnnealedPulse] = {
 
 Options[GenerateRingdownCompensatedPulse] = {
 	GControlTransformationMatrix -> Automatic,
-	GDistortion -> IdentityDistortion[]
+	DistortionOperator -> IdentityDistortion[]
 };
 
 
 Options[PlotInitialPulse] = {
-	GDistortion->Automatic
+	DistortionOperator->Automatic
 };
 
 
@@ -110,38 +141,6 @@ Options[InterpolatedLineSearch] = {
 	GMinStepMul -> 0.1,
 	GMaxStepMul -> 4
 }
-
-
-(* ::Subsection::Closed:: *)
-(*Options*)
-
-
-GRAPEOptions::usage = "GRAPEOptions is a dummy function to store GRAPE related options.";
-
-
-GStepSize::usage = "GStepSize is a GRAPE option which quantifies the initial value of how far one should go in the steepest accent direction. Default value is 10^-3.";
-GMinStepSize::usage = "GMinStepSize is a GRAPE option which provides the GStepSize exit criterion. Default value is 10^-8.";
-GImproveCheck::usage = "GImproveCheck is a GRAPE option which specifies how much the objective needs to improve by in a running average in order not to exit the algorithm. Default value is 10^-10.";
-GMonitorFunction::usage = "GMonitorFuncton is a GRAPE option specifying which function should be called to monitor the algorithm. This function should take the following arguments: GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton. This option can also be set to Off, in which case a trivial monitor function is used.";
-GRepeatNumber::usage = "GRepeatNumber is a GRAPE option that specifies how many different initial conditions should be tried. Default is 1.";
-GSkipChecks::usage = "GSkipChecks is a GRAPE option that, when set to True, skips all of the preliminary consistency checks in the GRAPE code. This will speed things up very slightly. Default is False.";
-GVerbose::usage = "GVerbose is a GRAPE option which can be set to True or False, and determines whether to print diagnostic information at every step. The default value is False.";
-GDistortion::usage = "GDistortion is a GRAPE option that specifies how a pulse is distorted. It should be a function of the form Distortion[inputPulse, returnJacobian], returning just the distorted pulse if returnJacobian is False, and a tuple of the form {distortedPulse, jacobian} if returnJacobian is True. A the input and output pulses should be of the form {{t1,a11,..,a1K},{t2,a21,...,a2K},...,{tN,aN1,...,ANK}} where K and N don't have to be equal for the input and output pulses. Set to None for the identity distortion.";
-GPulsePenalty::usage = "GPulsePenalty is a GRAPE option that which specifies a penalty to subtract from the objective function. Similar to GDistortion, it should be a function of the form Penalty[pulse, returnGradient] which returns a real number when returnGradient is False, and a tuple {cost, gradient} when returnGradient is True. Set to None to use the zero distortion.";
-GDistribution::usage = "GDistribution is a GRAPE option which is a function DistributionFunction which takes a single argument cost (between 0 and 1) and returns a pair of the form {ps, {rep1,rep2,...,repN}} where ps={p1,p2,...,pN} and repn={symbol1->valuen1,symbol2->valuen2,...} such that the ps are positive and sum to unity. Each iteration of GRAPE DistributionFunction[cost] is called and the objective function (and hence too the gradient function) becomes a convex combination over the N replacement rules with respective weights from ps. The replacement rules are applied to all of: the pulse after distortion, the penalty, the internal Hamiltonian, the control Hamiltonians, and the target. This format of GDistribution was chosen so that both deterministic and non-deterministic distributions can be used. The cost is an input to the function just in case you want the distribution to vary with the current cost.";
-GForceDistortionDependence::usage = "GForceDistortionDependence is a GRAPE option of Boolean type which, if True, indicates that the distortion depends on the distribution symbols specified in GDistribution. Normally, dependence is checked automatically, but this can fail in some pathological cases; GForceDistortionDependence \[Rule] True overrides automatic detection in these cases. If False, no checking is performed. Default is Automatic.";
-GLineSearchMethod::usage = "GLineSearchMethod specifies a callable function that performs the line search once a good direction has been found.";
-GControlLimitPolicy::usage = "GControlLimitPolicy specifies what should be done when a control value is at the boundary after legalizing. By default, nothing is done, but this can cause successive \[Beta] resets.";
-GMinIters::usage = "GControlLimitPolicy specifies a number of minimum iterations to be performed before accepting a target fidelity. This is mainly useful for broadening distributions, to make sure that some improvement is made with every broadening, even if the initial guess is \"good\".";
-GMaxIters::usage = "The maximum number of iterations to take before giving up.";
-GPostIterationFunction::usage = "This funciton is called on the pulse immediately after the old pulse has been updated with the step size multiplied by the stepping direction. The pulse is changed to the output value of this function.";
-GShowFidelity::usage = "GShowFidelity is an option for pulse plotting functions that controls whether or not fidelity information is printed.";
-GDerivativeMask::usage = "GDerivativeMask is an array that is element-wise multiplied by the gradient array at each step.";
-GPulseLegaliser::usage = "GPulseLegaliser is a function accepting arguments GPulseLegaliser[pulse, \[Epsilon]Range] and returns a new pulse which is 'legalised'.";
-
-
-Ignore::usage = "Specifies that no action is to be taken when the control boundary is hit.";
-ProjectGradient::usage = "Specifies that the gradient for that iteration is to be projected to exclude the control step at the boundary.";
 
 
 (* ::Subsection::Closed:: *)
@@ -206,14 +205,14 @@ Options[VariableChangeDistortion]={
 (*Distributions*)
 
 
-GDistributionMean::usage = "GDistributionMean[gdistribution] returns a list of replacement rules at the mean of the distrubution (at objval=1).";
+ParameterDistributionMean::usage = "ParameterDistributionMean[ParameterDistribution] returns a list of replacement rules at the mean of the distrubution (at objval=1).";
 
 
-RandomSampleGDistribution::usage = "RandomSampleGDistribution[probDist_, symbols_, n_] returns a GDistribution based on the ProbabilityDistribution object probDist to be used with FindPulse. n is the number of random variates drawn each iteration of GRAPE. symbols can be a list of symbols or a single symbol.";
-MultiNormalGDistribution::usage = "MultiNormalGDistribution[\[Mu]_, \[CapitalSigma]_, symbols_, n_] passes a multinormal distribution to RandomSampleDistribution; see its documentation. \[CapitalSigma] can be a list of standard deviations, or the covariance matrix.";
-UniformGDistribution::usage = "UniformGDistribution[{{symb1min,symb1max},{symb2min,symb2max},...}, symbols_, n_] passes a uniform distribution to RandomSampleGDistribution; see its documentation. First argement can be a list of pairs, or just a pair in the case of a single symbol.";
-StaticGDistribution::usage = "StaticGDistribution[{p1,...,pn},{{symb1->val11,...,symbn->val1n},{symb1->val21,...,symbn->val2n},...}]";
-UniformStaticGDistribution::usage = "UniformStaticGDistribution[symb1->{mean1,width1,num1},symb2->{mean2,width2,num2}...] creates a GDistribiton over the specified hyperrectangle."
+RandomSampleParameterDistribution::usage = "RandomSampleParameterDistribution[probDist_, symbols_, n_] returns a ParameterDistribution based on the ProbabilityDistribution object probDist to be used with FindPulse. n is the number of random variates drawn each iteration of GRAPE. symbols can be a list of symbols or a single symbol.";
+MultiNormalParameterDistribution::usage = "MultiNormalParameterDistribution[\[Mu]_, \[CapitalSigma]_, symbols_, n_] passes a multinormal distribution to RandomSampleDistribution; see its documentation. \[CapitalSigma] can be a list of standard deviations, or the covariance matrix.";
+UniformParameterDistribution::usage = "UniformParameterDistribution[{{symb1min,symb1max},{symb2min,symb2max},...}, symbols_, n_] passes a uniform distribution to RandomSampleParameterDistribution; see its documentation. First argement can be a list of pairs, or just a pair in the case of a single symbol.";
+StaticParameterDistribution::usage = "StaticParameterDistribution[{p1,...,pn},{{symb1->val11,...,symbn->val1n},{symb1->val21,...,symbn->val2n},...}]";
+UniformStaticParameterDistribution::usage = "UniformStaticParameterDistribution[symb1->{mean1,width1,num1},symb2->{mean2,width2,num2}...] creates a GDistribiton over the specified hyperrectangle."
 
 
 (* ::Subsection::Closed:: *)
@@ -246,25 +245,28 @@ ObjectiveFunction::usage = "ObjectiveFunction[Ucalc,target]";
 CalculateDerivatives::usage = "CalculateDerivatives[Hint_,target_,timeSteps_,pulse_,fcontrol_,fcontrolDer_,Hcontrol_,PulseModifier_]";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulse and Output Formatting*)
 
 
 Pulse::usage = "Pulse is a Header which contains the output of FindPulse. Pulse is also a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
 TimeSteps::usage = "TimeSteps is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-ObjFunValue::usage = "ObjFunValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-PenaltyFunValue::usage = "PenaltyFunValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
-RawObjFunValue::usage = "ObjFunValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
+UtilityValue::usage = "UtilityValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
+PenaltyValue::usage = "PenaltyValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
+RawUtilityValue::usage = "UtilityValue is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
 Target::usage = "Target is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
 ControlHamiltonians::usage = "ControlHamiltonian is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
 InternalHamiltonian::usage = "Internalhamiltonian is a key of the Pulse object, eg. pulse = Pulse[key1->val1, key2->val2]. Fetch a value with the syntax pulse[key].";
 AmplitudeRange::usage = "Range of the amplitudes.";
 
 
+GShowFidelity::usage = "GShowFidelity is an option for pulse plotting functions that controls whether or not fidelity information is printed.";
+
+
 ToPulse::usage = "ToPulse[pulsemat] makes a Pulse object containing pulsemat[[All,1]] as the TimeSteps, pulsemat[[All,2;;-1]] and a few other default values.";
 
 
-SimForm::usage = "SimForm[Pulse[...],distort:True] takes the output from FindPulse and turns it into the format EvalPulse from NVSim wants, i.e., {pulse,Hcontrol} where pulse={{dt1,amp11,amp12,...,amp1k},{dt2,amp21,amp22,...,amp2k},...}. If distort is True (default value), GDistortion is applied to the pulse, otherwise it is not.";
+SimForm::usage = "SimForm[Pulse[...],distort:True] takes the output from FindPulse and turns it into the format EvalPulse from NVSim wants, i.e., {pulse,Hcontrol} where pulse={{dt1,amp11,amp12,...,amp1k},{dt2,amp21,amp22,...,amp2k},...}. If distort is True (default value), DistortionOperator is applied to the pulse, otherwise it is not.";
 
 
 RemovePulseHeader::usage = "RemovePulseHeader[pulse,header1,header2,...] returns a copy of pulse with the specifies headers removed. For example, RemovePulseHeader[pulse,TimeSteps] will return pulse, but without the TimeSteps.";
@@ -278,18 +280,18 @@ PulsePhaseRotate::usage = "PulsePhaseRotate[Pulse[...],\[Phi]] returns a new Pul
 PulsePhaseRamp::usage = "PulsePhaseShift[Pulse[...],\[Omega]] returns a new Pulse[...] where the whole pulse has been phase ramped by a ramp of slope 2\[Pi]*\[Omega]. The pulse is assumed to be in x,y coordinates.";
 
 
-PulsePlot::usage = "PulsePlot[Pulse[...], OptionsPattern[]] takes the output from FindPulse and plots the control amplitudes. The options are GDistortion (True or False, use the GDistortion or don't use it. Default is False.), Normalize (False or a real number by which to normalize. Default is False.), and PlotLabel (A list of subtitles. Default is {\"X\",\"Y\"}).";
+PulsePlot::usage = "PulsePlot[Pulse[...], OptionsPattern[]] takes the output from FindPulse and plots the control amplitudes. The options are DistortionOperator (True or False, use the DistortionOperator or don't use it. Default is False.), Normalize (False or a real number by which to normalize. Default is False.), and PlotLabel (A list of subtitles. Default is {\"X\",\"Y\"}).";
 PulseFourierPlot::usage = "PulseFourierPlot[Pulse[...], controlNames:{\"X\",\"Y\"}, normalization:2\[Pi]] takes the output from FindPulse and plots the control amplitudes in Fourier domain. The controlNames appear on the subtitle. ";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Grape*)
 
 
 FindPulse::usage = "FindPulse[initialGuess_,Utarget_,\[Phi]target_,\[Epsilon]Range_,Hcontrol_,Hint_,[Options]]";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Meta GRAPE*)
 
 
@@ -300,10 +302,10 @@ RobustnessPlot::usage = "RobustnessPlot[pulse_Pulse, sweepParams, constantParams
 
 
 LegendIsCell::usage = "LegendIsCell is an option for 2D RobustnessPlots which when True, makes the legend its own figure which is put into the grid just like another plot.";
-GDistortionSweep::usage = "GDistortionSweep is an option for RobustnessPlots which when True indicates that the distortion contains a robustness parameter which is being swept and therefore needs to be calculated each time on the inner loop. Default is False.";
+DistortionOperatorSweep::usage = "DistortionOperatorSweep is an option for RobustnessPlots which when True indicates that the distortion contains a robustness parameter which is being swept and therefore needs to be calculated each time on the inner loop. Default is False.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Exporters*)
 
 
@@ -341,13 +343,13 @@ FindPulse::badjacdim3 = "Error: Third dimension of your distortion Jacobian does
 FindPulse::badjacdim4 = "Error: Fourth dimension of your distortion Jacobian does not match number of control knobs (taken from length of \[Epsilon]range).";
 FindPulse::badpenalty = "Error: The penalty function did not return a real number for a penalty.";
 FindPulse::badpenaltygrad = "Error: The penalty function's gradient does not have the required shape.";
-FindPulse::baddistsum = "Warning: The probabilities in your GDistribution don't sum to 1. Proceeding anyways...";
+FindPulse::baddistsum = "Warning: The probabilities in your ParameterDistribution don't sum to 1. Proceeding anyways...";
 FindPulse::baddistreps = "Warning: Not all of your replacement rules assign numbers to all present symbols. Proceeding anyways...";
 FindPulse::baddistlength = "Error: The number of probabilities and replacement rules must be the same.";
 FindPulse::badderivmask = "Error: your derivative mask seems to have the wrong dimensions."
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -358,7 +360,7 @@ Begin["`Private`"];
 (*Utility Functions*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Initial guess functions*)
 
 
@@ -390,7 +392,7 @@ GaussianPulse[dt_,T_,area_,riseTime_]:=
 	];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Legalise and Normalize Pulse*)
 
 
@@ -516,25 +518,25 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 (*Options*)
 
 
-Options[GRAPEOptions]={
-	GStepSize->10^-3,
-	GMinStepSize->10^-8,
-	GImproveCheck->10^-10,
-	GMonitorFunction->FidelityProgressBar,
-	GRepeatNumber->1,
-	GSkipChecks->False,
-	GVerbose->False,
-	GDistortion->None,
-	GPulsePenalty->None,
-	GDistribution->None,
-	GForceDistortionDependence -> Automatic,
-	GLineSearchMethod -> QuadraticFitLineSearch[],
-	GControlLimitPolicy -> Ignore,
-	GMinIters -> 0,
-	GMaxIters -> \[Infinity],
-	GPostIterationFunction -> Identity,
-	GDerivativeMask -> None,
-	GPulseLegaliser -> LegalisePulse
+Options[FindPulse]={
+	InitialStepSize->10^-3,
+	MinimumStepSize->10^-8,
+	MinimumImprovement->10^-10,
+	MonitorFunction->FidelityProgressBar,
+	Repetitions->1,
+	SkipChecks->False,
+	VerboseAscent->False,
+	DistortionOperator->None,
+	PulsePenalty->None,
+	ParameterDistribution->None,
+	ForceDistortionDependence -> Automatic,
+	LineSearchMethod -> QuadraticFitLineSearch[],
+	ControlLimitPolicy -> Ignore,
+	MinimumIterations -> 0,
+	MaximumIterations -> \[Infinity],
+	PostIterationFunction -> Identity,
+	DerivativeMask -> None,
+	PulseLegalizer -> LegalisePulse
 };
 
 
@@ -995,7 +997,7 @@ CompositePulseDistortion[divisions_,sequence_]:=Module[{Distortion,symbols,indec
 (*Distributions*)
 
 
-GDistributionMean[gdist_]:=Module[{ps,reps,symbs,mean},
+ParameterDistributionMean[gdist_]:=Module[{ps,reps,symbs,mean},
 	{ps,reps}=gdist[1.0];
 	symbs=reps[[1,All,1]];
 	mean=Sum[Abs[ps[[n]]]*reps[[n,All,2]],{n,Length@ps}]/Total[Abs@ps];
@@ -1003,24 +1005,24 @@ GDistributionMean[gdist_]:=Module[{ps,reps,symbs,mean},
 ]
 
 
-RandomSampleGDistribution[probDist_,symbols_,n_]:=Module[{DistributionFunction,symb},
+RandomSampleParameterDistribution[probDist_,symbols_,n_]:=Module[{DistributionFunction,symb},
 	symb=If[Head@symbols===List,symbols,{symbols}];
 	DistributionFunction[cost_]:={ConstantArray[1./n,n], Thread[symbols->#]&/@RandomVariate[probDist, n]};
 	DistributionFunction
 ]
 
 
-MultiNormalGDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleGDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
-UniformGDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleGDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
+MultiNormalParameterDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleParameterDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
+UniformParameterDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleParameterDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
 
 
-StaticGDistribution[probs_,reps_]:=Module[{DistributionFunction},
+StaticParameterDistribution[probs_,reps_]:=Module[{DistributionFunction},
 	DistributionFunction[cost_]={probs,reps};
 	DistributionFunction
 ]
 
 
-UniformStaticGDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
+UniformStaticParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
 	symbols={rules}[[All,1]];
 	means={rules}[[All,2,1]];
 	widths={rules}[[All,2,2]];
@@ -1036,7 +1038,7 @@ UniformStaticGDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,value
 		1
 	];
 	values = Flatten[Outer[List,Sequence@@values,1], Length[values]-1];
-	Evaluate[StaticGDistribution[
+	Evaluate[StaticParameterDistribution[
 		ConstantArray[1/Length[values],Length[values]],
 		values
 	][1]]&
@@ -1222,7 +1224,7 @@ CalculateDerivatives[pulse_,Hint_,Hcontrol_,target_GCoherentSubspaces]:=
 	];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulse and Output Formatting*)
 
 
@@ -1240,9 +1242,9 @@ Pulse/:Pulse[args___][key_]:=Association[args][key]
 ToPulse[pulsemat_]:=Pulse[
 	TimeSteps -> pulsemat[[All,1]],
 	Pulse -> pulsemat[[All,2;;]],
-	ObjFunValue -> None,
-	GDistribution -> ({{1}, {{}}}&),
-	GDistortion -> IdentityDistortion[]
+	UtilityValue -> None,
+	ParameterDistribution -> ({{1}, {{}}}&),
+	DistortionOperator -> IdentityDistortion[]
 ]
 
 
@@ -1251,7 +1253,7 @@ SimForm[pulse_Pulse, distort_:True]:=
 		p=pulse[Pulse];
 		If[Length@Dimensions@p==1,p=List/@p];
 		p=AddTimeSteps[pulse[TimeSteps], p];
-		If[distort, p = pulse[GDistortion][p, False]];
+		If[distort, p = pulse[DistortionOperator][p, False]];
 		{p, Hc}
 	]
 
@@ -1301,7 +1303,7 @@ InheritOptions[PulsePlot,{ListPlot},
 {
 	PlotLabel->{"X","Y"},
 	Normalize->False,
-	GDistortion->False,
+	DistortionOperator->False,
 	GShowFidelity -> True
 }
 ];
@@ -1309,9 +1311,9 @@ InheritOptions[PulsePlot,{ListPlot},
 
 PulsePlotLabel[pulse_, opt : OptionsPattern[PulsePlot]] := With[
 	{
-		fid = pulse @ ObjFunValue,
+		fid = pulse @ UtilityValue,
 		controlNames = OptionValue[PlotLabel],
-		pen = pulse @ PenaltyFunValue
+		pen = pulse @ PenaltyValue
 	}, With[{
 		showFidelity = OptionValue[GShowFidelity] \[And] \[Not](fid === None)
 	},
@@ -1325,7 +1327,7 @@ PulsePlotLabel[pulse_, opt : OptionsPattern[PulsePlot]] := With[
 	]];
 
 
-PulsePlot[pulse_, opt : OptionsPattern[]]:=If[Not@OptionValue@GDistortion,
+PulsePlot[pulse_, opt : OptionsPattern[]]:=If[Not@OptionValue@DistortionOperator,
 	Module[{data=pulse[Pulse],dt=pulse[TimeSteps],t,normalization,range},
 		normalization=If[OptionValue[Normalize]===False,1,OptionValue[Normalize]];
 		t=Prepend[Accumulate[dt],0];
@@ -1337,13 +1339,13 @@ PulsePlot[pulse_, opt : OptionsPattern[]]:=If[Not@OptionValue@GDistortion,
 		]]
 	],
 	Module[{reps,ppulse,data,dt,ddt,ddata,t,subt,normalization,range,drange},
-		reps=GDistributionMean[pulse@GDistribution];
+		reps=ParameterDistributionMean[pulse@ParameterDistribution];
 		ppulse=pulse/.reps;
 		
 		data=ppulse@Pulse;
 		dt=ppulse@TimeSteps;
 		normalization=If[OptionValue[Normalize]===False,1,OptionValue[Normalize]];
-		{ddt,ddata} = SplitPulse[ppulse[GDistortion][AddTimeSteps[dt, data], False]];
+		{ddt,ddata} = SplitPulse[ppulse[DistortionOperator][AddTimeSteps[dt, data], False]];
 		AppendTo[data, ConstantArray[0, Last@Dimensions@data]];
 		AppendTo[ddata, ConstantArray[0, Last@Dimensions@data]];
 		t=Prepend[Accumulate[dt],0];
@@ -1387,7 +1389,7 @@ PulsePlot[pulse_, opt : OptionsPattern[]]:=If[Not@OptionValue@GDistortion,
 PulseFourierPlot[pulse_,controlNames_:{"X","Y"},normalization_:(2*\[Pi]),freqSpace_:False]:=
 	Module[{fid=ObjectiveFunction@pulse,data=Pulse@pulse,dt=First@TimeSteps@pulse,T,len},
 		If[freqSpace,
-			data=GDistortion[pulse][AddTimeSteps[TimeSteps@pulse,data],False];
+			data=DistortionOperator[pulse][AddTimeSteps[TimeSteps@pulse,data],False];
 			len=Length[data];
 			T=dt*len;
 			DiscreteFourierPlot[data[[All,2]]-I*data[[All,3]],{0,T},{Re,Im},Joined->True,PlotRange->All,ImageSize->500]
@@ -1405,7 +1407,7 @@ PulseFourierPlot[pulse_,controlNames_:{"X","Y"},normalization_:(2*\[Pi]),freqSpa
 
 PulseFourierPlot[pulse_,\[Omega]LO_,\[Omega]lowpass_]:=Module[
 {x,y,data,dt,len,T,\[Omega]max,d\[Omega],fun,t,box,Fs,samples,xfun,yfun,s,ts},
-data=GDistortion[pulse][AddTimeSteps[TimeSteps@pulse,Pulse@pulse],False];
+data=DistortionOperator[pulse][AddTimeSteps[TimeSteps@pulse,Pulse@pulse],False];
 dt=data[[1,1]];x=data[[All,2]];y=data[[All,3]];
 len=Length@data;T=len*dt;
 Fs=20*\[Omega]LO;
@@ -1425,15 +1427,12 @@ DiscreteFourierPlot[s,{-T/2,3T/2},Abs,Joined->True,PlotRange->{{\[Omega]LO-\[Ome
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Implementations*)
 
 
 (* ::Text:: *)
 (*Actual GRAPE. This code has a long history...as far as I know, Colm Ryan wrote it's first version in MATLAB, probably around 2007, which was subsequently improved and modified by Troy Borneman. This was then ported to Mathematica by Holger Haas, and then packaged and improved by Ian Hincks.*)
-
-
-Options[FindPulse]=Options[GRAPEOptions];
 
 
 SetAttributes[FindPulse,HoldFirst];
@@ -1475,19 +1474,19 @@ Module[
 		(* Separate out the raw utility for richer monitoring. *)
 		rawUtility,
 
-		lineSearchMeth = OptionValue[GLineSearchMethod],
+		lineSearchMeth = OptionValue[LineSearchMethod],
 
-		gradientMask, badControlPolicy = OptionValue[GControlLimitPolicy],
+		gradientMask, badControlPolicy = OptionValue[ControlLimitPolicy],
 
-		minIters = OptionValue[GMinIters],
-		maxIters = OptionValue[GMaxIters],
+		minIters = OptionValue[MinimumIterations],
+		maxIters = OptionValue[MaximumIterations],
 
-		postIterFcn = OptionValue[GPostIterationFunction]
+		postIterFcn = OptionValue[PostIterationFunction]
 	},
 	
 	(* initialize the options that are static *)
-	minStepSize=OptionValue[GMinStepSize];
-	improveChk=OptionValue[GImproveCheck];
+	minStepSize=OptionValue[MinimumStepSize];
+	improveChk=OptionValue[MinimumImprovement];
 	\[Epsilon]max=Abs[Subtract@@@\[Epsilon]Range];
 
 	(* Populate the Default values *)
@@ -1495,37 +1494,37 @@ Module[
 	numControlHams=Length[Hcontrol];
 	
 	(* Figure out the distortion, penalty, and distribution objects *)
-	If[OptionValue[GDistortion]=!=None,
-		DistortionFn = OptionValue[GDistortion];,
+	If[OptionValue[DistortionOperator]=!=None,
+		DistortionFn = OptionValue[DistortionOperator];,
 		DistortionFn = IdentityDistortion[];
 	];
-	If[OptionValue[GPulsePenalty]=!=None,
-		PulsePenaltyFn = OptionValue[GPulsePenalty];,
+	If[OptionValue[PulsePenalty]=!=None,
+		PulsePenaltyFn = OptionValue[PulsePenalty];,
 		PulsePenaltyFn = ZeroPenalty[];
 	];
-	If[OptionValue[GDistribution]=!=None,
-		DistributionFunction = OptionValue[GDistribution];,
+	If[OptionValue[ParameterDistribution]=!=None,
+		DistributionFunction = OptionValue[ParameterDistribution];,
 		(* With probability 1 make no replacements *)
 		DistributionFunction = {{1}, {{}}}&;
 	];
-	If[OptionValue[GDerivativeMask]=!=None,
-		derivMask=OptionValue[GDerivativeMask];,
+	If[OptionValue[DerivativeMask]=!=None,
+		derivMask=OptionValue[DerivativeMask];,
 		derivMask=1;
 	];
 
 	(* Optionally check if the distribution affects the distortions. *)
-	If[OptionValue[GForceDistortionDependence] === Automatic,
+	If[OptionValue[ForceDistortionDependence] === Automatic,
 		distortionDependsOnDist = \[Not]And@@(FreeQ[DistortionFn, #]&/@DistributionFunction[1][[2,1,All,1]]),
 		(* If we are given an explicit value instead of Automatic, use that. *)
-		distortionDependsOnDist = OptionValue[GForceDistortionDependence]
+		distortionDependsOnDist = OptionValue[ForceDistortionDependence]
 	];
 
 	(* Do some dimension checking to avoid a few headaches *)
-	If[Not[OptionValue[GSkipChecks]],
+	If[Not[OptionValue[SkipChecks]],
 		(* Check various dimensions for consistency. *)
 		If[Length[Dimensions[\[Epsilon]Range]]=!=2,          Message[FindPulse::badrange];Return[$Failed];];
 
-		(* GDistribution consistency checks *)
+		(* ParameterDistribution consistency checks *)
 		Module[{distPs, distReps, distNum},
 			{distPs, distReps} = DistributionFunction[0];
 			If[Length@distPs =!= Length@distReps, Message[FindPulse::baddistlength];Return[$Failed]];
@@ -1578,7 +1577,7 @@ Module[
 
 
 	(* Sometimes we don't want the monitor function at all, like when we are running FindPulse inside of a Parallel function *)
-	MonitorFun=OptionValue[GMonitorFunction];
+	MonitorFun=OptionValue[MonitorFunction];
 	If[MonitorFun===Off,
 		MonitorFun=Function[{expr,somethingelse},expr];
 	];
@@ -1603,7 +1602,7 @@ Module[
 				gradientMask = ConstantArray[1, Dimensions[SplitPulse[pulse][[2]]]];
 
 				(* Make sure that the pulse does not exceed the limits *)
-				pulse=OptionValue[GPulseLegaliser][pulse,\[Epsilon]Range];
+				pulse=OptionValue[PulseLegalizer][pulse,\[Epsilon]Range];
 
 				(********************** CHOOSE A DIRECTION ***********************)
 
@@ -1667,7 +1666,7 @@ Module[
 				If[badControlPolicy =!= Ignore,
 					Module[{badControlIdxs, normp = NormalizePulse[pulse, \[Epsilon]Range]},
 						badControlIdxs = Position[normp, p_ /; \[Not](0 < p < 1)];
-						If[OptionValue[GVerbose] && Length[badControlIdxs] > 0,
+						If[OptionValue[VerboseAscent] && Length[badControlIdxs] > 0,
 							Print["Bad controls at:\t", badControlIdxs]
 						];
 						If[badControlPolicy === ProjectGradient,
@@ -1711,10 +1710,10 @@ Module[
 						exitMessage="Maximum iterations reached; exiting.";,
 					stepSize<minStepSize,
 						optFlag=False;
-						exitMessage="The step size dropped below the minimum allowable step size specified by GMinStepSize.";,
+						exitMessage="The step size dropped below the minimum allowable step size specified by MinimumStepSize.";,
 					Not[improveFlag],
 						optFlag=False;
-						exitMessage="The average improvement over 5 iterations was less than GImproveCheck.";,
+						exitMessage="The average improvement over 5 iterations was less than MinimumImprovement.";,
 					betaResetCt>9,
 						optFlag=False;
 						exitMessage="Reset beta (conjugate direction) too many times. The pulse is probably hitting the power limits excessively.";,
@@ -1759,8 +1758,8 @@ Module[
 				oldGradient=gradient;
 				oldDirec=goodDirec;
 
-				(* Print gradient ascent information if GVerbose is on *)
-				If[OptionValue[GVerbose],
+				(* Print gradient ascent information if VerboseAscent is on *)
+				If[OptionValue[VerboseAscent],
 					toc=AbsoluteTime[]-tic;
 					verboseFields={iterCt,rawUtility,penalty,improvement,stepSize,bestMult,betaResetCt,1000*toc};
 					Print[Row[Table[Row[{verboseFields[[n]]},ImageSize->verboseWidths[[n]]],{n,Length[verboseFields]}]]];
@@ -1770,7 +1769,7 @@ Module[
 	);
 	(* End of GRAPE algorithm *)
 
-	(* With the GRepeatNumber, we want to return best pulse found, even if it didn't meet the desired fidelity *)
+	(* With the Repetitions, we want to return best pulse found, even if it didn't meet the desired fidelity *)
 	overallBestCost = 0;
 	penaltyOfBest = 0;
 	overallBestPulse = ConstantArray[0,{10,numControlKnobs}];
@@ -1779,7 +1778,7 @@ Module[
 	(* Now define the GRAPE wrapper algorithm, which deals with the repeat number*)
 	repeatCounter=1;
 	GRAPEWrapper := (
-		While[repeatCounter<=OptionValue[GRepeatNumber]&&(cost<\[Phi]target)&&(Not[abortButton===True]),
+		While[repeatCounter<=OptionValue[Repetitions]&&(cost<\[Phi]target)&&(Not[abortButton===True]),
 			repeatCounter++;
 
 			(* Pluck an initial guess. *)
@@ -1788,7 +1787,7 @@ Module[
 			(* initialize non-static variables *)
 			oldPulse=pulse;
 			bestPulse=pulse;
-			stepSize=OptionValue[GStepSize];
+			stepSize=OptionValue[InitialStepSize];
 			oldCost=0.;
 			improveAvg=0.;
 			improveFlag=True;
@@ -1800,7 +1799,7 @@ Module[
 			optFlag=True;
 
 		(* Print the column headers if we are in verbose mode. *)
-		If[OptionValue[GVerbose],
+		If[OptionValue[VerboseAscent],
 			verboseWidths={40,100,100,100,100,100,100,100};
 			verboseFields={"#","rawUtility","penalty","improvement","stepSize","bestMult","betaResetCt","toc (ms)"};
 			Print[Row[Table[Row[{verboseFields[[n]]},ImageSize->verboseWidths[[n]]],{n,Length[verboseFields]}]]];
@@ -1831,26 +1830,24 @@ Module[
 	MonitorFun[GRAPEWrapper, pulse, overallBestPulse, overallBestCost, {rawUtility, cost}, \[Epsilon]Range, costList, abortButton];
 
 	(* Print the error message if the algorithm failed *)
-	If[OptionValue[GVerbose](*||cost<\[Phi]target*),Print[exitMessage]];
+	If[OptionValue[VerboseAscent](*||cost<\[Phi]target*),Print[exitMessage]];
 
 	(* Return the best pulse we found along with other information to the desired output format function *)
 	Pulse[
-		ObjFunValue -> overallBestCost,
-		PenaltyFunValue -> penaltyOfBest,
+		UtilityValue -> overallBestCost,
+		PenaltyValue -> penaltyOfBest,
 		TimeSteps -> First@SplitPulse@overallBestPulse,
 		Pulse -> Last@SplitPulse@overallBestPulse,
 		Target -> target,
 		ControlHamiltonians -> Hcontrol,
 		InternalHamiltonian -> Hint,
-		GDistortion -> DistortionFn,
-		GPulsePenalty -> PulsePenaltyFn,
-		GDistribution -> DistributionFunction,
-		AmplitudeRange -> \[Epsilon]Range
+		DistortionOperator -> DistortionFn,
+		PulsePenalty -> PulsePenaltyFn,
+		ParameterDistribution -> DistributionFunction,
+		AmplitudeRange -> \[Epsilon]Range,
+		ExitMessage -> exitMessage
 	]
 ]
-
-
-Association
 
 
 (* ::Subsection::Closed:: *)
@@ -1925,7 +1922,7 @@ Options[RobustnessPlot]=DeleteDuplicates@Join[
 		Grid->Automatic,
 		LegendIsCell->True,
 		Alignment->Center,
-		GDistortionSweep->False
+		DistortionOperatorSweep->False
 	}
 ];
 
@@ -1940,8 +1937,8 @@ RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:Optio
 
 		data=Table[
 			Hint = pulse@InternalHamiltonian;
-			If[Not[OptionValue[GDistortionSweep]],
-				simpulse = SimForm[ReplacePulseHeader[pulse,GDistortion,pulse@GDistortion/.constantParams], True];
+			If[Not[OptionValue[DistortionOperatorSweep]],
+				simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.constantParams], True];
 			];
 			target = pulse@Target;
 
@@ -1950,8 +1947,8 @@ RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:Optio
 
 			data = Table[
 				With[{reps=Prepend[constantParams, xSymbol->x]},
-					If[OptionValue[GDistortionSweep],
-						simpulse = SimForm[ReplacePulseHeader[pulse,GDistortion,pulse@GDistortion/.reps], True];
+					If[OptionValue[DistortionOperatorSweep],
+						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
 					{x, Fcn@ObjectiveFunction[
 						Last@Unitaries@EvalPulse[
@@ -1995,15 +1992,15 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 		data=Table[
 			pulse=pulseList[[d]];
 			Hint = pulse@InternalHamiltonian;
-			If[Not[OptionValue[GDistortionSweep]],
-				simpulse = SimForm[ReplacePulseHeader[pulse,GDistortion,pulse@GDistortion/.constantParams], True];
+			If[Not[OptionValue[DistortionOperatorSweep]],
+				simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.constantParams], True];
 			];
 			target = pulse@Target;
 
 			Table[
 				With[{reps=Join[{xSymbol->x, ySymbol->y}, constantParams]},
-					If[OptionValue[GDistortionSweep],
-						simpulse = SimForm[ReplacePulseHeader[pulse,GDistortion,pulse@GDistortion/.reps], True];
+					If[OptionValue[DistortionOperatorSweep],
+						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
 					Fcn@ObjectiveFunction[
 						Last@Unitaries@EvalPulse[
@@ -2101,7 +2098,7 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},spx,spy,cp,opt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Exporters*)
 
 

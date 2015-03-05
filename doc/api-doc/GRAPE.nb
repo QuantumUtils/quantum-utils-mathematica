@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     34260,        924]
-NotebookOptionsPosition[     32343,        857]
-NotebookOutlinePosition[     32677,        872]
-CellTagsIndexPosition[     32634,        869]
+NotebookDataLength[     78544,       2314]
+NotebookOptionsPosition[     66488,       1949]
+NotebookOutlinePosition[     72225,       2110]
+CellTagsIndexPosition[     70707,       2070]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -24,82 +24,23 @@ Cell["Preamble", "Section",
  CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
   3.633781248319159*^9, 3.633781249429679*^9}}],
 
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{"Needs", "[", "\"\<GRAPE`\>\"", "]"}], "\[IndentingNewLine]", 
- RowBox[{"Needs", "[", "\"\<QuantumUtils`\>\"", "]"}]}], "Input",
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<GRAPE`\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
   3.633369630403097*^9, 3.633369649792616*^9}, {3.633371974503627*^9, 
-  3.633371979509849*^9}, {3.633439263683157*^9, 3.6334392647382183`*^9}}],
+  3.633371979509849*^9}, {3.633439263683157*^9, 3.6334392647382183`*^9}, {
+  3.63448171195175*^9, 3.634481712372257*^9}}],
+
+Cell["\<\
+The following packages are needed to run some code found in this \
+documentation notebook.\
+\>", "Text",
+ CellChangeTimes->{{3.633781139005548*^9, 3.6337811426309013`*^9}}],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Attributes", "::", "attnf"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(HoldRestComplete\\)\[NoBreak] is not a \
-known attribute. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\
-\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/Attributes/attnf\\\", ButtonNote -> \
-\\\"Attributes::attnf\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.633372082187862*^9, 3.6333720906060667`*^9}, 
-   3.6333722735500507`*^9, 3.633372322904522*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"SetDelayed", "::", "write"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Tag \[NoBreak]\\!\\(NormalMatrixQ\\)\[NoBreak] in \
-\[NoBreak]\\!\\(NormalMatrixQ[M_]\\)\[NoBreak] is Protected. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/write\\\", \
-ButtonNote -> \\\"SetDelayed::write\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.633372082187862*^9, 3.6333720906060667`*^9}, 
-   3.6333722735500507`*^9, 3.633372322972872*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"SetDelayed", "::", "write"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Tag \[NoBreak]\\!\\(SquareMatrixQ\\)\[NoBreak] in \
-\[NoBreak]\\!\\(SquareMatrixQ[M_]\\)\[NoBreak] is Protected. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/write\\\", \
-ButtonNote -> \\\"SetDelayed::write\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.633372082187862*^9, 3.6333720906060667`*^9}, 
-   3.6333722735500507`*^9, 3.6333723230712767`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Get", "::", "noopen"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Cannot open \[NoBreak]\\!\\(\\\"Superoperator`\\\"\\)\
-\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
-ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
-\\\"Get::noopen\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.633372082187862*^9, 3.6333720906060667`*^9}, 
-   3.6333722735500507`*^9, 3.6333723231194983`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Needs", "::", "nocont"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Context \
-\[NoBreak]\\!\\(\\\"Superoperator`\\\"\\)\[NoBreak] was not created when \
-Needs was evaluated. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
-ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/Needs/nocont\\\", ButtonNote -> \
-\\\"Needs::nocont\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.633372082187862*^9, 3.6333720906060667`*^9}, 
-   3.6333722735500507`*^9, 3.633372323161949*^9}]
-}, Open  ]]
-}, Open  ]],
+ RowBox[{"Needs", "[", "\"\<Tensor`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.634314144340521*^9, 3.634314148861907*^9}}]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -107,549 +48,241 @@ Cell["Introduction and Overview", "Section",
  CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}}],
 
 Cell[TextData[{
- "QSim` is a general purpose quantum system time-evolution simulator whose \
-primary objective is ease of use. This is in keeping with one of ",
- StyleBox["Mathematica",
-  FontSlant->"Italic"],
- "\[CloseCurlyQuote]s main advantages over most other languages; rapid and \
-intuitive development of ideas with minimal overhead. A description of the \
-the quantum system, usually a Hamiltonian, and an action on that quantum \
-system are provided, and some observable, quantum state, propogator, etc. is \
-monitored as the system evolves. "
+ "This package contains an implementation of GRadient Ascent Pulse \
+Engineering (GRAPE) exposed as the function ",
+ StyleBox["FindPulse", "Input"],
+ "; a conjugate-gradient ascent algorithm for finding optimal control pulses \
+for quantum systems. It also contains a wealth of options and features \
+including:\n    \[Bullet] Optimization over arbitrary parameter distributions\
+\n    \[Bullet] Support for the discretized distortion operator framework\n   \
+ \[Bullet] Control utility function customization for state-to-state \
+transfers, unitary targets, superoperator targets, subspace targets, etc.\n   \
+ \[Bullet] Custom pulse penalties, derivative masks, and pulse legalizers\n   \
+ \[Bullet] Tools for producing publication quality pulse plots and robustness \
+plots\n    \[Bullet] Various export formats"
 }], "Text",
  CellChangeTimes->{{3.63336976465697*^9, 3.6333698346703863`*^9}, {
   3.633369866272846*^9, 3.633369887648974*^9}, {3.633369949703978*^9, 
   3.633369955653768*^9}, {3.633370004311841*^9, 3.633370006392604*^9}, {
   3.633370062385489*^9, 3.633370284437573*^9}, {3.633370463585658*^9, 
-  3.6333704707289658`*^9}}],
-
-Cell[TextData[{
- "As a quick example, the following computes the expectation value of X\
-\[CircleTimes]Y of the initial state |00\[RightAngleBracket] undergoing \
-evolution with the time-dependent Hamiltonian ",
- Cell[BoxData[
-  FormBox[
-   RowBox[{
-    RowBox[{"H", "(", "t", ")"}], "=", 
-    RowBox[{
-     RowBox[{
-      RowBox[{"cos", "(", "t", ")"}], 
-      RowBox[{"X", "\[CircleTimes]", "X"}]}], "+", 
-     RowBox[{
-      RowBox[{"sin", "(", "t", ")"}], 
-      RowBox[{"Y", "\[CircleTimes]", "Y"}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
- "."
-}], "Text",
- CellChangeTimes->{{3.633372742814391*^9, 3.6333727744476213`*^9}, {
-  3.633372805181459*^9, 3.633372857765842*^9}}],
+  3.6333704707289658`*^9}, {3.6344817728884087`*^9, 3.634481861576255*^9}, {
+  3.634481891879867*^9, 3.634482015550557*^9}, {3.634482047838583*^9, 
+  3.634482122061866*^9}, {3.634482155710588*^9, 3.634482272094702*^9}, {
+  3.634482321437049*^9, 3.634482375741543*^9}, {3.634482414132523*^9, 
+  3.63448243106884*^9}, {3.634483941546707*^9, 3.6344839442660923`*^9}, {
+  3.634484931716042*^9, 3.634484935728187*^9}, {3.6345010492991533`*^9, 
+  3.6345010631069813`*^9}}],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
- RowBox[{"ListPlot", "[", "\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{"Observables", "[", 
-    RowBox[{
-     RowBox[{"EvalPulse", "[", 
-      RowBox[{
-       RowBox[{
-        RowBox[{
-         RowBox[{
-          RowBox[{"Cos", "[", "#", "]"}], 
-          RowBox[{"X", "\[CircleTimes]", "X"}]}], "+", 
-         RowBox[{
-          RowBox[{"Sin", "[", "#", "]"}], 
-          RowBox[{"Y", "\[CircleTimes]", "Y"}]}]}], "&"}], ",", "4", ",", 
-       RowBox[{"PollingInterval", "\[Rule]", "0.1"}], ",", 
-       RowBox[{"InitialState", "\[Rule]", 
-        RowBox[{"Projector", "[", 
-         RowBox[{"{", 
-          RowBox[{"1", ",", "0", ",", "0", ",", "0"}], "}"}], "]"}]}], ",", 
-       RowBox[{"Observables", "\[Rule]", 
-        RowBox[{"{", 
-         RowBox[{"X", "\[CircleTimes]", "Y"}], "}"}]}]}], "]"}], ",", 
-     RowBox[{"TimeVector", "\[Rule]", "True"}]}], "]"}], ",", 
-   "\[IndentingNewLine]", 
-   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
-   RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
-   RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
-   "\[IndentingNewLine]", 
-   RowBox[{
-   "PlotLabel", "\[Rule]", "\"\<Expectation value of X\[CircleTimes]Y\>\""}], 
-   ",", 
-   RowBox[{"FrameLabel", "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{"\"\<time\>\"", ",", "None"}], "}"}]}]}], "\[IndentingNewLine]", 
-  "]"}]], "Input",
- CellChangeTimes->{{3.633371988065483*^9, 3.6333720701854362`*^9}, {
-  3.633372104294569*^9, 3.633372175515564*^9}, {3.633372338087254*^9, 
-  3.63337235155048*^9}, {3.633372390491395*^9, 3.633372427698889*^9}, {
-  3.633372559844575*^9, 3.6333727200679197`*^9}, {3.633372916631035*^9, 
-  3.6333729261829367`*^9}}],
+Cell["References", "Subsubsection",
+ CellChangeTimes->{{3.634498044285822*^9, 3.6344980452557173`*^9}}],
 
-Cell[BoxData[
- GraphicsBox[{{}, 
-   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.016666666666666666`], 
-    AbsoluteThickness[1.6], LineBox[CompressedData["
-1:eJxdUllMU0EULUvZKsUoCmhSRE2EiLhgQK3NHcDtw6itRmQLCKEGDVL0w8gS
-DdpAkFiWuqBRgxhD/EAUTDBghsUFkbJDFSX0QReE2qdsZa/te+OPN3mZvMyd
-c8499/glpkmS7TkcjtD62c7/yyiuFcjHX4H5UdGuhn2NmP1vhJwLiZrQ1E5M
-ZXhWHqZawU8zLEk6qSb3XRDA0/cORAxiKVP9YLj+JR/7UqR/AIa1m7NE/iM4
-VtE07R87BNwb0sgTzVryngJOnohymtfhAKZBC3TTI+2mPj3B0wP3h+vdmRgD
-fiYTuanLR0FGeRbklBgI/hjktz7hzWYbsK983Ir4C87EHyjMXGcgfDSYOsvq
-hMl6rGqz1W+YDU3g9kfqCP8faG7QR/LGRrAV3MowCW9Of158v2qY6JkC3gtD
-map4CB9hCKchT7rFp5U/QPTNgNjD3bxa2YMZerkZNHHpsiBxC9E7CyJTuBe4
-vMTNVjWKpjmo21BoSkqvAVb/PHxPCI+KCFQBu4VFWEyIln6Cr8DOswSCspqe
-3kENiBiBy3BQEv+44rgO2PkskBJ9fkC//ye556Cjdt4HdKlGYOfloJsbLm+V
-VJlIvx3aXVAx0fSdBnZ+O/Ruu/r22z4aMm1yMuxRVJag+L7SBKwfDkgZ153i
-7WeEB6W2ckBuJfPnLHdGgfXHEX3kz+X6CLRgQxPXOqK2or57p6hBYP3iouDR
-ZDtFaTcwcGouElYtTV0sqwPWPyfkWB9YXtH+Gs/Y7Jl2QpZNCRujSjqIn84o
-t/BuVtLSN8zI83RB8iuXap/KKeKvC9q/x7xon6zDwUy5IuOFeGmncpT47YrW
-esXs3eM9jiWMQDeUnR224+qCkeTHDYWvubNeJjbhdMZAHuo6VE/77KQxu48V
-6PmtqqCD1TRm7FOsQGH58cL7v2mSN3c07qzatmyhMSOv0h2d1TxzyJymMbsP
-PuqOCRHEUjTJHx+Zy/lx1R00yacH+jDJT3NtoUkePZDlWsHRENU//pXomGLh
-4UQ7jf8CsxrXrQ==
-     "]]}, {}},
-  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-  Axes->{False, False},
-  AxesLabel->{None, None},
-  AxesOrigin->{0, 0},
-  DisplayFunction->Identity,
-  Frame->{{True, True}, {True, True}},
-  FrameLabel->{{None, None}, {
-     FormBox["\"time\"", TraditionalForm], None}},
-  FrameStyle->Automatic,
-  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-  GridLines->{Automatic, Automatic},
-  GridLinesStyle->Directive[
-    GrayLevel[0.4, 0.5], 
-    AbsoluteThickness[1], 
-    AbsoluteDashing[{1, 2}]],
-  Method->{},
-  PlotLabel->FormBox[
-   "\"Expectation value of X\[CircleTimes]Y\"", TraditionalForm],
-  PlotRange->{{0, 4.}, {-0.9999991316365117, 0.9955763568326632}},
-  PlotRangeClipping->True,
-  PlotRangePadding->{{
-     Scaled[0.02], 
-     Scaled[0.02]}, {
-     Scaled[0.05], 
-     Scaled[0.05]}},
-  Ticks->{Automatic, Automatic}]], "Output",
- CellChangeTimes->{
-  3.63337233100599*^9, 3.633372430544815*^9, 3.63337256632266*^9, {
-   3.633372604081015*^9, 3.633372720348208*^9}, 3.633372926974234*^9}]
-}, Open  ]]
+Cell[TextData[{
+ StyleBox["GRAPE:",
+  FontWeight->"Bold"],
+ "\n\[Bullet] Khaneja, N., Reiss, T., Kehlet, C., \
+Schulte-Herbr\[UDoubleDot]ggen, T., Glaser, S.J., 2005. Optimal control of \
+coupled spin dynamics: design of NMR pulse sequences by gradient ascent \
+algorithms. Journal of Magnetic Resonance 172, 296\[Dash]305. \
+doi:10.1016/j.jmr.2004.11.004"
+}], "Text",
+ CellChangeTimes->{{3.634498087368287*^9, 3.6344981128204327`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Discrete Distortion Operators:\n\[Bullet] ",
+  FontWeight->"Bold"],
+ "http://arxiv.org/abs/1409.8178"
+}], "Text",
+ CellChangeTimes->{{3.634498117470344*^9, 3.634498145821396*^9}, 
+   3.634498176689002*^9}]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Single Pulse Evaluator", "Section",
+Cell["FindPulse", "Section",
  CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
-  3.633372936258585*^9, 3.6333729402331753`*^9}}],
+  3.633372936258585*^9, 3.6333729402331753`*^9}, {3.6344826279786577`*^9, 
+  3.634482629265338*^9}}],
 
 Cell[TextData[{
- "The workhorse of QSim` is ",
- StyleBox["EvalPulse", "Input"],
- ", which has two non-optional arguments, ",
- StyleBox["EvalPulse[H,p]", "Input"],
- ", where ",
- StyleBox["H", "Input"],
- " is a Hamiltonian and ",
- StyleBox["p", "Input"],
- " is an action, or \[OpenCurlyDoubleQuote]pulse\[CloseCurlyDoubleQuote]. \
-There are four types of \[OpenCurlyDoubleQuote]pulses\[CloseCurlyDoubleQuote] \
-that can be entered:"
+ StyleBox["FindPulse[", "Input"],
+ StyleBox["initialGuess", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["target", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["\[Phi]target", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["controlRange", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hcontrol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["Hint", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a ",
+ StyleBox["Pulse", "Input"],
+ " object containing the best control pulse found by the algorithm.\n\n",
+ StyleBox["Arguments",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet] ",
+ StyleBox["initialGuess", "Input"],
+ " specifies the initial guess for the gradient ascent, of the form ",
+ StyleBox["{{dt1,a11,a12,...},{dt2,a21,a22,...},{dt3,a31,a32},...}", 
+  "Input"],
+ " where the ",
+ StyleBox["dt", "Input"],
+ "\[CloseCurlyQuote]s are pulse lengths and the ",
+ StyleBox["a", "Input"],
+ "\[CloseCurlyQuote]s are input pulse amplitudes. ",
+ StyleBox["FindPulse", "Input"],
+ " has the ",
+ StyleBox["HoldFirst", "Input"],
+ " attribute. Therefore, changing initial initial guesses across repeat \
+attempts can be implemented with delayed evaluation of ",
+ StyleBox["initialGuess", "Input"],
+ ".\n\[Bullet] ",
+ StyleBox["target", "Input"],
+ " specifies the desired optimal target (e.g. final state or unitary) and \
+also indicates which utility function should be used.\n\[Bullet] ",
+ StyleBox["\[Phi]target", "Input"],
+ " specifes the desired utility function value (e.g. ",
+ StyleBox["0.99", "Input"],
+ " or ",
+ StyleBox["0.999", "Input"],
+ ")\n\[Bullet] ",
+ StyleBox["controlRange", "Input"],
+ " specifies the maximum and minumum allowed values for input control \
+amplitudes for each channel in the form ",
+ StyleBox["{{min1,max1},{min2,max2},...}", "Input"],
+ ". \n\[Bullet] ",
+ StyleBox["Hcontrol", "Input"],
+ " is a list of control Hamiltonians\n\[Bullet] ",
+ StyleBox["Hint", "Input"],
+ " is the internal Hamiltonian\n\n",
+ StyleBox["Return Format",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nSee the documentation for ",
+ StyleBox["Pulse", "Input"],
+ ".\n\n",
+ StyleBox["Exit Conditions",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nConjugate gradient ascent will be attempted a maximum number of times \
+given by the option ",
+ StyleBox["Repetitions", "Input"],
+ ", where the initial guess can change between repetitions. \nIf any solution \
+ever exceeds a utility function value of ",
+ StyleBox["\[Phi]target", "Input"],
+ ", no more repetitions will be attempted.\nIf the maximum number of \
+repetitions is attempted but the utility function value has never exceeded ",
+ StyleBox["\[Phi]target", "Input"],
+ ", the best solution found across repetitions will be returned.\nA \
+particular repetition exits from the conjugate gradient ascent algorithm if \
+any of the following become ",
+ StyleBox["True", "Input"],
+ ":\n\[Bullet] The utility function value exceeds ",
+ StyleBox["\[Phi]target\n", "Input"],
+ "\[Bullet] The number of iterations exceeds ",
+ StyleBox["MaximumIterations\n", "Input"],
+ "\[Bullet] The step size in the gradient direction drops below ",
+ StyleBox["MinimumStepSize", "Input"],
+ "\n\[Bullet] The average utility function improvement over 5 iterations \
+drops below ",
+ StyleBox["MinimumImprovement", "Input"],
+ "\n\[Bullet] The conjugate direction was reset more than 9 times. This \
+usually indicates the amplitudes need more range.\n\[Bullet] The user \
+triggered an abort from the ",
+ StyleBox["MonitorFunction", "Input"],
+ "\n\n",
+ StyleBox["Physical Options\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["ParameterDistribution", "Input"],
+ ", ",
+ StyleBox["DistortionOperator", "Input"],
+ ", ",
+ StyleBox["ForceDistortionDependence", "Input"],
+ ", ",
+ StyleBox["PulsePenalty", "Input"],
+ ", ",
+ StyleBox["DerivativeMask", "Input"],
+ ", ",
+ StyleBox["PostIterationFunction", "Input"],
+ ", ",
+ StyleBox["PulseLegalizer", "Input"],
+ ", ",
+ StyleBox["ControlLimitPolicy", "Input"],
+ StyleBox["\nGradient Ascent Options\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["Repetitions", "Input"],
+ StyleBox[", ",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["InitialStepSize", "Input"],
+ ", ",
+ StyleBox["MinimumStepSize", "Input"],
+ ", ",
+ StyleBox["LineSearchMethod", "Input"],
+ ", ",
+ StyleBox["MinimumImprovement", "Input"],
+ ", ",
+ StyleBox["MinimumIterations", "Input"],
+ ", ",
+ StyleBox["MaximumIterations", "Input"],
+ StyleBox["\nUtilitarian Options",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n",
+ StyleBox["MonitorFunction", "Input"],
+ ", ",
+ StyleBox["SkipChecks", "Input"],
+ ", ",
+ StyleBox["VerboseAscent", "Input"]
 }], "Text",
- CellChangeTimes->{{3.633370289650124*^9, 3.6333703393227043`*^9}, {
-  3.6333703783121557`*^9, 3.633370407425868*^9}, {3.633370514744876*^9, 
-  3.6333705467936068`*^9}}],
-
-Cell[BoxData[GridBox[{
-   {
-    StyleBox["Type", "Text",
-     FontWeight->"Bold"], 
-    StyleBox["Predicate", "Text",
-     FontWeight->"Bold"], 
-    StyleBox["Description", "Text",
-     FontWeight->"Bold"]},
-   {
-    StyleBox[
-     RowBox[{"Drift", " ", "pulse"}], "Text"], 
-    StyleBox["DriftPulseQ", "Input"], 
-    RowBox[{
-     StyleBox[
-      RowBox[{
-      "Evolution", " ", "under", " ", "the", " ", "Hamiltonian", " ", "for", 
-       " ", "some", " ", 
-       RowBox[{"time", ".", " ", "In"}], " ", "this", " ", "case"}], "Text"], 
-     
-     StyleBox[",", "Text"], 
-     StyleBox[" ", "Text"], 
-     RowBox[{
-      StyleBox["p", "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["is", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["just", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["equal", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["to", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["a", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["number", "Text"]}], 
-     StyleBox[",", "Text"], 
-     RowBox[{
-      StyleBox["or", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["a", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["Symbol", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["such", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["as", "Text"], 
-      StyleBox[" ", "Text"], 
-      RowBox[{
-       StyleBox["t", "Input"], 
-       StyleBox[".", "Text"]}]}]}]},
-   {
-    StyleBox[
-     RowBox[{"Shaped", " ", "pulse"}], "Text"], 
-    StyleBox["ShapedPulseQ", "Input"], 
-    RowBox[{
-     RowBox[{
-      RowBox[{
-       RowBox[{
-        StyleBox[
-         RowBox[{
-         "A", " ", "list", " ", "of", " ", "control", " ", "Hamiltonians"}], 
-         "Text"], 
-        StyleBox[",", "Text"], 
-        StyleBox[
-         RowBox[{"time", " ", "spacings"}], "Text"], 
-        StyleBox[",", "Text"], 
-        StyleBox[
-         RowBox[{"and", " ", "amplitudes", " ", "is", " ", "provided"}], 
-         "Text"], 
-        StyleBox[",", "Text"], 
-        StyleBox[" ", "Text"], 
-        StyleBox[
-         RowBox[{"and", " ", "everything", " ", "is", " ", 
-          RowBox[{"simulated", ".", " ", "In"}], " ", "this", " ", "case"}], 
-         "Text"], 
-        StyleBox[",", "Text"], 
-        StyleBox[" ", "Text"], 
-        StyleBox["\[IndentingNewLine]", "Text"], 
-        RowBox[{
-         StyleBox["p", "Input"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["is", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["of", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["the", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["form", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox[
-          RowBox[{"{", 
-           RowBox[{"pulse", ",", 
-            RowBox[{"{", 
-             RowBox[{"Hctl1", ",", "Hctl2", ",", "..."}], "}"}]}], "}"}], 
-          "Input"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["where", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["pulse", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["is", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["either", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["a", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["text", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["file", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox[
-          RowBox[{"(", 
-           RowBox[{"eg", ".", " ", "CVS"}], ")"}], "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["containing", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["the", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["shaped", "Text"], 
-         StyleBox[" ", "Text"], 
-         StyleBox["pulse", "Text"]}], 
-        StyleBox[",", "Text"], 
-        StyleBox[" ", "Text"], 
-        StyleBox[
-         RowBox[{"or", " ", "the"}], "Text"]}], 
-       StyleBox[" ", "Text"], 
-       StyleBox[
-        StyleBox["\[IndentingNewLine]", "Text",
-         Background->RGBColor[0.94, 0.88, 0.94]], "Text",
-        Background->RGBColor[0.94, 0.88, 0.94]], 
-       StyleBox[
-        RowBox[{"shaped", " ", "pulse", " ", 
-         RowBox[{"itself", ".", " ", "A"}], " ", "shaped", " ", "pulse", " ", 
-         "is", " ", "of", " ", "the", " ", "form"}], "Text"], 
-       StyleBox[" ", "Text"], 
-       StyleBox["\[IndentingNewLine]", "Text"], 
-       StyleBox[
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{"dt1", ",", "a11", ",", "a12", ",", "a13", ",", "..."}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"dt2", ",", "a21", ",", "a22", ",", "a23", ",", "..."}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"dt2", ",", "a21", ",", "a22", ",", "a23", ",", "..."}], 
-          "}"}], ",", "..."}], "Input"]}], 
-      StyleBox["}", "Input"]}], 
-     StyleBox[".", "Input"]}]},
-   {
-    StyleBox[
-     RowBox[{"Unitary", " ", "pulse"}], "Text"], 
-    StyleBox["UnitaryPulseQ", "Input"], 
-    RowBox[{
-     StyleBox[
-      RowBox[{
-      "The", " ", "Hamiltonian", " ", "is", " ", "ignored", " ", "and", " ", 
-       "some", " ", "other", " ", "unitary", " ", "is", " ", 
-       RowBox[{"applied", ".", " ", "This"}], " ", "kind", " ", "of", " ", 
-       "pulse", " ", "only", " ", "really", " ", "makes", " ", "within", " ", 
-       "pulse", " ", 
-       RowBox[{"sequences", ".", " ", 
-        StyleBox[
-         StyleBox["\[IndentingNewLine]", "Text",
-          Background->RGBColor[0.94, 0.88, 0.94]], "Text",
-         Background->RGBColor[0.94, 0.88, 0.94]], "In"}], " ", "this", " ", 
-       "case"}], "Text"], 
-     StyleBox[",", "Text"], 
-     StyleBox[" ", "Text"], 
-     RowBox[{
-      StyleBox["p", "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["is", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["of", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["form", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       RowBox[{"{", 
-        RowBox[{"U", ",", "t"}], "}"}], "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["where", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["U", "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["is", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["unitary", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["matrix", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["and", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["t", "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["is", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["how", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["much", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["time", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["pulse", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["should", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       RowBox[{"take", "."}], "Text"]}]}]},
-   {
-    StyleBox[
-     RowBox[{"Channel", " ", "pulse"}], "Text"], 
-    StyleBox["ChannelPulseQ", "Input"], 
-    StyleBox[
-     RowBox[{
-      RowBox[{
-       RowBox[{"The", " ", "Hamiltonian", " ", "is", " ", "ignored"}], ",", 
-       " ", 
-       RowBox[{
-       "and", " ", "the", " ", "supplied", " ", "superoperator", " ", "is", 
-        " ", 
-        RowBox[{"applied", ".", " ", "Similar"}], " ", "to", " ", "a", " ", 
-        "unitary", " ", "pulse"}], ",", " ", 
-       RowBox[{"a", " ", "superoperator", " ", "pulse"}]}], " ", 
-      "\[IndentingNewLine]", 
-      RowBox[{
-      "only", " ", "really", " ", "makes", " ", "sense", " ", "in", " ", 
-       "the", " ", "context", " ", "of", " ", "a", " ", "pulse", " ", 
-       RowBox[{"sequence", ".", " ", "Also"}], " ", "note", " ", "that", " ", 
-       "you", " ", "cannot", " ", "expect", " ", "any", " ", "unitaries", " ",
-        "to", " ", "be"}], " ", "\[IndentingNewLine]", 
-      RowBox[{
-      "returned", " ", "from", " ", "a", " ", "simulation", " ", "involving", 
-       " ", "a", " ", "superoperator", " ", 
-       RowBox[{
-        RowBox[{"pulse", ":", " ", 
-         RowBox[{
-         "it", " ", "is", " ", "required", " ", "that", " ", "an", " ", 
-          "initial", " ", "state", " ", "be", " ", "given", " ", "with", " ", 
-          "this", " ", "kind", " ", "of", " ", "pulse"}]}], "."}]}]}], 
-     "Text"]}
-  },
-  GridBoxAlignment->{"Columns" -> {{Left}}},
-  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}}]], "Text",
- CellChangeTimes->{{3.633371471943419*^9, 3.6333715774911737`*^9}, {
-  3.63337161470093*^9, 3.6333716646456614`*^9}, {3.6333717491172037`*^9, 
-  3.633371835409844*^9}, {3.633371867624339*^9, 3.633371868053253*^9}, {
-  3.633373410565125*^9, 3.633373434679229*^9}}],
-
-Cell[TextData[{
- "The Hamiltonian can be time dependent or time independent. In the former \
-case the Hamiltonian ",
- StyleBox["H", "Input"],
- " is a matrix, and in the latter case, the Hamiltonian ",
- StyleBox["H", "Input"],
- " is a single parameter function returning a matrix. Alternatively, the \
-first argument of EvalPulse can not be a Hamiltonian at all, but rather a \
-Lindblad representation, ",
- StyleBox["L=Lindblad[H,L1,L2,...,Ln]", "Input"],
- ". where ",
- StyleBox["H", "Input"],
- " is time dependent or independent as described earlier, and ",
- StyleBox["L1", "Input"],
- ",...,",
- StyleBox["Ln", "Input"],
- " are (time independent) Lindblad matrices. Examples will be given below."
-}], "Text",
- CellChangeTimes->{{3.633373456820189*^9, 3.633373531174054*^9}, {
-  3.633373606439427*^9, 3.63337369492723*^9}, {3.633373747943447*^9, 
-  3.633373829277495*^9}}],
-
-Cell[TextData[Cell[BoxData[GridBox[{
-   {
-    StyleBox["Type", "Text",
-     FontWeight->"Bold"], 
-    StyleBox["Predicate", "Text",
-     FontWeight->"Bold"], 
-    StyleBox["Description", "Text",
-     FontWeight->"Bold"]},
-   {
-    StyleBox[
-     RowBox[{"Time", " ", "independent", " ", "Hamiltonian"}], "Text"], 
-    StyleBox["DriftHamConstQ", "Input"], 
-    StyleBox[
-     RowBox[{"A", " ", 
-      RowBox[{"matrix", "."}]}], "Text"]},
-   {
-    StyleBox[
-     RowBox[{"Time", " ", "dependent", " ", "Hamiltonian"}], "Text"], 
-    StyleBox["DriftHamNonConstQ", "Input"], 
-    StyleBox[
-     RowBox[{
-     "A", " ", "single", " ", "parameter", " ", "function", " ", "returning", 
-      " ", "a", " ", 
-      RowBox[{"matrix", "."}]}], "Text"]},
-   {
-    StyleBox[
-     RowBox[{"Time", " ", "independent", " ", "Lindblad"}], "Text"], 
-    StyleBox["LindbladConstQ", "Input"], 
-    RowBox[{
-     StyleBox[
-      RowBox[{"A", " ", "Lindblad", " ", "representation"}], "Text"], 
-     StyleBox[",", "Text"], 
-     StyleBox[
-      RowBox[{"L", "=", 
-       RowBox[{"Lindblad", "[", 
-        RowBox[{"H", ",", "L1", ",", "L2", ",", "...", ",", "Ln"}], "]"}]}], 
-      "Input"], 
-     StyleBox[",", "Text"], 
-     StyleBox[" ", "Text"], 
-     RowBox[{
-      StyleBox["where", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["H", "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["satisfies", "Text"], 
-      StyleBox[" ", "Text"], 
-      RowBox[{
-       StyleBox["DriftHamConstQ", "Input"], 
-       StyleBox[".", "Text"]}]}]}]},
-   {
-    StyleBox[
-     RowBox[{"Channel", " ", "pulse"}], "Text"], 
-    StyleBox["ChannelPulseQ", "Input"], 
-    RowBox[{
-     StyleBox[
-      RowBox[{"A", " ", "Lindblad", " ", "representation"}], "Text"], 
-     StyleBox[",", "Text"], 
-     StyleBox[
-      RowBox[{"L", "=", 
-       RowBox[{"Lindblad", "[", 
-        RowBox[{"H", ",", "L1", ",", "L2", ",", "...", ",", "Ln"}], "]"}]}], 
-      "Input"], 
-     StyleBox[",", "Text"], 
-     StyleBox[" ", "Text"], 
-     RowBox[{
-      StyleBox["where", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["H", "Input"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["satisfies", "Text"], 
-      StyleBox[" ", "Text"], 
-      RowBox[{
-       StyleBox["DriftHamNonConstQ", "Input"], 
-       StyleBox[".", "Text"]}]}]}]}
-  },
-  GridBoxAlignment->{"Columns" -> {{Left}}},
-  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}}]], "Text",
- CellChangeTimes->{{3.633371471943419*^9, 3.6333715774911737`*^9}, {
-  3.63337161470093*^9, 3.6333716646456614`*^9}, {3.6333717491172037`*^9, 
-  3.633371835409844*^9}, {3.633371867624339*^9, 3.633371868053253*^9}, {
-  3.633373410565125*^9, 3.633373434679229*^9}}]], "Text",
- CellChangeTimes->{{3.633373850852672*^9, 3.633373860910323*^9}, {
-  3.633373921519093*^9, 3.633374114153563*^9}}],
-
-Cell[TextData[{
- "The particular simulator invoked by ",
- StyleBox["Evalpulse[H,p]", "Input"],
- " depends on which predicates ",
- StyleBox["H", "Input"],
- " and ",
- StyleBox["p", "Input"],
- " satisfy."
-}], "Text",
- CellChangeTimes->{{3.633374127112557*^9, 3.6333741406984386`*^9}, {
-  3.633374204191698*^9, 3.63337422686596*^9}}],
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634482976328269*^9, 3.6344832475196657`*^9}, {
+  3.634483318232388*^9, 3.634483519194735*^9}, {3.634483565845886*^9, 
+  3.6344839035313787`*^9}, {3.634484904701367*^9, 3.634484905427792*^9}, {
+  3.634484940678618*^9, 3.634484941259267*^9}, {3.634496212133994*^9, 
+  3.6344963360489817`*^9}, {3.634496366243856*^9, 3.634496606337641*^9}, {
+  3.63449695102985*^9, 3.6344974762314577`*^9}, {3.634497555140671*^9, 
+  3.634497586386594*^9}, {3.634497852596785*^9, 3.634497870292601*^9}, {
+  3.634497906828107*^9, 3.634497949284109*^9}, {3.634498201410081*^9, 
+  3.634498201601128*^9}, {3.634500988568844*^9, 3.634501016237685*^9}},
+ CellTags->"FindPulse::usage"],
 
 Cell[CellGroupData[{
 
-Cell["Function Options", "Subsection",
- CellChangeTimes->{{3.6333730907777243`*^9, 3.633373091656231*^9}, {
-  3.633378288498308*^9, 3.633378289345796*^9}}],
+Cell["Options", "Subsection",
+ CellChangeTimes->{{3.634483922416913*^9, 3.634483923172635*^9}}],
 
-Cell["\<\
-Examples of using these options appear in subsequent subsections.\
-\>", "Text",
- CellChangeTimes->{{3.633377919615526*^9, 3.6333779317278347`*^9}}],
+Cell[CellGroupData[{
+
+Cell["Summary", "Subsubsection",
+ CellChangeTimes->{{3.6344961817560587`*^9, 3.6344961837864847`*^9}}],
 
 Cell[BoxData[GridBox[{
    {
@@ -660,203 +293,1662 @@ Cell[BoxData[GridBox[{
      FontWeight->Bold], 
     StyleBox["Description", "Text",
      FontWeight->Bold]},
-   {"QSim`StepSize", "Automatic", 
+   {"InitialStepSize", 
+    FractionBox["1", "1000"], 
     StyleBox[
      RowBox[{
-     "StepSize", " ", "is", " ", "a", " ", "simulation", " ", "option", " ", 
-      "that", " ", "chooses", " ", "the", " ", "time", " ", "discretization", 
-      " ", "when", " ", "the", " ", "internal", " ", "Hamiltonian", " ", "is",
-       " ", "time", " ", 
-      RowBox[{"dependent", ".", " ", "Can"}], " ", "be", " ", "set", " ", 
-      "to", " ", 
-      RowBox[{"Automatic", "."}]}], "Text"]},
-   {"QSim`PollingInterval", "Off", 
+      TagBox[
+       StyleBox["InitialStepSize", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "which", " ", "quantifies", " ", 
+      "the", " ", "initial", " ", "value", " ", "of", " ", "how", " ", "far", 
+      " ", "one", " ", "should", " ", "go", " ", "in", " ", "the", " ", 
+      "steepest", " ", "accent", " ", 
+      RowBox[{"direction", "."}]}], "Text"]},
+   {"GRAPE`Private`MinimumStepsize", 
+    FractionBox["1", "100000000"], 
+    StyleBox[
+     RowBox[{"No", " ", "description", " ", 
+      RowBox[{"available", "."}]}], "Text"]},
+   {"MinimumImprovement", 
+    FractionBox["1", "10000000000"], 
     StyleBox[
      RowBox[{
-     "PollingInterval", " ", "is", " ", "a", " ", "simulation", " ", "option",
-       " ", "that", " ", "specifies", " ", "the", " ", "time", " ", 
-      "interval", " ", "at", " ", "which", " ", "results", " ", "of", " ", 
-      "the", " ", "simulation", " ", "should", " ", "be", " ", 
-      RowBox[{"returned", ".", " ", "The"}], " ", "default", " ", "value", 
-      " ", "is", " ", 
-      RowBox[{"Off", "."}]}], "Text"]},
-   {"QSim`InitialState", "None", 
-    StyleBox[
-     RowBox[{"InitialState", " ", "is", " ", "a", " ", "simulation", " ", 
-      RowBox[{"option", ".", " ", "Set"}], " ", "this", " ", "option", " ", 
-      "to", " ", "the", " ", "initial", " ", "density", " ", "matrix", " ", 
-      "of", " ", "your", " ", 
-      RowBox[{"system", ".", " ", "The"}], " ", "default", " ", "value", " ", 
-      "is", " ", 
-      RowBox[{"None", "."}]}], "Text"]},
-   {"QSim`Observables", "None", 
+      TagBox[
+       StyleBox["MinimumImprovement", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "which", " ", "specifies", " ", 
+      "how", " ", "much", " ", "the", " ", "utility", " ", "function", " ", 
+      "needs", " ", "to", " ", "improve", " ", "by", " ", 
+      RowBox[{"(", 
+       RowBox[{"in", " ", "a", " ", "running", " ", "average"}], ")"}], " ", 
+      "in", " ", "order", " ", "not", " ", "to", " ", "exit", " ", "the", " ", 
+      RowBox[{"ascent", "."}]}], "Text"]},
+   {"MonitorFunction", "FidelityProgressBar", 
     StyleBox[
      RowBox[{
-      RowBox[{"Observables", " ", "is", " ", "three", " ", 
-       RowBox[{"things", ":", " ", 
-        RowBox[{
-         RowBox[{"(", "1", ")"}], " ", "simulation", " ", "option", " ", 
-         "which", " ", "can", " ", "be", " ", "set", " ", "to", " ", "a", " ",
-          "list", " ", "of", " ", "observables", " ", 
-         RowBox[{"(", 
-          RowBox[{"list", " ", "of", " ", "hermitian", " ", "matrices"}], 
-          ")"}]}]}]}], ",", " ", 
       RowBox[{
-       RowBox[{"(", "2", ")"}], " ", "an", " ", "element", " ", "of", " ", 
-       "the", " ", "SimulationOutput", " ", "list"}], ",", " ", 
-      RowBox[{"and", " ", 
-       RowBox[{"(", "3", ")"}], " ", "a", " ", "function", " ", 
-       RowBox[{"Observables", "[", "data", "]"}], " ", 
-       RowBox[{"(", 
-        RowBox[{"Observables", "[", 
-         RowBox[{"data", ",", "n"}], "]"}], ")"}], " ", "which", " ", 
-       "extracts", " ", "all", " ", "observable", " ", "values", " ", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"n", "'"}], "th", " ", "observable", " ", "values"}], ")"}], 
-       " ", "from", " ", "data"}], ",", " ", 
-      RowBox[{
-      "where", " ", "data", " ", "is", " ", "in", " ", "the", " ", "format", 
-       " ", "that", " ", "EvalPulse", " ", 
-       RowBox[{"outputs", "."}]}]}], "Text"]},
-   {"QSim`Functions", "None", 
-    StyleBox[
-     RowBox[{
-      RowBox[{"Functions", " ", "is", " ", "three", " ", 
-       RowBox[{"things", ":", " ", 
-        RowBox[{
-         RowBox[{"(", "1", ")"}], " ", "simulation", " ", "option", " ", 
-         "which", " ", "can", " ", "be", " ", "set", " ", "to", " ", "a", " ",
-          "list", " ", "of", " ", "functions", " ", "which", " ", "take", " ",
-          "a", " ", "square", " ", "matrix", " ", "as", " ", "input"}]}]}], 
-      ",", " ", 
-      RowBox[{
-       RowBox[{"(", "2", ")"}], " ", "an", " ", "element", " ", "of", " ", 
-       "the", " ", "SimulationOutput", " ", "list"}], ",", " ", 
-      RowBox[{"and", " ", 
-       RowBox[{"(", "3", ")"}], " ", "a", " ", "function", " ", 
-       RowBox[{"Functions", "[", "data", "]"}], " ", 
-       RowBox[{"(", 
-        RowBox[{"Functions", "[", 
-         RowBox[{"data", ",", "n"}], "]"}], ")"}], " ", "which", " ", 
-       "extracts", " ", "all", " ", "function", " ", "values", " ", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"n", "'"}], "th", " ", "function", " ", "values"}], ")"}], 
-       " ", "from", " ", "data"}], ",", " ", 
-      RowBox[{
-      "where", " ", "data", " ", "is", " ", "in", " ", "the", " ", "format", 
-       " ", "that", " ", "EvalPulse", " ", 
-       RowBox[{"outputs", "."}]}]}], "Text"]},
-   {"QSim`SimulationOutput", "Automatic", 
-    StyleBox[
-     RowBox[{
-      RowBox[{"SimulationOutput", " ", "is", " ", "a", " ", "simulation", " ", 
-       RowBox[{"option", ".", " ", "Set"}], " ", "this", " ", "option", " ", 
-       "to", " ", "be", " ", "one", " ", "of"}], ",", " ", 
-      RowBox[{"or", " ", "a", " ", "nonempty", " ", "subset", " ", "of"}], 
-      ",", " ", 
-      RowBox[{"the", " ", "list", " ", 
-       RowBox[{
+       TagBox[
+        StyleBox["MonitorFunction", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "option", " ", "specifying", " ", "which", " ", 
+       "function", " ", "should", " ", "be", " ", "called", " ", "as", " ", 
+       "a", " ", "realtime", " ", "monitoring", " ", "function", " ", "of", 
+       " ", "the", " ", 
+       RowBox[{"algorithm", ".", " ", "This"}], " ", "function", " ", 
+       "should", " ", "take", " ", "the", " ", "following", " ", 
+       RowBox[{"arguments", ":", " ", 
+        TagBox[
+         StyleBox["GRAPE", "Input",
+          FontFamily->"Courier"],
+         DisplayForm]}]}], ",", " ", 
+      TagBox[
+       StyleBox["bestPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], ",", " ", 
+      TagBox[
+       StyleBox["overallBestPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], ",", " ", 
+      TagBox[
+       StyleBox["overallBestCost", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], ",", " ", 
+      TagBox[
+       StyleBox[
         RowBox[{"{", 
+         RowBox[{"rawUtility", ",", " ", "cost"}], "}"}], "Input",
+        FontFamily->"Courier"],
+       DisplayForm], ",", " ", 
+      TagBox[
+       StyleBox["\[Epsilon]Range", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], ",", " ", 
+      TagBox[
+       StyleBox["costList", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], ",", " ", 
+      RowBox[{
+       RowBox[{
+        TagBox[
+         StyleBox["abortButton", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "This"}], " ", "option", " ", "can", " ", 
+       "also", " ", "be", " ", "set", " ", "to", " ", 
+       TagBox[
+        StyleBox["Off", "Input",
+         FontFamily->"Courier"],
+        DisplayForm]}], ",", " ", 
+      RowBox[{
+      "in", " ", "which", " ", "case", " ", "a", " ", "trivial", " ", 
+       "monitor", " ", "function", " ", "is", " ", 
+       RowBox[{"used", "."}]}]}], "Text"]},
+   {"Repetitions", "1", 
+    StyleBox[
+     RowBox[{
+      TagBox[
+       StyleBox["Repetitions", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "that", " ", "specifying", " ", 
+      "how", " ", "many", " ", "different", " ", "initial", " ", "guesses", 
+      " ", "should", " ", "be", " ", "tried", "  ", "before", " ", "giving", 
+      " ", "up", " ", "with", " ", "the", " ", "desired", " ", "utility", " ", 
+      RowBox[{"function", ".", " ", 
+       TagBox[
+        StyleBox["Infinity", "Input",
+         FontFamily->"Courier"],
+        DisplayForm]}], " ", "is", " ", "a", " ", "valid", " ", 
+      RowBox[{"value", "."}]}], "Text"]},
+   {"SkipChecks", "False", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["SkipChecks", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "option", " ", "that"}], ",", " ", 
+      RowBox[{"when", " ", "set", " ", "to", " ", 
+       TagBox[
+        StyleBox["True", "Input",
+         FontFamily->"Courier"],
+        DisplayForm]}], ",", " ", 
+      RowBox[{
+      "skips", " ", "all", " ", "of", " ", "the", " ", "preliminary", " ", 
+       "consistency", " ", "checks", " ", "of", " ", "input", " ", 
+       RowBox[{"arguments", "."}]}]}], "Text"]},
+   {"VerboseAscent", "False", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["VerboseAscent", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "option", " ", "which", " ", "can", " ", "be", " ",
+        "set", " ", "to", " ", 
+       TagBox[
+        StyleBox["True", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "or", " ", 
+       TagBox[
+        StyleBox["False", "Input",
+         FontFamily->"Courier"],
+        DisplayForm]}], ",", " ", 
+      RowBox[{
+      "and", " ", "determines", " ", "whether", " ", "to", " ", "print", " ", 
+       "diagnostic", " ", "ascent", " ", "information", " ", "at", " ", 
+       "every", " ", 
+       RowBox[{"iteration", "."}]}]}], "Text"]},
+   {"DistortionOperator", "None", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
          RowBox[{
-         "Unitaries", ",", "States", ",", "Observables", ",", "Functions"}], 
-         "}"}], ".", " ", "These"}], " ", "will", " ", "be", " ", "the", " ", 
-       "values", " ", 
-       RowBox[{"(", 
-        RowBox[{"and", " ", "order"}], ")"}], " ", "of", " ", "the", " ", 
-       "simulation", " ", 
-       RowBox[{"output", ".", " ", "The"}], " ", "default", " ", "value", " ",
-        "is", " ", 
-       RowBox[{"Automatic", "."}]}]}], "Text"]},
-   {"QSim`SequenceMode", "False", 
+          RowBox[{
+           TagBox[
+            StyleBox["DistortionOperator", "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "is", " ", "a", " ", 
+           TagBox[
+            StyleBox["FindPulse", "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "option", " ", "hat", " ", "specifies", " ", 
+           "how", " ", "a", " ", "pulse", " ", "is", " ", "distorted", " ", 
+           "before", " ", "it", " ", "is", " ", 
+           RowBox[{"simulated", ".", " ", "It"}], " ", "should", " ", "be", 
+           " ", "a", " ", "function", " ", "of", " ", "the", " ", "form", " ", 
+           TagBox[
+            StyleBox[
+             RowBox[{"Distortion", "["}], "Input",
+             FontFamily->"Courier"],
+            DisplayForm], 
+           TagBox[
+            StyleBox["inputPulse", "Input",
+             FontFamily->"Courier",
+             FontWeight->"Plain",
+             FontSlant->"Italic"],
+            DisplayForm]}], 
+          TagBox[
+           StyleBox[",", "Input",
+            FontFamily->"Courier"],
+           DisplayForm], 
+          TagBox[
+           StyleBox["returnJacobian", "Input",
+            FontFamily->"Courier",
+            FontWeight->"Plain",
+            FontSlant->"Italic"],
+           DisplayForm]}], 
+         TagBox[
+          StyleBox["]", "Input",
+           FontFamily->"Courier"],
+          DisplayForm]}], ",", " ", 
+        RowBox[{
+        "returning", " ", "just", " ", "the", " ", "distorted", " ", "pulse", 
+         " ", "if", " ", 
+         TagBox[
+          StyleBox["returnJacobian", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], " ", "is", " ", 
+         TagBox[
+          StyleBox["False", "Input",
+           FontFamily->"Courier"],
+          DisplayForm]}], ",", " ", 
+        RowBox[{
+        "and", " ", "a", " ", "tuple", " ", "of", " ", "the", " ", "form", 
+         " ", 
+         TagBox[
+          StyleBox[
+           RowBox[{"{", 
+            RowBox[{"distortedPulse", ",", " ", "jacobian"}], "}"}], "Input",
+           FontFamily->"Courier"],
+          DisplayForm], " ", "if", " ", 
+         TagBox[
+          StyleBox["returnJacobian", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], " ", "is", " ", 
+         RowBox[{
+          TagBox[
+           StyleBox["True", "Input",
+            FontFamily->"Courier"],
+           DisplayForm], ".", " ", "The"}], " ", "input", " ", "and", " ", 
+         "output", " ", "pulses", " ", "should", " ", "be", " ", "of", " ", 
+         "the", " ", "form", " ", 
+         TagBox[
+          StyleBox[
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"t1", ",", "a11", ",", "..", ",", "a1K"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"t2", ",", "a21", ",", "...", ",", "a2K"}], "}"}], ",", 
+             "...", ",", 
+             RowBox[{"{", 
+              RowBox[{"tN", ",", "aN1", ",", "...", ",", "ANK"}], "}"}]}], 
+            "}"}], "Input",
+           FontFamily->"Courier"],
+          DisplayForm], " ", "where", " ", 
+         TagBox[
+          StyleBox["K", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], " ", "and", " ", 
+         TagBox[
+          StyleBox["N", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], " ", "don"}]}], "\[CloseCurlyQuote]"}], "t", " ", 
+      "have", " ", "to", " ", "be", " ", "equal", " ", "for", " ", "the", " ",
+       "input", " ", "and", " ", "output", " ", 
+      RowBox[{"pulses", ".", " ", "Set"}], " ", "to", " ", 
+      TagBox[
+       StyleBox["None", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "for", " ", "the", " ", "identity", " ", 
+      RowBox[{"distortion", "."}]}], "Text"]},
+   {"PulsePenalty", "None", 
     StyleBox[
      RowBox[{
-      RowBox[{"SequenceMode", " ", "is", " ", "a", " ", "simulation", " ", 
-       RowBox[{"option", ".", " ", "If"}], " ", "set", " ", "to", " ", 
-       "True"}], ",", " ", 
       RowBox[{
-      "EvalPulse", " ", "returns", " ", "the", " ", "final", " ", "state", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          TagBox[
+           StyleBox["PulsePenalty", "Input",
+            FontFamily->"Courier"],
+           DisplayForm], " ", "is", " ", "a", " ", 
+          TagBox[
+           StyleBox["FindPulse", "Input",
+            FontFamily->"Courier"],
+           DisplayForm], " ", "option", " ", "which", " ", "specifies", " ", 
+          "a", " ", "penalty", " ", "to", " ", "subtract", " ", "from", " ", 
+          "the", " ", "utility", " ", 
+          RowBox[{"function", ".", " ", "Similar"}], " ", "to", " ", 
+          TagBox[
+           StyleBox["DistortionOperator", "Input",
+            FontFamily->"Courier"],
+           DisplayForm]}], ",", " ", 
+         RowBox[{
+         "it", " ", "should", " ", "be", " ", "a", " ", "function", " ", "of",
+           " ", "the", " ", "form", " ", 
+          TagBox[
+           StyleBox[
+            RowBox[{"Penalty", "["}], "Input",
+            FontFamily->"Courier"],
+           DisplayForm], 
+          TagBox[
+           StyleBox["pulse", "Input",
+            FontFamily->"Courier",
+            FontWeight->"Plain",
+            FontSlant->"Italic"],
+           DisplayForm]}], 
+         TagBox[
+          StyleBox[",", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], 
+         TagBox[
+          StyleBox["returnGradient", "Input",
+           FontFamily->"Courier",
+           FontWeight->"Plain",
+           FontSlant->"Italic"],
+          DisplayForm]}], 
+        TagBox[
+         StyleBox["]", "Input",
+          FontFamily->"Courier"],
+         DisplayForm]}], " ", "which", " ", "returns", " ", "a", " ", "real", 
+       " ", "number", " ", "when", " ", 
+       TagBox[
+        StyleBox["returnGradient", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", 
+       TagBox[
+        StyleBox["False", "Input",
+         FontFamily->"Courier"],
+        DisplayForm]}], ",", " ", 
+      RowBox[{"and", " ", "a", " ", "tuple", " ", 
+       RowBox[{"{", 
+        RowBox[{
+         TagBox[
+          StyleBox["cost", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], ",", " ", 
+         TagBox[
+          StyleBox["gradient", "Input",
+           FontFamily->"Courier"],
+          DisplayForm]}], "}"}], " ", "when", " ", 
+       TagBox[
+        StyleBox["returnGradient", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["True", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "Set"}], " ", "to", " ", 
+       TagBox[
+        StyleBox["None", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "to", " ", "use", " ", "the", " ", "zero", " ", 
+       RowBox[{"distortion", "."}]}]}], "Text"]},
+   {"ParameterDistribution", "None", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           TagBox[
+            StyleBox["ParameterDistribution", "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "is", " ", "a", " ", 
+           TagBox[
+            StyleBox["FindPulse", "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "option", " ", "that", " ", "accepts", " ", 
+           "a", " ", "function", " ", "which", " ", "takes", " ", "a", " ", 
+           "single", " ", "argument"}], ",", " ", 
+          RowBox[{
+           TagBox[
+            StyleBox["cost", "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", 
+           RowBox[{"(", 
+            RowBox[{"between", " ", 
+             TagBox[
+              StyleBox["0", "Input",
+               FontFamily->"Courier"],
+              DisplayForm], " ", "and", " ", 
+             TagBox[
+              StyleBox["1", "Input",
+               FontFamily->"Courier"],
+              DisplayForm]}], ")"}]}], ",", " ", 
+          RowBox[{
+          "and", " ", "returns", " ", "a", " ", "pair", " ", "of", " ", "the",
+            " ", "form", " ", 
+           TagBox[
+            StyleBox[
+             RowBox[{"{", 
+              RowBox[{"ps", ",", 
+               RowBox[{"{", 
+                RowBox[{"rep1", ",", "rep2", ",", "...", ",", "repN"}], 
+                "}"}]}], "}"}], "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "where", " ", 
+           TagBox[
+            StyleBox[
+             RowBox[{"ps", "=", 
+              RowBox[{"{", 
+               RowBox[{"p1", ",", "p2", ",", "...", ",", "pN"}], "}"}]}], 
+             "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "and", " ", 
+           TagBox[
+            StyleBox[
+             RowBox[{"repn", "=", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"symbol1", "->", "valuen1"}], ",", 
+                RowBox[{"symbol2", "->", "valuen2"}], ",", "..."}], "}"}]}], 
+             "Input",
+             FontFamily->"Courier"],
+            DisplayForm], " ", "such", " ", "that", " ", "the", " ", 
+           TagBox[
+            StyleBox["p", "Input",
+             FontFamily->"Courier"],
+            DisplayForm]}]}], "\[CloseCurlyQuote]"}], "s", " ", "are", " ", 
+        "positive", " ", "and", " ", "sum", " ", "to", " ", 
+        RowBox[{"unity", ".", " ", "Each"}], " ", "iteration", " ", "of", " ",
+         "GRAPE"}], ",", " ", 
+       RowBox[{
+       "this", " ", "function", " ", "is", " ", "called", " ", "and", " ", 
+        "the", " ", "utility", " ", "function", " ", 
+        RowBox[{"(", 
+         RowBox[{
+         "and", " ", "hence", " ", "too", " ", "the", " ", "gradient"}], 
+         ")"}], " ", "becomes", " ", "a", " ", "convex", " ", "combination", 
+        " ", "over", " ", "the", " ", "N", " ", "replacement", " ", "rules", 
+        " ", "with", " ", "respective", " ", "weights", " ", 
+        RowBox[{
+         TagBox[
+          StyleBox["ps", "Input",
+           FontFamily->"Courier"],
+          DisplayForm], ".", " ", "The"}], " ", "replacement", " ", "rules", 
+        " ", "are", " ", "applied", " ", "to", " ", "all", " ", "of"}]}], 
+      "\n", "    ", 
+      RowBox[{
+      "\[Bullet]", " ", "the", " ", "pulse", " ", "after", " ", 
+       "distortion"}], "\n", "    ", 
+      RowBox[{"\[Bullet]", " ", "the", " ", "penalty"}], "\n", "    ", 
+      RowBox[{"\[Bullet]", " ", "the", " ", "internal", " ", "Hamiltonian"}], 
+      "\n", "    ", 
+      RowBox[{"\[Bullet]", " ", "the", " ", "control", " ", "Hamiltonians"}], 
+      "\n", "    ", 
+      RowBox[{"\[Bullet]", " ", "the", " ", "target"}]}], "Text"]},
+   {"ForceDistortionDependence", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["ForceDistortionDependence", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "Boolean", " ", "option", " ", "which"}], ",", " ", 
+      RowBox[{"if", " ", 
+       TagBox[
+        StyleBox["True", "Input",
+         FontFamily->"Courier"],
+        DisplayForm]}], ",", " ", 
+      RowBox[{"indicates", " ", "that", " ", "the", " ", 
+       TagBox[
+        StyleBox["DistortionOperator", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "depends", " ", "on", " ", "the", " ", 
+       "distribution", " ", "symbols", " ", "specified", " ", "in", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["ParameterDistribution", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], ".", " ", "Normally"}]}], ",", " ", 
+      RowBox[{"dependence", " ", "is", " ", "checked", " ", "automatically"}],
+       ",", " ", 
+      RowBox[{
+       RowBox[{
+       "but", " ", "this", " ", "can", " ", "fail", " ", "in", " ", "some", 
+        " ", "pathological", " ", "cases"}], ";", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox[
+          RowBox[{"ForceDistortionDependence", "\[Rule]", "True"}], "Input",
+          FontFamily->"Courier"],
+         DisplayForm], " ", "overrides", " ", "automatic", " ", "detection", 
+        " ", "in", " ", "these", " ", 
+        RowBox[{"cases", ".", " ", "If"}], " ", 
+        TagBox[
+         StyleBox["False", "Input",
+          FontFamily->"Courier"],
+         DisplayForm]}]}], ",", " ", 
+      RowBox[{"no", " ", "checking", " ", "is", " ", 
+       RowBox[{"performed", ".", " ", "Default"}], " ", "is", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["Automatic", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], "."}]}]}], "Text"]},
+   {"LineSearchMethod", 
+    RowBox[{"QuadraticFitLineSearch", "[", "]"}], 
+    StyleBox[
+     RowBox[{
+      TagBox[
+       StyleBox["LineSearchMethod", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "which", " ", "specifies", " ", "a", 
+      " ", "callable", " ", "function", " ", "that", " ", "performs", " ", 
+      "the", " ", "line", " ", "search", " ", "once", " ", "a", " ", "good", 
+      " ", "direction", " ", "has", " ", "been", " ", 
+      RowBox[{"found", "."}]}], "Text"]},
+   {"ControlLimitPolicy", "Ignore", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["ControlLimitPolicy", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "option", " ", "which", " ", "specifies", " ", 
+       "what", " ", "should", " ", "be", " ", "done", " ", "when", " ", "a", 
+       " ", "control", " ", "value", " ", "is", " ", "at", " ", "the", " ", 
+       "boundary", " ", "after", " ", 
+       RowBox[{"legalizing", ".", " ", "By"}], " ", "default"}], ",", " ", 
+      RowBox[{"nothing", " ", "is", " ", "done"}], ",", " ", 
+      RowBox[{
+      "but", " ", "this", " ", "can", " ", "cause", " ", "successive", " ", 
+       "\[Beta]", " ", "resets", " ", "in", " ", "the", " ", "conjugate", " ",
+        "gradient", " ", 
+       RowBox[{"ascent", ".", " ", 
+        TagBox[
+         StyleBox["Possible", "Input",
+          FontFamily->"Courier"],
+         DisplayForm]}], " ", "values", " ", "are", " ", 
+       TagBox[
+        StyleBox["Ignore", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "and", " ", 
+       RowBox[{
+        TagBox[
+         StyleBox["ProjectGradient", "Input",
+          FontFamily->"Courier"],
+         DisplayForm], "."}]}]}], "Text"]},
+   {"MinimumIterations", "0", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["MinimumIterations", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "option", " ", "that", " ", "specifies", " ", 
+       "the", " ", "number", " ", "of", " ", "minimum", " ", "iterations", 
+       " ", "to", " ", "be", " ", "performed", " ", "before", " ", 
+       "accepting", " ", "a", " ", "target", " ", "utility", " ", "function", 
        " ", 
-       RowBox[{"(", 
-        RowBox[{"or", " ", "None"}], ")"}], " ", "in", " ", "addition", " ", 
-       "to", " ", "the", " ", "usual", " ", 
-       RowBox[{"output", "."}]}]}], "Text"]},
-   {"QSim`NumericEvaluation", "True", 
-    StyleBox[
-     RowBox[{
-      RowBox[{
-      "NumericEvaluation", " ", "is", " ", "a", " ", "simulation", " ", 
-       RowBox[{"option", ".", " ", "If"}], " ", "set", " ", "to", " ", 
-       "True"}], ",", " ", 
-      RowBox[{
-      "N", " ", "is", " ", "called", " ", "on", " ", "all", " ", "times", " ",
-        "inside", " ", "MatrixExp"}], ",", " ", 
-      RowBox[{"and", " ", "if", " ", "set", " ", "to", " ", "False"}], ",", 
+       RowBox[{"value", ".", " ", "This"}], " ", "is", " ", "mainly", " ", 
+       "useful", " ", "for", " ", "broadening", " ", "distributions"}], ",", 
       " ", 
-      RowBox[{"N", " ", "is", " ", "not", " ", 
-       RowBox[{"called", ".", " ", "The"}], " ", "default", " ", "value", " ",
-        "is", " ", 
-       RowBox[{"True", "."}]}]}], "Text"]},
-   {"QSim`LindbladQ", "False", 
+      RowBox[{
+      "to", " ", "make", " ", "sure", " ", "that", " ", "some", " ", 
+       "improvement", " ", "is", " ", "made", " ", "with", " ", "every", " ", 
+       "broadening"}], ",", " ", 
+      RowBox[{
+      "even", " ", "if", " ", "the", " ", "initial", " ", "guess", " ", "is", 
+       " ", 
+       RowBox[{
+        RowBox[{
+        "\[OpenCurlyDoubleQuote]", "good", "\[CloseCurlyDoubleQuote]"}], 
+        "."}]}]}], "Text"]},
+   {"MaximumIterations", "\[Infinity]", 
     StyleBox[
      RowBox[{
-      RowBox[{"LindbladQ", "[", "L", "]"}], " ", "returns", " ", "True", " ", 
-      "iff", " ", "one", " ", "of", " ", 
-      RowBox[{"DriftHamConstQ", "[", "L", "]"}], " ", "or", " ", 
-      RowBox[{"DriftHamNonConstQ", "[", "L", "]"}], " ", "is", " ", 
-      RowBox[{"True", "."}]}], "Text"]}
+      TagBox[
+       StyleBox["MaximumIterations", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "that", " ", "specifies", " ", "the",
+       " ", "maximum", " ", "number", " ", "of", " ", "iterations", " ", "to",
+       " ", "take", " ", "in", " ", "the", " ", "gradient", " ", "ascent", 
+      " ", "before", " ", "giving", " ", 
+      RowBox[{"up", "."}]}], "Text"]},
+   {"PostIterationFunction", "Identity", 
+    StyleBox[
+     RowBox[{
+      TagBox[
+       StyleBox["PostIterationFunction", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "which", " ", "specifies", " ", "a", 
+      " ", "funciton", " ", "that", " ", "is", " ", "called", " ", "on", " ", 
+      "the", " ", "pulse", " ", "immediately", " ", "after", " ", "the", " ", 
+      "old", " ", "pulse", " ", "has", " ", "been", " ", "updated", " ", 
+      "with", " ", "the", " ", "step", " ", "size", " ", "multiplied", " ", 
+      "by", " ", "the", " ", "stepping", " ", 
+      RowBox[{"direction", ".", " ", "The"}], " ", "pulse", " ", "is", " ", 
+      "changed", " ", "to", " ", "the", " ", "output", " ", "value", " ", 
+      "of", " ", "this", " ", 
+      RowBox[{"function", "."}]}], "Text"]},
+   {"DerivativeMask", "None", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       TagBox[
+        StyleBox["DerivativeMask", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "is", " ", "a", " ", 
+       TagBox[
+        StyleBox["FindPulse", "Input",
+         FontFamily->"Courier"],
+        DisplayForm], " ", "option", " ", "that", " ", "specifies", " ", "an",
+        " ", "array", " ", "that", " ", "is", " ", "element"}], "-", 
+      RowBox[{
+      "wise", " ", "multiplied", " ", "by", " ", "the", " ", "gradient", " ", 
+       "array", " ", "at", " ", "each", " ", "iteration", " ", "of", " ", 
+       "the", " ", "gradient", " ", 
+       RowBox[{"ascent", "."}]}]}], "Text"]},
+   {"PulseLegalizer", "LegalisePulse", 
+    StyleBox[
+     RowBox[{
+      TagBox[
+       StyleBox["PulseLegalizer", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "a", " ", 
+      TagBox[
+       StyleBox["FindPulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "option", " ", "which", " ", "provides", " ", "a", 
+      " ", "function", " ", "accepting", " ", "arguments", " ", 
+      TagBox[
+       StyleBox["pulse", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "and", " ", 
+      TagBox[
+       StyleBox["\[Epsilon]Range", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "and", " ", "returns", " ", "a", " ", "new", " ", 
+      "pulse", " ", "which", " ", "is", " ", 
+      RowBox[{
+       RowBox[{"\[OpenCurlyQuote]", "legalized", "\[CloseCurlyQuote]"}], ".", 
+       " ", "This"}], " ", "is", " ", "called", " ", "at", " ", "the", " ", 
+      "start", " ", "of", " ", "each", " ", "gradient", " ", "ascent", " ", 
+      RowBox[{"iteration", "."}]}], "Text"]}
   },
   GridBoxAlignment->{"Columns" -> {{Left}}},
   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
-  GridBoxItemSize->{
-   "Columns" -> {Automatic, Automatic, {50}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{1.}}, "RowsIndexed" -> {}}]], "Text",
+  GridBoxItemSize->{"Columns" -> {Automatic, Automatic, {
+       Scaled[0.5]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.633376743477188*^9}]
-}, Open  ]],
-
-Cell["Getting Started", "Subsection",
- CellChangeTimes->{{3.633352631378475*^9, 3.6333526519246817`*^9}, {
-  3.633378280259653*^9, 3.6333782837409887`*^9}}],
-
-Cell["Using Basic Options", "Subsection",
- CellChangeTimes->{{3.6333783070254498`*^9, 3.6333783111874733`*^9}}],
-
-Cell["Formatting Simulation Output", "Subsection",
- CellChangeTimes->{{3.633378323756617*^9, 3.633378335311987*^9}}],
-
-Cell["Time Dependent Hamiltonians", "Subsection",
- CellChangeTimes->{{3.633378340078554*^9, 3.6333783461384697`*^9}}],
-
-Cell["Shaped Pulses", "Subsection",
- CellChangeTimes->{{3.6333783534917593`*^9, 3.633378356357945*^9}}],
-
-Cell["Unitary and Channel Pulses", "Subsection",
- CellChangeTimes->{{3.6333783601959*^9, 3.6333783649470587`*^9}}],
-
-Cell["Lindbladians", "Subsection",
- CellChangeTimes->{{3.633378370466507*^9, 3.633378383874476*^9}}]
+ CellChangeTimes->{3.634496084541959*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Pulse Sequence Evaluator", "Section",
- CellChangeTimes->{{3.633352040880207*^9, 3.633352042744746*^9}, {
-  3.633378019548696*^9, 3.6333780237702847`*^9}}],
+Cell["Repetitions", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634484846643484*^9, 3.634484848263054*^9}, {3.634485007328393*^9, 
+  3.634485009049532*^9}}],
 
-Cell["", "Text",
- CellChangeTimes->{{3.633353594145348*^9, 3.633353606545936*^9}, 
-   3.63337842175532*^9}]
+Cell[TextData[{
+ StyleBox["Repetitions", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option that specifying how many different initial guesses should be tried  \
+before giving up with the desired utility function. ",
+ StyleBox["Infinity", "Input"],
+ " is a valid value."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634484867059947*^9, 3.6344848934324417`*^9}, {3.634484954458233*^9, 
+  3.6344849922977753`*^9}, {3.634485025610861*^9, 3.634485027080052*^9}},
+ CellTags->"Repetitions::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ParameterDistribution", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.63449323976812*^9, 3.634493242319031*^9}}],
+
+Cell[TextData[{
+ StyleBox["ParameterDistribution", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option that accepts a function which takes a single argument, ",
+ StyleBox["cost", "Input"],
+ " (between ",
+ StyleBox["0", "Input"],
+ " and ",
+ StyleBox["1", "Input"],
+ "), and returns a pair of the form ",
+ StyleBox["{ps,{rep1,rep2,...,repN}}", "Input"],
+ " where ",
+ StyleBox["ps={p1,p2,...,pN}", "Input"],
+ " and ",
+ StyleBox["repn={symbol1->valuen1,symbol2->valuen2,...}", "Input"],
+ " such that the ",
+ StyleBox["p", "Input"],
+ "\[CloseCurlyQuote]s are positive and sum to unity. Each iteration of GRAPE, \
+this function is called and the utility function (and hence too the gradient) \
+becomes a convex combination over the N replacement rules with respective \
+weights ",
+ StyleBox["ps", "Input"],
+ ". The replacement rules are applied to all of\n    \[Bullet] the pulse \
+after distortion\n    \[Bullet] the penalty\n    \[Bullet] the internal \
+Hamiltonian\n    \[Bullet] the control Hamiltonians\n    \[Bullet] the target\
+\n    \n",
+ StyleBox["Additionally",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["ParameterDistribution", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " in the output of ",
+ StyleBox["FindPulse", "Input"],
+ " which stores a copy of the distribution used."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493244583956*^9, 3.634493338897499*^9}, {3.634493375953506*^9, 
+  3.634493499126914*^9}, {3.634497695883123*^9, 3.634497702025937*^9}, {
+  3.634501580079481*^9, 3.634501597571087*^9}},
+ CellTags->"ParameterDistribution::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["DistortionOperator", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634485149657103*^9, 3.634485170720046*^9}}],
+
+Cell[TextData[{
+ StyleBox["DistortionOperator", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option hat specifies how a pulse is distorted before it is simulated. It \
+should be a function of the form ",
+ StyleBox["Distortion[", "Input"],
+ StyleBox["inputPulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["returnJacobian", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ", returning just the distorted pulse if ",
+ StyleBox["returnJacobian", "Input"],
+ " is ",
+ StyleBox["False", "Input"],
+ ", and a tuple of the form ",
+ StyleBox["{distortedPulse, jacobian}", "Input"],
+ " if ",
+ StyleBox["returnJacobian", "Input"],
+ " is ",
+ StyleBox["True", "Input"],
+ ". The input and output pulses should be of the form ",
+ StyleBox["{{t1,a11,..,a1K},{t2,a21,...,a2K},...,{tN,aN1,...,ANK}}", 
+  "Input"],
+ " where ",
+ StyleBox["K", "Input"],
+ " and ",
+ StyleBox["N", "Input"],
+ " don\[CloseCurlyQuote]t have to be equal for the input and output pulses. \
+Set to ",
+ StyleBox["None", "Input"],
+ " for the identity distortion.\n\n",
+ StyleBox["Additionally",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["DistortionOperator", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " in the output of ",
+ StyleBox["FindPulse", "Input"],
+ " which stores a copy of the distortion operator used."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634485156190852*^9, 3.634485254817827*^9}, {3.634501474400337*^9, 
+  3.634501519557383*^9}, {3.634501561896243*^9, 3.634501563055422*^9}},
+ CellTags->"DistortionOperator::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ForceDistortionDependence", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, 
+   3.634493511047207*^9}],
+
+Cell[TextData[{
+ StyleBox["ForceDistortionDependence", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " Boolean option which, if ",
+ StyleBox["True", "Input"],
+ ", indicates that the ",
+ StyleBox["DistortionOperator", "Input"],
+ " depends on the distribution symbols specified in ",
+ StyleBox["ParameterDistribution", "Input"],
+ ". Normally, dependence is checked automatically, but this can fail in some \
+pathological cases; ",
+ StyleBox["ForceDistortionDependence\[Rule]True", "Input"],
+ " overrides automatic detection in these cases. If ",
+ StyleBox["False", "Input"],
+ ", no checking is performed. Default is ",
+ StyleBox["Automatic", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493512879575*^9, 3.634493593150766*^9}},
+ CellTags->"ForceDistortionDependence::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PulsePenalty", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634485307903139*^9, 3.63448531005394*^9}}],
+
+Cell[TextData[{
+ StyleBox["PulsePenalty", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which specifies a penalty to subtract from the utility function. \
+Similar to ",
+ StyleBox["DistortionOperator", "Input"],
+ ", it should be a function of the form ",
+ StyleBox["Penalty[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["returnGradient", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " which returns a real number when ",
+ StyleBox["returnGradient", "Input"],
+ " is ",
+ StyleBox["False", "Input"],
+ ", and a tuple {",
+ StyleBox["cost", "Input"],
+ ", ",
+ StyleBox["gradient", "Input"],
+ "} when ",
+ StyleBox["returnGradient", "Input"],
+ " is ",
+ StyleBox["True", "Input"],
+ ". Set to ",
+ StyleBox["None", "Input"],
+ " to use the zero distortion.\n\n",
+ StyleBox["Additionally",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["PulsePenalty", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " in the output of ",
+ StyleBox["FindPulse", "Input"],
+ " which stores a copy of the pulse penalty function used."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634485317858004*^9, 3.634485357064436*^9}, {3.6345015444394217`*^9, 
+  3.634501558077724*^9}},
+ CellTags->"PulsePenalty::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["DerivativeMask", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, 
+   3.634493958419821*^9}],
+
+Cell[TextData[{
+ StyleBox["DerivativeMask", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option that specifies an array that is element-wise multiplied by the \
+gradient array at each iteration of the gradient ascent."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493962003986*^9, 3.6344939847306757`*^9}},
+ CellTags->"DerivativeMask::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PostIterationFunction", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634493870579958*^9, 3.634493872237392*^9}}],
+
+Cell[TextData[{
+ StyleBox["PostIterationFunction", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which specifies a funciton that is called on the pulse immediately \
+after the old pulse has been updated with the step size multiplied by the \
+stepping direction. The pulse is changed to the output value of this function."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.6344938739071407`*^9, 3.634493901962981*^9}},
+ CellTags->"PostIterationFunction::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PulseLegalizer", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, 
+   3.634493997075143*^9, {3.634494888940776*^9, 3.634494889076867*^9}}],
+
+Cell[TextData[{
+ StyleBox["PulseLegalizer", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which provides a function accepting arguments ",
+ StyleBox["pulse", "Input"],
+ " and ",
+ StyleBox["\[Epsilon]Range", "Input"],
+ " and returns a new pulse which is \[OpenCurlyQuote]legalized\
+\[CloseCurlyQuote]. This is called at the start of each gradient ascent \
+iteration."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493998946909*^9, 3.634494064450736*^9}, {3.6344948915643883`*^9, 
+  3.6344949046922607`*^9}},
+ CellTags->"PulseLegalizer::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ControlLimitPolicy", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, 
+   3.634493668046708*^9}],
+
+Cell[TextData[{
+ StyleBox["ControlLimitPolicy", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which specifies what should be done when a control value is at the \
+boundary after legalizing. By default, nothing is done, but this can cause \
+successive \[Beta] resets in the conjugate gradient ascent. ",
+ StyleBox["Possible", "Input"],
+ " values are ",
+ StyleBox["Ignore", "Input"],
+ " and ",
+ StyleBox["ProjectGradient", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493669933279*^9, 3.6344937029239883`*^9}, {3.6344953703917503`*^9, 
+  3.634495377200905*^9}},
+ CellTags->"ControlLimitPolicy::usage"],
+
+Cell[TextData[{
+ StyleBox["Ignore", "Input"],
+ " specifies that no action is to be taken when the control boundary is hit."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.6344953526272*^9, {3.6344954062405252`*^9, 3.634495411576742*^9}},
+ CellTags->"Ignore::usage"],
+
+Cell[TextData[{
+ StyleBox["ProjectGradient", "Input"],
+ " specifies that the gradient for that iteration is to be projected to \
+exclude the control step at the boundary."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634495420164384*^9, 3.634495440205428*^9}},
+ CellTags->"ProjectGradient::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MonitorFunction", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}}],
+
+Cell[TextData[{
+ StyleBox["MonitorFunction", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option specifying which function should be called as a realtime monitoring \
+function of the algorithm. This function should take the following arguments: \
+",
+ StyleBox["GRAPE", "Input"],
+ ", ",
+ StyleBox["bestPulse", "Input"],
+ ", ",
+ StyleBox["overallBestPulse", "Input"],
+ ", ",
+ StyleBox["overallBestCost", "Input"],
+ ", ",
+ StyleBox["{rawUtility, cost}", "Input"],
+ ", ",
+ StyleBox["\[Epsilon]Range", "Input"],
+ ", ",
+ StyleBox["costList", "Input"],
+ ", ",
+ StyleBox["abortButton", "Input"],
+ ". This option can also be set to ",
+ StyleBox["Off", "Input"],
+ ", in which case a trivial monitor function is used."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484656058009*^9}, {
+  3.6344846874205112`*^9, 3.634484700827867*^9}, {3.634484788620675*^9, 
+  3.6344848232344837`*^9}},
+ CellTags->"MonitorFunction::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["InitialStepSize", "Subsubsection",
+ CellChangeTimes->{{3.6344842261433077`*^9, 3.634484254118774*^9}, {
+  3.6344960190438232`*^9, 3.6344960197387257`*^9}}],
+
+Cell[TextData[{
+ StyleBox["InitialStepSize", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which quantifies the initial value of how far one should go in the \
+steepest accent direction."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484257658947*^9, 3.634484275782707*^9}, {
+  3.634484335263248*^9, 3.634484335829442*^9}, {3.634484473771747*^9, 
+  3.634484475045109*^9}, {3.6344845236440897`*^9, 3.63448452462294*^9}},
+ CellTags->"InitialStepSize::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MinimumStepSize", "Subsubsection",
+ CellChangeTimes->{{3.6344844413168907`*^9, 3.634484443843363*^9}}],
+
+Cell[TextData[{
+ StyleBox["MinimumStepSize", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which specifies the minumum gradient step size allowed before the \
+ascent is aborted."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484342247754*^9, 3.634484432598679*^9}, {
+  3.634484526365637*^9, 3.634484527499531*^9}},
+ CellTags->"MinimumStepSize::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["LineSearchMethod", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.63449362621139*^9, 3.6344936292702417`*^9}}],
+
+Cell[TextData[{
+ StyleBox["LineSearchMethod", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which specifies a callable function that performs the line search \
+once a good direction has been found."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493622405635*^9, 3.634493640389742*^9}},
+ CellTags->"LineSearchMethod::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MinimumImprovement", "Subsubsection",
+ CellChangeTimes->{{3.634484460845306*^9, 3.634484464531999*^9}, {
+  3.6344845092612762`*^9, 3.634484513899187*^9}}],
+
+Cell[TextData[{
+ StyleBox["MinimumImprovement", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which specifies how much the utility function needs to improve by \
+(in a running average) in order not to exit the ascent."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484500638541*^9, 3.634484580140732*^9}, {
+  3.634484915522709*^9, 3.6344849173457823`*^9}},
+ CellTags->"MinimumImprovement::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MinimumIterations", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.6344937136205683`*^9, 3.63449371609226*^9}}],
+
+Cell[TextData[{
+ StyleBox["MinimumIterations", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option that specifies the number of minimum iterations to be performed \
+before accepting a target utility function value. This is mainly useful for \
+broadening distributions, to make sure that some improvement is made with \
+every broadening, even if the initial guess is \[OpenCurlyDoubleQuote]good\
+\[CloseCurlyDoubleQuote]."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493719708357*^9, 3.634493787709161*^9}},
+ CellTags->"MinimumIterations::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MaximumIterations", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634493798222192*^9, 3.634493802263084*^9}}],
+
+Cell[TextData[{
+ StyleBox["MaximumIterations", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option that specifies the maximum number of iterations to take in the \
+gradient ascent before giving up."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634493811105987*^9, 3.634493845628186*^9}},
+ CellTags->"MaximumIterations::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["SkipChecks", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634484982873659*^9, 3.6344849884005013`*^9}}],
+
+Cell[TextData[{
+ StyleBox["SkipChecks", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option that, when set to ",
+ StyleBox["True", "Input"],
+ ", skips all of the preliminary consistency checks of input arguments."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.634485035687722*^9, 3.634485073304657*^9}},
+ CellTags->"SkipChecks::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["VerboseAscent", "Subsubsection",
+ CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
+  3.634485100712905*^9, 3.634485103230275*^9}}],
+
+Cell[TextData[{
+ StyleBox["VerboseAscent", "Input"],
+ " is a ",
+ StyleBox["FindPulse", "Input"],
+ " option which can be set to ",
+ StyleBox["True", "Input"],
+ " or ",
+ StyleBox["False", "Input"],
+ ", and determines whether to print diagnostic ascent information at every \
+iteration."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
+  3.63448510609723*^9, 3.634485137872107*^9}},
+ CellTags->"VerboseAscent::usage"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Pulse Object", "Section",
+ CellChangeTimes->{{3.634499315580278*^9, 3.6344993201551857`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Pulse", "Input"],
+ " is a ",
+ StyleBox["Head", "Input"],
+ " to store the output of ",
+ StyleBox["FindPulse", "Input"],
+ " containing a list of rules from keys to values. For example, the output of \
+",
+ StyleBox["FindPulse", "Input"],
+ " might be \n",
+ StyleBox["p=Pulse[TimeSteps->{0.1,0.1,0.1},Pulse->{{1,2},{2,0},{3,1}},\
+UtilityValue->0.9994,...]", "Input"],
+ ".\n\n",
+ StyleBox["Retreiving Values",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nLike an ",
+ StyleBox["Association", "Input"],
+ ", values of keys can be retreived by calling the key: ",
+ StyleBox["p[TimeSteps]", "Input"],
+ "\n\n",
+ StyleBox["Notes",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" Pulse", "Input"],
+ " serves an alternate role as a key to the pulse amplitudes of the solution \
+found by ",
+ StyleBox["FindPulse", "Input"],
+ ".\n\n",
+ StyleBox["Possible Keys\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["UtilityValue", "Input"],
+ "\n",
+ StyleBox["PenaltyValue\nTimeSteps", "Input"],
+ "\n",
+ StyleBox["Pulse", "Input"],
+ "\n",
+ StyleBox["Target", "Input"],
+ "\n",
+ StyleBox["ControlHamiltonians", "Input"],
+ "\n",
+ StyleBox["InternalHamiltonian", "Input"],
+ "\n",
+ StyleBox["DistortionOperator", "Input"],
+ "\n",
+ StyleBox["PulsePenalty", "Input"],
+ "\n",
+ StyleBox["ParameterDistribution", "Input"],
+ "\n",
+ StyleBox["AmplitudeRange", "Input"],
+ "\n",
+ StyleBox["ExitMessage", "Input"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6344996477785463`*^9, 3.634499648332594*^9}, {
+  3.6345002099990873`*^9, 3.634500628404138*^9}, {3.6345007418132677`*^9, 
+  3.634500914003952*^9}, {3.63450112157022*^9, 3.634501123890213*^9}, {
+  3.634501193768155*^9, 3.634501201142671*^9}, {3.634501989868088*^9, 
+  3.6345020089884663`*^9}},
+ CellTags->"Pulse::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Keys", "Subsection",
+ CellChangeTimes->{{3.634500206854645*^9, 3.6345002075994864`*^9}, {
+  3.6345009230830584`*^9, 3.634500924531307*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["TimeSteps", "Subsubsection",
+ CellChangeTimes->{{3.6344996523869743`*^9, 3.634499654635273*^9}, {
+  3.634501071434095*^9, 3.6345010726026697`*^9}}],
+
+Cell[TextData[{
+ StyleBox["TimeSteps", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is a list of time step lengths for the solution found by ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6345011494729424`*^9, 3.634501170712364*^9}, {
+  3.634501214208269*^9, 3.634501256111784*^9}},
+ CellTags->"TimeSteps::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["UtilityValue", "Subsubsection",
+ CellChangeTimes->{{3.634499663970963*^9, 3.6344996977154408`*^9}, {
+  3.6345010747137413`*^9, 3.634501075777122*^9}}],
+
+Cell[TextData[{
+ StyleBox["UtilityValue", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is the utility function value of the solution found by ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501265703794*^9, 3.6345012880159407`*^9}},
+ CellTags->"UtilityValue::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PenaltyValue", "Subsubsection",
+ CellChangeTimes->{{3.634499705359074*^9, 3.634499710959853*^9}, {
+  3.634501078055483*^9, 3.634501079113154*^9}}],
+
+Cell[TextData[{
+ StyleBox["PenaltyValue", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is the ",
+ StyleBox["PenaltyFunction", "Input"],
+ " value of the solution found by ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501265703794*^9, 3.6345013175413094`*^9}},
+ CellTags->"PenaltyValue::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Target", "Subsubsection",
+ CellChangeTimes->{{3.63449972712351*^9, 3.634499727721644*^9}, {
+  3.634501081256765*^9, 3.6345010829460773`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Target", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is the ",
+ StyleBox["target", "Input"],
+ " entered as an argument to ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501328502832*^9, 3.63450135477487*^9}},
+ CellTags->"Target::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ControlHamiltonians", "Subsubsection",
+ CellChangeTimes->{{3.6344997311516953`*^9, 3.634499739315468*^9}, {
+  3.634501085337248*^9, 3.63450108682649*^9}}],
+
+Cell[TextData[{
+ StyleBox["ControlHamiltonians", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is the list ",
+ StyleBox["Hcontrol", "Input"],
+ " entered as an argument to ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501328502832*^9, 3.63450135477487*^9}, {
+  3.634501388231134*^9, 3.6345014064431667`*^9}},
+ CellTags->"ControlHamiltonians::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["InternalHamiltonian", "Subsubsection",
+ CellChangeTimes->{{3.634499743266323*^9, 3.634499745474532*^9}, {
+  3.634501088890252*^9, 3.634501090418728*^9}}],
+
+Cell[TextData[{
+ StyleBox["InternalHamiltonian", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is the Hamiltonian ",
+ StyleBox["Hint", "Input"],
+ " entered as an argument to ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501328502832*^9, 3.63450135477487*^9}, {
+  3.634501411301477*^9, 3.6345014233610907`*^9}},
+ CellTags->"InternalHamiltonian::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["AmplitudeRange", "Subsubsection",
+ CellChangeTimes->{{3.634499748834463*^9, 3.63449975108069*^9}, {
+  3.634501092345909*^9, 3.634501094033057*^9}}],
+
+Cell[TextData[{
+ StyleBox["AmplitudeRange", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is the ",
+ StyleBox["amplitudeRange", "Input"],
+ " entered as an argument to ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501328502832*^9, 3.63450135477487*^9}, {
+  3.634501429390675*^9, 3.634501441101791*^9}},
+ CellTags->"AmplitudeRange::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ExitMessage", "Subsubsection",
+ CellChangeTimes->{{3.634499748834463*^9, 3.63449975108069*^9}, {
+  3.634501092345909*^9, 3.634501094033057*^9}, {3.634501611284964*^9, 
+  3.6345016146109037`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ExitMessage", "Input"],
+ " is a key for ",
+ StyleBox["Pulse", "Input"],
+ " whose value is exit message of ",
+ StyleBox["FindPulse", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.634501328502832*^9, 3.63450135477487*^9}, {
+  3.634501429390675*^9, 3.634501441101791*^9}, {3.634501616637418*^9, 
+  3.634501638085211*^9}},
+ CellTags->"ExitMessage::usage"]
+}, Open  ]]
 }, Closed]],
 
-Cell["Evaluating over Distributions", "Section",
- CellChangeTimes->{{3.633378034250717*^9, 3.633378039410379*^9}}]
+Cell[CellGroupData[{
+
+Cell["Pulse Conversion", "Subsection",
+ CellChangeTimes->{{3.6344997752830667`*^9, 3.634499776418577*^9}, {
+  3.63449997285637*^9, 3.634499975528427*^9}}],
+
+Cell[TextData[{
+ StyleBox["ToPulse[", "Input"],
+ StyleBox["pulsemat", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " turns a matrix of the form ",
+ StyleBox["{{dt1,a11,a12,...},{dt2,a21,a22,...},{dt3,a31,a32},...}", 
+  "Input"],
+ " into a ",
+ StyleBox["Pulse", "Input"],
+ " object where all keys besides ",
+ StyleBox["Pulse", "Input"],
+ " and ",
+ StyleBox["TimeSteps", "Input"],
+ " are set to nominal qubit values."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6345020785753098`*^9, 3.634502181209169*^9}},
+ CellTags->"ToPulse::usage"],
+
+Cell[TextData[{
+ StyleBox["SimForm[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["distort", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " converts a ",
+ StyleBox["Pulse", "Input"],
+ " object pulse into the ",
+ StyleBox["ShapedPulseQ", "Input"],
+ " format accepted by ",
+ StyleBox["QSim`", "Input"],
+ "s ",
+ StyleBox["EvalPulse", "Input"],
+ ". If the optional argument ",
+ StyleBox["distort", "Input"],
+ " is ",
+ StyleBox["True", "Input"],
+ " (default value),  the ",
+ StyleBox["DistortionOperator", "Input"],
+ " is called on the pulse."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634502203542347*^9, 3.634502280215217*^9}, {
+  3.634502331305059*^9, 3.634502427326909*^9}},
+ CellTags->"SimForm::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Pulse Key Modification", "Subsection",
+ CellChangeTimes->{{3.634499787750826*^9, 3.6344997927614527`*^9}, {
+  3.634499978512271*^9, 3.63449999428052*^9}, {3.63450205632962*^9, 
+  3.634502056946669*^9}}],
+
+Cell[TextData[{
+ StyleBox["PulseRemoveKeys[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["key1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["key2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a new ",
+ StyleBox["Pulse", "Input"],
+ " object with the given keys and their values removed from the ",
+ StyleBox["Pulse", "Input"],
+ " object ",
+ StyleBox["pulse", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6345037011981*^9, 3.634503730941958*^9}, {
+  3.634504004052791*^9, 3.634504047876547*^9}, {3.6345043649689302`*^9, 
+  3.634504366827918*^9}},
+ CellTags->"PulseRemoveKey::usage"],
+
+Cell[TextData[{
+ StyleBox["PulseReplaceKey[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain"],
+ StyleBox[",", "Input"],
+ StyleBox["key", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["newval", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a new ",
+ StyleBox["Pulse", "Input"],
+ " object with the value of the given ",
+ StyleBox["key", "Input"],
+ " replaced with ",
+ StyleBox["newval", "Input"],
+ " in the ",
+ StyleBox["Pulse", "Input"],
+ " object ",
+ StyleBox["pulse", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6345038924420156`*^9, 3.634503921205015*^9}, {
+  3.6345040545799932`*^9, 3.6345040812211227`*^9}, {3.634504372934926*^9, 
+  3.634504376329896*^9}},
+ CellTags->"PulseReplaceKeys::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Pulse Manipulation", "Subsection",
+ CellChangeTimes->{{3.6345000287281237`*^9, 3.634500034206752*^9}}],
+
+Cell[TextData[{
+ StyleBox["PulsePhaseRotate[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["\[Phi]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a new ",
+ StyleBox["Pulse", "Input"],
+ " object where the phase between the amplitudes of the ",
+ StyleBox["Pulse", "Input"],
+ " object ",
+ StyleBox["pulse", "Input"],
+ " are rotated by a constant angle ",
+ StyleBox["\[Phi]", "Input"],
+ " (radians). It is assumed that there are two amplitude values per time step."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634503987543091*^9, 3.634503993804153*^9}, {
+  3.634504089156393*^9, 3.634504200004325*^9}},
+ CellTags->"PulsePhaseRotate::usage"],
+
+Cell[TextData[{
+ StyleBox["PulsePhaseShift[", "Input"],
+ StyleBox["pulse", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["\[Omega]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a new ",
+ StyleBox["Pulse", "Input"],
+ " object where the ",
+ StyleBox["pulse", "Input"],
+ " has been phase ramped with a slope ",
+ StyleBox["2\[Pi]*\[Omega]", "Input"],
+ ". The pulse is assumed to have two amplitudes per step, and is in x-y \
+coordinates."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634504215393125*^9, 3.6345042925703783`*^9}},
+ CellTags->"PulsePhaseShift::usage"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["Targets and Associated Utility Functions", "Section",
+ CellChangeTimes->{{3.634482803736505*^9, 3.634482808097674*^9}, {
+  3.6344835036124*^9, 3.6344835049300613`*^9}, {3.634484924513543*^9, 
+  3.634484925168857*^9}, {3.63449802383902*^9, 3.63449803014158*^9}}],
+
+Cell["Distortions", "Section",
+ CellChangeTimes->{{3.634482642542852*^9, 3.634482649991726*^9}}],
+
+Cell["Distributions", "Section",
+ CellChangeTimes->{{3.63448265269621*^9, 3.634482654024417*^9}}],
+
+Cell["Pulse Penalties", "Section",
+ CellChangeTimes->{{3.634482659363901*^9, 3.6344826640243053`*^9}}],
+
+Cell["Evaluators", "Section",
+ CellChangeTimes->{{3.634482677464252*^9, 3.6344826794732237`*^9}}],
+
+Cell["Plotting Tools", "Section",
+ CellChangeTimes->{{3.634482829144292*^9, 3.634482831296011*^9}}],
+
+Cell["Exporters", "Section",
+ CellChangeTimes->{{3.634482821775557*^9, 3.634482823301466*^9}}]
 }, Open  ]]
 },
 WindowSize->{1631, 1026},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowMargins->{{0, Automatic}, {Automatic, 1050}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -864,10 +1956,156 @@ StyleDefinitions->"Default.nb"
 
 (* Internal cache information *)
 (*CellTagsOutline
-CellTagsIndex->{}
+CellTagsIndex->{
+ "FindPulse::usage"->{
+  Cell[4294, 108, 5838, 166, 666, "Text",
+   CellTags->"FindPulse::usage"]},
+ "Repetitions::usage"->{
+  Cell[36557, 980, 575, 13, 32, "Text",
+   CellTags->"Repetitions::usage"]},
+ "ParameterDistribution::usage"->{
+  Cell[37336, 1002, 1654, 42, 212, "Text",
+   CellTags->"ParameterDistribution::usage"]},
+ "DistortionOperator::usage"->{
+  Cell[39192, 1053, 1670, 50, 114, "Text",
+   CellTags->"DistortionOperator::usage"]},
+ "ForceDistortionDependence::usage"->{
+  Cell[41048, 1112, 870, 22, 53, "Text",
+   CellTags->"ForceDistortionDependence::usage"]},
+ "PulsePenalty::usage"->{
+  Cell[42113, 1143, 1382, 46, 93, "Text",
+   CellTags->"PulsePenalty::usage"]},
+ "DerivativeMask::usage"->{
+  Cell[43670, 1198, 428, 10, 32, "Text",
+   CellTags->"DerivativeMask::usage"]},
+ "PostIterationFunction::usage"->{
+  Cell[44303, 1217, 544, 11, 52, "Text",
+   CellTags->"PostIterationFunction::usage"]},
+ "PulseLegalizer::usage"->{
+  Cell[45068, 1237, 633, 16, 32, "Text",
+   CellTags->"PulseLegalizer::usage"]},
+ "ControlLimitPolicy::usage"->{
+  Cell[45880, 1262, 706, 18, 53, "Text",
+   CellTags->"ControlLimitPolicy::usage"]},
+ "Ignore::usage"->{
+  Cell[46589, 1282, 287, 7, 32, "Text",
+   CellTags->"Ignore::usage"]},
+ "ProjectGradient::usage"->{
+  Cell[46879, 1291, 319, 7, 32, "Text",
+   CellTags->"ProjectGradient::usage"]},
+ "MonitorFunction::usage"->{
+  Cell[47348, 1306, 969, 30, 53, "Text",
+   CellTags->"MonitorFunction::usage"]},
+ "InitialStepSize::usage"->{
+  Cell[48518, 1345, 498, 11, 32, "Text",
+   CellTags->"InitialStepSize::usage"]},
+ "MinimumStepSize::usage"->{
+  Cell[49164, 1364, 393, 10, 32, "Text",
+   CellTags->"MinimumStepSize::usage"]},
+ "LineSearchMethod::usage"->{
+  Cell[49758, 1383, 414, 10, 32, "Text",
+   CellTags->"LineSearchMethod::usage"]},
+ "MinimumImprovement::usage"->{
+  Cell[50372, 1402, 438, 10, 32, "Text",
+   CellTags->"MinimumImprovement::usage"]},
+ "MinimumIterations::usage"->{
+  Cell[51012, 1421, 632, 13, 52, "Text",
+   CellTags->"MinimumIterations::usage"]},
+ "MaximumIterations::usage"->{
+  Cell[51845, 1443, 409, 10, 32, "Text",
+   CellTags->"MaximumIterations::usage"]},
+ "SkipChecks::usage"->{
+  Cell[52450, 1462, 417, 11, 32, "Text",
+   CellTags->"SkipChecks::usage"]},
+ "VerboseAscent::usage"->{
+  Cell[53064, 1482, 478, 14, 32, "Text",
+   CellTags->"VerboseAscent::usage"]},
+ "Pulse::usage"->{
+  Cell[53705, 1506, 1917, 64, 451, "Text",
+   CellTags->"Pulse::usage"]},
+ "TimeSteps::usage"->{
+  Cell[55973, 1584, 369, 10, 32, "Text",
+   CellTags->"TimeSteps::usage"]},
+ "UtilityValue::usage"->{
+  Cell[56538, 1603, 324, 9, 32, "Text",
+   CellTags->"UtilityValue::usage"]},
+ "PenaltyValue::usage"->{
+  Cell[57054, 1621, 352, 11, 32, "Text",
+   CellTags->"PenaltyValue::usage"]},
+ "Target::usage"->{
+  Cell[57593, 1641, 323, 11, 32, "Text",
+   CellTags->"Target::usage"]},
+ "ControlHamiltonians::usage"->{
+  Cell[58116, 1661, 407, 12, 32, "Text",
+   CellTags->"ControlHamiltonians::usage"]},
+ "InternalHamiltonian::usage"->{
+  Cell[58722, 1682, 410, 12, 32, "Text",
+   CellTags->"InternalHamiltonian::usage"]},
+ "AmplitudeRange::usage"->{
+  Cell[59325, 1703, 396, 12, 32, "Text",
+   CellTags->"AmplitudeRange::usage"]},
+ "ExitMessage::usage"->{
+  Cell[59962, 1725, 381, 11, 32, "Text",
+   CellTags->"ExitMessage::usage"]},
+ "ToPulse::usage"->{
+  Cell[60549, 1746, 594, 19, 32, "Text",
+   CellTags->"ToPulse::usage"]},
+ "SimForm::usage"->{
+  Cell[61146, 1767, 840, 29, 52, "Text",
+   CellTags->"SimForm::usage"]},
+ "PulseRemoveKey::usage"->{
+  Cell[62234, 1806, 888, 30, 32, "Text",
+   CellTags->"PulseRemoveKey::usage"]},
+ "PulseReplaceKeys::usage"->{
+  Cell[63125, 1838, 840, 29, 32, "Text",
+   CellTags->"PulseReplaceKeys::usage"]},
+ "PulsePhaseRotate::usage"->{
+  Cell[64113, 1875, 782, 23, 52, "Text",
+   CellTags->"PulsePhaseRotate::usage"]},
+ "PulsePhaseShift::usage"->{
+  Cell[64898, 1900, 677, 21, 32, "Text",
+   CellTags->"PulsePhaseShift::usage"]}
+ }
 *)
 (*CellTagsIndex
-CellTagsIndex->{}
+CellTagsIndex->{
+ {"FindPulse::usage", 66783, 1959},
+ {"Repetitions::usage", 66885, 1962},
+ {"ParameterDistribution::usage", 66997, 1965},
+ {"DistortionOperator::usage", 67119, 1968},
+ {"ForceDistortionDependence::usage", 67245, 1971},
+ {"PulsePenalty::usage", 67363, 1974},
+ {"DerivativeMask::usage", 67471, 1977},
+ {"PostIterationFunction::usage", 67587, 1980},
+ {"PulseLegalizer::usage", 67703, 1983},
+ {"ControlLimitPolicy::usage", 67816, 1986},
+ {"Ignore::usage", 67921, 1989},
+ {"ProjectGradient::usage", 68022, 1992},
+ {"MonitorFunction::usage", 68132, 1995},
+ {"InitialStepSize::usage", 68243, 1998},
+ {"MinimumStepSize::usage", 68354, 2001},
+ {"LineSearchMethod::usage", 68466, 2004},
+ {"MinimumImprovement::usage", 68581, 2007},
+ {"MinimumIterations::usage", 68697, 2010},
+ {"MaximumIterations::usage", 68812, 2013},
+ {"SkipChecks::usage", 68920, 2016},
+ {"VerboseAscent::usage", 69024, 2019},
+ {"Pulse::usage", 69123, 2022},
+ {"TimeSteps::usage", 69220, 2025},
+ {"UtilityValue::usage", 69322, 2028},
+ {"PenaltyValue::usage", 69426, 2031},
+ {"Target::usage", 69525, 2034},
+ {"ControlHamiltonians::usage", 69631, 2037},
+ {"InternalHamiltonian::usage", 69750, 2040},
+ {"AmplitudeRange::usage", 69864, 2043},
+ {"ExitMessage::usage", 69970, 2046},
+ {"ToPulse::usage", 70069, 2049},
+ {"SimForm::usage", 70164, 2052},
+ {"PulseRemoveKey::usage", 70266, 2055},
+ {"PulseReplaceKeys::usage", 70377, 2058},
+ {"PulsePhaseRotate::usage", 70490, 2061},
+ {"PulsePhaseShift::usage", 70602, 2064}
+ }
 *)
 (*NotebookFileOutline
 Notebook[{
@@ -875,49 +2113,201 @@ Cell[CellGroupData[{
 Cell[422, 15, 251, 3, 66, "Chapter"],
 Cell[CellGroupData[{
 Cell[698, 22, 142, 2, 65, "Section"],
-Cell[CellGroupData[{
-Cell[865, 28, 364, 5, 55, "Input"],
-Cell[1232, 35, 541, 11, 23, "Message"],
-Cell[1776, 48, 577, 11, 23, "Message"],
-Cell[2356, 61, 579, 11, 23, "Message"],
-Cell[2938, 74, 522, 11, 23, "Message"],
-Cell[3463, 87, 561, 12, 23, "Message"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[4073, 105, 110, 1, 65, "Section"],
-Cell[4186, 108, 875, 15, 77, "Text"],
-Cell[5064, 125, 697, 19, 33, "Text"],
-Cell[CellGroupData[{
-Cell[5786, 148, 1669, 40, 121, "Input"],
-Cell[7458, 190, 2264, 51, 273, "Output"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[9771, 247, 159, 2, 65, "Section"],
-Cell[9933, 251, 612, 15, 33, "Text"],
-Cell[10548, 268, 8943, 254, 270, "Text"],
-Cell[19494, 524, 870, 20, 77, "Text"],
-Cell[20367, 546, 2816, 82, 125, "Text"],
-Cell[23186, 630, 329, 10, 33, "Text"],
-Cell[CellGroupData[{
-Cell[23540, 644, 155, 2, 45, "Subsection"],
-Cell[23698, 648, 157, 3, 33, "Text"],
-Cell[23858, 653, 7183, 163, 552, "Text"]
-}, Open  ]],
-Cell[31056, 819, 156, 2, 45, "Subsection"],
-Cell[31215, 823, 111, 1, 37, "Subsection"],
-Cell[31329, 826, 116, 1, 37, "Subsection"],
-Cell[31448, 829, 117, 1, 37, "Subsection"],
-Cell[31568, 832, 103, 1, 37, "Subsection"],
-Cell[31674, 835, 114, 1, 37, "Subsection"],
-Cell[31791, 838, 100, 1, 36, "Subsection"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[31928, 844, 160, 2, 65, "Section"],
-Cell[32091, 848, 107, 2, 33, "Text"]
+Cell[843, 26, 331, 5, 32, "Input"],
+Cell[1177, 33, 182, 4, 31, "Text"],
+Cell[1362, 39, 138, 2, 32, "Input"]
 }, Closed]],
-Cell[32213, 853, 114, 1, 51, "Section"]
+Cell[CellGroupData[{
+Cell[1537, 46, 110, 1, 51, "Section"],
+Cell[1650, 49, 1593, 24, 172, "Text"],
+Cell[CellGroupData[{
+Cell[3268, 77, 103, 1, 35, "Subsubsection"],
+Cell[3374, 80, 436, 9, 70, "Text"],
+Cell[3813, 91, 232, 6, 51, "Text"]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4094, 103, 197, 3, 65, "Section"],
+Cell[4294, 108, 5838, 166, 666, "Text",
+ CellTags->"FindPulse::usage"],
+Cell[CellGroupData[{
+Cell[10157, 278, 95, 1, 45, "Subsection"],
+Cell[CellGroupData[{
+Cell[10277, 283, 102, 1, 35, "Subsubsection"],
+Cell[10382, 286, 25931, 684, 1396, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36350, 975, 204, 3, 35, "Subsubsection"],
+Cell[36557, 980, 575, 13, 32, "Text",
+ CellTags->"Repetitions::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37169, 998, 164, 2, 35, "Subsubsection"],
+Cell[37336, 1002, 1654, 42, 212, "Text",
+ CellTags->"ParameterDistribution::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39027, 1049, 162, 2, 35, "Subsubsection"],
+Cell[39192, 1053, 1670, 50, 114, "Text",
+ CellTags->"DistortionOperator::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40899, 1108, 146, 2, 35, "Subsubsection"],
+Cell[41048, 1112, 870, 22, 53, "Text",
+ CellTags->"ForceDistortionDependence::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41955, 1139, 155, 2, 35, "Subsubsection"],
+Cell[42113, 1143, 1382, 46, 93, "Text",
+ CellTags->"PulsePenalty::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43532, 1194, 135, 2, 35, "Subsubsection"],
+Cell[43670, 1198, 428, 10, 32, "Text",
+ CellTags->"DerivativeMask::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44135, 1213, 165, 2, 35, "Subsubsection"],
+Cell[44303, 1217, 544, 11, 52, "Text",
+ CellTags->"PostIterationFunction::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44884, 1233, 181, 2, 35, "Subsubsection"],
+Cell[45068, 1237, 633, 16, 32, "Text",
+ CellTags->"PulseLegalizer::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[45738, 1258, 139, 2, 35, "Subsubsection"],
+Cell[45880, 1262, 706, 18, 53, "Text",
+ CellTags->"ControlLimitPolicy::usage"],
+Cell[46589, 1282, 287, 7, 32, "Text",
+ CellTags->"Ignore::usage"],
+Cell[46879, 1291, 319, 7, 32, "Text",
+ CellTags->"ProjectGradient::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47235, 1303, 110, 1, 35, "Subsubsection"],
+Cell[47348, 1306, 969, 30, 53, "Text",
+ CellTags->"MonitorFunction::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48354, 1341, 161, 2, 35, "Subsubsection"],
+Cell[48518, 1345, 498, 11, 32, "Text",
+ CellTags->"InitialStepSize::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49053, 1361, 108, 1, 35, "Subsubsection"],
+Cell[49164, 1364, 393, 10, 32, "Text",
+ CellTags->"MinimumStepSize::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49594, 1379, 161, 2, 35, "Subsubsection"],
+Cell[49758, 1383, 414, 10, 32, "Text",
+ CellTags->"LineSearchMethod::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50209, 1398, 160, 2, 35, "Subsubsection"],
+Cell[50372, 1402, 438, 10, 32, "Text",
+ CellTags->"MinimumImprovement::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50847, 1417, 162, 2, 35, "Subsubsection"],
+Cell[51012, 1421, 632, 13, 52, "Text",
+ CellTags->"MinimumIterations::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[51681, 1439, 161, 2, 35, "Subsubsection"],
+Cell[51845, 1443, 409, 10, 32, "Text",
+ CellTags->"MaximumIterations::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52291, 1458, 156, 2, 35, "Subsubsection"],
+Cell[52450, 1462, 417, 11, 32, "Text",
+ CellTags->"SkipChecks::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52904, 1478, 157, 2, 35, "Subsubsection"],
+Cell[53064, 1482, 478, 14, 32, "Text",
+ CellTags->"VerboseAscent::usage"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53603, 1503, 99, 1, 65, "Section"],
+Cell[53705, 1506, 1917, 64, 451, "Text",
+ CellTags->"Pulse::usage"],
+Cell[CellGroupData[{
+Cell[55647, 1574, 145, 2, 45, "Subsection"],
+Cell[CellGroupData[{
+Cell[55817, 1580, 153, 2, 35, "Subsubsection"],
+Cell[55973, 1584, 369, 10, 32, "Text",
+ CellTags->"TimeSteps::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[56379, 1599, 156, 2, 35, "Subsubsection"],
+Cell[56538, 1603, 324, 9, 32, "Text",
+ CellTags->"UtilityValue::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[56899, 1617, 152, 2, 35, "Subsubsection"],
+Cell[57054, 1621, 352, 11, 32, "Text",
+ CellTags->"PenaltyValue::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[57443, 1637, 147, 2, 35, "Subsubsection"],
+Cell[57593, 1641, 323, 11, 32, "Text",
+ CellTags->"Target::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[57953, 1657, 160, 2, 35, "Subsubsection"],
+Cell[58116, 1661, 407, 12, 32, "Text",
+ CellTags->"ControlHamiltonians::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[58560, 1678, 159, 2, 35, "Subsubsection"],
+Cell[58722, 1682, 410, 12, 32, "Text",
+ CellTags->"InternalHamiltonian::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[59169, 1699, 153, 2, 35, "Subsubsection"],
+Cell[59325, 1703, 396, 12, 32, "Text",
+ CellTags->"AmplitudeRange::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[59758, 1720, 201, 3, 35, "Subsubsection"],
+Cell[59962, 1725, 381, 11, 32, "Text",
+ CellTags->"ExitMessage::usage"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[60392, 1742, 154, 2, 36, "Subsection"],
+Cell[60549, 1746, 594, 19, 32, "Text",
+ CellTags->"ToPulse::usage"],
+Cell[61146, 1767, 840, 29, 52, "Text",
+ CellTags->"SimForm::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62023, 1801, 208, 3, 45, "Subsection"],
+Cell[62234, 1806, 888, 30, 32, "Text",
+ CellTags->"PulseRemoveKey::usage"],
+Cell[63125, 1838, 840, 29, 32, "Text",
+ CellTags->"PulseReplaceKeys::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[64002, 1872, 108, 1, 45, "Subsection"],
+Cell[64113, 1875, 782, 23, 52, "Text",
+ CellTags->"PulsePhaseRotate::usage"],
+Cell[64898, 1900, 677, 21, 32, "Text",
+ CellTags->"PulsePhaseShift::usage"]
+}, Open  ]]
+}, Open  ]],
+Cell[65602, 1925, 267, 3, 65, "Section"],
+Cell[65872, 1930, 96, 1, 51, "Section"],
+Cell[65971, 1933, 97, 1, 51, "Section"],
+Cell[66071, 1936, 102, 1, 51, "Section"],
+Cell[66176, 1939, 97, 1, 51, "Section"],
+Cell[66276, 1942, 99, 1, 51, "Section"],
+Cell[66378, 1945, 94, 1, 51, "Section"]
 }, Open  ]]
 }
 ]

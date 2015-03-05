@@ -66,7 +66,7 @@ AssignUsage[GeneratorSymbols,$Usages];
 AssignUsage[NumericalLieAlgebra,$Usages];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Options*)
 
 
