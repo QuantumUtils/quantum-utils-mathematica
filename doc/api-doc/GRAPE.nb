@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     99415,       2957]
-NotebookOptionsPosition[     85515,       2538]
-NotebookOutlinePosition[     92162,       2723]
-CellTagsIndexPosition[     90397,       2677]
+NotebookDataLength[    102360,       3031]
+NotebookOptionsPosition[     88065,       2601]
+NotebookOutlinePosition[     94868,       2790]
+CellTagsIndexPosition[     93061,       2743]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -24,12 +24,70 @@ Cell["Preamble", "Section",
  CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
   3.633781248319159*^9, 3.633781249429679*^9}}],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<GRAPE`\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
   3.633369630403097*^9, 3.633369649792616*^9}, {3.633371974503627*^9, 
   3.633371979509849*^9}, {3.633439263683157*^9, 3.6334392647382183`*^9}, {
   3.63448171195175*^9, 3.634481712372257*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"AssignUsage", "::", "nousg"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"No usage message in \
+\[NoBreak]\\!\\(\\(\\(\\*InterpretationBox[\\\"UsageData\\\", \\\"UsageData\\\
+\"]\\)\\)[\\(\\(\\*InterpretationBox[TagBox[\\(\[LeftSkeleton] 1 \
+\[RightSkeleton]\\), \\\"Grid\\\"], Null]\\)\\)]\\)\[NoBreak] for symbol \
+\[NoBreak]\\!\\(PropagatorListFromPulse\\)\[NoBreak] found; using a blank \
+message instead.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.634650493929267*^9, 3.634650532692906*^9, 
+  3.63465056426198*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"SetDelayed", "::", "write"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Tag \[NoBreak]\\!\\(UtilityFunction\\)\[NoBreak] in \
+\[NoBreak]\\!\\(UtilityFunction[\\(\\(Ucalc_, \
+Utarget_List\\)\\)]\\)\[NoBreak] is Protected. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/write\\\", ButtonNote -> \
+\\\"SetDelayed::write\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.634650493929267*^9, 3.634650532692906*^9, 
+  3.634650564363659*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"SetDelayed", "::", "write"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Tag \[NoBreak]\\!\\(UtilityFunction\\)\[NoBreak] in \
+\[NoBreak]\\!\\(UtilityFunction[\\(\\(Ucalc_, target_CoherentSubspaces\\)\\)]\
+\\)\[NoBreak] is Protected. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/write\\\", ButtonNote -> \
+\\\"SetDelayed::write\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.634650493929267*^9, 3.634650532692906*^9, 
+  3.634650564445386*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Protect", "::", "locked"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Symbol \[NoBreak]\\!\\(UtilityFunction\\)\[NoBreak] is \
+locked. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/Protect/locked\\\", ButtonNote -> \
+\\\"Protect::locked\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.634650493929267*^9, 3.634650532692906*^9, 
+  3.634650564533677*^9}]
+}, Open  ]],
 
 Cell["\<\
 The following packages are needed to run some code found in this \
@@ -40,7 +98,7 @@ documentation notebook.\
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<Tensor`\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.634314144340521*^9, 3.634314148861907*^9}}]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1834,7 +1892,7 @@ Cell[TextData[{
  CellChangeTimes->{{3.6345037011981*^9, 3.634503730941958*^9}, {
   3.634504004052791*^9, 3.634504047876547*^9}, {3.6345043649689302`*^9, 
   3.634504366827918*^9}},
- CellTags->"PulseRemoveKey::usage"],
+ CellTags->"PulseRemoveKeys::usage"],
 
 Cell[TextData[{
  StyleBox["PulseReplaceKey[", "Input"],
@@ -1865,7 +1923,7 @@ Cell[TextData[{
  CellChangeTimes->{{3.6345038924420156`*^9, 3.634503921205015*^9}, {
   3.6345040545799932`*^9, 3.6345040812211227`*^9}, {3.634504372934926*^9, 
   3.634504376329896*^9}},
- CellTags->"PulseReplaceKeys::usage"]
+ CellTags->"PulseReplaceKey::usage"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1926,14 +1984,16 @@ coordinates."
 
 Cell[CellGroupData[{
 
-Cell["UtilityFunction and Targets", "Section",
+Cell["Utility Function and Targets", "Section",
  CellChangeTimes->{{3.634482803736505*^9, 3.634482808097674*^9}, {
-  3.6344835036124*^9, 3.6344835049300613`*^9}, {3.634484924513543*^9, 
-  3.634484925168857*^9}, {3.63449802383902*^9, 3.63449803014158*^9}, {
-  3.634564027689345*^9, 3.634564038623632*^9}}],
+   3.6344835036124*^9, 3.6344835049300613`*^9}, {3.634484924513543*^9, 
+   3.634484925168857*^9}, {3.63449802383902*^9, 3.63449803014158*^9}, {
+   3.634564027689345*^9, 3.634564038623632*^9}, 3.634651164914619*^9, {
+   3.634651234391271*^9, 3.634651235557106*^9}}],
 
 Cell[TextData[{
- StyleBox["UtilityFunction[", "Input"],
+ StyleBox["Utility", "Input"],
+ StyleBox["[", "Input"],
  StyleBox["S", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
@@ -1989,8 +2049,9 @@ effective map weighted over all elements of the ",
  CellChangeTimes->{{3.634564077807438*^9, 3.6345641420315332`*^9}, {
    3.6345642545660763`*^9, 3.6345642689576406`*^9}, {3.634564371813291*^9, 
    3.634564782409417*^9}, {3.63456482678848*^9, 3.634565073402807*^9}, 
-   3.634565113681534*^9, {3.63456520124124*^9, 3.634565219338629*^9}},
- CellTags->"UtilityFunction::usage"],
+   3.634565113681534*^9, {3.63456520124124*^9, 3.634565219338629*^9}, 
+   3.634651164994025*^9},
+ CellTags->"Utility::usage"],
 
 Cell[TextData[{
  StyleBox["UtilityGradient[", "Input"],
@@ -2015,7 +2076,7 @@ Cell[TextData[{
  " where ",
  StyleBox["utilityValue", "Input"],
  " is the value of ",
- StyleBox["UtilityFunction", "Input"],
+ StyleBox["Utility", "Input"],
  " with the given ",
  StyleBox["pulse", "Input"],
  " and Hamiltonians and ",
@@ -2031,7 +2092,7 @@ Cell[TextData[{
  " from ",
  StyleBox["FindPulse", "Input"],
  ". See ",
- StyleBox["UtilityFunction", "Input"],
+ StyleBox["Utility", "Input"],
  " for a description of ",
  StyleBox["target", "Input"],
  "."
@@ -2040,7 +2101,8 @@ Cell[TextData[{
  CellChangeTimes->{{3.6345651496789503`*^9, 3.6345651709690866`*^9}, {
   3.634565230927505*^9, 3.634565346482071*^9}, {3.63456563062276*^9, 
   3.634565669790134*^9}, {3.634566853812652*^9, 3.634566880365993*^9}, {
-  3.634566915988715*^9, 3.634566946012767*^9}},
+  3.634566915988715*^9, 3.634566946012767*^9}, {3.634651165072154*^9, 
+  3.634651165157873*^9}, {3.6346512233902683`*^9, 3.63465122421974*^9}},
  CellTags->"UtilityGradient::usage"],
 
 Cell[TextData[{
@@ -2060,7 +2122,7 @@ Cell[TextData[{
  " returns the total evolution propagator ",
  StyleBox["S", "Input"],
  " (as seen by ",
- StyleBox["UtilityFunction", "Input"],
+ StyleBox["Utility", "Input"],
  ") due to the given ",
  StyleBox["pulse", "Input"],
  " and Hamiltonians. In the case of a closed system, ",
@@ -2078,7 +2140,7 @@ Cell[TextData[{
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.634567380255889*^9, 3.634567519016796*^9}, 
-   3.634567581138217*^9},
+   3.634567581138217*^9, 3.6346511652498617`*^9},
  CellTags->"PropagatorFromPulse::usage"],
 
 Cell[TextData[{
@@ -2111,7 +2173,8 @@ this will be a list of unitary matrices.\n\n",
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.634567380255889*^9, 3.634567519016796*^9}, {
-  3.63456757406404*^9, 3.634567667375107*^9}}],
+  3.63456757406404*^9, 3.634567667375107*^9}},
+ CellTags->"PropagatorListFromPulse::usage"],
 
 Cell[CellGroupData[{
 
@@ -2547,177 +2610,181 @@ StyleDefinitions->"Default.nb"
 (*CellTagsOutline
 CellTagsIndex->{
  "FindPulse::usage"->{
-  Cell[4294, 108, 5838, 166, 666, "Text",
+  Cell[6593, 166, 5838, 166, 666, "Text",
    CellTags->"FindPulse::usage"]},
  "Repetitions::usage"->{
-  Cell[36557, 980, 575, 13, 32, "Text",
+  Cell[38856, 1038, 575, 13, 32, "Text",
    CellTags->"Repetitions::usage"]},
  "ParameterDistribution::usage"->{
-  Cell[37336, 1002, 1654, 42, 212, "Text",
+  Cell[39635, 1060, 1654, 42, 212, "Text",
    CellTags->"ParameterDistribution::usage"]},
  "DistortionOperator::usage"->{
-  Cell[39192, 1053, 1670, 50, 114, "Text",
+  Cell[41491, 1111, 1670, 50, 114, "Text",
    CellTags->"DistortionOperator::usage"]},
  "ForceDistortionDependence::usage"->{
-  Cell[41048, 1112, 870, 22, 53, "Text",
+  Cell[43347, 1170, 870, 22, 53, "Text",
    CellTags->"ForceDistortionDependence::usage"]},
  "PulsePenalty::usage"->{
-  Cell[42113, 1143, 1382, 46, 93, "Text",
+  Cell[44412, 1201, 1382, 46, 93, "Text",
    CellTags->"PulsePenalty::usage"]},
  "DerivativeMask::usage"->{
-  Cell[43670, 1198, 428, 10, 32, "Text",
+  Cell[45969, 1256, 428, 10, 32, "Text",
    CellTags->"DerivativeMask::usage"]},
  "PostIterationFunction::usage"->{
-  Cell[44303, 1217, 544, 11, 52, "Text",
+  Cell[46602, 1275, 544, 11, 52, "Text",
    CellTags->"PostIterationFunction::usage"]},
  "PulseLegalizer::usage"->{
-  Cell[45068, 1237, 633, 16, 32, "Text",
+  Cell[47367, 1295, 633, 16, 32, "Text",
    CellTags->"PulseLegalizer::usage"]},
  "ControlLimitPolicy::usage"->{
-  Cell[45880, 1262, 706, 18, 53, "Text",
+  Cell[48179, 1320, 706, 18, 53, "Text",
    CellTags->"ControlLimitPolicy::usage"]},
  "Ignore::usage"->{
-  Cell[46589, 1282, 287, 7, 32, "Text",
+  Cell[48888, 1340, 287, 7, 32, "Text",
    CellTags->"Ignore::usage"]},
  "ProjectGradient::usage"->{
-  Cell[46879, 1291, 319, 7, 32, "Text",
+  Cell[49178, 1349, 319, 7, 32, "Text",
    CellTags->"ProjectGradient::usage"]},
  "MonitorFunction::usage"->{
-  Cell[47348, 1306, 969, 30, 53, "Text",
+  Cell[49647, 1364, 969, 30, 53, "Text",
    CellTags->"MonitorFunction::usage"]},
  "InitialStepSize::usage"->{
-  Cell[48518, 1345, 498, 11, 32, "Text",
+  Cell[50817, 1403, 498, 11, 32, "Text",
    CellTags->"InitialStepSize::usage"]},
  "MinimumStepSize::usage"->{
-  Cell[49164, 1364, 393, 10, 32, "Text",
+  Cell[51463, 1422, 393, 10, 32, "Text",
    CellTags->"MinimumStepSize::usage"]},
  "LineSearchMethod::usage"->{
-  Cell[49758, 1383, 414, 10, 32, "Text",
+  Cell[52057, 1441, 414, 10, 32, "Text",
    CellTags->"LineSearchMethod::usage"]},
  "MinimumImprovement::usage"->{
-  Cell[50372, 1402, 438, 10, 32, "Text",
+  Cell[52671, 1460, 438, 10, 32, "Text",
    CellTags->"MinimumImprovement::usage"]},
  "MinimumIterations::usage"->{
-  Cell[51012, 1421, 632, 13, 52, "Text",
+  Cell[53311, 1479, 632, 13, 52, "Text",
    CellTags->"MinimumIterations::usage"]},
  "MaximumIterations::usage"->{
-  Cell[51845, 1443, 409, 10, 32, "Text",
+  Cell[54144, 1501, 409, 10, 32, "Text",
    CellTags->"MaximumIterations::usage"]},
  "SkipChecks::usage"->{
-  Cell[52450, 1462, 417, 11, 32, "Text",
+  Cell[54749, 1520, 417, 11, 32, "Text",
    CellTags->"SkipChecks::usage"]},
  "VerboseAscent::usage"->{
-  Cell[53064, 1482, 478, 14, 32, "Text",
+  Cell[55363, 1540, 478, 14, 32, "Text",
    CellTags->"VerboseAscent::usage"]},
  "Pulse::usage"->{
-  Cell[53705, 1506, 1917, 64, 451, "Text",
+  Cell[56004, 1564, 1917, 64, 451, "Text",
    CellTags->"Pulse::usage"]},
  "TimeSteps::usage"->{
-  Cell[55973, 1584, 369, 10, 32, "Text",
+  Cell[58272, 1642, 369, 10, 32, "Text",
    CellTags->"TimeSteps::usage"]},
  "UtilityValue::usage"->{
-  Cell[56538, 1603, 324, 9, 32, "Text",
+  Cell[58837, 1661, 324, 9, 32, "Text",
    CellTags->"UtilityValue::usage"]},
  "PenaltyValue::usage"->{
-  Cell[57054, 1621, 352, 11, 32, "Text",
+  Cell[59353, 1679, 352, 11, 32, "Text",
    CellTags->"PenaltyValue::usage"]},
  "Target::usage"->{
-  Cell[57593, 1641, 323, 11, 32, "Text",
+  Cell[59892, 1699, 323, 11, 32, "Text",
    CellTags->"Target::usage"]},
  "ControlHamiltonians::usage"->{
-  Cell[58116, 1661, 407, 12, 32, "Text",
+  Cell[60415, 1719, 407, 12, 32, "Text",
    CellTags->"ControlHamiltonians::usage"]},
  "InternalHamiltonian::usage"->{
-  Cell[58722, 1682, 410, 12, 32, "Text",
+  Cell[61021, 1740, 410, 12, 32, "Text",
    CellTags->"InternalHamiltonian::usage"]},
  "AmplitudeRange::usage"->{
-  Cell[59325, 1703, 396, 12, 32, "Text",
+  Cell[61624, 1761, 396, 12, 32, "Text",
    CellTags->"AmplitudeRange::usage"]},
  "ExitMessage::usage"->{
-  Cell[59962, 1725, 381, 11, 32, "Text",
+  Cell[62261, 1783, 381, 11, 32, "Text",
    CellTags->"ExitMessage::usage"]},
  "ToPulse::usage"->{
-  Cell[60549, 1746, 594, 19, 32, "Text",
+  Cell[62848, 1804, 594, 19, 32, "Text",
    CellTags->"ToPulse::usage"]},
  "SimForm::usage"->{
-  Cell[61146, 1767, 840, 29, 52, "Text",
+  Cell[63445, 1825, 840, 29, 52, "Text",
    CellTags->"SimForm::usage"]},
- "PulseRemoveKey::usage"->{
-  Cell[62234, 1806, 888, 30, 32, "Text",
-   CellTags->"PulseRemoveKey::usage"]},
- "PulseReplaceKeys::usage"->{
-  Cell[63125, 1838, 840, 29, 32, "Text",
-   CellTags->"PulseReplaceKeys::usage"]},
+ "PulseRemoveKeys::usage"->{
+  Cell[64533, 1864, 889, 30, 32, "Text",
+   CellTags->"PulseRemoveKeys::usage"]},
+ "PulseReplaceKey::usage"->{
+  Cell[65425, 1896, 839, 29, 32, "Text",
+   CellTags->"PulseReplaceKey::usage"]},
  "PulsePhaseRotate::usage"->{
-  Cell[64113, 1875, 782, 23, 52, "Text",
+  Cell[66412, 1933, 782, 23, 52, "Text",
    CellTags->"PulsePhaseRotate::usage"]},
  "PulsePhaseRamp::usage"->{
-  Cell[64898, 1900, 724, 22, 32, "Text",
+  Cell[67197, 1958, 724, 22, 32, "Text",
    CellTags->"PulsePhaseRamp::usage"]},
- "UtilityFunction::usage"->{
-  Cell[65977, 1934, 2052, 58, 135, "Text",
-   CellTags->"UtilityFunction::usage"]},
+ "Utility::usage"->{
+  Cell[68352, 1993, 2086, 60, 135, "Text",
+   CellTags->"Utility::usage"]},
  "UtilityGradient::usage"->{
-  Cell[68032, 1994, 1533, 49, 74, "Text",
+  Cell[70441, 2055, 1613, 50, 53, "Text",
    CellTags->"UtilityGradient::usage"]},
  "PropagatorFromPulse::usage"->{
-  Cell[69568, 2045, 1062, 36, 91, "Text",
+  Cell[72057, 2107, 1078, 36, 91, "Text",
    CellTags->"PropagatorFromPulse::usage"]},
+ "PropagatorListFromPulse::usage"->{
+  Cell[73138, 2145, 1014, 31, 110, "Text",
+   CellTags->"PropagatorListFromPulse::usage"]},
  "CoherentSubspaces::usage"->{
-  Cell[71736, 2120, 3730, 114, 238, "Text",
+  Cell[74286, 2183, 3730, 114, 238, "Text",
    CellTags->"CoherentSubspaces::usage"]},
  "ExportJCAMP::usage"->{
-  Cell[76245, 2263, 1408, 52, 112, "Text",
+  Cell[78795, 2326, 1408, 52, 112, "Text",
    CellTags->"ExportJCAMP::usage"]},
  "ExportSHP::usage"->{
-  Cell[83823, 2482, 1652, 51, 74, "Text",
+  Cell[86373, 2545, 1652, 51, 74, "Text",
    CellTags->"ExportSHP::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"FindPulse::usage", 85807, 2548},
- {"Repetitions::usage", 85909, 2551},
- {"ParameterDistribution::usage", 86021, 2554},
- {"DistortionOperator::usage", 86143, 2557},
- {"ForceDistortionDependence::usage", 86269, 2560},
- {"PulsePenalty::usage", 86387, 2563},
- {"DerivativeMask::usage", 86495, 2566},
- {"PostIterationFunction::usage", 86611, 2569},
- {"PulseLegalizer::usage", 86727, 2572},
- {"ControlLimitPolicy::usage", 86840, 2575},
- {"Ignore::usage", 86945, 2578},
- {"ProjectGradient::usage", 87046, 2581},
- {"MonitorFunction::usage", 87156, 2584},
- {"InitialStepSize::usage", 87267, 2587},
- {"MinimumStepSize::usage", 87378, 2590},
- {"LineSearchMethod::usage", 87490, 2593},
- {"MinimumImprovement::usage", 87605, 2596},
- {"MinimumIterations::usage", 87721, 2599},
- {"MaximumIterations::usage", 87836, 2602},
- {"SkipChecks::usage", 87944, 2605},
- {"VerboseAscent::usage", 88048, 2608},
- {"Pulse::usage", 88147, 2611},
- {"TimeSteps::usage", 88244, 2614},
- {"UtilityValue::usage", 88346, 2617},
- {"PenaltyValue::usage", 88450, 2620},
- {"Target::usage", 88549, 2623},
- {"ControlHamiltonians::usage", 88655, 2626},
- {"InternalHamiltonian::usage", 88774, 2629},
- {"AmplitudeRange::usage", 88888, 2632},
- {"ExitMessage::usage", 88994, 2635},
- {"ToPulse::usage", 89093, 2638},
- {"SimForm::usage", 89188, 2641},
- {"PulseRemoveKey::usage", 89290, 2644},
- {"PulseReplaceKeys::usage", 89401, 2647},
- {"PulsePhaseRotate::usage", 89514, 2650},
- {"PulsePhaseRamp::usage", 89625, 2653},
- {"UtilityFunction::usage", 89735, 2656},
- {"UtilityGradient::usage", 89848, 2659},
- {"PropagatorFromPulse::usage", 89964, 2662},
- {"CoherentSubspaces::usage", 90082, 2665},
- {"ExportJCAMP::usage", 90194, 2668},
- {"ExportSHP::usage", 90297, 2671}
+ {"FindPulse::usage", 88357, 2611},
+ {"Repetitions::usage", 88459, 2614},
+ {"ParameterDistribution::usage", 88572, 2617},
+ {"DistortionOperator::usage", 88694, 2620},
+ {"ForceDistortionDependence::usage", 88820, 2623},
+ {"PulsePenalty::usage", 88938, 2626},
+ {"DerivativeMask::usage", 89046, 2629},
+ {"PostIterationFunction::usage", 89162, 2632},
+ {"PulseLegalizer::usage", 89278, 2635},
+ {"ControlLimitPolicy::usage", 89391, 2638},
+ {"Ignore::usage", 89496, 2641},
+ {"ProjectGradient::usage", 89597, 2644},
+ {"MonitorFunction::usage", 89707, 2647},
+ {"InitialStepSize::usage", 89818, 2650},
+ {"MinimumStepSize::usage", 89929, 2653},
+ {"LineSearchMethod::usage", 90041, 2656},
+ {"MinimumImprovement::usage", 90156, 2659},
+ {"MinimumIterations::usage", 90272, 2662},
+ {"MaximumIterations::usage", 90387, 2665},
+ {"SkipChecks::usage", 90495, 2668},
+ {"VerboseAscent::usage", 90599, 2671},
+ {"Pulse::usage", 90698, 2674},
+ {"TimeSteps::usage", 90795, 2677},
+ {"UtilityValue::usage", 90897, 2680},
+ {"PenaltyValue::usage", 91001, 2683},
+ {"Target::usage", 91100, 2686},
+ {"ControlHamiltonians::usage", 91206, 2689},
+ {"InternalHamiltonian::usage", 91325, 2692},
+ {"AmplitudeRange::usage", 91439, 2695},
+ {"ExitMessage::usage", 91545, 2698},
+ {"ToPulse::usage", 91644, 2701},
+ {"SimForm::usage", 91739, 2704},
+ {"PulseRemoveKeys::usage", 91842, 2707},
+ {"PulseReplaceKey::usage", 91953, 2710},
+ {"PulsePhaseRotate::usage", 92065, 2713},
+ {"PulsePhaseRamp::usage", 92176, 2716},
+ {"Utility::usage", 92278, 2719},
+ {"UtilityGradient::usage", 92383, 2722},
+ {"PropagatorFromPulse::usage", 92499, 2725},
+ {"PropagatorListFromPulse::usage", 92623, 2728},
+ {"CoherentSubspaces::usage", 92746, 2731},
+ {"ExportJCAMP::usage", 92858, 2734},
+ {"ExportSHP::usage", 92961, 2737}
  }
 *)
 (*NotebookFileOutline
@@ -2726,228 +2793,235 @@ Cell[CellGroupData[{
 Cell[422, 15, 251, 3, 66, "Chapter"],
 Cell[CellGroupData[{
 Cell[698, 22, 142, 2, 65, "Section"],
-Cell[843, 26, 331, 5, 32, "Input"],
-Cell[1177, 33, 182, 4, 31, "Text"],
-Cell[1362, 39, 138, 2, 32, "Input"]
-}, Closed]],
 Cell[CellGroupData[{
-Cell[1537, 46, 110, 1, 51, "Section"],
-Cell[1650, 49, 1593, 24, 172, "Text"],
+Cell[865, 28, 331, 5, 32, "Input"],
+Cell[1199, 35, 576, 12, 23, "Message"],
+Cell[1778, 49, 584, 12, 23, "Message"],
+Cell[2365, 63, 596, 12, 23, "Message"],
+Cell[2964, 77, 497, 11, 23, "Message"]
+}, Open  ]],
+Cell[3476, 91, 182, 4, 31, "Text"],
+Cell[3661, 97, 138, 2, 32, "Input"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[3268, 77, 103, 1, 35, "Subsubsection"],
-Cell[3374, 80, 436, 9, 70, "Text"],
-Cell[3813, 91, 232, 6, 51, "Text"]
+Cell[3836, 104, 110, 1, 65, "Section"],
+Cell[3949, 107, 1593, 24, 172, "Text"],
+Cell[CellGroupData[{
+Cell[5567, 135, 103, 1, 35, "Subsubsection"],
+Cell[5673, 138, 436, 9, 70, "Text"],
+Cell[6112, 149, 232, 6, 51, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4094, 103, 197, 3, 65, "Section"],
-Cell[4294, 108, 5838, 166, 666, "Text",
+Cell[6393, 161, 197, 3, 65, "Section"],
+Cell[6593, 166, 5838, 166, 666, "Text",
  CellTags->"FindPulse::usage"],
 Cell[CellGroupData[{
-Cell[10157, 278, 95, 1, 45, "Subsection"],
+Cell[12456, 336, 95, 1, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[10277, 283, 102, 1, 35, "Subsubsection"],
-Cell[10382, 286, 25931, 684, 1396, "Text"]
+Cell[12576, 341, 102, 1, 35, "Subsubsection"],
+Cell[12681, 344, 25931, 684, 1396, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[36350, 975, 204, 3, 35, "Subsubsection"],
-Cell[36557, 980, 575, 13, 32, "Text",
+Cell[38649, 1033, 204, 3, 35, "Subsubsection"],
+Cell[38856, 1038, 575, 13, 32, "Text",
  CellTags->"Repetitions::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[37169, 998, 164, 2, 35, "Subsubsection"],
-Cell[37336, 1002, 1654, 42, 212, "Text",
+Cell[39468, 1056, 164, 2, 35, "Subsubsection"],
+Cell[39635, 1060, 1654, 42, 212, "Text",
  CellTags->"ParameterDistribution::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[39027, 1049, 162, 2, 35, "Subsubsection"],
-Cell[39192, 1053, 1670, 50, 114, "Text",
+Cell[41326, 1107, 162, 2, 35, "Subsubsection"],
+Cell[41491, 1111, 1670, 50, 114, "Text",
  CellTags->"DistortionOperator::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40899, 1108, 146, 2, 35, "Subsubsection"],
-Cell[41048, 1112, 870, 22, 53, "Text",
+Cell[43198, 1166, 146, 2, 35, "Subsubsection"],
+Cell[43347, 1170, 870, 22, 53, "Text",
  CellTags->"ForceDistortionDependence::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[41955, 1139, 155, 2, 35, "Subsubsection"],
-Cell[42113, 1143, 1382, 46, 93, "Text",
+Cell[44254, 1197, 155, 2, 35, "Subsubsection"],
+Cell[44412, 1201, 1382, 46, 93, "Text",
  CellTags->"PulsePenalty::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[43532, 1194, 135, 2, 35, "Subsubsection"],
-Cell[43670, 1198, 428, 10, 32, "Text",
+Cell[45831, 1252, 135, 2, 35, "Subsubsection"],
+Cell[45969, 1256, 428, 10, 32, "Text",
  CellTags->"DerivativeMask::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[44135, 1213, 165, 2, 35, "Subsubsection"],
-Cell[44303, 1217, 544, 11, 52, "Text",
+Cell[46434, 1271, 165, 2, 35, "Subsubsection"],
+Cell[46602, 1275, 544, 11, 52, "Text",
  CellTags->"PostIterationFunction::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[44884, 1233, 181, 2, 35, "Subsubsection"],
-Cell[45068, 1237, 633, 16, 32, "Text",
+Cell[47183, 1291, 181, 2, 35, "Subsubsection"],
+Cell[47367, 1295, 633, 16, 32, "Text",
  CellTags->"PulseLegalizer::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[45738, 1258, 139, 2, 35, "Subsubsection"],
-Cell[45880, 1262, 706, 18, 53, "Text",
+Cell[48037, 1316, 139, 2, 35, "Subsubsection"],
+Cell[48179, 1320, 706, 18, 53, "Text",
  CellTags->"ControlLimitPolicy::usage"],
-Cell[46589, 1282, 287, 7, 32, "Text",
+Cell[48888, 1340, 287, 7, 32, "Text",
  CellTags->"Ignore::usage"],
-Cell[46879, 1291, 319, 7, 32, "Text",
+Cell[49178, 1349, 319, 7, 32, "Text",
  CellTags->"ProjectGradient::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47235, 1303, 110, 1, 35, "Subsubsection"],
-Cell[47348, 1306, 969, 30, 53, "Text",
+Cell[49534, 1361, 110, 1, 35, "Subsubsection"],
+Cell[49647, 1364, 969, 30, 53, "Text",
  CellTags->"MonitorFunction::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[48354, 1341, 161, 2, 35, "Subsubsection"],
-Cell[48518, 1345, 498, 11, 32, "Text",
+Cell[50653, 1399, 161, 2, 35, "Subsubsection"],
+Cell[50817, 1403, 498, 11, 32, "Text",
  CellTags->"InitialStepSize::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49053, 1361, 108, 1, 35, "Subsubsection"],
-Cell[49164, 1364, 393, 10, 32, "Text",
+Cell[51352, 1419, 108, 1, 35, "Subsubsection"],
+Cell[51463, 1422, 393, 10, 32, "Text",
  CellTags->"MinimumStepSize::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49594, 1379, 161, 2, 35, "Subsubsection"],
-Cell[49758, 1383, 414, 10, 32, "Text",
+Cell[51893, 1437, 161, 2, 35, "Subsubsection"],
+Cell[52057, 1441, 414, 10, 32, "Text",
  CellTags->"LineSearchMethod::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[50209, 1398, 160, 2, 35, "Subsubsection"],
-Cell[50372, 1402, 438, 10, 32, "Text",
+Cell[52508, 1456, 160, 2, 35, "Subsubsection"],
+Cell[52671, 1460, 438, 10, 32, "Text",
  CellTags->"MinimumImprovement::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[50847, 1417, 162, 2, 35, "Subsubsection"],
-Cell[51012, 1421, 632, 13, 52, "Text",
+Cell[53146, 1475, 162, 2, 35, "Subsubsection"],
+Cell[53311, 1479, 632, 13, 52, "Text",
  CellTags->"MinimumIterations::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[51681, 1439, 161, 2, 35, "Subsubsection"],
-Cell[51845, 1443, 409, 10, 32, "Text",
+Cell[53980, 1497, 161, 2, 35, "Subsubsection"],
+Cell[54144, 1501, 409, 10, 32, "Text",
  CellTags->"MaximumIterations::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52291, 1458, 156, 2, 35, "Subsubsection"],
-Cell[52450, 1462, 417, 11, 32, "Text",
+Cell[54590, 1516, 156, 2, 35, "Subsubsection"],
+Cell[54749, 1520, 417, 11, 32, "Text",
  CellTags->"SkipChecks::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52904, 1478, 157, 2, 35, "Subsubsection"],
-Cell[53064, 1482, 478, 14, 32, "Text",
+Cell[55203, 1536, 157, 2, 35, "Subsubsection"],
+Cell[55363, 1540, 478, 14, 32, "Text",
  CellTags->"VerboseAscent::usage"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[53603, 1503, 99, 1, 65, "Section"],
-Cell[53705, 1506, 1917, 64, 451, "Text",
+Cell[55902, 1561, 99, 1, 65, "Section"],
+Cell[56004, 1564, 1917, 64, 451, "Text",
  CellTags->"Pulse::usage"],
 Cell[CellGroupData[{
-Cell[55647, 1574, 145, 2, 45, "Subsection"],
+Cell[57946, 1632, 145, 2, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[55817, 1580, 153, 2, 35, "Subsubsection"],
-Cell[55973, 1584, 369, 10, 32, "Text",
+Cell[58116, 1638, 153, 2, 35, "Subsubsection"],
+Cell[58272, 1642, 369, 10, 32, "Text",
  CellTags->"TimeSteps::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56379, 1599, 156, 2, 35, "Subsubsection"],
-Cell[56538, 1603, 324, 9, 32, "Text",
+Cell[58678, 1657, 156, 2, 35, "Subsubsection"],
+Cell[58837, 1661, 324, 9, 32, "Text",
  CellTags->"UtilityValue::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56899, 1617, 152, 2, 35, "Subsubsection"],
-Cell[57054, 1621, 352, 11, 32, "Text",
+Cell[59198, 1675, 152, 2, 35, "Subsubsection"],
+Cell[59353, 1679, 352, 11, 32, "Text",
  CellTags->"PenaltyValue::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[57443, 1637, 147, 2, 35, "Subsubsection"],
-Cell[57593, 1641, 323, 11, 32, "Text",
+Cell[59742, 1695, 147, 2, 35, "Subsubsection"],
+Cell[59892, 1699, 323, 11, 32, "Text",
  CellTags->"Target::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[57953, 1657, 160, 2, 35, "Subsubsection"],
-Cell[58116, 1661, 407, 12, 32, "Text",
+Cell[60252, 1715, 160, 2, 35, "Subsubsection"],
+Cell[60415, 1719, 407, 12, 32, "Text",
  CellTags->"ControlHamiltonians::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[58560, 1678, 159, 2, 35, "Subsubsection"],
-Cell[58722, 1682, 410, 12, 32, "Text",
+Cell[60859, 1736, 159, 2, 35, "Subsubsection"],
+Cell[61021, 1740, 410, 12, 32, "Text",
  CellTags->"InternalHamiltonian::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[59169, 1699, 153, 2, 35, "Subsubsection"],
-Cell[59325, 1703, 396, 12, 32, "Text",
+Cell[61468, 1757, 153, 2, 35, "Subsubsection"],
+Cell[61624, 1761, 396, 12, 32, "Text",
  CellTags->"AmplitudeRange::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[59758, 1720, 201, 3, 35, "Subsubsection"],
-Cell[59962, 1725, 381, 11, 32, "Text",
+Cell[62057, 1778, 201, 3, 35, "Subsubsection"],
+Cell[62261, 1783, 381, 11, 32, "Text",
  CellTags->"ExitMessage::usage"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[60392, 1742, 154, 2, 36, "Subsection"],
-Cell[60549, 1746, 594, 19, 32, "Text",
+Cell[62691, 1800, 154, 2, 36, "Subsection"],
+Cell[62848, 1804, 594, 19, 32, "Text",
  CellTags->"ToPulse::usage"],
-Cell[61146, 1767, 840, 29, 52, "Text",
+Cell[63445, 1825, 840, 29, 52, "Text",
  CellTags->"SimForm::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[62023, 1801, 208, 3, 45, "Subsection"],
-Cell[62234, 1806, 888, 30, 32, "Text",
- CellTags->"PulseRemoveKey::usage"],
-Cell[63125, 1838, 840, 29, 32, "Text",
- CellTags->"PulseReplaceKeys::usage"]
+Cell[64322, 1859, 208, 3, 45, "Subsection"],
+Cell[64533, 1864, 889, 30, 32, "Text",
+ CellTags->"PulseRemoveKeys::usage"],
+Cell[65425, 1896, 839, 29, 32, "Text",
+ CellTags->"PulseReplaceKey::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[64002, 1872, 108, 1, 45, "Subsection"],
-Cell[64113, 1875, 782, 23, 52, "Text",
+Cell[66301, 1930, 108, 1, 45, "Subsection"],
+Cell[66412, 1933, 782, 23, 52, "Text",
  CellTags->"PulsePhaseRotate::usage"],
-Cell[64898, 1900, 724, 22, 32, "Text",
+Cell[67197, 1958, 724, 22, 32, "Text",
  CellTags->"PulsePhaseRamp::usage"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[65671, 1928, 303, 4, 65, "Section"],
-Cell[65977, 1934, 2052, 58, 135, "Text",
- CellTags->"UtilityFunction::usage"],
-Cell[68032, 1994, 1533, 49, 74, "Text",
+Cell[67970, 1986, 379, 5, 65, "Section"],
+Cell[68352, 1993, 2086, 60, 135, "Text",
+ CellTags->"Utility::usage"],
+Cell[70441, 2055, 1613, 50, 53, "Text",
  CellTags->"UtilityGradient::usage"],
-Cell[69568, 2045, 1062, 36, 91, "Text",
+Cell[72057, 2107, 1078, 36, 91, "Text",
  CellTags->"PropagatorFromPulse::usage"],
-Cell[70633, 2083, 969, 30, 110, "Text"],
+Cell[73138, 2145, 1014, 31, 110, "Text",
+ CellTags->"PropagatorListFromPulse::usage"],
 Cell[CellGroupData[{
-Cell[71627, 2117, 106, 1, 45, "Subsection"],
-Cell[71736, 2120, 3730, 114, 238, "Text",
+Cell[74177, 2180, 106, 1, 45, "Subsection"],
+Cell[74286, 2183, 3730, 114, 238, "Text",
  CellTags->"CoherentSubspaces::usage"]
 }, Open  ]],
-Cell[75481, 2237, 100, 1, 44, "Subsection"]
+Cell[78031, 2300, 100, 1, 44, "Subsection"]
 }, Open  ]],
-Cell[75596, 2241, 96, 1, 65, "Section"],
-Cell[75695, 2244, 97, 1, 51, "Section"],
-Cell[75795, 2247, 102, 1, 51, "Section"],
-Cell[75900, 2250, 99, 1, 51, "Section"],
+Cell[78146, 2304, 96, 1, 65, "Section"],
+Cell[78245, 2307, 97, 1, 51, "Section"],
+Cell[78345, 2310, 102, 1, 51, "Section"],
+Cell[78450, 2313, 99, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[76024, 2255, 94, 1, 51, "Section"],
+Cell[78574, 2318, 94, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[76143, 2260, 99, 1, 45, "Subsection"],
-Cell[76245, 2263, 1408, 52, 112, "Text",
+Cell[78693, 2323, 99, 1, 45, "Subsection"],
+Cell[78795, 2326, 1408, 52, 112, "Text",
  CellTags->"ExportJCAMP::usage"],
 Cell[CellGroupData[{
-Cell[77678, 2319, 102, 1, 35, "Subsubsection"],
-Cell[77783, 2322, 5889, 151, 385, "Text"]
+Cell[80228, 2382, 102, 1, 35, "Subsubsection"],
+Cell[80333, 2385, 5889, 151, 385, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[83721, 2479, 99, 1, 45, "Subsection"],
-Cell[83823, 2482, 1652, 51, 74, "Text",
+Cell[86271, 2542, 99, 1, 45, "Subsection"],
+Cell[86373, 2545, 1652, 51, 74, "Text",
  CellTags->"ExportSHP::usage"]
 }, Open  ]]
 }, Open  ]]

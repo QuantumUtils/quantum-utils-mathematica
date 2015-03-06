@@ -99,11 +99,11 @@ AssignUsage[
 
 
 (* ::Subsection:: *)
-(*UtilityFunction and Targets*)
+(*Utility and Targets*)
 
 
 Unprotect[
-	UtilityFunction,UtilityGradient,
+	Utility,UtilityGradient,
 	PropagatorFromPulse,PropagatorListFromPulse,
 	CoherentSubspaces
 ];
@@ -111,7 +111,7 @@ Unprotect[
 
 AssignUsage[
 	{
-		UtilityFunction,UtilityGradient,
+		Utility,UtilityGradient,
 		PropagatorFromPulse,PropagatorListFromPulse,
 		CoherentSubspaces
 	},
@@ -315,7 +315,7 @@ LegendIsCell::usage = "LegendIsCell is an option for 2D RobustnessPlots which wh
 DistortionOperatorSweep::usage = "DistortionOperatorSweep is an option for RobustnessPlots which when True indicates that the distortion contains a robustness parameter which is being swept and therefore needs to be calculated each time on the inner loop. Default is False.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Exporters*)
 
 
@@ -1163,7 +1163,7 @@ PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
 (*We divide by the dimension to make the maximum value of the objective function equal to 1.*)
 
 
-UtilityFunction[Ucalc_,Utarget_List]:=Abs[Tr[Ucalc\[ConjugateTranspose].Utarget]/Length[Ucalc]]^2;
+Utility[Ucalc_,Utarget_List]:=Abs[Tr[Ucalc\[ConjugateTranspose].Utarget]/Length[Ucalc]]^2;
 
 
 UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
@@ -1182,7 +1182,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 			-2 Re[Tr[Uback[[i]]\[ConjugateTranspose].(I dts[[i]] Hcontrol[[j]].Uforw[[i]])]*Tr[Uforw[[i]]\[ConjugateTranspose].Uback[[i]]]],
 			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/dim^2;
-		cost=UtilityFunction[Last[Uforw],Utarget];
+		cost=Utility[Last[Uforw],Utarget];
 		{cost,gradient}
 	];
 
@@ -1191,7 +1191,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 (*Coherent Subspaces*)
 
 
-UtilityFunction[Ucalc_,target_CoherentSubspaces]:=
+Utility[Ucalc_,target_CoherentSubspaces]:=
 	With[
 		{Xs=target[[1]],Ys=target[[2]]},
 		Sum[
@@ -1229,7 +1229,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 			],
 			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/numSubspaces;
-		performIndex=UtilityFunction[Last[Uforw],target];
+		performIndex=Utility[Last[Uforw],target];
 		{performIndex,derivs}
 	];
 
@@ -1397,7 +1397,7 @@ PulsePlot[pulse_, opt : OptionsPattern[]]:=If[Not@OptionValue@DistortionOperator
 
 
 PulseFourierPlot[pulse_,controlNames_:{"X","Y"},normalization_:(2*\[Pi]),freqSpace_:False]:=
-	Module[{fid=UtilityFunction@pulse,data=Pulse@pulse,dt=First@TimeSteps@pulse,T,len},
+	Module[{fid=Utility@pulse,data=Pulse@pulse,dt=First@TimeSteps@pulse,T,len},
 		If[freqSpace,
 			data=DistortionOperator[pulse][AddTimeSteps[TimeSteps@pulse,data],False];
 			len=Length[data];
@@ -1742,7 +1742,7 @@ Module[
 					testFn = With[{distortedPulse=DistortionFn[pulse+AddTimeSteps[0,#*stepSize*(\[Epsilon]max^2*#&/@goodDirec)], False]},
 							Sum[
 								With[{reps=distReps[[d]], prob=distPs[[d]]},
-									prob*(UtilityFunction[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
+									prob*(Utility[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
 										PulsePenaltyFn[distortedPulse/.reps, False])
 								],
 								{d, distNum}
@@ -1960,7 +1960,7 @@ RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:Optio
 					If[OptionValue[DistortionOperatorSweep],
 						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
-					{x, Fcn@UtilityFunction[
+					{x, Fcn@Utility[
 						Last@Unitaries@EvalPulse[
 							Hint/.reps,
 							simpulse/.reps
@@ -2012,7 +2012,7 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 					If[OptionValue[DistortionOperatorSweep],
 						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
-					Fcn@UtilityFunction[
+					Fcn@Utility[
 						Last@Unitaries@EvalPulse[
 							Hint/.reps,
 							simpulse/.reps
@@ -2253,7 +2253,7 @@ Protect[
 
 
 Protect[
-	UtilityFunction,UtilityGradient,
+	Utility,UtilityGradient,
 	PropagatorFromPulse,PropagatorListFromPulse,
 	CoherentSubspaces
 ];
