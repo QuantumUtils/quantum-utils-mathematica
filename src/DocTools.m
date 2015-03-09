@@ -33,7 +33,7 @@ BeginPackage["DocTools`"];
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Tables*)
 
 
@@ -44,26 +44,27 @@ DescriptiveFillInTable::usage = "DescriptiveFillInTable[headers,rows,OptionsPatt
 DisplayOptions::usage = "DisplayOptions[TargetFunction] prints a human readable cell describing the options of a given function. Assumes all options have usage text.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Usage String Handling*)
 
 
 (*
-	The AssignUsage function is drawn from StackExchange:
+	The AssignUsage function is heavily based on StackExchange:
     http://mathematica.stackexchange.com/questions/3941/managing-formatted-usage-messages-in-wolfram-workbench
 *)
 
 
 LoadUsages::usage = "LoadUsages[nbName] loads usage strings from a tagged cells in notebook, such that the strings can later be applied using AssignUsage[]. For more details, see the examples in doc/.";
 UsageData::usage = "UsageData[] represents usage strings loaded using LoadUsages[].";
-AssignUsage::usage = "AssignUsage[symbol, usageData] sets symbol::usage to be drawn from the usage data usageData made by running LoadUsages[].";
+AssignUsage::usage = "AssignUsage[symbol, usageData] sets symbol::usage to be drawn from the usage data usageData made by running LoadUsages[] with a name corresponding to symbol.
+AssignUsage[codeSymbol->docSymbol, usageData] sets codeSymbol::usage to be drawn from the usage data usageData made by running LoadUsages[] with a name corresponding to docSymbol.";
 AssignUsage::nousg = "No usage message in `1` for symbol `2` found; using a blank message instead.";
 
 Attributes[AssignUsage] = {HoldFirst};
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Links*)
 
 
@@ -175,15 +176,18 @@ Format[usageData_UsageData] := Interpretation[UsageData, "UsageData"][Interpreta
 ]
 
 
-AssignUsage[s_Symbol, usageData_UsageData] := With[{name = SymbolName @ Unevaluated[s]},
-	If[FreeQ[usageData, (name -> _)],
-		Message[AssignUsage::nousg, usageData, HoldForm[s]];
-		MessageName[s, "usage"] = "";
+AssignUsage[codeSymb_Symbol->docSymb_Symbol, usageData_UsageData] := Module[{docName},
+	docName = SymbolName @ Unevaluated[docSymb];
+	If[FreeQ[usageData, (docName -> _)],
+		Message[AssignUsage::nousg, usageData, HoldForm[docSymb]];
+		MessageName[docSymb, "usage"] = "";
 		$Failed,
 
-		MessageName[s, "usage"] = name /. List @@ usageData
+		MessageName[codeSymb, "usage"] = docName /. List @@ usageData
 	]
 ]
+
+AssignUsage[symb_Symbol, usageData_UsageData] := AssignUsage[symb->symb,usageData];
 
 AssignUsage[{s__Symbol}, usageData_UsageData] := Map[AssignUsage[#, usageData]&, {s}];
 
@@ -211,7 +215,7 @@ NotebookLink[notebookFile_,name_,description_]:=Module[{headStyle},
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*End Private*)
 
 
