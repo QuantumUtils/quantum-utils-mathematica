@@ -49,6 +49,7 @@ Unprotect[CircleTimes,BlockMatrix,UnitArray,ArrayPermutations,OuterProduct,Proje
 
 
 AssignUsage[CircleTimes,$Usages];
+AssignUsage[\[DoubleStruckOne]->IdentityMatrixShorthand,$Usages];
 AssignUsage[BlockMatrix,$Usages];
 AssignUsage[UnitArray,$Usages];
 AssignUsage[ArrayPermutations,$Usages];
@@ -170,7 +171,7 @@ BasisMatrix::dims = "Dimensions of input system must be specified.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices and Operations*)
 
 
@@ -198,7 +199,6 @@ CircleTimes[first_?ArrayQ,rest__]:=CircleTimes[CircleTimes[first,First[{rest}]],
 CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
 
 
-(*CircleTimes[A_?ArrayQ,n_Integer]:=CircleTimes@@ConstantArray[A,n];*)
 CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
 
 
@@ -209,24 +209,24 @@ ArrayPermutations[arrayNums__]:=
 	Message[ArrayPermutations::input]]
 
 
-Com[A_,B_,n_]:=
+Com[A_?MatrixQ,B_?MatrixQ,n_Integer]:=
 	Block[{Com},
 		Com[A,B,0]:=B;
 		Com[A,B,1]:=A.B-B.A;
 		Com[A,B,m_?Positive]:=Com[A,B,m]=Com[A,Com[A,B,m-1]];
 		Com[A,B,n]
 	];
-Com[A_,B_]:=Com[A,B,1]
+Com[A_?MatrixQ,B_?MatrixQ]:=Com[A,B,1]
 
 
-ACom[A_,B_,n_]:=
+ACom[A_?MatrixQ,B_?MatrixQ,n_Integer]:=
 	Block[{ACom},
 		ACom[A,B,0]:=B;
 		ACom[A,B,1]:=A.B+B.A;
 		ACom[A,B,m_?Positive]:=ACom[A,B,m]=ACom[A,ACom[A,B,m-1]];
 		ACom[A,B,n]
 	];
-ACom[A_,B_]:=ACom[A,B,1]
+ACom[A_?MatrixQ,B_?MatrixQ]:=ACom[A,B,1]
 
 
 OuterProduct[u_,v_]:=KroneckerProduct[Flatten[u],Conjugate[Flatten[v]]];
@@ -547,7 +547,7 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{pairs___List}]:=
 MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix Bases*)
 
 
