@@ -92,7 +92,7 @@ AssignUsage[RandomDensity,$Usages];
 AssignUsage[RandomHermitian,$Usages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Error Messages*)
 
 
@@ -100,7 +100,7 @@ AssignUsage[RandomHermitian,$Usages];
 (*States and Operators*)
 
 
-Spin::spin = "Total spin value must be an non-negative integer or half-integer.";
+Spin::spin = "Total spin value must be an non-negative integer or half-integer; `1` received.";
 Cavity::dim = "Cavity dimension must be a positive integer.";
 
 
@@ -150,7 +150,7 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States and Operators*)
 
 
@@ -197,7 +197,7 @@ Spin[expr_][S_,SparseArray]:=With[
 	{spin=Rationalize[S]},
 	If[SpinQ[spin],
 		TP[expr,Replace->SpinTPRules[S]],
-		Message[Spin::spin]
+		Message[Spin::spin,spin]
 	]]
 
 Spin[expr_][S_]:=Normal[Spin[expr][S,SparseArray]]
