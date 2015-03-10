@@ -144,7 +144,7 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
 (* ::Section:: *)
-(*Implimentation*)
+(*Implementation*)
 
 
 Begin["`Private`"];
@@ -185,7 +185,16 @@ SpinTPRules[S_]:= SpinTPRules[S] =
 
 
 SetAttributes[Spin,HoldAllComplete]
-Spin[expr_][S_,SparseArray]:=With[{spin=Rationalize[S]},
+
+(*By giving custom DownValues to Spin[0] etc, we can avoid TP ever seeing 
+numbers as replacement rules, which would cause much confusion*)
+Spin[0][S_,SparseArray]:=Spin["I"][S,SparseArray]
+Spin[1][S_,SparseArray]:=Spin["X"][S,SparseArray]
+Spin[2][S_,SparseArray]:=Spin["Y"][S,SparseArray]
+Spin[3][S_,SparseArray]:=Spin["Z"][S,SparseArray]
+
+Spin[expr_][S_,SparseArray]:=With[
+	{spin=Rationalize[S]},
 	If[SpinQ[spin],
 		TP[expr,Replace->SpinTPRules[S]],
 		Message[Spin::spin]
@@ -576,7 +585,6 @@ MutualInformationS[mat_]:=With[{d=Sqrt@Length[mat]},
 
 
 (* ::Text:: *)
-(**)
 (*Function for computing the matrix-log of singular matrices. It returns -\[Infinity] for zero eigenvalues*)
 
 
@@ -685,7 +693,7 @@ EntanglementF[op_]:=
 	]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Random Matrices*)
 
 
