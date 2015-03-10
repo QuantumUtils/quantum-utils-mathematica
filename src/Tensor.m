@@ -195,10 +195,8 @@ CircleTimes[first_?ArrayQ,last_?NumericQ]:=last*first
 CircleTimes[first_?ArrayQ,last_?VectorQ]:=KroneckerProduct[first,Partition[last,1]]
 CircleTimes[first_?ArrayQ,last_?ArrayQ]:=KroneckerProduct[first,last]
 CircleTimes[first_?ArrayQ,last_Rule]:=CircleTimes[first,CircleTimes[last]]
-CircleTimes[first_?ArrayQ,rest__]:=CircleTimes[CircleTimes[first,First[{rest}]],Sequence@@Rest[{rest}]]
-CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
-
-
+CircleTimes[first_?ArrayQ,second_?ArrayQ,rest___]:=CircleTimes[CircleTimes[first,second],rest]
+CircleTimes[first_?ArrayQ,second_?NumericQ,rest___]:=CircleTimes[CircleTimes[first,second],rest]
 CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
 
 
