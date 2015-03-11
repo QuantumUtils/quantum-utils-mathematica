@@ -675,13 +675,13 @@ BasisImplimentation[fn_String,args__,opts:OptionsPattern[Vec]]:=
 VecRow[m_]:= Flatten[{m},{{2,3},{1}}]
 DevecRow[v_,{dL_,dR_}]:= ArrayReshape[v,{dL,dR}]
 DevecRow[v_]:= With[{d=Sqrt[Length[v]]},DevecRow[v,{d,d}]]
-ProductIdentityRow[A_,C_]:=KroneckerProduct[A,Transpose[C]]
+ProductIdentityRow[A_,C_]:=CircleTimes[A,Transpose[C]]
 
 
 VecCol[m_]:= Flatten[{m},{{3,2},{1}}]
 DevecCol[v_,{dL_,dR_}]:= Transpose[DevecRow[v,{dL,dR}]]
 DevecCol[v_]:= Transpose[DevecRow[v]]
-ProductIdentityCol[A_,C_]:=KroneckerProduct[Transpose[C],A]
+ProductIdentityCol[A_,C_]:=CircleTimes[Transpose[C],A]
 
 
 VecBasis[basis_,m_]:=BasisTransformation[VecCol[m],Rule["Col",basis]]
