@@ -41,7 +41,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}
 (*Usage Declaration*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices and Operations*)
 
 
@@ -171,7 +171,7 @@ BasisMatrix::dims = "Dimensions of input system must be specified.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices and Operations*)
 
 
@@ -187,17 +187,23 @@ UnitArray[dims_List,ind_List,SparseArray]:=
 UnitArray[dims_List,ind_List]:=Normal@UnitArray[dims,ind,SparseArray]
 
 
-CircleTimes[first_?NumericQ,rest___]:=first*CircleTimes[rest]
-CircleTimes[first_?ArrayQ]:=first
+(* ::Text:: *)
+(*This first definition must come before setting the Flat attribute or it will lead to infinite recurrsion.*)
+
+
+SetAttributes[CircleTimes,OneIdentity];
+CircleTimes[first_]:=first
+SetAttributes[CircleTimes,Flat]
+
+
+CircleTimes[first_?NumericQ,rest_]:=first*CircleTimes[rest]
+CircleTimes[rest_,first_?NumericQ]:=first*CircleTimes[rest]
 CircleTimes[first_?VectorQ,last_?VectorQ]:=Flatten[KroneckerProduct[first,last]]
 CircleTimes[first_?VectorQ,last_?ArrayQ]:=KroneckerProduct[Partition[first,1],last]
 CircleTimes[first_?ArrayQ,last_?NumericQ]:=last*first
 CircleTimes[first_?ArrayQ,last_?VectorQ]:=KroneckerProduct[first,Partition[last,1]]
 CircleTimes[first_?ArrayQ,last_?ArrayQ]:=KroneckerProduct[first,last]
-CircleTimes[first_?ArrayQ,last_Rule]:=CircleTimes[first,CircleTimes[last]]
-CircleTimes[first_?ArrayQ,second_?ArrayQ,rest___]:=CircleTimes[CircleTimes[first,second],rest]
-CircleTimes[first_?ArrayQ,second_?NumericQ,rest___]:=CircleTimes[CircleTimes[first,second],rest]
-CircleTimes[A_?ArrayQ->n_Integer,B___]:=CircleTimes[CircleTimes@@ConstantArray[A,n],B]
+CircleTimes[A_?ArrayQ->n_Integer]:=CircleTimes@@ConstantArray[A,n]
 
 
 ArrayPermutations[arrayNums__]:=

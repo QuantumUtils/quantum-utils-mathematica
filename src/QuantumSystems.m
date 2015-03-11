@@ -41,7 +41,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSyst
 (*Usage Declaration*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States, Operators and Gates*)
 
 
@@ -104,11 +104,11 @@ AssignUsage[RandomDensity,$Usages];
 AssignUsage[RandomHermitian,$Usages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Error Messages*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*States and Operators*)
 
 
@@ -162,7 +162,7 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States and Operators*)
 
 
@@ -460,7 +460,7 @@ KetFormMatrix[mat_]:=
 	]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Vec Form*)
 
 
@@ -485,7 +485,7 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 			VecForm[First[obj],opts]+VecForm[Rest[obj],opts],
 		MatchQ[obj,Times[_,__]],
 			Times[First[obj],VecForm[Rest[obj],opts]],
-		MatchQ[obj,CircleTimes[__]],
+		MatchQ[obj,CircleTimes[_,__]],
 			CircleTimes@@Map[VecForm[#,opts]&,List@@obj],
 		MatchQ[obj,Dot[_,__]],
 			Dot@@Map[VecForm[#,opts]&,List@@obj],
@@ -520,6 +520,21 @@ VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
 (* ::Subsubsection::Closed:: *)
+(*SymbolicQ*)
+
+
+(* ::Text:: *)
+(*Predicate for parsing a small subset of symbolic expressions*)
+
+
+SymbolicQ[a_]:=Or[
+	SymbolQ[a],
+	NumberQ[a],
+	Head[a]===Power&&Or[SymbolQ[First[a]],NumberQ[First[a]]]
+	]
+
+
+(* ::Subsubsection::Closed:: *)
 (*QExpand*)
 
 
@@ -529,8 +544,7 @@ VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 QExpand[expr_]:=expr//.{
 	Spin[arg_]:>Spin[arg]["Symbolic"],
-	Cavity[arg_]:>Cavity[arg]["Symbolic"],
-	CircleTimes[args1___,CircleTimes[args2__],args3___]:>CircleTimes[args1,args2,args3]
+	Cavity[arg_]:>Cavity[arg]["Symbolic"]
 }
 
 
@@ -538,12 +552,12 @@ QExpand[expr_]:=expr//.{
 (*QSimplify*)
 
 
-Options[QSimplify]:={Spin->True,Cavity->True,SpinHalf->False,"OrderSpin"->False,"OrderCavity"->True,Rules->{}};
+Options[QSimplify]:={Spin->True,Cavity->True,"SpinHalf"->False,"OrderSpin"->False,"OrderCavity"->True,Rules->{}};
 
 
 QSimplify[expr_,opts:OptionsPattern[]]:= 
 	Simplify[
-		ReplaceRepeated[
+	ReplaceRepeated[
 			Simplify[QExpand[expr],TimeConstraint->1],
 			QSimplifyRules[opts]
 		],
@@ -566,7 +580,6 @@ Clear[QSimplifyRules]
 
 
 QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
-	QSimplifyRules[opts]=
 		Dispatch@Join[
 			If[OptionValue["SpinHalf"],$QSimplifySpinHalf,{}],
 			If[OptionValue[Spin],$QSimplifySpin,{}],
@@ -586,10 +599,11 @@ Format[QPower[arg_,n_]]:=arg^n;
 
 
 QPower[arg_,1]:=arg
-QPower[arg_?NumericQ,n_]:=Power[arg,n]
+QPower[arg_?SymbolicQ,n_]:=Power[arg,n]
 QPower[arg_?MatrixQ,n_]:=MatrixPower[arg,n]
 QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
-QPower[Times[x_,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
+QPower[Times[x_?SymbolicQ,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
+QPower[Times[xs__,x_?SymbolicQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -597,33 +611,37 @@ QPower[Times[x_,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
 
 
 $QSimplifyLinearAlgebra={
+(* Times *)
+Times[Plus[a_,b__],c_]:>Expand[Times[Plus[a,b],c]],
 (* Dot *)
-Dot[a___,n_?NumericQ,b___]:> n*Dot[a,b], 
+Dot[a___,n_?SymbolicQ,b___]:> n*Dot[a,b], 
 Dot[a_,Plus[b_,c__]]:> Dot[a,b]+Dot[a,Plus[c]],
 Dot[Plus[a_,b__],c_]:> Dot[a,c]+Dot[Plus[b],c],
-Dot[a_,Times[b_,c__]]:> b*Dot[a,Times[c]],
-Dot[Times[a_,b__],c_]:> a*Dot[Times[b],c],
+Dot[a_,Times[b_?SymbolicQ,c__]]:> b*Dot[a,Times[c]],
+Dot[a_,Times[c__,b_?SymbolicQ]]:> b*Dot[a,Times[c]],
+Dot[Times[a_?SymbolicQ,b__],c_]:> a*Dot[Times[b],c],
+Dot[Times[b__,a_?SymbolicQ],c_]:> a*Dot[Times[b],c],
 Dot[a_,a_]:> QPower[a,2],
 Dot[QPower[a_,n_],a_]:> QPower[a,n+1],
 Dot[a_,QPower[a_,n_]]:> QPower[a,n+1],
 Dot[QPower[a_,m_],QPower[a_,n_]]:> QPower[a,n+m],
 (* CircleTimes *)
-KroneckerProduct[a_,b__]:>CircleTimes[a,b],
-CircleTimes[a_]:> a,
-CircleTimes[a___,n_?NumericQ,b___]:> n*CircleTimes[a,b],
-CircleTimes[Plus[a_,b__],c__]:> CircleTimes[a,c]+CircleTimes[Plus[b],c],
-CircleTimes[c__,Plus[a_,b__]]:> CircleTimes[c,a]+CircleTimes[c,Plus[b]],
-CircleTimes[Times[a_,b__],c_]:> a*CircleTimes[Times[b],c],
-CircleTimes[c_,Times[a_,b__]]:> a*CircleTimes[c,Times[b]],
+KroneckerProduct[a_,b__]:> CircleTimes[a,b],
+CircleTimes[Plus[a_,b__],c_]:> Plus@@Map[CircleTimes[#,c]&,{a,b}],
+CircleTimes[c_,Plus[a_,b__]]:> Plus@@Map[CircleTimes[c,#]&,{a,b}],
+CircleTimes[Times[a_?SymbolicQ,b__],c_]:> a*CircleTimes[Times[b],c],
+CircleTimes[Times[b__,a_?SymbolicQ],c_]:> a*CircleTimes[Times[b],c],
+CircleTimes[c_,Times[a_?SymbolicQ,b__]]:> a*CircleTimes[c,Times[b]],
+CircleTimes[c_,Times[b__,a_?SymbolicQ]]:> a*CircleTimes[c,Times[b]],
 (* Transpose *)
-Transpose[a_?NumericQ]:> a,
+Transpose[a_?SymbolicQ]:> a,
 Transpose[Transpose[a_]]:> a,
 Transpose[Plus[a_,b__]]:> Plus@@Map[Transpose,{a,b}],
 Transpose[Times[a_,b__]]:> Times@@Map[Transpose,{a,b}],
 Transpose[Dot[a_,b__]]:> Dot@@Map[Transpose,Reverse[{a,b}]],
 Transpose[CircleTimes[a__]]:>CircleTimes@@Map[Transpose,a],
 (* ConjugateTranspose *)
-ConjugateTranspose[a_?NumericQ]:> Conjugate[a],
+ConjugateTranspose[a_?SymbolicQ]:> Conjugate[a],
 ConjugateTranspose[ConjugateTranspose[a_]]:> a,
 ConjugateTranspose[a_]:> Transpose[Conjugate[a]],
 Conjugate[Transpose[a_]]:> Transpose[Conjugate[a]],
@@ -634,14 +652,16 @@ Conjugate[Dot[a_,b__]]:>Dot@@Map[Conjugate,{a,b}],
 Conjugate[CircleTimes[a__]]:>CircleTimes@@Map[Conjugate,{a}],
 (* Com *)
 Com[a_,a_]:> 0,
-Com[a_?NumericQ,b_]:> 0,
-Com[a_,b_?NumericQ]:> 0,
+Com[a_?SymbolicQ,b_]:> 0,
+Com[a_,b_?SymbolicQ]:> 0,
 Com[a_,b_,0]:> b,
 Com[a_,b_,1]:> Com[a,b],
 Com[Plus[a_,b__],c_]:> Plus@@Map[Com[#,c]&,{a,b}],
 Com[c_,Plus[a_,b__]]:> Plus@@Map[Com[c,#]&,{a,b}],
-Com[Times[a_,b__],c_]:> Times[a,Sequence@@Most[{b}],Com[Last[{b}],c]],
-Com[c_,Times[a_,b__]]:> Times[a,Sequence@@Most[{b}],Com[c,Last[{b}]]],
+Com[Times[a_?SymbolicQ,b__],c_]:> a*Com[Times[b],c],
+Com[Times[b__,a_?SymbolicQ],c_]:> a*Com[Times[b],c],
+Com[c_,Times[a_?SymbolicQ,b__]]:>a*Com[Times[b],c],
+Com[c_,Times[b__,a_?SymbolicQ]]:>a*Com[Times[b],c],
 Com[Dot[a_,b__],c_]:> Dot[a,Com[Dot[b],c]]+Dot[Com[a,c],Dot[b]],
 Com[a_,Dot[b_,c__]]:> Dot[Com[a,b],Dot[c]]+Dot[b,Com[a,Dot[c]]],
 Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[QPower[a,n-1],b],a],
@@ -716,9 +736,12 @@ Spin["P"].Spin["M"]:> Spin["Z"]+Spin["I"]/2,
 Spin["M"].Spin["Z"]:> Spin["M"]/2,
 Spin["M"].Spin["M"]:> 0,
 Spin["M"].Spin["P"]:> -Spin["Z"]+Spin["I"]/2,
-QPower[Spin["Z"],n_?Positive]:>If[EvenQ[n],Spin["I"]/2^n,Spin["Z"]/2^(n-1)],
-QPower[Spin["P"],n_?Positive]:>If[n===1,Spin["P"],0],
-QPower[Spin["M"],n_?Positive]:>If[n===1,Spin["M"],0]
+QPower[Spin["Z"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["Z"]/2^(n-1)],
+QPower[Spin["P"]+Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]+Spin["M"]],
+QPower[Spin["P"]-Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]-Spin["M"]],
+QPower[Spin["M"]-Spin["P"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["M"]-Spin["P"]],
+QPower[Spin["P"],n_?Positive]:> If[n===1,Spin["P"],0],
+QPower[Spin["M"],n_?Positive]:> If[n===1,Spin["M"],0]
 }
 
 
