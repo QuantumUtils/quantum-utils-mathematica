@@ -41,20 +41,31 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSyst
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States, Operators and Gates*)
 
 
-Unprotect[Spin,Cavity,QExpand,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
+Unprotect[Spin,Cavity,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
 
 
 AssignUsage[Spin,$Usages];
 AssignUsage[Cavity,$Usages];
 AssignUsage[QState,$Usages];
-AssignUsage[QExpand,$Usages];
 AssignUsage[KetForm,$Usages];
 AssignUsage[VecForm,$Usages];
 AssignUsage[CGate,$Usages];
+
+
+(* ::Subsection::Closed:: *)
+(*Symbolic Evaluation*)
+
+
+Unprotect[QPower,QExpand,QSimplify];
+
+
+AssignUsage[QExpand,$Usages];
+AssignUsage[QPower,$Usages];
+AssignUsage[QSimplify,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -93,11 +104,11 @@ AssignUsage[RandomDensity,$Usages];
 AssignUsage[RandomHermitian,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error Messages*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -151,11 +162,11 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Spin Operators*)
 
 
@@ -227,7 +238,7 @@ Format[Spin[op_]]:=
 	]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Cavity Operators*)
 
 
@@ -273,21 +284,6 @@ Format[Cavity[op_]]:=
 			str=="I", Subscript["\[DoubleStruckOne]","c"],
 			True, "Cavity"[str]
 	]]
-
-
-(* ::Subsubsection:: *)
-(*Symbolic Expand*)
-
-
-(* ::Text:: *)
-(*Parsing symbolic Spin-Cavity expressions*)
-
-
-QExpand[expr_]:=expr//.{
-	Spin[arg_]:>Spin[arg]["Symbolic"],
-	Cavity[arg_]:>Cavity[arg]["Symbolic"],
-	CircleTimes[args1___,CircleTimes[args2__],args3___]:>CircleTimes[args1,args2,args3]
-}
 
 
 (* ::Subsubsection::Closed:: *)
@@ -375,57 +371,8 @@ $QStateMatRules={
 "Bell4"->$QStateMatBell4, "B4"->$QStateMatBell4};
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Bra-Ket Notation*)
-
-
-(* ::Text:: *)
-(*Converting Bra-Ket notation to arrays.*)
-
-
-KetDimensions[Subscript[num_,dim_]]:={dim,1+num};
-KetDimensions[num_]:={2,1+num};
-
-
-Options[VecForm]:={Spin->1/2,Cavity->2,SparseArray->False};
-
-
-VecForm[obj_,opts:OptionsPattern[VecForm]]:=
-	With[{f=If[OptionValue[SparseArray],SparseArray,Identity]},
-	Which[
-		(* Linear Algebra *)
-		NumericQ[obj],obj,
-		ListQ[obj],f@obj,
-		MatchQ[obj,Plus[_,__]],
-			VecForm[First[obj],opts]+VecForm[Rest[obj],opts],
-		MatchQ[obj,Times[_,__]],
-			Times[First[obj],VecForm[Rest[obj],opts]],
-		MatchQ[obj,CircleTimes[__]],
-			CircleTimes@@Map[VecForm[#,opts]&,List@@obj],
-		MatchQ[obj,Dot[_,__]],
-			Dot@@Map[VecForm[#,opts]&,List@@obj],
-		(* Bra-Ket *)
-		MatchQ[obj,Ket[{__}]],
-			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,First@obj],{1}],1],
-		MatchQ[obj,Ket[__]],
-			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,List@@obj],{1}],1],
-		MatchQ[obj,Bra[{__}]],
-			ConjugateTranspose[VecForm[Ket@@First[obj],opts]],
-		MatchQ[obj,Bra[__]],
-			ConjugateTranspose[VecForm[Ket@@obj,opts]],
-		MatchQ[obj,KetBra[{__},{__}]],
-			CircleTimes[VecForm[Ket@@First[obj]],VecForm[Bra@@Last[obj],opts]],
-		(* Spin-Cavity *)
-		MatchQ[obj,Spin[__]],
-			obj[OptionValue[Spin],f],
-		MatchQ[obj,Cavity[__]],
-			obj[OptionValue[Cavity],f],
-		(* Failure *)
-		True,
-			Message[VecForm::fail]
-]]
-
-VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
 (* ::Text:: *)
@@ -511,6 +458,399 @@ KetFormMatrix[mat_]:=
 	With[{dims=KetAutoDim/@Dimensions[mat]},
 		KetFormMatrix[mat,Sequence@@dims]
 	]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Vec Form*)
+
+
+(* ::Text:: *)
+(*Converting Spin, Cavity and Bra-Ket notation to arrays.*)
+
+
+KetDimensions[Subscript[num_,dim_]]:={dim,1+num};
+KetDimensions[num_]:={2,1+num};
+
+
+Options[VecForm]:={Spin->1/2,Cavity->2,SparseArray->False};
+
+
+VecForm[obj_,opts:OptionsPattern[VecForm]]:=
+	With[{f=If[OptionValue[SparseArray],SparseArray,Identity]},
+	Which[
+		(* Linear Algebra *)
+		NumericQ[obj],obj,
+		ListQ[obj],f@obj,
+		MatchQ[obj,Plus[_,__]],
+			VecForm[First[obj],opts]+VecForm[Rest[obj],opts],
+		MatchQ[obj,Times[_,__]],
+			Times[First[obj],VecForm[Rest[obj],opts]],
+		MatchQ[obj,CircleTimes[__]],
+			CircleTimes@@Map[VecForm[#,opts]&,List@@obj],
+		MatchQ[obj,Dot[_,__]],
+			Dot@@Map[VecForm[#,opts]&,List@@obj],
+		MatchQ[obj,QPower[_,_]],
+			MatrixPower[VecForm[First@obj,opts],VecForm[Last@obj,opts]],
+		(* Bra-Ket *)
+		MatchQ[obj,Ket[{__}]],
+			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,First@obj],{1}],1],
+		MatchQ[obj,Ket[__]],
+			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,List@@obj],{1}],1],
+		MatchQ[obj,Bra[{__}]],
+			ConjugateTranspose[VecForm[Ket@@First[obj],opts]],
+		MatchQ[obj,Bra[__]],
+			ConjugateTranspose[VecForm[Ket@@obj,opts]],
+		MatchQ[obj,KetBra[{__},{__}]],
+			CircleTimes[VecForm[Ket@@First[obj]],VecForm[Bra@@Last[obj],opts]],
+		(* Spin-Cavity *)
+		MatchQ[obj,Spin[__]],
+			obj[OptionValue[Spin],f],
+		MatchQ[obj,Cavity[__]],
+			obj[OptionValue[Cavity],f],
+		(* Failure *)
+		True,
+			Message[VecForm::fail]
+]]
+
+VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
+
+
+(* ::Subsection::Closed:: *)
+(*Symbolic Evaluation*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*QExpand*)
+
+
+(* ::Text:: *)
+(*Parsing symbolic Spin-Cavity expressions*)
+
+
+QExpand[expr_]:=expr//.{
+	Spin[arg_]:>Spin[arg]["Symbolic"],
+	Cavity[arg_]:>Cavity[arg]["Symbolic"],
+	CircleTimes[args1___,CircleTimes[args2__],args3___]:>CircleTimes[args1,args2,args3]
+}
+
+
+(* ::Subsubsection::Closed:: *)
+(*QSimplify*)
+
+
+Options[QSimplify]:={Spin->True,Cavity->True,SpinHalf->False,"OrderSpin"->False,"OrderCavity"->True,Rules->{}};
+
+
+QSimplify[expr_,opts:OptionsPattern[]]:= 
+	Simplify[
+		ReplaceRepeated[
+			Simplify[QExpand[expr],TimeConstraint->1],
+			QSimplifyRules[opts]
+		],
+	TimeConstraint->1]
+
+
+(* ::Text:: *)
+(*Add special rules for nested commutators*)
+
+
+QSimplify[Com[op1_,op2_,1]]:= QSimplify[Com[op1,op2]]
+QSimplify[Com[op1_,op2_,n_?Positive]]:= QSimplify[Com[op1,QSimplify[Com[op1,op2]],n-1]]
+
+
+(* ::Text:: *)
+(*Replacement rules for QSimplify*)
+
+
+Clear[QSimplifyRules]
+
+
+QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
+	QSimplifyRules[opts]=
+		Dispatch@Join[
+			If[OptionValue["SpinHalf"],$QSimplifySpinHalf,{}],
+			If[OptionValue[Spin],$QSimplifySpin,{}],
+			If[OptionValue[Cavity],$QSimplifyCavity,{}],
+			OptionValue[Rules],
+			$QSimplifyLinearAlgebra,
+			If[OptionValue["OrderCavity"],$QSimplifyCavityOrdering,{}],
+			If[OptionValue["OrderSpin"],$QSimplifySpinOrdering,{}]
+		]
+
+
+(* ::Subsubsection::Closed:: *)
+(*QPower*)
+
+
+Format[QPower[arg_,n_]]:=arg^n;
+
+
+QPower[arg_,1]:=arg
+QPower[arg_?NumericQ,n_]:=Power[arg,n]
+QPower[arg_?MatrixQ,n_]:=MatrixPower[arg,n]
+QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
+QPower[Times[x_,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Linear Algebra Rules*)
+
+
+$QSimplifyLinearAlgebra={
+(* Dot *)
+Dot[a___,n_?NumericQ,b___]:> n*Dot[a,b], 
+Dot[a_,Plus[b_,c__]]:> Dot[a,b]+Dot[a,Plus[c]],
+Dot[Plus[a_,b__],c_]:> Dot[a,c]+Dot[Plus[b],c],
+Dot[a_,Times[b_,c__]]:> b*Dot[a,Times[c]],
+Dot[Times[a_,b__],c_]:> a*Dot[Times[b],c],
+Dot[a_,a_]:> QPower[a,2],
+Dot[QPower[a_,n_],a_]:> QPower[a,n+1],
+Dot[a_,QPower[a_,n_]]:> QPower[a,n+1],
+Dot[QPower[a_,m_],QPower[a_,n_]]:> QPower[a,n+m],
+(* CircleTimes *)
+KroneckerProduct[a_,b__]:>CircleTimes[a,b],
+CircleTimes[a_]:> a,
+CircleTimes[a___,n_?NumericQ,b___]:> n*CircleTimes[a,b],
+CircleTimes[Plus[a_,b__],c__]:> CircleTimes[a,c]+CircleTimes[Plus[b],c],
+CircleTimes[c__,Plus[a_,b__]]:> CircleTimes[c,a]+CircleTimes[c,Plus[b]],
+CircleTimes[Times[a_,b__],c_]:> a*CircleTimes[Times[b],c],
+CircleTimes[c_,Times[a_,b__]]:> a*CircleTimes[c,Times[b]],
+(* Transpose *)
+Transpose[a_?NumericQ]:> a,
+Transpose[Transpose[a_]]:> a,
+Transpose[Plus[a_,b__]]:> Plus@@Map[Transpose,{a,b}],
+Transpose[Times[a_,b__]]:> Times@@Map[Transpose,{a,b}],
+Transpose[Dot[a_,b__]]:> Dot@@Map[Transpose,Reverse[{a,b}]],
+Transpose[CircleTimes[a__]]:>CircleTimes@@Map[Transpose,a],
+(* ConjugateTranspose *)
+ConjugateTranspose[a_?NumericQ]:> Conjugate[a],
+ConjugateTranspose[ConjugateTranspose[a_]]:> a,
+ConjugateTranspose[a_]:> Transpose[Conjugate[a]],
+Conjugate[Transpose[a_]]:> Transpose[Conjugate[a]],
+(* Conjugate *)
+Conjugate[Plus[a_,b__]]:>Plus@@Map[Conjugate,{a,b}],
+Conjugate[Times[a_,b__]]:>Times@@Map[Conjugate,{a,b}],
+Conjugate[Dot[a_,b__]]:>Dot@@Map[Conjugate,{a,b}],
+Conjugate[CircleTimes[a__]]:>CircleTimes@@Map[Conjugate,{a}],
+(* Com *)
+Com[a_,a_]:> 0,
+Com[a_?NumericQ,b_]:> 0,
+Com[a_,b_?NumericQ]:> 0,
+Com[a_,b_,0]:> b,
+Com[a_,b_,1]:> Com[a,b],
+Com[Plus[a_,b__],c_]:> Plus@@Map[Com[#,c]&,{a,b}],
+Com[c_,Plus[a_,b__]]:> Plus@@Map[Com[c,#]&,{a,b}],
+Com[Times[a_,b__],c_]:> Times[a,Sequence@@Most[{b}],Com[Last[{b}],c]],
+Com[c_,Times[a_,b__]]:> Times[a,Sequence@@Most[{b}],Com[c,Last[{b}]]],
+Com[Dot[a_,b__],c_]:> Dot[a,Com[Dot[b],c]]+Dot[Com[a,c],Dot[b]],
+Com[a_,Dot[b_,c__]]:> Dot[Com[a,b],Dot[c]]+Dot[b,Com[a,Dot[c]]],
+Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[QPower[a,n-1],b],a],
+Com[a_,QPower[b_,n_]]:> Dot[b,Com[a,QPower[b,n-1]]]+Dot[Com[a,QPower[b,n-1]],b],
+Com[a_,b_,n_]:> Com[a,Com[a,b],n-1],
+Com[CircleTimes[a1_,b1__],CircleTimes[a2_,b2__]]:> 
+	CircleTimes[Com[a1,a2],Dot[b1,b2]]
+	+CircleTimes[Dot[a1,a2],Com[CircleTimes[b1],CircleTimes[b2]]]
+	};
+
+
+(* ::Subsubsection::Closed:: *)
+(*Spin Rules*)
+
+
+$QSimplifySpin={
+
+Power[op_Spin,n_]:> QPower[op,n],
+MatrixPower[op_Spin,n_]:>QPower[op,n],
+
+(* X and Y expand to P and M *)
+Spin["X"]:> (Spin["P"]+Spin["M"])/2,
+Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2,
+
+(* Identity Operator *)
+Spin["I"].Spin[s_]:> Spin[s],
+Spin[s_].Spin["I"]:> Spin[s],
+QPower[Spin["I"],n_]:> Spin["I"],
+Com[Spin["I"],s_]:> 0,
+Com[s_,Spin["I"]]:> 0,
+
+(* Spin Algebra *)
+Com[Spin["Z"],Spin["P"]]:> Spin["P"],
+Com[Spin["Z"],Spin["M"]]:> -Spin["M"],
+Com[Spin["P"],Spin["Z"]]:> -Spin["P"],
+Com[Spin["M"],Spin["Z"]]:> Spin["M"],
+Com[Spin["Z"],Spin["P"]]:> Spin["P"],
+Com[Spin["P"],Spin["M"]]:> 2Spin["Z"],
+Com[Spin["M"],Spin["P"]]:> -2Spin["Z"],
+
+(* ConjugateTranspose *)
+ConjugateTranspose[Spin["I"]]:> Spin["I"],
+ConjugateTranspose[Spin["Z"]]:> Spin["Z"],
+ConjugateTranspose[Spin["P"]]:> Spin["M"],
+ConjugateTranspose[Spin["M"]]:>Spin["P"],
+
+(* Transpose *)
+Transpose[Spin["I"]]:> Spin["I"],
+Transpose[Spin["Z"]]:> Spin["Z"],
+Transpose[Spin["P"]]:> Spin["M"],
+Transpose[Spin["M"]]:>Spin["P"],
+
+(* Conjugate *)
+Conjugate[Spin["I"]]:> Spin["I"],
+Conjugate[Spin["Z"]]:> Spin["Z"],
+Conjugate[Spin["P"]]:> Spin["P"],
+Conjugate[Spin["M"]]:>Spin["M"]
+};
+
+
+(* ::Text:: *)
+(*Additional Spin 1/2 rules*)
+
+
+$QSimplifySpinHalf={
+Spin["Z"].Spin["Z"]:> Spin["I"]/4,
+Spin["Z"].Spin["P"]:> Spin["P"]/2,
+Spin["Z"].Spin["M"]:> -Spin["M"]/2,
+Spin["P"].Spin["Z"]:> -Spin["P"]/2,
+Spin["P"].Spin["P"]:> 0,
+Spin["P"].Spin["M"]:> Spin["Z"]+Spin["I"]/2,
+Spin["M"].Spin["Z"]:> Spin["M"]/2,
+Spin["M"].Spin["M"]:> 0,
+Spin["M"].Spin["P"]:> -Spin["Z"]+Spin["I"]/2,
+QPower[Spin["Z"],n_?Positive]:>If[EvenQ[n],Spin["I"]/2^n,Spin["Z"]/2^(n-1)],
+QPower[Spin["P"],n_?Positive]:>If[n===1,Spin["P"],0],
+QPower[Spin["M"],n_?Positive]:>If[n===1,Spin["M"],0]
+}
+
+
+(* ::Text:: *)
+(*Spin Normal Ordering*)
+
+
+$QSimplifySpinOrdering={
+(* M always goes to the right *)
+Spin["M"].Spin[s_]:> 
+	Spin[s].Spin["M"]+Com[Spin["M"],Spin[s]],
+Spin["M"].QPower[Spin[s_],m_]:> 
+	QPower[Spin[s],m].Spin["M"]
+	+Com[Spin["M"],QPower[Spin[s],m]],
+QPower[Spin["M"],n_].Spin[s_]:> 
+	Spin[s].QPower[Spin["M"],n]
+	+Com[QPower[Spin["M"],n],Spin[s]],
+QPower[Spin["M"],n_].QPower[Spin[s_],m_]:> 
+	QPower[Spin[s],m].QPower[Spin["M"],n]
+	+Com[QPower[Spin["M"],n],QPower[Spin[s],m]],
+(* Z always to the left *)
+Spin[s_].Spin["Z"]:> 
+	Spin["Z"].Spin[s]+Com[Spin[s],Spin["Z"]],
+Spin[s_].QPower[Spin["Z"],n_]:> 
+	QPower[Spin["Z"],n].Spin[s]
+	+Com[Spin[s],QPower[Spin["Z"],n]],
+QPower[Spin[s_],m_].Spin["Z"]:> 
+	Spin["Z"].QPower[Spin[s],m]
+	+Com[QPower[Spin[s],m],Spin["Z"]],
+QPower[Spin[s_],m_].QPower[Spin["Z"],n_]:> 
+	QPower[Spin["Z"],n].QPower[Spin[s],m]
+	+Com[QPower[Spin[s],m],QPower[Spin["Z"],n]]
+};
+
+
+(* ::Subsubsection::Closed:: *)
+(*Cavity Rules*)
+
+
+$QSimplifyCavity={
+Power[Cavity[a_],n_]:> QPower[Cavity[a],n],
+MatrixPower[op_Cavity,n_]:> QPower[op,n],
+(* Convert c.a to n *)
+Cavity["c"].Cavity["a"]:> Cavity["n"],
+Cavity["a"].Cavity["c"]:> Cavity["n"]+Cavity["I"],
+
+(* Cavity Identity *)
+SymbolicPower[Cavity["I"],n_]:> Cavity["I"],
+Com[Cavity["I"],op_]:> 0,
+Com[op_,Cavity["I"]]:> 0,
+Cavity["I"].Cavity[a_]:> Cavity[a],
+Cavity[a_].Cavity["I"]:> Cavity[a],
+
+(* Cavity n-Algrbra *)
+Com[QPower[Cavity["a"],n_?IntegerQ],Cavity["n"]]:> n*QPower[Cavity["a"],n],
+Com[Cavity["n"],QPower[Cavity["a"],n_?IntegerQ]]:> -n*QPower[Cavity["a",n]],
+Com[QPower[Cavity["c"],n_?IntegerQ],Cavity["n"]]:> -n*QPower[Cavity["c"],n],
+Com[Cavity["n"],QPower[Cavity["c"],n_?IntegerQ]]:> n*QPower[Cavity["c"],n],
+
+(* Cavity Algebra *)
+Com[Cavity["a"],Cavity["c"]]:> Cavity["I"],
+Com[Cavity["c"],Cavity["a"]]:> -Cavity["I"],
+Com[Cavity["a"],Cavity["n"]]:> Cavity["a"],
+Com[Cavity["n"],Cavity["a"]]:> -Cavity["a"],
+Com[Cavity["c"],Cavity["n"]]:> -Cavity["c"],
+Com[Cavity["n"],Cavity["c"]]:> Cavity["c"],
+
+(* ConjugateTranspose *)
+ConjugateTranspose[Cavity["I"]]:> Cavity["I"],
+ConjugateTranspose[Cavity["n"]]:> Cavity["n"],
+ConjugateTranspose[Cavity["a"]]:> Cavity["c"],
+ConjugateTranspose[Cavity["c"]]:> Cavity["a"],
+
+(* Transpose *)
+Transpose[Cavity["I"]]:> Cavity["I"],
+Transpose[Cavity["n"]]:> Cavity["n"],
+Transpose[Cavity["a"]]:> Cavity["c"],
+Transpose[Cavity["c"]]:> Cavity["a"],
+
+(* Conjugate *)
+Conjugate[Cavity["I"]]:> Cavity["I"],
+Conjugate[Cavity["n"]]:> Cavity["n"],
+Conjugate[Cavity["a"]]:> Cavity["a"],
+Conjugate[Cavity["c"]]:> Cavity["c"]
+};
+
+
+(* ::Text:: *)
+(*Normal Ordering of operators*)
+
+
+$QSimplifyCavityOrdering={
+(* c before a *)
+Cavity["a"].Cavity["c"]:> 
+	Cavity["c"].Cavity["a"]
+	+Com[Cavity["a"],Cavity["c"]],
+Cavity["a"].QPower[Cavity["c"],m_]:> 
+	QPower[Cavity["c"],m].Cavity["a"]
+	+Com[Cavity["a"],QPower[Cavity["c"],m]],
+QPower[Cavity["a"],n_].Cavity["c"]:> 
+	Cavity["c"].QPower[Cavity["a"],n]
+	+Com[QPower[Cavity["a"],n],Cavity["c"]],
+QPower[Cavity["a"],n_].QPower[Cavity["c"],m_]:> 
+	QPower[Cavity["c"],m].QPower[Cavity["a"],n]
+	+Com[QPower[Cavity["a"],n],QPower[Cavity["c"],m]],
+(* n before a *)
+Cavity["a"].Cavity["n"]:>
+	Cavity["n"].Cavity["a"]
+	+Com[Cavity["a"],Cavity["n"]],
+Cavity["a"].QPower[Cavity["n"],m_]:> 
+	QPower[Cavity["n"],m].Cavity["a"]
+	+Com[Cavity["a"],QPower[Cavity["n"],m]],
+QPower[Cavity["a"],n_].Cavity["n"]:> 
+	Cavity["n"].QPower[Cavity["a"],n]
+	+Com[QPower[Cavity["a"],n],Cavity["n"]],
+QPower[Cavity["a"],n_].QPower[Cavity["n"],m_]:> 
+	QPower[Cavity["n"],m].QPower[Cavity["a"],n]
+	+Com[QPower[Cavity["a"],n],QPower[Cavity["n"],m]],
+(* n before c *)
+Cavity["c"].Cavity["n"]:> 
+	Cavity["n"].Cavity["c"]
+	+Com[Cavity["c"],Cavity["n"]],
+Cavity["c"].QPower[Cavity["n"],m_]:> 
+	QPower[Cavity["n"],m].Cavity["c"]
+	+Com[Cavity["c"],QPower[Cavity["n"],m]],
+QPower[Cavity["c"],n_].Cavity["n"]:> 
+	Cavity["n"].QPower[Cavity["c"],n]
+	+Com[QPower[Cavity["c"],n],Cavity["n"]],
+QPower[Cavity["c"],n_].QPower[Cavity["n"],m_]:> 
+	QPower[Cavity["n"],m].QPower[Cavity["c"],n]
+	+Com[QPower[Cavity["c"],n],QPower[Cavity["n"],m]]
+};
 
 
 (* ::Subsection::Closed:: *)
@@ -820,10 +1160,15 @@ End[];
 
 
 (* ::Section:: *)
+(*Unit Testing*)
+
+
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
-Protect[Spin,Cavity,QExpand,QState,KetForm,VecForm,Ket,Bra,KetBra];
+Protect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
+Protect[QPower,QExpand,QSimplify];
 Protect[CGate];
 Protect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Protect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];
