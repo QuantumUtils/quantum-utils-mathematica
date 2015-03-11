@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    384129,      10069]
-NotebookOptionsPosition[    371369,       9651]
-NotebookOutlinePosition[    374346,       9744]
-CellTagsIndexPosition[    373591,       9721]
+NotebookDataLength[    392569,      10336]
+NotebookOptionsPosition[    378719,       9882]
+NotebookOutlinePosition[    381856,       9980]
+CellTagsIndexPosition[    381066,       9956]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1058,6 +1058,186 @@ XsxX9oLjqBYv5it7wXFUizdVPwH8vg1X
 
 Cell[CellGroupData[{
 
+Cell["QExpand", "Subsection",
+ CellChangeTimes->{{3.6350786857208014`*^9, 3.635078687081802*^9}}],
+
+Cell[TextData[{
+ StyleBox["QExpand[", "Input"],
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " expands out symbolic forms of ",
+ StyleBox["Spin", "Input"],
+ " and ",
+ StyleBox["Cavity", "Input"],
+ " in ",
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". For example ",
+ StyleBox["Spin[\[OpenCurlyDoubleQuote]\[Lambda]XX\[CloseCurlyDoubleQuote]]", 
+  "Input"],
+ " will be expanded to ",
+ StyleBox["\[Lambda] Spin[\[OpenCurlyDoubleQuote]X\[CloseCurlyDoubleQuote]]\
+\[CircleTimes]Spin[\[OpenCurlyDoubleQuote]X\[CloseCurlyDoubleQuote]]", 
+  "Input"],
+ ". Expanded symbolic forms may be converted to matrices by using ",
+ StyleBox["VecForm", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6333528322698936`*^9, 3.633352846397736*^9}, {
+   3.633352891416999*^9, 3.633352899980638*^9}, {3.6333530077222557`*^9, 
+   3.6333530365601177`*^9}, {3.633364356626809*^9, 3.633364357940261*^9}, 
+   3.634301714157385*^9, {3.634302373395067*^9, 3.63430242678611*^9}, {
+   3.6343024640922413`*^9, 3.634302697893495*^9}, {3.634304042249291*^9, 
+   3.634304064893373*^9}, {3.635078712892722*^9, 3.63507883335568*^9}, {
+   3.635078868724153*^9, 3.635078931329801*^9}},
+ CellTags->"QExpand::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.635079384142384*^9, 3.63507938488619*^9}}],
+
+Cell["Expanding symbolic spin operators", "Text",
+ CellChangeTimes->{{3.635079387835648*^9, 3.635079394268721*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"op", "=", 
+  RowBox[{"QExpand", "[", 
+   RowBox[{"Spin", "[", "\"\<PM+MP\>\"", "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.635079395462332*^9, 3.6350794584610577`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   SubscriptBox["\<\"\\!\\(\\*\\nStyleBox[\\\"S\\\",\\nFontSlant->\\\"Italic\\\
+\"]\\)\"\>", "\<\"-\"\>"], "\[CircleTimes]", 
+   SubscriptBox["\<\"\\!\\(\\*\\nStyleBox[\\\"S\\\",\\nFontSlant->\\\"Italic\\\
+\"]\\)\"\>", "\<\"+\"\>"]}], "+", 
+  RowBox[{
+   SubscriptBox["\<\"\\!\\(\\*\\nStyleBox[\\\"S\\\",\\nFontSlant->\\\"Italic\\\
+\"]\\)\"\>", "\<\"+\"\>"], "\[CircleTimes]", 
+   SubscriptBox["\<\"\\!\\(\\*\\nStyleBox[\\\"S\\\",\\nFontSlant->\\\"Italic\\\
+\"]\\)\"\>", "\<\"-\"\>"]}]}]], "Output",
+ CellChangeTimes->{{3.6350794101645813`*^9, 3.635079460378859*^9}}]
+}, Open  ]],
+
+Cell["The full form of this operator is", "Text",
+ CellChangeTimes->{{3.635079464501494*^9, 3.6350794680461273`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"op", "//", "FullForm"}]], "Input",
+ CellChangeTimes->{{3.635079471523769*^9, 3.6350794731656523`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   RowBox[{"Plus", "[", 
+    RowBox[{
+     RowBox[{"CircleTimes", "[", 
+      RowBox[{
+       RowBox[{"Spin", "[", "\"\<M\>\"", "]"}], ",", 
+       RowBox[{"Spin", "[", "\"\<P\>\"", "]"}]}], "]"}], ",", 
+     RowBox[{"CircleTimes", "[", 
+      RowBox[{
+       RowBox[{"Spin", "[", "\"\<P\>\"", "]"}], ",", 
+       RowBox[{"Spin", "[", "\"\<M\>\"", "]"}]}], "]"}]}], "]"}],
+   ShowSpecialCharacters->False,
+   ShowStringCharacters->True,
+   NumberMarks->True],
+  FullForm]], "Output",
+ CellChangeTimes->{3.6350794735109453`*^9}]
+}, Open  ]],
+
+Cell["\<\
+We may convert back to a matrix for J=1/2 spins using VecForm\
+\>", "Text",
+ CellChangeTimes->{{3.635079475898831*^9, 3.6350795006374474`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"VecForm", "[", "op", "]"}]], "Input",
+ CellChangeTimes->{{3.635079483812458*^9, 3.635079492451887*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "1", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.635079486188181*^9, 3.635079492891005*^9}}]
+}, Open  ]],
+
+Cell[".. Or for J=1 instead", "Text",
+ CellChangeTimes->{{3.635079503921579*^9, 3.6350795114263077`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"VecForm", "[", 
+  RowBox[{"op", ",", 
+   RowBox[{"Spin", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.635079512478551*^9, 3.63507951612891*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "2", ",", "0", ",", "0", ",", "0", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "0", ",", "2", ",", "0", ",", "0", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "2", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "2", ",", "0", ",", "0", ",", "0", ",", "2", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "2",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "0", ",", "2", ",", "0", ",", "0", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "2", ",", "0", ",", "0",
+      ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0", ",", "0",
+      ",", "0"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.635079516436379*^9}]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell["Quantum States", "Subsection",
  CellChangeTimes->{{3.6333526394457684`*^9, 3.633352654851429*^9}, {
   3.6343016346813087`*^9, 3.634301636313326*^9}}],
@@ -1431,95 +1611,11 @@ d-dimensional system.",
   3.63430177158779*^9, {3.634304334658951*^9, 3.634304605783774*^9}},
  CellTags->"KetForm::usage"],
 
-Cell[TextData[{
- StyleBox["VecForm[", "Input"],
- StyleBox["expr", "Input",
-  FontWeight->"Plain",
-  FontSlant->"Italic"],
- StyleBox["]", "Input"],
- " converts an expression in ",
- StyleBox["KetForm", "Input"],
- " to a matrix or vector. If ",
- StyleBox["expr", "Input",
-  FontWeight->"Plain",
-  FontSlant->"Italic"],
- " is a already a matrix it returns ",
- StyleBox["expr", "Input",
-  FontWeight->"Plain",
-  FontSlant->"Italic"],
- "."
-}], "Text",
- CellDingbat->"\[FilledSquare]",
- CellChangeTimes->{
-  3.634301763982656*^9, {3.63430431310182*^9, 3.6343043276150303`*^9}},
- CellTags->"VecForm::usage"],
-
 Cell[CellGroupData[{
 
-Cell["Example 1", "Subsubsection",
- CellChangeTimes->{{3.6343046090227423`*^9, 3.634304610170611*^9}, {
-  3.6343052677145033`*^9, 3.634305267826108*^9}}],
-
-Cell["Constructing a 4-qubit cat state", "Text",
- CellChangeTimes->{{3.634304634144516*^9, 3.634304639612043*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"(", 
-   RowBox[{
-    RowBox[{"Ket", "[", 
-     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "]"}], "+", 
-    RowBox[{"Ket", "[", 
-     RowBox[{"1", ",", "1", ",", "1", ",", "1"}], "]"}]}], ")"}], "/", 
-  RowBox[{"Sqrt", "[", "2", "]"}]}], "\[IndentingNewLine]", 
- RowBox[{"VecForm", "[", "%", "]"}]}], "Input",
- CellChangeTimes->{{3.6343046127480907`*^9, 3.634304657353589*^9}}],
-
-Cell[BoxData[
- FractionBox[
-  RowBox[{
-   TemplateBox[{RowBox[{"0", ",", "0", ",", "0", ",", "0"}]},
-    "Ket"], "+", 
-   TemplateBox[{RowBox[{"1", ",", "1", ",", "1", ",", "1"}]},
-    "Ket"]}], 
-  SqrtBox["2"]]], "Output",
- CellChangeTimes->{{3.634304645990941*^9, 3.634304658425416*^9}, 
-   3.634304951812602*^9, {3.634305060340654*^9, 3.6343050810039682`*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"{", 
-    FractionBox["1", 
-     SqrtBox["2"]], "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", "0", "}"}], ",", 
-   RowBox[{"{", 
-    FractionBox["1", 
-     SqrtBox["2"]], "}"}]}], "}"}]], "Output",
- CellChangeTimes->{{3.634304645990941*^9, 3.634304658425416*^9}, 
-   3.634304951812602*^9, {3.634305060340654*^9, 3.634305081013516*^9}}]
-}, Open  ]]
-}, Closed]],
-
-Cell[CellGroupData[{
-
-Cell["Example 2", "Subsubsection",
- CellChangeTimes->{{3.634305269939975*^9, 3.6343052710541143`*^9}}],
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.634305269939975*^9, 3.6343052710541143`*^9}, {
+  3.635079365862849*^9, 3.635079366008366*^9}}],
 
 Cell["Converting a 3 qubit array into Bra-Ket notaiton", "Text",
  CellChangeTimes->{{3.634305272786386*^9, 3.634305277973023*^9}, {
@@ -5424,6 +5520,141 @@ Cell[BoxData[
     DisplayForm]}]}]], "Output",
  CellChangeTimes->{3.634305352471534*^9}]
 }, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["VecForm", "Subsection",
+ CellChangeTimes->{{3.6350793360276823`*^9, 3.635079338232173*^9}}],
+
+Cell[TextData[{
+ StyleBox["VecForm[", "Input"],
+ StyleBox["expr, opts", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " converts an symbolic expression with terms ",
+ StyleBox["Ket", "Input"],
+ ", ",
+ StyleBox["Bra", "Input"],
+ ", ",
+ StyleBox["BraKet", "Input"],
+ ", ",
+ StyleBox["KetBra", "Input"],
+ ", ",
+ StyleBox["Spin", "Input"],
+ " and ",
+ StyleBox["Cavity", "Input"],
+ " into a matrix or vector. If ",
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a already a matrix it returns ",
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ".\n\n",
+ StyleBox["Options",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" SparseArray\[Rule]True ", "Input"],
+ "specifies that the resulting matrix should be returned as a ",
+ StyleBox["SparseArray", "Input"],
+ ". The default value is ",
+ StyleBox["False", "Input"],
+ " which returns a normal matrix.\n\[Bullet]",
+ StyleBox[" Spin\[Rule]", "Input"],
+ StyleBox["J", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[" ", "Input"],
+ "specifies the total spin-value to be used when converting ",
+ StyleBox["Spin", "Input"],
+ " operators to matrices. The default value is ",
+ StyleBox["1/2", "Input"],
+ ".\n\[Bullet]",
+ StyleBox[" Cavity\[Rule]", "Input"],
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[" ", "Input"],
+ "specifies the truncated cavity dimension to be used when converting ",
+ StyleBox["Cavity", "Input"],
+ " operators to matrices. The default value is ",
+ StyleBox["2", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634301763982656*^9, {3.63430431310182*^9, 3.6343043276150303`*^9}, {
+   3.635078963880704*^9, 3.63507898689503*^9}, {3.635079022929184*^9, 
+   3.63507931686779*^9}},
+ CellTags->"VecForm::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.6343046090227423`*^9, 3.634304610170611*^9}, {
+  3.6343052677145033`*^9, 3.634305267826108*^9}, {3.6350793726900167`*^9, 
+  3.6350793728711443`*^9}}],
+
+Cell["Constructing a 4-qubit cat state", "Text",
+ CellChangeTimes->{{3.634304634144516*^9, 3.634304639612043*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"Ket", "[", 
+     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "]"}], "+", 
+    RowBox[{"Ket", "[", 
+     RowBox[{"1", ",", "1", ",", "1", ",", "1"}], "]"}]}], ")"}], "/", 
+  RowBox[{"Sqrt", "[", "2", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"VecForm", "[", "%", "]"}]}], "Input",
+ CellChangeTimes->{{3.6343046127480907`*^9, 3.634304657353589*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   TemplateBox[{RowBox[{"0", ",", "0", ",", "0", ",", "0"}]},
+    "Ket"], "+", 
+   TemplateBox[{RowBox[{"1", ",", "1", ",", "1", ",", "1"}]},
+    "Ket"]}], 
+  SqrtBox["2"]]], "Output",
+ CellChangeTimes->{{3.634304645990941*^9, 3.634304658425416*^9}, 
+   3.634304951812602*^9, {3.634305060340654*^9, 3.6343050810039682`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    FractionBox["1", 
+     SqrtBox["2"]], "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", 
+    FractionBox["1", 
+     SqrtBox["2"]], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.634304645990941*^9, 3.634304658425416*^9}, 
+   3.634304951812602*^9, {3.634305060340654*^9, 3.634305081013516*^9}}]
+}, Closed]]
 }, Closed]]
 }, Open  ]],
 
@@ -9650,8 +9881,9 @@ Cell[TextData[{
 }, Open  ]]
 },
 WindowSize->{914, 739},
-WindowMargins->{{Automatic, 101}, {85, Automatic}},
-FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+WindowMargins->{{Automatic, -1161}, {-30, Automatic}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -9659,107 +9891,111 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
+ "Spin::usage"->{
+  Cell[2917, 83, 6071, 224, 443, "Text",
+   CellTags->"Spin::usage"]},
  "Cavity::usage"->{
-  Cell[23106, 735, 4652, 166, 378, "Text",
+  Cell[23106, 735, 4652, 166, 344, "Text",
    CellTags->"Cavity::usage"]},
+ "QExpand::usage"->{
+  Cell[33644, 1063, 1295, 33, 51, "Text",
+   CellTags->"QExpand::usage"]},
+ "QState::usage"->{
+  Cell[39515, 1244, 4627, 130, 540, "Text",
+   CellTags->"QState::usage"]},
+ "KetForm::usage"->{
+  Cell[48387, 1520, 2483, 91, 185, "Text",
+   CellTags->"KetForm::usage"]},
+ "VecForm::usage"->{
+  Cell[177749, 5530, 1904, 64, 188, "Text",
+   CellTags->"VecForm::usage"]},
  "CGate::usage"->{
-  Cell[174484, 5435, 5728, 200, 416, "Text",
+  Cell[181834, 5666, 5728, 200, 383, "Text",
    CellTags->"CGate::usage"]},
- "Concurrence::usage"->{
-  Cell[200474, 6350, 536, 18, 31, "Text",
-   CellTags->"Concurrence::usage"]},
- "EntangledQ::usage"->{
-  Cell[198383, 6277, 2088, 71, 168, "Text",
-   CellTags->"EntangledQ::usage"]},
- "EntanglementF::usage"->{
-  Cell[201013, 6370, 552, 18, 51, "Text",
-   CellTags->"EntanglementF::usage"]},
  "EntropyH::usage"->{
-  Cell[184900, 5777, 546, 18, 53, "Text",
+  Cell[192250, 6008, 546, 18, 31, "Text",
    CellTags->"EntropyH::usage"]},
  "EntropyS::usage"->{
-  Cell[185449, 5797, 441, 15, 32, "Text",
+  Cell[192799, 6028, 441, 15, 31, "Text",
    CellTags->"EntropyS::usage"]},
- "Fidelity::usage"->{
-  Cell[195973, 6184, 1763, 64, 61, "Text",
-   CellTags->"Fidelity::usage"]},
- "KetForm::usage"->{
-  Cell[42574, 1340, 2483, 91, 195, "Text",
-   CellTags->"KetForm::usage"]},
+ "RelativeEntropyS::usage"->{
+  Cell[193243, 6045, 643, 23, 31, "Text",
+   CellTags->"RelativeEntropyS::usage"]},
  "MutualInformationS::usage"->{
-  Cell[186539, 5839, 1017, 34, 93, "Text",
+  Cell[193889, 6070, 1017, 34, 90, "Text",
    CellTags->"MutualInformationS::usage"]},
- "PNorm::usage"->{
-  Cell[194031, 6112, 1091, 39, 51, "Text",
-   CellTags->"PNorm::usage"]},
  "Purity::usage"->{
-  Cell[191632, 6020, 1283, 49, 93, "Text",
+  Cell[198982, 6251, 1283, 49, 90, "Text",
    CellTags->"Purity::usage"]},
- "QState::usage"->{
-  Cell[33702, 1064, 4627, 130, 561, "Text",
-   CellTags->"QState::usage"]},
+ "PNorm::usage"->{
+  Cell[201381, 6343, 1091, 39, 51, "Text",
+   CellTags->"PNorm::usage"]},
+ "Fidelity::usage"->{
+  Cell[203323, 6415, 1763, 64, 61, "Text",
+   CellTags->"Fidelity::usage"]},
+ "EntangledQ::usage"->{
+  Cell[205733, 6508, 2088, 71, 168, "Text",
+   CellTags->"EntangledQ::usage"]},
+ "Concurrence::usage"->{
+  Cell[207824, 6581, 536, 18, 31, "Text",
+   CellTags->"Concurrence::usage"]},
+ "EntanglementF::usage"->{
+  Cell[208363, 6601, 552, 18, 51, "Text",
+   CellTags->"EntanglementF::usage"]},
+ "RandomUnitary::usage"->{
+  Cell[240390, 7310, 656, 22, 51, "Text",
+   CellTags->"RandomUnitary::usage"]},
  "RandomDensity::usage"->{
-  Cell[252344, 7587, 1998, 65, 172, "Text",
+  Cell[259694, 7818, 1998, 65, 172, "Text",
    CellTags->"RandomDensity::usage"]},
  "RandomHermitian::usage"->{
-  Cell[370706, 9625, 623, 21, 32, "Text",
-   CellTags->"RandomHermitian::usage"]},
- "RandomUnitary::usage"->{
-  Cell[233040, 7079, 656, 22, 51, "Text",
-   CellTags->"RandomUnitary::usage"]},
- "RelativeEntropyS::usage"->{
-  Cell[185893, 5814, 643, 23, 32, "Text",
-   CellTags->"RelativeEntropyS::usage"]},
- "Spin::usage"->{
-  Cell[2917, 83, 6071, 224, 461, "Text",
-   CellTags->"Spin::usage"]},
- "VecForm::usage"->{
-  Cell[45060, 1433, 599, 21, 53, "Text",
-   CellTags->"VecForm::usage"]}
+  Cell[378056, 9856, 623, 21, 32, "Text",
+   CellTags->"RandomHermitian::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Cavity::usage", 371659, 9661},
- {"CGate::usage", 371753, 9664},
- {"Concurrence::usage", 371854, 9667},
- {"EntangledQ::usage", 371957, 9670},
- {"EntanglementF::usage", 372064, 9673},
- {"EntropyH::usage", 372167, 9676},
- {"EntropyS::usage", 372265, 9679},
- {"Fidelity::usage", 372363, 9682},
- {"KetForm::usage", 372461, 9685},
- {"MutualInformationS::usage", 372569, 9688},
- {"PNorm::usage", 372675, 9691},
- {"Purity::usage", 372769, 9694},
- {"QState::usage", 372864, 9697},
- {"RandomDensity::usage", 372967, 9700},
- {"RandomHermitian::usage", 373079, 9703},
- {"RandomUnitary::usage", 373189, 9706},
- {"RelativeEntropyS::usage", 373300, 9709},
- {"Spin::usage", 373402, 9712},
- {"VecForm::usage", 373494, 9715}
+ {"Spin::usage", 379033, 9893},
+ {"Cavity::usage", 379124, 9896},
+ {"QExpand::usage", 379220, 9899},
+ {"QState::usage", 379315, 9902},
+ {"KetForm::usage", 379412, 9905},
+ {"VecForm::usage", 379509, 9908},
+ {"CGate::usage", 379605, 9911},
+ {"EntropyH::usage", 379703, 9914},
+ {"EntropyS::usage", 379801, 9917},
+ {"RelativeEntropyS::usage", 379907, 9920},
+ {"MutualInformationS::usage", 380023, 9923},
+ {"Purity::usage", 380130, 9926},
+ {"PNorm::usage", 380224, 9929},
+ {"Fidelity::usage", 380320, 9932},
+ {"EntangledQ::usage", 380421, 9935},
+ {"Concurrence::usage", 380526, 9938},
+ {"EntanglementF::usage", 380632, 9941},
+ {"RandomUnitary::usage", 380740, 9944},
+ {"RandomDensity::usage", 380848, 9947},
+ {"RandomHermitian::usage", 380960, 9950}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 308, 4, 66, "Chapter"],
+Cell[580, 22, 308, 4, 65, "Chapter"],
 Cell[CellGroupData[{
-Cell[913, 30, 144, 2, 65, "Section"],
-Cell[1060, 34, 339, 5, 32, "Input"],
-Cell[1402, 41, 208, 5, 31, "Text"],
-Cell[1613, 48, 270, 4, 55, "Input"]
+Cell[913, 30, 144, 2, 64, "Section"],
+Cell[1060, 34, 339, 5, 28, "Input"],
+Cell[1402, 41, 208, 5, 30, "Text"],
+Cell[1613, 48, 270, 4, 46, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1920, 57, 110, 1, 65, "Section"],
-Cell[2033, 60, 505, 8, 131, "Text"]
+Cell[1920, 57, 110, 1, 64, "Section"],
+Cell[2033, 60, 505, 8, 125, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2575, 73, 213, 3, 65, "Section"],
+Cell[2575, 73, 213, 3, 64, "Section"],
 Cell[CellGroupData[{
-Cell[2813, 80, 101, 1, 45, "Subsection"],
-Cell[2917, 83, 6071, 224, 461, "Text",
+Cell[2813, 80, 101, 1, 44, "Subsection"],
+Cell[2917, 83, 6071, 224, 443, "Text",
  CellTags->"Spin::usage"],
 Cell[CellGroupData[{
 Cell[9013, 311, 100, 1, 35, "Subsubsection"],
@@ -9805,8 +10041,8 @@ Cell[20773, 668, 2115, 56, 105, "Output"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[22949, 731, 154, 2, 45, "Subsection"],
-Cell[23106, 735, 4652, 166, 378, "Text",
+Cell[22949, 731, 154, 2, 44, "Subsection"],
+Cell[23106, 735, 4652, 166, 344, "Text",
  CellTags->"Cavity::usage"],
 Cell[CellGroupData[{
 Cell[27783, 905, 202, 3, 35, "Subsubsection"],
@@ -9820,253 +10056,284 @@ Cell[CellGroupData[{
 Cell[30111, 973, 250, 3, 29, "Subsubsection"],
 Cell[30364, 978, 286, 6, 30, "Text"],
 Cell[CellGroupData[{
-Cell[30675, 988, 674, 19, 28, "Input"],
+Cell[30675, 988, 674, 19, 46, "Input"],
 Cell[31352, 1009, 2131, 44, 378, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[33544, 1060, 155, 2, 44, "Subsection"],
-Cell[33702, 1064, 4627, 130, 561, "Text",
+Cell[33544, 1060, 97, 1, 44, "Subsection"],
+Cell[33644, 1063, 1295, 33, 51, "Text",
+ CellTags->"QExpand::usage"],
+Cell[CellGroupData[{
+Cell[34964, 1100, 97, 1, 35, "Subsubsection"],
+Cell[35064, 1103, 115, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[35204, 1108, 196, 4, 28, "Input"],
+Cell[35403, 1114, 602, 12, 28, "Output"]
+}, Open  ]],
+Cell[36020, 1129, 117, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[36162, 1134, 126, 2, 28, "Input"],
+Cell[36291, 1138, 562, 17, 39, "Output"]
+}, Open  ]],
+Cell[36868, 1158, 153, 3, 30, "Text"],
+Cell[CellGroupData[{
+Cell[37046, 1165, 127, 2, 28, "Input"],
+Cell[37176, 1169, 435, 11, 28, "Output"]
+}, Open  ]],
+Cell[37626, 1183, 105, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[37756, 1188, 182, 4, 28, "Input"],
+Cell[37941, 1194, 1355, 39, 63, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39357, 1240, 155, 2, 44, "Subsection"],
+Cell[39515, 1244, 4627, 130, 540, "Text",
  CellTags->"QState::usage"],
 Cell[CellGroupData[{
-Cell[38354, 1198, 98, 1, 35, "Subsubsection"],
-Cell[38455, 1201, 1149, 29, 127, "Text"]
+Cell[44167, 1378, 98, 1, 35, "Subsubsection"],
+Cell[44268, 1381, 1149, 29, 123, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[39641, 1235, 102, 1, 35, "Subsubsection"],
-Cell[39746, 1238, 124, 1, 30, "Text"],
+Cell[45454, 1415, 102, 1, 35, "Subsubsection"],
+Cell[45559, 1418, 124, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[39895, 1243, 331, 8, 46, "Input"],
-Cell[40229, 1253, 326, 9, 52, "Output"],
-Cell[40558, 1264, 519, 17, 57, "Output"]
+Cell[45708, 1423, 331, 8, 46, "Input"],
+Cell[46042, 1433, 326, 9, 52, "Output"],
+Cell[46371, 1444, 519, 17, 57, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[41114, 1286, 326, 8, 57, "Input"],
-Cell[41443, 1296, 308, 9, 52, "Output"],
-Cell[41754, 1307, 652, 23, 57, "Output"]
+Cell[46927, 1466, 326, 8, 57, "Input"],
+Cell[47256, 1476, 308, 9, 52, "Output"],
+Cell[47567, 1487, 652, 23, 57, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[42467, 1337, 104, 1, 44, "Subsection"],
-Cell[42574, 1340, 2483, 91, 195, "Text",
+Cell[48280, 1517, 104, 1, 44, "Subsection"],
+Cell[48387, 1520, 2483, 91, 185, "Text",
  CellTags->"KetForm::usage"],
-Cell[45060, 1433, 599, 21, 53, "Text",
+Cell[CellGroupData[{
+Cell[50895, 1615, 149, 2, 35, "Subsubsection"],
+Cell[51047, 1619, 178, 2, 30, "Text"],
+Cell[CellGroupData[{
+Cell[51250, 1625, 282, 7, 28, "Input"],
+Cell[51535, 1634, 53500, 1667, 518, "Output"]
+}, Open  ]],
+Cell[105050, 3304, 209, 4, 30, "Text"],
+Cell[CellGroupData[{
+Cell[105284, 3312, 309, 9, 28, "Input"],
+Cell[105596, 3323, 41674, 1282, 380, "Output"]
+}, Open  ]],
+Cell[147285, 4608, 119, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[147429, 4613, 260, 7, 28, "Input"],
+Cell[147692, 4622, 29896, 898, 311, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[177649, 5527, 97, 1, 44, "Subsection"],
+Cell[177749, 5530, 1904, 64, 188, "Text",
  CellTags->"VecForm::usage"],
 Cell[CellGroupData[{
-Cell[45684, 1458, 153, 2, 35, "Subsubsection"],
-Cell[45840, 1462, 114, 1, 30, "Text"],
+Cell[179678, 5598, 204, 3, 35, "Subsubsection"],
+Cell[179885, 5603, 114, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[45979, 1467, 414, 10, 46, "Input"],
-Cell[46396, 1479, 363, 9, 57, "Output"],
-Cell[46762, 1490, 811, 24, 52, "Output"]
-}, Open  ]]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[47622, 1520, 102, 1, 29, "Subsubsection"],
-Cell[47727, 1523, 178, 2, 30, "Text"],
-Cell[CellGroupData[{
-Cell[47930, 1529, 282, 7, 28, "Input"],
-Cell[48215, 1538, 53500, 1667, 311, "Output"]
-}, Open  ]],
-Cell[101730, 3208, 209, 4, 30, "Text"],
-Cell[CellGroupData[{
-Cell[101964, 3216, 309, 9, 28, "Input"],
-Cell[102276, 3227, 41674, 1282, 265, "Output"]
-}, Open  ]],
-Cell[143965, 4512, 119, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[144109, 4517, 260, 7, 28, "Input"],
-Cell[144372, 4526, 29896, 898, 196, "Output"]
-}, Open  ]]
+Cell[180024, 5608, 414, 10, 46, "Input"],
+Cell[180441, 5620, 363, 9, 57, "Output"],
+Cell[180807, 5631, 811, 24, 52, "Output"]
+}, Closed]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[174329, 5431, 152, 2, 44, "Subsection"],
-Cell[174484, 5435, 5728, 200, 416, "Text",
+Cell[181679, 5662, 152, 2, 44, "Subsection"],
+Cell[181834, 5666, 5728, 200, 383, "Text",
  CellTags->"CGate::usage"],
 Cell[CellGroupData[{
-Cell[180237, 5639, 100, 1, 35, "Subsubsection"],
-Cell[180340, 5642, 137, 2, 28, "Input"],
-Cell[180480, 5646, 1373, 31, 119, "Text"]
+Cell[187587, 5870, 100, 1, 35, "Subsubsection"],
+Cell[187690, 5873, 137, 2, 28, "Input"],
+Cell[187830, 5877, 1373, 31, 119, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[181890, 5682, 103, 1, 29, "Subsubsection"],
-Cell[181996, 5685, 105, 1, 30, "Text"],
+Cell[189240, 5913, 103, 1, 29, "Subsubsection"],
+Cell[189346, 5916, 105, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[182126, 5690, 225, 6, 28, "Input"],
-Cell[182354, 5698, 724, 20, 92, "Output"]
+Cell[189476, 5921, 225, 6, 28, "Input"],
+Cell[189704, 5929, 724, 20, 92, "Output"]
 }, Open  ]],
-Cell[183093, 5721, 106, 1, 30, "Text"],
+Cell[190443, 5952, 106, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[183224, 5726, 275, 7, 28, "Input"],
-Cell[183502, 5735, 993, 24, 160, "Output"]
+Cell[190574, 5957, 275, 7, 28, "Input"],
+Cell[190852, 5966, 993, 24, 160, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[184568, 5767, 148, 2, 51, "Section"],
+Cell[191918, 5998, 148, 2, 64, "Section"],
 Cell[CellGroupData[{
-Cell[184741, 5773, 156, 2, 45, "Subsection"],
-Cell[184900, 5777, 546, 18, 53, "Text",
+Cell[192091, 6004, 156, 2, 44, "Subsection"],
+Cell[192250, 6008, 546, 18, 31, "Text",
  CellTags->"EntropyH::usage"],
-Cell[185449, 5797, 441, 15, 32, "Text",
+Cell[192799, 6028, 441, 15, 31, "Text",
  CellTags->"EntropyS::usage"],
-Cell[185893, 5814, 643, 23, 32, "Text",
+Cell[193243, 6045, 643, 23, 31, "Text",
  CellTags->"RelativeEntropyS::usage"],
-Cell[186539, 5839, 1017, 34, 93, "Text",
+Cell[193889, 6070, 1017, 34, 90, "Text",
  CellTags->"MutualInformationS::usage"],
 Cell[CellGroupData[{
-Cell[187581, 5877, 150, 2, 35, "Subsubsection"],
-Cell[187734, 5881, 165, 3, 30, "Text"],
+Cell[194931, 6108, 150, 2, 35, "Subsubsection"],
+Cell[195084, 6112, 165, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[187924, 5888, 279, 7, 46, "Input"],
-Cell[188206, 5897, 294, 9, 56, "Output"],
-Cell[188503, 5908, 112, 1, 28, "Output"]
+Cell[195274, 6119, 279, 7, 46, "Input"],
+Cell[195556, 6128, 294, 9, 56, "Output"],
+Cell[195853, 6139, 112, 1, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[188652, 5914, 324, 8, 46, "Input"],
-Cell[188979, 5924, 298, 9, 56, "Output"],
-Cell[189280, 5935, 114, 1, 28, "Output"]
+Cell[196002, 6145, 324, 8, 46, "Input"],
+Cell[196329, 6155, 298, 9, 56, "Output"],
+Cell[196630, 6166, 114, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[189443, 5942, 102, 1, 29, "Subsubsection"],
-Cell[189548, 5945, 164, 3, 30, "Text"],
+Cell[196793, 6173, 102, 1, 29, "Subsubsection"],
+Cell[196898, 6176, 164, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[189737, 5952, 298, 6, 28, "Input"],
-Cell[190038, 5960, 103, 1, 28, "Output"]
+Cell[197087, 6183, 298, 6, 28, "Input"],
+Cell[197388, 6191, 103, 1, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[190178, 5966, 366, 9, 28, "Input"],
-Cell[190547, 5977, 193, 5, 56, "Output"]
+Cell[197528, 6197, 366, 9, 28, "Input"],
+Cell[197897, 6208, 193, 5, 56, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[190789, 5988, 100, 1, 29, "Subsubsection"],
+Cell[198139, 6219, 100, 1, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[190914, 5993, 176, 3, 28, "Input"],
-Cell[191093, 5998, 70, 1, 28, "Output"]
+Cell[198264, 6224, 176, 3, 28, "Input"],
+Cell[198443, 6229, 70, 1, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[191200, 6004, 173, 3, 28, "Input"],
-Cell[191376, 6009, 98, 1, 28, "Output"]
+Cell[198550, 6235, 173, 3, 28, "Input"],
+Cell[198726, 6240, 98, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[191535, 6017, 94, 1, 45, "Subsection"],
-Cell[191632, 6020, 1283, 49, 93, "Text",
+Cell[198885, 6248, 94, 1, 44, "Subsection"],
+Cell[198982, 6251, 1283, 49, 90, "Text",
  CellTags->"Purity::usage"],
 Cell[CellGroupData[{
-Cell[192940, 6073, 100, 1, 35, "Subsubsection"],
-Cell[193043, 6076, 130, 1, 30, "Text"],
+Cell[200290, 6304, 100, 1, 35, "Subsubsection"],
+Cell[200393, 6307, 130, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[193198, 6081, 387, 11, 28, "Input"],
-Cell[193588, 6094, 284, 8, 47, "Output"]
+Cell[200548, 6312, 387, 11, 28, "Input"],
+Cell[200938, 6325, 284, 8, 47, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[193933, 6109, 95, 1, 44, "Subsection"],
-Cell[194031, 6112, 1091, 39, 51, "Text",
+Cell[201283, 6340, 95, 1, 44, "Subsection"],
+Cell[201381, 6343, 1091, 39, 51, "Text",
  CellTags->"PNorm::usage"],
 Cell[CellGroupData[{
-Cell[195147, 6155, 100, 1, 35, "Subsubsection"],
-Cell[195250, 6158, 138, 1, 30, "Text"],
+Cell[202497, 6386, 100, 1, 35, "Subsubsection"],
+Cell[202600, 6389, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[195413, 6163, 243, 6, 28, "Input"],
-Cell[195659, 6171, 105, 2, 33, "Output"]
+Cell[202763, 6394, 243, 6, 28, "Input"],
+Cell[203009, 6402, 105, 2, 33, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[195825, 6180, 145, 2, 44, "Subsection"],
-Cell[195973, 6184, 1763, 64, 61, "Text",
+Cell[203175, 6411, 145, 2, 44, "Subsection"],
+Cell[203323, 6415, 1763, 64, 61, "Text",
  CellTags->"Fidelity::usage"],
 Cell[CellGroupData[{
-Cell[197761, 6252, 100, 1, 35, "Subsubsection"],
+Cell[205111, 6483, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[197886, 6257, 220, 5, 28, "Input"],
-Cell[198109, 6264, 102, 3, 52, "Output"]
+Cell[205236, 6488, 220, 5, 28, "Input"],
+Cell[205459, 6495, 102, 3, 52, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[198272, 6274, 108, 1, 44, "Subsection"],
-Cell[198383, 6277, 2088, 71, 168, "Text",
+Cell[205622, 6505, 108, 1, 44, "Subsection"],
+Cell[205733, 6508, 2088, 71, 168, "Text",
  CellTags->"EntangledQ::usage"],
-Cell[200474, 6350, 536, 18, 31, "Text",
+Cell[207824, 6581, 536, 18, 31, "Text",
  CellTags->"Concurrence::usage"],
-Cell[201013, 6370, 552, 18, 51, "Text",
+Cell[208363, 6601, 552, 18, 51, "Text",
  CellTags->"EntanglementF::usage"],
 Cell[CellGroupData[{
-Cell[201590, 6392, 171, 2, 35, "Subsubsection"],
-Cell[201764, 6396, 526, 18, 40, "Text"],
+Cell[208940, 6623, 171, 2, 35, "Subsubsection"],
+Cell[209114, 6627, 526, 18, 40, "Text"],
 Cell[CellGroupData[{
-Cell[202315, 6418, 1184, 35, 91, "Input"],
-Cell[203502, 6455, 24768, 465, 256, "Output"]
+Cell[209665, 6649, 1184, 35, 91, "Input"],
+Cell[210852, 6686, 24768, 465, 256, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[228319, 6926, 200, 3, 29, "Subsubsection"],
-Cell[228522, 6931, 120, 1, 30, "Text"],
+Cell[235669, 7157, 200, 3, 29, "Subsubsection"],
+Cell[235872, 7162, 120, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[228667, 6936, 168, 3, 28, "Input"],
-Cell[228838, 6941, 73, 1, 28, "Output"]
+Cell[236017, 7167, 168, 3, 28, "Input"],
+Cell[236188, 7172, 73, 1, 28, "Output"]
 }, Open  ]],
-Cell[228926, 6945, 126, 1, 30, "Text"],
+Cell[236276, 7176, 126, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[229077, 6950, 550, 16, 28, "Input"],
-Cell[229630, 6968, 1697, 50, 121, "Output"]
+Cell[236427, 7181, 550, 16, 28, "Input"],
+Cell[236980, 7199, 1697, 50, 121, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[231364, 7023, 388, 11, 28, "Input"],
-Cell[231755, 7036, 968, 27, 210, "Output"]
+Cell[238714, 7254, 388, 11, 28, "Input"],
+Cell[239105, 7267, 968, 27, 210, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[232796, 7071, 112, 1, 51, "Section"],
+Cell[240146, 7302, 112, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[232933, 7076, 104, 1, 45, "Subsection"],
-Cell[233040, 7079, 656, 22, 51, "Text",
+Cell[240283, 7307, 104, 1, 45, "Subsection"],
+Cell[240390, 7310, 656, 22, 51, "Text",
  CellTags->"RandomUnitary::usage"],
 Cell[CellGroupData[{
-Cell[233721, 7105, 98, 1, 35, "Subsubsection"],
-Cell[233822, 7108, 167, 2, 30, "Text"],
-Cell[233992, 7112, 888, 25, 35, "Input"],
+Cell[241071, 7336, 98, 1, 35, "Subsubsection"],
+Cell[241172, 7339, 167, 2, 30, "Text"],
+Cell[241342, 7343, 888, 25, 35, "Input"],
 Cell[CellGroupData[{
-Cell[234905, 7141, 682, 18, 46, "Input"],
-Cell[235590, 7161, 16579, 416, 244, "Output"]
+Cell[242255, 7372, 682, 18, 46, "Input"],
+Cell[242940, 7392, 16579, 416, 244, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[252230, 7584, 111, 1, 45, "Subsection"],
-Cell[252344, 7587, 1998, 65, 172, "Text",
+Cell[259580, 7815, 111, 1, 45, "Subsection"],
+Cell[259694, 7818, 1998, 65, 172, "Text",
  CellTags->"RandomDensity::usage"],
 Cell[CellGroupData[{
-Cell[254367, 7656, 98, 1, 35, "Subsubsection"],
-Cell[254468, 7659, 114, 1, 30, "Text"],
+Cell[261717, 7887, 98, 1, 35, "Subsubsection"],
+Cell[261818, 7890, 114, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[254607, 7664, 418, 10, 46, "Input"],
-Cell[255028, 7676, 57038, 949, 241, "Output"]
+Cell[261957, 7895, 418, 10, 46, "Input"],
+Cell[262378, 7907, 57038, 949, 241, "Output"]
 }, Open  ]],
-Cell[312081, 8628, 115, 1, 30, "Text"],
+Cell[319431, 8859, 115, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[312221, 8633, 467, 11, 46, "Input"],
-Cell[312691, 8646, 57554, 959, 241, "Output"]
+Cell[319571, 8864, 467, 11, 46, "Input"],
+Cell[320041, 8877, 57554, 959, 241, "Output"]
 }, Open  ]],
-Cell[370260, 9608, 281, 8, 28, "Input"]
+Cell[377610, 9839, 281, 8, 28, "Input"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[370590, 9622, 113, 1, 44, "Subsection"],
-Cell[370706, 9625, 623, 21, 32, "Text",
+Cell[377940, 9853, 113, 1, 44, "Subsection"],
+Cell[378056, 9856, 623, 21, 32, "Text",
  CellTags->"RandomHermitian::usage"]
 }, Open  ]]
 }, Open  ]]

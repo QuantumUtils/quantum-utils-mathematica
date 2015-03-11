@@ -41,16 +41,17 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSyst
 (*Usage Declaration*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States, Operators and Gates*)
 
 
-Unprotect[Spin,Cavity,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
+Unprotect[Spin,Cavity,QExpand,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
 
 
 AssignUsage[Spin,$Usages];
 AssignUsage[Cavity,$Usages];
 AssignUsage[QState,$Usages];
+AssignUsage[QExpand,$Usages];
 AssignUsage[KetForm,$Usages];
 AssignUsage[VecForm,$Usages];
 AssignUsage[CGate,$Usages];
@@ -96,7 +97,7 @@ AssignUsage[RandomHermitian,$Usages];
 (*Error Messages*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*States and Operators*)
 
 
@@ -154,7 +155,7 @@ Begin["`Private`"];
 (*States and Operators*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Spin Operators*)
 
 
@@ -180,18 +181,14 @@ Clear[SpinTPRules]
 SpinTPRules[S_]:= SpinTPRules[S] = 
 	MapThread[Rule,
 			{{"I","X","Y","Z","P","M"},
-			{SpinI[S],SpinX[S],SpinY[S],SpinZ[S],SpinP[S],SpinM[S]}}
+			If[S==="Symbolic",
+				{Spin["I"],Spin["X"],Spin["Y"],Spin["Z"],Spin["P"],Spin["M"]},
+				{SpinI[S],SpinX[S],SpinY[S],SpinZ[S],SpinP[S],SpinM[S]}
+			]}
 	]
 
 
 SetAttributes[Spin,HoldAllComplete]
-
-(*By giving custom DownValues to Spin[0] etc, we can avoid TP ever seeing 
-numbers as replacement rules, which would cause much confusion*)
-Spin[0][S_,SparseArray]:=Spin["I"][S,SparseArray]
-Spin[1][S_,SparseArray]:=Spin["X"][S,SparseArray]
-Spin[2][S_,SparseArray]:=Spin["Y"][S,SparseArray]
-Spin[3][S_,SparseArray]:=Spin["Z"][S,SparseArray]
 
 Spin[expr_][S_,SparseArray]:=With[
 	{spin=Rationalize[S]},
@@ -201,9 +198,36 @@ Spin[expr_][S_,SparseArray]:=With[
 	]]
 
 Spin[expr_][S_]:=Normal[Spin[expr][S,SparseArray]]
+Spin[expr_][S_,Identity]:=Spin[expr][S]
+Spin[expr_]["Symbolic"]:=TP[expr,Replace->SpinTPRules["Symbolic"]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Text:: *)
+(*Short hand for single spin operators*)
+
+
+Spin[0]:=Spin["I"]
+Spin[1]:=Spin["X"]
+Spin[2]:=Spin["Y"]
+Spin[3]:=Spin["Z"]
+
+
+(* ::Text:: *)
+(*Display Formatting*)
+
+
+Format[Spin[op_]]:=
+	With[{str=ToString@Unevaluated[op]},
+		Which[
+			str=="P", Subscript[Style["S",Italic],"+"],
+			str=="M", Subscript[Style["S",Italic],"-"],
+			str=="Z"||str=="X"||str=="Y", Subscript[Style["S",Italic],str],
+			str=="I", Subscript["\[DoubleStruckOne]","S"],
+			True,"Spin"[str]
+	]]
+
+
+(* ::Subsubsection:: *)
 (*Cavity Operators*)
 
 
@@ -214,10 +238,13 @@ CavityC[n_Integer]:= Transpose[CavityA[n]]
 CavityN[n_Integer]:= CavityN[n] = DiagonalMatrix[SparseArray@Range[0,n-1]]
 
 
-CavityTPRules[n_]:= CavityTPRules[n] = 
+CavityTPRules[n_]:= CavityTPRules[n] =	 
 	MapThread[Rule,
 			{{"I","a","c","n","N"},
-			{CavityI[n],CavityA[n],CavityC[n],CavityN[n],CavityN[n]}}
+			If[n==="Symbolic",
+				{Cavity["I"],Cavity["a"],Cavity["c"],Cavity["n"],Cavity["n"]},
+				{CavityI[n],CavityA[n],CavityC[n],CavityN[n],CavityN[n]}
+			]}
 	]
 
 
@@ -229,6 +256,38 @@ Cavity[expr_][n_Integer,SparseArray]:=
 	]
 
 Cavity[expr_][n_Integer]:=Normal[Cavity[expr][n,SparseArray]]
+Cavity[expr_][n_Integer,Identity]:=Cavity[expr][n]
+Cavity[expr_]["Symbolic"]:=TP[expr,Replace->CavityTPRules["Symbolic"]]
+
+
+(* ::Text:: *)
+(*Display Formatting*)
+
+
+Format[Cavity[op_]]:=
+	With[{str=ToString@Unevaluated[op]},
+		Which[
+			str=="a", Style["a",Italic],
+			str=="c", Superscript[Style["a",Italic],"\[Dagger]"],
+			str=="n"||str=="N", Style["N",Italic],
+			str=="I", Subscript["\[DoubleStruckOne]","c"],
+			True, "Cavity"[str]
+	]]
+
+
+(* ::Subsubsection:: *)
+(*Symbolic Expand*)
+
+
+(* ::Text:: *)
+(*Parsing symbolic Spin-Cavity expressions*)
+
+
+QExpand[expr_]:=expr//.{
+	Spin[arg_]:>Spin[arg]["Symbolic"],
+	Cavity[arg_]:>Cavity[arg]["Symbolic"],
+	CircleTimes[args1___,CircleTimes[args2__],args3___]:>CircleTimes[args1,args2,args3]
+}
 
 
 (* ::Subsubsection::Closed:: *)
@@ -316,7 +375,7 @@ $QStateMatRules={
 "Bell4"->$QStateMatBell4, "B4"->$QStateMatBell4};
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Bra-Ket Notation*)
 
 
@@ -328,29 +387,45 @@ KetDimensions[Subscript[num_,dim_]]:={dim,1+num};
 KetDimensions[num_]:={2,1+num};
 
 
-VecForm[obj_]:=
+Options[VecForm]:={Spin->1/2,Cavity->2,SparseArray->False};
+
+
+VecForm[obj_,opts:OptionsPattern[VecForm]]:=
+	With[{f=If[OptionValue[SparseArray],SparseArray,Identity]},
 	Which[
+		(* Linear Algebra *)
 		NumericQ[obj],obj,
-		ListQ[obj],obj,
+		ListQ[obj],f@obj,
 		MatchQ[obj,Plus[_,__]],
-			VecForm[First[obj]]+VecForm[Rest[obj]],
+			VecForm[First[obj],opts]+VecForm[Rest[obj],opts],
 		MatchQ[obj,Times[_,__]],
-			Times[First[obj],VecForm[Rest[obj]]],
+			Times[First[obj],VecForm[Rest[obj],opts]],
+		MatchQ[obj,CircleTimes[__]],
+			CircleTimes@@Map[VecForm[#,opts]&,List@@obj],
+		MatchQ[obj,Dot[_,__]],
+			Dot@@Map[VecForm[#,opts]&,List@@obj],
+		(* Bra-Ket *)
 		MatchQ[obj,Ket[{__}]],
-			Partition[CircleTimes@@UnitVector@@@Map[KetDimensions,First@obj],1],
+			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,First@obj],{1}],1],
 		MatchQ[obj,Ket[__]],
-			Partition[CircleTimes@@UnitVector@@@Map[KetDimensions,List@@obj],1],
+			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,List@@obj],{1}],1],
 		MatchQ[obj,Bra[{__}]],
-			ConjugateTranspose[VecForm[Ket@@First[obj]]],
+			ConjugateTranspose[VecForm[Ket@@First[obj],opts]],
 		MatchQ[obj,Bra[__]],
-			ConjugateTranspose[VecForm[Ket@@obj]],
+			ConjugateTranspose[VecForm[Ket@@obj,opts]],
 		MatchQ[obj,KetBra[{__},{__}]],
-			CircleTimes[VecForm[Ket@@First[obj]],VecForm[Bra@@Last[obj]]],
+			CircleTimes[VecForm[Ket@@First[obj]],VecForm[Bra@@Last[obj],opts]],
+		(* Spin-Cavity *)
+		MatchQ[obj,Spin[__]],
+			obj[OptionValue[Spin],f],
+		MatchQ[obj,Cavity[__]],
+			obj[OptionValue[Cavity],f],
+		(* Failure *)
 		True,
 			Message[VecForm::fail]
-]
+]]
 
-VecForm[a__]:=Map[VecForm,{a}]
+VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
 (* ::Text:: *)
@@ -748,7 +823,7 @@ End[];
 (*End Package*)
 
 
-Protect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
+Protect[Spin,Cavity,QExpand,QState,KetForm,VecForm,Ket,Bra,KetBra];
 Protect[CGate];
 Protect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Protect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];
