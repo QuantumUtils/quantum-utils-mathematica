@@ -44,7 +44,7 @@ DescriptiveFillInTable::usage = "DescriptiveFillInTable[headers,rows,OptionsPatt
 DisplayOptions::usage = "DisplayOptions[TargetFunction] prints a human readable cell describing the options of a given function. Assumes all options have usage text.";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Usage String Handling*)
 
 
@@ -54,14 +54,14 @@ DisplayOptions::usage = "DisplayOptions[TargetFunction] prints a human readable 
 *)
 
 
+Attributes[AssignUsage] = {HoldFirst};
+
+
 LoadUsages::usage = "LoadUsages[nbName] loads usage strings from a tagged cells in notebook, such that the strings can later be applied using AssignUsage[]. For more details, see the examples in doc/.";
 UsageData::usage = "UsageData[] represents usage strings loaded using LoadUsages[].";
 AssignUsage::usage = "AssignUsage[symbol, usageData] sets symbol::usage to be drawn from the usage data usageData made by running LoadUsages[] with a name corresponding to symbol.
-AssignUsage[codeSymbol->docSymbol, usageData] sets codeSymbol::usage to be drawn from the usage data usageData made by running LoadUsages[] with a name corresponding to docSymbol.";
-AssignUsage::nousg = "No usage message in `1` for symbol `2` found; using a blank message instead.";
-
-Attributes[AssignUsage] = {HoldFirst};
-
+AssignUsage[codeSymbol->docSymbol, usageData] sets codeSymbol::usage to be drawn from the usage data usageData made by running LoadUsages[] with a name corresponding to docSymbol.
+AssignUsage[{a1,a2,a3,...}, usageData] calls AssignUsage[a, usageData] on each  of the a's.";
 
 
 (* ::Subsection::Closed:: *)
@@ -69,6 +69,13 @@ Attributes[AssignUsage] = {HoldFirst};
 
 
 NotebookLink::usage = "NotebookLink[notebookFile_,name_,description_] generates a cell containing a link to another notebook, with a description.";
+
+
+(* ::Subsection:: *)
+(*Messages*)
+
+
+AssignUsage::nousg = "No usage message in `1` for symbol `2` found; using a blank message instead.";
 
 
 (* ::Section:: *)
@@ -133,7 +140,7 @@ DisplayOptions[TargetFunction_]:=Module[{options,headers,content,textFormat,opt}
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Usage String Handling*)
 
 
@@ -189,7 +196,7 @@ AssignUsage[codeSymb_Symbol->docSymb_Symbol, usageData_UsageData] := Module[{doc
 
 AssignUsage[symb_Symbol, usageData_UsageData] := AssignUsage[symb->symb,usageData];
 
-AssignUsage[{s__Symbol}, usageData_UsageData] := Map[AssignUsage[#, usageData]&, {s}];
+AssignUsage[{s:(__Rule|__Symbol)}, usageData_UsageData] := Map[AssignUsage[#, usageData]&, {s}];
 
 
 (* ::Subsection::Closed:: *)
