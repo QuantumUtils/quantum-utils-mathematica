@@ -40,7 +40,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSyst
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States, Operators and Gates*)
 
 
@@ -59,12 +59,13 @@ AssignUsage[CGate,$Usages];
 (*Symbolic Evaluation*)
 
 
-Unprotect[QPower,QExpand,QSimplify];
+Unprotect[QPower,QExpand,QSimplify,ClearQSimplifyCache];
 
 
 AssignUsage[QExpand,$Usages];
 AssignUsage[QPower,$Usages];
 AssignUsage[QSimplify,$Usages];
+AssignUsage[ClearQSimplifyCache,$Usages];
 
 
 (* ::Subsection::Closed:: *)
@@ -107,7 +108,7 @@ AssignUsage[RandomHermitian,$Usages];
 (*Error Messages*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -459,7 +460,7 @@ KetFormMatrix[mat_]:=
 	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Vec Form*)
 
 
@@ -482,8 +483,8 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 		ListQ[obj],f@obj,
 		MatchQ[obj,Plus[_,__]],
 			VecForm[First[obj],opts]+VecForm[Rest[obj],opts],
-		MatchQ[obj,Times[_,__]],
-			Times[First[obj],VecForm[Rest[obj],opts]],
+		MatchQ[obj,Times[_?CoefficientQ,__]],
+			obj/.{Times[a_?CoefficientQ,b__]:>Times[a,VecForm[Times[b],opts]]},
 		MatchQ[obj,CircleTimes[_,__]],
 			CircleTimes@@Map[VecForm[#,opts]&,List@@obj],
 		MatchQ[obj,Dot[_,__]],
@@ -506,6 +507,8 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 			obj[OptionValue[Spin],f],
 		MatchQ[obj,Cavity[__]],
 			obj[OptionValue[Cavity],f],
+		(* Symbolic *)
+		CoefficientQ[obj],obj,
 		(* Failure *)
 		True,
 			Message[VecForm::fail]
@@ -514,23 +517,28 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Symbolic Evaluation*)
 
 
 (* ::Subsubsection::Closed:: *)
-(*SymbolicQ*)
+(*QPower*)
+
+
+QPower[a_]:=a
+QPower[arg_,1]:=arg
+QPower[arg_?CoefficientQ,n_]:=Power[arg,n]
+QPower[arg_?MatrixQ,n_]:=MatrixPower[arg,n]
+QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
+QPower[Times[x_?CoefficientQ,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
+QPower[Times[xs__,x_?CoefficientQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
 
 
 (* ::Text:: *)
-(*Predicate for parsing a small subset of symbolic expressions*)
+(*Hide QPower from displayed equations*)
 
 
-SymbolicQ[a_]:=Or[
-	SymbolQ[a],
-	NumberQ[a],
-	Head[a]===Power&&Or[SymbolQ[First[a]],NumberQ[First[a]]]
-	]
+Format[QPower[arg_,n_]]:=arg^n;
 
 
 (* ::Subsubsection::Closed:: *)
@@ -542,8 +550,8 @@ SymbolicQ[a_]:=Or[
 
 
 QExpand[expr_]:=expr//.{
-	Spin[arg_]:>Spin[arg]["Symbolic"],
-	Cavity[arg_]:>Cavity[arg]["Symbolic"]
+	Spin[arg_]:> Spin[arg]["Symbolic"],
+	Cavity[arg_]:> Cavity[arg]["Symbolic"]
 }
 
 
@@ -551,24 +559,58 @@ QExpand[expr_]:=expr//.{
 (*QSimplify*)
 
 
-Options[QSimplify]:={Spin->True,Cavity->True,"SpinHalf"->False,"OrderSpin"->False,"OrderCavity"->True,Rules->{}};
+Options[QSimplify]:={
+	Spin->True,
+	Cavity->True,
+	"SpinAlgebra"->"PM",
+	"SpinHalf"->False,
+	"OrderSpin"->False,
+	"OrderCavity"->True,
+	Rules->{},
+	TimeConstraint->1};
 
 
-QSimplify[expr_,opts:OptionsPattern[]]:= 
-	Simplify[
-	ReplaceRepeated[
-			Simplify[QExpand[expr],TimeConstraint->1],
-			QSimplifyRules[opts]
-		],
-	TimeConstraint->1]
+QSimplify[expr_,opts:OptionsPattern[]]:= QSimplifyCached[expr,opts]
 
 
 (* ::Text:: *)
-(*Add special rules for nested commutators*)
+(*Add special recussion rules for commutators*)
 
 
-QSimplify[Com[op1_,op2_,1]]:= QSimplify[Com[op1,op2]]
-QSimplify[Com[op1_,op2_,n_?Positive]]:= QSimplify[Com[op1,QSimplify[Com[op1,op2]],n-1]]
+QSimplify[Com[op1_,op2_,1],opts:OptionsPattern[]]:= QSimplify[Com[op1,op2],opts]
+QSimplify[Com[op1_,op2_,n_?Positive],opts:OptionsPattern[]]:= 
+	QSimplify[
+		Com[op1,QSimplify[Com[op1,op2],opts],n-1]
+	,opts]
+
+
+QSimplify[ACom[op1_,op2_,1],opts:OptionsPattern[]]:= QSimplify[ACom[op1,op2],opts]
+QSimplify[ACom[op1_,op2_,n_?Positive],opts:OptionsPattern[]]:= 
+	QSimplify[
+		ACom[op1,QSimplify[ACom[op1,op2],opts],n-1]
+	,opts]
+
+
+(* ::Text:: *)
+(*Memoized function for QSimplify*)
+
+
+Clear[QSimplifyCached]
+
+
+ClearQSimplifyCache[]:=(
+	DownValues[QSimplifyCached]=Part[DownValues[QSimplifyCached],{-1}];
+	DownValues[QSimplifyRules]=Part[DownValues[QSimplifyRules],{-1}];)
+
+
+QSimplifyCached[expr_,opts:OptionsPattern[QSimplify]]:=
+	QSimplifyCached[expr,opts]=
+	Simplify[
+	ReplaceRepeated[
+			Simplify[QExpand[expr],TimeConstraint->OptionValue[TimeConstraint]],
+			QSimplifyRules[opts]
+		],
+	TimeConstraint->OptionValue[TimeConstraint]]
 
 
 (* ::Text:: *)
@@ -579,8 +621,13 @@ Clear[QSimplifyRules]
 
 
 QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
+	QSimplifyRules[opts]=
 		Dispatch@Join[
 			If[OptionValue["SpinHalf"],$QSimplifySpinHalf,{}],
+			Which[
+				OptionValue["SpinAlgebra"]==="PM", $QSimplifySpinPM,
+				OptionValue["SpinAlgebra"]==="XY", $QSimplifySpinXY,
+				True,{}],
 			If[OptionValue[Spin],$QSimplifySpin,{}],
 			If[OptionValue[Cavity],$QSimplifyCavity,{}],
 			OptionValue[Rules],
@@ -591,21 +638,6 @@ QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 
 
 (* ::Subsubsection::Closed:: *)
-(*QPower*)
-
-
-Format[QPower[arg_,n_]]:=arg^n;
-
-
-QPower[arg_,1]:=arg
-QPower[arg_?SymbolicQ,n_]:=Power[arg,n]
-QPower[arg_?MatrixQ,n_]:=MatrixPower[arg,n]
-QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
-QPower[Times[x_?SymbolicQ,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
-QPower[Times[xs__,x_?SymbolicQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
-
-
-(* ::Subsubsection::Closed:: *)
 (*Linear Algebra Rules*)
 
 
@@ -613,13 +645,14 @@ $QSimplifyLinearAlgebra={
 (* Times *)
 Times[Plus[a_,b__],c_]:>Expand[Times[Plus[a,b],c]],
 (* Dot *)
-Dot[a___,n_?SymbolicQ,b___]:> n*Dot[a,b], 
+Dot[a_,n_?CoefficientQ]:> n*Dot[a],
+Dot[n_?CoefficientQ,b_]:> n*Dot[b],
 Dot[a_,Plus[b_,c__]]:> Dot[a,b]+Dot[a,Plus[c]],
 Dot[Plus[a_,b__],c_]:> Dot[a,c]+Dot[Plus[b],c],
-Dot[a_,Times[b_?SymbolicQ,c__]]:> b*Dot[a,Times[c]],
-Dot[a_,Times[c__,b_?SymbolicQ]]:> b*Dot[a,Times[c]],
-Dot[Times[a_?SymbolicQ,b__],c_]:> a*Dot[Times[b],c],
-Dot[Times[b__,a_?SymbolicQ],c_]:> a*Dot[Times[b],c],
+Dot[a_,Times[b_?CoefficientQ,c__]]:> b*Dot[a,Times[c]],
+Dot[a_,Times[c__,b_?CoefficientQ]]:> b*Dot[a,Times[c]],
+Dot[Times[a_?CoefficientQ,b__],c_]:> a*Dot[Times[b],c],
+Dot[Times[b__,a_?CoefficientQ],c_]:> a*Dot[Times[b],c],
 Dot[a_,a_]:> QPower[a,2],
 Dot[QPower[a_,n_],a_]:> QPower[a,n+1],
 Dot[a_,QPower[a_,n_]]:> QPower[a,n+1],
@@ -628,19 +661,19 @@ Dot[QPower[a_,m_],QPower[a_,n_]]:> QPower[a,n+m],
 KroneckerProduct[a_,b__]:> CircleTimes[a,b],
 CircleTimes[Plus[a_,b__],c_]:> Plus@@Map[CircleTimes[#,c]&,{a,b}],
 CircleTimes[c_,Plus[a_,b__]]:> Plus@@Map[CircleTimes[c,#]&,{a,b}],
-CircleTimes[Times[a_?SymbolicQ,b__],c_]:> a*CircleTimes[Times[b],c],
-CircleTimes[Times[b__,a_?SymbolicQ],c_]:> a*CircleTimes[Times[b],c],
-CircleTimes[c_,Times[a_?SymbolicQ,b__]]:> a*CircleTimes[c,Times[b]],
-CircleTimes[c_,Times[b__,a_?SymbolicQ]]:> a*CircleTimes[c,Times[b]],
+CircleTimes[Times[a_?CoefficientQ,b__],c_]:> a*CircleTimes[Times[b],c],
+CircleTimes[Times[b__,a_?CoefficientQ],c_]:> a*CircleTimes[Times[b],c],
+CircleTimes[c_,Times[a_?CoefficientQ,b__]]:> a*CircleTimes[c,Times[b]],
+CircleTimes[c_,Times[b__,a_?CoefficientQ]]:> a*CircleTimes[c,Times[b]],
 (* Transpose *)
-Transpose[a_?SymbolicQ]:> a,
+Transpose[a_?CoefficientQ]:> a,
 Transpose[Transpose[a_]]:> a,
 Transpose[Plus[a_,b__]]:> Plus@@Map[Transpose,{a,b}],
 Transpose[Times[a_,b__]]:> Times@@Map[Transpose,{a,b}],
 Transpose[Dot[a_,b__]]:> Dot@@Map[Transpose,Reverse[{a,b}]],
 Transpose[CircleTimes[a__]]:>CircleTimes@@Map[Transpose,a],
 (* ConjugateTranspose *)
-ConjugateTranspose[a_?SymbolicQ]:> Conjugate[a],
+ConjugateTranspose[a_?CoefficientQ]:> Conjugate[a],
 ConjugateTranspose[ConjugateTranspose[a_]]:> a,
 ConjugateTranspose[a_]:> Transpose[Conjugate[a]],
 Conjugate[Transpose[a_]]:> Transpose[Conjugate[a]],
@@ -651,16 +684,16 @@ Conjugate[Dot[a_,b__]]:>Dot@@Map[Conjugate,{a,b}],
 Conjugate[CircleTimes[a__]]:>CircleTimes@@Map[Conjugate,{a}],
 (* Com *)
 Com[a_,a_]:> 0,
-Com[a_?SymbolicQ,b_]:> 0,
-Com[a_,b_?SymbolicQ]:> 0,
+Com[a_?CoefficientQ,b_]:> 0,
+Com[a_,b_?CoefficientQ]:> 0,
 Com[a_,b_,0]:> b,
 Com[a_,b_,1]:> Com[a,b],
 Com[Plus[a_,b__],c_]:> Plus@@Map[Com[#,c]&,{a,b}],
 Com[c_,Plus[a_,b__]]:> Plus@@Map[Com[c,#]&,{a,b}],
-Com[Times[a_?SymbolicQ,b__],c_]:> a*Com[Times[b],c],
-Com[Times[b__,a_?SymbolicQ],c_]:> a*Com[Times[b],c],
-Com[c_,Times[a_?SymbolicQ,b__]]:>a*Com[Times[b],c],
-Com[c_,Times[b__,a_?SymbolicQ]]:>a*Com[Times[b],c],
+Com[Times[a_?CoefficientQ,b__],c_]:> a*Com[Times[b],c],
+Com[Times[b__,a_?CoefficientQ],c_]:> a*Com[Times[b],c],
+Com[c_,Times[a_?CoefficientQ,b__]]:>a*Com[Times[b],c],
+Com[c_,Times[b__,a_?CoefficientQ]]:>a*Com[Times[b],c],
 Com[Dot[a_,b__],c_]:> Dot[a,Com[Dot[b],c]]+Dot[Com[a,c],Dot[b]],
 Com[a_,Dot[b_,c__]]:> Dot[Com[a,b],Dot[c]]+Dot[b,Com[a,Dot[c]]],
 Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[QPower[a,n-1],b],a],
@@ -668,7 +701,10 @@ Com[a_,QPower[b_,n_]]:> Dot[b,Com[a,QPower[b,n-1]]]+Dot[Com[a,QPower[b,n-1]],b],
 Com[a_,b_,n_]:> Com[a,Com[a,b],n-1],
 Com[CircleTimes[a1_,b1__],CircleTimes[a2_,b2__]]:> 
 	CircleTimes[Com[a1,a2],Dot[b1,b2]]
-	+CircleTimes[Dot[a1,a2],Com[CircleTimes[b1],CircleTimes[b2]]]
+	+CircleTimes[Dot[a1,a2],Com[CircleTimes[b1],CircleTimes[b2]]],
+(* ACom *)
+ACom[a_,b_]:> a.b+b.a,
+ACom[a_,b_,n_]:> ACom[a,ACom[a,b,n-1]]
 	};
 
 
@@ -681,10 +717,6 @@ $QSimplifySpin={
 Power[op_Spin,n_]:> QPower[op,n],
 MatrixPower[op_Spin,n_]:>QPower[op,n],
 
-(* X and Y expand to P and M *)
-Spin["X"]:> (Spin["P"]+Spin["M"])/2,
-Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2,
-
 (* Identity Operator *)
 Spin["I"].Spin[s_]:> Spin[s],
 Spin[s_].Spin["I"]:> Spin[s],
@@ -692,33 +724,60 @@ QPower[Spin["I"],n_]:> Spin["I"],
 Com[Spin["I"],s_]:> 0,
 Com[s_,Spin["I"]]:> 0,
 
-(* Spin Algebra *)
+(* PM Spin Algebra *)
 Com[Spin["Z"],Spin["P"]]:> Spin["P"],
 Com[Spin["Z"],Spin["M"]]:> -Spin["M"],
 Com[Spin["P"],Spin["Z"]]:> -Spin["P"],
-Com[Spin["M"],Spin["Z"]]:> Spin["M"],
-Com[Spin["Z"],Spin["P"]]:> Spin["P"],
 Com[Spin["P"],Spin["M"]]:> 2Spin["Z"],
+Com[Spin["M"],Spin["Z"]]:> Spin["M"],
 Com[Spin["M"],Spin["P"]]:> -2Spin["Z"],
+
+(* XY Spin Algebra *)
+Com[Spin["X"],Spin["Y"]]:> I*Spin["Z"],
+Com[Spin["X"],Spin["Z"]]:> -I*Spin["Y"],
+Com[Spin["Y"],Spin["X"]]:> -I*Spin["Z"],
+Com[Spin["Y"],Spin["Z"]]:> I*Spin["X"],
+Com[Spin["Z"],Spin["X"]]:> I*Spin["Y"],
+Com[Spin["Z"],Spin["Y"]]:> -I*Spin["X"],
 
 (* ConjugateTranspose *)
 ConjugateTranspose[Spin["I"]]:> Spin["I"],
+ConjugateTranspose[Spin["X"]]:> Spin["X"],
+ConjugateTranspose[Spin["Y"]]:> Spin["Y"],
 ConjugateTranspose[Spin["Z"]]:> Spin["Z"],
 ConjugateTranspose[Spin["P"]]:> Spin["M"],
 ConjugateTranspose[Spin["M"]]:>Spin["P"],
 
 (* Transpose *)
 Transpose[Spin["I"]]:> Spin["I"],
+Transpose[Spin["X"]]:> Spin["X"],
+Transpose[Spin["Y"]]:> -Spin["Y"],
 Transpose[Spin["Z"]]:> Spin["Z"],
 Transpose[Spin["P"]]:> Spin["M"],
 Transpose[Spin["M"]]:>Spin["P"],
 
 (* Conjugate *)
 Conjugate[Spin["I"]]:> Spin["I"],
+Conjugate[Spin["X"]]:> Spin["X"],
+Conjugate[Spin["Y"]]:> -Spin["Y"],
 Conjugate[Spin["Z"]]:> Spin["Z"],
 Conjugate[Spin["P"]]:> Spin["P"],
 Conjugate[Spin["M"]]:>Spin["M"]
 };
+
+
+(* ::Text:: *)
+(*Spin Algebra Convention*)
+
+
+(* X and Y expand to P and M *)
+$QSimplifySpinPM={
+Spin["X"]:> (Spin["P"]+Spin["M"])/2,
+Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2};
+(* P and M expand to X and Y *)
+$QSimplifySpinXY={
+Spin["P"]:> Spin["X"]+I*Spin["Y"],
+Spin["M"]:> Spin["X"]-I*Spin["Y"]};
 
 
 (* ::Text:: *)
@@ -741,7 +800,7 @@ QPower[Spin["P"]-Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]-Spin["
 QPower[Spin["M"]-Spin["P"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["M"]-Spin["P"]],
 QPower[Spin["P"],n_?Positive]:> If[n===1,Spin["P"],0],
 QPower[Spin["M"],n_?Positive]:> If[n===1,Spin["M"],0]
-}
+};
 
 
 (* ::Text:: *)
@@ -1190,7 +1249,7 @@ End[];
 
 
 Protect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
-Protect[QPower,QExpand,QSimplify];
+Protect[QPower,QExpand,QSimplify,ClearQSimplifyCache];
 Protect[CGate];
 Protect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Protect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];
