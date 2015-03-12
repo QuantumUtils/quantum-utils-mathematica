@@ -30,8 +30,7 @@ BeginPackage["QuantumSystems`",{"Predicates`","Tensor`"}];
 
 
 Needs["UnitTesting`"];
-Needs["DocTools`"]
-Needs["QUOptions`"]
+Needs["QUDevTools`"]
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];

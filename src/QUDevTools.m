@@ -29,6 +29,14 @@
 BeginPackage["QUDevTools`"];
 
 
+(* ::Subsection:: *)
+(*Note*)
+
+
+(* ::Text:: *)
+(*Because this package defines LoadUsages and AssignUsage, functions from this package cannot (easily) be documented in the way that other packages are with auxilliary notebooks.*)
+
+
 (* ::Section:: *)
 (*Usage Declaration*)
 

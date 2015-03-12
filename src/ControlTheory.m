@@ -29,8 +29,7 @@
 BeginPackage["ControlTheory`",{"Tensor`"}];
 
 
-Needs["DocTools`"];
-Needs["QUOptions`"];
+Needs["QUDevTools`"];
 Needs["UnitTesting`"];
 
 

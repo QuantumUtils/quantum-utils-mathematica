@@ -29,8 +29,7 @@
 BeginPackage["Perturbation`"];
 
 
-Needs["DocTools`"];
-Needs["QUOptions`"];
+Needs["QUDevTools`"];
 Needs["UnitTesting`"];
 Needs["Tensor`"];
 

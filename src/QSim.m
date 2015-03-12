@@ -37,8 +37,7 @@ Needs["QuantumChannel`"];
 Needs["LindbladSolver`"];
 Needs["Predicates`"];
 Needs["UnitTesting`"];
-Needs["QUOptions`"];
-Needs["DocTools`"];
+Needs["QUDevTools`"];
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QSim.nb"}]];

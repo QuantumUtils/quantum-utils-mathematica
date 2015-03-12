@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
 BeginPackage["QUDoc`"];
-Needs["QUOptions`"];
+Needs["QUDevTools`"];
 NotebookOpen[FileNameJoin[{$QUDocumentationPath, "index.nb"}]];
 EndPackage[];
