@@ -57,6 +57,10 @@ $QUSourcePath::usage = "$QUDocumentationPath returns the path to the source fold
 InheritOptions::usage = "InheritOptions[fn_, {baseFns__}, newOptions_] defines options for fn by adding the options for each of the symbols listed in baseFns, along with new and possibly overriden options defined in newOptions.";
 
 
+FilterOptions::usage = "FilterOptions[function, opt1, opt2, opt3,...] returns a Sequence of those options in opt1,opt2,... which are Options of the given function.
+FilterOptions[{function1,function2,...}, opt1, opt2, opt3,...] returns a Sequence of those options in opt1,opt2,... which are Options of any of the given functions.";
+
+
 (* ::Subsection::Closed:: *)
 (*Creating Tables*)
 
@@ -137,6 +141,10 @@ InheritOptions[fn_,{baseFns__},newOptions_]:=(
 	Sequence@@Map[Options,{baseFns}]
 	],First@#1==First@#2&];
 )
+
+
+FilterOptions[function_,options___]:=Apply[Sequence, FilterRules[{options},Options[function]]]
+FilterOptions[{function__},options___]:=Apply[Sequence, FilterRules[{options},Options/@{function}]]
 
 
 (* ::Subsection::Closed:: *)
