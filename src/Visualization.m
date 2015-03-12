@@ -36,7 +36,7 @@ BeginPackage["Visualization`"];
 Needs["UnitTesting`"];
 Needs["QUDevTools`"];
 Needs["Predicates`"];
-Needs["Tensor`"]
+Needs["Tensor`"];
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualization.nb"}]];
@@ -46,7 +46,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualizati
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices*)
 
 
@@ -58,20 +58,23 @@ AssignUsage[BlockForm,$Usages];
 AssignUsage[MatrixListForm,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Bloch Plots*)
 
 
-Unprotect[BlochPlot,BlochPlot2D,ListBlochPlot,ListBlochPlot2D];
+Unprotect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels];
 
 
 AssignUsage[BlochPlot,$Usages];
 AssignUsage[BlochPlot2D,$Usages];
-AssignUsage[ListBlochPlot,$Usages];
 AssignUsage[ListBlochPlot2D,$Usages];
+AssignUsage[BlochPlotColors,$Usages];
+AssignUsage[BlochPlotJoined,$Usages];
+AssignUsage[BlochPlotEndPoints,$Usages];
+AssignUsage[BlochPlotLabels,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Eigensystems*)
 
 
@@ -81,7 +84,7 @@ Unprotect[EigensystemForm];
 AssignUsage[EigensystemForm,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Special Plotting Functions*)
 
 
@@ -91,11 +94,12 @@ Unprotect[FourierListPlot];
 AssignUsage[FourierListPlot,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error Messages*)
 
 
-BlochPlot::input = "Input must be a state vector or density matrix.";
+BlochPlot::input = "Unable to parse input state(s); see Documentation. Constructed density lists have dimensions `1`.";
+BlochPlot::color = "BlochPlotColor option value not understood.";
 
 
 (* ::Section:: *)
@@ -144,7 +148,7 @@ BlockForm[mat_]:=BlockForm[mat,First@Last@FactorInteger[Length[mat],2]]
 MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Bloch Plots*)
 
 
@@ -153,13 +157,13 @@ MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
 
 
 With[{r=1},
-$BlochSphereXY=ParametricPlot3D[{r Cos[\[Theta]],r Sin[\[Theta]],0},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
-$BlochSphereYZ=ParametricPlot3D[{0,r Cos[\[Theta]],r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
-$BlochSphereXZ=ParametricPlot3D[{r Cos[\[Theta]],0,r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+$BlochSphereXY=ParametricPlot3D[0.99*{r Cos[\[Theta]],r Sin[\[Theta]],0},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+$BlochSphereYZ=ParametricPlot3D[0.99*{0,r Cos[\[Theta]],r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
+$BlochSphereXZ=ParametricPlot3D[0.99*{r Cos[\[Theta]],0,r Sin[\[Theta]]},{\[Theta],0,2 \[Pi]},PlotStyle->Dashed,Boxed->False,Axes->False];
 
 $BlochSphere=Show[
 Graphics3D[{
-Opacity[.3],
+Opacity[.2],
 	Sphere[{0,0,0},r],
 Opacity[.5],Black,Thick,
 	Line[{{0,r,0},{0,-r,0}}],Line[{{0,0,r},{0,0,-r}}],Line[{{r,0,0},{-r,0,0}}],
@@ -201,40 +205,155 @@ Text[Style["|+Z\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,1.15}],
 
 
 (* ::Subsubsection::Closed:: *)
-(*Bloch Sphere Plotting*)
+(*Private Helper Functions*)
 
 
-BlochCoordinates[state_]:=
-	With[{
-		mat=Which[
-			GeneralVectorQ[state],Projector[state],
-			SquareMatrixQ[state], state,
-			True, Message[BlochPlot::input]]},
-	Map[Tr[ConjugateTranspose[PauliMatrix[#]].mat]&,Range[3]]
+(*BlochCoordinates[state_]:=Table[Re@Tr[PauliMatrix[n].state],{n,3}]*)
+BlochCoordinates = Compile[{{state,_Complex,2}},{
+	Re[state[[1,2]]+state[[2,1]]],
+	-Im[state[[1,2]]]+Im[state[[2,1]]],
+	Re[state[[1,1]]-state[[2,2]]]
+}];
+
+
+BlochLegend[labels_,colorPairs_]:=LineLegend[Directive[Thickness[0.01],#]&/@colorPairs[[All,1]],labels]
+
+
+ChooseBlochColorPairs[colorOption_]:=
+	Which[
+		colorOption===Automatic,
+			ChooseBlochColorPairs[{RGBColor[0.742077, 0.0624857, 0.00605783],RGBColor[0, 0.501961, 0],RGBColor[1, 0.0175937, 0.505959],RGBColor[1, 0.904479, 0.279423],RGBColor[0.915, 0.3325, 0.2125],RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965],RGBColor[0.6705882352941176, 0.8784313725490196, 0.9372549019607843],RGBColor[0.09019607843137255, 0.33725490196078434`, 0.49411764705882355`],RGBColor[0.975067, 1, 0.906294],RGBColor[0.5333333333333333, 0.23529411764705882`, 0.3058823529411765],RGBColor[0.823529, 0.663981, 0.00828565]}],
+		ListQ[colorOption]&&MatchQ[colorOption,{__?ColorQ}],
+			Map[{#,Lighter[#]}&,colorOption],
+		ListQ[colorOption]&&ArrayDepth[colorOption]===2&&MatchQ[Flatten[colorOption],{__?ColorQ}],
+			colorOption,
+		True,
+			Message[BlochPlot::color];
+			ChooseBlochColorPairs[Automatic]
 	]
 
 
-BlochPlot[state_,opts:OptionsPattern[Graphics3D]]:= 
-	With[{p=BlochCoordinates[state]},
-	Show[$BlochSphere,
-	Graphics3D[{
-		{Green,Thickness[0.01],Line[{{0,0,0},p}]},
-		{Green,PointSize[0.02], Point[p]}
-	},opts]
-]];
+(* ::Subsubsection::Closed:: *)
+(*Bloch Sphere Plotting*)
 
 
-ListBlochPlot[\[Rho]list_,opt:OptionsPattern[Graphics3D]]:=
-	With[{plotdat=Map[BlochCoordinates,\[Rho]list],d=Length[\[Rho]list]},
-		Show[
+InheritOptions[BlochPlot, {Graphics3D, ParametricPlot3D, Interpolation}, {
+	ViewAngle->0.34,
+	BlochPlotLabels->Off,
+	BlochPlotJoined->False,
+	BlochPlotColors->Automatic,
+	BlochPlotEndPoints->True
+}];
+
+
+Unprotect@BlochPlot;
+BlochPlot[state_,opts:OptionsPattern[]]:=
+	Module[{statesList,listOfDensity},
+
+		statesList=state;
+		listOfDensity[array_]:=And[ArrayDepth[array]===3,Dimensions[array][[-2;;]]==={2,2}];
+
+		(*Turn single pure state or density matrix into list of one density matrix*)
+		If[VectorQ[statesList],statesList=Projector[statesList]];
+		If[SquareMatrixQ[statesList],statesList={statesList}];
+		(*If the depth is still 2 it must be a list of pure states *)
+		If[ArrayDepth[statesList]===2,statesList=Map[Projector,statesList]];
+		(*Turn a list of density matrices into a list thereof*)
+		If[listOfDensity[statesList],statesList={statesList}];
+		(*If the depth is still 3 it must be a list of lists of pure states; make into densities*)
+		If[Apply[And,Map[MatrixQ,statesList]],statesList=Map[Projector,statesList,{2}]];	
+
+		(*If all went right we should have a list of lists of 2x2 density matrices.*)
+		If[Not[And@@(Map[listOfDensity,statesList])],Message[BlochPlot::input,Dimensions/@statesList]];
+		If[OptionValue[BlochPlotJoined],
+			ParametricBlochPlot[statesList,opts],
+			ListBlochPlot[statesList,opts]
+		]
+	]
+
+
+ListBlochPlot[statesList_,opt:OptionsPattern[BlochPlot]]:=
+	Module[{plotdat,d,numlists,colorPairs,ep,fig},
+		colorPairs=ChooseBlochColorPairs[OptionValue[BlochPlotColors]];
+		numlists=Length@statesList;
+		ep=OptionValue@BlochPlotEndPoints;
+		plotdat=Table[Map[BlochCoordinates,statesList[[n]]],{n,numlists}];
+
+		d=Table[Length[statesList[[n]]],{n,numlists}];
+		colorPairs=colorPairs[[Mod[Range[numlists]-1,Length@colorPairs]+1]];
+
+		fig=Show[
 			$BlochSphere,
-			Graphics3D[{
-				Table[
-					{Blend[{Yellow,Red},1-j/d],PointSize@If[1<j<d,0.01,0.03], 
-					Point[plotdat[[j]]]}
-					,{j,d}
-				]
-			}],opt
+			Table[
+				Graphics3D[{
+					Table[
+						{
+							Blend[colorPairs[[n]],1-j/d[[n]]],
+							PointSize@If[Or[1<j<d[[n]],Not[ep]],0.015,0.035], 
+							Point[plotdat[[n,j]]]
+						},
+						{j,d[[n]]}
+					],
+					Sequence@@If[d[[n]]===1,{colorPairs[[n,1]],Thickness[0.005],Line[{{0,0,0},plotdat[[n,1]]}]},{}]
+				},Boxed->False],
+				{n,numlists}
+			],
+			ViewAngle->OptionValue[ViewAngle],
+			FilterOptions[Graphics3D,opt]
+		];
+		If[OptionValue[BlochPlotLabels]===Off,
+			fig,
+			Legended[fig,BlochLegend[OptionValue[BlochPlotLabels],colorPairs]]
+		]
+	]
+	
+
+
+ParametricBlochPlot[statesList_,opt:OptionsPattern[BlochPlot]]:=
+	Module[{fig,plotdat,fx,fy,fz,d,numlists,colorPairs,range},
+		colorPairs=ChooseBlochColorPairs[OptionValue[BlochPlotColors]];
+		numlists=Length@statesList;
+		d=Table[Length[statesList[[n]]],{n,numlists}];
+		colorPairs=colorPairs[[Mod[Range[numlists]-1,Length@colorPairs]+1]];
+
+		plotdat=Table[Map[BlochCoordinates,statesList[[n]]],{n,numlists}];
+		Table[
+			If[d[[n]]>1,
+				range=Range[0,1,1/(d[[n]]-1)];
+				fx[n]=Interpolation[{range,plotdat[[n,All,1]]}\[Transpose],FilterOptions[Interpolation,opt]];
+				fy[n]=Interpolation[{range,plotdat[[n,All,2]]}\[Transpose],FilterOptions[Interpolation,opt]];
+				fz[n]=Interpolation[{range,plotdat[[n,All,3]]}\[Transpose],FilterOptions[Interpolation,opt]];,
+				fx[n]=Null &;
+				fy[n]=Null &;
+				fz[n]=Null &;
+			],
+			{n,numlists}
+		];
+		fig=Show[
+			$BlochSphere,
+			Table[Sequence@@{
+				ParametricPlot3D[
+					{fx[n][u],fy[n][u],fz[n][u]}, {u,0,1},
+					Boxed->False,
+					Evaluate@FilterOptions[ParametricPlot3D,opt],
+					PlotStyle->Thickness[0.01],
+					ColorFunction->(Blend[colorPairs[[n]],#4]&)
+				],
+				Graphics3D[{PointSize[0.035],
+					If[OptionValue[BlochPlotEndPoints],Sequence@@{
+						colorPairs[[n,1]],Point[plotdat[[n,1]]],
+						colorPairs[[n,2]],Point[plotdat[[n,-1]]]
+					}],
+					Sequence@@If[d[[n]]===1,{colorPairs[[n,1]],Thickness[0.005],Line[{{0,0,0},plotdat[[n,1]]}]},{}]
+				}]},
+				{n,numlists}
+			],
+			ViewAngle->OptionValue[ViewAngle],
+			FilterOptions[Graphics3D,opt]
+		];
+		If[OptionValue[BlochPlotLabels]===Off,
+			fig,
+			Legended[fig,BlochLegend[OptionValue[BlochPlotLabels],colorPairs]]
 		]
 	]
 
@@ -327,12 +446,12 @@ FourierListPlot[data_,{mint_,maxt_},function_,opt:OptionsPattern[ListPlot]]:=
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
 Protect[ComplexMatrixPlot,BlockForm,MatrixListForm];
-Protect[BlochPlot,BlochPlot2D,ListBlochPlot,ListBlochPlot2D];
+Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels];
 Protect[EigensystemForm];
 Protect[FourierListPlot];
 
