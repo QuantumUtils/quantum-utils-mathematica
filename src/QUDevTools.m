@@ -2,7 +2,7 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
-(*DocTools Framework*)
+(*QUDevTools*)
 
 
 (* ::Subsection::Closed:: *)
@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["DocTools`"];
+BeginPackage["QUDevTools`"];
 
 
 (* ::Section:: *)
@@ -34,7 +34,23 @@ BeginPackage["DocTools`"];
 
 
 (* ::Subsection::Closed:: *)
-(*Tables*)
+(*QuantumUtils Options*)
+
+
+QuantumUtilsOptions::usage = "QuantumUtilsOptions[] returns a list of options, formatted as Rules, that configure the QuantumUtils` package.";
+$QUDocumentationPath::usage = "$QUDocumentationPath returns the path to documentation for QuantumUtils`.";
+$QUSourcePath::usage = "$QUDocumentationPath returns the path to the source folder for QuantumUtils`.";
+
+
+(* ::Subsection::Closed:: *)
+(*Function Options*)
+
+
+InheritOptions::usage = "InheritOptions[fn_, {baseFns__}, newOptions_] defines options for fn by adding the options for each of the symbols listed in baseFns, along with new and possibly overriden options defined in newOptions.";
+
+
+(* ::Subsection::Closed:: *)
+(*Creating Tables*)
 
 
 DescriptiveTable::usage = "DescriptiveTable[headers,content,OptionsPattern[GridBox]] generates a new cell containing a table. The first row of the table contains the header strings provided in headers in bold font. The rest of the table is filled in with content.";
@@ -44,8 +60,8 @@ DescriptiveFillInTable::usage = "DescriptiveFillInTable[headers,rows,OptionsPatt
 DisplayOptions::usage = "DisplayOptions[TargetFunction] prints a human readable cell describing the options of a given function. Assumes all options have usage text.";
 
 
-(* ::Subsection:: *)
-(*Usage String Handling*)
+(* ::Subsection::Closed:: *)
+(*Usage Strings*)
 
 
 (*
@@ -71,7 +87,7 @@ AssignUsage[{a1,a2,a3,...}, usageData] calls AssignUsage[a, usageData] on each  
 NotebookLink::usage = "NotebookLink[notebookFile_,name_,description_] generates a cell containing a link to another notebook, with a description.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Messages*)
 
 
@@ -83,6 +99,36 @@ AssignUsage::nousg = "No usage message in `1` for symbol `2` found; using a blan
 
 
 Begin["`Private`"];
+
+
+(* ::Subsection::Closed:: *)
+(*QuantumUtils Options*)
+
+
+QuantumUtilsOptions[] := QuantumUtilsOptions[] = Module[{opts},
+	opts = QuantumUtilsOptions /. Options[$FrontEnd];
+	If[
+		opts === QuantumUtilsOptions,
+		{},
+		opts
+	]
+]
+
+
+$QUDocumentationPath = DocumentationPath /. QuantumUtilsOptions[];
+$QUSourcePath = SourcePath /. QuantumUtilsOptions[];
+
+
+(* ::Subsection::Closed:: *)
+(*Function Options*)
+
+
+InheritOptions[fn_,{baseFns__},newOptions_]:=(
+	Options[fn]=DeleteDuplicates[Join[
+	newOptions,
+	Sequence@@Map[Options,{baseFns}]
+	],First@#1==First@#2&];
+)
 
 
 (* ::Subsection::Closed:: *)
@@ -140,8 +186,8 @@ DisplayOptions[TargetFunction_]:=Module[{options,headers,content,textFormat,opt}
 ]
 
 
-(* ::Subsection:: *)
-(*Usage String Handling*)
+(* ::Subsection::Closed:: *)
+(*Usage Strings*)
 
 
 LoadUsages[nbName_] := Module[{notebook, usageData, processCell, possibleBoxToString},
