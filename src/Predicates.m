@@ -53,10 +53,10 @@ PossiblyFalseQ::usage="Returns True if the argument is not definitely True.";
 
 
 AnyQ::usage="Given a predicate and a list, retuns True if and only if that predicate is True for at least one element of the list.";
-AnyElementQ::usage="Returns True if cond matches any element of L.";
 AllQ::usage="AllQ[predicate,list] retuns True if and only if predicate is True for all elements of list.";
 AnyMatchQ::usage="AnyMatchQ[cond,list] retuns True if and only if MatchQ[cond,elt] is True for at least one element of list.";
 AllMatchQ::usage="AllMatchQ[cond,list] retuns True if and only if MatchQ[cond,elt] is True for all elements of list.";
+AnyElementQ::usage="Returns True if cond matches any element of L.";
 AllElementQ::usage="Returns True if cond matches any element of L.";
 
 
@@ -73,6 +73,8 @@ NonnegativeIntegerQ::usage="Returns True if and only if the argument is a non-ne
 
 
 SymbolQ::usage="Returns True if argument is an unassigned symbol.";
+CoefficientQ::usage="Returns True if argument is numeric or a symbol or a symbolic function.";
+SymbolicFunctionQ::usage="Returns True if argument is a numeric function of where the argument consists of expressions involving symbols or variables."
 
 
 (* ::Subsection::Closed:: *)
@@ -108,7 +110,7 @@ PossiblyTrueQ[expr_]:=\[Not]TrueQ[\[Not]expr]
 PossiblyFalseQ[expr_]:=\[Not]TrueQ[expr]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Numbers and Lists*)
 
 
@@ -146,9 +148,27 @@ NonnegativeIntegerQ[n_]:=NonnegativeQ[n]\[And]IntegerQ[n];
 IntegerListQ[input_]:=ListQ[input]&&Not[MemberQ[IntegerQ/@input,False]];
 
 
+(* ::Subsection:: *)
+(*Symbolic*)
+
+
 SymbolQ[a_]:=Head[a]===Symbol;
 
-Module[{aSymbol}, TestCase["Predicates:SymbolQ", SymbolQ[aSymbol]]];
+
+SymbolicFunctionQ[arg_]:=
+	And[
+		MemberQ[Attributes@Evaluate[Head@arg],NumericFunction],
+		AllElementQ[
+			NumericQ[#]||SymbolQ[#]&,
+			Apply[List,List@@arg,Infinity]
+		]
+	]
+
+
+CoefficientQ[a_]:=Or[
+	NumericQ[a]||SymbolQ[a],
+	SymbolicFunctionQ[a]
+	]
 
 
 (* ::Subsection:: *)
@@ -299,6 +319,9 @@ TestCase["Predicates:IntegerListQ", !IntegerListQ[{0, "snow"}]];
 
 
 TestCase["Predicates:SymbolQ", !SymbolQ[12]];
+
+
+Module[{aSymbol}, TestCase["Predicates:SymbolQ", SymbolQ[aSymbol]]];
 
 
 (* ::Subsection::Closed:: *)
