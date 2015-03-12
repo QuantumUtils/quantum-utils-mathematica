@@ -33,8 +33,7 @@ BeginPackage["UnitTesting`"];
 (*The following packages are needed, but their contexts should not be loaded globally.*)
 
 
-Needs["QUOptions`"];
-Needs["DocTools`"];
+Needs["QUDevTools`"];
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "UnitTesting.nb"}]];

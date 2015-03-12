@@ -34,8 +34,7 @@ BeginPackage["GRAPE`"];
 
 
 Needs["UnitTesting`"];
-Needs["QUOptions`"];
-Needs["DocTools`"];
+Needs["QUDevTools`"];
 Needs["QSim`"];
 
 

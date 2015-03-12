@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     19071,        548]
-NotebookOptionsPosition[     17922,        507]
-NotebookOutlinePosition[     18256,        522]
-CellTagsIndexPosition[     18213,        519]
+NotebookDataLength[     19185,        549]
+NotebookOptionsPosition[     18035,        508]
+NotebookOutlinePosition[     18369,        523]
+CellTagsIndexPosition[     18326,        520]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -42,7 +42,7 @@ Cell[CellGroupData[{
 Cell["Quantum Utils Packages", "Section",
  CellChangeTimes->{{3.633439803464673*^9, 3.633439816454121*^9}, {
   3.633714165568389*^9, 3.6337141717213373`*^9}, {3.6337828870995502`*^9, 
-  3.633782887211052*^9}}],
+  3.633782887211052*^9}, {3.635111763845348*^9, 3.635111763937435*^9}}],
 
 Cell[BoxData[GridBox[{
    {
@@ -397,7 +397,8 @@ be ignored by non-developers.\
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"Needs", "[", "\"\<DocTools`\>\"", "]"}], ";"}]], "Input"],
+  RowBox[{"Needs", "[", "\"\<QUDevTools`\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.63511175546297*^9, 3.635111757962453*^9}}],
 
 Cell[CellGroupData[{
 
@@ -525,28 +526,28 @@ Cell[CellGroupData[{
 Cell[580, 22, 112, 1, 66, "Chapter"],
 Cell[695, 25, 450, 12, 31, "Text"],
 Cell[CellGroupData[{
-Cell[1170, 41, 209, 3, 65, "Section"],
-Cell[1382, 46, 1136, 30, 33, "Text"],
-Cell[2521, 78, 1068, 30, 33, "Text"],
-Cell[3592, 110, 1247, 32, 33, "Text"],
-Cell[4842, 144, 1347, 34, 33, "Text"],
-Cell[6192, 180, 1101, 30, 33, "Text"],
-Cell[7296, 212, 1221, 34, 33, "Text"],
-Cell[8520, 248, 1173, 31, 33, "Text"],
-Cell[9696, 281, 1211, 32, 33, "Text"],
-Cell[10910, 315, 1103, 30, 33, "Text"],
-Cell[12016, 347, 1200, 32, 33, "Text"]
+Cell[1170, 41, 255, 3, 65, "Section"],
+Cell[1428, 46, 1136, 30, 33, "Text"],
+Cell[2567, 78, 1068, 30, 33, "Text"],
+Cell[3638, 110, 1247, 32, 33, "Text"],
+Cell[4888, 144, 1347, 34, 33, "Text"],
+Cell[6238, 180, 1101, 30, 33, "Text"],
+Cell[7342, 212, 1221, 34, 33, "Text"],
+Cell[8566, 248, 1173, 31, 33, "Text"],
+Cell[9742, 281, 1211, 32, 33, "Text"],
+Cell[10956, 315, 1103, 30, 33, "Text"],
+Cell[12062, 347, 1200, 32, 33, "Text"]
 }, Open  ]],
-Cell[13231, 382, 96, 1, 65, "Section"],
+Cell[13277, 382, 96, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[13352, 387, 173, 2, 51, "Section"],
-Cell[13528, 391, 201, 4, 31, "Text"],
-Cell[13732, 397, 92, 2, 32, "Input"],
+Cell[13398, 387, 173, 2, 51, "Section"],
+Cell[13574, 391, 201, 4, 31, "Text"],
+Cell[13778, 397, 159, 3, 32, "Input"],
 Cell[CellGroupData[{
-Cell[13849, 403, 105, 1, 44, "Subsection"],
-Cell[13957, 406, 140, 1, 31, "Text"],
-Cell[14100, 409, 3125, 73, 275, "Input"],
-Cell[17228, 484, 654, 18, 77, "Input"]
+Cell[13962, 404, 105, 1, 44, "Subsection"],
+Cell[14070, 407, 140, 1, 31, "Text"],
+Cell[14213, 410, 3125, 73, 275, "Input"],
+Cell[17341, 485, 654, 18, 77, "Input"]
 }, Closed]]
 }, Closed]]
 }, Open  ]]

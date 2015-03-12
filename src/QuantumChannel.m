@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
@@ -30,15 +30,14 @@ BeginPackage["QuantumChannel`",{"Tensor`","Predicates`"}];
 
 
 Needs["UnitTesting`"];
-Needs["DocTools`"]
-Needs["QUOptions`"]
+Needs["QUDevTools`"]
 Needs["QuantumSystems`"]
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
 
 
@@ -138,7 +137,7 @@ Lindblad::input = "Input must be a matrix, list of matrices, or sequence of matr
 FunctionChannel::indims = "InputDims option must be an integer.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
