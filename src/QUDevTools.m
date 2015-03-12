@@ -93,10 +93,13 @@ AssignUsage[{a1,a2,a3,...}, usageData] calls AssignUsage[a, usageData] on each  
 
 
 (* ::Subsection::Closed:: *)
-(*Links*)
+(*Links and Buttons*)
 
 
 NotebookLink::usage = "NotebookLink[notebookFile_,name_,description_] generates a cell containing a link to another notebook, with a description.";
+
+
+SourceCodeButton::usage = "SourceCodeButton[] creates a button to the source code of the .m file with the same name as the current document."
 
 
 (* ::Subsection::Closed:: *)
@@ -261,8 +264,8 @@ AssignUsage[symb_Symbol, usageData_UsageData] := AssignUsage[symb->symb,usageDat
 AssignUsage[{s:(__Rule|__Symbol)}, usageData_UsageData] := Map[AssignUsage[#, usageData]&, {s}];
 
 
-(* ::Subsection::Closed:: *)
-(*Links*)
+(* ::Subsection:: *)
+(*Links and Buttons*)
 
 
 NotebookLink[notebookFile_,name_,description_]:=Module[{headStyle},
@@ -282,6 +285,11 @@ NotebookLink[notebookFile_,name_,description_]:=Module[{headStyle},
 		"Text"
 	]
 ]
+
+
+SourceCodeButton[]:=Button["Open Source Code",Needs["QUDevTools`"];NotebookOpen[
+	FileNameJoin[{$QUSourcePath,FileBaseName[NotebookFileName[]]<>".m"}]
+]]
 
 
 (* ::Subsection::Closed:: *)
