@@ -148,7 +148,7 @@ BlockForm[mat_]:=BlockForm[mat,First@Last@FactorInteger[Length[mat],2]]
 MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Bloch Plots*)
 
 
@@ -208,15 +208,24 @@ Text[Style["|+Z\[RightAngleBracket]",FontSize->12,FontWeight->Bold],{0,1.15}],
 (*Private Helper Functions*)
 
 
-(*BlochCoordinates[state_]:=Table[Re@Tr[PauliMatrix[n].state],{n,3}]*)
+(*BlochCoordinates[state_]:=Table[Re@Tr[PauliMatrix[n].state],{n,3}]
 BlochCoordinates = Compile[{{state,_Complex,2}},{
 	Re[state[[1,2]]+state[[2,1]]],
 	-Im[state[[1,2]]]+Im[state[[2,1]]],
 	Re[state[[1,1]]-state[[2,2]]]
+}];*)
+BlochCoordinates = Function[{state},{
+	Re[state[[1,2]]+state[[2,1]]],
+	-Im[state[[1,2]]]+Im[state[[2,1]]],
+	Re[state[[1,1]]-state[[2,2]]]
 }];
+SetAttributes[BlochCoordinates,Listable];
 
 
-BlochLegend[labels_,colorPairs_]:=LineLegend[Directive[Thickness[0.01],#]&/@colorPairs[[All,1]],labels]
+BlochLegend[labels_,joined_,colorPairs_]:=LineLegend[
+	Directive[Thickness[0.01],Sequence@@If[joined,{},{Dotted}],#]&/@colorPairs[[All,1]],
+	labels
+]
 
 
 ChooseBlochColorPairs[colorOption_]:=
@@ -303,7 +312,7 @@ ListBlochPlot[statesList_,opt:OptionsPattern[BlochPlot]]:=
 		];
 		If[OptionValue[BlochPlotLabels]===Off,
 			fig,
-			Legended[fig,BlochLegend[OptionValue[BlochPlotLabels],colorPairs]]
+			Legended[fig,BlochLegend[OptionValue[BlochPlotLabels],False,colorPairs]]
 		]
 	]
 	
@@ -353,7 +362,7 @@ ParametricBlochPlot[statesList_,opt:OptionsPattern[BlochPlot]]:=
 		];
 		If[OptionValue[BlochPlotLabels]===Off,
 			fig,
-			Legended[fig,BlochLegend[OptionValue[BlochPlotLabels],colorPairs]]
+			Legended[fig,BlochLegend[OptionValue[BlochPlotLabels],True,colorPairs]]
 		]
 	]
 
