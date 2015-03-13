@@ -555,7 +555,7 @@ QExpand[expr_]:=expr//.{
 }
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*QSimplify*)
 
 
@@ -563,6 +563,7 @@ Options[QSimplify]:={
 	Spin->True,
 	Cavity->True,
 	"SpinAlgebra"->"PM",
+	"CavityAlgebra"->"n",
 	"SpinHalf"->False,
 	"OrderSpin"->False,
 	"OrderCavity"->True,
@@ -571,24 +572,6 @@ Options[QSimplify]:={
 
 
 QSimplify[expr_,opts:OptionsPattern[]]:= QSimplifyCached[expr,opts]
-
-
-(* ::Text:: *)
-(*Add special recussion rules for commutators*)
-
-
-QSimplify[Com[op1_,op2_,1],opts:OptionsPattern[]]:= QSimplify[Com[op1,op2],opts]
-QSimplify[Com[op1_,op2_,n_?Positive],opts:OptionsPattern[]]:= 
-	QSimplify[
-		Com[op1,QSimplify[Com[op1,op2],opts],n-1]
-	,opts]
-
-
-QSimplify[ACom[op1_,op2_,1],opts:OptionsPattern[]]:= QSimplify[ACom[op1,op2],opts]
-QSimplify[ACom[op1_,op2_,n_?Positive],opts:OptionsPattern[]]:= 
-	QSimplify[
-		ACom[op1,QSimplify[ACom[op1,op2],opts],n-1]
-	,opts]
 
 
 (* ::Text:: *)
@@ -629,6 +612,10 @@ QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 				OptionValue["SpinAlgebra"]==="XY", $QSimplifySpinXY,
 				True,{}],
 			If[OptionValue[Spin],$QSimplifySpin,{}],
+			Which[
+				OptionValue["CavityAlgebra"]==="n", $QSimplifyCavityN,
+				OptionValue["CavityAlgebra"]==="ac", $QSimplifyCavityAC,
+				True,{}],
 			If[OptionValue[Cavity],$QSimplifyCavity,{}],
 			OptionValue[Rules],
 			$QSimplifyLinearAlgebra,
@@ -637,7 +624,7 @@ QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 		]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Linear Algebra Rules*)
 
 
@@ -683,11 +670,8 @@ Conjugate[Times[a_,b__]]:>Times@@Map[Conjugate,{a,b}],
 Conjugate[Dot[a_,b__]]:>Dot@@Map[Conjugate,{a,b}],
 Conjugate[CircleTimes[a__]]:>CircleTimes@@Map[Conjugate,{a}],
 (* Com *)
-Com[a_,a_]:> 0,
 Com[a_?CoefficientQ,b_]:> 0,
 Com[a_,b_?CoefficientQ]:> 0,
-Com[a_,b_,0]:> b,
-Com[a_,b_,1]:> Com[a,b],
 Com[Plus[a_,b__],c_]:> Plus@@Map[Com[#,c]&,{a,b}],
 Com[c_,Plus[a_,b__]]:> Plus@@Map[Com[c,#]&,{a,b}],
 Com[Times[a_?CoefficientQ,b__],c_]:> a*Com[Times[b],c],
@@ -698,13 +682,11 @@ Com[Dot[a_,b__],c_]:> Dot[a,Com[Dot[b],c]]+Dot[Com[a,c],Dot[b]],
 Com[a_,Dot[b_,c__]]:> Dot[Com[a,b],Dot[c]]+Dot[b,Com[a,Dot[c]]],
 Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[QPower[a,n-1],b],a],
 Com[a_,QPower[b_,n_]]:> Dot[b,Com[a,QPower[b,n-1]]]+Dot[Com[a,QPower[b,n-1]],b],
-Com[a_,b_,n_]:> Com[a,Com[a,b],n-1],
 Com[CircleTimes[a1_,b1__],CircleTimes[a2_,b2__]]:> 
 	CircleTimes[Com[a1,a2],Dot[b1,b2]]
 	+CircleTimes[Dot[a1,a2],Com[CircleTimes[b1],CircleTimes[b2]]],
 (* ACom *)
-ACom[a_,b_]:> a.b+b.a,
-ACom[a_,b_,n_]:> ACom[a,ACom[a,b,n-1]]
+ACom[a_,b_]:> a.b+b.a
 	};
 
 
@@ -785,6 +767,12 @@ Spin["M"]:> Spin["X"]-I*Spin["Y"]};
 
 
 $QSimplifySpinHalf={
+ACom[Spin["X"],Spin["Y"]]:> 0,
+ACom[Spin["X"],Spin["Z"]]:> 0,
+ACom[Spin["Y"],Spin["X"]]:> 0,
+ACom[Spin["Y"],Spin["Z"]]:> 0,
+ACom[Spin["Z"],Spin["X"]]:> 0,
+ACom[Spin["Z"],Spin["Y"]]:> 0,
 Spin["Z"].Spin["Z"]:> Spin["I"]/4,
 Spin["Z"].Spin["P"]:> Spin["P"]/2,
 Spin["Z"].Spin["M"]:> -Spin["M"]/2,
@@ -842,9 +830,6 @@ QPower[Spin[s_],m_].QPower[Spin["Z"],n_]:>
 $QSimplifyCavity={
 Power[Cavity[a_],n_]:> QPower[Cavity[a],n],
 MatrixPower[op_Cavity,n_]:> QPower[op,n],
-(* Convert c.a to n *)
-Cavity["c"].Cavity["a"]:> Cavity["n"],
-Cavity["a"].Cavity["c"]:> Cavity["n"]+Cavity["I"],
 
 (* Cavity Identity *)
 SymbolicPower[Cavity["I"],n_]:> Cavity["I"],
@@ -932,6 +917,23 @@ QPower[Cavity["c"],n_].QPower[Cavity["n"],m_]:>
 	QPower[Cavity["n"],m].QPower[Cavity["c"],n]
 	+Com[QPower[Cavity["c"],n],QPower[Cavity["n"],m]]
 };
+
+
+(* ::Text:: *)
+(*Replace ladder operators with number operator where possible.*)
+
+
+$QSimplifyCavityN={
+	Cavity["c"].Cavity["a"]:> Cavity["n"],
+	Cavity["a"].Cavity["c"]:> Cavity["n"]+Cavity["I"]
+};
+
+
+(* ::Text:: *)
+(*Replace cavity number operators with ladder operators*)
+
+
+$QSimplifyCavityAC={Cavity["n"]:> Cavity["c"].Cavity["a"]};
 
 
 (* ::Subsection::Closed:: *)

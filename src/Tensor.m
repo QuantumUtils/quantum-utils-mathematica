@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -40,7 +40,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices and Operations*)
 
 
@@ -192,17 +192,16 @@ UnitArray[dims_List,ind_List]:=Normal@UnitArray[dims,ind,SparseArray]
 
 SetAttributes[CircleTimes,OneIdentity];
 CircleTimes[first_]:=first
-SetAttributes[CircleTimes,Flat]
+SetAttributes[CircleTimes,Flat];
 
 
 CircleTimes[first_?NumericQ,rest_]:=first*CircleTimes[rest]
 CircleTimes[rest_,first_?NumericQ]:=first*CircleTimes[rest]
 CircleTimes[first_?VectorQ,last_?VectorQ]:=Flatten[KroneckerProduct[first,last]]
 CircleTimes[first_?VectorQ,last_?ArrayQ]:=KroneckerProduct[Partition[first,1],last]
-CircleTimes[first_?ArrayQ,last_?NumericQ]:=last*first
 CircleTimes[first_?ArrayQ,last_?VectorQ]:=KroneckerProduct[first,Partition[last,1]]
 CircleTimes[first_?ArrayQ,last_?ArrayQ]:=KroneckerProduct[first,last]
-CircleTimes[A_?ArrayQ->n_Integer]:=CircleTimes@@ConstantArray[A,n]
+CircleTimes[A_->n_Integer]:=CircleTimes@@ConstantArray[A,n]
 
 
 ArrayPermutations[arrayNums__]:=
@@ -212,24 +211,41 @@ ArrayPermutations[arrayNums__]:=
 	Message[ArrayPermutations::input]]
 
 
-Com[A_?MatrixQ,B_?MatrixQ,n_Integer]:=
-	Block[{Com},
-		Com[A,B,0]:=B;
-		Com[A,B,1]:=A.B-B.A;
-		Com[A,B,m_?Positive]:=Com[A,B,m]=Com[A,Com[A,B,m-1]];
-		Com[A,B,n]
-	];
-Com[A_?MatrixQ,B_?MatrixQ]:=Com[A,B,1]
+(* ::Text:: *)
+(*Symbolic nested commutator*)
 
 
-ACom[A_?MatrixQ,B_?MatrixQ,n_Integer]:=
-	Block[{ACom},
-		ACom[A,B,0]:=B;
-		ACom[A,B,1]:=A.B+B.A;
-		ACom[A,B,m_?Positive]:=ACom[A,B,m]=ACom[A,ACom[A,B,m-1]];
-		ACom[A,B,n]
-	];
-ACom[A_?MatrixQ,B_?MatrixQ]:=ACom[A,B,1]
+Com[A_,B_,0]:=B;
+Com[A_,B_,1]:=Com[A,B]
+Com[A_,B_,n_Integer]:=Com[A,Com[A,B,n-1]]
+
+
+(* ::Text:: *)
+(*Commutator for matrices and numbers*)
+
+
+Com[A_,A_]:=0
+Com[A_?MatrixQ,B_?MatrixQ]:=A.B-B.A
+Com[A_,B_?NumericQ]:=0
+Com[A_?NumericQ,B_]:=0
+
+
+(* ::Text:: *)
+(*Symbolic nested anti-commutator*)
+
+
+ACom[A_,B_,0]:=B;
+ACom[A_,B_,1]:=ACom[A,B]
+ACom[A_,B_,n_Integer]:=ACom[A,ACom[A,B,n-1]]
+
+
+(* ::Text:: *)
+(*Anti-commutator for matrices and numbers*)
+
+
+ACom[A_?MatrixQ,B_?MatrixQ]:=A.B+B.A
+ACom[A_,B_?NumericQ]:=2*B*A
+ACom[A_?NumericQ,B_]:=2*A*B
 
 
 OuterProduct[u_,v_]:=KroneckerProduct[Flatten[u],Conjugate[Flatten[v]]];
@@ -905,6 +921,115 @@ TP[str_,opts:OptionsPattern[TP]]:=Total[
 
 (* ::Subsection::Closed:: *)
 (*End Private*)
+
+
+End[];
+
+
+(* ::Section:: *)
+(*Unit Testing*)
+
+
+Begin["`Private`"];
+
+
+(* ::Subsection::Closed:: *)
+(*Matrices and Operations*)
+
+
+TestCase["Tensor:CircleTimes", 
+	And[
+		Module[{a},CircleTimes[a->3]===CircleTimes[a,a,a]],
+		CircleTimes[{1,0},{1,0}]==={1,0,0,0},
+		CircleTimes[{1,0},{{1,0},{0,0}}]==={{1,0},{0,0},{0,0},{0,0}},
+		Module[{b},CircleTimes[3,b->2,{1,0}]===3*CircleTimes[b,b,{1,0}]]
+	]];
+
+
+TestCase["Tensor:\[DoubleStruckOne]", And[Subscript[\[DoubleStruckOne], 0]==={{}}, Subscript[\[DoubleStruckOne], 3]===IdentityMatrix[3]]];
+
+
+TestCase["Tensor:BlockMatrix", 
+	SameQ[
+		BlockMatrix[{{1,1},{1,1}},{{2,2},{2,2}}],
+		{{1,1,0,0},{1,1,0,0},{0,0,2,2},{0,0,2,2}}
+	]];
+
+
+TestCase["Tensor:UnitArray", UnitArray[{2,2},{1,1}]==={{1,0},{0,0}}];
+
+
+TestCase["Tensor:ArrayPermutations", 
+	Module[{a,b},
+		SameQ[ArrayPermutations[{a,2},{b,1}],
+		CircleTimes[a,a,b]+CircleTimes[a,b,a]+CircleTimes[b,a,a]]
+	]];
+
+
+TestCase["Tensor:SwapMatrix",
+	And[
+		SwapMatrix[2,{2,1}]==={{1,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,1}},
+		SwapMatrix[2,{2,1}]===SwapMatrix[{2,2},{2,1}]
+	]];
+
+
+TestCase["Tensor:Com",
+	And[
+		Module[{a},Com[1,a]===0],
+		Module[{a,b},Com[a,b,2]===Com[a,Com[a,b]]],
+		Com[PauliMatrix[1],PauliMatrix[2]]===2*I*PauliMatrix[3]
+	]];
+
+
+TestCase["Tensor:ACom",
+	And[
+		Module[{a},ACom[1,a]===2*a],
+		Module[{a,b},ACom[a,b,2]===ACom[a,ACom[a,b]]],
+		Norm@ACom[PauliMatrix[1],PauliMatrix[2]]===0
+	]];
+
+
+TestCase["Tensor:OuterProduct", 
+	Module[{a,b},
+		SameQ[
+			OuterProduct[Array[a,2],Array[b,2]],
+			{{a[1] Conjugate[b[1]],a[1] Conjugate[b[2]]},
+			{a[2] Conjugate[b[1]],a[2] Conjugate[b[2]]}}]
+	]];
+
+
+TestCase["Tensor:Projector", 
+	With[{m={{1,0},{0,0}}},
+		And[
+			Projector[{1,0}]===m,
+			Projector[{{1,0}}]===m,
+			Projector[{{1},{0}}]===m
+		]
+	]];
+
+
+(* ::Subsection:: *)
+(*Matrix-Tensor Manipulations*)
+
+
+(* ::Subsection:: *)
+(*Matrix-Tensor Contractions*)
+
+
+(* ::Subsection:: *)
+(*Matrix Bases*)
+
+
+(* ::Subsection:: *)
+(*Vectorization*)
+
+
+(* ::Subsection:: *)
+(*Tensor Product Parser*)
+
+
+(* ::Subsection::Closed:: *)
+(*End*)
 
 
 End[];
