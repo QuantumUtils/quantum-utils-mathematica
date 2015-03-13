@@ -170,7 +170,7 @@ BasisMatrix::dims = "Dimensions of input system must be specified.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices and Operations*)
 
 
@@ -273,7 +273,7 @@ SwapMatrix[d_Integer,perm_List,SparseArray]:=SwapMatrix[ConstantArray[d,Length[p
 SwapMatrix[d_Integer,perm_List]:= Normal@SwapMatrix[d,perm,SparseArray]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrix-Tensor Manipulations*)
 
 
@@ -813,7 +813,7 @@ BasisTransformation[op_,Rule[basis1_,basis2_]]:=
 (*Tensor Product Parser*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Options*)
 
 
@@ -840,7 +840,7 @@ $defaultTPRules={
 Options[TP]={Method->CircleTimes,Replace->$defaultTPRules};
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Function*)
 
 
@@ -926,7 +926,7 @@ TP[str_,opts:OptionsPattern[TP]]:=Total[
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Unit Testing*)
 
 
@@ -1008,24 +1008,178 @@ TestCase["Tensor:Projector",
 	]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix-Tensor Manipulations*)
 
 
-(* ::Subsection:: *)
+TestCase["Tensor:MatrixToTensor",
+	Module[{a,b},
+		SameQ[
+			Dimensions[
+			MatrixToTensor[
+				KroneckerProduct[Array[a,{2,3}],Array[b,{4,5}]],
+				{{2,4},{3,5}}]],
+			{2,4,3,5}]
+	]]; 
+
+
+TestCase["Tensor:MatrixTranspose",
+	SameQ[
+		MatrixTranspose[IdentityMatrix[4],{2,2},{2,1}],
+		{{1,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,1}}]
+	];
+
+
+TestCase["Tensor:Swap",
+	Module[{a,b},
+		0===Norm[Swap[
+				KroneckerProduct[Array[a,{2,2}],Array[b,{2,2}]],{2,1}]
+				-KroneckerProduct[Array[b,{2,2}],Array[a,{2,2}]]]
+	]];
+
+
+TestCase["Tensor:Reshuffle",
+	And[
+		SameQ[
+			Reshuffle[IdentityMatrix[4],{2,2,2,2}],
+			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}],
+		SameQ[
+			Reshuffle[IdentityMatrix[4],{2,2,2,2},Basis->"Row"],
+			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}]
+	]];
+
+
+TestCase["Tensor:Unravel",
+	With[{X=PauliMatrix[1],Y=PauliMatrix[2],Z=PauliMatrix[3]},
+	And[
+		Unravel[KroneckerProduct[X,Y,Z,X,Y,Z],2]===KroneckerProduct[X,X,Y,Y,Z,Z],
+		Unravel[KroneckerProduct[X,Y,Z,X,Y,Z],{2,2,2}]===KroneckerProduct[X,X,Y,Y,Z,Z],
+		Unravel[KroneckerProduct[X,Y,Z,X,Y,Z]]===KroneckerProduct[X,X,Y,Y,Z,Z]
+	]]];
+
+
+TestCase["Tensor:Reravel",
+	With[{X=PauliMatrix[1],Y=PauliMatrix[2],Z=PauliMatrix[3]},
+	And[
+		Reravel[KroneckerProduct[X,X,Y,Y,Z,Z],2]===KroneckerProduct[X,Y,Z,X,Y,Z],
+		Reravel[KroneckerProduct[X,X,Y,Y,Z,Z],{2,2,2}]===KroneckerProduct[X,Y,Z,X,Y,Z],
+		Reravel[KroneckerProduct[X,X,Y,Y,Z,Z]]===KroneckerProduct[X,Y,Z,X,Y,Z]
+	]]];
+
+
+(* ::Subsection::Closed:: *)
 (*Matrix-Tensor Contractions*)
 
 
-(* ::Subsection:: *)
+TestCase["Tensor:PartialTr", 
+	Module[{a,b},
+		Norm@Simplify[
+			PartialTr[KroneckerProduct[Array[a,{2,2}],Array[b,{3,3}]],{2,3},{2}]
+			-Tr[Array[b,{3,3}]]*Array[a,{2,2}]
+			]===0
+	]];
+
+
+TestCase["Tensor:TensorPairContract",
+	Module[{a,b},
+		SameQ[
+			TensorPairContract[Array[a,{2,3}],Array[b,{3,4}],{{2,1}}],
+			Array[a,{2,3}].Array[b,{3,4}]]
+	]];
+
+
+TestCase["Tensor:MatrixContract", 
+	Module[{a,b},
+		Norm@Simplify[
+			MatrixContract[KroneckerProduct[Array[a,{2,2}],Array[b,{3,3}]],{2,3},{{2,4}}]
+			-Tr[Array[b,{3,3}]]*Array[a,{2,2}]
+			]===0
+	]];
+
+
+TestCase["Tensor:MatrixPairContract",
+	Module[{a,b},
+		Norm@Simplify[
+			MatrixPairContract[
+				{KroneckerProduct[Array[a,{2,2}],Array[b,{3,3}]],{2,3}},
+				{{{1,0},{0,0}},{2}},{{1,1},{3,2}}]
+			-a[1,1]*Array[b,{3,3}]
+			]===0
+	]];
+
+
+(* ::Subsection::Closed:: *)
 (*Matrix Bases*)
 
 
-(* ::Subsection:: *)
+TestCase["Tensor:Basis",
+	Basis["PO"]===PauliMatrix/@Range[0,3]];
+
+
+TestCase["Tensor:BasisLabels",
+	BasisLabels["PO",2]==={
+		"I"\[CircleTimes]"I","I"\[CircleTimes]"X","I"\[CircleTimes]"Y","I"\[CircleTimes]"Z",
+		"X"\[CircleTimes]"I","X"\[CircleTimes]"X","X"\[CircleTimes]"Y","X"\[CircleTimes]"Z",
+		"Y"\[CircleTimes]"I","Y"\[CircleTimes]"X","Y"\[CircleTimes]"Y","Y"\[CircleTimes]"Z",
+		"Z"\[CircleTimes]"I","Z"\[CircleTimes]"X","Z"\[CircleTimes]"Y","Z"\[CircleTimes]"Z"}];
+
+
+TestCase["Tensor:ExpressInBasis",
+	ExpressInBasis[PauliMatrix[1]]==={0,1,0,0}];
+
+
+(* ::Subsection::Closed:: *)
 (*Vectorization*)
 
 
-(* ::Subsection:: *)
+TestCase["Tensor:Vec",
+	Module[{a},
+		And[
+			Vec[{{a[1],a[2]},{a[3],a[4]}}]==={{a[1]},{a[3]},{a[2]},{a[4]}},
+			Vec[{{a[1],a[2]},{a[3],a[4]}},Basis->"Row"]==={{a[1]},{a[2]},{a[3]},{a[4]}},
+			Vec[PauliMatrix[1],Basis->"Pauli"]==={{0},{Sqrt[2]},{0},{0}}
+		]
+	]];
+
+
+TestCase["Tensor:Devec",
+	Module[{a},
+		And[
+			Devec[{{a[1]},{a[3]},{a[2]},{a[4]}}]==={{a[1],a[2]},{a[3],a[4]}},
+			Devec[{{a[1]},{a[2]},{a[3]},{a[4]}},Basis->"Row"]==={{a[1],a[2]},{a[3],a[4]}},
+			Devec[{{0},{Sqrt[2]},{0},{0}},Basis->"Pauli"]===PauliMatrix[1]
+		]
+	]];
+
+
+TestCase["Tensor:ProductIdentity", 
+	And[
+		SameQ[
+			ProductIdentity[PauliMatrix[1],PauliMatrix[2]],
+			-1*KroneckerProduct[PauliMatrix[2],PauliMatrix[1]]],
+		SameQ[
+			ProductIdentity[PauliMatrix[1],PauliMatrix[2],Basis->"Row"],
+			-1*KroneckerProduct[PauliMatrix[1],PauliMatrix[2]]]
+	]];
+
+
+TestCase["Tensor:BasisMatrix",
+	BasisMatrix["Col"->"Pauli"]==={{1,0,0,1},{0,1,1,0},{0,-I,I,0},{1,0,0,-1}}/Sqrt[2]];
+
+
+TestCase["Tensor:BasisTransformation",
+	BasisTransformation[{0,1,1,0},"Col"->"Pauli"]==={0,Sqrt[2],0,0}];
+
+
+(* ::Subsection::Closed:: *)
 (*Tensor Product Parser*)
+
+
+TestCase["Tensor:TP",
+	And[
+		TP["XXX"]===CircleTimes[PauliMatrix[1],PauliMatrix[1],PauliMatrix[1]],
+		Module[{f},TP["ab",Replace->{"a"->"A","b"->"B"},Method->f]===f["A","B"]]
+	]];
 
 
 (* ::Subsection::Closed:: *)
