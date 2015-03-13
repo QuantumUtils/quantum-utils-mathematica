@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     48231,       1639]
+NotebookDataLength[     48234,       1639]
 NotebookOptionsPosition[     37781,       1288]
-NotebookOutlinePosition[     40980,       1386]
-CellTagsIndexPosition[     40166,       1362]
+NotebookOutlinePosition[     40983,       1386]
+CellTagsIndexPosition[     40169,       1362]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1287,7 +1287,7 @@ Cell["", "Subsection",
 }, Open  ]]
 },
 WindowSize->{1280, 1000},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{1301, Automatic}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -1297,90 +1297,90 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "AllElementQ::usage"->{
-  Cell[13354, 474, 887, 30, 31, "Text",
-   CellTags->"AllElementQ::usage"]},
- "AllMatchQ::usage"->{
-  Cell[14244, 506, 1217, 44, 31, "Text",
-   CellTags->"AllMatchQ::usage"]},
- "AllQ::usage"->{
-  Cell[12172, 429, 1179, 43, 31, "Text",
-   CellTags->"AllQ::usage"]},
- "AnyElementQ::usage"->{
-  Cell[8368, 288, 939, 31, 31, "Text",
-   CellTags->"AnyElementQ::usage"]},
- "AnyMatchQ::usage"->{
-  Cell[9310, 321, 1255, 45, 31, "Text",
-   CellTags->"AnyMatchQ::usage"]},
- "AnyNonzeroQ::usage"->{
-  Cell[16877, 607, 935, 30, 31, "Text",
-   CellTags->"AnyNonzeroQ::usage"]},
- "AnyPossiblyNonzeroQ::usage"->{
-  Cell[17815, 639, 947, 29, 31, "Text",
-   CellTags->"AnyPossiblyNonzeroQ::usage"]},
- "AnyQ::usage"->{
-  Cell[7083, 241, 1282, 45, 31, "Text",
-   CellTags->"AnyQ::usage"]},
- "CoefficientQ::usage"->{
-  Cell[25022, 883, 1093, 30, 31, "Text",
-   CellTags->"CoefficientQ::usage"]},
- "ColumnVectorQ::usage"->{
-  Cell[32589, 1128, 1079, 29, 31, "Text",
-   CellTags->"ColumnVectorQ::usage"]},
- "DiagonalMatrixQ::usage"->{
-  Cell[30874, 1077, 1036, 24, 31, "Text",
-   CellTags->"DiagonalMatrixQ::usage"]},
- "GeneralVectorQ::usage"->{
-  Cell[34842, 1191, 1218, 34, 31, "Text",
-   CellTags->"GeneralVectorQ::usage"]},
- "NonzeroDimQ::usage"->{
-  Cell[27118, 956, 1055, 24, 31, "Text",
-   CellTags->"NonzeroDimQ::usage"]},
+ "PossiblyTrueQ::usage"->{
+  Cell[1949, 61, 723, 22, 31, "Text",
+   CellTags->"PossiblyTrueQ::usage"]},
  "PossiblyFalseQ::usage"->{
   Cell[3548, 119, 774, 22, 31, "Text",
    CellTags->"PossiblyFalseQ::usage"]},
  "PossiblyNonzeroQ::usage"->{
   Cell[5203, 177, 800, 21, 31, "Text",
    CellTags->"PossiblyNonzeroQ::usage"]},
- "PossiblyTrueQ::usage"->{
-  Cell[1949, 61, 723, 22, 31, "Text",
-   CellTags->"PossiblyTrueQ::usage"]},
- "PureStateQ::usage"->{
-  Cell[28735, 1006, 1045, 24, 31, "Text",
-   CellTags->"PureStateQ::usage"]},
- "RowVectorQ::usage"->{
-  Cell[33671, 1159, 1168, 30, 31, "Text",
-   CellTags->"RowVectorQ::usage"]},
+ "AnyQ::usage"->{
+  Cell[7083, 241, 1282, 45, 31, "Text",
+   CellTags->"AnyQ::usage"]},
+ "AnyElementQ::usage"->{
+  Cell[8368, 288, 939, 31, 31, "Text",
+   CellTags->"AnyElementQ::usage"]},
+ "AnyMatchQ::usage"->{
+  Cell[9310, 321, 1255, 45, 31, "Text",
+   CellTags->"AnyMatchQ::usage"]},
+ "AllQ::usage"->{
+  Cell[12172, 429, 1179, 43, 31, "Text",
+   CellTags->"AllQ::usage"]},
+ "AllElementQ::usage"->{
+  Cell[13354, 474, 887, 30, 31, "Text",
+   CellTags->"AllElementQ::usage"]},
+ "AllMatchQ::usage"->{
+  Cell[14244, 506, 1217, 44, 31, "Text",
+   CellTags->"AllMatchQ::usage"]},
+ "AnyNonzeroQ::usage"->{
+  Cell[16877, 607, 935, 30, 31, "Text",
+   CellTags->"AnyNonzeroQ::usage"]},
+ "AnyPossiblyNonzeroQ::usage"->{
+  Cell[17815, 639, 947, 29, 31, "Text",
+   CellTags->"AnyPossiblyNonzeroQ::usage"]},
+ "SymbolQ::usage"->{
+  Cell[19835, 713, 933, 26, 31, "Text",
+   CellTags->"SymbolQ::usage"]},
  "SymbolicFunctionQ::usage"->{
   Cell[22314, 796, 1006, 25, 31, "Text",
    CellTags->"SymbolicFunctionQ::usage"]},
- "SymbolQ::usage"->{
-  Cell[19835, 713, 933, 26, 31, "Text",
-   CellTags->"SymbolQ::usage"]}
+ "CoefficientQ::usage"->{
+  Cell[25022, 883, 1093, 30, 31, "Text",
+   CellTags->"CoefficientQ::usage"]},
+ "NonzeroDimQ::usage"->{
+  Cell[27118, 956, 1055, 24, 31, "Text",
+   CellTags->"NonzeroDimQ::usage"]},
+ "PureStateQ::usage"->{
+  Cell[28735, 1006, 1045, 24, 31, "Text",
+   CellTags->"PureStateQ::usage"]},
+ "DiagonalMatrixQ::usage"->{
+  Cell[30874, 1077, 1036, 24, 31, "Text",
+   CellTags->"DiagonalMatrixQ::usage"]},
+ "ColumnVectorQ::usage"->{
+  Cell[32589, 1128, 1079, 29, 31, "Text",
+   CellTags->"ColumnVectorQ::usage"]},
+ "RowVectorQ::usage"->{
+  Cell[33671, 1159, 1168, 30, 31, "Text",
+   CellTags->"RowVectorQ::usage"]},
+ "GeneralVectorQ::usage"->{
+  Cell[34842, 1191, 1218, 34, 31, "Text",
+   CellTags->"GeneralVectorQ::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"AllElementQ::usage", 38098, 1299},
- {"AllMatchQ::usage", 38198, 1302},
- {"AllQ::usage", 38292, 1305},
- {"AnyElementQ::usage", 38388, 1308},
- {"AnyMatchQ::usage", 38487, 1311},
- {"AnyNonzeroQ::usage", 38587, 1314},
- {"AnyPossiblyNonzeroQ::usage", 38697, 1317},
- {"AnyQ::usage", 38800, 1320},
- {"CoefficientQ::usage", 38896, 1323},
- {"ColumnVectorQ::usage", 39002, 1326},
- {"DiagonalMatrixQ::usage", 39112, 1329},
- {"GeneralVectorQ::usage", 39223, 1332},
- {"NonzeroDimQ::usage", 39330, 1335},
- {"PossiblyFalseQ::usage", 39436, 1338},
- {"PossiblyNonzeroQ::usage", 39545, 1341},
- {"PossiblyTrueQ::usage", 39653, 1344},
- {"PureStateQ::usage", 39754, 1347},
- {"RowVectorQ::usage", 39856, 1350},
- {"SymbolicFunctionQ::usage", 39965, 1353},
- {"SymbolQ::usage", 40070, 1356}
+ {"PossiblyTrueQ::usage", 38103, 1299},
+ {"PossiblyFalseQ::usage", 38208, 1302},
+ {"PossiblyNonzeroQ::usage", 38317, 1305},
+ {"AnyQ::usage", 38416, 1308},
+ {"AnyElementQ::usage", 38511, 1311},
+ {"AnyMatchQ::usage", 38610, 1314},
+ {"AllQ::usage", 38703, 1317},
+ {"AllElementQ::usage", 38799, 1320},
+ {"AllMatchQ::usage", 38899, 1323},
+ {"AnyNonzeroQ::usage", 39000, 1326},
+ {"AnyPossiblyNonzeroQ::usage", 39110, 1329},
+ {"SymbolQ::usage", 39216, 1332},
+ {"SymbolicFunctionQ::usage", 39320, 1335},
+ {"CoefficientQ::usage", 39430, 1338},
+ {"NonzeroDimQ::usage", 39534, 1341},
+ {"PureStateQ::usage", 39636, 1344},
+ {"DiagonalMatrixQ::usage", 39743, 1347},
+ {"ColumnVectorQ::usage", 39853, 1350},
+ {"RowVectorQ::usage", 39958, 1353},
+ {"GeneralVectorQ::usage", 40064, 1356}
  }
 *)
 (*NotebookFileOutline

@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -242,7 +242,7 @@ Predicates`Private`Polyfill[10,
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Unit Testing*)
 
 
@@ -253,14 +253,27 @@ Begin["`Private`"];
 (*Fuzzy Logic*)
 
 
-Module[{maybe}, TestCase["Predicates:PossiblyTrueQ", PossiblyTrueQ[maybe]]];
-TestCase["Predicates:PossiblyTrueQ", PossiblyTrueQ[True]];
-TestCase["Predicates:PossiblyTrueQ", !PossiblyTrueQ[0 == 2]];
+TestCase["Predicates:PossiblyTrueQ", 
+	And[
+		Module[{maybe},PossiblyTrueQ[maybe]],
+		PossiblyTrueQ[True],
+		Not@PossiblyTrueQ[0 == 2]
+	]];
 
 
-Module[{maybe}, TestCase["Predicates:PossiblyFalseQ", PossiblyFalseQ[maybe]]];
-TestCase["Predicates:PossiblyFalseQ", !PossiblyFalseQ[True]];
-TestCase["Predicates:PossiblyFalseQ", PossiblyFalseQ[0 == 2]];
+TestCase["Predicates:PossiblyFalseQ", 
+	And[
+		Module[{maybe}, PossiblyFalseQ[maybe]],
+		Not@PossiblyFalseQ[True],
+		PossiblyFalseQ[0 == 2]
+	]]
+
+
+TestCase["Predicates:PossiblyNonzeroQ", 
+	And[
+		Module[{maybe}, PossiblyNonzeroQ[maybe]],
+		Not@PossiblyNonzeroQ[0]
+	]]
 
 
 (* ::Subsection::Closed:: *)
@@ -268,68 +281,103 @@ TestCase["Predicates:PossiblyFalseQ", PossiblyFalseQ[0 == 2]];
 
 
 TestCase["Predicates:AnyQ", AnyQ[# >= 2 &, {0, 1, 5}]];
-TestCase["Predicates:AllQ", AnyQ[# >= 2 &, {2, 4, 5}]];
-
-
-TestCase["Predicates:AnyMatchQ", AnyMatchQ[_Integer,{0, 1.2, 5.5}]];
-TestCase["Predicates:AllMatchQ", AllMatchQ[_Integer,{2, 4, 5}]];
 
 
 TestCase["Predicates:AllElementQ", AllElementQ[# >= 2 &, {3, {{{{4}}}}, 5}]];
+
+
+TestCase["Predicates:AnyMatchQ", AnyMatchQ[_Integer,{0, 1.2, 5.5}]];
+
+
+TestCase["Predicates:AllQ", AnyQ[# >= 2 &, {2, 4, 5}]];
+
+
 TestCase["Predicates:AnyElementQ", AnyElementQ[# >= 2 &, {{{{4}, 0}}, 1}]]
+
+
+TestCase["Predicates:AllMatchQ", AllMatchQ[_Integer,{2, 4, 5}]];
 
 
 TestCase["Predicates:AnyNonzeroQ", AnyNonzeroQ[{0, 1, 5}]];
 
 
-Module[{maybe}, TestCase["Predicates:AnyPossiblyNonzeroQ", AnyPossiblyNonzeroQ[{0, maybe, 0}]]]
+TestCase["Predicates:AnyPossiblyNonzeroQ", Module[{maybe}, AnyPossiblyNonzeroQ[{0, maybe, 0}]]]
 
 
-TestCase["Predicates:RealQ", RealQ[1]];
-TestCase["Predicates:RealQ", !RealQ[I]];
+(* ::Subsection::Closed:: *)
+(*Symbolic Expressions*)
 
 
-TestCase["Predicates:PositiveIntegerQ", PositiveIntegerQ[1]];
-TestCase["Predicates:PositiveIntegerQ", !PositiveIntegerQ[1.5]];
+TestCase["Predicates:SymbolQ", 
+	And[
+		Not@SymbolQ[12],
+		Module[{arg},SymbolQ[arg]],
+		With[{x=10},Not@SymbolQ[x]]
+	]];
 
 
-TestCase["Predicates:NonnegativeQ", NonnegativeQ[1]];
+TestCase["Predicates:SymbolicFunctionQ", 
+	And[
+		Module[{t},SymbolicFunctionQ[Sin[3*t]]],
+		Module[{a,b},Not@SymbolicFunctionQ[Dot[a,b]]]
+	]];
 
 
-TestCase["Predicates:NonnegativeIntegerQ", NonnegativeIntegerQ[0]];
-
-
-TestCase["Predicates:IntegerListQ", IntegerListQ[{0, 1}]];
-Module[{cow}, TestCase["Predicates:IntegerListQ", !IntegerListQ[cow]]];
-TestCase["Predicates:IntegerListQ", !IntegerListQ[{0, "snow"}]];
-
-
-TestCase["Predicates:SymbolQ", !SymbolQ[12]];
-
-
-Module[{aSymbol}, TestCase["Predicates:SymbolQ", SymbolQ[aSymbol]]];
+TestCase["Predicates:CoefficientQ", 
+	And[
+		Module[{t},CoefficientQ[Sin[3*t]]],
+		Module[{a,b},CoefficientQ[a]],
+		Not@CoefficientQ["x"]
+	]];
 
 
 (* ::Subsection::Closed:: *)
 (*Matrices and Lists*)
 
 
-TestCase["Predicates:NonzeroDimQ", True];
+TestCase["Predicates:NonzeroDimQ",
+	And[
+		Not@NonzeroDimQ[{{{},{}}}],
+		NonzeroDimQ[{1,2,3}]
+	]];
 
 
-TestCase["Predicates:DiagonalMatrixQ", True];
+TestCase["Predicates:DiagonalMatrixQ", 
+	And[
+		DiagonalMatrixQ@DiagonalMatrix[{1,2,3}],
+		Not@DiagonalMatrixQ[{{1,2},{3,4}}]
+	]];
 
 
-TestCase["Predicates:PureStateQ", True];
+TestCase["Predicates:PureStateQ", 
+	And[
+		PureStateQ[{{1,1},{1,1}}/2],
+		Not@PureStateQ[{{1,0},{0,3}}/4]
+	]];
 
 
-TestCase["Predicates:ColumnVectorQ", True];
+TestCase["Predicates:ColumnVectorQ",
+	And[
+		ColumnVectorQ[{{0},{1}}],
+		Not@ColumnVectorQ[{0,0,1}],
+		Not@ColumnVectorQ[{{0,1}}]
+	]];
 
 
-TestCase["Predicates:RowVectorQ", True];
+TestCase["Predicates:RowVectorQ",
+	And[
+		Not@RowVectorQ[{{0},{1}}],
+		Not@RowVectorQ[{0,0,1}],
+		RowVectorQ[{{0,1}}]
+	]];
 
 
-TestCase["Predicates:GeneralVectorQ", True];
+TestCase["Predicates:GeneralVectorQ",
+	And[
+		GeneralVectorQ[{{0},{1}}],
+		GeneralVectorQ[{0,0,1}],
+		Not@GeneralVectorQ[{{0,1}}]
+	]];
 
 
 (* ::Subsection::Closed:: *)
