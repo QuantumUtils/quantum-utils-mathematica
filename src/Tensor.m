@@ -170,7 +170,7 @@ BasisMatrix::dims = "Dimensions of input system must be specified.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices and Operations*)
 
 
@@ -212,40 +212,35 @@ ArrayPermutations[arrayNums__]:=
 
 
 (* ::Text:: *)
-(*Symbolic nested commutator*)
+(*Commutator for matrices *)
 
 
 Com[A_,B_,0]:=B;
 Com[A_,B_,1]:=Com[A,B]
-Com[A_,B_,n_Integer]:=Com[A,Com[A,B,n-1]]
+Com[A_?MatrixQ,B_?MatrixQ]:=A.B-B.A
+Com[A_?MatrixQ,B_?MatrixQ,n_?IntegerQ]:=Com[A,Com[A,B],n-1]
 
 
 (* ::Text:: *)
-(*Commutator for matrices and numbers*)
+(*Zero Identities*)
 
 
 Com[A_,A_]:=0
-Com[A_?MatrixQ,B_?MatrixQ]:=A.B-B.A
+Com[A_,A_,n_?Positive]:=0
 Com[A_,B_?NumericQ]:=0
+Com[A_,B_?NumericQ,n_?Positive]:=0
 Com[A_?NumericQ,B_]:=0
+Com[A_?NumericQ,B_,n_?Positive]:=0
 
 
 (* ::Text:: *)
-(*Symbolic nested anti-commutator*)
+(*Anti-commutator*)
 
 
 ACom[A_,B_,0]:=B;
 ACom[A_,B_,1]:=ACom[A,B]
-ACom[A_,B_,n_Integer]:=ACom[A,ACom[A,B,n-1]]
-
-
-(* ::Text:: *)
-(*Anti-commutator for matrices and numbers*)
-
-
 ACom[A_?MatrixQ,B_?MatrixQ]:=A.B+B.A
-ACom[A_,B_?NumericQ]:=2*B*A
-ACom[A_?NumericQ,B_]:=2*A*B
+ACom[A_?MatrixQ,B_?MatrixQ,n_?Positive]:=ACom[A,ACom[A,B],n-1]
 
 
 OuterProduct[u_,v_]:=KroneckerProduct[Flatten[u],Conjugate[Flatten[v]]];
@@ -273,7 +268,7 @@ SwapMatrix[d_Integer,perm_List,SparseArray]:=SwapMatrix[ConstantArray[d,Length[p
 SwapMatrix[d_Integer,perm_List]:= Normal@SwapMatrix[d,perm,SparseArray]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrix-Tensor Manipulations*)
 
 

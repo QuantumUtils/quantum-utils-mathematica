@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -104,7 +104,7 @@ AssignUsage[RandomDensity,$Usages];
 AssignUsage[RandomHermitian,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Error Messages*)
 
 
@@ -162,7 +162,7 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -517,7 +517,7 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Symbolic Evaluation*)
 
 
@@ -555,7 +555,7 @@ QExpand[expr_]:=expr//.{
 }
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*QSimplify*)
 
 
@@ -572,6 +572,10 @@ Options[QSimplify]:={
 
 
 QSimplify[expr_,opts:OptionsPattern[]]:= QSimplifyCached[expr,opts]
+
+
+QSimplify[Com[a_,b_,n_?Positive],opts:OptionsPattern[]]:=QSimplify[Com[a,QSimplify[Com[a,b],opts],n-1],opts]
+QSimplify[ACom[a_,b_,n_?Positive],opts:OptionsPattern[]]:=QSimplify[ACom[a,QSimplify[ACom[a,b],opts],n-1],opts]
 
 
 (* ::Text:: *)
@@ -624,7 +628,7 @@ QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 		]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Linear Algebra Rules*)
 
 
@@ -644,6 +648,7 @@ Dot[a_,a_]:> QPower[a,2],
 Dot[QPower[a_,n_],a_]:> QPower[a,n+1],
 Dot[a_,QPower[a_,n_]]:> QPower[a,n+1],
 Dot[QPower[a_,m_],QPower[a_,n_]]:> QPower[a,n+m],
+Dot[CircleTimes[a1_,b1__],CircleTimes[a2_,b2__]]:> CircleTimes@@MapThread[Dot,{{a1,b1},{a2,b2}}],
 (* CircleTimes *)
 KroneckerProduct[a_,b__]:> CircleTimes[a,b],
 CircleTimes[Plus[a_,b__],c_]:> Plus@@Map[CircleTimes[#,c]&,{a,b}],
@@ -683,10 +688,12 @@ Com[a_,Dot[b_,c__]]:> Dot[Com[a,b],Dot[c]]+Dot[b,Com[a,Dot[c]]],
 Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[QPower[a,n-1],b],a],
 Com[a_,QPower[b_,n_]]:> Dot[b,Com[a,QPower[b,n-1]]]+Dot[Com[a,QPower[b,n-1]],b],
 Com[CircleTimes[a1_,b1__],CircleTimes[a2_,b2__]]:> 
-	CircleTimes[Com[a1,a2],Dot[b1,b2]]
+	CircleTimes[Com[a1,a2],Dot[CircleTimes[b1],CircleTimes[b2]]]
 	+CircleTimes[Dot[a1,a2],Com[CircleTimes[b1],CircleTimes[b2]]],
+Com[a_,b_,n_?Positive]:> Com[a,Com[a,b],n-1],
 (* ACom *)
-ACom[a_,b_]:> a.b+b.a
+ACom[a_,b_]:> a.b+b.a,
+ACom[a_,b_,n_?Positive]:> ACom[a,ACom[a,b],n-1]
 	};
 
 
@@ -755,11 +762,13 @@ Conjugate[Spin["M"]]:>Spin["M"]
 (* X and Y expand to P and M *)
 $QSimplifySpinPM={
 Spin["X"]:> (Spin["P"]+Spin["M"])/2,
-Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2};
+Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2
+};
 (* P and M expand to X and Y *)
 $QSimplifySpinXY={
 Spin["P"]:> Spin["X"]+I*Spin["Y"],
-Spin["M"]:> Spin["X"]-I*Spin["Y"]};
+Spin["M"]:> Spin["X"]-I*Spin["Y"]
+};
 
 
 (* ::Text:: *)
