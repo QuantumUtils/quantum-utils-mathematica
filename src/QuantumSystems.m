@@ -55,7 +55,7 @@ AssignUsage[VecForm,$Usages];
 AssignUsage[CGate,$Usages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Symbolic Evaluation*)
 
 
@@ -162,7 +162,7 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -525,7 +525,7 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Symbolic Evaluation*)
 
 
@@ -618,23 +618,36 @@ Clear[QSimplifyRules]
 QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 	QSimplifyRules[opts]=
 		Join[
-			$QSimplifyCavityOrdering,
+			QSimplifySpinRules[opts],
+			QSimplifyCavityRules[opts],
+			OptionValue[Rules],
+			$QSimplifyLinearAlgebra
+		]
+
+
+QSimplifySpinRules[opts:OptionsPattern[QSimplify]]:=
+	If[OptionValue[Spin],
+		Join[
 			If[OptionValue["SpinHalf"],$QSimplifySpinHalf,{}],
 			Which[
 				OptionValue["SpinAlgebra"]==="PM", $QSimplifySpinPM,
 				OptionValue["SpinAlgebra"]==="XY", $QSimplifySpinXY,
 				True,{}],
-			If[OptionValue[Spin],$QSimplifySpin,{}],
+			$QSimplifySpin,
+			If[OptionValue["OrderSpin"],$QSimplifySpinOrdering,{}]
+		],{}]
+
+
+QSimplifyCavityRules[opts:OptionsPattern[QSimplify]]:=
+	If[OptionValue[Cavity],
+		Join[
 			If[OptionValue["OrderCavity"],$QSimplifyCavityOrdering,{}],
 			Which[
 				OptionValue["CavityAlgebra"]==="n", $QSimplifyCavityN,
 				OptionValue["CavityAlgebra"]==="ac", $QSimplifyCavityAC,
 				True,{}],
-			If[OptionValue[Cavity],$QSimplifyCavity,{}],
-			OptionValue[Rules],
-			$QSimplifyLinearAlgebra,
-			If[OptionValue["OrderSpin"],$QSimplifySpinOrdering,{}]
-		]
+			$QSimplifyCavity,{}
+		],{}]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -694,8 +707,8 @@ Com[c_,Times[a_?CoefficientQ,b__]]:> a*Com[c,Times[b]],
 Com[c_,Times[b__,a_?CoefficientQ]]:> a*Com[c,Times[b]],
 Com[Dot[a_,b__],c_]:> Dot[a,Com[Dot[b],c]]+Dot[Com[a,c],Dot[b]],
 Com[a_,Dot[b_,c__]]:> Dot[Com[a,b],Dot[c]]+Dot[b,Com[a,Dot[c]]],
-Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[QPower[a,n-1],b],a],
-Com[a_,QPower[b_,n_]]:> Dot[b,Com[a,QPower[b,n-1]]]+Dot[Com[a,QPower[b,n-1]],b],
+Com[QPower[a_,n_],b_]:> Dot[a,Com[QPower[a,n-1],b]]+Dot[Com[a,b],QPower[a,n-1]],
+Com[a_,QPower[b_,n_]]:> Dot[b,Com[a,QPower[b,n-1]]]+Dot[Com[a,b],QPower[b,n-1]],
 Com[CircleTimes[a1_,b1__],CircleTimes[a2_,b2__]]:> 
 	CircleTimes[Com[a1,a2],Dot[CircleTimes[b1],CircleTimes[b2]]]
 	+CircleTimes[Dot[a1,a2],Com[CircleTimes[b1],CircleTimes[b2]]],
@@ -859,12 +872,6 @@ Cavity["I"].Cavity[a_]:> Cavity[a],
 Cavity["I"].QPower[Cavity[a_],m_]:> QPower[Cavity[a],m],
 Cavity[a_].Cavity["I"]:> Cavity[a],
 QPower[Cavity[a_],m_].Cavity["I"]:> QPower[Cavity[a],m],
-
-(* Cavity n-Algrbra *)
-Com[QPower[Cavity["a"],n_?IntegerQ],Cavity["n"]]:> n*QPower[Cavity["a"],n],
-Com[Cavity["n"],QPower[Cavity["a"],n_?IntegerQ]]:> -n*QPower[Cavity["a",n]],
-Com[QPower[Cavity["c"],n_?IntegerQ],Cavity["n"]]:> -n*QPower[Cavity["c"],n],
-Com[Cavity["n"],QPower[Cavity["c"],n_?IntegerQ]]:> n*QPower[Cavity["c"],n],
 
 (* Cavity Algebra *)
 Com[Cavity["a"],Cavity["c"]]:> Cavity["I"],
