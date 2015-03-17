@@ -36,7 +36,7 @@ Needs["QUDevTools`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -55,7 +55,7 @@ AssignUsage[VecForm,$Usages];
 AssignUsage[CGate,$Usages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Symbolic Evaluation*)
 
 
@@ -155,14 +155,14 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States and Operators*)
 
 
@@ -525,7 +525,7 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Symbolic Evaluation*)
 
 
@@ -617,13 +617,15 @@ Clear[QSimplifyRules]
 
 QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 	QSimplifyRules[opts]=
-		Dispatch@Join[
+		Join[
+			$QSimplifyCavityOrdering,
 			If[OptionValue["SpinHalf"],$QSimplifySpinHalf,{}],
 			Which[
 				OptionValue["SpinAlgebra"]==="PM", $QSimplifySpinPM,
 				OptionValue["SpinAlgebra"]==="XY", $QSimplifySpinXY,
 				True,{}],
 			If[OptionValue[Spin],$QSimplifySpin,{}],
+			If[OptionValue["OrderCavity"],$QSimplifyCavityOrdering,{}],
 			Which[
 				OptionValue["CavityAlgebra"]==="n", $QSimplifyCavityN,
 				OptionValue["CavityAlgebra"]==="ac", $QSimplifyCavityAC,
@@ -631,7 +633,6 @@ QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
 			If[OptionValue[Cavity],$QSimplifyCavity,{}],
 			OptionValue[Rules],
 			$QSimplifyLinearAlgebra,
-			If[OptionValue["OrderCavity"],$QSimplifyCavityOrdering,{}],
 			If[OptionValue["OrderSpin"],$QSimplifySpinOrdering,{}]
 		]
 
@@ -716,7 +717,9 @@ MatrixPower[op_Spin,n_]:>QPower[op,n],
 
 (* Identity Operator *)
 Spin["I"].Spin[s_]:> Spin[s],
+Spin["I"].QPower[Spin[s_],m_]:> QPower[Spin[s],m],
 Spin[s_].Spin["I"]:> Spin[s],
+QPower[Spin[s_],m_].Spin["I"]:> QPower[Spin[s],m],
 QPower[Spin["I"],n_]:> Spin["I"],
 Com[Spin["I"],s_]:> 0,
 Com[s_,Spin["I"]]:> 0,
@@ -849,11 +852,13 @@ Power[Cavity[a_],n_]:> QPower[Cavity[a],n],
 MatrixPower[op_Cavity,n_]:> QPower[op,n],
 
 (* Cavity Identity *)
-SymbolicPower[Cavity["I"],n_]:> Cavity["I"],
+QPower[Cavity["I"],n_]:> Cavity["I"],
 Com[Cavity["I"],op_]:> 0,
 Com[op_,Cavity["I"]]:> 0,
 Cavity["I"].Cavity[a_]:> Cavity[a],
+Cavity["I"].QPower[Cavity[a_],m_]:> QPower[Cavity[a],m],
 Cavity[a_].Cavity["I"]:> Cavity[a],
+QPower[Cavity[a_],m_].Cavity["I"]:> QPower[Cavity[a],m],
 
 (* Cavity n-Algrbra *)
 Com[QPower[Cavity["a"],n_?IntegerQ],Cavity["n"]]:> n*QPower[Cavity["a"],n],
@@ -896,43 +901,31 @@ Conjugate[Cavity["c"]]:> Cavity["c"]
 $QSimplifyCavityOrdering={
 (* c before a *)
 Cavity["a"].Cavity["c"]:> 
-	Cavity["c"].Cavity["a"]
-	+Com[Cavity["a"],Cavity["c"]],
+	Cavity["c"].Cavity["a"]+Com[Cavity["a"],Cavity["c"]],
 Cavity["a"].QPower[Cavity["c"],m_]:> 
-	QPower[Cavity["c"],m].Cavity["a"]
-	+Com[Cavity["a"],QPower[Cavity["c"],m]],
+	QPower[Cavity["c"],m].Cavity["a"]+Com[Cavity["a"],QPower[Cavity["c"],m]],
 QPower[Cavity["a"],n_].Cavity["c"]:> 
-	Cavity["c"].QPower[Cavity["a"],n]
-	+Com[QPower[Cavity["a"],n],Cavity["c"]],
+	Cavity["c"].QPower[Cavity["a"],n]+Com[QPower[Cavity["a"],n],Cavity["c"]],
 QPower[Cavity["a"],n_].QPower[Cavity["c"],m_]:> 
-	QPower[Cavity["c"],m].QPower[Cavity["a"],n]
-	+Com[QPower[Cavity["a"],n],QPower[Cavity["c"],m]],
+	QPower[Cavity["c"],m].QPower[Cavity["a"],n]+Com[QPower[Cavity["a"],n],QPower[Cavity["c"],m]],
 (* n before a *)
 Cavity["a"].Cavity["n"]:>
-	Cavity["n"].Cavity["a"]
-	+Com[Cavity["a"],Cavity["n"]],
+	Cavity["n"].Cavity["a"]+Com[Cavity["a"],Cavity["n"]],
 Cavity["a"].QPower[Cavity["n"],m_]:> 
-	QPower[Cavity["n"],m].Cavity["a"]
-	+Com[Cavity["a"],QPower[Cavity["n"],m]],
+	QPower[Cavity["n"],m].Cavity["a"]+Com[Cavity["a"],QPower[Cavity["n"],m]],
 QPower[Cavity["a"],n_].Cavity["n"]:> 
-	Cavity["n"].QPower[Cavity["a"],n]
-	+Com[QPower[Cavity["a"],n],Cavity["n"]],
+	Cavity["n"].QPower[Cavity["a"],n]+Com[QPower[Cavity["a"],n],Cavity["n"]],
 QPower[Cavity["a"],n_].QPower[Cavity["n"],m_]:> 
-	QPower[Cavity["n"],m].QPower[Cavity["a"],n]
-	+Com[QPower[Cavity["a"],n],QPower[Cavity["n"],m]],
+	QPower[Cavity["n"],m].QPower[Cavity["a"],n]+Com[QPower[Cavity["a"],n],QPower[Cavity["n"],m]],
 (* n before c *)
 Cavity["c"].Cavity["n"]:> 
-	Cavity["n"].Cavity["c"]
-	+Com[Cavity["c"],Cavity["n"]],
+	Cavity["n"].Cavity["c"]+Com[Cavity["c"],Cavity["n"]],
 Cavity["c"].QPower[Cavity["n"],m_]:> 
-	QPower[Cavity["n"],m].Cavity["c"]
-	+Com[Cavity["c"],QPower[Cavity["n"],m]],
+	QPower[Cavity["n"],m].Cavity["c"]+Com[Cavity["c"],QPower[Cavity["n"],m]],
 QPower[Cavity["c"],n_].Cavity["n"]:> 
-	Cavity["n"].QPower[Cavity["c"],n]
-	+Com[QPower[Cavity["c"],n],Cavity["n"]],
+	Cavity["n"].QPower[Cavity["c"],n]+Com[QPower[Cavity["c"],n],Cavity["n"]],
 QPower[Cavity["c"],n_].QPower[Cavity["n"],m_]:> 
-	QPower[Cavity["n"],m].QPower[Cavity["c"],n]
-	+Com[QPower[Cavity["c"],n],QPower[Cavity["n"],m]]
+	QPower[Cavity["n"],m].QPower[Cavity["c"],n]+Com[QPower[Cavity["c"],n],QPower[Cavity["n"],m]]
 };
 
 
@@ -942,7 +935,13 @@ QPower[Cavity["c"],n_].QPower[Cavity["n"],m_]:>
 
 $QSimplifyCavityN={
 	Cavity["c"].Cavity["a"]:> Cavity["n"],
-	Cavity["a"].Cavity["c"]:> Cavity["n"]+Cavity["I"]
+	Cavity["c"].QPower[Cavity["a"],m_?Positive]:> Cavity["n"].QPower[Cavity["a"],m-1],
+	QPower[Cavity["c"],m_?Positive].Cavity["a"]:> QPower[Cavity["c"],m-1].Cavity["n"],
+	QPower[Cavity["c"],m_?Positive].QPower[Cavity["a"],n_?Positive]:> 
+		Which[
+			m==n,QPower[Cavity["n"],m],
+			m>n, QPower[Cavity["c"],m-n].QPower[Cavity["n"],n],
+			m<n,QPower[Cavity["n"],m].QPower[Cavity["a"],n-m]]
 };
 
 
