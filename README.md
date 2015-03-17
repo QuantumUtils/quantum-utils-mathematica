@@ -8,9 +8,16 @@ QuantumUtils for Mathematica is a software library for quantum information scien
 
  - Multi-partite tensor manipulations
  - Quantum system modelling including qudits, circuits, spins, and cavities
+ - Symbolic Lie algebra simplification for spin and cavity systems
  - Quantum channels in multiple representations
  - Numerical and symbolic simulators for open and closed quantum system evolution
  - An implementation of GRadient Ascent Pulse Engineering including distortions
+ - Perturbative expansion tools such as the Magnus series, the Zassenhaus formula, and matrix power series
+ - Visualization functions for displaying matrices, quantum states, data etc.
+
+## Requirements
+
+QuantumUtils requires Mathematica 10.0.0 or newer. It will not work with older versions of Mathematica, though partial support for Mathematica 9 may be added in the future.
 
 ## Installation
 
