@@ -36,7 +36,7 @@ Needs["QUDevTools`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
 
 
@@ -155,7 +155,7 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
@@ -227,15 +227,20 @@ Spin[3]:=Spin["Z"]
 (*Display Formatting*)
 
 
-Format[Spin[op_]]:=
+SpinFormatting[Spin[op_]]:=
 	With[{str=ToString@Unevaluated[op]},
 		Which[
 			str=="P", Subscript[Style["S",Italic],"+"],
 			str=="M", Subscript[Style["S",Italic],"-"],
-			str=="Z"||str=="X"||str=="Y", Subscript[Style["S",Italic],str],
-			str=="I", Subscript["\[DoubleStruckOne]","S"],
+			str=="X", Subscript[Style["S",Italic],"x"],
+			str=="Y", Subscript[Style["S",Italic],"y"],
+			str=="Z", Subscript[Style["S",Italic],"z"],
+			str=="I", Subscript["\[DoubleStruckOne]","s"],
 			True,"Spin"[str]
 	]]
+
+
+Format[Spin[op_],TraditionalForm]:=SpinFormatting[Spin[op]]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -275,7 +280,7 @@ Cavity[expr_]["Symbolic"]:=TP[expr,Replace->CavityTPRules["Symbolic"]]
 (*Display Formatting*)
 
 
-Format[Cavity[op_]]:=
+CavityFormatting[Cavity[op_]]:=
 	With[{str=ToString@Unevaluated[op]},
 		Which[
 			str=="a", Style["a",Italic],
@@ -284,6 +289,9 @@ Format[Cavity[op_]]:=
 			str=="I", Subscript["\[DoubleStruckOne]","c"],
 			True, "Cavity"[str]
 	]]
+
+
+Format[Cavity[op_],TraditionalForm]:=CavityFormatting[Cavity[op]]
 
 
 (* ::Subsubsection::Closed:: *)
