@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     48234,       1639]
-NotebookOptionsPosition[     37781,       1288]
-NotebookOutlinePosition[     40983,       1386]
-CellTagsIndexPosition[     40169,       1362]
+NotebookDataLength[     54199,       1825]
+NotebookOptionsPosition[     42974,       1447]
+NotebookOutlinePosition[     46015,       1541]
+CellTagsIndexPosition[     45245,       1518]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -97,7 +97,7 @@ Cell[BoxData[
 
 Cell[BoxData["True"], "Output",
  CellChangeTimes->{{3.6351745319745293`*^9, 3.635174540699416*^9}}]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -108,8 +108,8 @@ Cell[BoxData[
 
 Cell[BoxData["False"], "Output",
  CellChangeTimes->{{3.635174538189804*^9, 3.635174547601367*^9}}]
-}, Open  ]]
 }, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -727,6 +727,12 @@ Cell[TextData[{
   FontSlant->"Italic"],
  " is ",
  StyleBox["Symbol", "Input"],
+ " and ",
+ StyleBox["arg", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " has no ",
+ StyleBox["DownValues", "Input"],
  "."
 }], "Text",
  CellDingbat->"\[FilledSquare]",
@@ -736,16 +742,19 @@ Cell[TextData[{
   3.635174236573915*^9, 3.6351742387996817`*^9}, {3.6351743972516727`*^9, 
   3.635174414989091*^9}, {3.6351745032604218`*^9, 3.6351745174746943`*^9}, {
   3.6351751509757*^9, 3.6351751523914022`*^9}, {3.635175829675034*^9, 
-  3.635175830473914*^9}, {3.635175870671286*^9, 3.6351758852271347`*^9}},
+  3.635175830473914*^9}, {3.635175870671286*^9, 3.6351758852271347`*^9}, {
+  3.635555216983077*^9, 3.6355552244087057`*^9}},
  CellTags->"SymbolQ::usage"],
 
 Cell[CellGroupData[{
 
-Cell["Example", "Subsubsection",
- CellChangeTimes->{{3.6351743708073387`*^9, 3.635174371730427*^9}}],
+Cell["Example 1: Atoms", "Subsubsection",
+ CellChangeTimes->{{3.6351743708073387`*^9, 3.635174371730427*^9}, {
+  3.635555325890601*^9, 3.635555351531261*^9}}],
 
-Cell["Undefined symbols evaluate to True.", "Text",
- CellChangeTimes->{{3.6351760924520483`*^9, 3.635176098212796*^9}}],
+Cell["Undefined atomic symbols evaluate to True.", "Text",
+ CellChangeTimes->{{3.6351760924520483`*^9, 3.635176098212796*^9}, {
+  3.635555335938898*^9, 3.635555336580267*^9}}],
 
 Cell[CellGroupData[{
 
@@ -757,22 +766,9 @@ Cell[BoxData["True"], "Output",
  CellChangeTimes->{3.635176034675449*^9}]
 }, Open  ]],
 
-Cell["Named functions will also evaluate to True", "Text",
- CellChangeTimes->{{3.63517604813977*^9, 3.635176100259706*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"SymbolQ", "[", "Sin", "]"}]], "Input",
- CellChangeTimes->{{3.635175967680512*^9, 3.635175970155497*^9}, {
-  3.635176028924385*^9, 3.635176029227519*^9}}],
-
-Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.635176029592142*^9}]
-}, Open  ]],
-
-Cell["Assigned variables will not however", "Text",
- CellChangeTimes->{{3.635176075869659*^9, 3.635176079256659*^9}}],
+Cell["Assigned variables evaluate to valse", "Text",
+ CellChangeTimes->{{3.635176075869659*^9, 3.635176079256659*^9}, {
+  3.635555319156077*^9, 3.635555321251857*^9}}],
 
 Cell[CellGroupData[{
 
@@ -785,101 +781,59 @@ Cell[BoxData[{
 Cell[BoxData["False"], "Output",
  CellChangeTimes->{3.6351760856875362`*^9}]
 }, Open  ]]
-}, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
-Cell["SymbolicFunctionQ", "Subsection",
- CellChangeTimes->{{3.63517435000613*^9, 3.635174383306546*^9}, {
-  3.635175825379125*^9, 3.635175836796502*^9}}],
+Cell["Example 2: Function Symbols", "Subsubsection",
+ CellChangeTimes->{{3.635555353939505*^9, 3.6355553638293056`*^9}}],
 
-Cell[TextData[{
- StyleBox["SymbolicFunctionQ[", "Input"],
- StyleBox["arg", "Input",
-  FontWeight->"Plain",
-  FontSlant->"Italic"],
- StyleBox["]", "Input"],
- " returns ",
- StyleBox["True", "Input"],
- " if ",
- StyleBox["arg", "Input",
-  FontWeight->"Plain",
-  FontSlant->"Italic"],
- " is a ",
- StyleBox["NumericFunction", "Input"],
- " with arguments that contains only functions of symbols or numeric \
-quantitites."
-}], "Text",
- CellDingbat->"\[FilledSquare]",
- CellChangeTimes->{{3.635173764906163*^9, 3.6351737862678633`*^9}, {
-  3.63517403862992*^9, 3.635174038943677*^9}, {3.63517412720644*^9, 
-  3.635174146493905*^9}, {3.635174184114853*^9, 3.635174186047757*^9}, {
-  3.635174236573915*^9, 3.6351742387996817`*^9}, {3.6351743972516727`*^9, 
-  3.635174414989091*^9}, {3.6351745032604218`*^9, 3.6351745174746943`*^9}, {
-  3.6351751509757*^9, 3.6351751523914022`*^9}, {3.635175829675034*^9, 
-  3.635175830473914*^9}, {3.635175890514484*^9, 3.6351759533802443`*^9}},
- CellTags->"SymbolicFunctionQ::usage"],
-
-Cell[CellGroupData[{
-
-Cell["Example", "Subsubsection",
- CellChangeTimes->{{3.6351743708073387`*^9, 3.635174371730427*^9}}],
-
-Cell["Numeric functions will evaluate to True", "Text",
- CellChangeTimes->{{3.635176109013412*^9, 3.635176118260501*^9}}],
+Cell["User defined functions evaluate to false", "Text",
+ CellChangeTimes->{{3.63555526909424*^9, 3.6355552815130444`*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"SymbolicFunctionQ", "[", 
-  RowBox[{"Sin", "[", 
-   RowBox[{"3", "x"}], "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.635175959463625*^9, 3.635175984107305*^9}}],
-
-Cell[BoxData["True"], "Output",
- CellChangeTimes->{{3.635175976888994*^9, 3.635175984612504*^9}}]
-}, Open  ]],
-
-Cell["Arguments containing strings will evaluate to False", "Text",
- CellChangeTimes->{{3.635176122702352*^9, 3.6351761302868347`*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"SymbolicFunctionQ", "[", 
-  RowBox[{"Sin", "[", 
-   RowBox[{"3", "\"\<x\>\""}], "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.635176022388307*^9, 3.63517602292833*^9}}],
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", "f", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", "x_", "]"}], ":=", "x"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"SymbolQ", "[", "f", "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.635555283333905*^9, 3.635555298650894*^9}}],
 
 Cell[BoxData["False"], "Output",
- CellChangeTimes->{3.6351760234280443`*^9}]
+ CellChangeTimes->{3.635555299167734*^9}]
 }, Open  ]],
 
 Cell["\<\
-Functions without attributes NumericFunction will evaluate to False\
+Built in functions however will evaluate to True, as they have no user \
+defined DownValues.\
 \>", "Text",
- CellChangeTimes->{{3.635176132187109*^9, 3.635176145845483*^9}}],
+ CellChangeTimes->{{3.63517604813977*^9, 3.635176100259706*^9}, {
+  3.635555255808272*^9, 3.635555263809862*^9}, {3.635555303370006*^9, 
+  3.635555313075533*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"SymbolicFunctionQ", "[", 
-  RowBox[{"Dot", "[", 
-   RowBox[{"4", ",", "4"}], "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.635176148009294*^9, 3.635176164543653*^9}}],
+ RowBox[{"SymbolQ", "[", "Sin", "]"}]], "Input",
+ CellChangeTimes->{{3.635175967680512*^9, 3.635175970155497*^9}, {
+  3.635176028924385*^9, 3.635176029227519*^9}}],
 
-Cell[BoxData["False"], "Output",
- CellChangeTimes->{{3.635176157181127*^9, 3.6351761648386927`*^9}}]
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.635176029592142*^9}]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["SymbolQ", "Subsection",
+Cell["CoefficientQ", "Subsection",
  CellChangeTimes->{{3.63517435000613*^9, 3.635174383306546*^9}, {
-  3.635175825379125*^9, 3.635175827155224*^9}}],
+  3.635175825379125*^9, 3.635175827155224*^9}, {3.635553958648284*^9, 
+  3.6355539608398733`*^9}}],
 
 Cell[TextData[{
  StyleBox["CoefficientQ[", "Input"],
@@ -893,15 +847,7 @@ Cell[TextData[{
  StyleBox["arg", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
- " is numeric, an unassigned symbol, or ",
- StyleBox["SymbolicFunctionQ[", "Input"],
- StyleBox["arg", "Input",
-  FontWeight->"Plain",
-  FontSlant->"Italic"],
- StyleBox["]", "Input"],
- " is ",
- StyleBox["True", "Input"],
- "."
+ " is recognized as a scalar coefficient for symbolic evaluation."
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.635173764906163*^9, 3.6351737862678633`*^9}, {
@@ -910,35 +856,248 @@ Cell[TextData[{
   3.635174236573915*^9, 3.6351742387996817`*^9}, {3.6351743972516727`*^9, 
   3.635174414989091*^9}, {3.6351745032604218`*^9, 3.6351745174746943`*^9}, {
   3.6351751509757*^9, 3.6351751523914022`*^9}, {3.635175829675034*^9, 
-  3.635175852996606*^9}, {3.6351761773254147`*^9, 3.635176221119586*^9}},
+  3.635175852996606*^9}, {3.6351761773254147`*^9, 3.635176221119586*^9}, {
+  3.635553964854762*^9, 3.635554019896164*^9}},
  CellTags->"CoefficientQ::usage"],
 
 Cell[CellGroupData[{
 
-Cell["Example", "Subsubsection",
- CellChangeTimes->{{3.6351743708073387`*^9, 3.635174371730427*^9}}],
+Cell["Example 1: Numerical", "Subsubsection",
+ CellChangeTimes->{{3.6351743708073387`*^9, 3.635174371730427*^9}, {
+  3.635554127533334*^9, 3.635554146831666*^9}, {3.63555463812578*^9, 
+  3.6355546415961637`*^9}}],
+
+Cell["Nymerical quantities are are recognized as coefficients", "Text",
+ CellChangeTimes->{{3.635554025967887*^9, 3.6355540412812433`*^9}, {
+  3.6355541544390497`*^9, 3.635554155488241*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"CoefficientQ", "[", "3", "]"}]], "Input",
- CellChangeTimes->{{3.6351762388798723`*^9, 3.635176241099403*^9}}],
+ RowBox[{"CoefficientQ", "/@", 
+  RowBox[{"{", 
+   RowBox[{"3", ",", "\[Pi]", ",", "1.4", ",", 
+    RowBox[{"Zeta", "[", "5", "]"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.6351762388798723`*^9, 3.635176241099403*^9}, {
+  3.635554045558165*^9, 3.635554056375422*^9}, {3.635554150757217*^9, 
+  3.6355541508871603`*^9}}],
 
-Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.635176241659259*^9}]
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"True", ",", "True", ",", "True", ",", "True"}], "}"}]], "Output",
+ CellChangeTimes->{3.635176241659259*^9, 3.635554056763234*^9, 
+  3.635554157430097*^9}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 2: Symbols", "Subsubsection",
+ CellChangeTimes->{{3.635554160135092*^9, 3.635554162448324*^9}}],
+
+Cell["Undefined symbols are recognized as coefficients:", "Text",
+ CellChangeTimes->{{3.6355540585393143`*^9, 3.635554121509569*^9}, {
+  3.635554164295137*^9, 3.6355541979773273`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CoefficientQ", "/@", 
+  RowBox[{"{", 
+   RowBox[{"x", ",", "y", ",", "g"}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.6355541995410423`*^9, 3.6355542096829853`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"True", ",", "True", ",", "True"}], "}"}]], "Output",
+ CellChangeTimes->{{3.635554203998406*^9, 3.6355542100383463`*^9}}]
 }, Open  ]],
 
+Cell["\<\
+ However symbols which have definitions as a funciton will also be recognized \
+as coefficients if they are not supplied with any arguments. For example:\
+\>", "Text",
+ CellChangeTimes->{{3.63555419090086*^9, 3.635554221978372*^9}}],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"CoefficientQ", "[", 
-  RowBox[{"Exp", "[", 
-   RowBox[{
-    RowBox[{"-", "I"}], " ", "\[Omega]", " ", "t"}], "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.635176242324267*^9, 3.635176248626647*^9}}],
+ RowBox[{"CoefficientQ", "[", "Sin", "]"}]], "Input",
+ CellChangeTimes->{{3.635554081536812*^9, 3.63555408430877*^9}}],
 
 Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.635176248892572*^9}]
+ CellChangeTimes->{3.635554084569456*^9}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 3: Functions", "Subsubsection",
+ CellChangeTimes->{{3.635554228897019*^9, 3.635554254441828*^9}}],
+
+Cell["\<\
+Symbolic functions (those where the function symbol does not have any \
+definitions) are recognized as coefficients, regardless of depth of \
+concatenated functions\
+\>", "Text",
+ CellChangeTimes->{{3.6355542647052937`*^9, 3.6355542803712*^9}, {
+  3.635554361332555*^9, 3.6355543690462837`*^9}, {3.6355546795526237`*^9, 
+  3.635554702519195*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CoefficientQ", "/@", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"a", "[", 
+     RowBox[{"1", ",", "2"}], "]"}], ",", 
+    RowBox[{"f", "[", "x", "]"}], ",", " ", 
+    RowBox[{"g", "[", 
+     RowBox[{"f", "[", "x", "]"}], "]"}], ",", 
+    RowBox[{"h", "@", 
+     RowBox[{"g", "@", 
+      RowBox[{"f", "@", "x"}]}]}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.635176242324267*^9, 3.635176248626647*^9}, {
+  3.635554336948444*^9, 3.63555437710406*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"True", ",", "True", ",", "True", ",", "True"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.635176248892572*^9, {3.63555433149946*^9, 3.6355543784604588`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+If the symbol has any associated DownValues it will evaluate to false (if the \
+function doesn\[CloseCurlyQuote]t explicitly evaluate to a valid Coefficient \
+quantitiy).\
+\>", "Text",
+ CellChangeTimes->{{3.635554963350359*^9, 3.63555497833694*^9}, {
+  3.63555503950493*^9, 3.635555055386857*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Block", "[", 
+  RowBox[{
+   RowBox[{"{", "f", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", "x_", "]"}], ":=", 
+     RowBox[{"3", "x"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"CoefficientQ", "/@", 
+     RowBox[{"{", 
+      RowBox[{"f", ",", 
+       RowBox[{"f", "[", "x", "]"}], ",", 
+       RowBox[{"f", "[", "3", "]"}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"1", ",", "2"}], "]"}]}], "}"}]}]}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.635554946687793*^9, 3.63555503401024*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"False", ",", "True", ",", "True", ",", "False"}], "}"}]], "Output",\
+
+ CellChangeTimes->{
+  3.635554999827067*^9, {3.6355550350501204`*^9, 3.63555505868449*^9}, 
+   3.635555206470813*^9}]
+}, Open  ]],
+
+Cell["\<\
+Numerical functions with coefficient arguments are also recognized as \
+coefficients\
+\>", "Text",
+ CellChangeTimes->{{3.635554384877329*^9, 3.635554397166842*^9}, {
+  3.635554465354617*^9, 3.63555447171465*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CoefficientQ", "/@", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Sin", "[", 
+     RowBox[{"3", "t"}], "]"}], ",", 
+    RowBox[{"Exp", "[", 
+     RowBox[{
+      RowBox[{"-", "I"}], " ", "\[Omega]", " ", "t"}], "]"}], ",", 
+    SuperscriptBox["\[Lambda]", "n"]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.63555439830121*^9, 3.635554421488304*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"True", ",", "True", ",", "True"}], "}"}]], "Output",
+ CellChangeTimes->{3.635554421865996*^9}]
+}, Open  ]],
+
+Cell["\<\
+Functions without the explicit NumericalFunction attributate are NOT \
+recognized as coefficients, regardless of their argumetns. For example\
+\>", "Text",
+ CellChangeTimes->{{3.6355544252154503`*^9, 3.635554452225708*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CoefficientQ", "/@", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Dot", "[", 
+     RowBox[{"1", ",", "2"}], "]"}], ",", 
+    RowBox[{"CircleTimes", "[", 
+     RowBox[{"a", ",", "b"}], "]"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.635554551044774*^9, 3.6355545703707447`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"False", ",", "False"}], "}"}]], "Output",
+ CellChangeTimes->{{3.635554558817779*^9, 3.635554570847425*^9}}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 4: Strings", "Subsubsection",
+ CellChangeTimes->{{3.635554288850197*^9, 3.635554292019573*^9}, {
+  3.635554537193472*^9, 3.635554537279849*^9}}],
+
+Cell["\<\
+Strings are NOT valid coefficients. This can be exploited if one wishes an \
+argument to not be recognized as a coefficient:\
+\>", "Text",
+ CellChangeTimes->{{3.6355542937541857`*^9, 3.635554314236393*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CoefficientQ", "[", "\"\<X\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.635554316422234*^9, 3.6355543195342607`*^9}}],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{3.635554320227869*^9}]
+}, Open  ]],
+
+Cell["String arguments are also not valid coefficients:", "Text",
+ CellChangeTimes->{{3.6355544836973867`*^9, 3.635554489442968*^9}, {
+  3.6355545453776817`*^9, 3.6355545458174467`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CoefficientQ", "/@", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Sin", "[", "\"\<x\>\"", "]"}], ",", 
+    RowBox[{"f", "[", "\"\<x\>\"", "]"}], ",", 
+    RowBox[{"\"\<a\>\"", "[", "2", "]"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.6355544911863194`*^9, 3.635554508275815*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"False", ",", "False", ",", "False"}], "}"}]], "Output",
+ CellChangeTimes->{{3.635554500431765*^9, 3.635554508637897*^9}}]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
@@ -1287,7 +1446,7 @@ Cell["", "Subsection",
 }, Open  ]]
 },
 WindowSize->{1280, 1000},
-WindowMargins->{{1301, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -1297,90 +1456,86 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "PossiblyTrueQ::usage"->{
-  Cell[1949, 61, 723, 22, 31, "Text",
-   CellTags->"PossiblyTrueQ::usage"]},
- "PossiblyFalseQ::usage"->{
-  Cell[3548, 119, 774, 22, 31, "Text",
-   CellTags->"PossiblyFalseQ::usage"]},
- "PossiblyNonzeroQ::usage"->{
-  Cell[5203, 177, 800, 21, 31, "Text",
-   CellTags->"PossiblyNonzeroQ::usage"]},
- "AnyQ::usage"->{
-  Cell[7083, 241, 1282, 45, 31, "Text",
-   CellTags->"AnyQ::usage"]},
- "AnyElementQ::usage"->{
-  Cell[8368, 288, 939, 31, 31, "Text",
-   CellTags->"AnyElementQ::usage"]},
- "AnyMatchQ::usage"->{
-  Cell[9310, 321, 1255, 45, 31, "Text",
-   CellTags->"AnyMatchQ::usage"]},
- "AllQ::usage"->{
-  Cell[12172, 429, 1179, 43, 31, "Text",
-   CellTags->"AllQ::usage"]},
  "AllElementQ::usage"->{
   Cell[13354, 474, 887, 30, 31, "Text",
    CellTags->"AllElementQ::usage"]},
  "AllMatchQ::usage"->{
   Cell[14244, 506, 1217, 44, 31, "Text",
    CellTags->"AllMatchQ::usage"]},
+ "AllQ::usage"->{
+  Cell[12172, 429, 1179, 43, 31, "Text",
+   CellTags->"AllQ::usage"]},
+ "AnyElementQ::usage"->{
+  Cell[8368, 288, 939, 31, 31, "Text",
+   CellTags->"AnyElementQ::usage"]},
+ "AnyMatchQ::usage"->{
+  Cell[9310, 321, 1255, 45, 31, "Text",
+   CellTags->"AnyMatchQ::usage"]},
  "AnyNonzeroQ::usage"->{
   Cell[16877, 607, 935, 30, 31, "Text",
    CellTags->"AnyNonzeroQ::usage"]},
  "AnyPossiblyNonzeroQ::usage"->{
   Cell[17815, 639, 947, 29, 31, "Text",
    CellTags->"AnyPossiblyNonzeroQ::usage"]},
- "SymbolQ::usage"->{
-  Cell[19835, 713, 933, 26, 31, "Text",
-   CellTags->"SymbolQ::usage"]},
- "SymbolicFunctionQ::usage"->{
-  Cell[22314, 796, 1006, 25, 31, "Text",
-   CellTags->"SymbolicFunctionQ::usage"]},
+ "AnyQ::usage"->{
+  Cell[7083, 241, 1282, 45, 31, "Text",
+   CellTags->"AnyQ::usage"]},
  "CoefficientQ::usage"->{
-  Cell[25022, 883, 1093, 30, 31, "Text",
+  Cell[23594, 837, 984, 23, 31, "Text",
    CellTags->"CoefficientQ::usage"]},
- "NonzeroDimQ::usage"->{
-  Cell[27118, 956, 1055, 24, 31, "Text",
-   CellTags->"NonzeroDimQ::usage"]},
- "PureStateQ::usage"->{
-  Cell[28735, 1006, 1045, 24, 31, "Text",
-   CellTags->"PureStateQ::usage"]},
- "DiagonalMatrixQ::usage"->{
-  Cell[30874, 1077, 1036, 24, 31, "Text",
-   CellTags->"DiagonalMatrixQ::usage"]},
  "ColumnVectorQ::usage"->{
-  Cell[32589, 1128, 1079, 29, 31, "Text",
+  Cell[37782, 1287, 1079, 29, 31, "Text",
    CellTags->"ColumnVectorQ::usage"]},
- "RowVectorQ::usage"->{
-  Cell[33671, 1159, 1168, 30, 31, "Text",
-   CellTags->"RowVectorQ::usage"]},
+ "DiagonalMatrixQ::usage"->{
+  Cell[36067, 1236, 1036, 24, 31, "Text",
+   CellTags->"DiagonalMatrixQ::usage"]},
  "GeneralVectorQ::usage"->{
-  Cell[34842, 1191, 1218, 34, 31, "Text",
-   CellTags->"GeneralVectorQ::usage"]}
+  Cell[40035, 1350, 1218, 34, 31, "Text",
+   CellTags->"GeneralVectorQ::usage"]},
+ "NonzeroDimQ::usage"->{
+  Cell[32311, 1115, 1055, 24, 31, "Text",
+   CellTags->"NonzeroDimQ::usage"]},
+ "PossiblyFalseQ::usage"->{
+  Cell[3548, 119, 774, 22, 31, "Text",
+   CellTags->"PossiblyFalseQ::usage"]},
+ "PossiblyNonzeroQ::usage"->{
+  Cell[5203, 177, 800, 21, 31, "Text",
+   CellTags->"PossiblyNonzeroQ::usage"]},
+ "PossiblyTrueQ::usage"->{
+  Cell[1949, 61, 723, 22, 31, "Text",
+   CellTags->"PossiblyTrueQ::usage"]},
+ "PureStateQ::usage"->{
+  Cell[33928, 1165, 1045, 24, 31, "Text",
+   CellTags->"PureStateQ::usage"]},
+ "RowVectorQ::usage"->{
+  Cell[38864, 1318, 1168, 30, 31, "Text",
+   CellTags->"RowVectorQ::usage"]},
+ "SymbolQ::usage"->{
+  Cell[19835, 713, 1114, 33, 31, "Text",
+   CellTags->"SymbolQ::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"PossiblyTrueQ::usage", 38103, 1299},
- {"PossiblyFalseQ::usage", 38208, 1302},
- {"PossiblyNonzeroQ::usage", 38317, 1305},
- {"AnyQ::usage", 38416, 1308},
- {"AnyElementQ::usage", 38511, 1311},
- {"AnyMatchQ::usage", 38610, 1314},
- {"AllQ::usage", 38703, 1317},
- {"AllElementQ::usage", 38799, 1320},
- {"AllMatchQ::usage", 38899, 1323},
- {"AnyNonzeroQ::usage", 39000, 1326},
- {"AnyPossiblyNonzeroQ::usage", 39110, 1329},
- {"SymbolQ::usage", 39216, 1332},
- {"SymbolicFunctionQ::usage", 39320, 1335},
- {"CoefficientQ::usage", 39430, 1338},
- {"NonzeroDimQ::usage", 39534, 1341},
- {"PureStateQ::usage", 39636, 1344},
- {"DiagonalMatrixQ::usage", 39743, 1347},
- {"ColumnVectorQ::usage", 39853, 1350},
- {"RowVectorQ::usage", 39958, 1353},
- {"GeneralVectorQ::usage", 40064, 1356}
+ {"AllElementQ::usage", 43291, 1458},
+ {"AllMatchQ::usage", 43391, 1461},
+ {"AllQ::usage", 43485, 1464},
+ {"AnyElementQ::usage", 43581, 1467},
+ {"AnyMatchQ::usage", 43680, 1470},
+ {"AnyNonzeroQ::usage", 43780, 1473},
+ {"AnyPossiblyNonzeroQ::usage", 43890, 1476},
+ {"AnyQ::usage", 43993, 1479},
+ {"CoefficientQ::usage", 44089, 1482},
+ {"ColumnVectorQ::usage", 44194, 1485},
+ {"DiagonalMatrixQ::usage", 44304, 1488},
+ {"GeneralVectorQ::usage", 44415, 1491},
+ {"NonzeroDimQ::usage", 44522, 1494},
+ {"PossiblyFalseQ::usage", 44629, 1497},
+ {"PossiblyNonzeroQ::usage", 44738, 1500},
+ {"PossiblyTrueQ::usage", 44846, 1503},
+ {"PureStateQ::usage", 44947, 1506},
+ {"RowVectorQ::usage", 45049, 1509},
+ {"SymbolQ::usage", 45148, 1512}
  }
 *)
 (*NotebookFileOutline
@@ -1404,12 +1559,12 @@ Cell[2697, 87, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
 Cell[2822, 92, 162, 3, 28, "Input"],
 Cell[2987, 97, 99, 1, 28, "Output"]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[3123, 103, 159, 3, 28, "Input"],
+Cell[3123, 103, 159, 3, 22, "Input"],
 Cell[3285, 108, 98, 1, 28, "Output"]
-}, Open  ]]
 }, Closed]]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[3444, 116, 101, 1, 44, "Subsection"],
@@ -1517,128 +1672,159 @@ Cell[CellGroupData[{
 Cell[19557, 704, 107, 1, 64, "Section"],
 Cell[CellGroupData[{
 Cell[19689, 709, 143, 2, 44, "Subsection"],
-Cell[19835, 713, 933, 26, 31, "Text",
+Cell[19835, 713, 1114, 33, 31, "Text",
  CellTags->"SymbolQ::usage"],
 Cell[CellGroupData[{
-Cell[20793, 743, 100, 1, 35, "Subsubsection"],
-Cell[20896, 746, 119, 1, 30, "Text"],
+Cell[20974, 750, 158, 2, 35, "Subsubsection"],
+Cell[21135, 754, 175, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[21040, 751, 126, 2, 28, "Input"],
-Cell[21169, 755, 73, 1, 28, "Output"]
+Cell[21335, 760, 126, 2, 28, "Input"],
+Cell[21464, 764, 73, 1, 28, "Output"]
 }, Open  ]],
-Cell[21257, 759, 123, 1, 30, "Text"],
+Cell[21552, 768, 167, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[21405, 764, 177, 3, 28, "Input"],
-Cell[21585, 769, 73, 1, 28, "Output"]
+Cell[21744, 774, 203, 4, 46, "Input"],
+Cell[21950, 780, 76, 1, 28, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[22075, 787, 120, 1, 29, "Subsubsection"],
+Cell[22198, 790, 123, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[22346, 795, 336, 8, 63, "Input"],
+Cell[22685, 805, 74, 1, 28, "Output"]
 }, Open  ]],
-Cell[21673, 773, 117, 1, 30, "Text"],
+Cell[22774, 809, 279, 6, 30, "Text"],
 Cell[CellGroupData[{
-Cell[21815, 778, 203, 4, 46, "Input"],
-Cell[22021, 784, 76, 1, 28, "Output"]
+Cell[23078, 819, 177, 3, 28, "Input"],
+Cell[23258, 824, 73, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[22158, 792, 153, 2, 44, "Subsection"],
-Cell[22314, 796, 1006, 25, 31, "Text",
- CellTags->"SymbolicFunctionQ::usage"],
-Cell[CellGroupData[{
-Cell[23345, 825, 100, 1, 35, "Subsubsection"],
-Cell[23448, 828, 121, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[23594, 833, 185, 4, 28, "Input"],
-Cell[23782, 839, 97, 1, 28, "Output"]
-}, Open  ]],
-Cell[23894, 843, 135, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[24054, 848, 192, 4, 28, "Input"],
-Cell[24249, 854, 76, 1, 28, "Output"]
-}, Open  ]],
-Cell[24340, 858, 157, 3, 30, "Text"],
-Cell[CellGroupData[{
-Cell[24522, 865, 190, 4, 28, "Input"],
-Cell[24715, 871, 100, 1, 28, "Output"]
-}, Open  ]]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[24876, 879, 143, 2, 44, "Subsection"],
-Cell[25022, 883, 1093, 30, 31, "Text",
+Cell[23392, 832, 199, 3, 44, "Subsection"],
+Cell[23594, 837, 984, 23, 31, "Text",
  CellTags->"CoefficientQ::usage"],
 Cell[CellGroupData[{
-Cell[26140, 917, 100, 1, 35, "Subsubsection"],
+Cell[24603, 864, 212, 3, 35, "Subsubsection"],
+Cell[24818, 869, 190, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[26265, 922, 133, 2, 28, "Input"],
-Cell[26401, 926, 73, 1, 28, "Output"]
+Cell[25033, 875, 335, 7, 28, "Input"],
+Cell[25371, 884, 194, 4, 28, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[25614, 894, 109, 1, 29, "Subsubsection"],
+Cell[25726, 897, 184, 2, 30, "Text"],
+Cell[CellGroupData[{
+Cell[25935, 903, 188, 4, 28, "Input"],
+Cell[26126, 909, 160, 3, 28, "Output"]
 }, Open  ]],
+Cell[26301, 915, 242, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[26511, 932, 222, 5, 28, "Input"],
-Cell[26736, 939, 73, 1, 28, "Output"]
+Cell[26568, 923, 132, 2, 28, "Input"],
+Cell[26703, 927, 73, 1, 28, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[26825, 934, 111, 1, 29, "Subsubsection"],
+Cell[26939, 937, 356, 7, 30, "Text"],
+Cell[CellGroupData[{
+Cell[27320, 948, 472, 13, 28, "Input"],
+Cell[27795, 963, 197, 4, 28, "Output"]
+}, Open  ]],
+Cell[28007, 970, 307, 6, 30, "Text"],
+Cell[CellGroupData[{
+Cell[28339, 980, 583, 16, 80, "Input"],
+Cell[28925, 998, 227, 6, 28, "Output"]
+}, Open  ]],
+Cell[29167, 1007, 222, 5, 30, "Text"],
+Cell[CellGroupData[{
+Cell[29414, 1016, 367, 10, 35, "Input"],
+Cell[29784, 1028, 134, 3, 28, "Output"]
+}, Open  ]],
+Cell[29933, 1034, 233, 4, 30, "Text"],
+Cell[CellGroupData[{
+Cell[30191, 1042, 300, 8, 28, "Input"],
+Cell[30494, 1052, 147, 3, 28, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[30690, 1061, 158, 2, 29, "Subsubsection"],
+Cell[30851, 1065, 216, 4, 30, "Text"],
+Cell[CellGroupData[{
+Cell[31092, 1073, 141, 2, 28, "Input"],
+Cell[31236, 1077, 74, 1, 28, "Output"]
+}, Open  ]],
+Cell[31325, 1081, 186, 2, 30, "Text"],
+Cell[CellGroupData[{
+Cell[31536, 1087, 302, 7, 28, "Input"],
+Cell[31841, 1096, 161, 3, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[26882, 948, 105, 1, 64, "Section"],
+Cell[32075, 1107, 105, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[27012, 953, 103, 1, 44, "Subsection"],
-Cell[27118, 956, 1055, 24, 31, "Text",
+Cell[32205, 1112, 103, 1, 44, "Subsection"],
+Cell[32311, 1115, 1055, 24, 31, "Text",
  CellTags->"NonzeroDimQ::usage"],
 Cell[CellGroupData[{
-Cell[28198, 984, 99, 1, 35, "Subsubsection"],
+Cell[33391, 1143, 99, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[28322, 989, 174, 4, 28, "Input"],
-Cell[28499, 995, 74, 1, 28, "Output"]
+Cell[33515, 1148, 174, 4, 28, "Input"],
+Cell[33692, 1154, 74, 1, 28, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28634, 1003, 98, 1, 44, "Subsection"],
-Cell[28735, 1006, 1045, 24, 31, "Text",
+Cell[33827, 1162, 98, 1, 44, "Subsection"],
+Cell[33928, 1165, 1045, 24, 31, "Text",
  CellTags->"PureStateQ::usage"],
 Cell[CellGroupData[{
-Cell[29805, 1034, 98, 1, 35, "Subsubsection"],
+Cell[34998, 1193, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[29928, 1039, 280, 8, 28, "Input"],
-Cell[30211, 1049, 73, 1, 28, "Output"]
+Cell[35121, 1198, 280, 8, 28, "Input"],
+Cell[35404, 1208, 73, 1, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[30321, 1055, 309, 9, 28, "Input"],
-Cell[30633, 1066, 74, 1, 28, "Output"]
+Cell[35514, 1214, 309, 9, 28, "Input"],
+Cell[35826, 1225, 74, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[30768, 1074, 103, 1, 44, "Subsection"],
-Cell[30874, 1077, 1036, 24, 31, "Text",
+Cell[35961, 1233, 103, 1, 44, "Subsection"],
+Cell[36067, 1236, 1036, 24, 31, "Text",
  CellTags->"DiagonalMatrixQ::usage"],
 Cell[CellGroupData[{
-Cell[31935, 1105, 100, 1, 35, "Subsubsection"],
+Cell[37128, 1264, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[32060, 1110, 234, 5, 28, "Input"],
-Cell[32297, 1117, 97, 1, 28, "Output"]
+Cell[37253, 1269, 234, 5, 28, "Input"],
+Cell[37490, 1276, 97, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32455, 1125, 131, 1, 44, "Subsection"],
-Cell[32589, 1128, 1079, 29, 31, "Text",
+Cell[37648, 1284, 131, 1, 44, "Subsection"],
+Cell[37782, 1287, 1079, 29, 31, "Text",
  CellTags->"ColumnVectorQ::usage"],
-Cell[33671, 1159, 1168, 30, 31, "Text",
+Cell[38864, 1318, 1168, 30, 31, "Text",
  CellTags->"RowVectorQ::usage"],
-Cell[34842, 1191, 1218, 34, 31, "Text",
+Cell[40035, 1350, 1218, 34, 31, "Text",
  CellTags->"GeneralVectorQ::usage"],
 Cell[CellGroupData[{
-Cell[36085, 1229, 100, 1, 35, "Subsubsection"],
+Cell[41278, 1388, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[36210, 1234, 923, 29, 63, "Input"],
-Cell[37136, 1265, 162, 3, 28, "Output"],
-Cell[37301, 1270, 161, 3, 28, "Output"],
-Cell[37465, 1275, 160, 3, 28, "Output"]
+Cell[41403, 1393, 923, 29, 63, "Input"],
+Cell[42329, 1424, 162, 3, 28, "Output"],
+Cell[42494, 1429, 161, 3, 28, "Output"],
+Cell[42658, 1434, 160, 3, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
-Cell[37664, 1283, 89, 1, 44, "Subsection"]
+Cell[42857, 1442, 89, 1, 44, "Subsection"]
 }, Open  ]]
 }, Open  ]]
 }

@@ -40,12 +40,15 @@ Needs["QUDevTools`"];
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Predicates.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declarations*)
 
 
 (* ::Subsection::Closed:: *)
 (*Fuzzy Logic*)
+
+
+Unprotect[PossiblyTrueQ,PossiblyFalseQ,PossiblyNonzeroQ];
 
 
 AssignUsage[PossiblyTrueQ,$Usages];
@@ -55,6 +58,9 @@ AssignUsage[PossiblyNonzeroQ,$Usages];
 
 (* ::Subsection::Closed:: *)
 (*Numbers and Lists*)
+
+
+Unprotect[AnyQ,AnyMatchQ,AnyElementQ,AllQ,AllMatchQ,AllElementQ,AnyNonzeroQ,AnyPossiblyNonzeroQ];
 
 
 AssignUsage[AnyQ,$Usages];
@@ -75,13 +81,18 @@ AssignUsage[AnyPossiblyNonzeroQ,$Usages];
 (*Symbolic Expressions*)
 
 
+Unprotect[SymbolQ,CoefficientQ];
+
+
 AssignUsage[SymbolQ,$Usages];
-AssignUsage[SymbolicFunctionQ,$Usages];
 AssignUsage[CoefficientQ,$Usages];
 
 
 (* ::Subsection::Closed:: *)
 (*Matrices and Vectors*)
+
+
+Unprotect[NonzeroDimQ,DiagonalMatrixQ,PureStateQ,ColumnVectorQ,RowVectorQ,GeneralVectorQ];
 
 
 AssignUsage[NonzeroDimQ,$Usages];
@@ -92,7 +103,7 @@ AssignUsage[RowVectorQ,$Usages];
 AssignUsage[GeneralVectorQ,$Usages];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
@@ -138,22 +149,23 @@ AnyPossiblyNonzeroQ[expr_]:=AnyElementQ[PossiblyNonzeroQ,expr]
 (*Symbolic Expressions*)
 
 
-SymbolQ[a_]:=Head[a]===Symbol;
-
-
-SymbolicFunctionQ[arg_]:=
+SymbolQ[a_]:=
 	And[
-		MemberQ[Attributes@Evaluate[Head@arg],NumericFunction],
-		AllElementQ[
-			NumericQ[#]||SymbolQ[#]&,
-			Apply[List,List@@arg,Infinity]
+		SameQ[Head[a],Symbol],
+		SameQ[DownValues[a],{}]
+	];
+
+
+CoefficientQ[expr_]:=
+	NumericQ[expr]||SymbolQ[expr]||
+	With[{head=Head[expr]},
+		And[
+			MatchQ[expr,_[__]],
+			SymbolQ[head],
+			SameQ[DownValues[head],{}],
+			SameQ[#,{}]||SameQ[#,{Temporary}]||MemberQ[#,NumericFunction]&[Attributes@head],
+			AllQ[NumericQ[#]||SymbolQ[#]||CoefficientQ[#]&, List@@expr]
 		]
-	]
-
-
-CoefficientQ[a_]:=Or[
-	NumericQ[a]||SymbolQ[a],
-	SymbolicFunctionQ[a]
 	]
 
 
@@ -242,7 +254,7 @@ Predicates`Private`Polyfill[10,
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Unit Testing*)
 
 
@@ -312,23 +324,22 @@ TestCase["Predicates:SymbolQ",
 	And[
 		Not@SymbolQ[12],
 		Module[{arg},SymbolQ[arg]],
+		Module[{f},f[x_]:=x; Not@SymbolQ[f]],
 		With[{x=10},Not@SymbolQ[x]]
 	]];
 
 
-TestCase["Predicates:SymbolicFunctionQ", 
+TestCase["Predicates:CoefficientQ",
+	Module[{f,g,x,y},
 	And[
-		Module[{t},SymbolicFunctionQ[Sin[3*t]]],
-		Module[{a,b},Not@SymbolicFunctionQ[Dot[a,b]]]
-	]];
-
-
-TestCase["Predicates:CoefficientQ", 
-	And[
-		Module[{t},CoefficientQ[Sin[3*t]]],
-		Module[{a,b},CoefficientQ[a]],
-		Not@CoefficientQ["x"]
-	]];
+		CoefficientQ[Sin[3*x]],
+		CoefficientQ[g[x,y]],
+		CoefficientQ[f[g[x]]],
+		CoefficientQ[x],
+		Not@CoefficientQ[Sin["x"]],
+		Not@CoefficientQ[CircleTimes[x,y]],
+		Not@CoefficientQ[Dot[1,2]]
+	]]];
 
 
 (* ::Subsection::Closed:: *)
@@ -389,6 +400,12 @@ End[];
 
 (* ::Section::Closed:: *)
 (*End Package*)
+
+
+Protect[PossiblyTrueQ,PossiblyFalseQ,PossiblyNonzeroQ];
+Protect[AnyQ,AnyMatchQ,AnyElementQ,AllQ,AllMatchQ,AllElementQ,AnyNonzeroQ,AnyPossiblyNonzeroQ];
+Protect[SymbolQ,CoefficientQ];
+Protect[NonzeroDimQ,DiagonalMatrixQ,PureStateQ,ColumnVectorQ,RowVectorQ,GeneralVectorQ];
 
 
 EndPackage[];
