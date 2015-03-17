@@ -36,7 +36,7 @@ Needs["UnitTesting`"];
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
 
 
@@ -44,14 +44,14 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}
 (*Matrices and Operations*)
 
 
-Unprotect[CircleTimes,BlockMatrix,UnitArray,ArrayPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
+Unprotect[CircleTimes,BlockMatrix,UnitArray,TensorFactorPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
 
 
 AssignUsage[CircleTimes,$Usages];
 AssignUsage[\[DoubleStruckOne]->IdentityMatrixShorthand,$Usages];
 AssignUsage[BlockMatrix,$Usages];
 AssignUsage[UnitArray,$Usages];
-AssignUsage[ArrayPermutations,$Usages];
+AssignUsage[TensorFactorPermutations,$Usages];
 AssignUsage[SwapMatrix,$Usages];
 AssignUsage[Com,$Usages];
 AssignUsage[ACom,$Usages];
@@ -131,7 +131,7 @@ AssignUsage[TP,$Usages];
 (*Matrices and Operations*)
 
 
-ArrayPermutations::input = "Input must be a sequence of elements {op,int}.";
+TensorFactorPermutations::input = "Input must be a sequence of elements {op,int}.";
 
 
 (* ::Subsubsection:: *)
@@ -163,14 +163,14 @@ PartialTr::input = "Input must be a square matrix, vector, or column vector.";
 BasisMatrix::dims = "Dimensions of input system must be specified.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices and Operations*)
 
 
@@ -204,11 +204,14 @@ CircleTimes[first_?ArrayQ,last_?ArrayQ]:=KroneckerProduct[first,last]
 CircleTimes[A_->n_Integer]:=CircleTimes@@ConstantArray[A,n]
 
 
-ArrayPermutations[arrayNums__]:=
+TensorFactorPermutations[arrayNums__List]:=
 	If[AllMatchQ[{_,_Integer},{arrayNums}],
 	Plus@@CircleTimes@@@
 			Permutations[Join@@ConstantArray@@@{arrayNums}],
-	Message[ArrayPermutations::input]]
+	Message[TensorFactorPermutations::input]]
+
+
+TensorFactorPermutations[arrayNums__Rule]:=TensorFactorPermutations[Sequence@@List@@@{arrayNums}]
 
 
 (* ::Text:: *)
@@ -954,10 +957,13 @@ TestCase["Tensor:BlockMatrix",
 TestCase["Tensor:UnitArray", UnitArray[{2,2},{1,1}]==={{1,0},{0,0}}];
 
 
-TestCase["Tensor:ArrayPermutations", 
+TestCase["Tensor:TensorFactorPermutations", 
 	Module[{a,b},
-		SameQ[ArrayPermutations[{a,2},{b,1}],
-		CircleTimes[a,a,b]+CircleTimes[a,b,a]+CircleTimes[b,a,a]]
+		AllMatchQ[
+			CircleTimes[a,a,b]+CircleTimes[a,b,a]+CircleTimes[b,a,a],
+			{TensorFactorPermutations[{a,2},{b,1}],
+			TensorFactorPermutations[a->2,b->1]}]
+		
 	]];
 
 
@@ -969,19 +975,24 @@ TestCase["Tensor:SwapMatrix",
 
 
 TestCase["Tensor:Com",
+	Module[{a,b},
 	And[
-		Module[{a},Com[1,a]===0],
-		Module[{a,b},Com[a,b,2]===Com[a,Com[a,b]]],
-		Com[PauliMatrix[1],PauliMatrix[2]]===2*I*PauliMatrix[3]
-	]];
+		Com[a,b,1]===Com[a,b],
+		Com[a,b,0]===b,
+		AllMatchQ[0,{Com[1,b],Com[b,\[Pi]],Com[a,Zeta[3],3],Com[1/2,b,2]}],
+		Com[PauliMatrix[1],PauliMatrix[2]]===2*I*PauliMatrix[3],
+		Com[PauliMatrix[1],PauliMatrix[2],5]===32*I*PauliMatrix[3]
+	]]];
 
 
 TestCase["Tensor:ACom",
+	Module[{a,b},
 	And[
-		Module[{a},ACom[1,a]===2*a],
-		Module[{a,b},ACom[a,b,2]===ACom[a,ACom[a,b]]],
-		Norm@ACom[PauliMatrix[1],PauliMatrix[2]]===0
-	]];
+		ACom[a,b,1]===ACom[a,b],
+		ACom[a,b,0]===b,
+		Norm[ACom[PauliMatrix[1],PauliMatrix[2]]]===0,
+		Norm[ACom[PauliMatrix[1],PauliMatrix[2],5]]===0
+	]]];
 
 
 TestCase["Tensor:OuterProduct", 
@@ -1188,7 +1199,7 @@ End[];
 (*End Package*)
 
 
-Protect[CircleTimes,BlockMatrix,UnitArray,ArrayPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
+Protect[CircleTimes,BlockMatrix,UnitArray,TensorFactorPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
 Protect[Basis,BasisLabels,ExpressInBasis];
 Protect[Vec,Devec,ProductIdentity,BasisMatrix,BasisTransformation,Rules];
 Protect[MatrixToTensor,MatrixTranspose,Swap,Reshuffle,Unravel,Reravel];
