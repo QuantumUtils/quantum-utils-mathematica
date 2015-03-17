@@ -131,7 +131,7 @@ MagnusGenerator[{A_,t0_,tf_},{n_,j_},opt:OptionsPattern[]]:=
 	MagnusGenerator[{A,t0,tf},{n,j},opt]=
 		Block[{fn=OptionValue[Simplify]},
 			If[fn===True,fn=Simplify];
-			If[OptionValue[Chop],fn=fn@*Chop];
+			If[OptionValue[Chop],fn=Composition[fn,Chop]];
 			fn@Which[
 				j===1,
 					Com[MagnusExpansionTerm[{A,t0,tf},n-1,opt],A[tf]],
@@ -156,7 +156,7 @@ MagnusExpansionTermCached[{A_,t0_,tf_},k_,opt:OptionsPattern[]]:=
 	MagnusExpansionTermCached[{A,t0,tf},k,opt]=
 		Block[{fn=OptionValue[Simplify]},
 			If[fn===True,fn=Simplify];
-			If[OptionValue[Chop],fn=fn@*Chop];
+			If[OptionValue[Chop],fn=Composition[fn,Chop]];
 			fn@If[k===1,
 				If[OptionValue[NIntegrate],
 					NIntegrate[A[t],{t,t0,tf}],

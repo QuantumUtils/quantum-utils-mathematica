@@ -162,7 +162,7 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States and Operators*)
 
 
@@ -468,7 +468,7 @@ KetFormMatrix[mat_]:=
 	]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Vec Form*)
 
 
@@ -501,9 +501,9 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 			MatrixPower[VecForm[First@obj,opts],VecForm[Last@obj,opts]],
 		(* Bra-Ket *)
 		MatchQ[obj,Ket[{__}]],
-			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,First@obj],{1}],1],
+			Partition[CircleTimes@@Apply[Composition[f,UnitVector],Map[KetDimensions,First@obj],{1}],1],
 		MatchQ[obj,Ket[__]],
-			Partition[CircleTimes@@Apply[f@*UnitVector,Map[KetDimensions,List@@obj],{1}],1],
+			Partition[CircleTimes@@Apply[Composition[f,UnitVector],Map[KetDimensions,List@@obj],{1}],1],
 		MatchQ[obj,Bra[{__}]],
 			ConjugateTranspose[VecForm[Ket@@First[obj],opts]],
 		MatchQ[obj,Bra[__]],
@@ -1069,11 +1069,11 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*State Measures*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Entropy*)
 
 
@@ -1115,7 +1115,7 @@ MatrixLogZero[base_,A_]:=
 			ReplaceAll[
 				Log[base,First[sys]],
 				{DirectedInfinity[-1]->-"\[Infinity]",DirectedInfinity[1]->"\[Infinity]"}
-			]*Map[Projector@*Normalize,Last[sys]]
+			]*Map[Composition[Projector,Normalize],Last[sys]]
 	]]
 
 
