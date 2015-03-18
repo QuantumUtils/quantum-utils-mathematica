@@ -17,7 +17,7 @@ QuantumUtils for Mathematica is a software library for quantum information scien
 
 ## Requirements
 
-QuantumUtils requires Mathematica 10.0.0 or newer. It will not work with older versions of Mathematica, though partial support for Mathematica 9 may be added in the future.
+QuantumUtils officially requires Mathematica 10.0.0 or newer. Many features should still work with Mathematica 9, and further compatibility may be added in the future. Older versions of Mathematica are not supported.
 
 ## Installation
 
