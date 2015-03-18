@@ -50,7 +50,7 @@ $QUDocumentationPath::usage = "$QUDocumentationPath returns the path to document
 $QUSourcePath::usage = "$QUDocumentationPath returns the path to the source folder for QuantumUtils`.";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Function Options*)
 
 
@@ -58,7 +58,12 @@ InheritOptions::usage = "InheritOptions[fn_, {baseFns__}, newOptions_] defines o
 
 
 FilterOptions::usage = "FilterOptions[function, opt1, opt2, opt3,...] returns a Sequence of those options in opt1,opt2,... which are Options of the given function.
-FilterOptions[{function1,function2,...}, opt1, opt2, opt3,...] returns a Sequence of those options in opt1,opt2,... which are Options of any of the given functions.";
+FilterOptions[{function1,function2,...}, opt1, opt2, opt3,...] returns a Sequence of those options in opt1,opt2,... which are Options of any of the given functions.
+FilterOptions[{distributor,n}, function, opt1, opt2, opt3,...] for those selected options with value Head distributor, sets the returned option value to the n'th argument of distributor.
+FilterOptions[{distributor,n}, {function1,function2,...}, opt1, opt2, opt3,...] for those selected options with value Head distributor, sets the returned option value to the n'th argument of distributor.";
+
+
+FilterOptions::toomany = "Expecting at least `1` option values for `2`; `3` received.";
 
 
 (* ::Subsection::Closed:: *)
@@ -146,8 +151,16 @@ InheritOptions[fn_,{baseFns__},newOptions_]:=(
 )
 
 
-FilterOptions[function_,options___]:=Apply[Sequence, FilterRules[{options},Options[function]]]
-FilterOptions[{function__},options___]:=Apply[Sequence, FilterRules[{options},Options/@{function}]]
+FilterOptions[function_,options___Rule]:=Apply[Sequence, FilterRules[{options},Options[function]]]
+FilterOptions[{function__},options___Rule]:=Apply[Sequence, FilterRules[{options},Options/@{function}]]
+FilterOptions[{distributor_,n_Integer},args___]:=Apply[
+	Sequence,
+	{FilterOptions[args]} /. 
+		(option_->distributor[values__]):>If[Length[{values}]>=n,
+			option->{values}[[n]],
+			Message[FilterOptions::toomany,n,option,Length[{values}]];
+		]
+]
 
 
 (* ::Subsection::Closed:: *)
@@ -264,7 +277,7 @@ AssignUsage[symb_Symbol, usageData_UsageData] := AssignUsage[symb->symb,usageDat
 AssignUsage[{s:(__Rule|__Symbol)}, usageData_UsageData] := Map[AssignUsage[#, usageData]&, {s}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Links and Buttons*)
 
 
