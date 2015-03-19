@@ -50,7 +50,7 @@ $QUDocumentationPath::usage = "$QUDocumentationPath returns the path to document
 $QUSourcePath::usage = "$QUDocumentationPath returns the path to the source folder for QuantumUtils`.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Function Options*)
 
 
@@ -139,7 +139,7 @@ $QUDocumentationPath = DocumentationPath /. QuantumUtilsOptions[];
 $QUSourcePath = SourcePath /. QuantumUtilsOptions[];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Function Options*)
 
 
@@ -156,7 +156,7 @@ FilterOptions[{function__},options___Rule]:=Apply[Sequence, FilterRules[{options
 FilterOptions[{distributor_,n_Integer},args___]:=Apply[
 	Sequence,
 	{FilterOptions[args]} /. 
-		(option_->distributor[values__]):>If[Length[{values}]>=n,
+		Rule[option_,distributor[values__]]:>If[Length[{values}]>=n,
 			option->{values}[[n]],
 			Message[FilterOptions::toomany,n,option,Length[{values}]];
 		]
