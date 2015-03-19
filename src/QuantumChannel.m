@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -37,7 +37,7 @@ Needs["QuantumSystems`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declarations*)
 
 
@@ -137,7 +137,7 @@ Lindblad::input = "Input must be a matrix, list of matrices, or sequence of matr
 FunctionChannel::indims = "InputDims option must be an integer.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
@@ -316,7 +316,7 @@ Stinespring[m_?StinespringQ,OptionsPattern[QuantumChannel]]:=
 
 SysEnv[op_?SysEnvQ,OptionsPattern[QuantumChannel]]:=
 	With[{
-		dims=Dimensions[First[op]],
+		dims=Dimensions@First@If[SysEnvPairQ[op],First@op,op],
 		dEnv=Length[Flatten[Last[op]]],
 		inOpt=OptionValue[InputDim],
 		outOpt=OptionValue[OutputDim],
@@ -706,12 +706,12 @@ EvolutionSuper[chan_QuantumChannel,state_]:=
 		basis=Basis[chan],
 		S=First[chan]},
 	Which[
-		And[GeneralVectorQ[state],d===inDim^2],
+		And[GeneralVectorQ[state],d===inDim^2],	
 			BasisTransformation[S,basis->OptionValue[Vec,Basis]].state,
-		And[d===inDim,MatrixQ[state]],
-			Devec[First[chan].Vec[state,Basis->basis],Basis->basis],
 		And[d===inDim,GeneralVectorQ[state]],
 			Devec[First[chan].Vec[Projector[state],Basis->basis],Basis->basis],
+		And[d===inDim,MatrixQ[state]],
+			Devec[First[chan].Vec[state,Basis->basis],Basis->basis],		
 		True,
 			Message[QuantumChannel::state]
 	]]
@@ -862,7 +862,7 @@ QuantumChannel/:MatrixLog[chan_QuantumChannel]:=
 	ChannelRep[chan][ChannelFunction[Super[chan],MatrixLog]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Tensor Product*)
 
 
@@ -888,7 +888,7 @@ QuantumChannel/:KroneckerProduct[chans__QuantumChannel]:=
 QuantumChannel/:CircleTimes[chans__QuantumChannel]:=KroneckerProduct[chans]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Eigenvalues*)
 
 
@@ -897,7 +897,7 @@ QuantumChannel/:Eigenvectors[chan_QuantumChannel]:=Eigenvectors[First@Choi[chan]
 QuantumChannel/:Eigensystem[chan_QuantumChannel]:=Eigensystem[First@Choi[chan]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Simplify Etc*)
 
 
@@ -1057,8 +1057,615 @@ FunctionChannel[func_,opts:OptionsPattern[QuantumChannel]]:=
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Unit Testing*)
+
+
+(* ::Subsection::Closed:: *)
+(*Channels*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Representations*)
+
+
+TestCase["QuantumChannel:Unitary",
+	SameQ[
+		Unitary[PauliMatrix[1]],
+		QuantumChannel[PauliMatrix[1],{ChannelRep->Unitary,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
+
+
+TestCase["QuantumChannel:Super",
+	SameQ[
+		Super[IdentityMatrix[4]],
+		QuantumChannel[IdentityMatrix[4],{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
+
+
+TestCase["QuantumChannel:Choi",
+	And[
+		SameQ[
+			Choi[IdentityMatrix[4]],
+			QuantumChannel[IdentityMatrix[4],
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		SameQ[
+			Choi[IdentityMatrix[8],InputDim->4],
+			QuantumChannel[IdentityMatrix[8],
+				{ChannelRep->Choi,InputDim->4,OutputDim->2,Basis->"Col"}]]
+	]];
+
+
+TestCase["QuantumChannel:Chi",
+	SameQ[
+		Chi[IdentityMatrix[4]],
+		QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
+
+
+TestCase["QuantumChannel:Kraus",
+	SameQ[
+		Kraus[Table[PauliMatrix[j],{j,4}]],
+		QuantumChannel[Table[PauliMatrix[j],{j,4}],
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
+
+
+TestCase["QuantumChannel:Stinespring",
+	Module[{a,b},
+	And[
+	SameQ[
+		Stinespring[Array[a,{8,2}],OutputDim->2],
+		QuantumChannel[Array[a,{8,2}],
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]],
+	SameQ[
+		Stinespring[{Array[a,{8,2}],Array[b,{8,2}]},OutputDim->2],
+		QuantumChannel[{Array[a,{8,2}],Array[b,{8,2}]},
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]
+
+	]]];
+
+
+TestCase["QuantumChannel:SysEnv",
+	Module[{a,b},
+	And[
+		SameQ[
+		SysEnv[{Array[a,{4,4}],{1,0}}],
+		QuantumChannel[{Array[a,{4,4}],{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		SameQ[
+		SysEnv[{{Array[a,{4,4}],Array[b,{4,4}]},{1,0}}],
+		QuantumChannel[{{Array[a,{4,4}],Array[b,{4,4}]},{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	]]];
+
+
+TestCase["QuantumChannel:ChannelParameters",
+	SameQ[
+		ChannelParameters[QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}
+	]];
+
+
+TestCase["QuantumChannel:ChannelRep",
+	SameQ[
+		ChannelRep[QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		Super
+	]];
+
+
+TestCase["QuantumChannel:ChannelRep",
+	SameQ[
+		ChannelRep[QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		Super
+	]];
+
+
+TestCase["QuantumChannel:InputDim",
+	SameQ[
+		InputDim[QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		2
+	]];
+
+
+TestCase["QuantumChannel:OutputDim",
+	SameQ[
+		OutputDim[QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		2
+	]];
+
+
+TestCase["QuantumChannel:Basis",
+	SameQ[
+		Basis[QuantumChannel[IdentityMatrix[4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		"Col"
+	]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Evolution*)
+
+
+TestCase["QuantumChannel:UnitaryEvolution",
+	With[{chan=QuantumChannel[
+				PauliMatrix[1],
+				{ChannelRep->Unitary,InputDim->2,OutputDim->2,Basis->"Col"}]},
+	And[
+		chan[{{1},{0}}]==={{0},{1}},
+		chan[{1,0}]==={0,1},
+		chan[{{1,0},{0,0}}]==={{0,0},{0,1}},
+		chan[{1,0,0,0}]==={0,0,0,1},
+		chan[{{1},{0},{0},{0}}]==={{0},{0},{0},{1}}
+	]]];
+
+
+TestCase["QuantumChannel:SuperEvolution",
+	With[{
+		chan=QuantumChannel[
+			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}/2,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}],
+		out=IdentityMatrix[2]/2},
+	And[
+		chan[{{1},{0}}]===out,
+		chan[{1,0}]===out,
+		chan[{{1,0},{0,0}}]===out,
+		chan[{1,0,0,0}]==={1,0,0,1}/2,
+		chan[{{1},{0},{0},{0}}]==={{1},{0},{0},{1}}/2
+	]]];
+
+
+TestCase["QuantumChannel:ChoiEvolution",
+	With[{
+		chan=QuantumChannel[
+				IdentityMatrix[4]/2,
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}],	
+		out=IdentityMatrix[2]/2},
+	And[
+		chan[{{1},{0}}]===out,
+		chan[{1,0}]===out,
+		chan[{{1,0},{0,0}}]===out,
+		chan[{1,0,0,0}]==={1,0,0,1}/2,
+		chan[{{1},{0},{0},{0}}]==={{1},{0},{0},{1}}/2
+	]]];
+
+
+TestCase["QuantumChannel:KrausEvolution",
+	With[{
+		chan=QuantumChannel[
+				(PauliMatrix/@Range[4])/2,
+				{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}],	
+		out=IdentityMatrix[2]/2},
+	And[
+		chan[{{1},{0}}]===out,
+		chan[{1,0}]===out,
+		chan[{{1,0},{0,0}}]===out,
+		chan[{1,0,0,0}]==={1,0,0,1}/2,
+		chan[{{1},{0},{0},{0}}]==={{1},{0},{0},{1}}/2
+	]]];
+
+
+TestCase["QuantumChannel:SysEnvEvolution",
+	With[{
+		chan=QuantumChannel[
+				{{{0,0,1,0},{0,1,0,0},{1,0,0,0},{0,0,1,0}},{1,0}},
+				{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}],	
+		out={{0,0},{0,1}}},
+	And[
+		chan[{{1},{0}}]===out,
+		chan[{1,0}]===out,
+		chan[{{1,0},{0,0}}]===out,
+		chan[{1,0,0,0}]==={0,0,0,1},
+		chan[{{1},{0},{0},{0}}]==={{0},{0},{0},{1}}
+	]]];
+
+
+TestCase["QuantumChannel:StinespringEvolution",
+	With[{
+		chan=QuantumChannel[
+				{{0,0},{0,0},{0,1},{1,0},{0,1},{1,0},{0,0},{0,0}}/Sqrt[2],
+				{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}],	
+		out=IdentityMatrix[2]/2},
+	And[
+		chan[{{1},{0}}]===out,
+		chan[{1,0}]===out,
+		chan[{{1,0},{0,0}}]===out,
+		chan[{1,0,0,0}]==={1,0,0,1}/2,
+		chan[{{1},{0},{0},{0}}]==={{1},{0},{0},{1}}/2
+	]]];
+
+
+(* ::Subsection::Closed:: *)
+(*Channel Transformations*)
+
+
+(* ::Subsubsection:: *)
+(*From Unitary*)
+
+
+TestCase["QuantumChannel:UnitaryToUnitary",
+	True];
+
+
+TestCase["QuantumChannel:UnitaryToSuper",
+	True];
+
+
+TestCase["QuantumChannel:UnitaryToChoi",
+	True];
+
+
+TestCase["QuantumChannel:UnitaryToChi",
+	True];
+
+
+TestCase["QuantumChannel:UnitaryToKraus",
+	True];
+
+
+TestCase["QuantumChannel:UnitaryToStinespring",
+	True];
+
+
+TestCase["QuantumChannel:UnitaryToSysEnv",
+	True];
+
+
+(* ::Subsubsection::Closed:: *)
+(*From Super*)
+
+
+TestCase["QuantumChannel:SuperToUnitary",
+	True];
+
+
+TestCase["QuantumChannel:SuperToSuper",
+	True];
+
+
+TestCase["QuantumChannel:SuperToChoi",
+	True];
+
+
+TestCase["QuantumChannel:SuperToChi",
+	True];
+
+
+TestCase["QuantumChannel:SuperToKraus",
+	True];
+
+
+TestCase["QuantumChannel:SuperToStinespring",
+	True];
+
+
+TestCase["QuantumChannel:SuperToSysEnv",
+	True];
+
+
+(* ::Subsubsection::Closed:: *)
+(*From Choi*)
+
+
+TestCase["QuantumChannel:ChoiToUnitary",
+	True];
+
+
+TestCase["QuantumChannel:ChoiToSuper",
+	True];
+
+
+TestCase["QuantumChannel:ChoiToChoi",
+	True];
+
+
+TestCase["QuantumChannel:ChoiToChi",
+	True];
+
+
+TestCase["QuantumChannel:ChoiToKraus",
+	True];
+
+
+TestCase["QuantumChannel:ChoiToStinespring",
+	True];
+
+
+TestCase["QuantumChannel:ChoiToSysEnv",
+	True];
+
+
+(* ::Subsubsection::Closed:: *)
+(*From Kraus*)
+
+
+TestCase["QuantumChannel:KrausToUnitary",
+	True];
+
+
+TestCase["QuantumChannel:KrausToSuper",
+	True];
+
+
+TestCase["QuantumChannel:KrausToChoi",
+	True];
+
+
+TestCase["QuantumChannel:KrausToChi",
+	True];
+
+
+TestCase["QuantumChannel:KrausToKraus",
+	True];
+
+
+TestCase["QuantumChannel:KrausToStinespring",
+	True];
+
+
+TestCase["QuantumChannel:KrausToSysEnv",
+	True];
+
+
+(* ::Subsubsection::Closed:: *)
+(*From Stinespring*)
+
+
+TestCase["QuantumChannel:StinespringToUnitary",
+	True];
+
+
+TestCase["QuantumChannel:StinespringToSuper",
+	True];
+
+
+TestCase["QuantumChannel:StinespringToChoi",
+	True];
+
+
+TestCase["QuantumChannel:StinespringToChi",
+	True];
+
+
+TestCase["QuantumChannel:StinespringToKraus",
+	True];
+
+
+TestCase["QuantumChannel:StinespringToStinespring",
+	True];
+
+
+TestCase["QuantumChannel:StinespringToSysEnv",
+	True];
+
+
+(* ::Subsubsection::Closed:: *)
+(*From SysEnv*)
+
+
+TestCase["QuantumChannel:SysEnvToUnitary",
+	True];
+
+
+TestCase["QuantumChannel:SysEnvToSuper",
+	True];
+
+
+TestCase["QuantumChannel:SysEnvToChoi",
+	True];
+
+
+TestCase["QuantumChannel:SysEnvToChi",
+	True];
+
+
+TestCase["QuantumChannel:SysEnvToKraus",
+	True];
+
+
+TestCase["QuantumChannel:SysEnvToStinespring",
+	True];
+
+
+TestCase["QuantumChannel:SysEnvToSysEnv",
+	True];
+
+
+(* ::Subsection::Closed:: *)
+(*Channel Operations*)
+
+
+TestCase["QuantumChannel:Times",
+	True];
+
+
+TestCase["QuantumChannel:Plus",
+	True];
+
+
+TestCase["QuantumChannel:Dot",
+	True];
+
+
+TestCase["QuantumChannel:Transpose",
+	True];
+
+
+TestCase["QuantumChannel:Conjugate",
+	True];
+
+
+TestCase["QuantumChannel:ConjugateTranspose",
+	True];
+
+
+TestCase["QuantumChannel:MatrixPower",
+	True];
+
+
+TestCase["QuantumChannel:MatrixExp",
+	True];
+
+
+TestCase["QuantumChannel:MatrixLog",
+	True];
+
+
+TestCase["QuantumChannel:KroneckerProduct",
+	True];
+
+
+TestCase["QuantumChannel:CircleTimes",
+	True];
+
+
+TestCase["QuantumChannel:Eigenvalues",
+	True];
+
+
+TestCase["QuantumChannel:Eigenvectors",
+	True];
+
+
+TestCase["QuantumChannel:Eigensystem",
+	True];
+
+
+TestCase["QuantumChannel:SimplifyFunctions",
+	True];
+
+
+(* ::Subsection::Closed:: *)
+(*Channel Functions*)
+
+
+TestCase["QuantumChannel:ProcessFidelity",
+	True];
+
+
+TestCase["QuantumChannel:GateFidelity",
+	True];
+
+
+TestCase["QuantumChannel:AverageGateFidelity",
+	True];
+
+
+TestCase["QuantumChannel:EntanglementFidelity",
+	True];
+
+
+TestCase["QuantumChannel:ChannelVolume",
+	True];
+
+
+(* ::Subsection::Closed:: *)
+(*Predicates*)
+
+
+TestCase["QuantumChannel:CompletelyPositiveQ",
+	True];
+
+
+TestCase["QuantumChannel:TracePreservingQ",
+	True];
+
+
+TestCase["QuantumChannel:HermitianPreservingQ",
+	True];
+
+
+TestCase["QuantumChannel:UnitalQ",
+	True];
+
+
+TestCase["QuantumChannel:PauliChannelQ",
+	True];
+
+
+(* ::Subsection::Closed:: *)
+(*Special Channels*)
+
+
+TestCase["QuantumChannel:ComChannel",
+	With[{comY=QuantumChannel[
+				{{0,-I,-I,0},{I,0,0,-I},{I,0,0,-I},{0,I,I,0}},
+				{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]},
+	And[
+		SameQ[ComChannel[PauliMatrix[2]],comY],
+		SameQ[ComChannel[Unitary[PauliMatrix[2]]],comY]
+	]]];
+
+
+TestCase["QuantumChannel:AComChannel",
+	With[{acomY=QuantumChannel[
+				{{0,-I,I,0},{I,0,0,I},{-I,0,0,-I},{0,-I,I,0}},
+				{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]},
+	And[
+		SameQ[AComChannel[PauliMatrix[2]],acomY],
+		SameQ[AComChannel[Unitary[PauliMatrix[2]]],acomY]
+	]]];
+
+
+TestCase["QuantumChannel:LindbladDissipator",
+	And[
+		SameQ[
+			LindbladDissipator[PauliMatrix[1]],
+			QuantumChannel[
+				{{-1,0,0,1},{0,-1,1,0},{0,1,-1,0},{1,0,0,-1}},
+				{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]
+		],
+		SameQ[
+			LindbladDissipator[PauliMatrix[1],PauliMatrix[2]],
+			LindbladDissipator[PauliMatrix[1]]+LindbladDissipator[PauliMatrix[2]]
+		],
+		SameQ[
+			LindbladDissipator[{PauliMatrix[1],PauliMatrix[2]}],
+			LindbladDissipator[PauliMatrix[1]]+LindbladDissipator[PauliMatrix[2]]
+		]
+	]];
+
+
+TestCase["QuantumChannel:Lindblad",
+	SameQ[
+		Lindblad[PauliMatrix[1],PauliMatrix[2],{PauliMatrix[1],PauliMatrix[3]}],
+		-I*ComChannel[PauliMatrix[1]+PauliMatrix[2]]
+		+LindbladDissipator[PauliMatrix[1],PauliMatrix[3]]
+	]];
+
+
+TestCase["QuantumChannel:PartialTrChannel",
+	With[{chan=PartialTrChannel[{2,2},{1}]},
+	And[
+		SameQ[
+			ArrayRules[First@chan],
+			{{1,1}->1,{1,11}->1,{2,2}->1,{2,12}->1,
+			{3,5}->1,{3,15}->1,{4,6}->1,{4,16}->1,{_,_}->0}],
+		SameQ[Part[chan,2],{ChannelRep->Super,InputDim->4,OutputDim->2,Basis->"Col"}]
+	]]];
+
+
+TestCase["QuantumChannel:FunctionChannel",
+	And[
+		SameQ[
+			FunctionChannel[Tr,InputDim->3],
+			QuantumChannel[
+				IdentityMatrix[3],
+				{ChannelRep->Choi,InputDim->3,OutputDim->1,Basis->"Col"}]
+		],
+		SameQ[
+			FunctionChannel[Transpose,InputDim->2],
+			QuantumChannel[
+				{{1,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,1}},
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]
+		]
+	]];
 
 
 (* ::Section::Closed:: *)

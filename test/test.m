@@ -6,6 +6,7 @@ Needs["UnitTesting`"];
 
 Needs["Predicates`"];
 Needs["Tensor`"];
+Needs["QuantumChannel`"];
 Needs["LindbladSolver`"]
 
 Print["Running tests..."];
