@@ -156,25 +156,42 @@ AssignUsage[
 (*Distributions*)
 
 
-ParameterDistributionMean::usage = "ParameterDistributionMean[ParameterDistribution] returns a list of replacement rules at the mean of the distrubution (at objval=1).";
+Unprotect[
+	ParameterDistributionMean,
+	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
+	UniformParameterDistribution
+];
 
 
-RandomSampleParameterDistribution::usage = "RandomSampleParameterDistribution[probDist_, symbols_, n_] returns a ParameterDistribution based on the ProbabilityDistribution object probDist to be used with FindPulse. n is the number of random variates drawn each iteration of GRAPE. symbols can be a list of symbols or a single symbol.";
-MultiNormalParameterDistribution::usage = "MultiNormalParameterDistribution[\[Mu]_, \[CapitalSigma]_, symbols_, n_] passes a multinormal distribution to RandomSampleDistribution; see its documentation. \[CapitalSigma] can be a list of standard deviations, or the covariance matrix.";
-UniformParameterDistribution::usage = "UniformParameterDistribution[{{symb1min,symb1max},{symb2min,symb2max},...}, symbols_, n_] passes a uniform distribution to RandomSampleParameterDistribution; see its documentation. First argement can be a list of pairs, or just a pair in the case of a single symbol.";
-StaticParameterDistribution::usage = "StaticParameterDistribution[{p1,...,pn},{{symb1->val11,...,symbn->val1n},{symb1->val21,...,symbn->val2n},...}]";
-UniformStaticParameterDistribution::usage = "UniformStaticParameterDistribution[symb1->{mean1,width1,num1},symb2->{mean2,width2,num2}...] creates a GDistribiton over the specified hyperrectangle."
+AssignUsage[
+	{
+		ParameterDistributionMean,
+		RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
+		UniformParameterDistribution
+	},
+	$Usages
+];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulse Penalties*)
 
 
-ZeroPenalty::usage = "ZeroPenalty[] returns a pulse penalty that does nothing.";
+Unprotect[
+	ZeroPenalty,
+	DemandValuePenalty,
+	RingdownPenalty
+];
 
 
-DemandValuePenalty::usage = "DemandValuePenalty[\[Epsilon],m,r,qmax] returns a penalty function that is zero whenever (pulse-r)*m is 0. qmax is the maximum possible amplitude in pulse, and \[Epsilon] is an overall scaling factor.";
-RingdownPenalty::usage = "RingdownPenalty[\[Epsilon],startIndex,qmax] returns a penalty function that is zero whenever the pulse is 0 starting at startIndex. This is a special case of DemandValuePenalty.";
+AssignUsage[
+	{
+		ZeroPenalty,
+		DemandValuePenalty,
+		RingdownPenalty
+	},
+	$Usages
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -995,17 +1012,11 @@ RandomSampleParameterDistribution[probDist_,symbols_,n_]:=Module[{DistributionFu
 ]
 
 
-MultiNormalParameterDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleParameterDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
-UniformParameterDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleParameterDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
+RandomMultinormalParameterDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleParameterDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
+RandomUniformParameterDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleParameterDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
 
 
-StaticParameterDistribution[probs_,reps_]:=Module[{DistributionFunction},
-	DistributionFunction[cost_]={probs,reps};
-	DistributionFunction
-]
-
-
-UniformStaticParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
+UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
 	symbols={rules}[[All,1]];
 	means={rules}[[All,2,1]];
 	widths={rules}[[All,2,2]];
@@ -1021,14 +1032,13 @@ UniformStaticParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nu
 		1
 	];
 	values = Flatten[Outer[List,Sequence@@values,1], Length[values]-1];
-	Evaluate[StaticParameterDistribution[
-		ConstantArray[1/Length[values],Length[values]],
-		values
-	][1]]&
+	With[{valueval=values,n=Length@values},
+		Function[{util}, {ConstantArray[1/n,n], valueval}]
+	]
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulse Penalties*)
 
 
@@ -1422,7 +1432,7 @@ AddTimeSteps[dts_,pulse_]:=If[ListQ@dts,Prepend[pulse\[Transpose],dts]\[Transpos
 SplitPulse[pulse_]:={pulse[[All,1]],pulse[[All,2;;-1]]}
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Line Search Methods*)
 
 
@@ -2325,7 +2335,7 @@ ExportSHP[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
@@ -2365,6 +2375,20 @@ Protect[
 	DEDistortion,
 	FrequencySpaceDistortion,
 	CompositePulseDistortion
+];
+
+
+Protect[
+	ParameterDistributionMean,
+	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
+	UniformParameterDistribution
+];
+
+
+Protect[
+	ZeroPenalty,
+	DemandValuePenalty,
+	RingdownPenalty
 ];
 
 

@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[    633849,      14527]
-NotebookOptionsPosition[    604750,      13662]
-NotebookOutlinePosition[    615561,      13947]
-CellTagsIndexPosition[    612561,      13876]
+NotebookDataLength[    663352,      15454]
+NotebookOptionsPosition[    629270,      14454]
+NotebookOutlinePosition[    642096,      14783]
+CellTagsIndexPosition[    638518,      14701]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -120,7 +120,7 @@ Cell[TextData[{
  CellChangeTimes->{{3.634498117470344*^9, 3.634498145821396*^9}, 
    3.634498176689002*^9}]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1021,6 +1021,23 @@ before giving up with the desired utility function. ",
 
 Cell[CellGroupData[{
 
+Cell["DistortionOperator", "Subsubsection",
+ CellChangeTimes->{{3.6361165038735456`*^9, 3.6361165137691917`*^9}}],
+
+Cell[TextData[{
+ "See the section ",
+ ButtonBox["Distortion Operators",
+  BaseStyle->"Hyperlink",
+  ButtonData->"DistortionOperator::section"],
+ " below."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.63611651660196*^9, 3.6361165402829657`*^9}, {
+  3.636116617552648*^9, 3.636116617553257*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell["ParameterDistribution", "Subsubsection",
  CellChangeTimes->{{3.6344846033329287`*^9, 3.6344846081400127`*^9}, {
   3.63449323976812*^9, 3.634493242319031*^9}}],
@@ -1067,7 +1084,17 @@ Hamiltonian\n    \[Bullet] the control Hamiltonians\n    \[Bullet] the target\
   3.634493244583956*^9, 3.634493338897499*^9}, {3.634493375953506*^9, 
   3.634493499126914*^9}, {3.634497695883123*^9, 3.634497702025937*^9}, {
   3.634501580079481*^9, 3.634501597571087*^9}},
- CellTags->"ParameterDistribution::usage"]
+ CellTags->"ParameterDistribution::usage"],
+
+Cell[TextData[{
+ "See the section ",
+ ButtonBox["Parameter Distributions",
+  BaseStyle->"Hyperlink",
+  ButtonData->"ParameterDistribution::section"],
+ " for functions that generate parameter distributions."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636126622885008*^9, 3.6361266736692*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1111,8 +1138,9 @@ Cell[TextData[{
  StyleBox["PulsePenalty", "Input"],
  " is a ",
  StyleBox["FindPulse", "Input"],
- " option which specifies a penalty to subtract from the utility function. \
-Similar to ",
+ " option which specifies a penalty function to subtract from the utility \
+function;  the combined difference is quantity which is maximized. Similar to \
+",
  StyleBox["DistortionOperator", "Input"],
  ", it should be a function of the form ",
  StyleBox["Penalty[", "Input"],
@@ -1152,8 +1180,19 @@ Similar to ",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.634484623139567*^9, 3.634484629490901*^9}, {
   3.634485317858004*^9, 3.634485357064436*^9}, {3.6345015444394217`*^9, 
-  3.634501558077724*^9}},
- CellTags->"PulsePenalty::usage"]
+  3.634501558077724*^9}, {3.6361264575154257`*^9, 3.636126485210629*^9}},
+ CellTags->"PulsePenalty::usage"],
+
+Cell[TextData[{
+ "See the section ",
+ ButtonBox["Pulse Penalties",
+  BaseStyle->"Hyperlink",
+  ButtonData->"PulsePenalty::section"],
+ " for functions that generate pulse penalties."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636126622885008*^9, 3.6361266736692*^9}, {
+  3.636126745055496*^9, 3.636126769679626*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2204,7 +2243,8 @@ Cell[CellGroupData[{
 
 Cell["Distortion Operators", "Section",
  CellChangeTimes->{{3.634482642542852*^9, 3.634482649991726*^9}, {
-  3.635201098264661*^9, 3.6352011001686983`*^9}}],
+  3.635201098264661*^9, 3.6352011001686983`*^9}},
+ CellTags->"DistortionOperator::section"],
 
 Cell[TextData[{
  StyleBox["DistortionOperator", "Input"],
@@ -2240,13 +2280,21 @@ Cell[TextData[{
  StyleBox["arguments", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
- StyleBox["]=distortion[", "Input"],
+ StyleBox["]=", "Input"],
+ StyleBox["distortion", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["[", "Input"],
  StyleBox["arguments", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox["]", "Input"],
  "; that is, ",
- StyleBox["DistortionOperator[distortion]", "Input"],
+ StyleBox["DistortionOperator[", "Input"],
+ StyleBox["distortion", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
  " is effectively callable with function values computed by ",
  StyleBox["distortion", "Input",
   FontWeight->"Plain",
@@ -8708,11 +8756,755 @@ CHuoL4Zsc6wKlwK3n6iniyNybvh2wTPsoX77P+R/0rwg2Q==
 }, Open  ]]
 }, Open  ]],
 
-Cell["Distributions", "Section",
- CellChangeTimes->{{3.63448265269621*^9, 3.634482654024417*^9}}],
+Cell[CellGroupData[{
+
+Cell["Parameter Distributions", "Section",
+ CellChangeTimes->{{3.63448265269621*^9, 3.634482654024417*^9}, {
+  3.636126687416189*^9, 3.636126688615554*^9}},
+ CellTags->"ParameterDistribution::section"],
+
+Cell[TextData[{
+ "It is often necessary to optimize pulses over a distribution of system \
+parameters. This is often due to finite uncertainty of fixed paramaters, or \
+paramaters that vary slowly in time within a known interval. These paramaters \
+most often appear as error coeffecients in the system Hamiltonian and control \
+Hamiltonians. For generality, this implementation of GRAPE additionally \
+allows these parameters to appear in the penalty function, distortion \
+operator, and target objective.\n\nThis distribution is input into ",
+ StyleBox["FindPulse", "Input"],
+ " through the ",
+ StyleBox["ParamaterDistribution", "Input"],
+ " option as a discrete probability distribution. See the documentation for \
+",
+ ButtonBox["ParameterDistribution",
+  BaseStyle->"Hyperlink",
+  ButtonData->"ParameterDistribution::usage"],
+ " for details on the expected format.\n\nSee ",
+ StyleBox["ForceDistortionDependence", "Input"],
+ " if you plan on having distribution parameters within your distribution."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636115956965951*^9, 3.6361162891646423`*^9}, {
+  3.636116426277052*^9, 3.6361164776597433`*^9}, {3.63611666094621*^9, 
+  3.636116729237198*^9}, {3.63612638893178*^9, 3.6361264121230707`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["ParameterDistributionMean", "Subsection",
+ CellChangeTimes->{{3.636116818256103*^9, 3.636116826040147*^9}}],
+
+Cell[TextData[{
+ StyleBox["ParameterDistributionMean[", "Input"],
+ StyleBox["distribution", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the mean of the given ",
+ StyleBox["distribution", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", where ",
+ StyleBox["distribution", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is in the same format as accepted by the ",
+ StyleBox["ParameterDistribution", "Input"],
+ " option to ",
+ StyleBox["FindPulse", "Input"],
+ ". The return format is ",
+ StyleBox["{symb1->mean1,symb2->mean2,...}", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636116832279717*^9, 3.636116913576887*^9}, {
+  3.636116978120987*^9, 3.636116984478478*^9}},
+ CellTags->"ParameterDistributionMean::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.636117011409891*^9, 3.6361170151719007`*^9}}],
+
+Cell["Take the mean over a normal distribution of \[Alpha] and \[Beta].", \
+"Text",
+ CellChangeTimes->{{3.636124697508808*^9, 3.636124727037346*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dist", "=", 
+   RowBox[{"RandomMultinormalParameterDistribution", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"5", ",", "10"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "}"}], ",", "10000"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ParameterDistributionMean", "[", "dist", "]"}]}], "Input",
+ CellChangeTimes->{{3.6361246149568872`*^9, 3.6361247176284943`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\[Alpha]", "\[Rule]", "5.01601083441748`"}], ",", 
+   RowBox[{"\[Beta]", "\[Rule]", "10.004145718198092`"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6361246602672033`*^9, 3.636124689358396*^9}, 
+   3.636124719783174*^9}]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["RandomSampleParameterDistribution", "Subsection",
+ CellChangeTimes->{{3.63611702176618*^9, 3.636117031679368*^9}}],
+
+Cell[TextData[{
+ StyleBox["RandomSampleParameterDistribution[", "Input"],
+ StyleBox["probDist", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["symbols", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a parameter distribution as accepted by the ",
+ StyleBox["ParameterDistribution", "Input"],
+ " option to ",
+ StyleBox["FindPulse", "Input"],
+ " which is specified by pulling ",
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " random variates from the distribution ",
+ StyleBox["probDist", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " (e.g. ",
+ StyleBox["NormalDistribution", "Input"],
+ ") with corresponding parameter symbols given by the list ",
+ StyleBox["symbols", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". The random variates are changed every time the distribution is called."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6361170345064163`*^9, 3.6361170860640306`*^9}, {
+   3.636117213511194*^9, 3.6361172881264467`*^9}, 3.636117324502307*^9, {
+   3.636117375557942*^9, 3.636117377478038*^9}, {3.636117438283773*^9, 
+   3.6361174532032413`*^9}},
+ CellTags->"RandomSampleParameterDistribution::usage"],
+
+Cell[TextData[{
+ StyleBox["RandomMultinormalParameterDistribution[", "Input"],
+ StyleBox["\[Mu]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["\[CapitalSigma]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["symbols", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ "  returns a parameter distribution as accepted by the ",
+ StyleBox["ParameterDistribution", "Input"],
+ " option to ",
+ StyleBox["FindPulse", "Input"],
+ " which is specified by pulling ",
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " random variates from the distribution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Normal", "(", 
+    RowBox[{"\[Mu]", ",", "\[CapitalSigma]"}], ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " where ",
+ StyleBox["\[Mu]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the vector of means, and ",
+ StyleBox["\[CapitalSigma]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a list of standard deviations, or the covariance matrix. This is \
+implemented using ",
+ StyleBox["RandomSampleParameterDistribution", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636117544716127*^9, 3.636117683627201*^9}, {
+  3.6361178005470343`*^9, 3.636117816934655*^9}},
+ CellTags->"RandomMultinormalParameterDistribution::usage"],
+
+Cell[TextData[{
+ StyleBox["RandomUniformParameterDistribution[", "Input"],
+ StyleBox["minsAndMaxes", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["symbols", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ "  returns a parameter distribution as accepted by the ",
+ StyleBox["ParameterDistribution", "Input"],
+ " option to ",
+ StyleBox["FindPulse", "Input"],
+ " which is specified by pulling ",
+ StyleBox["n", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " random variates from the distribution ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Unif", "(", "minsAndMaxes", ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " where ",
+ StyleBox["minsAndMaxes", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is list of tuples of minimums and maximums for each parameter. This is \
+implemented using ",
+ StyleBox["RandomSampleParameterDistribution", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636117765114505*^9, 3.6361178794524307`*^9}},
+ CellTags->"RandomUniformParameterDistribution::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.63611733286578*^9, 3.636117336429545*^9}, {
+  3.63611768572968*^9, 3.636117685988105*^9}}],
+
+Cell[TextData[{
+ "Note that the values of \[Alpha] change on successive calls to ",
+ StyleBox["dist", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6361174754524508`*^9, 3.636117486317705*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dist", "=", 
+   RowBox[{"RandomSampleParameterDistribution", "[", 
+    RowBox[{
+     RowBox[{"NormalDistribution", "[", "]"}], ",", 
+     RowBox[{"{", "\[Alpha]", "}"}], ",", "3"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"dist", "[", "1", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"dist", "[", "1", "]"}]}], "Input",
+ CellChangeTimes->{{3.636117354457477*^9, 3.636117397091001*^9}, {
+  3.636117467815815*^9, 3.6361174692852783`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "0.3333333333333333`", ",", "0.3333333333333333`", ",", 
+     "0.3333333333333333`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", "\[Rule]", 
+       RowBox[{"-", "0.19117457269501117`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", "\[Rule]", 
+       RowBox[{"-", "0.9969930751813052`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", "\[Rule]", "1.980672942023352`"}], "}"}]}], "}"}]}],
+   "}"}]], "Output",
+ CellChangeTimes->{{3.63611738434171*^9, 3.63611739737994*^9}, 
+   3.636117469569645*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "0.3333333333333333`", ",", "0.3333333333333333`", ",", 
+     "0.3333333333333333`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", "\[Rule]", 
+       RowBox[{"-", "0.02302546625131849`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", "\[Rule]", 
+       RowBox[{"-", "0.21689194623327862`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", "\[Rule]", "1.4170610782024151`"}], "}"}]}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.63611738434171*^9, 3.63611739737994*^9}, 
+   3.636117469572667*^9}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 2", "Subsubsection",
+ CellChangeTimes->{{3.63611771786663*^9, 3.6361177194502077`*^9}}],
+
+Cell["\<\
+A multinormal distribution with finite covariance between \[Alpha] and \
+\[Beta].\
+\>", "Text",
+ CellChangeTimes->{{3.6361248116836243`*^9, 3.636124836483615*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dist", "=", 
+   RowBox[{"RandomMultinormalParameterDistribution", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"5", ",", "10"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", ".2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{".2", ",", "1"}], "}"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "}"}], ",", "5"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"dist", "[", "1", "]"}]}], "Input",
+ CellChangeTimes->{{3.636124757355171*^9, 3.636124799395616*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0.2`", ",", "0.2`", ",", "0.2`", ",", "0.2`", ",", "0.2`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "8.003193548394037`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "11.564262188268742`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "5.938567456133954`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "10.88084161222726`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "5.142188969999177`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "9.901690062702563`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "4.5876021951786425`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "9.586735773211927`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "3.3798713671465905`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "11.17159077073312`"}]}], "}"}]}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.636124761838601*^9, 3.636124800028528*^9}}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 3", "Subsubsection",
+ CellChangeTimes->{{3.6361179285043383`*^9, 3.636117930721636*^9}}],
+
+Cell["\<\
+Random variates from the product distribution of Unif([0,1]) and \
+Unif([10,11]).\
+\>", "Text",
+ CellChangeTimes->{{3.636124887891897*^9, 3.636124932914981*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dist", "=", 
+   RowBox[{"RandomUniformParameterDistribution", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"10", ",", "11"}], "}"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "}"}], ",", "5"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"dist", "[", "1", "]"}]}], "Input",
+ CellChangeTimes->{{3.6361248420260763`*^9, 3.636124879218391*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0.2`", ",", "0.2`", ",", "0.2`", ",", "0.2`", ",", "0.2`"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0.3721348285931467`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "10.201036350493478`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0.239023466739138`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "10.397515987577606`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0.3876737157473096`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "10.131915073586004`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0.8580025756267387`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "10.271340121435404`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0.726555541233775`"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "10.517964727236931`"}]}], "}"}]}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6361248758686438`*^9, 3.63612487957101*^9}}]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["UniformParameterDistribution", "Subsection",
+ CellChangeTimes->{{3.6361239081944227`*^9, 3.6361239152104893`*^9}}],
+
+Cell[TextData[{
+ StyleBox["UniformParamaterDistribution[", "Input"],
+ StyleBox["symbol1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["\[Rule]{", "Input"],
+ StyleBox["mean1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["width1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["num1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["},...,", "Input"],
+ StyleBox["symbolK", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["\[Rule]{", "Input"],
+ StyleBox["meanK", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["widthK", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["numK", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["}]", "Input"],
+ " returns a parameter distribution as accepted by the ",
+ StyleBox["ParameterDistribution", "Input"],
+ " option to ",
+ StyleBox["FindPulse", "Input"],
+ " which is the product distribution of ",
+ StyleBox["K", "Input"],
+ " distributions, each with ",
+ StyleBox["numk", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " evenly spaced points ranging from ",
+ StyleBox["meank", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["-", "Input"],
+ StyleBox["widthk", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " to ",
+ StyleBox["meank", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["+", "Input"],
+ StyleBox["widthk", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6361239497938023`*^9, 3.636123978649634*^9}, {
+  3.636124088242819*^9, 3.6361243125343657`*^9}, {3.6361249571975813`*^9, 
+  3.636124963948509*^9}},
+ CellTags->"UniformParameterDistribution::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.636124397829173*^9, 3.636124398535768*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dist", "=", 
+   RowBox[{"UniformParameterDistribution", "[", 
+    RowBox[{
+     RowBox[{"\[Alpha]", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "1", ",", "3"}], "}"}]}], ",", 
+     RowBox[{"\[Beta]", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"5", ",", "1", ",", "3"}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"dist", "[", "1", "]"}]}], "Input",
+ CellChangeTimes->{{3.636124966408306*^9, 3.6361249917484503`*^9}, {
+  3.636125075237247*^9, 3.636125076900484*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"], ",", 
+     FractionBox["1", "9"]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", 
+        RowBox[{"-", "1"}]}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "4"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", 
+        RowBox[{"-", "1"}]}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "5"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", 
+        RowBox[{"-", "1"}]}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "6"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "4"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "5"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "0"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "6"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "1"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "4"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "1"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "5"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Alpha]", "\[Rule]", "1"}], ",", 
+       RowBox[{"\[Beta]", "\[Rule]", "6"}]}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.6361249922751827`*^9, {3.636125033371496*^9, 3.636125077191505*^9}}]
+}, Open  ]]
+}, Closed]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell["Pulse Penalties", "Section",
- CellChangeTimes->{{3.634482659363901*^9, 3.6344826640243053`*^9}}],
+ CellChangeTimes->{{3.634482659363901*^9, 3.6344826640243053`*^9}},
+ CellTags->"PulsePenalty::section"],
+
+Cell[TextData[{
+ StyleBox["PulsePenalty", "Input"],
+ " is an option to ",
+ StyleBox["FindPulse", "Input"],
+ " which specifies a penalty to subtract from the utility function. See the \
+documentation for ",
+ ButtonBox["PulsePenalty",
+  BaseStyle->"Hyperlink",
+  ButtonData->"PulsePenalty::usage"],
+ " for details."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6361265105447483`*^9, 3.636126597689335*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["ZeroPenalty", "Subsection",
+ CellChangeTimes->{{3.636126427625186*^9, 3.636126432984589*^9}}],
+
+Cell[TextData[{
+ StyleBox["ZeroPenalty[]", "Input"],
+ " is the default option for ",
+ StyleBox["PulsePenalty", "Input"],
+ " to ",
+ StyleBox["FindPulse", "Input"],
+ ". It returns a pulse that is constantly equal to 0."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636126802966528*^9, 3.6361268370480223`*^9}},
+ CellTags->"ZeroPenalty::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["DemandValuePenalty", "Subsection",
+ CellChangeTimes->{{3.636126436173657*^9, 3.636126440409595*^9}}],
+
+Cell[TextData[{
+ StyleBox["DemandValuePenalty[", "Input"],
+ StyleBox["\[Epsilon]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["m", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["r", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["qmax", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a penalty function that is zero whenever ",
+ StyleBox["(pulse-", "Input"],
+ StyleBox["r", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[")*", "Input"],
+ StyleBox["m", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is zero. ",
+ StyleBox["qmax", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the maximum possible amplitude in pulse, and ",
+ StyleBox["\[Epsilon]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is an overall scaling factor. The exact function used is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"penalty", "=", 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"m", ",", 
+       RowBox[{"l", "=", "1"}], ",", "1"}], 
+      RowBox[{"M", ",", "L"}]], 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["p", 
+          RowBox[{"m", ",", "l"}]], "-", 
+         SubscriptBox["r", 
+          RowBox[{"m", ",", "l"}]]}], ")"}], "2"], "/", 
+      RowBox[{
+       UnderoverscriptBox["\[Sum]", 
+        RowBox[{"m", ",", 
+         RowBox[{"l", "=", "1"}], ",", "1"}], 
+        RowBox[{"M", ",", "L"}]], 
+       SuperscriptBox[
+        SubscriptBox["p", 
+         RowBox[{"m", ",", "l"}]], "2"]}]}]}]}], TraditionalForm]],
+  CellDingbat->"\[FilledSquare]",
+  FormatType->"TraditionalForm"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.636126855078763*^9, 3.636126911055524*^9}, {
+  3.636127209163701*^9, 3.636127310363286*^9}},
+ CellTags->"DemandValuePenalty::usage"],
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.6361290245041313`*^9, 3.636129030640491*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["RingdownPenalty", "Subsection",
+ CellChangeTimes->{{3.636126443850271*^9, 3.6361264463140306`*^9}}],
+
+Cell[TextData[{
+ StyleBox["RingdownPenalty[", "Input"],
+ StyleBox["\[Epsilon]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["startIndex", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["qmax", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a penalty function that is zero whenever the pulse is 0 starting \
+at ",
+ StyleBox["startIndex", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". This is a special case of ",
+ StyleBox["DemandValuePenalty", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{3.636128986906577*^9},
+ CellTags->"RingdownPenalty::usage"],
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.636129034408059*^9, 3.636129035790745*^9}}]
+}, Open  ]]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -13660,8 +14452,8 @@ The default is ",
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1631, 1026},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{1280, 1000},
+WindowMargins->{{Automatic, -2960}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -13670,278 +14462,322 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "AmplitudeRange::usage"->{
-  Cell[58626, 1673, 396, 12, 32, "Text",
-   CellTags->"AmplitudeRange::usage"]},
- "ChannelMapping::usage"->{
-  Cell[380192, 8901, 1018, 20, 92, "Text",
-   CellTags->"ChannelMapping::usage"]},
- "CoherentSubspaces::usage"->{
-  Cell[71255, 2094, 3331, 101, 238, "Text",
-   CellTags->"CoherentSubspaces::usage"]},
- "ComposeDistortions::usage"->{
-  Cell[81908, 2427, 983, 32, 51, "Text",
-   CellTags->"ComposeDistortions::usage"]},
- "CompositePulseDistortion::usage"->{
-  Cell[354701, 8305, 1712, 50, 133, "Text",
-   CellTags->"CompositePulseDistortion::usage"]},
- "ControlHamiltonians::usage"->{
-  Cell[57417, 1631, 407, 12, 32, "Text",
-   CellTags->"ControlHamiltonians::usage"]},
- "ControlLimitPolicy::usage"->{
-  Cell[45017, 1228, 706, 18, 53, "Text",
-   CellTags->"ControlLimitPolicy::usage"]},
- "ConvolutionDistortion::usage"->{
-  Cell[122633, 3637, 3535, 114, 165, "Text",
-   CellTags->"ConvolutionDistortion::usage"]},
- "DEDistortion::usage"->{
-  Cell[297878, 6996, 4556, 149, 379, "Text",
-   CellTags->"DEDistortion::usage"]},
- "DerivativeMask::usage"->{
-  Cell[42807, 1164, 428, 10, 32, "Text",
-   CellTags->"DerivativeMask::usage"]},
- "DESolverArgs::usage"->{
-  Cell[303036, 7168, 631, 18, 53, "Text",
-   CellTags->"DESolverArgs::usage"]},
- "DESolver::usage"->{
-  Cell[302560, 7152, 473, 14, 32, "Text",
-   CellTags->"DESolver::usage"]},
- "DistortionOperator::usage"->{
-  Cell[74897, 2208, 5050, 158, 337, "Text",
-   CellTags->"DistortionOperator::usage"]},
- "DistributeOption::usage"->{
-  Cell[383676, 8993, 767, 19, 52, "Text",
-   CellTags->"DistributeOption::usage"]},
- "ExitMessage::usage"->{
-  Cell[59263, 1695, 381, 11, 32, "Text",
-   CellTags->"ExitMessage::usage"]},
- "ExponentialDistortion::usage"->{
-  Cell[126171, 3753, 2496, 85, 133, "Text",
-   CellTags->"ExponentialDistortion::usage"]},
- "ExportJCAMP::usage"->{
-  Cell[595480, 13387, 1408, 52, 112, "Text",
-   CellTags->"ExportJCAMP::usage"]},
- "ExportSHP::usage"->{
-  Cell[603058, 13606, 1652, 51, 74, "Text",
-   CellTags->"ExportSHP::usage"]},
  "FindPulse::usage"->{
-  Cell[5200, 131, 5941, 168, 666, "Text",
+  Cell[5200, 131, 5941, 168, 708, "Text",
    CellTags->"FindPulse::usage"]},
+ "Repetitions::usage"->{
+  Cell[37566, 1005, 575, 13, 51, "Text",
+   CellTags->"Repetitions::usage"]},
+ "ParameterDistribution::usage"->{
+  Cell[38813, 1044, 1654, 42, 232, "Text",
+   CellTags->"ParameterDistribution::usage"]},
  "ForceDistortionDependence::usage"->{
-  Cell[40185, 1078, 870, 22, 53, "Text",
+  Cell[40971, 1105, 870, 22, 74, "Text",
    CellTags->"ForceDistortionDependence::usage"]},
- "FrequencySpaceDistortion::usage"->{
-  Cell[315234, 7460, 3650, 125, 98, "Text",
-   CellTags->"FrequencySpaceDistortion::usage"]},
- "IdentityDistortion::usage"->{
-  Cell[111787, 3282, 495, 14, 32, "Text",
-   CellTags->"IdentityDistortion::usage"]},
+ "PulsePenalty::usage"->{
+  Cell[42036, 1136, 1498, 47, 114, "Text",
+   CellTags->"PulsePenalty::usage"]},
+ "DerivativeMask::usage"->{
+  Cell[44051, 1203, 428, 10, 32, "Text",
+   CellTags->"DerivativeMask::usage"]},
+ "PostIterationFunction::usage"->{
+  Cell[44684, 1222, 544, 11, 52, "Text",
+   CellTags->"PostIterationFunction::usage"]},
+ "PulseLegalizer::usage"->{
+  Cell[45449, 1242, 633, 16, 52, "Text",
+   CellTags->"PulseLegalizer::usage"]},
+ "ControlLimitPolicy::usage"->{
+  Cell[46261, 1267, 706, 18, 53, "Text",
+   CellTags->"ControlLimitPolicy::usage"]},
  "Ignore::usage"->{
-  Cell[45726, 1248, 287, 7, 32, "Text",
+  Cell[46970, 1287, 287, 7, 32, "Text",
    CellTags->"Ignore::usage"]},
+ "ProjectGradient::usage"->{
+  Cell[47260, 1296, 319, 7, 32, "Text",
+   CellTags->"ProjectGradient::usage"]},
+ "MonitorFunction::usage"->{
+  Cell[47729, 1311, 969, 30, 74, "Text",
+   CellTags->"MonitorFunction::usage"]},
  "InitialStepSize::usage"->{
-  Cell[47655, 1311, 498, 11, 32, "Text",
+  Cell[48899, 1350, 498, 11, 32, "Text",
    CellTags->"InitialStepSize::usage"]},
- "InternalHamiltonian::usage"->{
-  Cell[58023, 1652, 410, 12, 32, "Text",
-   CellTags->"InternalHamiltonian::usage"]},
- "IQDistortion::usage"->{
-  Cell[145996, 4301, 1980, 71, 53, "Text",
-   CellTags->"IQDistortion::usage"]},
- "JoinDistortions::usage"->{
-  Cell[81089, 2401, 816, 24, 32, "Text",
-   CellTags->"JoinDistortions::usage"]},
- "LiftDistortionRank::usage"->{
-  Cell[80184, 2375, 902, 24, 52, "Text",
-   CellTags->"LiftDistortionRank::usage"]},
+ "MinimumStepSize::usage"->{
+  Cell[49545, 1369, 393, 10, 32, "Text",
+   CellTags->"MinimumStepSize::usage"]},
  "LineSearchMethod::usage"->{
-  Cell[48895, 1349, 414, 10, 32, "Text",
+  Cell[50139, 1388, 414, 10, 32, "Text",
    CellTags->"LineSearchMethod::usage"]},
- "MaximumIterations::usage"->{
-  Cell[50982, 1409, 409, 10, 32, "Text",
-   CellTags->"MaximumIterations::usage"]},
  "MinimumImprovement::usage"->{
-  Cell[49509, 1368, 438, 10, 32, "Text",
+  Cell[50753, 1407, 438, 10, 32, "Text",
    CellTags->"MinimumImprovement::usage"]},
  "MinimumIterations::usage"->{
-  Cell[50149, 1387, 632, 13, 52, "Text",
+  Cell[51393, 1426, 632, 13, 52, "Text",
    CellTags->"MinimumIterations::usage"]},
- "MinimumStepSize::usage"->{
-  Cell[48301, 1330, 393, 10, 32, "Text",
-   CellTags->"MinimumStepSize::usage"]},
- "MonitorFunction::usage"->{
-  Cell[46485, 1272, 969, 30, 53, "Text",
-   CellTags->"MonitorFunction::usage"]},
- "NonlinearTransferDistortion::usage"->{
-  Cell[149580, 4429, 2503, 67, 231, "Text",
-   CellTags->"NonlinearTransferDistortion::usage"]},
- "ParameterDistribution::usage"->{
-  Cell[38345, 1027, 1654, 42, 212, "Text",
-   CellTags->"ParameterDistribution::usage"]},
+ "MaximumIterations::usage"->{
+  Cell[52226, 1448, 409, 10, 32, "Text",
+   CellTags->"MaximumIterations::usage"]},
+ "SkipChecks::usage"->{
+  Cell[52831, 1467, 417, 11, 32, "Text",
+   CellTags->"SkipChecks::usage"]},
+ "VerboseAscent::usage"->{
+  Cell[53445, 1487, 478, 14, 32, "Text",
+   CellTags->"VerboseAscent::usage"]},
+ "Pulse::usage"->{
+  Cell[54086, 1511, 2081, 68, 472, "Text",
+   CellTags->"Pulse::usage"]},
+ "TimeSteps::usage"->{
+  Cell[56518, 1593, 369, 10, 32, "Text",
+   CellTags->"TimeSteps::usage"]},
+ "UtilityValue::usage"->{
+  Cell[57083, 1612, 324, 9, 32, "Text",
+   CellTags->"UtilityValue::usage"]},
  "PenaltyValue::usage"->{
-  Cell[56355, 1591, 352, 11, 32, "Text",
+  Cell[57599, 1630, 352, 11, 32, "Text",
    CellTags->"PenaltyValue::usage"]},
- "PerturbateDistortion::usage"->{
-  Cell[82894, 2461, 1448, 46, 52, "Text",
-   CellTags->"PerturbateDistortion::usage"]},
- "PostIterationFunction::usage"->{
-  Cell[43440, 1183, 544, 11, 52, "Text",
-   CellTags->"PostIterationFunction::usage"]},
- "ProjectGradient::usage"->{
-  Cell[46016, 1257, 319, 7, 32, "Text",
-   CellTags->"ProjectGradient::usage"]},
- "PropagatorFromPulse::usage"->{
-  Cell[69026, 2018, 1078, 36, 91, "Text",
-   CellTags->"PropagatorFromPulse::usage"]},
- "PropagatorListFromPulse::usage"->{
-  Cell[70107, 2056, 1014, 31, 110, "Text",
-   CellTags->"PropagatorListFromPulse::usage"]},
- "PulseFourierPlot::usage"->{
-  Cell[594955, 13368, 146, 2, 30, "Text",
-   CellTags->"PulseFourierPlot::usage"]},
- "PulseLayout::usage"->{
-  Cell[382365, 8956, 628, 18, 53, "Text",
-   CellTags->"PulseLayout::usage"]},
- "PulseLegalizer::usage"->{
-  Cell[44205, 1203, 633, 16, 32, "Text",
-   CellTags->"PulseLegalizer::usage"]},
- "PulsePaddingMultiplier::usage"->{
-  Cell[382996, 8976, 677, 15, 53, "Text",
-   CellTags->"PulsePaddingMultiplier::usage"]},
- "PulsePenalty::usage"->{
-  Cell[41250, 1109, 1382, 46, 93, "Text",
-   CellTags->"PulsePenalty::usage"]},
- "PulsePhaseRamp::usage"->{
-  Cell[64199, 1870, 724, 22, 32, "Text",
-   CellTags->"PulsePhaseRamp::usage"]},
- "PulsePhaseRotate::usage"->{
-  Cell[63414, 1845, 782, 23, 52, "Text",
-   CellTags->"PulsePhaseRotate::usage"]},
- "PulsePlot::usage"->{
-  Cell[373592, 8726, 5467, 140, 463, "Text",
-   CellTags->"PulsePlot::usage"]},
+ "Target::usage"->{
+  Cell[58138, 1650, 323, 11, 32, "Text",
+   CellTags->"Target::usage"]},
+ "ControlHamiltonians::usage"->{
+  Cell[58661, 1670, 407, 12, 32, "Text",
+   CellTags->"ControlHamiltonians::usage"]},
+ "InternalHamiltonian::usage"->{
+  Cell[59267, 1691, 410, 12, 32, "Text",
+   CellTags->"InternalHamiltonian::usage"]},
+ "AmplitudeRange::usage"->{
+  Cell[59870, 1712, 396, 12, 32, "Text",
+   CellTags->"AmplitudeRange::usage"]},
+ "ExitMessage::usage"->{
+  Cell[60507, 1734, 381, 11, 32, "Text",
+   CellTags->"ExitMessage::usage"]},
+ "ToPulse::usage"->{
+  Cell[61094, 1755, 594, 19, 53, "Text",
+   CellTags->"ToPulse::usage"]},
+ "SimForm::usage"->{
+  Cell[61691, 1776, 840, 29, 53, "Text",
+   CellTags->"SimForm::usage"]},
  "PulseRemoveKeys::usage"->{
-  Cell[61535, 1776, 889, 30, 32, "Text",
+  Cell[62779, 1815, 889, 30, 32, "Text",
    CellTags->"PulseRemoveKeys::usage"]},
  "PulseReplaceKey::usage"->{
-  Cell[62427, 1808, 839, 29, 32, "Text",
+  Cell[63671, 1847, 839, 29, 32, "Text",
    CellTags->"PulseReplaceKey::usage"]},
- "PulseScaling::usage"->{
-  Cell[381213, 8923, 1149, 31, 74, "Text",
-   CellTags->"PulseScaling::usage"]},
- "Pulse::usage"->{
-  Cell[52842, 1472, 2081, 68, 472, "Text",
-   CellTags->"Pulse::usage"]},
- "Repetitions::usage"->{
-  Cell[37566, 1005, 575, 13, 32, "Text",
-   CellTags->"Repetitions::usage"]},
- "ShowDistortedPulse::usage"->{
-  Cell[379185, 8873, 1004, 26, 53, "Text",
-   CellTags->"ShowDistortedPulse::usage"]},
- "SimForm::usage"->{
-  Cell[60447, 1737, 840, 29, 52, "Text",
-   CellTags->"SimForm::usage"]},
- "SkipChecks::usage"->{
-  Cell[51587, 1428, 417, 11, 32, "Text",
-   CellTags->"SkipChecks::usage"]},
- "Target::usage"->{
-  Cell[56894, 1611, 323, 11, 32, "Text",
-   CellTags->"Target::usage"]},
- "TimeScaleDistortion::usage"->{
-  Cell[114342, 3375, 611, 18, 32, "Text",
-   CellTags->"TimeScaleDistortion::usage"]},
- "TimeSteps::usage"->{
-  Cell[55274, 1554, 369, 10, 32, "Text",
-   CellTags->"TimeSteps::usage"]},
- "ToPulse::usage"->{
-  Cell[59850, 1716, 594, 19, 32, "Text",
-   CellTags->"ToPulse::usage"]},
- "UtilityGradient::usage"->{
-  Cell[67410, 1966, 1613, 50, 53, "Text",
-   CellTags->"UtilityGradient::usage"]},
- "UtilityValue::usage"->{
-  Cell[55839, 1573, 324, 9, 32, "Text",
-   CellTags->"UtilityValue::usage"]},
+ "PulsePhaseRotate::usage"->{
+  Cell[64658, 1884, 782, 23, 52, "Text",
+   CellTags->"PulsePhaseRotate::usage"]},
+ "PulsePhaseRamp::usage"->{
+  Cell[65443, 1909, 724, 22, 52, "Text",
+   CellTags->"PulsePhaseRamp::usage"]},
  "Utility::usage"->{
-  Cell[65354, 1905, 2053, 59, 135, "Text",
+  Cell[66598, 1944, 2053, 59, 156, "Text",
    CellTags->"Utility::usage"]},
+ "UtilityGradient::usage"->{
+  Cell[68654, 2005, 1613, 50, 74, "Text",
+   CellTags->"UtilityGradient::usage"]},
+ "PropagatorFromPulse::usage"->{
+  Cell[70270, 2057, 1078, 36, 112, "Text",
+   CellTags->"PropagatorFromPulse::usage"]},
+ "PropagatorListFromPulse::usage"->{
+  Cell[71351, 2095, 1014, 31, 111, "Text",
+   CellTags->"PropagatorListFromPulse::usage"]},
+ "CoherentSubspaces::usage"->{
+  Cell[72499, 2133, 3331, 101, 258, "Text",
+   CellTags->"CoherentSubspaces::usage"]},
+ "DistortionOperator::section"->{
+  Cell[75982, 2243, 198, 3, 65, "Section",
+   CellTags->"DistortionOperator::section"]},
+ "DistortionOperator::usage"->{
+  Cell[76183, 2248, 5238, 166, 380, "Text",
+   CellTags->"DistortionOperator::usage"]},
+ "LiftDistortionRank::usage"->{
+  Cell[81658, 2423, 902, 24, 53, "Text",
+   CellTags->"LiftDistortionRank::usage"]},
+ "JoinDistortions::usage"->{
+  Cell[82563, 2449, 816, 24, 32, "Text",
+   CellTags->"JoinDistortions::usage"]},
+ "ComposeDistortions::usage"->{
+  Cell[83382, 2475, 983, 32, 53, "Text",
+   CellTags->"ComposeDistortions::usage"]},
+ "PerturbateDistortion::usage"->{
+  Cell[84368, 2509, 1448, 46, 53, "Text",
+   CellTags->"PerturbateDistortion::usage"]},
+ "IdentityDistortion::usage"->{
+  Cell[113261, 3330, 495, 14, 53, "Text",
+   CellTags->"IdentityDistortion::usage"]},
+ "TimeScaleDistortion::usage"->{
+  Cell[115816, 3423, 611, 18, 32, "Text",
+   CellTags->"TimeScaleDistortion::usage"]},
  "VariableChangeDistortion::usage"->{
-  Cell[114956, 3395, 1684, 40, 193, "Text",
+  Cell[116430, 3443, 1684, 40, 233, "Text",
    CellTags->"VariableChangeDistortion::usage"]},
- "VerboseAscent::usage"->{
-  Cell[52201, 1448, 478, 14, 32, "Text",
-   CellTags->"VerboseAscent::usage"]}
+ "ConvolutionDistortion::usage"->{
+  Cell[124107, 3685, 3535, 114, 187, "Text",
+   CellTags->"ConvolutionDistortion::usage"]},
+ "ExponentialDistortion::usage"->{
+  Cell[127645, 3801, 2496, 85, 173, "Text",
+   CellTags->"ExponentialDistortion::usage"]},
+ "IQDistortion::usage"->{
+  Cell[147470, 4349, 1980, 71, 53, "Text",
+   CellTags->"IQDistortion::usage"]},
+ "NonlinearTransferDistortion::usage"->{
+  Cell[151054, 4477, 2503, 67, 273, "Text",
+   CellTags->"NonlinearTransferDistortion::usage"]},
+ "DEDistortion::usage"->{
+  Cell[299352, 7044, 4556, 149, 399, "Text",
+   CellTags->"DEDistortion::usage"]},
+ "DESolver::usage"->{
+  Cell[304034, 7200, 473, 14, 53, "Text",
+   CellTags->"DESolver::usage"]},
+ "DESolverArgs::usage"->{
+  Cell[304510, 7216, 631, 18, 53, "Text",
+   CellTags->"DESolverArgs::usage"]},
+ "FrequencySpaceDistortion::usage"->{
+  Cell[316708, 7508, 3650, 125, 143, "Text",
+   CellTags->"FrequencySpaceDistortion::usage"]},
+ "CompositePulseDistortion::usage"->{
+  Cell[356175, 8353, 1712, 50, 154, "Text",
+   CellTags->"CompositePulseDistortion::usage"]},
+ "ParameterDistribution::section"->{
+  Cell[374635, 8760, 201, 3, 65, "Section",
+   CellTags->"ParameterDistribution::section"]},
+ "ParameterDistributionMean::usage"->{
+  Cell[376243, 8795, 821, 25, 53, "Text",
+   CellTags->"ParameterDistributionMean::usage"]},
+ "RandomSampleParameterDistribution::usage"->{
+  Cell[378342, 8864, 1370, 39, 74, "Text",
+   CellTags->"RandomSampleParameterDistribution::usage"]},
+ "RandomMultinormalParameterDistribution::usage"->{
+  Cell[379715, 8905, 1534, 48, 74, "Text",
+   CellTags->"RandomMultinormalParameterDistribution::usage"]},
+ "RandomUniformParameterDistribution::usage"->{
+  Cell[381252, 8955, 1231, 38, 74, "Text",
+   CellTags->"RandomUniformParameterDistribution::usage"]},
+ "UniformParameterDistribution::usage"->{
+  Cell[389022, 9201, 1888, 66, 74, "Text",
+   CellTags->"UniformParameterDistribution::usage"]},
+ "PulsePenalty::section"->{
+  Cell[393573, 9357, 138, 2, 65, "Section",
+   CellTags->"PulsePenalty::section"]},
+ "ZeroPenalty::usage"->{
+  Cell[394267, 9380, 363, 10, 32, "Text",
+   CellTags->"ZeroPenalty::usage"]},
+ "DemandValuePenalty::usage"->{
+  Cell[394776, 9398, 1980, 67, 63, "Text",
+   CellTags->"DemandValuePenalty::usage"]},
+ "RingdownPenalty::usage"->{
+  Cell[397004, 9476, 732, 25, 53, "Text",
+   CellTags->"RingdownPenalty::usage"]},
+ "PulsePlot::usage"->{
+  Cell[398112, 9518, 5467, 140, 547, "Text",
+   CellTags->"PulsePlot::usage"]},
+ "ShowDistortedPulse::usage"->{
+  Cell[403705, 9665, 1004, 26, 53, "Text",
+   CellTags->"ShowDistortedPulse::usage"]},
+ "ChannelMapping::usage"->{
+  Cell[404712, 9693, 1018, 20, 92, "Text",
+   CellTags->"ChannelMapping::usage"]},
+ "PulseScaling::usage"->{
+  Cell[405733, 9715, 1149, 31, 74, "Text",
+   CellTags->"PulseScaling::usage"]},
+ "PulseLayout::usage"->{
+  Cell[406885, 9748, 628, 18, 53, "Text",
+   CellTags->"PulseLayout::usage"]},
+ "PulsePaddingMultiplier::usage"->{
+  Cell[407516, 9768, 677, 15, 53, "Text",
+   CellTags->"PulsePaddingMultiplier::usage"]},
+ "DistributeOption::usage"->{
+  Cell[408196, 9785, 767, 19, 52, "Text",
+   CellTags->"DistributeOption::usage"]},
+ "PulseFourierPlot::usage"->{
+  Cell[619475, 14160, 146, 2, 30, "Text",
+   CellTags->"PulseFourierPlot::usage"]},
+ "ExportJCAMP::usage"->{
+  Cell[620000, 14179, 1408, 52, 133, "Text",
+   CellTags->"ExportJCAMP::usage"]},
+ "ExportSHP::usage"->{
+  Cell[627578, 14398, 1652, 51, 94, "Text",
+   CellTags->"ExportSHP::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"AmplitudeRange::usage", 605047, 13672},
- {"ChannelMapping::usage", 605156, 13675},
- {"CoherentSubspaces::usage", 605270, 13678},
- {"ComposeDistortions::usage", 605389, 13681},
- {"CompositePulseDistortion::usage", 605512, 13684},
- {"ControlHamiltonians::usage", 605639, 13687},
- {"ControlLimitPolicy::usage", 605757, 13690},
- {"ConvolutionDistortion::usage", 605877, 13693},
- {"DEDistortion::usage", 605995, 13696},
- {"DerivativeMask::usage", 606106, 13699},
- {"DESolverArgs::usage", 606213, 13702},
- {"DESolver::usage", 606315, 13705},
- {"DistortionOperator::usage", 606423, 13708},
- {"DistributeOption::usage", 606541, 13711},
- {"ExitMessage::usage", 606650, 13714},
- {"ExponentialDistortion::usage", 606763, 13717},
- {"ExportJCAMP::usage", 606879, 13720},
- {"ExportSHP::usage", 606984, 13723},
- {"FindPulse::usage", 607086, 13726},
- {"ForceDistortionDependence::usage", 607202, 13729},
- {"FrequencySpaceDistortion::usage", 607332, 13732},
- {"IdentityDistortion::usage", 607458, 13735},
- {"Ignore::usage", 607564, 13738},
- {"InitialStepSize::usage", 607665, 13741},
- {"InternalHamiltonian::usage", 607780, 13744},
- {"IQDistortion::usage", 607892, 13747},
- {"JoinDistortions::usage", 608002, 13750},
- {"LiftDistortionRank::usage", 608116, 13753},
- {"LineSearchMethod::usage", 608231, 13756},
- {"MaximumIterations::usage", 608345, 13759},
- {"MinimumImprovement::usage", 608461, 13762},
- {"MinimumIterations::usage", 608577, 13765},
- {"MinimumStepSize::usage", 608690, 13768},
- {"MonitorFunction::usage", 608801, 13771},
- {"NonlinearTransferDistortion::usage", 608924, 13774},
- {"ParameterDistribution::usage", 609056, 13777},
- {"PenaltyValue::usage", 609172, 13780},
- {"PerturbateDistortion::usage", 609285, 13783},
- {"PostIterationFunction::usage", 609408, 13786},
- {"ProjectGradient::usage", 609525, 13789},
- {"PropagatorFromPulse::usage", 609639, 13792},
- {"PropagatorListFromPulse::usage", 609763, 13795},
- {"PulseFourierPlot::usage", 609885, 13798},
- {"PulseLayout::usage", 609994, 13801},
- {"PulseLegalizer::usage", 610101, 13804},
- {"PulsePaddingMultiplier::usage", 610218, 13807},
- {"PulsePenalty::usage", 610334, 13810},
- {"PulsePhaseRamp::usage", 610442, 13813},
- {"PulsePhaseRotate::usage", 610553, 13816},
- {"PulsePlot::usage", 610659, 13819},
- {"PulseRemoveKeys::usage", 610768, 13822},
- {"PulseReplaceKey::usage", 610879, 13825},
- {"PulseScaling::usage", 610987, 13828},
- {"Pulse::usage", 611087, 13831},
- {"Repetitions::usage", 611186, 13834},
- {"ShowDistortedPulse::usage", 611296, 13837},
- {"SimForm::usage", 611404, 13840},
- {"SkipChecks::usage", 611502, 13843},
- {"Target::usage", 611599, 13846},
- {"TimeScaleDistortion::usage", 611705, 13849},
- {"TimeSteps::usage", 611815, 13852},
- {"ToPulse::usage", 611912, 13855},
- {"UtilityGradient::usage", 612015, 13858},
- {"UtilityValue::usage", 612124, 13861},
- {"Utility::usage", 612223, 13864},
- {"VariableChangeDistortion::usage", 612337, 13867},
- {"VerboseAscent::usage", 612458, 13870}
+ {"FindPulse::usage", 629566, 14464},
+ {"Repetitions::usage", 629668, 14467},
+ {"ParameterDistribution::usage", 629781, 14470},
+ {"ForceDistortionDependence::usage", 629910, 14473},
+ {"PulsePenalty::usage", 630028, 14476},
+ {"DerivativeMask::usage", 630137, 14479},
+ {"PostIterationFunction::usage", 630253, 14482},
+ {"PulseLegalizer::usage", 630369, 14485},
+ {"ControlLimitPolicy::usage", 630482, 14488},
+ {"Ignore::usage", 630587, 14491},
+ {"ProjectGradient::usage", 630688, 14494},
+ {"MonitorFunction::usage", 630798, 14497},
+ {"InitialStepSize::usage", 630909, 14500},
+ {"MinimumStepSize::usage", 631020, 14503},
+ {"LineSearchMethod::usage", 631132, 14506},
+ {"MinimumImprovement::usage", 631247, 14509},
+ {"MinimumIterations::usage", 631363, 14512},
+ {"MaximumIterations::usage", 631478, 14515},
+ {"SkipChecks::usage", 631586, 14518},
+ {"VerboseAscent::usage", 631690, 14521},
+ {"Pulse::usage", 631789, 14524},
+ {"TimeSteps::usage", 631886, 14527},
+ {"UtilityValue::usage", 631988, 14530},
+ {"PenaltyValue::usage", 632092, 14533},
+ {"Target::usage", 632191, 14536},
+ {"ControlHamiltonians::usage", 632297, 14539},
+ {"InternalHamiltonian::usage", 632416, 14542},
+ {"AmplitudeRange::usage", 632530, 14545},
+ {"ExitMessage::usage", 632636, 14548},
+ {"ToPulse::usage", 632735, 14551},
+ {"SimForm::usage", 632830, 14554},
+ {"PulseRemoveKeys::usage", 632933, 14557},
+ {"PulseReplaceKey::usage", 633044, 14560},
+ {"PulsePhaseRotate::usage", 633156, 14563},
+ {"PulsePhaseRamp::usage", 633267, 14566},
+ {"Utility::usage", 633369, 14569},
+ {"UtilityGradient::usage", 633474, 14572},
+ {"PropagatorFromPulse::usage", 633590, 14575},
+ {"PropagatorListFromPulse::usage", 633715, 14578},
+ {"CoherentSubspaces::usage", 633838, 14581},
+ {"DistortionOperator::section", 633959, 14584},
+ {"DistortionOperator::usage", 634080, 14587},
+ {"LiftDistortionRank::usage", 634200, 14590},
+ {"JoinDistortions::usage", 634314, 14593},
+ {"ComposeDistortions::usage", 634428, 14596},
+ {"PerturbateDistortion::usage", 634547, 14599},
+ {"IdentityDistortion::usage", 634667, 14602},
+ {"TimeScaleDistortion::usage", 634786, 14605},
+ {"VariableChangeDistortion::usage", 634911, 14608},
+ {"ConvolutionDistortion::usage", 635040, 14611},
+ {"ExponentialDistortion::usage", 635167, 14614},
+ {"IQDistortion::usage", 635284, 14617},
+ {"NonlinearTransferDistortion::usage", 635406, 14620},
+ {"DEDistortion::usage", 635529, 14623},
+ {"DESolver::usage", 635634, 14626},
+ {"DESolverArgs::usage", 635736, 14629},
+ {"FrequencySpaceDistortion::usage", 635854, 14632},
+ {"CompositePulseDistortion::usage", 635987, 14635},
+ {"ParameterDistribution::section", 636118, 14638},
+ {"ParameterDistributionMean::usage", 636250, 14641},
+ {"RandomSampleParameterDistribution::usage", 636390, 14644},
+ {"RandomMultinormalParameterDistribution::usage", 636544, 14647},
+ {"RandomUniformParameterDistribution::usage", 636699, 14650},
+ {"UniformParameterDistribution::usage", 636844, 14653},
+ {"PulsePenalty::section", 636969, 14656},
+ {"ZeroPenalty::usage", 637078, 14659},
+ {"DemandValuePenalty::usage", 637189, 14662},
+ {"RingdownPenalty::usage", 637305, 14665},
+ {"PulsePlot::usage", 637411, 14668},
+ {"ShowDistortedPulse::usage", 637523, 14671},
+ {"ChannelMapping::usage", 637638, 14674},
+ {"PulseScaling::usage", 637747, 14677},
+ {"PulseLayout::usage", 637853, 14680},
+ {"PulsePaddingMultiplier::usage", 637968, 14683},
+ {"DistributeOption::usage", 638088, 14686},
+ {"PulseFourierPlot::usage", 638202, 14689},
+ {"ExportJCAMP::usage", 638311, 14692},
+ {"ExportSHP::usage", 638416, 14695}
  }
 *)
 (*NotebookFileOutline
@@ -13963,561 +14799,652 @@ Cell[2443, 69, 110, 1, 51, "Section"],
 Cell[2556, 72, 1593, 24, 172, "Text"],
 Cell[CellGroupData[{
 Cell[4174, 100, 103, 1, 35, "Subsubsection"],
-Cell[4280, 103, 436, 9, 67, "Text"],
+Cell[4280, 103, 436, 9, 70, "Text"],
 Cell[4719, 114, 232, 6, 51, "Text"]
 }, Closed]]
-}, Closed]],
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[5000, 126, 197, 3, 51, "Section"],
-Cell[5200, 131, 5941, 168, 666, "Text",
+Cell[5000, 126, 197, 3, 65, "Section"],
+Cell[5200, 131, 5941, 168, 708, "Text",
  CellTags->"FindPulse::usage"],
 Cell[CellGroupData[{
 Cell[11166, 303, 95, 1, 45, "Subsection"],
 Cell[CellGroupData[{
 Cell[11286, 308, 102, 1, 35, "Subsubsection"],
-Cell[11391, 311, 25931, 684, 1673, "Text"]
+Cell[11391, 311, 25931, 684, 1693, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
 Cell[37359, 1000, 204, 3, 29, "Subsubsection"],
-Cell[37566, 1005, 575, 13, 32, "Text",
+Cell[37566, 1005, 575, 13, 51, "Text",
  CellTags->"Repetitions::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[38178, 1023, 164, 2, 35, "Subsubsection"],
-Cell[38345, 1027, 1654, 42, 212, "Text",
- CellTags->"ParameterDistribution::usage"]
+Cell[38178, 1023, 113, 1, 35, "Subsubsection"],
+Cell[38294, 1026, 315, 9, 31, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40036, 1074, 146, 2, 35, "Subsubsection"],
-Cell[40185, 1078, 870, 22, 53, "Text",
+Cell[38646, 1040, 164, 2, 35, "Subsubsection"],
+Cell[38813, 1044, 1654, 42, 232, "Text",
+ CellTags->"ParameterDistribution::usage"],
+Cell[40470, 1088, 315, 8, 31, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40822, 1101, 146, 2, 35, "Subsubsection"],
+Cell[40971, 1105, 870, 22, 74, "Text",
  CellTags->"ForceDistortionDependence::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[41092, 1105, 155, 2, 35, "Subsubsection"],
-Cell[41250, 1109, 1382, 46, 93, "Text",
- CellTags->"PulsePenalty::usage"]
+Cell[41878, 1132, 155, 2, 35, "Subsubsection"],
+Cell[42036, 1136, 1498, 47, 114, "Text",
+ CellTags->"PulsePenalty::usage"],
+Cell[43537, 1185, 339, 9, 31, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[42669, 1160, 135, 2, 35, "Subsubsection"],
-Cell[42807, 1164, 428, 10, 32, "Text",
+Cell[43913, 1199, 135, 2, 35, "Subsubsection"],
+Cell[44051, 1203, 428, 10, 32, "Text",
  CellTags->"DerivativeMask::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[43272, 1179, 165, 2, 35, "Subsubsection"],
-Cell[43440, 1183, 544, 11, 52, "Text",
+Cell[44516, 1218, 165, 2, 35, "Subsubsection"],
+Cell[44684, 1222, 544, 11, 52, "Text",
  CellTags->"PostIterationFunction::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[44021, 1199, 181, 2, 35, "Subsubsection"],
-Cell[44205, 1203, 633, 16, 32, "Text",
+Cell[45265, 1238, 181, 2, 35, "Subsubsection"],
+Cell[45449, 1242, 633, 16, 52, "Text",
  CellTags->"PulseLegalizer::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[44875, 1224, 139, 2, 35, "Subsubsection"],
-Cell[45017, 1228, 706, 18, 53, "Text",
+Cell[46119, 1263, 139, 2, 35, "Subsubsection"],
+Cell[46261, 1267, 706, 18, 53, "Text",
  CellTags->"ControlLimitPolicy::usage"],
-Cell[45726, 1248, 287, 7, 32, "Text",
+Cell[46970, 1287, 287, 7, 32, "Text",
  CellTags->"Ignore::usage"],
-Cell[46016, 1257, 319, 7, 32, "Text",
+Cell[47260, 1296, 319, 7, 32, "Text",
  CellTags->"ProjectGradient::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[46372, 1269, 110, 1, 35, "Subsubsection"],
-Cell[46485, 1272, 969, 30, 53, "Text",
+Cell[47616, 1308, 110, 1, 35, "Subsubsection"],
+Cell[47729, 1311, 969, 30, 74, "Text",
  CellTags->"MonitorFunction::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47491, 1307, 161, 2, 35, "Subsubsection"],
-Cell[47655, 1311, 498, 11, 32, "Text",
+Cell[48735, 1346, 161, 2, 35, "Subsubsection"],
+Cell[48899, 1350, 498, 11, 32, "Text",
  CellTags->"InitialStepSize::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[48190, 1327, 108, 1, 35, "Subsubsection"],
-Cell[48301, 1330, 393, 10, 32, "Text",
+Cell[49434, 1366, 108, 1, 35, "Subsubsection"],
+Cell[49545, 1369, 393, 10, 32, "Text",
  CellTags->"MinimumStepSize::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[48731, 1345, 161, 2, 35, "Subsubsection"],
-Cell[48895, 1349, 414, 10, 32, "Text",
+Cell[49975, 1384, 161, 2, 35, "Subsubsection"],
+Cell[50139, 1388, 414, 10, 32, "Text",
  CellTags->"LineSearchMethod::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49346, 1364, 160, 2, 35, "Subsubsection"],
-Cell[49509, 1368, 438, 10, 32, "Text",
+Cell[50590, 1403, 160, 2, 35, "Subsubsection"],
+Cell[50753, 1407, 438, 10, 32, "Text",
  CellTags->"MinimumImprovement::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49984, 1383, 162, 2, 35, "Subsubsection"],
-Cell[50149, 1387, 632, 13, 52, "Text",
+Cell[51228, 1422, 162, 2, 35, "Subsubsection"],
+Cell[51393, 1426, 632, 13, 52, "Text",
  CellTags->"MinimumIterations::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[50818, 1405, 161, 2, 35, "Subsubsection"],
-Cell[50982, 1409, 409, 10, 32, "Text",
+Cell[52062, 1444, 161, 2, 35, "Subsubsection"],
+Cell[52226, 1448, 409, 10, 32, "Text",
  CellTags->"MaximumIterations::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[51428, 1424, 156, 2, 35, "Subsubsection"],
-Cell[51587, 1428, 417, 11, 32, "Text",
+Cell[52672, 1463, 156, 2, 35, "Subsubsection"],
+Cell[52831, 1467, 417, 11, 32, "Text",
  CellTags->"SkipChecks::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52041, 1444, 157, 2, 35, "Subsubsection"],
-Cell[52201, 1448, 478, 14, 32, "Text",
+Cell[53285, 1483, 157, 2, 35, "Subsubsection"],
+Cell[53445, 1487, 478, 14, 32, "Text",
  CellTags->"VerboseAscent::usage"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[52740, 1469, 99, 1, 65, "Section"],
-Cell[52842, 1472, 2081, 68, 472, "Text",
+Cell[53984, 1508, 99, 1, 65, "Section"],
+Cell[54086, 1511, 2081, 68, 472, "Text",
  CellTags->"Pulse::usage"],
 Cell[CellGroupData[{
-Cell[54948, 1544, 145, 2, 45, "Subsection"],
+Cell[56192, 1583, 145, 2, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[55118, 1550, 153, 2, 35, "Subsubsection"],
-Cell[55274, 1554, 369, 10, 32, "Text",
+Cell[56362, 1589, 153, 2, 35, "Subsubsection"],
+Cell[56518, 1593, 369, 10, 32, "Text",
  CellTags->"TimeSteps::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[55680, 1569, 156, 2, 35, "Subsubsection"],
-Cell[55839, 1573, 324, 9, 32, "Text",
+Cell[56924, 1608, 156, 2, 35, "Subsubsection"],
+Cell[57083, 1612, 324, 9, 32, "Text",
  CellTags->"UtilityValue::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56200, 1587, 152, 2, 35, "Subsubsection"],
-Cell[56355, 1591, 352, 11, 32, "Text",
+Cell[57444, 1626, 152, 2, 35, "Subsubsection"],
+Cell[57599, 1630, 352, 11, 32, "Text",
  CellTags->"PenaltyValue::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56744, 1607, 147, 2, 35, "Subsubsection"],
-Cell[56894, 1611, 323, 11, 32, "Text",
+Cell[57988, 1646, 147, 2, 35, "Subsubsection"],
+Cell[58138, 1650, 323, 11, 32, "Text",
  CellTags->"Target::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[57254, 1627, 160, 2, 35, "Subsubsection"],
-Cell[57417, 1631, 407, 12, 32, "Text",
+Cell[58498, 1666, 160, 2, 35, "Subsubsection"],
+Cell[58661, 1670, 407, 12, 32, "Text",
  CellTags->"ControlHamiltonians::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[57861, 1648, 159, 2, 35, "Subsubsection"],
-Cell[58023, 1652, 410, 12, 32, "Text",
+Cell[59105, 1687, 159, 2, 35, "Subsubsection"],
+Cell[59267, 1691, 410, 12, 32, "Text",
  CellTags->"InternalHamiltonian::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[58470, 1669, 153, 2, 35, "Subsubsection"],
-Cell[58626, 1673, 396, 12, 32, "Text",
+Cell[59714, 1708, 153, 2, 35, "Subsubsection"],
+Cell[59870, 1712, 396, 12, 32, "Text",
  CellTags->"AmplitudeRange::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[59059, 1690, 201, 3, 35, "Subsubsection"],
-Cell[59263, 1695, 381, 11, 32, "Text",
+Cell[60303, 1729, 201, 3, 35, "Subsubsection"],
+Cell[60507, 1734, 381, 11, 32, "Text",
  CellTags->"ExitMessage::usage"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[59693, 1712, 154, 2, 36, "Subsection"],
-Cell[59850, 1716, 594, 19, 32, "Text",
+Cell[60937, 1751, 154, 2, 36, "Subsection"],
+Cell[61094, 1755, 594, 19, 53, "Text",
  CellTags->"ToPulse::usage"],
-Cell[60447, 1737, 840, 29, 52, "Text",
+Cell[61691, 1776, 840, 29, 53, "Text",
  CellTags->"SimForm::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[61324, 1771, 208, 3, 45, "Subsection"],
-Cell[61535, 1776, 889, 30, 32, "Text",
+Cell[62568, 1810, 208, 3, 45, "Subsection"],
+Cell[62779, 1815, 889, 30, 32, "Text",
  CellTags->"PulseRemoveKeys::usage"],
-Cell[62427, 1808, 839, 29, 32, "Text",
+Cell[63671, 1847, 839, 29, 32, "Text",
  CellTags->"PulseReplaceKey::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[63303, 1842, 108, 1, 45, "Subsection"],
-Cell[63414, 1845, 782, 23, 52, "Text",
+Cell[64547, 1881, 108, 1, 45, "Subsection"],
+Cell[64658, 1884, 782, 23, 52, "Text",
  CellTags->"PulsePhaseRotate::usage"],
-Cell[64199, 1870, 724, 22, 32, "Text",
+Cell[65443, 1909, 724, 22, 52, "Text",
  CellTags->"PulsePhaseRamp::usage"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[64972, 1898, 379, 5, 65, "Section"],
-Cell[65354, 1905, 2053, 59, 135, "Text",
+Cell[66216, 1937, 379, 5, 65, "Section"],
+Cell[66598, 1944, 2053, 59, 156, "Text",
  CellTags->"Utility::usage"],
-Cell[67410, 1966, 1613, 50, 53, "Text",
+Cell[68654, 2005, 1613, 50, 74, "Text",
  CellTags->"UtilityGradient::usage"],
-Cell[69026, 2018, 1078, 36, 91, "Text",
+Cell[70270, 2057, 1078, 36, 112, "Text",
  CellTags->"PropagatorFromPulse::usage"],
-Cell[70107, 2056, 1014, 31, 110, "Text",
+Cell[71351, 2095, 1014, 31, 111, "Text",
  CellTags->"PropagatorListFromPulse::usage"],
 Cell[CellGroupData[{
-Cell[71146, 2091, 106, 1, 45, "Subsection"],
-Cell[71255, 2094, 3331, 101, 238, "Text",
+Cell[72390, 2130, 106, 1, 45, "Subsection"],
+Cell[72499, 2133, 3331, 101, 258, "Text",
  CellTags->"CoherentSubspaces::usage"]
 }, Open  ]],
-Cell[74601, 2198, 100, 1, 44, "Subsection"]
+Cell[75845, 2237, 100, 1, 44, "Subsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[74738, 2204, 156, 2, 65, "Section"],
-Cell[74897, 2208, 5050, 158, 337, "Text",
+Cell[75982, 2243, 198, 3, 65, "Section",
+ CellTags->"DistortionOperator::section"],
+Cell[76183, 2248, 5238, 166, 380, "Text",
  CellTags->"DistortionOperator::usage"],
 Cell[CellGroupData[{
-Cell[79972, 2370, 209, 3, 45, "Subsection"],
-Cell[80184, 2375, 902, 24, 52, "Text",
+Cell[81446, 2418, 209, 3, 45, "Subsection"],
+Cell[81658, 2423, 902, 24, 53, "Text",
  CellTags->"LiftDistortionRank::usage"],
-Cell[81089, 2401, 816, 24, 32, "Text",
+Cell[82563, 2449, 816, 24, 32, "Text",
  CellTags->"JoinDistortions::usage"],
-Cell[81908, 2427, 983, 32, 51, "Text",
+Cell[83382, 2475, 983, 32, 53, "Text",
  CellTags->"ComposeDistortions::usage"],
-Cell[82894, 2461, 1448, 46, 52, "Text",
+Cell[84368, 2509, 1448, 46, 53, "Text",
  CellTags->"PerturbateDistortion::usage"],
 Cell[CellGroupData[{
-Cell[84367, 2511, 100, 1, 35, "Subsubsection"],
-Cell[84470, 2514, 157, 3, 31, "Text"],
+Cell[85841, 2559, 100, 1, 35, "Subsubsection"],
+Cell[85944, 2562, 157, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[84652, 2521, 474, 9, 55, "Input"],
-Cell[85129, 2532, 220, 8, 32, "Output"],
-Cell[85352, 2542, 458, 16, 35, "Output"]
+Cell[86126, 2569, 474, 9, 55, "Input"],
+Cell[86603, 2580, 220, 8, 32, "Output"],
+Cell[86826, 2590, 458, 16, 35, "Output"]
 }, Open  ]],
-Cell[85825, 2561, 243, 5, 32, "Text"],
+Cell[87299, 2609, 243, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[86093, 2570, 675, 19, 32, "Input"],
-Cell[86771, 2591, 1230, 28, 32, "Output"]
+Cell[87567, 2618, 675, 19, 32, "Input"],
+Cell[88245, 2639, 1230, 28, 32, "Output"]
 }, Open  ]],
-Cell[88016, 2622, 240, 7, 32, "Text"],
+Cell[89490, 2670, 240, 7, 32, "Text"],
 Cell[CellGroupData[{
-Cell[88281, 2633, 547, 16, 32, "Input"],
-Cell[88831, 2651, 1286, 34, 55, "Output"]
+Cell[89755, 2681, 547, 16, 32, "Input"],
+Cell[90305, 2699, 1286, 34, 55, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[90166, 2691, 99, 1, 29, "Subsubsection"],
-Cell[90268, 2694, 199, 4, 31, "Text"],
+Cell[91640, 2739, 99, 1, 29, "Subsubsection"],
+Cell[91742, 2742, 199, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[90492, 2702, 483, 10, 32, "Input"],
-Cell[90978, 2714, 1378, 48, 48, "Output"]
+Cell[91966, 2750, 483, 10, 32, "Input"],
+Cell[92452, 2762, 1378, 48, 48, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[92393, 2767, 546, 16, 32, "Input"],
-Cell[92942, 2785, 1217, 33, 55, "Output"]
+Cell[93867, 2815, 546, 16, 32, "Input"],
+Cell[94416, 2833, 1217, 33, 55, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[94208, 2824, 100, 1, 29, "Subsubsection"],
-Cell[94311, 2827, 119, 1, 31, "Text"],
+Cell[95682, 2872, 100, 1, 29, "Subsubsection"],
+Cell[95785, 2875, 119, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[94455, 2832, 516, 11, 32, "Input"],
-Cell[94974, 2845, 750, 24, 32, "Output"]
+Cell[95929, 2880, 516, 11, 32, "Input"],
+Cell[96448, 2893, 750, 24, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[95761, 2874, 496, 16, 32, "Input"],
-Cell[96260, 2892, 11438, 241, 121, "Output"]
+Cell[97235, 2922, 496, 16, 32, "Input"],
+Cell[97734, 2940, 11438, 241, 121, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[107747, 3139, 100, 1, 29, "Subsubsection"],
-Cell[107850, 3142, 239, 5, 31, "Text"],
+Cell[109221, 3187, 100, 1, 29, "Subsubsection"],
+Cell[109324, 3190, 239, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[108114, 3151, 865, 21, 55, "Input"],
-Cell[108982, 3174, 164, 2, 32, "Output"],
-Cell[109149, 3178, 353, 13, 32, "Output"]
+Cell[109588, 3199, 865, 21, 55, "Input"],
+Cell[110456, 3222, 164, 2, 32, "Output"],
+Cell[110623, 3226, 353, 13, 32, "Output"]
 }, Open  ]],
-Cell[109517, 3194, 295, 7, 32, "Text"],
+Cell[110991, 3242, 295, 7, 32, "Text"],
 Cell[CellGroupData[{
-Cell[109837, 3205, 352, 11, 32, "Input"],
-Cell[110192, 3218, 262, 8, 32, "Output"]
+Cell[111311, 3253, 352, 11, 32, "Input"],
+Cell[111666, 3266, 262, 8, 32, "Output"]
 }, Open  ]],
-Cell[110469, 3229, 140, 5, 32, "Text"],
+Cell[111943, 3277, 140, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[110634, 3238, 304, 10, 32, "Input"],
-Cell[110941, 3250, 623, 21, 32, "Output"]
+Cell[112108, 3286, 304, 10, 32, "Input"],
+Cell[112415, 3298, 623, 21, 32, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[111625, 3278, 159, 2, 45, "Subsection"],
-Cell[111787, 3282, 495, 14, 32, "Text",
+Cell[113099, 3326, 159, 2, 45, "Subsection"],
+Cell[113261, 3330, 495, 14, 53, "Text",
  CellTags->"IdentityDistortion::usage"],
 Cell[CellGroupData[{
-Cell[112307, 3300, 98, 1, 35, "Subsubsection"],
+Cell[113781, 3348, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[112430, 3305, 513, 15, 55, "Input"],
-Cell[112946, 3322, 236, 9, 32, "Output"],
-Cell[113185, 3333, 974, 32, 32, "Output"]
+Cell[113904, 3353, 513, 15, 55, "Input"],
+Cell[114420, 3370, 236, 9, 32, "Output"],
+Cell[114659, 3381, 974, 32, 32, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[114220, 3372, 119, 1, 45, "Subsection"],
-Cell[114342, 3375, 611, 18, 32, "Text",
+Cell[115694, 3420, 119, 1, 45, "Subsection"],
+Cell[115816, 3423, 611, 18, 32, "Text",
  CellTags->"TimeScaleDistortion::usage"],
-Cell[114956, 3395, 1684, 40, 193, "Text",
+Cell[116430, 3443, 1684, 40, 233, "Text",
  CellTags->"VariableChangeDistortion::usage"],
 Cell[CellGroupData[{
-Cell[116665, 3439, 151, 2, 35, "Subsubsection"],
-Cell[116819, 3443, 118, 1, 31, "Text"],
+Cell[118139, 3487, 151, 2, 35, "Subsubsection"],
+Cell[118293, 3491, 118, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[116962, 3448, 465, 14, 55, "Input"],
-Cell[117430, 3464, 219, 8, 32, "Output"],
-Cell[117652, 3474, 296, 9, 32, "Output"]
+Cell[118436, 3496, 465, 14, 55, "Input"],
+Cell[118904, 3512, 219, 8, 32, "Output"],
+Cell[119126, 3522, 296, 9, 32, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[117997, 3489, 151, 2, 29, "Subsubsection"],
-Cell[118151, 3493, 264, 5, 31, "Text"],
+Cell[119471, 3537, 151, 2, 29, "Subsubsection"],
+Cell[119625, 3541, 264, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[118440, 3502, 1058, 32, 55, "Input"],
-Cell[119501, 3536, 611, 19, 32, "Output"],
-Cell[120115, 3557, 2348, 70, 48, "Output"]
+Cell[119914, 3550, 1058, 32, 55, "Input"],
+Cell[120975, 3584, 611, 19, 32, "Output"],
+Cell[121589, 3605, 2348, 70, 48, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[122524, 3634, 106, 1, 44, "Subsection"],
-Cell[122633, 3637, 3535, 114, 165, "Text",
+Cell[123998, 3682, 106, 1, 44, "Subsection"],
+Cell[124107, 3685, 3535, 114, 187, "Text",
  CellTags->"ConvolutionDistortion::usage"],
-Cell[126171, 3753, 2496, 85, 133, "Text",
+Cell[127645, 3801, 2496, 85, 173, "Text",
  CellTags->"ExponentialDistortion::usage"],
 Cell[CellGroupData[{
-Cell[128692, 3842, 150, 2, 35, "Subsubsection"],
-Cell[128845, 3846, 207, 5, 32, "Text"],
+Cell[130166, 3890, 150, 2, 35, "Subsubsection"],
+Cell[130319, 3894, 207, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[129077, 3855, 1110, 31, 55, "Input"],
-Cell[130190, 3888, 2214, 62, 68, "Output"],
-Cell[132407, 3952, 1449, 46, 51, "Output"]
+Cell[130551, 3903, 1110, 31, 55, "Input"],
+Cell[131664, 3936, 2214, 62, 68, "Output"],
+Cell[133881, 4000, 1449, 46, 51, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[133905, 4004, 100, 1, 29, "Subsubsection"],
-Cell[134008, 4007, 164, 3, 31, "Text"],
+Cell[135379, 4052, 100, 1, 29, "Subsubsection"],
+Cell[135482, 4055, 164, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[134197, 4014, 1740, 45, 55, "Input"],
-Cell[135940, 4061, 2653, 74, 72, "Output"],
-Cell[138596, 4137, 214, 5, 32, "Output"]
+Cell[135671, 4062, 1740, 45, 55, "Input"],
+Cell[137414, 4109, 2653, 74, 72, "Output"],
+Cell[140070, 4185, 214, 5, 32, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[138859, 4148, 102, 1, 29, "Subsubsection"],
+Cell[140333, 4196, 102, 1, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[138986, 4153, 1248, 32, 77, "Input"],
-Cell[140237, 4187, 5544, 103, 263, "Output"]
+Cell[140460, 4201, 1248, 32, 77, "Input"],
+Cell[141711, 4235, 5544, 103, 263, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[145842, 4297, 151, 2, 44, "Subsection"],
-Cell[145996, 4301, 1980, 71, 53, "Text",
+Cell[147316, 4345, 151, 2, 44, "Subsection"],
+Cell[147470, 4349, 1980, 71, 53, "Text",
  CellTags->"IQDistortion::usage"],
-Cell[147979, 4374, 104, 1, 32, "Input"],
+Cell[149453, 4422, 104, 1, 32, "Input"],
 Cell[CellGroupData[{
-Cell[148108, 4379, 100, 1, 35, "Subsubsection"],
+Cell[149582, 4427, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[148233, 4384, 218, 5, 32, "Input"],
-Cell[148454, 4391, 947, 28, 32, "Output"]
+Cell[149707, 4432, 218, 5, 32, "Input"],
+Cell[149928, 4439, 947, 28, 32, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[149462, 4426, 115, 1, 44, "Subsection"],
-Cell[149580, 4429, 2503, 67, 231, "Text",
+Cell[150936, 4474, 115, 1, 44, "Subsection"],
+Cell[151054, 4477, 2503, 67, 273, "Text",
  CellTags->"NonlinearTransferDistortion::usage"],
 Cell[CellGroupData[{
-Cell[152108, 4500, 100, 1, 35, "Subsubsection"],
-Cell[152211, 4503, 119, 1, 31, "Text"],
+Cell[153582, 4548, 100, 1, 35, "Subsubsection"],
+Cell[153685, 4551, 119, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[152355, 4508, 1199, 34, 59, "Input"],
-Cell[153557, 4544, 127740, 2091, 308, "Output"]
+Cell[153829, 4556, 1199, 34, 59, "Input"],
+Cell[155031, 4592, 127740, 2091, 308, "Output"]
 }, Open  ]],
-Cell[281312, 6638, 261, 5, 31, "Text"],
+Cell[282786, 6686, 261, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[281598, 6647, 1729, 47, 99, "Input"],
-Cell[283330, 6696, 14382, 290, 231, "Output"]
+Cell[283072, 6695, 1729, 47, 99, "Input"],
+Cell[284804, 6744, 14382, 290, 231, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[297773, 6993, 102, 1, 44, "Subsection"],
-Cell[297878, 6996, 4556, 149, 379, "Text",
+Cell[299247, 7041, 102, 1, 44, "Subsection"],
+Cell[299352, 7044, 4556, 149, 399, "Text",
  CellTags->"DEDistortion::usage"],
 Cell[CellGroupData[{
-Cell[302459, 7149, 98, 1, 35, "Subsubsection"],
-Cell[302560, 7152, 473, 14, 32, "Text",
+Cell[303933, 7197, 98, 1, 35, "Subsubsection"],
+Cell[304034, 7200, 473, 14, 53, "Text",
  CellTags->"DESolver::usage"],
-Cell[303036, 7168, 631, 18, 53, "Text",
+Cell[304510, 7216, 631, 18, 53, "Text",
  CellTags->"DESolverArgs::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[303704, 7191, 98, 1, 35, "Subsubsection"],
-Cell[303805, 7194, 251, 5, 31, "Text"],
-Cell[304059, 7201, 1598, 44, 187, "Input"],
-Cell[305660, 7247, 155, 3, 31, "Text"],
+Cell[305178, 7239, 98, 1, 35, "Subsubsection"],
+Cell[305279, 7242, 251, 5, 31, "Text"],
+Cell[305533, 7249, 1598, 44, 187, "Input"],
+Cell[307134, 7295, 155, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[305840, 7254, 515, 13, 32, "Input"],
-Cell[306358, 7269, 621, 17, 32, "Output"]
+Cell[307314, 7302, 515, 13, 32, "Input"],
+Cell[307832, 7317, 621, 17, 32, "Output"]
 }, Open  ]],
-Cell[306994, 7289, 124, 1, 31, "Text"],
+Cell[308468, 7337, 124, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[307143, 7294, 688, 17, 32, "Input"],
-Cell[307834, 7313, 7222, 137, 281, "Output"]
+Cell[308617, 7342, 688, 17, 32, "Input"],
+Cell[309308, 7361, 7222, 137, 281, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[315117, 7457, 114, 1, 45, "Subsection"],
-Cell[315234, 7460, 3650, 125, 98, "Text",
+Cell[316591, 7505, 114, 1, 45, "Subsection"],
+Cell[316708, 7508, 3650, 125, 143, "Text",
  CellTags->"FrequencySpaceDistortion::usage"],
 Cell[CellGroupData[{
-Cell[318909, 7589, 97, 1, 35, "Subsubsection"],
+Cell[320383, 7637, 97, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[319031, 7594, 319, 8, 32, "Input"],
-Cell[319353, 7604, 334, 11, 32, "Output"]
+Cell[320505, 7642, 319, 8, 32, "Input"],
+Cell[320827, 7652, 334, 11, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[319724, 7620, 2220, 66, 143, "Input"],
-Cell[321947, 7688, 7900, 143, 265, "Output"],
-Cell[329850, 7833, 7787, 141, 265, "Output"],
-Cell[337640, 7976, 7942, 144, 265, "Output"]
+Cell[321198, 7668, 2220, 66, 143, "Input"],
+Cell[323421, 7736, 7900, 143, 265, "Output"],
+Cell[331324, 7881, 7787, 141, 265, "Output"],
+Cell[339114, 8024, 7942, 144, 265, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[345619, 8125, 907, 24, 55, "Input"],
-Cell[346529, 8151, 7996, 144, 265, "Output"]
+Cell[347093, 8173, 907, 24, 55, "Input"],
+Cell[348003, 8199, 7996, 144, 265, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[354586, 8302, 112, 1, 45, "Subsection"],
-Cell[354701, 8305, 1712, 50, 133, "Text",
+Cell[356060, 8350, 112, 1, 45, "Subsection"],
+Cell[356175, 8353, 1712, 50, 154, "Text",
  CellTags->"CompositePulseDistortion::usage"],
-Cell[356416, 8357, 106, 1, 32, "Input"],
+Cell[357890, 8405, 106, 1, 32, "Input"],
 Cell[CellGroupData[{
-Cell[356547, 8362, 98, 1, 35, "Subsubsection"],
-Cell[356648, 8365, 567, 20, 32, "Text"],
-Cell[357218, 8387, 762, 24, 32, "Input"],
+Cell[358021, 8410, 98, 1, 35, "Subsubsection"],
+Cell[358122, 8413, 567, 20, 32, "Text"],
+Cell[358692, 8435, 762, 24, 32, "Input"],
 Cell[CellGroupData[{
-Cell[358005, 8415, 1148, 34, 77, "Input"],
-Cell[359156, 8451, 13932, 253, 265, "Output"]
+Cell[359479, 8463, 1148, 34, 77, "Input"],
+Cell[360630, 8499, 13932, 253, 265, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
-Cell[373139, 8710, 97, 1, 65, "Section"],
-Cell[373239, 8713, 102, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[373366, 8718, 99, 1, 51, "Section"],
+Cell[374635, 8760, 201, 3, 65, "Section",
+ CellTags->"ParameterDistribution::section"],
+Cell[374839, 8765, 1263, 23, 171, "Text"],
 Cell[CellGroupData[{
-Cell[373490, 8723, 99, 1, 44, "Subsection"],
-Cell[373592, 8726, 5467, 140, 463, "Text",
+Cell[376127, 8792, 113, 1, 44, "Subsection"],
+Cell[376243, 8795, 821, 25, 53, "Text",
+ CellTags->"ParameterDistributionMean::usage"],
+Cell[CellGroupData[{
+Cell[377089, 8824, 100, 1, 35, "Subsubsection"],
+Cell[377192, 8827, 149, 2, 31, "Text"],
+Cell[CellGroupData[{
+Cell[377366, 8833, 515, 13, 55, "Input"],
+Cell[377884, 8848, 274, 6, 32, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[378219, 8861, 120, 1, 45, "Subsection"],
+Cell[378342, 8864, 1370, 39, 74, "Text",
+ CellTags->"RandomSampleParameterDistribution::usage"],
+Cell[379715, 8905, 1534, 48, 74, "Text",
+ CellTags->"RandomMultinormalParameterDistribution::usage"],
+Cell[381252, 8955, 1231, 38, 74, "Text",
+ CellTags->"RandomUniformParameterDistribution::usage"],
+Cell[CellGroupData[{
+Cell[382508, 8997, 147, 2, 35, "Subsubsection"],
+Cell[382658, 9001, 196, 5, 32, "Text"],
+Cell[CellGroupData[{
+Cell[382879, 9010, 480, 11, 77, "Input"],
+Cell[383362, 9023, 647, 19, 32, "Output"],
+Cell[384012, 9044, 651, 19, 32, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[384712, 9069, 101, 1, 29, "Subsubsection"],
+Cell[384816, 9072, 173, 4, 31, "Text"],
+Cell[CellGroupData[{
+Cell[385014, 9080, 599, 17, 55, "Input"],
+Cell[385616, 9099, 1165, 29, 55, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[386830, 9134, 102, 1, 29, "Subsubsection"],
+Cell[386935, 9137, 171, 4, 31, "Text"],
+Cell[CellGroupData[{
+Cell[387131, 9145, 533, 15, 55, "Input"],
+Cell[387667, 9162, 1171, 29, 55, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[388899, 9198, 120, 1, 44, "Subsection"],
+Cell[389022, 9201, 1888, 66, 74, "Text",
+ CellTags->"UniformParameterDistribution::usage"],
+Cell[CellGroupData[{
+Cell[390935, 9271, 98, 1, 35, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[391058, 9276, 538, 14, 55, "Input"],
+Cell[391599, 9292, 1901, 57, 81, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[393573, 9357, 138, 2, 65, "Section",
+ CellTags->"PulsePenalty::section"],
+Cell[393714, 9361, 426, 12, 32, "Text"],
+Cell[CellGroupData[{
+Cell[394165, 9377, 99, 1, 45, "Subsection"],
+Cell[394267, 9380, 363, 10, 32, "Text",
+ CellTags->"ZeroPenalty::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[394667, 9395, 106, 1, 45, "Subsection"],
+Cell[394776, 9398, 1980, 67, 63, "Text",
+ CellTags->"DemandValuePenalty::usage"],
+Cell[396759, 9467, 100, 1, 35, "Subsubsection"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[396896, 9473, 105, 1, 45, "Subsection"],
+Cell[397004, 9476, 732, 25, 53, "Text",
+ CellTags->"RingdownPenalty::usage"],
+Cell[397739, 9503, 98, 1, 35, "Subsubsection"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[397886, 9510, 99, 1, 65, "Section"],
+Cell[CellGroupData[{
+Cell[398010, 9515, 99, 1, 44, "Subsection"],
+Cell[398112, 9518, 5467, 140, 547, "Text",
  CellTags->"PulsePlot::usage"],
 Cell[CellGroupData[{
-Cell[379084, 8870, 98, 1, 35, "Subsubsection"],
-Cell[379185, 8873, 1004, 26, 53, "Text",
+Cell[403604, 9662, 98, 1, 35, "Subsubsection"],
+Cell[403705, 9665, 1004, 26, 53, "Text",
  CellTags->"ShowDistortedPulse::usage"],
-Cell[380192, 8901, 1018, 20, 92, "Text",
+Cell[404712, 9693, 1018, 20, 92, "Text",
  CellTags->"ChannelMapping::usage"],
-Cell[381213, 8923, 1149, 31, 74, "Text",
+Cell[405733, 9715, 1149, 31, 74, "Text",
  CellTags->"PulseScaling::usage"],
-Cell[382365, 8956, 628, 18, 53, "Text",
+Cell[406885, 9748, 628, 18, 53, "Text",
  CellTags->"PulseLayout::usage"],
-Cell[382996, 8976, 677, 15, 53, "Text",
+Cell[407516, 9768, 677, 15, 53, "Text",
  CellTags->"PulsePaddingMultiplier::usage"],
-Cell[383676, 8993, 767, 19, 52, "Text",
+Cell[408196, 9785, 767, 19, 52, "Text",
  CellTags->"DistributeOption::usage"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[384480, 9017, 101, 1, 29, "Subsubsection"],
-Cell[384584, 9020, 103, 1, 31, "Text"],
+Cell[409000, 9809, 101, 1, 29, "Subsubsection"],
+Cell[409104, 9812, 103, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[384712, 9025, 878, 26, 55, "Input"],
-Cell[385593, 9053, 3618, 75, 248, "Output"]
+Cell[409232, 9817, 878, 26, 55, "Input"],
+Cell[410113, 9845, 3618, 75, 248, "Output"]
 }, Open  ]],
-Cell[389226, 9131, 237, 6, 32, "Text"],
+Cell[413746, 9923, 237, 6, 32, "Text"],
 Cell[CellGroupData[{
-Cell[389488, 9141, 1581, 45, 77, "Input"],
-Cell[391072, 9188, 4313, 88, 288, "Output"]
+Cell[414008, 9933, 1581, 45, 77, "Input"],
+Cell[415592, 9980, 4313, 88, 288, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[395434, 9282, 202, 3, 29, "Subsubsection"],
-Cell[395639, 9287, 384, 11, 32, "Text"],
+Cell[419954, 10074, 202, 3, 29, "Subsubsection"],
+Cell[420159, 10079, 384, 11, 32, "Text"],
 Cell[CellGroupData[{
-Cell[396048, 9302, 2579, 62, 165, "Input"],
-Cell[398630, 9366, 26290, 483, 635, "Output"]
+Cell[420568, 10094, 2579, 62, 165, "Input"],
+Cell[423150, 10158, 26290, 483, 635, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[424969, 9855, 128, 2, 29, "Subsubsection"],
-Cell[425100, 9859, 160, 5, 32, "Text"],
+Cell[449489, 10647, 128, 2, 29, "Subsubsection"],
+Cell[449620, 10651, 160, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[425285, 9868, 1270, 37, 55, "Input"],
-Cell[426558, 9907, 12009, 235, 379, "Output"]
+Cell[449805, 10660, 1270, 37, 55, "Input"],
+Cell[451078, 10699, 12009, 235, 379, "Output"]
 }, Open  ]],
-Cell[438582, 10145, 219, 7, 32, "Text"],
+Cell[463102, 10937, 219, 7, 32, "Text"],
 Cell[CellGroupData[{
-Cell[438826, 10156, 1675, 47, 77, "Input"],
-Cell[440504, 10205, 31758, 596, 410, "Output"]
+Cell[463346, 10948, 1675, 47, 77, "Input"],
+Cell[465024, 10997, 31758, 596, 410, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[472311, 10807, 101, 1, 29, "Subsubsection"],
-Cell[472415, 10810, 158, 5, 32, "Text"],
-Cell[472576, 10817, 1010, 28, 32, "Input"],
+Cell[496831, 11599, 101, 1, 29, "Subsubsection"],
+Cell[496935, 11602, 158, 5, 32, "Text"],
+Cell[497096, 11609, 1010, 28, 32, "Input"],
 Cell[CellGroupData[{
-Cell[473611, 10849, 249, 5, 32, "Input"],
-Cell[473863, 10856, 7420, 151, 124, "Output"]
+Cell[498131, 11641, 249, 5, 32, "Input"],
+Cell[498383, 11648, 7420, 151, 124, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[481320, 11012, 272, 7, 32, "Input"],
-Cell[481595, 11021, 6195, 130, 236, "Output"]
+Cell[505840, 11804, 272, 7, 32, "Input"],
+Cell[506115, 11813, 6195, 130, 236, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[487827, 11156, 298, 7, 32, "Input"],
-Cell[488128, 11165, 6248, 130, 236, "Output"]
+Cell[512347, 11948, 298, 7, 32, "Input"],
+Cell[512648, 11957, 6248, 130, 236, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[494413, 11300, 251, 5, 32, "Input"],
-Cell[494667, 11307, 6265, 133, 460, "Output"]
+Cell[518933, 12092, 251, 5, 32, "Input"],
+Cell[519187, 12099, 6265, 133, 460, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[500969, 11445, 248, 5, 32, "Input"],
-Cell[501220, 11452, 5835, 123, 124, "Output"]
+Cell[525489, 12237, 248, 5, 32, "Input"],
+Cell[525740, 12244, 5835, 123, 124, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[507104, 11581, 100, 1, 29, "Subsubsection"],
-Cell[507207, 11584, 355, 7, 52, "Text"],
-Cell[507565, 11593, 1266, 37, 55, "Input"],
+Cell[531624, 12373, 100, 1, 29, "Subsubsection"],
+Cell[531727, 12376, 355, 7, 52, "Text"],
+Cell[532085, 12385, 1266, 37, 55, "Input"],
 Cell[CellGroupData[{
-Cell[508856, 11634, 575, 14, 32, "Input"],
-Cell[509434, 11650, 27987, 553, 265, "Output"]
+Cell[533376, 12426, 575, 14, 32, "Input"],
+Cell[533954, 12442, 27987, 553, 265, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[537458, 12208, 734, 20, 32, "Input"],
-Cell[538195, 12230, 28016, 554, 265, "Output"]
+Cell[561978, 13000, 734, 20, 32, "Input"],
+Cell[562715, 13022, 28016, 554, 265, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[566248, 12789, 655, 17, 32, "Input"],
-Cell[566906, 12808, 27881, 550, 265, "Output"]
+Cell[590768, 13581, 655, 17, 32, "Input"],
+Cell[591426, 13600, 27881, 550, 265, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[594848, 13365, 104, 1, 44, "Subsection"],
-Cell[594955, 13368, 146, 2, 30, "Text",
+Cell[619368, 14157, 104, 1, 44, "Subsection"],
+Cell[619475, 14160, 146, 2, 30, "Text",
  CellTags->"PulseFourierPlot::usage"]
 }, Open  ]],
-Cell[595116, 13373, 106, 1, 44, "Subsection"]
+Cell[619636, 14165, 106, 1, 44, "Subsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[595259, 13379, 94, 1, 65, "Section"],
+Cell[619779, 14171, 94, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[595378, 13384, 99, 1, 45, "Subsection"],
-Cell[595480, 13387, 1408, 52, 112, "Text",
+Cell[619898, 14176, 99, 1, 45, "Subsection"],
+Cell[620000, 14179, 1408, 52, 133, "Text",
  CellTags->"ExportJCAMP::usage"],
 Cell[CellGroupData[{
-Cell[596913, 13443, 102, 1, 35, "Subsubsection"],
-Cell[597018, 13446, 5889, 151, 563, "Text"]
+Cell[621433, 14235, 102, 1, 35, "Subsubsection"],
+Cell[621538, 14238, 5889, 151, 563, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[602956, 13603, 99, 1, 45, "Subsection"],
-Cell[603058, 13606, 1652, 51, 74, "Text",
+Cell[627476, 14395, 99, 1, 45, "Subsection"],
+Cell[627578, 14398, 1652, 51, 94, "Text",
  CellTags->"ExportSHP::usage"]
 }, Open  ]]
 }, Open  ]]
