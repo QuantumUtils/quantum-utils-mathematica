@@ -372,11 +372,11 @@ Chi[m_?SquareMatrixQ,opts:OptionsPattern[QuantumChannel]]:=
 	]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Transforming Representations*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Calling methods*)
 
 
@@ -461,12 +461,12 @@ TransformChannel[Stinespring->SysEnv,op_,opts:OptionsPattern[TransformChannel]]:
 
 
 ReducedUnitary[stine_,outDim_]:=
-	With[{v0=UnitVector[Last[Dimensions[stine]]/outDim,1]},
+	With[{v0=UnitVector[First[Dimensions[stine]]/outDim,1]},
 		{KroneckerProduct[stine,{v0}],v0}
 	]
 
 ReducedUnitary[{stine1_,stine2_},outDim_]:=
-	With[{v0=UnitVector[Last[Dimensions[stine1]]/outDim,1]},
+	With[{v0=UnitVector[First[Dimensions[stine1]]/outDim,1]},
 		{{KroneckerProduct[stine1,{v0}]
 		KroneckerProduct[stine2,{v0}]},v0}
 	]
@@ -506,12 +506,17 @@ TransformChannel[Stinespring->Choi,op_,opts:OptionsPattern[TransformChannel]]:=
 
 TransformChannel[Stinespring->Kraus,op_,opts:OptionsPattern[TransformChannel]]:=
 	With[{
-		dims=StinespringDims[op],
+		sdims=StinespringDims[op],
 		outDim=OptionValue[OutputDim],
 		inDim=OptionValue[InputDim]},
-	Flatten[
-		If[First[dims],Apply,Map][ArrayReshape[#,{outDim,Last[dims]/outDim,inDim}]&,op],
-		{{2},{1},{3}}
+	Select[
+		Flatten[
+			If[First[sdims],
+				ArrayReshape[op,{outDim,Last[sdims]/outDim,inDim}],
+				Map[ArrayReshape[#,{outDim,Last[sdims]/outDim,inDim}]&,op]
+			],
+		{{2},{1},{3}}],
+		AnyPossiblyNonzeroQ
 	]]
 
 
@@ -928,7 +933,7 @@ ProcessFidelity[chan_QuantumChannel]:=
 	]]
 
 ProcessFidelity[chan1_QuantumChannel,chan2_QuantumChannel]:=
-	ProcessFidelity[ConjugateTranspose[Super[chan2]].chan1]
+	ProcessFidelity[ConjugateTranspose[Super[chan2,Basis->"Col"]].chan1]
 
 
 AverageGateFidelity[chan_QuantumChannel]:=
@@ -939,7 +944,7 @@ AverageGateFidelity[chan_QuantumChannel]:=
 		]]
 
 AverageGateFidelity[chan1_QuantumChannel,chan2_QuantumChannel]:=
-	AverageGateFidelity[ConjugateTranspose[Super[chan2]].Super[chan1]]
+	AverageGateFidelity[ConjugateTranspose[Super[chan2,Basis->"Col"]].Super[chan1,Basis->"Col"]]
 
 
 GateFidelity[state_,chan_QuantumChannel]:=Fidelity[state,chan[state]]^2
@@ -953,7 +958,7 @@ EntanglementFidelity[state_,chan_QuantumChannel]:=
 		First@Flatten[rho\[HermitianConjugate].choi.rho]
 ]
 
-EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=EntanglementFidelity[state,ConjugateTranspose[Super[chan2]].chan2]
+EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=EntanglementFidelity[state,ConjugateTranspose[Super[chan2,Basis->"Col"]].chan1]
 
 
 (* ::Subsection::Closed:: *)
@@ -1059,6 +1064,9 @@ End[];
 
 (* ::Section::Closed:: *)
 (*Unit Testing*)
+
+
+Begin["UnitTests`"];
 
 
 (* ::Subsection::Closed:: *)
@@ -1285,200 +1293,351 @@ TestCase["QuantumChannel:StinespringEvolution",
 (*Channel Transformations*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*From Unitary*)
 
 
-TestCase["QuantumChannel:UnitaryToUnitary",
-	True];
+With[{chan=QuantumChannel[PauliMatrix[1],
+			,{ChannelRep->Unitary,InputDim->2,OutputDim->2,Basis->"Col"}]},
 
+TestCase["QuantumChannel:UnitaryToUnitary",
+	SameQ[Unitary[chan],chan]];
 
 TestCase["QuantumChannel:UnitaryToSuper",
-	True];
-
+	SameQ[Super[chan],
+		QuantumChannel[
+			{{0,0,0,1},{0,0,1,0},{0,1,0,0},{1,0,0,0}},
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]]];
 
 TestCase["QuantumChannel:UnitaryToChoi",
-	True];
-
+	SameQ[Choi[chan],
+		QuantumChannel[
+			{{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}},
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]];
 
 TestCase["QuantumChannel:UnitaryToChi",
-	True];
-
+	SameQ[Chi[chan],
+		QuantumChannel[
+			{{0,0,0,0},{0,2,0,0},{0,0,0,0},{0,0,0,0}},
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]];
 
 TestCase["QuantumChannel:UnitaryToKraus",
-	True];
-
+	SameQ[Kraus[chan],
+		QuantumChannel[
+			{{{0,1},{1,0}}},
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]]];
 
 TestCase["QuantumChannel:UnitaryToStinespring",
-	True];
-
+	SameQ[Stinespring[chan],
+		QuantumChannel[
+			{{0,1},{1,0}},
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]];
 
 TestCase["QuantumChannel:UnitaryToSysEnv",
-	True];
+	SameQ[SysEnv[chan],
+		QuantumChannel[
+			{{{0,1},{1,0}},{1}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]];
+]
 
 
 (* ::Subsubsection::Closed:: *)
 (*From Super*)
 
 
-TestCase["QuantumChannel:SuperToUnitary",
-	True];
+With[{chan=QuantumChannel[
+			{{3,0,0,1},{0,3,1,0},{0,1,3,0},{1,0,0,3}}/4,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]},
 
+TestCase["QuantumChannel:SuperToUnitary",
+	SameQ[Unitary[chan],chan]
+	];
 
 TestCase["QuantumChannel:SuperToSuper",
-	True];
+	SameQ[Super[chan],chan]
+	];
 
-
+TestCase["QuantumChannel:SuperToPauliSuper",
+	SameQ[Super[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{2,0,0,0},{0,2,0,0},{0,0,1,0},{0,0,0,1}}/2,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 TestCase["QuantumChannel:SuperToChoi",
-	True];
-
+	SameQ[Choi[chan],
+		QuantumChannel[
+			{{3,0,0,3},{0,1,1,0},{0,1,1,0},{3,0,0,3}}/4,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:SuperToChi",
-	True];
-
+	SameQ[Choi[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{3,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}}/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 
 TestCase["QuantumChannel:SuperToKraus",
-	True];
-
+	SameQ[Kraus[chan],
+		QuantumChannel[
+			{{{0,1},{1,0}}/2,{{Sqrt[3],0},{0,Sqrt[3]}}/2},
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:SuperToStinespring",
-	True];
-
+	SameQ[Stinespring[chan],
+		QuantumChannel[
+			{{0,1},{Sqrt[3],0},{1,0},{0,Sqrt[3]}}/2,
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:SuperToSysEnv",
-	True];
+	SameQ[SysEnv[chan],
+		QuantumChannel[
+			{{{0,0,1,0},{Sqrt[3],0,0,0},{1,0,0,0},{0,0,Sqrt[3],0}}/2,{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
+];
 
 
 (* ::Subsubsection::Closed:: *)
 (*From Choi*)
 
 
-TestCase["QuantumChannel:ChoiToUnitary",
-	True];
+With[{chan=QuantumChannel[
+			{{3,0,0,3},{0,1,1,0},{0,1,1,0},{3,0,0,3}}/4,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]},
 
+TestCase["QuantumChannel:ChoiToUnitary",
+	SameQ[Unitary[chan],chan]
+	];
 
 TestCase["QuantumChannel:ChoiToSuper",
-	True];
+	SameQ[Super[chan],
+		QuantumChannel[
+			{{3,0,0,1},{0,3,1,0},{0,1,3,0},{1,0,0,3}}/4,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
-
+TestCase["QuantumChannel:ChoiToPauliSuper",
+	SameQ[Super[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{2,0,0,0},{0,2,0,0},{0,0,1,0},{0,0,0,1}}/2,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 TestCase["QuantumChannel:ChoiToChoi",
-	True];
-
+	SameQ[Choi[chan],chan]
+	];
 
 TestCase["QuantumChannel:ChoiToChi",
-	True];
-
+	SameQ[Choi[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{3,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}}/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 
 TestCase["QuantumChannel:ChoiToKraus",
-	True];
-
+	SameQ[Kraus[chan],
+		QuantumChannel[
+			{{{0,1},{1,0}}/2,{{Sqrt[3],0},{0,Sqrt[3]}}/2},
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:ChoiToStinespring",
-	True];
-
+	SameQ[Stinespring[chan],
+		QuantumChannel[
+			{{0,1},{Sqrt[3],0},{1,0},{0,Sqrt[3]}}/2,
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:ChoiToSysEnv",
-	True];
+	SameQ[SysEnv[chan],
+		QuantumChannel[
+			{{{0,0,1,0},{Sqrt[3],0,0,0},{1,0,0,0},{0,0,Sqrt[3],0}}/2,{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
+];
 
 
 (* ::Subsubsection::Closed:: *)
 (*From Kraus*)
 
 
-TestCase["QuantumChannel:KrausToUnitary",
-	True];
+With[{chan=QuantumChannel[
+			{Sqrt[3]*{{1,0},{0,1}}/2,{{0,1},{1,0}}/2},
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]},
 
+TestCase["QuantumChannel:KrausToUnitary",
+	SameQ[Unitary[chan],chan]
+	];
 
 TestCase["QuantumChannel:KrausToSuper",
-	True];
+	SameQ[Super[chan],
+		QuantumChannel[
+			{{3,0,0,1},{0,3,1,0},{0,1,3,0},{1,0,0,3}}/4,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
-
+TestCase["QuantumChannel:KrausToPauliSuper",
+	SameQ[Super[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{2,0,0,0},{0,2,0,0},{0,0,1,0},{0,0,0,1}}/2,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 TestCase["QuantumChannel:KrausToChoi",
-	True];
-
+	SameQ[Choi[chan],
+		QuantumChannel[
+			{{3,0,0,3},{0,1,1,0},{0,1,1,0},{3,0,0,3}}/4,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:KrausToChi",
-	True];
-
+	SameQ[Choi[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{3,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}}/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 
 TestCase["QuantumChannel:KrausToKraus",
-	True];
-
+	SameQ[Kraus[chan],chan]
+	];
 
 TestCase["QuantumChannel:KrausToStinespring",
-	True];
-
+	SameQ[Stinespring[chan],
+		QuantumChannel[
+			{{Sqrt[3],0},{0,1},{0,Sqrt[3]},{1,0}}/2,
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:KrausToSysEnv",
-	True];
+	SameQ[SysEnv[chan],
+		QuantumChannel[
+			{{{Sqrt[3],0,0,0},{0,0,1,0},{0,0,Sqrt[3],0},{1,0,0,0}}/2,{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
+];
 
 
 (* ::Subsubsection::Closed:: *)
 (*From Stinespring*)
 
 
-TestCase["QuantumChannel:StinespringToUnitary",
-	True];
+With[{chan=QuantumChannel[
+			{{Sqrt[3],0},{0,1},{0,Sqrt[3]},{1,0}}/2,
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]},
 
+TestCase["QuantumChannel:StinespringToUnitary",
+	SameQ[Unitary[chan],chan]
+	];
 
 TestCase["QuantumChannel:StinespringToSuper",
-	True];
+	SameQ[Super[chan],
+		QuantumChannel[
+			{{3,0,0,1},{0,3,1,0},{0,1,3,0},{1,0,0,3}}/4,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
-
+TestCase["QuantumChannel:StinespringToPauliSuper",
+	SameQ[Super[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{2,0,0,0},{0,2,0,0},{0,0,1,0},{0,0,0,1}}/2,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 TestCase["QuantumChannel:StinespringToChoi",
-	True];
-
+	SameQ[Choi[chan],
+		QuantumChannel[
+			{{3,0,0,3},{0,1,1,0},{0,1,1,0},{3,0,0,3}}/4,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:StinespringToChi",
-	True];
-
+	SameQ[Choi[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{3,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}}/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 
 TestCase["QuantumChannel:StinespringToKraus",
-	True];
-
+	SameQ[Kraus[chan],
+		QuantumChannel[
+			{Sqrt[3]*{{1,0},{0,1}}/2,{{0,1},{1,0}}/2},
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
 
 TestCase["QuantumChannel:StinespringToStinespring",
-	True];
-
+	SameQ[Stinespring[chan],chan]
+	];
 
 TestCase["QuantumChannel:StinespringToSysEnv",
-	True];
+	SameQ[SysEnv[chan],
+		QuantumChannel[
+			{{{Sqrt[3],0,0,0},{0,0,1,0},{0,0,Sqrt[3],0},{1,0,0,0}}/2,{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
+];
 
 
 (* ::Subsubsection::Closed:: *)
 (*From SysEnv*)
 
 
-TestCase["QuantumChannel:SysEnvToUnitary",
-	True];
+With[{chan=QuantumChannel[
+			{{{Sqrt[3],0,0,0},{0,0,1,0},{0,0,Sqrt[3],0},{1,0,0,0}}/2,{1,0}},
+			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]},
 
+TestCase["QuantumChannel:SysEnvToUnitary",
+	SameQ[Unitary[chan],chan]
+	];
 
 TestCase["QuantumChannel:SysEnvToSuper",
-	True];
+	SameQ[Super[chan],
+		QuantumChannel[
+			{{3,0,0,1},{0,3,1,0},{0,1,3,0},{1,0,0,3}}/4,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
-
+TestCase["QuantumChannel:SysEnvToPauliSuper",
+	SameQ[Super[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{2,0,0,0},{0,2,0,0},{0,0,1,0},{0,0,0,1}}/2,
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 TestCase["QuantumChannel:SysEnvToChoi",
-	True];
-
+	SameQ[Choi[chan],
+		QuantumChannel[
+			{{3,0,0,3},{0,1,1,0},{0,1,1,0},{3,0,0,3}}/4,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:SysEnvToChi",
-	True];
-
+	SameQ[Choi[chan,Basis->"Pauli"],
+		QuantumChannel[
+			{{3,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}}/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]]
+	];
 
 TestCase["QuantumChannel:SysEnvToKraus",
-	True];
-
+	SameQ[Kraus[chan],
+		QuantumChannel[
+			{Sqrt[3]*{{1,0},{0,1}}/2,{{0,1},{1,0}}/2},
+			{ChannelRep->Kraus,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
 
 TestCase["QuantumChannel:SysEnvToStinespring",
-	True];
-
+	SameQ[Stinespring[chan],
+		QuantumChannel[
+			{{Sqrt[3],0},{0,1},{0,Sqrt[3]},{1,0}}/2,
+			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
 
 TestCase["QuantumChannel:SysEnvToSysEnv",
-	True];
+	SameQ[SysEnv[chan],chan]
+	];
+];
 
 
 (* ::Subsection::Closed:: *)
-(*Channel Operations*)
+(*Channel Operations**)
 
 
 TestCase["QuantumChannel:Times",
@@ -1545,48 +1704,119 @@ TestCase["QuantumChannel:SimplifyFunctions",
 (*Channel Functions*)
 
 
+Module[{a,b,chan1,chan2},
+	chan1=QuantumChannel[DiagonalMatrix@Array[a,4],
+		{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}];
+	chan2=QuantumChannel[DiagonalMatrix@Array[b,4],
+		{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Col"}];
+
 TestCase["QuantumChannel:ProcessFidelity",
-	True];
+	And[
+		ProcessFidelity[chan1]===Total@Array[a,4]/4,
+		ProcessFidelity[chan1,chan2]===Array[a,4].Conjugate[Array[b,4]]/4
+	]];
 
 
 TestCase["QuantumChannel:GateFidelity",
-	True];
-
+	And[
+	AllMatchQ[Abs[a[1]b[1]],
+		Map[FullSimplify@GateFidelity[#,chan1,chan2]&,
+			{{1,0},{{1},{0}},{{1,0},{0,0}}}]],
+	{a[1],a[1],Abs[a[1]]}===
+		Map[FullSimplify@GateFidelity[#,chan1]&,
+			{{1,0},{{1},{0}},{{1,0},{0,0}}}]
+	]];
 
 TestCase["QuantumChannel:AverageGateFidelity",
-	True];
-
+	And[
+		AllMatchQ[0,
+			{FullSimplify[1/6 (2+Total@Array[a,4])-AverageGateFidelity[chan1]],
+			FullSimplify[1/6 (2+Array[a,4].Conjugate[Array[b,4]])
+				-AverageGateFidelity[chan1,chan2]]}]		
+	]];
 
 TestCase["QuantumChannel:EntanglementFidelity",
-	True];
+	And[
+	AllMatchQ[a[1]Conjugate[b[1]],
+		Map[FullSimplify@EntanglementFidelity[#,chan1,chan2]&,
+			{{1,0},{{1},{0}},{{1,0},{0,0}}}]],
+	AllMatchQ[a[1],
+		Map[FullSimplify@EntanglementFidelity[#,chan1]&,
+			{{1,0},{{1},{0}},{{1,0},{0,0}}}]
+	]]];
+
+];
 
 
 TestCase["QuantumChannel:ChannelVolume",
-	True];
+	Module[{a},
+	FullSimplify[
+		ChannelVolume[QuantumChannel[DiagonalMatrix@Array[a,4],
+			{ChannelRep->Super,InputDim->2,OutputDim->2,Basis->"Pauli"}]]-Sqrt[a[2]]Sqrt[a[3]]Sqrt[a[4]]]===0
+	]];
 
 
 (* ::Subsection::Closed:: *)
-(*Predicates*)
+(*Channel Predicates*)
 
 
 TestCase["QuantumChannel:CompletelyPositiveQ",
-	True];
+	And[
+		Not@CompletelyPositiveQ@QuantumChannel[
+			{{1,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,1}},
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}],
+		CompletelyPositiveQ@QuantumChannel[
+			IdentityMatrix[4]/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
 
 
 TestCase["QuantumChannel:TracePreservingQ",
-	True];
+	And[
+		TracePreservingQ@QuantumChannel[
+			IdentityMatrix[4]/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}],
+		Not@TracePreservingQ@QuantumChannel[
+			{{1,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,0,0}},
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
 
 
 TestCase["QuantumChannel:HermitianPreservingQ",
-	True];
+	And[
+		HermitianPreservingQ@QuantumChannel[
+			IdentityMatrix[4]/2,
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}],
+		Not@HermitianPreservingQ@QuantumChannel[
+			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{0,0,0,1}},
+			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]
+	]];
 
 
 TestCase["QuantumChannel:UnitalQ",
-	True];
+	And[
+		Not@UnitalQ[
+			QuantumChannel[
+				{{1,0,0,0},{0,0,0,0},{0,0,1,0},{0,0,0,0}},
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]],
+		UnitalQ[
+			QuantumChannel[
+				DiagonalMatrix[{1/4,1/4,3/4,3/4}],
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	]];
 
 
 TestCase["QuantumChannel:PauliChannelQ",
-	True];
+	And[
+		PauliChannelQ[
+			QuantumChannel[
+				DiagonalMatrix[{1/4,1/4,3/4,3/4}],
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Pauli"}]],
+		Not@PauliChannelQ[
+			QuantumChannel[
+				DiagonalMatrix[{1/4,1/4,3/4,3/4}],
+				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	]];
 
 
 (* ::Subsection::Closed:: *)
@@ -1666,6 +1896,13 @@ TestCase["QuantumChannel:FunctionChannel",
 				{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]
 		]
 	]];
+
+
+(* ::Subsection::Closed:: *)
+(*End*)
+
+
+End[];
 
 
 (* ::Section::Closed:: *)
