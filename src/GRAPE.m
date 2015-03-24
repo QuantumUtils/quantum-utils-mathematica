@@ -81,7 +81,7 @@ Unprotect[
 	Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
 	ToPulse,SimForm,
-	PulseRemoveKeys,PulseReplaceKey,
+	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
 	PulsePhaseRotate,PulsePhaseRamp
 ];
 
@@ -91,7 +91,7 @@ AssignUsage[
 		Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
 		InternalHamiltonian,AmplitudeRange,ExitMessage,
 		ToPulse,SimForm,
-		PulseRemoveKeys,PulseReplaceKey,
+		PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
 		PulsePhaseRotate,PulsePhaseRamp
 	},
 	$Usages
@@ -156,25 +156,42 @@ AssignUsage[
 (*Distributions*)
 
 
-ParameterDistributionMean::usage = "ParameterDistributionMean[ParameterDistribution] returns a list of replacement rules at the mean of the distrubution (at objval=1).";
+Unprotect[
+	ParameterDistributionMean,
+	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
+	UniformParameterDistribution
+];
 
 
-RandomSampleParameterDistribution::usage = "RandomSampleParameterDistribution[probDist_, symbols_, n_] returns a ParameterDistribution based on the ProbabilityDistribution object probDist to be used with FindPulse. n is the number of random variates drawn each iteration of GRAPE. symbols can be a list of symbols or a single symbol.";
-MultiNormalParameterDistribution::usage = "MultiNormalParameterDistribution[\[Mu]_, \[CapitalSigma]_, symbols_, n_] passes a multinormal distribution to RandomSampleDistribution; see its documentation. \[CapitalSigma] can be a list of standard deviations, or the covariance matrix.";
-UniformParameterDistribution::usage = "UniformParameterDistribution[{{symb1min,symb1max},{symb2min,symb2max},...}, symbols_, n_] passes a uniform distribution to RandomSampleParameterDistribution; see its documentation. First argement can be a list of pairs, or just a pair in the case of a single symbol.";
-StaticParameterDistribution::usage = "StaticParameterDistribution[{p1,...,pn},{{symb1->val11,...,symbn->val1n},{symb1->val21,...,symbn->val2n},...}]";
-UniformStaticParameterDistribution::usage = "UniformStaticParameterDistribution[symb1->{mean1,width1,num1},symb2->{mean2,width2,num2}...] creates a GDistribiton over the specified hyperrectangle."
+AssignUsage[
+	{
+		ParameterDistributionMean,
+		RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
+		UniformParameterDistribution
+	},
+	$Usages
+];
 
 
 (* ::Subsection::Closed:: *)
 (*Pulse Penalties*)
 
 
-ZeroPenalty::usage = "ZeroPenalty[] returns a pulse penalty that does nothing.";
+Unprotect[
+	ZeroPenalty,
+	DemandValuePenalty,
+	RingdownPenalty
+];
 
 
-DemandValuePenalty::usage = "DemandValuePenalty[\[Epsilon],m,r,qmax] returns a penalty function that is zero whenever (pulse-r)*m is 0. qmax is the maximum possible amplitude in pulse, and \[Epsilon] is an overall scaling factor.";
-RingdownPenalty::usage = "RingdownPenalty[\[Epsilon],startIndex,qmax] returns a penalty function that is zero whenever the pulse is 0 starting at startIndex. This is a special case of DemandValuePenalty.";
+AssignUsage[
+	{
+		ZeroPenalty,
+		DemandValuePenalty,
+		RingdownPenalty
+	},
+	$Usages
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -184,7 +201,8 @@ RingdownPenalty::usage = "RingdownPenalty[\[Epsilon],startIndex,qmax] returns a 
 Unprotect[
 	PulsePlot,PulseFourierPlot,
 	ShowDistortedPulse,ChannelMapping,PulseScaling,PulseLayout,PulsePaddingMultiplier,
-	DistributeOption
+	DistributeOption,
+	RobustnessPlot,LegendIsCell,DistortionOperatorSweep
 ];
 
 
@@ -192,10 +210,14 @@ AssignUsage[
 	{
 		PulsePlot,PulseFourierPlot,
 		ShowDistortedPulse,ChannelMapping,PulseScaling,PulseLayout,PulsePaddingMultiplier,
-		DistributeOption
+		DistributeOption,
+		RobustnessPlot,LegendIsCell,DistortionOperatorSweep
 	},
 	$Usages
 ];
+
+
+RobustnessPlot::keys = "RobustnessPlot requires all input pulses to have at least the following keys: TimeSteps, Pulse, InternalHamiltonian, ControlHamiltonians, Target, and DistortionOperator";
 
 
 (* ::Subsection::Closed:: *)
@@ -284,20 +306,6 @@ FindPulse::usage = "FindPulse[initialGuess_,Utarget_,\[Phi]target_,\[Epsilon]Ran
 
 
 (* ::Subsection::Closed:: *)
-(*Meta GRAPE*)
-
-
-LogTicks::usage = "LogTicks[lowest,highest,labeledTicksPerDecade,unlabeledTicksPerDecade] for example, LogTicks[-4, 1, {1}, {2, 3, 5, 7}]. Function taken from StackExchange; see source code for reference.";
-
-
-RobustnessPlot::usage = "RobustnessPlot[pulse_Pulse, sweepParams, constantParams, [options]] for 1D or RobustnessPlot[pulse_Pulse, sweepParamsX, sweepParamsY, constantParams, [options]] for 2D. SweepParams have the form symbol->{min,max,step} and constantParams is a list of replacement rules for values that don't change. Any plotting options you specify will be passed to the plotting function. You can also set LogPlot to True or False and Function to any function that will be applied to the objective function. The default value of Function depends on the value of LogPlot because (1-fideltiy) is plotted in the log case..";
-
-
-LegendIsCell::usage = "LegendIsCell is an option for 2D RobustnessPlots which when True, makes the legend its own figure which is put into the grid just like another plot.";
-DistortionOperatorSweep::usage = "DistortionOperatorSweep is an option for RobustnessPlots which when True indicates that the distortion contains a robustness parameter which is being swept and therefore needs to be calculated each time on the inner loop. Default is False.";
-
-
-(* ::Subsection::Closed:: *)
 (*Exporters*)
 
 
@@ -374,17 +382,20 @@ SimForm[pulse_Pulse, distort_:True]:=
 	]
 
 
-RemovePulseHeader[pulse_Pulse,headers__]:=Select[pulse,Not[MemberQ[{headers},#[[1]]]]&]
+PulseRemoveKeys[pulse_Pulse,headers__]:=Select[pulse,Not[MemberQ[{headers},#[[1]]]]&]
 
 
-ReplacePulseHeader[pulse_Pulse,header_,newval_]:=Append[RemovePulseHeader[pulse,header],header->newval]
+PulseReplaceKey[pulse_Pulse,header_,newval_]:=Append[PulseRemoveKeys[pulse,header],header->newval]
+
+
+PulseHasKey[pulse_Pulse,key_]:=MemberQ[pulse[[All,1]],key]
 
 
 DividePulse[pulse_Pulse,n_]:=
 	Module[{p=pulse[Pulse],dt=pulse[TimeSteps]},
 		dt=Flatten[ConstantArray[dt/n,n]\[Transpose]];
 		p=p[[Flatten@Table[ConstantArray[k,n],{k,Length@p}]]];
-		ReplacePulseHeader[ReplacePulseHeader[pulse,Pulse,p],TimeSteps,dt]
+		PulseReplaceKey[PulseReplaceKey[pulse,Pulse,p],TimeSteps,dt]
 	]
 
 
@@ -393,7 +404,7 @@ PulsePhaseRotate[pulse_,\[Phi]_]:=
 		{xy=pulse[Pulse],a\[Theta]},
 		a\[Theta]={Norm/@xy,\[Phi]+(ArcTan[First@#,Last@#]&/@xy)}\[Transpose];
 		xy={First[#]Cos[Last@#],First[#]Sin[Last@#]}&/@a\[Theta];
-		ReplacePulseHeader[pulse,Pulse,xy]
+		PulseReplaceKey[pulse,Pulse,xy]
 	]
 
 
@@ -403,7 +414,7 @@ PulsePhaseRamp[pulse_,\[Omega]_]:=
 		dt=pulse[TimeSteps];
 		a\[Theta]={Norm/@xy,2\[Pi]*\[Omega]*(Accumulate[dt]-dt/2)+(If[First@#==0&&Last@#==0,0,ArcTan[First@#,Last@#]]&/@xy)}\[Transpose];
 		xy={First[#]Cos[Last@#],First[#]Sin[Last@#]}&/@a\[Theta];
-		ReplacePulseHeader[pulse,Pulse,xy]
+		PulseReplaceKey[pulse,Pulse,xy]
 	]
 
 
@@ -995,17 +1006,11 @@ RandomSampleParameterDistribution[probDist_,symbols_,n_]:=Module[{DistributionFu
 ]
 
 
-MultiNormalParameterDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleParameterDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
-UniformParameterDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleParameterDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
+RandomMultinormalParameterDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleParameterDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
+RandomUniformParameterDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleParameterDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
 
 
-StaticParameterDistribution[probs_,reps_]:=Module[{DistributionFunction},
-	DistributionFunction[cost_]={probs,reps};
-	DistributionFunction
-]
-
-
-UniformStaticParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
+UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
 	symbols={rules}[[All,1]];
 	means={rules}[[All,2,1]];
 	widths={rules}[[All,2,2]];
@@ -1021,10 +1026,9 @@ UniformStaticParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nu
 		1
 	];
 	values = Flatten[Outer[List,Sequence@@values,1], Length[values]-1];
-	Evaluate[StaticParameterDistribution[
-		ConstantArray[1/Length[values],Length[values]],
-		values
-	][1]]&
+	With[{valueval=values,n=Length@values},
+		Function[{util}, {ConstantArray[1/n,n], valueval}]
+	]
 ]
 
 
@@ -1319,6 +1323,263 @@ samples=fun/@Range[-T/2,3T/2,1/Fs];
 ListPlot[Evaluate[{Range[0,Fs,Fs/(Length@samples-1)],Abs@Fourier@samples}\[Transpose]],Joined->True,PlotRange->{{\[Omega]LO-\[Omega]max,\[Omega]LO+\[Omega]max},All}]*)
 DiscreteFourierPlot[s,{-T/2,3T/2},Abs,Joined->True,PlotRange->{{\[Omega]LO-\[Omega]max,\[Omega]LO+\[Omega]max},All},PlotLabel->"Pulse Power Spectrum",AxesLabel->{"(MHz)",""}]
 ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*RobustnessPlot*)
+
+
+(* ::Text:: *)
+(*Mathematica doesn't have a convenient way of making nice looking ticks and consistent ticks on log plots. The following code block is a nice solution to this from http://mathematica.stackexchange.com/questions/5369/about-the-number-format-in-ticks.*)
+
+
+SetAttributes[dtZahl, Listable]
+dtZahl[x_] := Block[{n}, If[IntegerQ[n = Rationalize[x]], n, x]]
+
+exponentForm[x_?NumberQ] := 
+  Module[{me = MantissaExponent[x], num, exp}, 
+   If[MemberQ[{0, 0., 1, 1., -1, -1.}, x], Return[IntegerPart[x]]];
+   exp = Superscript["\[CenterDot]10", me[[2]] - 1];
+   num = NumberForm[N[me[[1]]]*10 // dtZahl, 3];
+   If[me[[1]] == 0.1,(*no mantissa*)num = "";
+    exp = Superscript[10, me[[2]] - 1], 
+    If[me[[2]] == 1,(*range 0..10*)exp = ""]];
+   Row[{num, exp}]];
+exponentForm[x_] := x
+
+LogTicks[von_Integer, bis_Integer, werte_List, subwerte_List] :=
+ Module[{mt, st, ticks, res, tf},
+  tf = 1;
+  mt = {#, exponentForm[N[#]], {0.01, 0}*tf} & /@ 
+    Flatten@Table[10^i*werte, {i, von, bis}];
+  st = {#, Null, {0.005, 0}*tf} & /@ 
+    Flatten@Table[10^i*subwerte, {i, von, bis}];
+  Join[mt, st]]
+
+
+Options[burnTooltips]={ImageSize->360,"LabelFunction"->(With[{h=1,w=2,r=0.5},
+Graphics[{White,Opacity[0.5],FilledCurve[{
+Line[{{0,0},{0,h-r}}],
+BezierCurve[{{0,h-r},{0,h},{r,h}}],
+Line[{{r,h},{w-r,h}}],
+BezierCurve[{{w-r,h},{w,h},{w,h-r}}],
+Line[{{w,h-r},{w,r}}],
+BezierCurve[{{w,r},{w,0},{w-r,0}}]
+}],
+Black,
+Opacity[1],
+Text[Style[Superscript[10,#],FontSize->Scaled[h/3]],{w/2,h/2-h/10}]
+}]]&)};
+
+burnTooltips[plot_,opt:OptionsPattern[]]:=DynamicModule[{
+ins={},
+wrapper=OptionValue["LabelFunction"],toolRule=Function[{arg},Tooltip[t__]:>Button[Tooltip[t],AppendTo[arg,Inset[
+wrapper[Last[{t}]],
+MousePosition["Graphics"],
+{0,0},
+1.5
+]]],HoldAll]
+},
+EventHandler[
+Dynamic@Show[plot/.toolRule[ins],Graphics@ins,ImageSize->OptionValue[ImageSize]],
+{"MouseUp",2}:>(toolRule={}&)
+]
+]
+
+
+InheritOptions[RobustnessPlot,{Options[ListPlot],Options[ListLogPlot],Options[ListContourPlot]},
+	{
+		LogPlot->True,
+		Function->Automatic,
+		Grid->Automatic,
+		LegendIsCell->True,
+		Alignment->Center,
+		DistortionOperatorSweep->False
+	}
+];
+
+
+RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:OptionsPattern[]]:=Module[
+	{data, Hint, target, simpulse, xRange, xSymbol,pltpt,Fcn},
+
+		If[Not[And@@Flatten[
+			Table[
+				PulseHasKey[pulse,#]&/@{TimeSteps,Pulse,InternalHamiltonian,ControlHamiltonians,Target,DistortionOperator},
+				{pulse,{pulses}}
+			]]],
+			Message[RobustnessPlot::keys];Abort[];
+		];
+
+		Fcn = OptionValue[Function];
+		If[Fcn===Automatic,
+			Fcn=If[OptionValue[LogPlot], (Max[1-#,$MachineEpsilon])&, #&];
+		];
+
+		data=Table[
+			Hint = pulse@InternalHamiltonian;
+			If[Not[OptionValue[DistortionOperatorSweep]],
+				simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.constantParams], True];
+			];
+			target = pulse@Target;
+
+			xSymbol = First@sweepParams;
+			xRange = Range@@Last@sweepParams;
+
+			data = Table[
+				With[{reps=Prepend[constantParams, xSymbol->x]},
+					If[OptionValue[DistortionOperatorSweep],
+						simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
+					];
+					{x, Fcn@Utility[
+						Last@Unitaries@EvalPulse[
+							Hint/.reps,
+							simpulse/.reps
+						],
+						target/.reps
+					]}
+				],
+				{x, xRange}
+			],
+			{pulse,{pulses}}
+		];
+
+		If[OptionValue[LogPlot],
+			ListLogPlot[data, FilterOptions[ListLogPlot,opt]],
+			ListPlot[data, FilterOptions[ListPlot,opt]]
+		]
+	]
+RobustnessPlot[pulse_Pulse,sp_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},sp,cp,opt]
+
+
+RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantParams_List, opt:OptionsPattern[]]:=Module[
+	{pulse, data, Hint, simpulse, xSymbol, ySymbol, xRange, yRange, target, extraopt, Fcn, minx,maxx,miny,maxy,minz,maxz,legend,labels,plots,grid},
+
+		If[Not[And@@Flatten[
+			Table[
+				PulseHasKey[pulse,#]&/@{TimeSteps,Pulse,InternalHamiltonian,ControlHamiltonians,Target,DistortionOperator},
+				{pulse,pulseList}
+			]]],
+			Message[RobustnessPlot::keys];Abort[];
+		];
+
+		(* Choose the function we will be applying to the objective function *)
+		Fcn = OptionValue[Function];
+		If[Fcn===Automatic,
+			Fcn=If[OptionValue[LogPlot], Log10[Max[(1-#),$MachineEpsilon]]&, #&];
+		];
+
+		(* Extract sweep limits *)
+		xSymbol = First@sweepParamsX;
+		ySymbol = First@sweepParamsY;
+		xRange = Range@@Last@sweepParamsX;
+		yRange = Range@@Last@sweepParamsY;
+
+		(* Generate all data in a 3D array (3rd dim is for length of pulseList) *)
+		data=Table[
+			pulse=pulseList[[d]];
+			Hint = pulse@InternalHamiltonian;
+			If[Not[OptionValue[DistortionOperatorSweep]],
+				simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.constantParams], True];
+			];
+			target = pulse@Target;
+
+			Table[
+				With[{reps=Join[{xSymbol->x, ySymbol->y}, constantParams]},
+					If[OptionValue[DistortionOperatorSweep],
+						simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
+					];
+					Fcn@Utility[
+						Last@Unitaries@EvalPulse[
+							Hint/.reps,
+							simpulse/.reps
+						],
+						target/.reps
+					]
+				],
+				{x, xRange},
+				{y, yRange}
+			]\[Transpose],
+			{d,Length@pulseList}
+		];
+
+		(* If a z-plotrange is explictly given in a LogPlot, clip the data at 
+           the minimum exponent so that it won't appear as a white "out of range"
+		   section on the plot. *)
+		If[OptionValue[LogPlot]&&MatchQ[OptionValue[PlotRange],{_?NumericQ,_?NumericQ}],
+			data=Clip[data,{Min@OptionValue@PlotRange,\[Infinity]}];
+		];
+
+		(* Decide plot limits*)
+		minx=Min@xRange;
+		maxx=Max@xRange;
+		miny=Min@yRange;
+		maxy=Max@yRange;
+		minz=Min@Flatten@data;
+		maxz=Max@Flatten@data;
+
+		(* Make a nice colour scheme which will be the same for all plots. *)
+		(* Use no color function scaling to make generating the legend easier. *)
+		extraopt = {};
+		AppendTo[extraopt,ColorFunction->(ColorData["Warm"][(#-minz)/(maxz-minz)]&)];
+		AppendTo[extraopt,ColorFunctionScaling->False];
+
+		(* Make some fancy legends *)
+		If[OptionValue@LogPlot,
+			legend=SwatchLegend[
+					ColorData["Warm"][(#-minz)/(maxz-minz)]&/@Range[Floor@minz,Floor@maxz],
+					Style[Superscript[">1-10",#+1]]&/@Range[Floor@minz,Floor@maxz],
+					LegendMarkerSize->{15,20},
+					LegendLabel->Style["Avg. Fidelity",Bold],
+					LegendFunction->"Frame"
+				];,
+			(* Todo fancy non logplot legend *)
+			legend=Automatic;
+		];
+
+		(* Figure out what the grid size is *)
+		grid=OptionValue@Grid;
+		If[grid===Automatic, grid={Ceiling[Length@pulseList/4],4}];
+
+		(* Make the individual figures*)
+		plots=Table[
+			(* Only put our fancy legend on the last plot. *)
+			If[(d==Length@pulseList)&&(Not[OptionValue@LegendIsCell]),AppendTo[extraopt,PlotLegends->legend]];
+			(* We ensure user specified options override our options by putting ours after pltopt *)
+			(* The execption is PlotLabel, which gets special treatment. *)
+			If[OptionValue[LogPlot],
+				ListContourPlot[data[[d]], 
+					Evaluate@FilterOptions[{DistributeOption,d},ListContourPlot,opt],
+					extraopt,
+					ContourStyle->Thickness[0.003],
+					Contours->Range[Floor@minz,Ceiling@maxz],
+					DataRange->{{minx,maxx},{miny,maxy}},
+					FrameLabel->(ToString/@{xSymbol,ySymbol})
+				],
+				ListContourPlot[data[[d]], PlotLabel->labels[[d]], 
+					Evaluate@FilterOptions[{DistributeOption,d},ListContourPlot,opt],
+					extraopt,
+					DataRange->{{minx,maxx},{miny,maxy}}, 
+					FrameLabel->(ToString/@{xSymbol,ySymbol})
+				]
+			],
+			{d,Length@pulseList}
+		];
+		If[OptionValue[LegendIsCell]&&legend=!=Automatic,AppendTo[plots,legend]];
+
+		(* Reshape the figure list into the right grid, some might be empty. *)
+		plots=With[{extra=Mod[Length@plots,Last@grid]},
+			If[extra>0,
+				Append[Partition[plots,Last@grid], Join[plots[[-extra;;-1]],ConstantArray[Null,Last@grid-extra]]],
+				Partition[plots,Last@grid]
+			]
+		];
+		While[Length@plots<First@grid, AppendTo[plots,ConstantArray[Null,Last@grid]]];
+		plots=plots[[1;;(First@grid)]];
+
+		(* Return the grid *)
+		Grid[plots,Alignment->OptionValue[Alignment]]
+	];
+RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},spx,spy,cp,opt]
 
 
 (* ::Subsection::Closed:: *)
@@ -1957,254 +2218,6 @@ Module[
 
 
 (* ::Subsection::Closed:: *)
-(*Meta GRAPE*)
-
-
-(* ::Text:: *)
-(*Mathematica doesn't have a convenient way of making nice looking ticks and consistent ticks on log plots. The following code block is a nice solution to this from http://mathematica.stackexchange.com/questions/5369/about-the-number-format-in-ticks.*)
-
-
-SetAttributes[dtZahl, Listable]
-dtZahl[x_] := Block[{n}, If[IntegerQ[n = Rationalize[x]], n, x]]
-
-exponentForm[x_?NumberQ] := 
-  Module[{me = MantissaExponent[x], num, exp}, 
-   If[MemberQ[{0, 0., 1, 1., -1, -1.}, x], Return[IntegerPart[x]]];
-   exp = Superscript["\[CenterDot]10", me[[2]] - 1];
-   num = NumberForm[N[me[[1]]]*10 // dtZahl, 3];
-   If[me[[1]] == 0.1,(*no mantissa*)num = "";
-    exp = Superscript[10, me[[2]] - 1], 
-    If[me[[2]] == 1,(*range 0..10*)exp = ""]];
-   Row[{num, exp}]];
-exponentForm[x_] := x
-
-LogTicks[von_Integer, bis_Integer, werte_List, subwerte_List] :=
- Module[{mt, st, ticks, res, tf},
-  tf = 1;
-  mt = {#, exponentForm[N[#]], {0.01, 0}*tf} & /@ 
-    Flatten@Table[10^i*werte, {i, von, bis}];
-  st = {#, Null, {0.005, 0}*tf} & /@ 
-    Flatten@Table[10^i*subwerte, {i, von, bis}];
-  Join[mt, st]]
-
-
-Options[burnTooltips]={ImageSize->360,"LabelFunction"->(With[{h=1,w=2,r=0.5},
-Graphics[{White,Opacity[0.5],FilledCurve[{
-Line[{{0,0},{0,h-r}}],
-BezierCurve[{{0,h-r},{0,h},{r,h}}],
-Line[{{r,h},{w-r,h}}],
-BezierCurve[{{w-r,h},{w,h},{w,h-r}}],
-Line[{{w,h-r},{w,r}}],
-BezierCurve[{{w,r},{w,0},{w-r,0}}]
-}],
-Black,
-Opacity[1],
-Text[Style[Superscript[10,#],FontSize->Scaled[h/3]],{w/2,h/2-h/10}]
-}]]&)};
-
-burnTooltips[plot_,opt:OptionsPattern[]]:=DynamicModule[{
-ins={},
-wrapper=OptionValue["LabelFunction"],toolRule=Function[{arg},Tooltip[t__]:>Button[Tooltip[t],AppendTo[arg,Inset[
-wrapper[Last[{t}]],
-MousePosition["Graphics"],
-{0,0},
-1.5
-]]],HoldAll]
-},
-EventHandler[
-Dynamic@Show[plot/.toolRule[ins],Graphics@ins,ImageSize->OptionValue[ImageSize]],
-{"MouseUp",2}:>(toolRule={}&)
-]
-]
-
-
-Options[RobustnessPlot]=DeleteDuplicates@Join[
-	Options[ListPlot],
-	Options[ListLogPlot],
-	Options[ListContourPlot],
-	{
-		LogPlot->True,
-		Function->Automatic,
-		Grid->Automatic,
-		LegendIsCell->True,
-		Alignment->Center,
-		DistortionOperatorSweep->False
-	}
-];
-
-
-RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:OptionsPattern[]]:=Module[
-	{data, Hint, target, simpulse, xRange, xSymbol,pltopt,Fcn},
-
-		Fcn = OptionValue[Function];
-		If[Fcn===Automatic,
-			Fcn=If[OptionValue[LogPlot], (Max[1-#,$MachineEpsilon])&, #&];
-		];
-
-		data=Table[
-			Hint = pulse@InternalHamiltonian;
-			If[Not[OptionValue[DistortionOperatorSweep]],
-				simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.constantParams], True];
-			];
-			target = pulse@Target;
-
-			xSymbol = First@sweepParams;
-			xRange = Range@@Last@sweepParams;
-
-			data = Table[
-				With[{reps=Prepend[constantParams, xSymbol->x]},
-					If[OptionValue[DistortionOperatorSweep],
-						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
-					];
-					{x, Fcn@Utility[
-						Last@Unitaries@EvalPulse[
-							Hint/.reps,
-							simpulse/.reps
-						],
-						target/.reps
-					]}
-				],
-				{x, xRange}
-			],
-			{pulse,{pulses}}
-		];
-
-		If[OptionValue[LogPlot],
-			pltopt = Sequence@@FilterRules[List@opt,Options@ListLogPlot];
-			ListLogPlot[data, pltopt],
-			pltopt = Sequence@@FilterRules[List@opt,Options@ListPlot];
-			ListPlot[data, pltopt]
-		]
-	]
-RobustnessPlot[pulse_Pulse,sp_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},sp,cp,opt]
-
-
-RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantParams_List, opt:OptionsPattern[]]:=Module[
-	{pulse, data, Hint, simpulse, xSymbol, ySymbol, xRange, yRange, target, pltopt, Fcn, minx,maxx,miny,maxy,minz,maxz,legend,labels,plots,grid},
-
-		(* Choose the function we will be applying to the objective function *)
-		Fcn = OptionValue[Function];
-		If[Fcn===Automatic,
-			Fcn=If[OptionValue[LogPlot], Log10[Max[(1-#),$MachineEpsilon]]&, #&];
-		];
-
-		(* Extract sweep limits *)
-		xSymbol = First@sweepParamsX;
-		ySymbol = First@sweepParamsY;
-		xRange = Range@@Last@sweepParamsX;
-		yRange = Range@@Last@sweepParamsY;
-
-		(* Generate all data in a 3D array (3rd dim is for length of pulseList) *)
-		data=Table[
-			pulse=pulseList[[d]];
-			Hint = pulse@InternalHamiltonian;
-			If[Not[OptionValue[DistortionOperatorSweep]],
-				simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.constantParams], True];
-			];
-			target = pulse@Target;
-
-			Table[
-				With[{reps=Join[{xSymbol->x, ySymbol->y}, constantParams]},
-					If[OptionValue[DistortionOperatorSweep],
-						simpulse = SimForm[ReplacePulseHeader[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
-					];
-					Fcn@Utility[
-						Last@Unitaries@EvalPulse[
-							Hint/.reps,
-							simpulse/.reps
-						],
-						target/.reps
-					]
-				],
-				{x, xRange},
-				{y, yRange}
-			]\[Transpose],
-			{d,Length@pulseList}
-		];
-
-		(* Decide plot limits*)
-		minx=Min@xRange;
-		maxx=Max@xRange;
-		miny=Min@yRange;
-		maxy=Max@yRange;
-		minz=Min@Flatten@data;
-		maxz=Max@Flatten@data;
-
-		(* Make a nice colour scheme which will be the same for all plots *)
-		pltopt = List@opt;
-		If[Head@OptionValue@PlotRange===List,
-			AppendTo[pltopt,ColorFunction->"Warm"],
-			AppendTo[pltopt,ColorFunction->(ColorData["Warm"][(#-minz)/(maxz-minz)]&)];
-			AppendTo[pltopt,ColorFunctionScaling->False];
-		];
-
-		(* Make some fancy legends *)
-		If[OptionValue@LogPlot,
-			legend=SwatchLegend[
-					ColorData["Warm"][(#-minz)/(maxz-minz)]&/@Range[Floor@minz,Floor@maxz],
-					Style[Superscript[">1-10",#+1]]&/@Range[Floor@minz,Floor@maxz],
-					LegendMarkerSize->{15,20},
-					LegendLabel->Style["Avg. Fidelity",Bold],
-					LegendFunction->"Frame"
-				];,
-			(* Todo fancy non logplot legend *)
-			legend=Automatic;
-		];
-
-		(* Allow user to input PlotLabel as a list, one for each plot. *)
-		If[Head@OptionValue@PlotLabel===List,
-			labels=OptionValue@PlotLabel;
-			(* repeats labels cyclicly if necessary*)
-			While[Length@labels<Length@pulseList,labels=Join[labels,labels]];,
-			labels=ConstantArray[OptionValue@PlotLabel,Length@pulseList];
-		];
-
-		(* Figure out what the grid size is *)
-		grid=OptionValue@Grid;
-		If[grid===Automatic, grid={Ceiling[Length@pulseList/4],4}];
-
-		(* Separate plotting options from RobustnessPlot options *)
-		pltopt = Sequence@@FilterRules[pltopt,Options@ListContourPlot];
-
-		(* Make the individual figures*)
-		plots=Table[
-			(* Only put our fancy legend on the last plot. *)
-			If[(d==Length@pulseList)&&(Not[OptionValue@LegendIsCell]),pltopt=Sequence@@Append[{pltopt},PlotLegends->legend]];
-			(* We ensure user specified options override our options by putting ours after pltopt *)
-			(* The execption is PlotLabel, which gets special treatment. *)
-			If[OptionValue[LogPlot],
-				ListContourPlot[data[[d]], PlotLabel->labels[[d]], pltopt,
-					ContourStyle->Thickness[0.003],
-					Contours->Range[Floor@minz,Ceiling@maxz],
-					DataRange->{{minx,maxx},{miny,maxy}},
-					FrameLabel->(ToString/@{xSymbol,ySymbol})
-				],
-				ListContourPlot[data[[d]], PlotLabel->labels[[d]], pltopt, 
-					DataRange->{{minx,maxx},{miny,maxy}}, 
-					FrameLabel->(ToString/@{xSymbol,ySymbol})
-				]
-			],
-			{d,Length@pulseList}
-		];
-		If[OptionValue[LegendIsCell]&&legend=!=Automatic,AppendTo[plots,legend]];
-
-		(* Reshape the figure list into the right grid, some might be empty. *)
-		plots=With[{extra=Mod[Length@plots,Last@grid]},
-			If[extra>0,
-				Append[Partition[plots,Last@grid], Join[plots[[-extra;;-1]],ConstantArray[Null,Last@grid-extra]]],
-				Partition[plots,Last@grid]
-			]
-		];
-		While[Length@plots<First@grid, AppendTo[plots,ConstantArray[Null,Last@grid]]];
-		plots=plots[[1;;(First@grid)]];
-
-		(* Return the grid *)
-		Grid[plots,Alignment->OptionValue[Alignment]]
-	];
-RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},spx,spy,cp,opt]
-
-
-(* ::Subsection::Closed:: *)
 (*Exporters*)
 
 
@@ -2343,7 +2356,7 @@ Protect[
 	Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
 	ToPulse,SimForm,
-	PulseRemoveKeys,PulseReplaceKey,
+	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
 	PulsePhaseRotate,PulsePhaseRamp
 ];
 
@@ -2369,9 +2382,24 @@ Protect[
 
 
 Protect[
+	ParameterDistributionMean,
+	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
+	UniformParameterDistribution
+];
+
+
+Protect[
+	ZeroPenalty,
+	DemandValuePenalty,
+	RingdownPenalty
+];
+
+
+Protect[
 	PulsePlot,PulseFourierPlot,
 	ShowDistortedPulse,ChannelMapping,PulseScaling,PulseLayout,PulsePaddingMultiplier,
-	DistributeOption
+	DistributeOption,
+	RobustnessPlot,LegendIsCell,DistortionOperatorSweep
 ];
 
 
