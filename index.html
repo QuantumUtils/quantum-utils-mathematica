@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>QuantumUtils by QuantumUtils</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>QuantumUtils</h1>
+        <p>QuantumUtils for Mathematica is a software library for quantum information scientists.</p>
+
+        <p class="view"><a href="https://github.com/QuantumUtils/quantum-utils-mathematica">View the Project on GitHub <small>QuantumUtils/quantum-utils-mathematica</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/QuantumUtils/quantum-utils-mathematica/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/QuantumUtils/quantum-utils-mathematica/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/QuantumUtils/quantum-utils-mathematica">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="quantumutils-for-mathematica" class="anchor" href="#quantumutils-for-mathematica" aria-hidden="true"><span class="octicon octicon-link"></span></a>QuantumUtils for Mathematica</h1>
+
+<p><strong>QuantumUtils for Mathematica is still a pre-alpha version, expect bugs until version 1.</strong></p>
+
+<p>QuantumUtils for Mathematica is a software library for quantum information scientists. Features include:</p>
+
+<ul>
+<li>Multi-partite tensor manipulations</li>
+<li>Quantum system modelling including qudits, circuits, spins, and cavities</li>
+<li>Symbolic Lie algebra simplification for spin and cavity systems</li>
+<li>Quantum channels in multiple representations</li>
+<li>Numerical and symbolic simulators for open and closed quantum system evolution</li>
+<li>An implementation of GRadient Ascent Pulse Engineering including distortions</li>
+<li>Perturbative expansion tools such as the Magnus series, the Zassenhaus formula, and matrix power series</li>
+<li>Visualization functions for displaying matrices, quantum states, data etc.</li>
+</ul>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>QuantumUtils officially requires Mathematica 10.0.0 or newer. Many features should still work with Mathematica 9, and further compatibility may be added in the future. Older versions of Mathematica are not supported.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Once this repository is cloned onto your computer, open the <em>Install.nb</em> notebook in Mathematica and follow instructions there (basically just <em>Evaluation -&gt; Evaluate Notebook</em>).</p>
+
+<p>The installation places and/or symlinks files in your <em><code>$UserBaseDirectory</code>/Applications</em> folder. </p>
+
+<h2>
+<a id="using-quantumutils-for-mathematica" class="anchor" href="#using-quantumutils-for-mathematica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using QuantumUtils for Mathematica</h2>
+
+<p>Packages from the QuantumUtils for Mathematica library can then be loaded by invoking the <code>Needs</code> function, for example:</p>
+
+<pre><code>Needs["QuantumChannel`"];
+</code></pre>
+
+<p>All packages provided by QuantumUtils for Mathematica can be loaded simultaneously by needsing QuantumUtils`:</p>
+
+<pre><code>Needs["QuantumUtils`"]
+</code></pre>
+
+<h2>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>Documentation is stored as <em>.nb</em> notebooks in the <em>doc</em> folder. The documentation index can be opened from within Mathematica at any time by evaluating:</p>
+
+<pre><code>&lt;&lt;QUDoc`
+</code></pre>
+
+<p>Additionally, each function implemented by QuantumUtils should come with a <code>usage</code> tag. This tag can be displayed using the <code>?</code> symbol as with built-in functions:</p>
+
+<pre><code>?EvalPulse
+</code></pre>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22Revised_BSD_License.22.2C_.22New_BSD_License.22.2C_or_.22Modified_BSD_License.22.29"><img src="https://img.shields.io/badge/license-New%20BSD-blue.svg" alt="license"></a></p>
+
+<p>You are free to use this software, with or without modification, provided that the conditions listed in the LICENSE.txt file are satisfied.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/QuantumUtils">QuantumUtils</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
