@@ -35,6 +35,7 @@ BeginPackage["GRAPE`"];
 
 Needs["UnitTesting`"];
 Needs["QUDevTools`"];
+Needs["Visualization`"];
 Needs["QSim`"];
 Needs["Tensor`"];
 
@@ -74,15 +75,17 @@ AssignUsage[
 
 
 (* ::Subsection::Closed:: *)
-(*Pulse Object*)
+(*Pulses*)
 
 
 Unprotect[
 	Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
-	ToPulse,SimForm,
+	ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-	PulsePhaseRotate,PulsePhaseRamp
+	PulsePhaseRotate,PulsePhaseRamp,
+	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
+	LegalizePulse,NormalizePulse
 ];
 
 
@@ -90,9 +93,11 @@ AssignUsage[
 	{
 		Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
 		InternalHamiltonian,AmplitudeRange,ExitMessage,
-		ToPulse,SimForm,
+		ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 		PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-		PulsePhaseRotate,PulsePhaseRamp
+		PulsePhaseRotate,PulsePhaseRamp,
+		RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
+		LegalizePulse,NormalizePulse
 	},
 	$Usages
 ];
@@ -157,6 +162,7 @@ AssignUsage[
 
 
 Unprotect[
+	IdentityDistribution,
 	ParameterDistributionMean,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 	UniformParameterDistribution
@@ -165,6 +171,7 @@ Unprotect[
 
 AssignUsage[
 	{
+		IdentityDistribution,
 		ParameterDistributionMean,
 		RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 		UniformParameterDistribution
@@ -221,20 +228,7 @@ RobustnessPlot::keys = "RobustnessPlot requires all input pulses to have at leas
 
 
 (* ::Subsection::Closed:: *)
-(*Helper Functions*)
-
-
-GenerateRandomPulse::usage = "GenerateRandomPulse[dts,\[Epsilon]Range]";
-GenerateSmoothRandomPulse::usage = "GenerateSmoothRandomPulse[dts_,\[Epsilon]Range_,interpolationDistance_:10] picks a random amplitude every interpolationDistance steps, and interpolates these amplitudes to generate a relatively smooth pulse.";
-GenerateAnnealedPulse::usage = "GenerateAnnealedPulse[originalPulse_, \[Epsilon]Range_, options] returns a pulse that perturbs originalPulse by a new random pulse with \[Epsilon]Range range.";
-GAnnealingPulse::usage = "Specifies the pulse to mix with the original pulse when using GenerateAnnealedPulse. Defaults to GenerateRandomPulse.";
-
-
-GaussianPulse::usage = "GaussianPulse[dt,T,A,riseTime] creates a Gaussian pulse with stepsize dt, total time T (rounded to the nearest dt), total area A, and rise and fall time of riseTime. This does not return a Pulse[..] object, just returns a matrix with two control amplitudes.";
-
-
-LegalisePulse::usage = "LegalisePulse[pulse,\[Epsilon]Range] limits the power of the pulse amplitudes to the values given in \[Epsilon]Range.";
-NormalizePulse::usage = "NormalizePulse[pulse,\[Epsilon]Range] scales and translates the pulse amplitues to the interval [0,1].";
+(*Monitor Functions*)
 
 
 FidelityProgressBar::usage = "FidelityProgressBar[GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] displays a graphical progress bar showing the current fidelity. The default value of MonitorFunction.";
@@ -242,17 +236,8 @@ HistogramProgressBar::usage = "HistogramProgressBar[GRAPE,GRAPE,bestPulse,overal
 PulsePlotMonitorFunction::usage = "PulsePlotMonitorFunction[GRAPE,GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] draws a quick plot of the control amplitudes.";
 
 
-AddTimeSteps::usage = "AddTimeSteps[dts,pulse] appends the time of the pulse step to each pulse amplitude list. dts can be a scalar or a vector.";
-SplitPulse::usage = "SplitPulse[pulse] performs the inverse of AddTimeSteps. I.e. returns {pulse[[All,1]],pulse[[All,2;;-1]]}.";
-
-
 (* ::Subsubsection::Closed:: *)
 (*Options*)
-
-
-Options[GenerateAnnealedPulse] = {
-	GAnnealingPulse -> GenerateRandomPulse
-};
 
 
 Options[GenerateRingdownCompensatedPulse] = {
@@ -357,19 +342,55 @@ Begin["`Private`"];
 
 
 (* ::Subsection::Closed:: *)
+(*Pulses*)
+
+
+(* ::Subsubsection::Closed:: *)
 (*Pulse Object*)
 
 
 Pulse/:Pulse[args___][key_]:=Association[args][key]
 
 
-ToPulse[pulsemat_]:=Pulse[
+Pulse/:Format[Pulse[args__Rule]]:=Module[{modpulse},
+	modpulse=Pulse[args];
+	If[PulseHasKey[modpulse,Pulse],modpulse=PulseReplaceKey[modpulse,Pulse,MatrixForm[modpulse[Pulse]\[Transpose]]]];
+	If[PulseHasKey[modpulse,ControlHamiltonians],modpulse=PulseReplaceKey[modpulse,ControlHamiltonians,MatrixListForm[modpulse[ControlHamiltonians]]]];
+	If[PulseHasKey[modpulse,InternalHamiltonian],modpulse=PulseReplaceKey[modpulse,InternalHamiltonian,MatrixForm[modpulse[InternalHamiltonian]]]];
+	Grid[
+		Apply[List,modpulse,{0,1}],
+		Alignment->Left,
+		Dividers->All
+	]
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Pulse Conversion and Transformation*)
+
+
+Options[ToPulse]={
+	UtilityValue->None,
+	PenaltyValue->0,
+	Target->IdentityMatrix[2],
+	ControlHamiltonians->2\[Pi]{TP[X],TP[Y]},
+	InternalHamiltonian->0*TP[Z],
+	DistortionOperator->IdentityDistortion[],
+	PulsePenalty->ZeroPenalty[],
+	ParameterDistribution->None,
+	AmplitudeRange->{{-1,1},{-1,1}},
+	ExitMessage->"Generated by ToPulse."
+};
+
+
+ToPulse[pulsemat_,opt:OptionsPattern[]]:=Pulse[
 	TimeSteps -> pulsemat[[All,1]],
 	Pulse -> pulsemat[[All,2;;]],
-	UtilityValue -> None,
-	ParameterDistribution -> ({{1}, {{}}}&),
-	DistortionOperator -> IdentityDistortion[]
+	Sequence@@DeleteDuplicates[Join[{opt},Options[ToPulse]],First[#1]===First[#2]&]	
 ]
+
+
+FromPulse[pulse_Pulse]:=AddTimeSteps[pulse[TimeSteps],pulse[Pulse]];
 
 
 SimForm[pulse_Pulse, distort_:True]:=
@@ -382,6 +403,16 @@ SimForm[pulse_Pulse, distort_:True]:=
 	]
 
 
+AddTimeSteps[dts_,pulse_]:=If[ListQ@dts,Prepend[pulse\[Transpose],dts]\[Transpose],Prepend[pulse\[Transpose],ConstantArray[dts,Length@pulse]]\[Transpose]]
+
+
+SplitPulse[pulse_]:={pulse[[All,1]],pulse[[All,2;;-1]]}
+
+
+(* ::Subsubsection::Closed:: *)
+(*Pulse Key Modification*)
+
+
 PulseRemoveKeys[pulse_Pulse,headers__]:=Select[pulse,Not[MemberQ[{headers},#[[1]]]]&]
 
 
@@ -389,6 +420,10 @@ PulseReplaceKey[pulse_Pulse,header_,newval_]:=Append[PulseRemoveKeys[pulse,heade
 
 
 PulseHasKey[pulse_Pulse,key_]:=MemberQ[pulse[[All,1]],key]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Pulse Manipulation*)
 
 
 DividePulse[pulse_Pulse,n_]:=
@@ -408,14 +443,71 @@ PulsePhaseRotate[pulse_,\[Phi]_]:=
 	]
 
 
-PulsePhaseRamp[pulse_,\[Omega]_]:=
+PulsePhaseRamp[pulse_,f_]:=
 	Module[
 		{dt,xy=pulse[Pulse],a\[Theta]},
 		dt=pulse[TimeSteps];
-		a\[Theta]={Norm/@xy,2\[Pi]*\[Omega]*(Accumulate[dt]-dt/2)+(If[First@#==0&&Last@#==0,0,ArcTan[First@#,Last@#]]&/@xy)}\[Transpose];
+		a\[Theta]={Norm/@xy,2\[Pi]*f*(Accumulate[dt]-dt/2)+(If[First@#==0&&Last@#==0,0,ArcTan[First@#,Last@#]]&/@xy)}\[Transpose];
 		xy={First[#]Cos[Last@#],First[#]Sin[Last@#]}&/@a\[Theta];
 		PulseReplaceKey[pulse,Pulse,xy]
 	]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Pulse Matrix Generation*)
+
+
+RandomPulse[dts_,controlRange_] := AddTimeSteps[dts, (RandomReal[#,Length@dts]&/@controlRange)\[Transpose]]
+RandomPulse[dt_?NumericQ,n_Integer,controlRange_] := RandomPulse[ConstantArray[dt,n],controlRange]
+
+
+Options[RandomSmoothPulse]={InterpolationPoints->10};
+RandomSmoothPulse[dts_,controlRange_,OptionsPattern[]]:=
+	Module[
+		{randomEntries, interpFunctions, numRandomPoints},
+		numRandomPoints = Max[Floor[Length@dts/OptionValue[InterpolationPoints]],5];
+		randomEntries = RandomReal[#,numRandomPoints]&/@controlRange;
+		interpFunctions = Interpolation[#,Method->"Spline"]&/@randomEntries;
+		AddTimeSteps[dts, ((#/@Range[1, numRandomPoints, (numRandomPoints-1)/(Length@dts-1)])&/@interpFunctions)\[Transpose]]
+	];
+RandomSmoothPulse[dt_?NumericQ,n_Integer,controlRange_,opt:OptionsPattern[]] := RandomSmoothPulse[ConstantArray[dt,n],controlRange,opt]
+
+
+Options[GenerateAnnealedPulse] = {AnnealingGenerator -> RandomPulse};
+GenerateAnnealedPulse[original_, controlRange_, OptionsPattern[]] := original + OptionValue[AnnealingGenerator][ConstantArray[0,Length@original], controlRange]
+
+
+GaussianTailsPulse[dt_,T_,riseTime_,Area->area_]:=
+	Module[{\[Sigma],NI,fun,pulse},
+		\[Sigma]=riseTime/3;
+		fun[t_]:=Piecewise[{{1,riseTime<t<T-riseTime},{Exp[-(t-riseTime)^2/(2\[Sigma]^2)],t<=riseTime},{Exp[-(t-T+riseTime)^2/(2\[Sigma]^2)],t>=T-riseTime}}];
+		NI=NIntegrate[fun[t],{t,0,T}];
+		pulse=Table[{area*fun[t-dt/2]/NI,0},{t,0,T,dt}];
+		(*Correct the area now that we have a descent shape*)
+		pulse=area*pulse/(dt*Total@Flatten@pulse);
+		AddTimeSteps[dt, pulse]
+	];
+GaussianTailsPulse[dt_,T_,riseTime_,Max->max_]:=Module[
+	{apulse=GaussianTailsPulse[dt,T,riseTime,Area->1]},
+	AddTimeSteps[apulse[[All,1]],max*apulse[[All,2;;]]/Max[Flatten[apulse[[All,2;;]]]]]
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Legalization and Normalization*)
+
+
+LegalizePulse[pulse_,\[Epsilon]Range_]:=
+	If[ListQ[\[Epsilon]Range],
+		{#1, Sequence@@MapThread[Max[Min[#1,Last@#2],First@#2]&, {{##2},\[Epsilon]Range}]}& @@@ pulse,
+		{#1, Sequence@@( {##2} * Min[1, \[Epsilon]Range/Norm[{##2}]] )}& @@@ pulse
+	]
+
+
+NormalizePulse[pulse_, \[Epsilon]Range_] := 
+With[{tp = Transpose[pulse[[All, -2;;]]]},
+	AddTimeSteps[pulse[[All,1]],Transpose[(tp - \[Epsilon]Range[[All, 1]]) / (\[Epsilon]Range[[All, 2]] - \[Epsilon]Range[[All, 1]])]]
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -991,6 +1083,9 @@ CompositePulseDistortion[divisions_,sequence_]:=Module[{symbols,indeces,seq,dore
 (*Distributions*)
 
 
+IdentityDistribution[]:=({{1}, {{}}}&);
+
+
 ParameterDistributionMean[gdist_]:=Module[{ps,reps,symbs,mean},
 	{ps,reps}=gdist[1.0];
 	symbs=reps[[1,All,1]];
@@ -1269,7 +1364,7 @@ Unprotect@PulsePlot;
 PulsePlot[pulse_Pulse,opt:OptionsPattern[]]:=
 	Module[{plotter,input,output},
 		plotter=SingleChannelPulsePlot;
-		input=AddTimeSteps[pulse[TimeSteps],pulse[Pulse]];
+		input=FromPulse[pulse];
 		Which[
 			OptionValue[ShowDistortedPulse]===True,
 				output=pulse[DistortionOperator][input,False];,
@@ -1305,7 +1400,7 @@ PulseFourierPlot[pulse_,controlNames_:{"X","Y"},normalization_:(2*\[Pi]),freqSpa
 
 PulseFourierPlot[pulse_,\[Omega]LO_,\[Omega]lowpass_]:=Module[
 {x,y,data,dt,len,T,\[Omega]max,d\[Omega],fun,t,box,Fs,samples,xfun,yfun,s,ts},
-data=DistortionOperator[pulse][AddTimeSteps[TimeSteps@pulse,Pulse@pulse],False];
+data=DistortionOperator[pulse][FromPulse[pulse],False];
 dt=data[[1,1]];x=data[[All,2]];y=data[[All,3]];
 len=Length@data;T=len*dt;
 Fs=20*\[Omega]LO;
@@ -1583,63 +1678,6 @@ RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=Robu
 
 
 (* ::Subsection::Closed:: *)
-(*Helper Functions*)
-
-
-(* ::Subsubsection::Closed:: *)
-(*Initial guess functions*)
-
-
-GenerateRandomPulse[dts_,\[Epsilon]Range_] := AddTimeSteps[dts, (RandomReal[#,Length@dts]&/@\[Epsilon]Range)\[Transpose]]
-
-
-GenerateSmoothRandomPulse[dts_,\[Epsilon]Range_,interpolationDistance_:10]:=
-	Module[
-		{randomEntries, interpFunctions, numRandomPoints},
-		numRandomPoints = Max[Floor[Length@dts/interpolationDistance],5];
-		randomEntries = RandomReal[#,numRandomPoints]&/@\[Epsilon]Range;
-		interpFunctions = Interpolation[#,Method->"Spline"]&/@randomEntries;
-		AddTimeSteps[dts, ((#/@Range[1, numRandomPoints, (numRandomPoints-1)/(Length@dts-1)])&/@interpFunctions)\[Transpose]]
-	]
-
-
-GenerateAnnealedPulse[original_, \[Epsilon]Range_, OptionsPattern[]] := original + OptionValue[GAnnealingPulse][ConstantArray[0,Length@original], \[Epsilon]Range]
-
-
-GaussianPulse[dt_,T_,area_,riseTime_]:=
-	Module[{\[Sigma],NI,fun,pulse},
-		\[Sigma]=riseTime/3;
-		fun[t_]:=Piecewise[{{1,riseTime<t<T-riseTime},{Exp[-(t-riseTime)^2/(2\[Sigma]^2)],t<=riseTime},{Exp[-(t-T+riseTime)^2/(2\[Sigma]^2)],t>=T-riseTime}}];
-		NI=NIntegrate[fun[t],{t,0,T}];
-		pulse=Table[{area*fun[t-dt/2]/NI,0},{t,0,T,dt}];
-		(*Correct the area now that we have a descent shape*)
-		pulse=area*pulse/(dt*Total@Flatten@pulse);
-		AddTimeSteps[dt, pulse]
-	];
-
-
-(* ::Subsubsection::Closed:: *)
-(*Legalise and Normalize Pulse*)
-
-
-(* ::Text:: *)
-(*Hooray for one-liners with nested pure functions.*)
-
-
-LegalisePulse[pulse_,\[Epsilon]Range_]:=
-	If[ListQ[\[Epsilon]Range],
-		{#1, Sequence@@MapThread[Max[Min[#1,Last@#2],First@#2]&, {{##2},\[Epsilon]Range}]}& @@@ pulse,
-		{#1, Sequence@@( {##2} * Min[1, \[Epsilon]Range/Norm[{##2}]] )}& @@@ pulse
-	]
-
-
-NormalizePulse[pulse_, \[Epsilon]Range_] := 
-	Transpose @ With[{tp = Transpose[pulse[[All, -Dimensions[\[Epsilon]Range][[1]];;]]]},
-	(tp - \[Epsilon]Range[[All, 1]]) / (\[Epsilon]Range[[All, 2]] - \[Epsilon]Range[[All, 1]])
-];
-
-
-(* ::Subsubsection::Closed:: *)
 (*Monitor Functions*)
 
 
@@ -1671,16 +1709,6 @@ PulsePlotMonitorFunction[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{r
 			]]]
 		}]
 	]
-
-
-(* ::Subsubsection::Closed:: *)
-(*Time Step Stuff*)
-
-
-AddTimeSteps[dts_,pulse_]:=If[ListQ@dts,Prepend[pulse\[Transpose],dts]\[Transpose],Prepend[pulse\[Transpose],ConstantArray[dts,Length@pulse]]\[Transpose]]
-
-
-SplitPulse[pulse_]:={pulse[[All,1]],pulse[[All,2;;-1]]}
 
 
 (* ::Subsection::Closed:: *)
@@ -1794,7 +1822,7 @@ Options[FindPulse]={
 	MaximumIterations -> \[Infinity],
 	PostIterationFunction -> Identity,
 	DerivativeMask -> None,
-	PulseLegalizer -> LegalisePulse
+	PulseLegalizer -> LegalizePulse
 };
 
 
@@ -2355,9 +2383,11 @@ Protect[
 Protect[
 	Pulse,TimeSteps,UtilityValue,PenaltyValue,Target,ControlHamiltonians,
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
-	ToPulse,SimForm,
+	ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-	PulsePhaseRotate,PulsePhaseRamp
+	PulsePhaseRotate,PulsePhaseRamp,
+	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
+	LegalizePulse,NormalizePulse
 ];
 
 
@@ -2382,6 +2412,7 @@ Protect[
 
 
 Protect[
+	IdentityDistribution,
 	ParameterDistributionMean,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 	UniformParameterDistribution
