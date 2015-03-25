@@ -1798,7 +1798,7 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*FindPulse*)
 
 
