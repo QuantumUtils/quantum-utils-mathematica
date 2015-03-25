@@ -316,7 +316,7 @@ JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Pulses*)
 
 
@@ -1092,21 +1092,20 @@ CompositePulseDistortion[divisions_,sequence_]:=Module[{symbols,indeces,seq,dore
 (*Distributions*)
 
 
-IdentityDistribution[]:=({{1}, {{}}}&);
+IdentityDistribution[]:={{1}, {{}}};
 
 
 ParameterDistributionMean[gdist_]:=Module[{ps,reps,symbs,mean},
-	{ps,reps}=gdist[1.0];
+	{ps,reps}=gdist;
 	symbs=reps[[1,All,1]];
 	mean=Sum[Abs[ps[[n]]]*reps[[n,All,2]],{n,Length@ps}]/Total[Abs@ps];
 	Thread[symbs->mean]
 ]
 
 
-RandomSampleParameterDistribution[probDist_,symbols_,n_]:=Module[{DistributionFunction,symb},
+RandomSampleParameterDistribution[probDist_,symbols_,n_]:=Module[{Distribution,symb},
 	symb=If[Head@symbols===List,symbols,{symbols}];
-	DistributionFunction[cost_]:={ConstantArray[1./n,n], Thread[symbols->#]&/@RandomVariate[probDist, n]};
-	DistributionFunction
+	{ConstantArray[1./n,n], Thread[symbols->#]&/@RandomVariate[probDist, n]}
 ]
 
 
@@ -1131,7 +1130,7 @@ UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,val
 	];
 	values = Flatten[Outer[List,Sequence@@values,1], Length[values]-1];
 	With[{valueval=values,n=Length@values},
-		Function[{util}, {ConstantArray[1/n,n], valueval}]
+		 {ConstantArray[1/n,n], valueval}
 	]
 ]
 
@@ -1686,7 +1685,7 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},spx,spy,cp,opt]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Monitor Functions*)
 
 
@@ -1697,7 +1696,7 @@ FidelityMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=Moni
 		Button["Good Enough",abortButton=True],
 		Button["Next Guess",abortButton=Next],
 		ProgressIndicator[currentPulse@UtilityValue], 
-		ToString[100 currentPulse@UtilityValue]<>"% (Penalty: " <> ToString[currentPulse@PenaltyValue 100] <> "%)"},
+		ToString[100 currentPulse@UtilityValue]<>"%"},
 		"  "
 	]
 ]
@@ -1846,7 +1845,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 		*)
 		DistortionFn,
 		PulsePenaltyFn,
-		DistributionFunction,
+		ParamDistribution,
 		distortionDependsOnDist,
 		tracedDistortion,
 
@@ -1879,9 +1878,9 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 		PulsePenaltyFn = ZeroPenalty[];
 	];
 	If[OptionValue[ParameterDistribution]=!=None,
-		DistributionFunction = OptionValue[ParameterDistribution];,
+		ParamDistribution = OptionValue[ParameterDistribution];,
 		(* With probability 1 make no replacements *)
-		DistributionFunction = {{1}, {{}}}&;
+		ParamDistribution = IdentityDistribution[];
 	];
 	If[OptionValue[DerivativeMask]=!=None,
 		derivMask=OptionValue[DerivativeMask];,
@@ -1890,7 +1889,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 	(* Optionally check if the distribution affects the distortions. *)
 	If[OptionValue[ForceDistortionDependence] === Automatic,
-		distortionDependsOnDist = \[Not]And@@(FreeQ[DistortionFn, #]&/@DistributionFunction[1][[2,1,All,1]]),
+		distortionDependsOnDist = \[Not]And@@(FreeQ[DistortionFn, #]&/@ParamDistribution[[2,1,All,1]]),
 		(* If we are given an explicit value instead of Automatic, use that. *)
 		distortionDependsOnDist = OptionValue[ForceDistortionDependence]
 	];
@@ -1902,7 +1901,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 		(* ParameterDistribution consistency checks *)
 		Module[{distPs, distReps, distNum},
-			{distPs, distReps} = DistributionFunction[0];
+			{distPs, distReps} = ParamDistribution;
 			If[Length@distPs =!= Length@distReps, Message[FindPulse::baddistlength];Return[$Failed]];
 			If[Abs[Total[distPs]-1] > 10*$MachineEpsilon, Message[FindPulse::baddistsum];];
 			(* The following is a mouthful...basically union all present symbols, replace this list with all 
@@ -1993,7 +1992,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 			InternalHamiltonian->Hint,
 			DistortionOperator->DistortionFn,
 			PulsePenalty->PulsePenaltyFn,
-			ParameterDistribution->DistributionFunction,
+			ParameterDistribution->ParamDistribution,
 			AmplitudeRange->controlRange,
 			ExitMessage->"No exit message set."
 		];
@@ -2009,7 +2008,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 			tic=AbsoluteTime[];
 
 				(* The distribution sampling to be used this iteration *)
-				{distPs, distReps} = DistributionFunction[cost];
+				{distPs, distReps} = ParamDistribution;
 				distNum = Length@distPs;
 
 				stepCounter++;
