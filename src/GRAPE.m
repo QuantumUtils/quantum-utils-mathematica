@@ -268,7 +268,8 @@ Unprotect[
 AssignUsage[{FindPulse},$Usages];
 
 
-FindPulse::badrange = "Error: Your \[Epsilon]Range should  be of the form {{\[Epsilon]1min,\[Epsilon]1max},{\[Epsilon]2min,\[Epsilon]2max},...}.";
+FindPulse::badguess = "Error: the supplied initialGuess matrix was not understood.";
+FindPulse::badrange = "Error: Your controlRange should  be of the form {{\[Epsilon]1min,\[Epsilon]1max},{\[Epsilon]2min,\[Epsilon]2max},...}.";
 FindPulse::baddistortion = "Error: Distorted output control count inconsistent with length of Hcontrol, or has the wrong shape.";
 FindPulse::badjacobian = "Error: The distortion Jacobian should be a rank 4 tensor. Maybe you need to call LiftDistortionRank on your distortion?";
 FindPulse::badjacdim1 = "Error: First dimension of your distortion Jacobian does not match length of your distortedPulse.";
@@ -315,7 +316,7 @@ JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulses*)
 
 
@@ -331,8 +332,10 @@ Pulse/:Format[Pulse[args__Rule]]:=Module[{modpulse},
 	If[PulseHasKey[modpulse,Pulse],modpulse=PulseReplaceKey[modpulse,Pulse,MatrixForm[modpulse[Pulse]\[Transpose]]]];
 	If[PulseHasKey[modpulse,ControlHamiltonians],modpulse=PulseReplaceKey[modpulse,ControlHamiltonians,MatrixListForm[modpulse[ControlHamiltonians]]]];
 	If[PulseHasKey[modpulse,InternalHamiltonian],modpulse=PulseReplaceKey[modpulse,InternalHamiltonian,MatrixForm[modpulse[InternalHamiltonian]]]];
+	If[PulseHasKey[modpulse,Target]&&MatrixQ[modpulse[Target]],modpulse=PulseReplaceKey[modpulse,Target,MatrixForm[modpulse[Target]]]];
 	Grid[
-		Apply[List,modpulse,{0,1}],
+		{#,#/.List@@modpulse}&/@
+		{UtilityValue,PenaltyValue,ExitMessage,Target,InternalHamiltonian,ControlHamiltonians,AmplitudeRange,TimeSteps,Pulse,ParameterDistribution,DistortionOperator,PulsePenalty},
 		Alignment->Left,
 		Dividers->All
 	]
@@ -471,16 +474,16 @@ GaussianTailsPulse[dt_,T_,riseTime_,Max->max_]:=Module[
 (*Legalization and Normalization*)
 
 
-LegalizePulse[pulse_,\[Epsilon]Range_]:=
-	If[ListQ[\[Epsilon]Range],
-		{#1, Sequence@@MapThread[Max[Min[#1,Last@#2],First@#2]&, {{##2},\[Epsilon]Range}]}& @@@ pulse,
-		{#1, Sequence@@( {##2} * Min[1, \[Epsilon]Range/Norm[{##2}]] )}& @@@ pulse
+LegalizePulse[pulse_,controlRange_]:=
+	If[ListQ[controlRange],
+		{#1, Sequence@@MapThread[Max[Min[#1,Last@#2],First@#2]&, {{##2},controlRange}]}& @@@ pulse,
+		{#1, Sequence@@( {##2} * Min[1, controlRange/Norm[{##2}]] )}& @@@ pulse
 	]
 
 
-NormalizePulse[pulse_, \[Epsilon]Range_] := 
+NormalizePulse[pulse_, controlRange_] := 
 With[{tp = Transpose[pulse[[All, -2;;]]]},
-	AddTimeSteps[pulse[[All,1]],Transpose[(tp - \[Epsilon]Range[[All, 1]]) / (\[Epsilon]Range[[All, 2]] - \[Epsilon]Range[[All, 1]])]]
+	AddTimeSteps[pulse[[All,1]],Transpose[(tp - controlRange[[All, 1]]) / (controlRange[[All, 2]] - controlRange[[All, 1]])]]
 ];
 
 
@@ -1683,37 +1686,43 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=RobustnessPlot[{pulse},spx,spy,cp,opt]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Monitor Functions*)
 
 
 SetAttributes[FidelityMonitor,HoldAll];
-FidelityMonitor[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_, {rawUtility_, cost_}, \[Epsilon]Range_,costList_,abortButton_]:=
-	Monitor[GRAPE,Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[rawUtility], ToString[100 rawUtility]<>"% (Penalty: " <> ToString[(rawUtility - cost) 100] <> "%)"},"  "]]
+FidelityMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=Monitor[
+	GRAPE,
+	Row[{
+		Button["Good Enough",abortButton=True],
+		Button["Next Guess",abortButton=Next],
+		ProgressIndicator[currentPulse@UtilityValue], 
+		ToString[100 currentPulse@UtilityValue]<>"% (Penalty: " <> ToString[currentPulse@PenaltyValue 100] <> "%)"},
+		"  "
+	]
+]
 
 
 SetAttributes[HistogramMonitor,HoldAll];
-HistogramMonitor[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUtility_, cost_},\[Epsilon]Range_,costList_,abortButton_]:=
+HistogramMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=
 	Monitor[
 		GRAPE,
 		Column[{
-			Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[cost],ToString[100 cost]<>"%"},"  "],
-			Histogram[costList,{0,1,0.01},"Count",AxesOrigin->{0,0},PlotLabel->"Objective Function Histogram",ImageSize->400]
+			Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[currentPulse@UtilityValue],ToString[100 currentPulse@UtilityValue]<>"%"},"  "],
+			Histogram[utilityList,{0,1,0.01},"Count",AxesOrigin->{0,0},PlotLabel->"Utility Function Histogram",ImageSize->400,PlotTheme->"Detailed"]
 		}]
 	]
 
 
 SetAttributes[PulsePlotMonitor,HoldAll];
-PulsePlotMonitor[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUtility_, cost_},\[Epsilon]Range_,costList_,abortButton_]:=
+PulsePlotMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=
 	Monitor[
 		GRAPE,
 		Column[{
-			Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[cost],ToString[100 cost]<>"%"},"  "],
-			If[ListQ@bestPulse,GraphicsRow[Table[
-				ListPlot[bestPulse\[Transpose][[k]],PlotLabel->"Control component "<>ToString[k-1],PlotRange->1.05*\[Epsilon]Range[[k-1]],InterpolationOrder->0,Joined->True,ImageSize->400,Filling->Axis,AxesOrigin->{0,0}],
-				{k,2,Length[bestPulse\[Transpose]]}
-			]]]
-		}]
+			Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[currentPulse@UtilityValue],ToString[100 currentPulse@UtilityValue]<>"%"},"  "],
+			PulsePlot[currentPulse,PlotTheme->"Detailed",ImageSize->300],
+			Sequence@@If[bestPulse=!=None,{PulsePlot[bestPulse,PlotTheme->"Detailed",ImageSize->300]},{}]
+		},Dividers->All]
 	]
 
 
@@ -1795,9 +1804,9 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 
 
 Options[FindPulse]={
-	InitialStepSize->10^-3,
-	MinimumStepSize->10^-8,
-	MinimumImprovement->10^-10,
+	InitialStepSize->1.0*10^-3,
+	MinimumStepSize->1.0*10^-8,
+	MinimumImprovement->1.0*10^-10,
 	MonitorFunction->FidelityMonitor,
 	Repetitions->1,
 	SkipChecks->False,
@@ -1816,30 +1825,19 @@ Options[FindPulse]={
 };
 
 
-(* ::Text:: *)
-(*Actual GRAPE. This code has a long history...as far as I know, Colm Ryan wrote it's first version in MATLAB, probably around 2007, which was subsequently improved and modified by Troy Borneman. This was then ported to Mathematica by Holger Haas, and then packaged and improved by Ian Hincks.*)
-
-
 SetAttributes[FindPulse,HoldFirst];
 
 
-FindPulse[initialGuess_,target_,\[Phi]target_,\[Epsilon]Range_,Hcontrol_,Hint_,OptionsPattern[]]:=
-Module[
+Unprotect[FindPulse];
+FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,OptionsPattern[]]:=Module[
 	{
-		stepSize,minStepSize,improveChk,
+		minStepSize,improveChk,
 		numControlKnobs,\[Epsilon]max,numControlHams,
-		repeatCounter,iterCt,
-		overallBestCost,overallBestPulse, penaltyOfBest, costList, penalty,
-		pulse,bestPulse,oldPulse,
-		oldCost,cost=0,
-		oldGradient,oldDirec,
+		repeatCounter,utilityList,currentUtility,
+		bestPulseObj,overallBestPulseObj,
 		derivMask,
-		beta,betaResetCt,
-		optFlag,improveAvg,improveFlag,
 		MonitorFun,
-		tic,toc=0,verboseWidths,verboseFields,
-		exitMessage,
-		k,
+		verboseWidths,verboseFields,
 		GRAPE,GRAPEWrapper,abortButton=False,
 		(*
 			The distortion function is a function DistortionFn[pulse, calcJacobians] that returns
@@ -1849,15 +1847,8 @@ Module[
 		DistortionFn,
 		PulsePenaltyFn,
 		DistributionFunction,
-
-		(* Keep metadata on whether the distortion depends on any distributions. *)
 		distortionDependsOnDist,
-
-		(* We want to evaluate distortions one step before substituting in replacement rules, so declare something to do so. *)
 		tracedDistortion,
-
-		(* Separate out the raw utility for richer monitoring. *)
-		rawUtility,
 
 		lineSearchMeth = OptionValue[LineSearchMethod],
 
@@ -1872,10 +1863,10 @@ Module[
 	(* initialize the options that are static *)
 	minStepSize=OptionValue[MinimumStepSize];
 	improveChk=OptionValue[MinimumImprovement];
-	\[Epsilon]max=Abs[Subtract@@@\[Epsilon]Range];
+	\[Epsilon]max=Abs[Subtract@@@controlRange];
 
 	(* Populate the Default values *)
-	numControlKnobs=Length[\[Epsilon]Range]; 
+	numControlKnobs=Length[controlRange]; 
 	numControlHams=Length[Hcontrol];
 	
 	(* Figure out the distortion, penalty, and distribution objects *)
@@ -1907,7 +1898,7 @@ Module[
 	(* Do some dimension checking to avoid a few headaches *)
 	If[Not[OptionValue[SkipChecks]],
 		(* Check various dimensions for consistency. *)
-		If[Length[Dimensions[\[Epsilon]Range]]=!=2,          Message[FindPulse::badrange];Return[$Failed];];
+		If[Length[Dimensions[controlRange]]=!=2,          Message[FindPulse::badrange];Return[$Failed];];
 
 		(* ParameterDistribution consistency checks *)
 		Module[{distPs, distReps, distNum},
@@ -1923,7 +1914,9 @@ Module[
 
 		(* Distortion related checks. Can be time consuming if distortion is intensive. *)
 		(* Start by distorting the zero pulse so that we know what shape the output is. *)
-		Module[{testpulse=initialGuess,distortedPulse,distortionJac,dLen,penaltyGrad},
+		Module[{testpulse=initialGuess,distortedPulse,distortionJac,dLen,penaltyGrad,penalty},
+
+			If[Not[MatrixQ[testpulse]],Message[FindPulse::badguess];Return[$Failed]];
 
 			(* get the testpulse to have 0 amplitues to make running the distortion more efficient in many cases *)
 			testpulse = With[{r = Length@First@testpulse}, (UnitVector[r,1]*#)&/@testpulse];
@@ -1968,26 +1961,60 @@ Module[
 	];
 
 	(* This is the actual GRAPE algorithm, we will run it later, just defining it for now. *)
-	GRAPE := (
+	GRAPE[initialGuessMat_] := Module[
+		{
+			pulse,oldPulse,
+			stepSize=OptionValue[InitialStepSize],
+			cost=0,oldCost=0,rawUtility=0,
+			penalty=0,
+			improveFlag=True,improveAvg=0,
+			stepCounter=0,
+			oldDirec=ConstantArray[0.,{Length@initialGuessMat,numControlKnobs}],
+			beta=0,betaResetCt=0,
+			optFlag=True,
+
+			betaResetFlag,oldGradient,gradient,diffGradient,improvement,goodDirec,bestMult,costProfile,improveSum=0.,
+			distPs, distReps, distNum, exitMessage, tic, toc,
+
+			UpdateBestPulse
+		},
+
+		(* Make sure that the pulse does not exceed the limits *)
+		pulse=OptionValue[PulseLegalizer][initialGuessMat,controlRange];
+		oldPulse=pulse;
+
+		(*This keeps track of the best pulse found from this initial guess*)
+		bestPulseObj=ToPulse[
+			pulse,
+			UtilityValue->cost,
+			PenaltyValue->penalty,
+			Target->target,
+			ControlHamiltonians->Hcontrol,
+			InternalHamiltonian->Hint,
+			DistortionOperator->DistortionFn,
+			PulsePenalty->PulsePenaltyFn,
+			ParameterDistribution->DistributionFunction,
+			AmplitudeRange->controlRange,
+			ExitMessage->"No exit message set."
+		];
+		UpdateBestPulse:=(
+			bestPulseObj=PulseReplaceKey[bestPulseObj,ExitMessage,exitMessage];
+			bestPulseObj=PulseReplaceKey[bestPulseObj,TimeSteps,pulse[[All,1]]];
+			bestPulseObj=PulseReplaceKey[bestPulseObj,Pulse,pulse[[All,2;;]]];
+			bestPulseObj=PulseReplaceKey[bestPulseObj,UtilityValue,cost];
+			bestPulseObj=PulseReplaceKey[bestPulseObj,PenaltyValue,penalty];
+		);
 
 		While[optFlag,
 			tic=AbsoluteTime[];
-			Module[
-				{
-					betaResetFlag,gradient,diffGradient,improvement,goodDirec,bestMult,costProfile,improveSum=0.,
-					distPs, distReps, distNum
-				},
 
 				(* The distribution sampling to be used this iteration *)
 				{distPs, distReps} = DistributionFunction[cost];
 				distNum = Length@distPs;
 
-				iterCt++;
+				stepCounter++;
 				betaResetFlag=False;
 				gradientMask = ConstantArray[1, Dimensions[SplitPulse[pulse][[2]]]];
-
-				(* Make sure that the pulse does not exceed the limits *)
-				pulse=OptionValue[PulseLegalizer][pulse,\[Epsilon]Range];
 
 				(********************** CHOOSE A DIRECTION ***********************)
 
@@ -2035,13 +2062,12 @@ Module[
 					gradient = derivMask * gradientMask * gradient;
 				];
 
-
 				(* Update improvement variables *)
 				improvement=cost-oldCost;
 				improveSum+=Abs[improvement];
 
 				(* After every 5 iterations calcualte the avg improvement *)
-				If[Mod[iterCt,5]==0,
+				If[Mod[stepCounter,5]==0,
 					improveAvg=improveSum/5;
 					improveSum=0.;
 					improveFlag=improveAvg>improveChk
@@ -2049,7 +2075,7 @@ Module[
 
 				(* Apply the bad control policy, if any, before backtracking to the previous pulse. *)
 				If[badControlPolicy =!= Ignore,
-					Module[{badControlIdxs, normp = NormalizePulse[pulse, \[Epsilon]Range]},
+					Module[{badControlIdxs, normp = NormalizePulse[pulse, controlRange]},
 						badControlIdxs = Position[normp, p_ /; \[Not](0 < p < 1)];
 						If[OptionValue[VerboseAscent] && Length[badControlIdxs] > 0,
 							Print["Bad controls at:\t", badControlIdxs]
@@ -2063,7 +2089,7 @@ Module[
 				(* If the last iteration did not yield an improvement take a step back *)
 				(* Be lenient on the first round; if initial cost is negative, we don't
 				   want to get stuck in a loop where we keep resetting the gradient to zilch. *)
-				If[cost<=oldCost && iterCt>1,
+				If[cost<=oldCost && stepCounter>1,
 					pulse=oldPulse;
 					gradient=oldGradient;
 					cost=oldCost;
@@ -2073,7 +2099,7 @@ Module[
 				];
 
 				(* Calculate the conjugate gradient direction *)
-				If[(iterCt!=1)&&(\[Not]betaResetFlag),
+				If[(stepCounter!=1)&&(Not[betaResetFlag]),
 					diffGradient=gradient-oldGradient;
 					beta= Total[gradient diffGradient,2]/Total[oldGradient^2,2];
 				];
@@ -2087,10 +2113,10 @@ Module[
 
 				(********************** EXIT CRITERIA ***********************)
 				Which[
-					cost>=\[Phi]target && iterCt > minIters,
+					cost>=\[Phi]target && stepCounter > minIters,
 						optFlag=False;
 						exitMessage="Pulse of desired fidelity was found!";,
-					iterCt >= maxIters,
+					stepCounter >= maxIters,
 						optFlag=False;
 						exitMessage="Maximum iterations reached; exiting.";,
 					stepSize<minStepSize,
@@ -2109,7 +2135,8 @@ Module[
 						optFlag=False;
 						exitMessage="User pressed the abort/next button.";
 				];
-				If[\[Not]optFlag,bestPulse=pulse,0];(* Save the pulse in case the exit criteria are met *)
+				(* Save the pulse in case an exit criteria is met *)
+				If[Not[optFlag],UpdateBestPulse];
 
 				(************** CALCULATE STEP SIZE MULTIPLIER **************)
 				(* Evaluate the objective function at two points along the gradient direction *)
@@ -2132,8 +2159,14 @@ Module[
 				oldPulse = pulse;
 				pulse=pulse+AddTimeSteps[0,(bestMult*stepSize*\[Epsilon]max^2*#&)/@goodDirec];
 
+				(* Make sure that the pulse does not exceed the limits *)
+				pulse=OptionValue[PulseLegalizer][pulse,controlRange];
+
 				(* User supplied modification function *)
 				pulse = postIterFcn[pulse];
+
+				(* Pulse has changed; update best pulse for monitor *)
+				UpdateBestPulse;
 
 				(* Change the stepSize *)
 				stepSize=stepSize*Sqrt[bestMult];
@@ -2146,92 +2179,55 @@ Module[
 				(* Print gradient ascent information if VerboseAscent is on *)
 				If[OptionValue[VerboseAscent],
 					toc=AbsoluteTime[]-tic;
-					verboseFields={iterCt,rawUtility,penalty,improvement,stepSize,bestMult,betaResetCt,1000*toc};
+					verboseFields={stepCounter,rawUtility,penalty,improvement,stepSize,bestMult,betaResetCt,1000*toc};
 					Print[Row[Table[Row[{verboseFields[[n]]},ImageSize->verboseWidths[[n]]],{n,Length[verboseFields]}]]];
 				];
-			];
-		]
-	);
-	(* End of GRAPE algorithm *)
+
+			]; (* End of While Loop *)
+		]; (* End of GRAPE Module *)
+
 
 	(* With the Repetitions, we want to return best pulse found, even if it didn't meet the desired fidelity *)
-	overallBestCost = 0;
-	penaltyOfBest = 0;
-	overallBestPulse = ConstantArray[0,{10,numControlKnobs}];
-	costList={};
+	overallBestPulseObj = None;
+	utilityList={};
+	currentUtility:=bestPulseObj[UtilityValue]-bestPulseObj[PenaltyValue];
 
 	(* Now define the GRAPE wrapper algorithm, which deals with the repeat number*)
 	repeatCounter=1;
-	GRAPEWrapper := (
-		While[repeatCounter<=OptionValue[Repetitions]&&(cost<\[Phi]target)&&(Not[abortButton===True]),
+	GRAPEWrapper := 
+		While[repeatCounter==1||(repeatCounter<=OptionValue[Repetitions]&&(currentUtility<\[Phi]target)&&Not[abortButton===True]),
 			repeatCounter++;
 
-			(* Pluck an initial guess. *)
-			pulse=initialGuess;
+			(* Print the column headers if we are in verbose mode. *)
+			If[OptionValue[VerboseAscent],
+				verboseWidths={40,100,100,100,100,100,100,100};
+				verboseFields={"#","rawUtility","penalty","improvement","stepSize","bestMult","betaResetCt","toc (ms)"};
+				Print[Row[Table[Row[{verboseFields[[n]]},ImageSize->verboseWidths[[n]]],{n,Length[verboseFields]}]]];
+			];	
 
-			(* initialize non-static variables *)
-			oldPulse=pulse;
-			bestPulse=pulse;
-			stepSize=OptionValue[InitialStepSize];
-			oldCost=0.;
-			improveAvg=0.;
-			improveFlag=True;
-			iterCt=0;
-			cost=0;
-			oldDirec=ConstantArray[0.,{Length@pulse,numControlKnobs}];
-			beta=0.;
-			betaResetCt=0;
-			optFlag=True;
+			(* Run GRAPE with a new initial guess *)
+			GRAPE[initialGuess];
 
-		(* Print the column headers if we are in verbose mode. *)
-		If[OptionValue[VerboseAscent],
-			verboseWidths={40,100,100,100,100,100,100,100};
-			verboseFields={"#","rawUtility","penalty","improvement","stepSize","bestMult","betaResetCt","toc (ms)"};
-			Print[Row[Table[Row[{verboseFields[[n]]},ImageSize->verboseWidths[[n]]],{n,Length[verboseFields]}]]];
-		];	
+			(* Reset the abort button to False if the user has said to move to the next initial guess. *)
+			If[abortButton===Next,
+				abortButton=False;
+			];
 
-		(* Run GRAPE with this initial guess *)
-		GRAPE
+			(* Keep track of all costs found *)
+			AppendTo[utilityList,currentUtility];
 
-		(* Reset the abort button to False if the user has said to move to the next initial guess. *)
-		If[abortButton===Next,
-			abortButton=False;
-		];
+			(* Check to see if the pulse we just found beats the rest *)
+			If[currentUtility >= Max[0,utilityList],
+				overallBestPulseObj=bestPulseObj;
+			];
 
-		(* Keep track of all costs found *)
-		AppendTo[costList,cost];
-
-		(* Check to see if the pulse we just found beats the rest *)
-		If[cost > overallBestCost,
-			overallBestCost=cost;
-			overallBestPulse=bestPulse;
-			penaltyOfBest = penalty;
-		];
-
-	]
-	);
+	];
 
 	(* Now actually run GRAPE *)
-	MonitorFun[GRAPEWrapper, pulse, overallBestPulse, overallBestCost, {rawUtility, cost}, \[Epsilon]Range, costList, abortButton];
-
-	(* Print the error message if the algorithm failed *)
-	If[OptionValue[VerboseAscent](*||cost<\[Phi]target*),Print[exitMessage]];
+	MonitorFun[GRAPEWrapper, bestPulseObj, overallBestPulseObj, utilityList, abortButton];
 
 	(* Return the best pulse we found along with other information to the desired output format function *)
-	Pulse[
-		UtilityValue -> overallBestCost,
-		PenaltyValue -> penaltyOfBest,
-		TimeSteps -> First@SplitPulse@overallBestPulse,
-		Pulse -> Last@SplitPulse@overallBestPulse,
-		Target -> target,
-		ControlHamiltonians -> Hcontrol,
-		InternalHamiltonian -> Hint,
-		DistortionOperator -> DistortionFn,
-		PulsePenalty -> PulsePenaltyFn,
-		ParameterDistribution -> DistributionFunction,
-		AmplitudeRange -> \[Epsilon]Range,
-		ExitMessage -> exitMessage
-	]
+	overallBestPulseObj
 ]
 
 
