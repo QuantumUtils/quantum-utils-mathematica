@@ -231,55 +231,56 @@ RobustnessPlot::keys = "RobustnessPlot requires all input pulses to have at leas
 (*Monitor Functions*)
 
 
-FidelityProgressBar::usage = "FidelityProgressBar[GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] displays a graphical progress bar showing the current fidelity. The default value of MonitorFunction.";
-HistogramProgressBar::usage = "HistogramProgressBar[GRAPE,GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton]";
-PulsePlotMonitorFunction::usage = "PulsePlotMonitorFunction[GRAPE,GRAPE,bestPulse,overallBestPulse,overallBestCost,cost,\[Epsilon]Range,costList,abortButton] draws a quick plot of the control amplitudes.";
+Unprotect[FidelityMonitor,HistogramMonitor,PulsePlotMonitor];
 
 
-(* ::Subsubsection::Closed:: *)
-(*Options*)
-
-
-Options[GenerateRingdownCompensatedPulse] = {
-	GControlTransformationMatrix -> Automatic,
-	DistortionOperator -> IdentityDistortion[]
-};
-
-
-Options[PlotInitialPulse] = {
-	DistortionOperator->Automatic
-};
+AssignUsage[{FidelityMonitor,HistogramMonitor,PulsePlotMonitor},$Usages];
 
 
 (* ::Subsection::Closed:: *)
-(*Line Search Methods*)
+(*Gradient Ascent Tools*)
 
 
-QuadraticFitLineSearch::usage = "TODO (Always searches to a max of 4.)";
-InterpolatedLineSearch::usage = "TODO";
+Unprotect[
+	QuadraticFitLineSearch,InterpolatedLineSearch,
+	MinStepMul,StepMulStep,MaxStepMul
+];
 
 
-(* ::Subsubsection:: *)
-(*Options*)
-
-
-Options[QuadraticFitLineSearch] = {
-	GMinStepMul -> 0.1
-}
-
-
-Options[InterpolatedLineSearch] = {
-	GStepMulStep -> 1,
-	GMinStepMul -> 0.1,
-	GMaxStepMul -> 4
-}
+AssignUsage[
+	{
+		QuadraticFitLineSearch,InterpolatedLineSearch,
+		MinStepMul,StepMulStep,MaxStepMul
+	},
+	$Usages
+];
 
 
 (* ::Subsection::Closed:: *)
-(*Grape*)
+(*FindPulse*)
 
 
-FindPulse::usage = "FindPulse[initialGuess_,Utarget_,\[Phi]target_,\[Epsilon]Range_,Hcontrol_,Hint_,[Options]]";
+Unprotect[
+	FindPulse
+];
+
+
+AssignUsage[{FindPulse},$Usages];
+
+
+FindPulse::badrange = "Error: Your \[Epsilon]Range should  be of the form {{\[Epsilon]1min,\[Epsilon]1max},{\[Epsilon]2min,\[Epsilon]2max},...}.";
+FindPulse::baddistortion = "Error: Distorted output control count inconsistent with length of Hcontrol, or has the wrong shape.";
+FindPulse::badjacobian = "Error: The distortion Jacobian should be a rank 4 tensor. Maybe you need to call LiftDistortionRank on your distortion?";
+FindPulse::badjacdim1 = "Error: First dimension of your distortion Jacobian does not match length of your distortedPulse.";
+FindPulse::badjacdim2 = "Error: Second dimension of your distortion Jacobian does not match number of Hamiltonians.";
+FindPulse::badjacdim3 = "Error: Third dimension of your distortion Jacobian does not match the length of the pulse given by initialGuess.";
+FindPulse::badjacdim4 = "Error: Fourth dimension of your distortion Jacobian does not match number of control knobs (taken from length of \[Epsilon]range).";
+FindPulse::badpenalty = "Error: The penalty function did not return a real number for a penalty.";
+FindPulse::badpenaltygrad = "Error: The penalty function's gradient does not have the required shape.";
+FindPulse::baddistsum = "Warning: The probabilities in your ParameterDistribution don't sum to 1. Proceeding anyways...";
+FindPulse::baddistreps = "Warning: Not all of your replacement rules assign numbers to all present symbols. Proceeding anyways...";
+FindPulse::baddistlength = "Error: The number of probabilities and replacement rules must be the same.";
+FindPulse::badderivmask = "Error: your derivative mask seems to have the wrong dimensions."
 
 
 (* ::Subsection::Closed:: *)
@@ -305,25 +306,6 @@ JCAMPShapeBWFac::usage = "JCAMPShapeBWFac is an ExportJCAMP option with default 
 JCAMPShapeIntegFac::usage = "JCAMPShapeIntegFac is an ExportJCAMP option with default value '1.000000e+00' (string, not number)."; 
 JCAMPShapeMode::usage = "JCAMPShapeMode is an ExportJCAMP option with default value '1' (string, not number).";
 JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option with default being the integer 1. This is the number the amplitudes are divided by before writing to the JCAMP file.";
-
-
-(* ::Subsection::Closed:: *)
-(*Error Messages*)
-
-
-FindPulse::badrange = "Error: Your \[Epsilon]Range should  be of the form {{\[Epsilon]1min,\[Epsilon]1max},{\[Epsilon]2min,\[Epsilon]2max},...}.";
-FindPulse::baddistortion = "Error: Distorted output control count inconsistent with length of Hcontrol, or has the wrong shape.";
-FindPulse::badjacobian = "Error: The distortion Jacobian should be a rank 4 tensor. Maybe you need to call LiftDistortionRank on your distortion?";
-FindPulse::badjacdim1 = "Error: First dimension of your distortion Jacobian does not match length of your distortedPulse.";
-FindPulse::badjacdim2 = "Error: Second dimension of your distortion Jacobian does not match number of Hamiltonians.";
-FindPulse::badjacdim3 = "Error: Third dimension of your distortion Jacobian does not match the length of the pulse given by initialGuess.";
-FindPulse::badjacdim4 = "Error: Fourth dimension of your distortion Jacobian does not match number of control knobs (taken from length of \[Epsilon]range).";
-FindPulse::badpenalty = "Error: The penalty function did not return a real number for a penalty.";
-FindPulse::badpenaltygrad = "Error: The penalty function's gradient does not have the required shape.";
-FindPulse::baddistsum = "Warning: The probabilities in your ParameterDistribution don't sum to 1. Proceeding anyways...";
-FindPulse::baddistreps = "Warning: Not all of your replacement rules assign numbers to all present symbols. Proceeding anyways...";
-FindPulse::baddistlength = "Error: The number of probabilities and replacement rules must be the same.";
-FindPulse::badderivmask = "Error: your derivative mask seems to have the wrong dimensions."
 
 
 (* ::Section:: *)
@@ -1705,13 +1687,13 @@ RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=Robu
 (*Monitor Functions*)
 
 
-SetAttributes[FidelityProgressBar,HoldAll];
-FidelityProgressBar[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_, {rawUtility_, cost_}, \[Epsilon]Range_,costList_,abortButton_]:=
+SetAttributes[FidelityMonitor,HoldAll];
+FidelityMonitor[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_, {rawUtility_, cost_}, \[Epsilon]Range_,costList_,abortButton_]:=
 	Monitor[GRAPE,Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[rawUtility], ToString[100 rawUtility]<>"% (Penalty: " <> ToString[(rawUtility - cost) 100] <> "%)"},"  "]]
 
 
-SetAttributes[HistogramProgressBar,HoldAll];
-HistogramProgressBar[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUtility_, cost_},\[Epsilon]Range_,costList_,abortButton_]:=
+SetAttributes[HistogramMonitor,HoldAll];
+HistogramMonitor[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUtility_, cost_},\[Epsilon]Range_,costList_,abortButton_]:=
 	Monitor[
 		GRAPE,
 		Column[{
@@ -1721,8 +1703,8 @@ HistogramProgressBar[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUt
 	]
 
 
-SetAttributes[PulsePlotMonitorFunction,HoldAll];
-PulsePlotMonitorFunction[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUtility_, cost_},\[Epsilon]Range_,costList_,abortButton_]:=
+SetAttributes[PulsePlotMonitor,HoldAll];
+PulsePlotMonitor[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{rawUtility_, cost_},\[Epsilon]Range_,costList_,abortButton_]:=
 	Monitor[
 		GRAPE,
 		Column[{
@@ -1736,14 +1718,30 @@ PulsePlotMonitorFunction[GRAPE_,bestPulse_,overallBestPulse_,overallBestCost_,{r
 
 
 (* ::Subsection::Closed:: *)
+(*Gradient Ascent Tools*)
+
+
+(* ::Subsubsection::Closed:: *)
 (*Line Search Methods*)
 
 
-QuadraticFitLineSearch[opts : OptionsPattern[]][initialCost_, testFn_] := Module[{mults, costProfile, fitCoeffs, bestMult},
+Options[QuadraticFitLineSearch] = {
+	MinStepMul -> 0.1
+}
+
+
+Options[InterpolatedLineSearch] = {
+	StepMulStep -> 1,
+	MinStepMul -> 0.1,
+	MaxStepMul -> 4.1
+}
+
+
+QuadraticFitLineSearch[opts : OptionsPattern[]][initialUtility_, testFn_] := Module[{mults, costProfile, fitCoeffs, bestMult},
 	
 	mults={1,2};
 	
-	costProfile=Join[{initialCost},
+	costProfile=Join[{initialUtility},
 		Map[testFn, mults]
 	];
 
@@ -1772,35 +1770,35 @@ QuadraticFitLineSearch[opts : OptionsPattern[]][initialCost_, testFn_] := Module
 	];
 
 	(* In case things go bad and we end up with an imaginary bestMult *)
-	bestMult = Clip[Re[bestMult], {OptionValue[GMinStepMul], 4}];
+	bestMult = Clip[Re[bestMult], {OptionValue[MinStepMul], 4}];
 
 	bestMult
 ];
 
 
-InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionValue[GMinStepMul], maxStepMul = OptionValue[GMaxStepMul], stepStep = OptionValue[GStepMulStep]},
+InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionValue[MinStepMul], maxStepMul = OptionValue[MaxStepMul], stepStep = OptionValue[StepMulStep]},
 
-	Function[{initialCost, testFn}, Module[{interpolatedLineSearch},
-		interpolatedLineSearch = Interpolation [{{0, initialCost}} ~ Join ~ Table[
+	Function[{initialUtility, testFn}, Module[{interpolatedLineSearch},
+		interpolatedLineSearch = Interpolation [{{0, initialUtility}} ~ Join ~ Table[
 			{mul, testFn[mul]},
-			{mul, Append[Range[minStepMul, maxStepMul, stepStep], maxStepMul]}
+			{mul, Range[minStepMul, maxStepMul, stepStep]}
 		]];
 
-		\[FormalS] /. FindMaximum[{interpolatedLineSearch[\[FormalS]], minStepMul <= \[FormalS] <= maxStepMul}, {\[FormalS], 1}][[2]]
+		Clip[\[FormalS] /. FindMaximum[{interpolatedLineSearch[\[FormalS]], minStepMul <= \[FormalS] <= maxStepMul}, {\[FormalS], 1}][[2]],minStepMul,maxStepMul]
 	]]
 
 ];
 
 
 (* ::Subsection::Closed:: *)
-(*GRAPE*)
+(*FindPulse*)
 
 
 Options[FindPulse]={
 	InitialStepSize->10^-3,
 	MinimumStepSize->10^-8,
 	MinimumImprovement->10^-10,
-	MonitorFunction->FidelityProgressBar,
+	MonitorFunction->FidelityMonitor,
 	Repetitions->1,
 	SkipChecks->False,
 	VerboseAscent->False,
@@ -2241,7 +2239,7 @@ Module[
 (*Exporters*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*JCAMP*)
 
 
@@ -2328,7 +2326,7 @@ ExportJCAMP[filename_,pulse_,OptionsPattern[]]:=Module[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*SHP*)
 
 
@@ -2424,6 +2422,21 @@ Protect[
 	DistributeOption,
 	RobustnessPlot,LegendIsCell,DistortionOperatorSweep
 ];
+
+
+Protect[FidelityMonitor,HistogramMonitor,PulsePlotMonitor];
+
+
+Protect[
+	QuadraticFitLineSearch,InterpolatedLineSearch,
+	MinStepMul,StepMulStep,MaxStepMul
+];
+
+
+Protect[FindPulse];
+
+
+Protect[ExportJCAMP,ExportSHP];
 
 
 EndPackage[];
