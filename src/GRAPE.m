@@ -276,14 +276,6 @@ Options[InterpolatedLineSearch] = {
 
 
 (* ::Subsection::Closed:: *)
-(*Unitary Evaluators*)
-
-
-PropagatorFromPulse::usage = "PropagatorFromPulse[pulse,Hint,Hcontrol,Hint]";
-PropagatorListFromPulse::usage = "PropagatorListFromPulse[pulse,Hint,Hcontrol]";
-
-
-(* ::Subsection::Closed:: *)
 (*Grape*)
 
 
@@ -512,6 +504,38 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 
 (* ::Subsection::Closed:: *)
 (*Utility Function and Targets*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Unitary Propagators*)
+
+
+(* ::Text:: *)
+(*Takes a pulse and finds the overall unitary.*)
+
+
+PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
+	Module[{step=1,dt,dts,amps},
+		{dts,amps} = SplitPulse[pulse];
+		(* Notice the delay equal on dt! Not a bug. *)
+		dt := dts[[step++]];
+		Fold[
+			MatrixExp[-I(Hint+#2.Hcontrol) dt].#1&,
+			IdentityMatrix[Length[Hint]],
+			amps
+		]
+	]
+
+
+PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
+	Module[{dts,dt,step=1,amps},
+		{dts,amps} = SplitPulse[pulse];
+		dt := dts[[step++]];
+		Map[
+			MatrixExp[-I(Hint+#.Hcontrol)dt]&,
+			amps
+		]
+	]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1766,38 +1790,6 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 	]]
 
 ];
-
-
-(* ::Subsection::Closed:: *)
-(*Unitary Evaluators*)
-
-
-(* ::Text:: *)
-(*Takes a pulse and finds the overall unitary.*)
-
-
-PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{step=1,dt,dts,amps},
-		{dts,amps} = SplitPulse[pulse];
-		(* Notice the delay equal on dt! Not a bug. *)
-		dt := dts[[step++]];
-		Fold[
-			MatrixExp[-I(Hint+#2.Hcontrol) dt].#1&,
-			IdentityMatrix[Length[Hint]],
-			amps
-		]
-	]
-
-
-PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{dts,dt,step=1,amps},
-		{dts,amps} = SplitPulse[pulse];
-		dt := dts[[step++]];
-		Map[
-			MatrixExp[-I(Hint+#.Hcontrol)dt]&,
-			amps
-		]
-	]
 
 
 (* ::Subsection::Closed:: *)
