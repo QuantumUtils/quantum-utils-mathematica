@@ -53,7 +53,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "GRAPE.nb"}]
 
 Unprotect[
 	Repetitions,ParameterDistribution,DistortionOperator,ForceDistortionDependence,
-	PulsePenalty,DerivativeMask,PostIterationFunction,PulseLegalizer,
+	PulsePenalty,DerivativeMask,PulseLegalizer,
 	ControlLimitPolicy,MonitorFunction,InitialStepSize,MinimumStepSize,
 	LineSearchMethod,MinimumImprovement,MinimumIterations,MaximumIterations,
 	SkipChecks,VerboseAscent,
@@ -64,7 +64,7 @@ Unprotect[
 AssignUsage[
 	{
 		Repetitions,ParameterDistribution,DistortionOperator,ForceDistortionDependence,
-		PulsePenalty,DerivativeMask,PostIterationFunction,PulseLegalizer,
+		PulsePenalty,DerivativeMask,PulseLegalizer,
 		ControlLimitPolicy,MonitorFunction,InitialStepSize,MinimumStepSize,
 		LineSearchMethod,MinimumImprovement,MinimumIterations,MaximumIterations,
 		SkipChecks,VerboseAscent,
@@ -1798,7 +1798,7 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*FindPulse*)
 
 
@@ -1818,7 +1818,6 @@ Options[FindPulse]={
 	ControlLimitPolicy -> Ignore,
 	MinimumIterations -> 0,
 	MaximumIterations -> \[Infinity],
-	PostIterationFunction -> Identity,
 	DerivativeMask -> None,
 	PulseLegalizer -> LegalizePulse
 };
@@ -1854,9 +1853,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 		gradientMask, badControlPolicy = OptionValue[ControlLimitPolicy],
 
 		minIters = OptionValue[MinimumIterations],
-		maxIters = OptionValue[MaximumIterations],
-
-		postIterFcn = OptionValue[PostIterationFunction]
+		maxIters = OptionValue[MaximumIterations]
 	},
 	
 	(* initialize the options that are static *)
@@ -2161,9 +2158,6 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 				(* Make sure that the pulse does not exceed the limits *)
 				pulse=OptionValue[PulseLegalizer][pulse,controlRange];
 
-				(* User supplied modification function *)
-				pulse = postIterFcn[pulse];
-
 				(* Pulse has changed; update best pulse for monitor *)
 				UpdateBestPulse;
 
@@ -2357,7 +2351,7 @@ End[];
 
 Protect[
 	Repetitions,ParameterDistribution,DistortionOperator,ForceDistortionDependence,
-	PulsePenalty,DerivativeMask,PostIterationFunction,PulseLegalizer,
+	PulsePenalty,DerivativeMask,PulseLegalizer,
 	ControlLimitPolicy,MonitorFunction,InitialStepSize,MinimumStepSize,
 	LineSearchMethod,MinimumImprovement,MinimumIterations,MaximumIterations,
 	SkipChecks,VerboseAscent,
