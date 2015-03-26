@@ -538,7 +538,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 	Module[
 		{
 			dim=Length[Hint],
-			dts,amps,Uforw,Uback,gradient,cost,unitaries
+			dts,amps,Uforw,Uback,gradient,utility,unitaries
 		},
 		unitaries=PropagatorListFromPulse[pulse,Hint,Hcontrol];
 
@@ -550,8 +550,8 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 			-2 Re[Tr[Uback[[i]]\[ConjugateTranspose].(I dts[[i]] Hcontrol[[j]].Uforw[[i]])]*Tr[Uforw[[i]]\[ConjugateTranspose].Uback[[i]]]],
 			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/dim^2;
-		cost=Utility[Last[Uforw],Utarget];
-		{cost,gradient}
+		utility=Utility[Last[Uforw],Utarget];
+		{utility,gradient}
 	];
 
 
@@ -1745,20 +1745,20 @@ Options[InterpolatedLineSearch] = {
 }
 
 
-QuadraticFitLineSearch[opts : OptionsPattern[]][initialUtility_, testFn_] := Module[{mults, costProfile, fitCoeffs, bestMult},
+QuadraticFitLineSearch[opts : OptionsPattern[]][initialUtility_, testFn_] := Module[{mults, utilityProfile, fitCoeffs, bestMult},
 	
 	mults={1,2};
 	
-	costProfile=Join[{initialUtility},
+	utilityProfile=Join[{initialUtility},
 		Map[testFn, mults]
 	];
 
 	(* We have three points and we fit a quadratic to it, where the coefficients of the quadratic are stored in fitCoeffs *)
-	fitCoeffs={{0.5,-1.,0.5},{-1.5,2.,-0.5},{1., 0., 0.}}.costProfile;
+	fitCoeffs={{0.5,-1.,0.5},{-1.5,2.,-0.5},{1., 0., 0.}}.utilityProfile;
 
 	If[fitCoeffs[[1]]>0.,
 		(* If the quadratic is positive this method didn't work, so just pick the better of the two multipliers *)
-		bestMult=mults[[Last@Ordering[Rest@costProfile]]];,
+		bestMult=mults[[Last@Ordering[Rest@utilityProfile]]];,
 		(* If the quadratic is negative we simply go for the maximum value of the quadratic *)
 		bestMult=-fitCoeffs[[2]]/(2*fitCoeffs[[1]]);
 	];
@@ -1766,13 +1766,13 @@ QuadraticFitLineSearch[opts : OptionsPattern[]][initialUtility_, testFn_] := Mod
 	(* If the max looks like it's beyond 2x the stepSize check what's up at 4x *)
 	If[bestMult>1.99,
 		mults={2,4};
-		costProfile[[2]]  =costProfile[[3]];
-		costProfile[[3]] = testFn[Last @ mults];
+		utilityProfile[[2]]  =utilityProfile[[3]];
+		utilityProfile[[3]] = testFn[Last @ mults];
 			
 		(* Do the fitting again with our three new points *)
-		fitCoeffs={{0.125,-0.25,0.125},{-0.75,1.,-0.25},{1., 0., 0.}}.costProfile;
+		fitCoeffs={{0.125,-0.25,0.125},{-0.75,1.,-0.25},{1., 0., 0.}}.utilityProfile;
 		If[fitCoeffs[[1]]>0.,
-			bestMult=mults[[Last@Ordering[Rest@costProfile]]];,
+			bestMult=mults[[Last@Ordering[Rest@utilityProfile]]];,
 			bestMult=-fitCoeffs[[2]]/(2*fitCoeffs[[1]]);
 		];
 	];
@@ -1850,7 +1850,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 		lineSearchMeth = OptionValue[LineSearchMethod],
 
-		gradientMask, badControlPolicy = OptionValue[ControlLimitPolicy],
+		badControlLimitGradientMask, badControlPolicy = OptionValue[ControlLimitPolicy],
 
 		minIters = OptionValue[MinimumIterations],
 		maxIters = OptionValue[MaximumIterations]
@@ -1961,7 +1961,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 		{
 			pulse,oldPulse,
 			stepSize=OptionValue[InitialStepSize],
-			cost=0,oldCost=0,rawUtility=0,
+			utility=0,oldUtility=0,rawUtility=0,
 			penalty=0,
 			improveFlag=True,improveAvg=0,
 			stepCounter=0,
@@ -1969,7 +1969,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 			beta=0,betaResetCt=0,
 			optFlag=True,
 
-			betaResetFlag,oldGradient,gradient,diffGradient,improvement,goodDirec,bestMult,costProfile,improveSum=0.,
+			betaResetFlag,oldGradient,gradient,diffGradient,improvement,goodDirec,bestMult,utilityProfile,improveSum=0.,
 			distPs, distReps, distNum, exitMessage, tic, toc,
 
 			UpdateBestPulse
@@ -1982,7 +1982,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 		(*This keeps track of the best pulse found from this initial guess*)
 		bestPulseObj=ToPulse[
 			pulse,
-			UtilityValue->cost,
+			UtilityValue->utility,
 			PenaltyValue->penalty,
 			Target->target,
 			ControlHamiltonians->Hcontrol,
@@ -1997,7 +1997,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 			bestPulseObj=PulseReplaceKey[bestPulseObj,ExitMessage,exitMessage];
 			bestPulseObj=PulseReplaceKey[bestPulseObj,TimeSteps,pulse[[All,1]]];
 			bestPulseObj=PulseReplaceKey[bestPulseObj,Pulse,pulse[[All,2;;]]];
-			bestPulseObj=PulseReplaceKey[bestPulseObj,UtilityValue,cost];
+			bestPulseObj=PulseReplaceKey[bestPulseObj,UtilityValue,utility];
 			bestPulseObj=PulseReplaceKey[bestPulseObj,PenaltyValue,penalty];
 		);
 
@@ -2010,7 +2010,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				stepCounter++;
 				betaResetFlag=False;
-				gradientMask = ConstantArray[1, Dimensions[SplitPulse[pulse][[2]]]];
+				badControlLimitGradientMask = ConstantArray[1, Dimensions[SplitPulse[pulse][[2]]]];
 
 				(********************** CHOOSE A DIRECTION ***********************)
 
@@ -2023,7 +2023,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 					];
 
 					(* Now we do a big weighted sum over all elements of the distribution *)
-					{rawUtility, cost, gradient} = Sum[
+					{rawUtility, utility, gradient} = Sum[
 						Module[
 							{reps, prob, objFunVal, objFunGrad, penaltyGrad, totalGrad},
 							
@@ -2048,18 +2048,18 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 							(* Update the gradient with the distortion's jacobian *)
 							totalGrad = TensorPairContract[distortionJacobian/.reps, objFunGrad-penaltyGrad, {{1,1},{2,2}}];
 
-							(* Update the cost with the penalty *)
+							(* Update the utility with the penalty *)
 							prob*{objFunVal, objFunVal - penalty, totalGrad}
 						],
 						{d,distNum}
 					];
 
 					(* Apply the mask to the gradient, so we can avoid bad controls. *)
-					gradient = derivMask * gradientMask * gradient;
+					gradient = derivMask * badControlLimitGradientMask * gradient;
 				];
 
 				(* Update improvement variables *)
-				improvement=cost-oldCost;
+				improvement=utility-oldUtility;
 				improveSum+=Abs[improvement];
 
 				(* After every 5 iterations calcualte the avg improvement *)
@@ -2077,18 +2077,18 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 							Print["Bad controls at:\t", badControlIdxs]
 						];
 						If[badControlPolicy === ProjectGradient,
-							gradientMask = ReplacePart[gradientMask, badControlIdxs -> 0];
+							badControlLimitGradientMask = ReplacePart[badControlLimitGradientMask, badControlIdxs -> 0];
 						]
 					]
 				];
 
 				(* If the last iteration did not yield an improvement take a step back *)
-				(* Be lenient on the first round; if initial cost is negative, we don't
+				(* Be lenient on the first round; if initial utility is negative, we don't
 				   want to get stuck in a loop where we keep resetting the gradient to zilch. *)
-				If[cost<=oldCost && stepCounter>1,
+				If[utility<=oldUtility && stepCounter>1,
 					pulse=oldPulse;
 					gradient=oldGradient;
-					cost=oldCost;
+					utility=oldUtility;
 					beta=0.;
 					betaResetFlag=True;
 					betaResetCt++
@@ -2109,7 +2109,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(********************** EXIT CRITERIA ***********************)
 				Which[
-					cost>=\[Phi]target && stepCounter > minIters,
+					utility>=\[Phi]target && stepCounter > minIters,
 						optFlag=False;
 						exitMessage="Pulse of desired fidelity was found!";,
 					stepCounter >= maxIters,
@@ -2124,7 +2124,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 					betaResetCt>9,
 						optFlag=False;
 						exitMessage="Reset beta (conjugate direction) too many times. The pulse is probably hitting the power limits excessively.";,
-					cost==0,
+					utility==0,
 						optFlag=False;
 						exitMessage="Bad guess causing divide by 0.";,
 					abortButton=!=False,
@@ -2146,7 +2146,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 								{d, distNum}
 							]
 						]&;
-					bestMult = lineSearchMeth[cost, testFn];
+					bestMult = lineSearchMeth[utility, testFn];
 				];
 				
 				(*********************** UPDATE PULSE ************************)
@@ -2165,7 +2165,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 				stepSize=stepSize*Sqrt[bestMult];
 
 				(* Update interation variables *)
-				oldCost=cost;
+				oldUtility=utility;
 				oldGradient=gradient;
 				oldDirec=goodDirec;
 
@@ -2206,7 +2206,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 				abortButton=False;
 			];
 
-			(* Keep track of all costs found *)
+			(* Keep track of all utility values found *)
 			AppendTo[utilityList,currentUtility];
 
 			(* Check to see if the pulse we just found beats the rest *)
