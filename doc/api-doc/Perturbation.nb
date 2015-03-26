@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    142536,       3701]
-NotebookOptionsPosition[    133197,       3400]
-NotebookOutlinePosition[    135547,       3466]
-CellTagsIndexPosition[    134945,       3450]
+NotebookDataLength[    143232,       3723]
+NotebookOptionsPosition[    133774,       3418]
+NotebookOutlinePosition[    136123,       3484]
+CellTagsIndexPosition[    135521,       3468]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,10 +29,8 @@ Cell["Perturbation Documentation", "Chapter",
 
 Cell[CellGroupData[{
 
-Cell["Preamble", "Section",
- CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
-  3.6337812001050663`*^9, 3.633781202247016*^9}, {3.634328305258955*^9, 
-  3.634328305340747*^9}}],
+Cell["Preamble", "Subsection",
+ CellChangeTimes->{{3.636379689161282*^9, 3.6363796904310207`*^9}}],
 
 Cell[BoxData[
  RowBox[{"Needs", "[", "\"\<Perturbation`\>\"", "]"}]], "Input",
@@ -56,7 +54,27 @@ Cell[BoxData[{
   3.63430989489682*^9}, {3.634310127176152*^9, 3.634310128430011*^9}, {
   3.634310879956975*^9, 3.63431088630688*^9}, {3.634313448232463*^9, 
   3.6343134491585693`*^9}, {3.6343167133891573`*^9, 3.634316719748117*^9}}]
-}, Open  ]],
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Source Code", "Subsection",
+ CellChangeTimes->{{3.6351824420646763`*^9, 3.635182446927919*^9}}],
+
+Cell[BoxData[
+ ButtonBox["\<\"Open Source Code\"\>",
+  Appearance->Automatic,
+  ButtonFunction:>(Needs["QUDevTools`"]; NotebookOpen[
+     FileNameJoin[{QUDevTools`$QUSourcePath, 
+       StringJoin[
+        FileBaseName[
+         NotebookFileName[]], ".m"]}]]),
+  Evaluator->Automatic,
+  Method->"Preemptive"]], "Output",
+ CellChangeTimes->{{3.635182609676621*^9, 3.6351826444407997`*^9}, {
+  3.635182842680962*^9, 3.63518284820653*^9}, {3.635182903083259*^9, 
+  3.635182906619155*^9}, {3.635182952870352*^9, 3.635182956778173*^9}}]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3399,7 +3417,7 @@ Zassenhaus formula. Computer Physics Communications 183, 2386\[Dash]2391\
 }, Open  ]]
 },
 WindowSize->{1280, 979},
-WindowMargins->{{1276, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 95}, {Automatic, 3}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -3409,58 +3427,58 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "AverageHamiltonianTerm::usage"->{
-  Cell[34593, 1039, 3616, 119, 267, "Text",
-   CellTags->"AverageHamiltonianTerm::usage"]},
- "AverageHamiltonian::usage"->{
-  Cell[40133, 1226, 3498, 121, 247, "Text",
-   CellTags->"AverageHamiltonian::usage"]},
  "ClearMagnusCache::usage"->{
-  Cell[3397, 92, 703, 14, 31, "Text",
+  Cell[3974, 110, 703, 14, 31, "Text",
    CellTags->"ClearMagnusCache::usage"]},
- "ClearZassenhausCache::usage"->{
-  Cell[55325, 1740, 751, 14, 31, "Text",
-   CellTags->"ClearZassenhausCache::usage"]},
- "FirstOrderEigenvector::usage"->{
-  Cell[46287, 1440, 1682, 52, 113, "Text",
-   CellTags->"FirstOrderEigenvector::usage"]},
- "MagnusConvergenceTest::usage"->{
-  Cell[28802, 861, 1789, 49, 155, "Text",
-   CellTags->"MagnusConvergenceTest::usage"]},
  "MagnusExpansionTerm::usage"->{
-  Cell[4298, 115, 4270, 129, 247, "Text",
+  Cell[4875, 133, 4270, 129, 247, "Text",
    CellTags->"MagnusExpansionTerm::usage"]},
  "MagnusExpansion::usage"->{
-  Cell[21837, 651, 3635, 119, 247, "Text",
+  Cell[22414, 669, 3635, 119, 247, "Text",
    CellTags->"MagnusExpansion::usage"]},
+ "MagnusConvergenceTest::usage"->{
+  Cell[29379, 879, 1789, 49, 155, "Text",
+   CellTags->"MagnusConvergenceTest::usage"]},
+ "AverageHamiltonianTerm::usage"->{
+  Cell[35170, 1057, 3616, 119, 267, "Text",
+   CellTags->"AverageHamiltonianTerm::usage"]},
+ "AverageHamiltonian::usage"->{
+  Cell[40710, 1244, 3498, 121, 247, "Text",
+   CellTags->"AverageHamiltonian::usage"]},
+ "FirstOrderEigenvector::usage"->{
+  Cell[46864, 1458, 1682, 52, 113, "Text",
+   CellTags->"FirstOrderEigenvector::usage"]},
  "SecondOrderEigenvalue::usage"->{
-  Cell[51748, 1624, 1116, 33, 70, "Text",
+  Cell[52325, 1642, 1116, 33, 70, "Text",
    CellTags->"SecondOrderEigenvalue::usage"]},
- "ZassenhausExpansion::usage"->{
-  Cell[65942, 2094, 3228, 103, 106, "Text",
-   CellTags->"ZassenhausExpansion::usage"]},
- "ZassenhausSeries::usage"->{
-  Cell[61068, 1936, 2365, 84, 59, "Text",
-   CellTags->"ZassenhausSeries::usage"]},
+ "ClearZassenhausCache::usage"->{
+  Cell[55902, 1758, 751, 14, 31, "Text",
+   CellTags->"ClearZassenhausCache::usage"]},
  "ZassenhausTerm::usage"->{
-  Cell[56220, 1762, 2217, 79, 59, "Text",
-   CellTags->"ZassenhausTerm::usage"]}
+  Cell[56797, 1780, 2217, 79, 59, "Text",
+   CellTags->"ZassenhausTerm::usage"]},
+ "ZassenhausSeries::usage"->{
+  Cell[61645, 1954, 2365, 84, 59, "Text",
+   CellTags->"ZassenhausSeries::usage"]},
+ "ZassenhausExpansion::usage"->{
+  Cell[66519, 2112, 3228, 103, 106, "Text",
+   CellTags->"ZassenhausExpansion::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"AverageHamiltonianTerm::usage", 133527, 3411},
- {"AverageHamiltonian::usage", 133651, 3414},
- {"ClearMagnusCache::usage", 133769, 3417},
- {"ClearZassenhausCache::usage", 133883, 3420},
- {"FirstOrderEigenvector::usage", 134005, 3423},
- {"MagnusConvergenceTest::usage", 134130, 3426},
- {"MagnusExpansionTerm::usage", 134252, 3429},
- {"MagnusExpansion::usage", 134368, 3432},
- {"SecondOrderEigenvalue::usage", 134487, 3435},
- {"ZassenhausExpansion::usage", 134609, 3438},
- {"ZassenhausSeries::usage", 134728, 3441},
- {"ZassenhausTerm::usage", 134840, 3444}
+ {"ClearMagnusCache::usage", 134096, 3429},
+ {"MagnusExpansionTerm::usage", 134210, 3432},
+ {"MagnusExpansion::usage", 134326, 3435},
+ {"MagnusConvergenceTest::usage", 134445, 3438},
+ {"AverageHamiltonianTerm::usage", 134570, 3441},
+ {"AverageHamiltonian::usage", 134694, 3444},
+ {"FirstOrderEigenvector::usage", 134817, 3447},
+ {"SecondOrderEigenvalue::usage", 134942, 3450},
+ {"ClearZassenhausCache::usage", 135065, 3453},
+ {"ZassenhausTerm::usage", 135180, 3456},
+ {"ZassenhausSeries::usage", 135292, 3459},
+ {"ZassenhausExpansion::usage", 135409, 3462}
  }
 *)
 (*NotebookFileOutline
@@ -3468,238 +3486,242 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 355, 5, 65, "Chapter"],
 Cell[CellGroupData[{
-Cell[960, 31, 193, 3, 64, "Section"],
-Cell[1156, 36, 438, 6, 28, "Input"],
-Cell[1597, 44, 182, 4, 30, "Text"],
-Cell[1782, 50, 512, 7, 46, "Input"]
+Cell[960, 31, 98, 1, 44, "Subsection"],
+Cell[1061, 34, 438, 6, 28, "Input"],
+Cell[1502, 42, 182, 4, 30, "Text"],
+Cell[1687, 48, 512, 7, 46, "Input"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2236, 60, 101, 1, 36, "Subsection"],
+Cell[2340, 63, 531, 12, 43, "Output"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2908, 80, 110, 1, 64, "Section"],
+Cell[3021, 83, 582, 12, 49, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2331, 62, 110, 1, 64, "Section"],
-Cell[2444, 65, 582, 12, 49, "Text"]
-}, Open  ]],
+Cell[3640, 100, 202, 3, 64, "Section"],
 Cell[CellGroupData[{
-Cell[3063, 82, 202, 3, 64, "Section"],
-Cell[CellGroupData[{
-Cell[3290, 89, 104, 1, 44, "Subsection"],
-Cell[3397, 92, 703, 14, 31, "Text",
+Cell[3867, 107, 104, 1, 44, "Subsection"],
+Cell[3974, 110, 703, 14, 31, "Text",
  CellTags->"ClearMagnusCache::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4137, 111, 158, 2, 44, "Subsection"],
-Cell[4298, 115, 4270, 129, 247, "Text",
+Cell[4714, 129, 158, 2, 44, "Subsection"],
+Cell[4875, 133, 4270, 129, 247, "Text",
  CellTags->"MagnusExpansionTerm::usage"],
 Cell[CellGroupData[{
-Cell[8593, 248, 224, 3, 35, "Subsubsection"],
-Cell[8820, 253, 151, 3, 30, "Text"],
-Cell[8974, 258, 176, 2, 30, "Text"],
+Cell[9170, 266, 224, 3, 35, "Subsubsection"],
+Cell[9397, 271, 151, 3, 30, "Text"],
+Cell[9551, 276, 176, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[9175, 264, 833, 25, 46, "Input"],
-Cell[10011, 291, 1099, 28, 76, "Output"]
+Cell[9752, 282, 833, 25, 46, "Input"],
+Cell[10588, 309, 1099, 28, 76, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[11159, 325, 100, 1, 29, "Subsubsection"],
-Cell[11262, 328, 134, 1, 30, "Text"],
+Cell[11736, 343, 100, 1, 29, "Subsubsection"],
+Cell[11839, 346, 134, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[11421, 333, 1279, 32, 46, "Input"],
-Cell[12703, 367, 1336, 31, 76, "Output"]
+Cell[11998, 351, 1279, 32, 46, "Input"],
+Cell[13280, 385, 1336, 31, 76, "Output"]
 }, Open  ]],
-Cell[14054, 401, 281, 5, 30, "Text"],
+Cell[14631, 419, 281, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[14360, 410, 593, 17, 46, "Input"],
-Cell[14956, 429, 906, 25, 76, "Output"]
+Cell[14937, 428, 593, 17, 46, "Input"],
+Cell[15533, 447, 906, 25, 76, "Output"]
 }, Open  ]],
-Cell[15877, 457, 346, 8, 31, "Text"],
+Cell[16454, 475, 346, 8, 31, "Text"],
 Cell[CellGroupData[{
-Cell[16248, 469, 657, 18, 63, "Input"],
-Cell[16908, 489, 820, 25, 63, "Output"]
+Cell[16825, 487, 657, 18, 63, "Input"],
+Cell[17485, 507, 820, 25, 63, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[17765, 519, 659, 18, 63, "Input"],
-Cell[18427, 539, 769, 24, 63, "Output"]
+Cell[18342, 537, 659, 18, 63, "Input"],
+Cell[19004, 557, 769, 24, 63, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[19245, 569, 150, 2, 29, "Subsubsection"],
-Cell[19398, 573, 130, 1, 30, "Text"],
+Cell[19822, 587, 150, 2, 29, "Subsubsection"],
+Cell[19975, 591, 130, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[19553, 578, 716, 22, 46, "Input"],
-Cell[20272, 602, 1304, 36, 80, "Output"]
+Cell[20130, 596, 716, 22, 46, "Input"],
+Cell[20849, 620, 1304, 36, 80, "Output"]
 }, Open  ]],
-Cell[21591, 641, 92, 1, 28, "Input"]
+Cell[22168, 659, 92, 1, 28, "Input"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[21732, 648, 102, 1, 44, "Subsection"],
-Cell[21837, 651, 3635, 119, 247, "Text",
+Cell[22309, 666, 102, 1, 44, "Subsection"],
+Cell[22414, 669, 3635, 119, 247, "Text",
  CellTags->"MagnusExpansion::usage"],
 Cell[CellGroupData[{
-Cell[25497, 774, 172, 2, 35, "Subsubsection"],
+Cell[26074, 792, 172, 2, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[25694, 780, 1109, 29, 46, "Input"],
-Cell[26806, 811, 1823, 40, 65, "Output"]
+Cell[26271, 798, 1109, 29, 46, "Input"],
+Cell[27383, 829, 1823, 40, 65, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28690, 858, 109, 1, 44, "Subsection"],
-Cell[28802, 861, 1789, 49, 155, "Text",
+Cell[29267, 876, 109, 1, 44, "Subsection"],
+Cell[29379, 879, 1789, 49, 155, "Text",
  CellTags->"MagnusConvergenceTest::usage"],
 Cell[CellGroupData[{
-Cell[30616, 914, 155, 2, 35, "Subsubsection"],
+Cell[31193, 932, 155, 2, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[30796, 920, 867, 23, 46, "Input"],
-Cell[31666, 945, 608, 13, 52, "Output"]
+Cell[31373, 938, 867, 23, 46, "Input"],
+Cell[32243, 963, 608, 13, 52, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[32323, 964, 105, 1, 29, "Subsubsection"],
+Cell[32900, 982, 105, 1, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[32453, 969, 876, 27, 68, "Input"],
-Cell[33332, 998, 220, 4, 28, "Output"],
-Cell[33555, 1004, 139, 2, 28, "Output"]
+Cell[33030, 987, 876, 27, 68, "Input"],
+Cell[33909, 1016, 220, 4, 28, "Output"],
+Cell[34132, 1022, 139, 2, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[33755, 1013, 100, 1, 44, "Subsection"],
-Cell[33858, 1016, 127, 1, 30, "Text"],
-Cell[33988, 1019, 264, 5, 30, "Text"]
+Cell[34332, 1031, 100, 1, 44, "Subsection"],
+Cell[34435, 1034, 127, 1, 30, "Text"],
+Cell[34565, 1037, 264, 5, 30, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[34301, 1030, 154, 2, 64, "Section"],
+Cell[34878, 1048, 154, 2, 64, "Section"],
 Cell[CellGroupData[{
-Cell[34480, 1036, 110, 1, 44, "Subsection"],
-Cell[34593, 1039, 3616, 119, 267, "Text",
+Cell[35057, 1054, 110, 1, 44, "Subsection"],
+Cell[35170, 1057, 3616, 119, 267, "Text",
  CellTags->"AverageHamiltonianTerm::usage"],
 Cell[CellGroupData[{
-Cell[38234, 1162, 97, 1, 35, "Subsubsection"],
+Cell[38811, 1180, 97, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[38356, 1167, 836, 25, 46, "Input"],
-Cell[39195, 1194, 766, 22, 74, "Output"]
+Cell[38933, 1185, 836, 25, 46, "Input"],
+Cell[39772, 1212, 766, 22, 74, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40022, 1223, 108, 1, 44, "Subsection"],
-Cell[40133, 1226, 3498, 121, 247, "Text",
+Cell[40599, 1241, 108, 1, 44, "Subsection"],
+Cell[40710, 1244, 3498, 121, 247, "Text",
  CellTags->"AverageHamiltonian::usage"],
 Cell[CellGroupData[{
-Cell[43656, 1351, 99, 1, 35, "Subsubsection"],
+Cell[44233, 1369, 99, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[43780, 1356, 830, 25, 46, "Input"],
-Cell[44613, 1383, 993, 29, 76, "Output"]
+Cell[44357, 1374, 830, 25, 46, "Input"],
+Cell[45190, 1401, 993, 29, 76, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[45667, 1419, 97, 1, 44, "Subsection"],
-Cell[45767, 1422, 236, 4, 31, "Text"]
+Cell[46244, 1437, 97, 1, 44, "Subsection"],
+Cell[46344, 1440, 236, 4, 31, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[46052, 1432, 105, 1, 64, "Section"],
+Cell[46629, 1450, 105, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[46182, 1437, 102, 1, 44, "Subsection"],
-Cell[46287, 1440, 1682, 52, 113, "Text",
+Cell[46759, 1455, 102, 1, 44, "Subsection"],
+Cell[46864, 1458, 1682, 52, 113, "Text",
  CellTags->"FirstOrderEigenvector::usage"],
 Cell[CellGroupData[{
-Cell[47994, 1496, 147, 2, 35, "Subsubsection"],
-Cell[48144, 1500, 185, 4, 30, "Text"],
-Cell[48332, 1506, 403, 11, 46, "Input"],
-Cell[48738, 1519, 109, 1, 30, "Text"],
+Cell[48571, 1514, 147, 2, 35, "Subsubsection"],
+Cell[48721, 1518, 185, 4, 30, "Text"],
+Cell[48909, 1524, 403, 11, 46, "Input"],
+Cell[49315, 1537, 109, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[48872, 1524, 273, 5, 46, "Input"],
-Cell[49148, 1531, 229, 6, 28, "Output"],
-Cell[49380, 1539, 432, 14, 44, "Output"]
+Cell[49449, 1542, 273, 5, 46, "Input"],
+Cell[49725, 1549, 229, 6, 28, "Output"],
+Cell[49957, 1557, 432, 14, 44, "Output"]
 }, Open  ]],
-Cell[49827, 1556, 191, 4, 30, "Text"],
+Cell[50404, 1574, 191, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[50043, 1564, 294, 7, 28, "Input"],
-Cell[50340, 1573, 323, 9, 35, "Output"]
+Cell[50620, 1582, 294, 7, 28, "Input"],
+Cell[50917, 1591, 323, 9, 35, "Output"]
 }, Open  ]],
-Cell[50678, 1585, 157, 3, 30, "Text"],
+Cell[51255, 1603, 157, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[50860, 1592, 317, 9, 45, "Input"],
-Cell[51180, 1603, 406, 11, 32, "Output"]
+Cell[51437, 1610, 317, 9, 45, "Input"],
+Cell[51757, 1621, 406, 11, 32, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[51647, 1621, 98, 1, 44, "Subsection"],
-Cell[51748, 1624, 1116, 33, 70, "Text",
+Cell[52224, 1639, 98, 1, 44, "Subsection"],
+Cell[52325, 1642, 1116, 33, 70, "Text",
  CellTags->"SecondOrderEigenvalue::usage"],
 Cell[CellGroupData[{
-Cell[52889, 1661, 147, 2, 35, "Subsubsection"],
-Cell[53039, 1665, 185, 4, 30, "Text"],
-Cell[53227, 1671, 403, 11, 46, "Input"],
-Cell[53633, 1684, 252, 4, 30, "Text"],
+Cell[53466, 1679, 147, 2, 35, "Subsubsection"],
+Cell[53616, 1683, 185, 4, 30, "Text"],
+Cell[53804, 1689, 403, 11, 46, "Input"],
+Cell[54210, 1702, 252, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[53910, 1692, 273, 5, 28, "Input"],
-Cell[54186, 1699, 402, 11, 28, "Output"]
+Cell[54487, 1710, 273, 5, 28, "Input"],
+Cell[54763, 1717, 402, 11, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[54649, 1717, 150, 2, 44, "Subsection"],
-Cell[54802, 1721, 185, 4, 31, "Text"]
+Cell[55226, 1735, 150, 2, 44, "Subsection"],
+Cell[55379, 1739, 185, 4, 31, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[55036, 1731, 103, 1, 64, "Section"],
+Cell[55613, 1749, 103, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[55164, 1736, 158, 2, 44, "Subsection"],
-Cell[55325, 1740, 751, 14, 31, "Text",
+Cell[55741, 1754, 158, 2, 44, "Subsection"],
+Cell[55902, 1758, 751, 14, 31, "Text",
  CellTags->"ClearZassenhausCache::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56113, 1759, 104, 1, 44, "Subsection"],
-Cell[56220, 1762, 2217, 79, 59, "Text",
+Cell[56690, 1777, 104, 1, 44, "Subsection"],
+Cell[56797, 1780, 2217, 79, 59, "Text",
  CellTags->"ZassenhausTerm::usage"],
 Cell[CellGroupData[{
-Cell[58462, 1845, 100, 1, 35, "Subsubsection"],
+Cell[59039, 1863, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[58587, 1850, 332, 9, 63, "Input"],
-Cell[58922, 1861, 697, 19, 58, "Output"]
+Cell[59164, 1868, 332, 9, 63, "Input"],
+Cell[59499, 1879, 697, 19, 58, "Output"]
 }, Open  ]],
-Cell[59634, 1883, 313, 11, 31, "Text"],
+Cell[60211, 1901, 313, 11, 31, "Text"],
 Cell[CellGroupData[{
-Cell[59972, 1898, 230, 7, 28, "Input"],
-Cell[60205, 1907, 697, 19, 58, "Output"]
+Cell[60549, 1916, 230, 7, 28, "Input"],
+Cell[60782, 1925, 697, 19, 58, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[60963, 1933, 102, 1, 44, "Subsection"],
-Cell[61068, 1936, 2365, 84, 59, "Text",
+Cell[61540, 1951, 102, 1, 44, "Subsection"],
+Cell[61645, 1954, 2365, 84, 59, "Text",
  CellTags->"ZassenhausSeries::usage"],
 Cell[CellGroupData[{
-Cell[63458, 2024, 100, 1, 35, "Subsubsection"],
+Cell[64035, 2042, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[63583, 2029, 462, 12, 63, "Input"],
-Cell[64048, 2043, 1723, 41, 63, "Output"]
+Cell[64160, 2047, 462, 12, 63, "Input"],
+Cell[64625, 2061, 1723, 41, 63, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[65832, 2091, 107, 1, 44, "Subsection"],
-Cell[65942, 2094, 3228, 103, 106, "Text",
+Cell[66409, 2109, 107, 1, 44, "Subsection"],
+Cell[66519, 2112, 3228, 103, 106, "Text",
  CellTags->"ZassenhausExpansion::usage"],
 Cell[CellGroupData[{
-Cell[69195, 2201, 98, 1, 35, "Subsubsection"],
-Cell[69296, 2204, 178, 4, 30, "Text"],
-Cell[69477, 2210, 1357, 35, 80, "Input"],
-Cell[70837, 2247, 101, 1, 30, "Text"],
+Cell[69772, 2219, 98, 1, 35, "Subsubsection"],
+Cell[69873, 2222, 178, 4, 30, "Text"],
+Cell[70054, 2228, 1357, 35, 80, "Input"],
+Cell[71414, 2265, 101, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[70963, 2252, 1807, 42, 148, "Input"],
-Cell[72773, 2296, 59987, 1085, 266, "Output"]
+Cell[71540, 2270, 1807, 42, 148, "Input"],
+Cell[73350, 2314, 59987, 1085, 266, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[132821, 3388, 97, 1, 44, "Subsection"],
-Cell[132921, 3391, 236, 4, 31, "Text"]
+Cell[133398, 3406, 97, 1, 44, "Subsection"],
+Cell[133498, 3409, 236, 4, 31, "Text"]
 }, Closed]]
 }, Open  ]]
 }, Open  ]]
