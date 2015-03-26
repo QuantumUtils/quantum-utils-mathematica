@@ -149,6 +149,14 @@ Begin["`Private`"];
 (*Predicates*)
 
 
+(* ::Subsubsection:: *)
+(*Transformation Predicates*)
+
+
+(* ::Text:: *)
+(*These predicates are used internally for the various channel transformation functions*)
+
+
 KrausPairQ[set_]:=And[First[Dimensions[set]]===2,AllQ[KrausSingleQ,set]]
 KrausSingleQ[set_]:=AllQ[MatrixQ,set]
 KrausQ[set_]:=Or[KrausPairQ[set],KrausSingleQ[set]];
@@ -189,6 +197,10 @@ UnitaryChannelQ[chan_QuantumChannel]:=
 		rep===Super,ChoiUnitaryQ[First@Choi[chan]],
 		True,False
 	]]
+
+
+(* ::Subsubsection:: *)
+(*Channel Property Predicates*)
 
 
 Options[CompletelyPositiveQ]:={Simplify->Identity}
