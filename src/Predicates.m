@@ -81,10 +81,12 @@ AssignUsage[AnyPossiblyNonzeroQ,$Usages];
 (*Symbolic Expressions*)
 
 
-Unprotect[SymbolQ,CoefficientQ];
+Unprotect[SymbolQ,ScalarQ,CoefficientSymbolQ,CoefficientQ];
 
 
 AssignUsage[SymbolQ,$Usages];
+AssignUsage[ScalarQ,$Usages];
+AssignUsage[CoefficientSymbolQ,$Usages];
 AssignUsage[CoefficientQ,$Usages];
 
 
@@ -156,17 +158,25 @@ SymbolQ[a_]:=
 	];
 
 
+ScalarQ[a_]:=Or[NumericQ[a],SymbolQ[a],StringQ[a]]
+
+
+CoefficientSymbolQ[a_]:=
+	And[SymbolQ[a],
+		SameQ[DownValues[a],{}],
+		SameQ[#,{}]||SameQ[#,{Temporary}]||MemberQ[#,NumericFunction]&[Attributes@a]
+	]
+
+
 CoefficientQ[expr_]:=
-	NumericQ[expr]||SymbolQ[expr]||
+	Or[ScalarQ[expr],
 	With[{head=Head[expr]},
 		And[
 			MatchQ[expr,_[__]],
-			SymbolQ[head],
-			SameQ[DownValues[head],{}],
-			SameQ[#,{}]||SameQ[#,{Temporary}]||MemberQ[#,NumericFunction]&[Attributes@head],
-			AllQ[NumericQ[#]||SymbolQ[#]||CoefficientQ[#]&, List@@expr]
+			Or[StringQ[head],CoefficientSymbolQ[head]],
+			AllQ[ScalarQ[#]||CoefficientQ[#]&, List@@expr]
 		]
-	]
+	]]
 
 
 (* ::Subsection::Closed:: *)
@@ -336,8 +346,9 @@ TestCase["Predicates:CoefficientQ",
 		CoefficientQ[g[x,y]],
 		CoefficientQ[f[g[x]]],
 		CoefficientQ[x],
-		Not@CoefficientQ[Sin["x"]],
-		Not@CoefficientQ[CircleTimes[x,y]],
+		CoefficientQ[Sin["x"]],
+		SetAttributes[g,Protected];Not@CoefficientQ[g[x]],
+		Not@CoefficientQ[KroneckerProduct[x,y]],
 		Not@CoefficientQ[Dot[1,2]]
 	]]];
 
