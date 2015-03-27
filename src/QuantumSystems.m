@@ -36,7 +36,7 @@ Needs["QUDevTools`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
 
 
@@ -59,7 +59,7 @@ AssignUsage[CGate,$Usages];
 (*Symbolic Evaluation*)
 
 
-Unprotect[QPower,QExpand,QSimplify,ClearQSimplifyCache];
+Unprotect[Op,QPower,QExpand,QSimplify,ClearQSimplifyCache];
 
 
 AssignUsage[QExpand,$Usages];
@@ -155,14 +155,14 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -468,7 +468,7 @@ KetFormMatrix[mat_]:=
 	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Vec Form*)
 
 
@@ -489,6 +489,7 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 		(* Linear Algebra *)
 		NumericQ[obj],obj,
 		ListQ[obj],f@obj,
+		StringQ[obj],obj,
 		MatchQ[obj,Plus[_,__]],
 			VecForm[First[obj],opts]+VecForm[Rest[obj],opts],
 		MatchQ[obj,Times[_?CoefficientQ,__]],
@@ -530,7 +531,15 @@ VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
 (* ::Subsubsection::Closed:: *)
-(*QPower*)
+(*Symbolic Operators*)
+
+
+(* ::Text:: *)
+(*Use container Op for symbolic operators*)
+
+
+(* ::Text:: *)
+(*QPower for powers of symbolic operators*)
 
 
 QPower[a_]:=a
@@ -547,10 +556,6 @@ QPower[Times[xs__,x_?CoefficientQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
 
 
 Format[QPower[arg_,n_]]:=arg^n;
-
-
-(* ::Subsubsection::Closed:: *)
-(*QExpand*)
 
 
 (* ::Text:: *)
@@ -963,7 +968,7 @@ $QSimplifyCavityAC={Cavity["n"]:> Cavity["c"].Cavity["a"]};
 (*Quantum Gates*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Controlled Gates*)
 
 
@@ -993,7 +998,7 @@ CGate[gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
 	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Controlled-Gate Utility Functions*)
 
 
@@ -1069,11 +1074,11 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*State Measures*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Entropy*)
 
 
@@ -1240,6 +1245,8 @@ RandomDensity[n_,rank_,"HS"]:=
 	#/Tr[#]&[G.ConjugateTranspose[G]]
 	]
 
+RandomDensity[n_,"HS"]:=RandomDensity[n,n,"HS"]
+
 
 RandomDensity[n_,rank_,"Bures"]:=
 	With[{
@@ -1265,8 +1272,371 @@ RandomHermitian[n_,tr_:1]:=With[
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Unit Testing*)
+
+
+Begin["UnitTests`"];
+
+
+(* ::Subsection::Closed:: *)
+(*States and Operators*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Spin Operators*)
+
+
+TestCase["QuantumSystems:SpinNumbers",
+	And[
+		Spin[0]===Spin["I"],
+		Spin[1]===Spin["X"],
+		Spin[2]===Spin["Y"],
+		Spin[3]===Spin["Z"]
+	]];
+
+
+TestCase["QuantumSystems:SpinMatrix",
+	And[
+		Spin["I"][1/2]===IdentityMatrix[2],
+		Spin["X"][1/2]==={{0,1},{1,0}}/2,
+		Spin["Y"][1/2]==={{0,-I},{I,0}}/2,
+		Spin["Z"][1/2]==={{1,0},{0,-1}}/2,
+		Spin["P"][1/2]==={{0,1},{0,0}},
+		Spin["M"][1/2]==={{0,0},{1,0}},
+		Spin["I"][1]===IdentityMatrix[3],
+		Spin["X"][1]==={{0,1,0},{1,0,1},{0,1,0}}/Sqrt[2],
+		Spin["Y"][1]==={{0,-I,0},{I,0,-I},{0,I,0}}/Sqrt[2],
+		Spin["Z"][1]==={{1,0,0},{0,0,0},{0,0,-1}},
+		Spin["P"][1]==={{0,1,0},{0,0,1},{0,0,0}}*Sqrt[2],
+		Spin["M"][1]==={{0,0,0},{1,0,0},{0,1,0}}*Sqrt[2],
+		Spin["XX+YY-2ZZ"][1/2]==={{-1,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,-1}}/2
+	]];
+
+
+TestCase["QuantumSystems:SpinSparseArray",
+	And[
+		Spin["I"][1/2,SparseArray]==IdentityMatrix[2,SparseArray],
+		Spin["X"][1/2,SparseArray]==SparseArray[{{0,1},{1,0}}/2],
+		Spin["Y"][1/2,SparseArray]==SparseArray[{{0,-I},{I,0}}/2],
+		Spin["Z"][1/2,SparseArray]==SparseArray[{{1,0},{0,-1}}/2],
+		Spin["P"][1/2,SparseArray]==SparseArray[{{0,1},{0,0}}],
+		Spin["M"][1/2,SparseArray]==SparseArray[{{0,0},{1,0}}],
+		Spin["I"][1,SparseArray]==IdentityMatrix[3,SparseArray],
+		Spin["X"][1,SparseArray]==SparseArray[{{0,1,0},{1,0,1},{0,1,0}}/Sqrt[2]],
+		Spin["Y"][1,SparseArray]==SparseArray[{{0,-I,0},{I,0,-I},{0,I,0}}/Sqrt[2]],
+		Spin["Z"][1,SparseArray]==SparseArray[{{1,0,0},{0,0,0},{0,0,-1}}],
+		Spin["P"][1,SparseArray]==SparseArray[{{0,1,0},{0,0,1},{0,0,0}}*Sqrt[2]],
+		Spin["M"][1,SparseArray]==SparseArray[{{0,0,0},{1,0,0},{0,1,0}}*Sqrt[2]],
+		Spin["XX+YY-2ZZ"][1/2,SparseArray]==SparseArray[{{-1,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,-1}}/2]
+	]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Cavity Operators*)
+
+
+TestCase["QuantumSystems:CavityMatrix",
+	And[
+		Cavity["I"][2]===IdentityMatrix[2],
+		Cavity["a"][2]==={{0,1},{0,0}},
+		Cavity["c"][2]==={{0,0},{1,0}},
+		Cavity["n"][2]==={{0,0},{0,1}},
+		Cavity["I"][4]===IdentityMatrix[4],
+		Cavity["a"][4]===DiagonalMatrix[Sqrt[{1,2,3}],1],
+		Cavity["c"][4]===DiagonalMatrix[Sqrt[{1,2,3}],-1],
+		Cavity["n"][4]===DiagonalMatrix[{0,1,2,3}],
+		Cavity["ac+ca"][2]==={{0,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,0}}
+	]];
+
+
+TestCase["QuantumSystems:CavitySparseArray",
+	And[
+		Cavity["I"][2,SparseArray]==IdentityMatrix[2,SparseArray],
+		Cavity["a"][2,SparseArray]==SparseArray[{{0,1},{0,0}}],
+		Cavity["c"][2,SparseArray]==SparseArray[{{0,0},{1,0}}],
+		Cavity["n"][2,SparseArray]==SparseArray[{{0,0},{0,1}}],
+		Cavity["I"][4,SparseArray]==IdentityMatrix[4,SparseArray],
+		Cavity["a"][4,SparseArray]==SparseArray[DiagonalMatrix[Sqrt[{1,2,3}],1]],
+		Cavity["c"][4,SparseArray]==SparseArray[DiagonalMatrix[Sqrt[{1,2,3}],-1]],
+		Cavity["n"][4,SparseArray]==SparseArray[DiagonalMatrix[{0,1,2,3}]],
+		Cavity["ac+ca"][2,SparseArray]==SparseArray[{{0,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,0}}]
+	]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Quantum States*)
+
+
+TestCase["QuantumSystems:QStateBloch",
+	And[
+		QState[{"x","y","z"}]=={{1+"z","x"-I "y"},{"x"+I "y",1-"z"}}/2,
+		QState[{"x1","y1","z2"},{"x2","y2","z2"}]=={
+			{(1+"z2")^2,("x2"-I "y2") (1+"z2"),("x1"-I "y1") (1+"z2"),("x1"-I "y1") ("x2"-I "y2")},
+			{("x2"+I "y2") (1+"z2"),(1-"z2") (1+"z2"),("x1"-I "y1") ("x2"+I "y2"),("x1"-I "y1") (1-"z2")},
+			{("x1"+I "y1") (1+"z2"),("x1"+I "y1") ("x2"-I "y2"),(1-"z2") (1+"z2"),("x2"-I "y2") (1-"z2")},
+			{("x1"+I "y1") ("x2"+I "y2"),("x1"+I "y1") (1-"z2"),("x2"+I "y2") (1-"z2"),(1-"z2")^2}}/4
+	]];
+
+
+TestCase["QuantumSystems:QStateVector",
+	And[
+		AllMatchQ[{1,0}, QState[#,VectorQ->True]&/@{"Zp","H"}],
+		AllMatchQ[{0,1}, QState[#,VectorQ->True]&/@{"Zm","V"}],
+		AllMatchQ[{1,1}/Sqrt[2], QState[#,VectorQ->True]&/@{"Xp","D"}],
+		AllMatchQ[{1,-1}/Sqrt[2], QState[#,VectorQ->True]&/@{"Xm","A"}],
+		AllMatchQ[{1,I}/Sqrt[2], QState[#,VectorQ->True]&/@{"Yp","R"}],
+		AllMatchQ[{1,-I}/Sqrt[2], QState[#,VectorQ->True]&/@{"Ym","L"}],
+		AllMatchQ[{1,0,0,1}/Sqrt[2],QState[#,VectorQ->True]&/@{"B1","Bell1"}],
+		AllMatchQ[{0,1,1,0}/Sqrt[2],QState[#,VectorQ->True]&/@{"B2","Bell2"}],
+		AllMatchQ[{0,1,-1,0}/Sqrt[2],QState[#,VectorQ->True]&/@{"B3","Bell3"}],
+		AllMatchQ[{1,0,0,-1}/Sqrt[2],QState[#,VectorQ->True]&/@{"B4","Bell4"}]
+	]];
+
+
+TestCase["QuantumSystems:QStateGeneralVector",
+	And[
+		AllMatchQ[{{1},{0}}, QState[#,ColumnVectorQ->True]&/@{"Zp","H"}],
+		AllMatchQ[{{0},{1}}, QState[#,ColumnVectorQ->True]&/@{"Zm","V"}],
+		AllMatchQ[{{1},{1}}/Sqrt[2], QState[#,ColumnVectorQ->True]&/@{"Xp","D"}],
+		AllMatchQ[{{1},{-1}}/Sqrt[2], QState[#,ColumnVectorQ->True]&/@{"Xm","A"}],
+		AllMatchQ[{{1},{I}}/Sqrt[2], QState[#,ColumnVectorQ->True]&/@{"Yp","R"}],
+		AllMatchQ[{{1},{-I}}/Sqrt[2], QState[#,ColumnVectorQ->True]&/@{"Ym","L"}],
+		AllMatchQ[{{1},{0},{0},{1}}/Sqrt[2],QState[#,ColumnVectorQ->True]&/@{"B1","Bell1"}],
+		AllMatchQ[{{0},{1},{1},{0}}/Sqrt[2],QState[#,ColumnVectorQ->True]&/@{"B2","Bell2"}],
+		AllMatchQ[{{0},{1},{-1},{0}}/Sqrt[2],QState[#,ColumnVectorQ->True]&/@{"B3","Bell3"}],
+		AllMatchQ[{{1},{0},{0},{-1}}/Sqrt[2],QState[#,ColumnVectorQ->True]&/@{"B4","Bell4"}]
+	]];
+
+
+TestCase["QuantumSystems:QStateDensity",
+	And[
+		QState["I"]==IdentityMatrix[2]/2,
+		AllMatchQ[{{1,0},{0,0}}, QState[#]&/@{"Zp","H"}],
+		AllMatchQ[{{0,0},{0,1}}, QState[#]&/@{"Zm","V"}],
+		AllMatchQ[{{1,1},{1,1}}/2, QState[#]&/@{"Xp","D"}],
+		AllMatchQ[{{1,-1},{-1,1}}/2, QState[#]&/@{"Xm","A"}],
+		AllMatchQ[{{1,-I},{I,1}}/2, QState[#]&/@{"Yp","R"}],
+		AllMatchQ[{{1,I},{-I,1}}/2, QState[#]&/@{"Ym","L"}],
+		AllMatchQ[{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}/2,
+			QState[#]&/@{"B1","Bell1"}],
+		AllMatchQ[{{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}}/2, 
+			QState[#]&/@{"B2","Bell2"}],
+		AllMatchQ[{{0,0,0,0},{0,1,-1,0},{0,-1,1,0},{0,0,0,0}}/2,
+			QState[#]&/@{"B3","Bell3"}],
+		AllMatchQ[{{1,0,0,-1},{0,0,0,0},{0,0,0,0},{-1,0,0,1}}/2,
+			QState[#]&/@{"B4","Bell4"}]
+	]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Bra-Ket Notation*)
+
+
+TestCase["QuantumSystems:KetForm",
+	And[
+		AllMatchQ[Ket[Subscript[0,2],Subscript[0,2]],KetForm/@{{1,0,0,0},{{1},{0},{0},{0}}}],
+		KetForm[{{1,0,0,0}}]===Bra[Subscript[0,2],Subscript[0,2]],
+		SameQ[KetForm[{"a",0,0,0,0,"b"},{2,3}],
+			"a"*Ket[Subscript[0,2],Subscript[0,3]]+"b"*Ket[Subscript[1,2],Subscript[2,3]]],
+		SameQ[KetForm[Array["a",{2,2}]],
+			"a"[1,1]*KetBra[{Subscript[0,2]},{Subscript[0,2]}]+
+			"a"[1,2]*KetBra[{Subscript[0,2]},{Subscript[1,2]}]+
+			"a"[2,1]*KetBra[{Subscript[1,2]},{Subscript[0,2]}]+
+			"a"[2,2]*KetBra[{Subscript[1,2]},{Subscript[1,2]}]]
+	]];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Vec Form*)
+
+
+TestCase["QuantumSystems:VecForm",
+	And[
+		SameQ[{{1},{0},{0},{0}},VecForm@Ket[Subscript[0,2],Subscript[0,2]]],
+		SameQ[{{1,0,0,0}},VecForm@Bra[Subscript[0,2],Subscript[0,2]]],
+		SameQ[{{"a"},{0},{0},{0},{0},{"b"}},
+			VecForm["a"*Ket[Subscript[0,2],Subscript[0,3]]+"b"*Ket[Subscript[1,2],Subscript[2,3]]]],
+		SameQ[Array["a",{2,2}],VecForm[
+			"a"[1,1]*KetBra[{Subscript[0,2]},{Subscript[0,2]}]+
+			"a"[1,2]*KetBra[{Subscript[0,2]},{Subscript[1,2]}]+
+			"a"[2,1]*KetBra[{Subscript[1,2]},{Subscript[0,2]}]+
+			"a"[2,2]*KetBra[{Subscript[1,2]},{Subscript[1,2]}]]],
+		SameQ[VecForm[Ket[Subscript[0,2],Subscript[0,2]].Bra[Subscript[0,2],Subscript[0,2]]],
+			DiagonalMatrix[{1,0,0,0}]],
+		SameQ[VecForm[Spin["Z"],Spin->1],{{1,0,0},{0,0,0},{0,0,-1}}],
+		SameQ[VecForm[CircleTimes[Spin["P"],Cavity["a"]],Cavity->3],
+			{{0,0,0,0,1,0},{0,0,0,0,0,Sqrt[2]},{0,0,0,0,0,0},
+			{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0}}]
+	]];
+
+
+(* ::Subsection::Closed:: *)
+(*Symbolic Evaluation*)
+
+
+TestCase["QuantumSystems:QExpand",
+	SameQ[QExpand[Spin["3XX+2YY"]]
+		3CircleTimes[Spin["X"],Spin["X"]]+2*CircleTimes[Spin["Y"],Spin["Y"]]],
+	SameQ[QExpand[Cavity["ac-ca"]]
+		CircleTimes[Spin["a"],Spin["c"]]-CircleTimes[Spin["c"],Spin["a"]]]
+	];
+
+
+TestCase["QuantumSystems:QSimplifySpin",
+	And[
+		QSimplify[Com[Spin["Y"],Spin["X"]],"SpinAlgebra"->"XY"]===-I*Spin["Z"],
+		QSimplify[Com[Spin["Z"],Spin["Y"]],"SpinAlgebra"->"XY"]===-I*Spin["X"],
+		QSimplify[Com[Spin["X"],Spin["Z"]],"SpinAlgebra"->"XY"]===-I*Spin["Y"]
+	]];
+
+
+TestCase["QuantumSystems:QSimplifyCavity",
+	And[
+		QSimplify[Com[Cavity["c"],Cavity["a"]]]===-Cavity["I"],
+		QSimplify[Com[Cavity["a"],Cavity["n"]]]===Cavity["a"],
+		QSimplify[Com[Cavity["c"],Cavity["n"]]]===-Cavity["c"]
+	]];
+
+
+(* ::Text:: *)
+(*Need to write more tests for QSimplify*)
+
+
+(* ::Subsection::Closed:: *)
+(*Quantum Gates*)
+
+
+(* ::Text:: *)
+(*Still need to test all the possible configurations*)
+
+
+TestCase["QuantumSystems:CGate",
+	And[
+		SameQ[CGate[PauliMatrix[1],2,1],
+			{{1,0,0,0},{0,1,0,0},{0,0,0,1},{0,0,1,0}}],
+		SameQ[CGate[PauliMatrix[1],3,{1,2}],
+			{{1,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0},{0,0,1,0,0,0,0,0},{0,0,0,1,0,0,0,0},
+			{0,0,0,0,1,0,0,0},{0,0,0,0,0,1,0,0},{0,0,0,0,0,0,0,1},{0,0,0,0,0,0,1,0}}]
+	]];
+
+
+(* ::Subsection::Closed:: *)
+(*State Measures*)
+
+
+TestCase["QuantumSystems:EntropyH",
+	And[
+		EntropyH[{1,1,1,1}/4]===2,
+		EntropyH[{1,1}/2]===1,
+		EntropyH[{1,0}]===0
+	]];
+
+
+TestCase["QuantumSystems:EntropyS",
+	And[
+		EntropyS[IdentityMatrix[2]/2]===1,
+		EntropyS[DiagonalMatrix[{1,0}]]===0
+	]];
+
+
+TestCase["QuantumSystems:MutualInformationS",
+	With[{bell={{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}/2,z={{1,0},{0,0}}},
+	And[
+		MutualInformationS[bell]===2,
+		MutualInformationS[KroneckerProduct[z,z]]===0,
+		MutualInformationS[KroneckerProduct[z,bell],{2,4}]===0,
+		MutualInformationS[KroneckerProduct[z,bell],{4,2}]===2
+	]]];
+
+
+TestCase["QuantumSystems:RelativeEntropyS",
+	And[
+		RelativeEntropyS[{{1,0},{0,0}},{{1,1},{1,1}}/2]===DirectedInfinity[1],
+		RelativeEntropyS[{{1,0},{0,0}},{{1,0},{0,1}}/2]===1,
+		RelativeEntropyS[{{1,0},{0,1}}/2,{{1,0},{0,1}}/2]===0
+	]];
+
+
+TestCase["QuantumSystems:PNorm",
+	And[
+		0===Norm[PNorm[DiagonalMatrix[{3,1}/4],2]-Sqrt@Total[{9,1}/16]],
+		1===PNorm[{{1-1/2,0},{0,-1/2}},1],
+		2===PNorm[{{1,0},{0,-1}},1]
+	]];
+
+
+TestCase["QuantumSystems:Purity",
+	And[
+		Purity[IdentityMatrix[2]/2]===1/2,
+		Purity[IdentityMatrix[2]/2,Normalize->True]===0,
+		Purity[DiagonalMatrix[{1/3,2/3}]]===5/9,
+		Purity[{{1,0},{0,0}}]===1
+	]];
+
+
+TestCase["QuantumSystems:Fidelity",
+	With[{
+		v1={1,0}, v2={1,1}/Sqrt[2], v3={0,1},
+		m1={{1,0},{0,0}}, m2={{1,1},{1,1}}/2, m3={{0,0},{0,1}}},
+	And[
+		AllMatchQ[1/Sqrt[2],{Fidelity[v1,v2],Fidelity[v1,m2],Fidelity[m1,v2],Fidelity[m1,m2]}],
+		AllMatchQ[1,{Fidelity[v2,v2],Fidelity[v2,m2],Fidelity[m2,v2],Fidelity[m2,m2]}],
+		AllMatchQ[0,{Fidelity[v1,v3],Fidelity[v1,m3],Fidelity[m1,v3],Fidelity[m1,m3]}]
+	]]];
+
+
+TestCase["QuantumSystems:EntangledQ",
+	And[
+		EntangledQ[{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}/2],
+		Not@EntangledQ[DiagonalMatrix[{1,0,0,0}]]
+	]];
+
+
+TestCase["QuantumSystems:Concurrence",
+	And[
+		Concurrence[{{3,0,0,2},{0,1,0,0},{0,0,1,0},{2,0,0,3}}/8]===1/4,
+		Concurrence[{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}/2]===1,
+		Concurrence[{{2,0,0,1},{0,1,0,0},{0,0,1,0},{1,0,0,2}}/6]===0
+	]];
+
+
+TestCase["QuantumSystems:EntanglementF",
+	And[
+		EntanglementF[{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}/2]===1,
+		EntanglementF[{{2,0,0,1},{0,1,0,0},{0,0,1,0},{1,0,0,2}}/6]===0
+	]];
+
+
+(* ::Subsection::Closed:: *)
+(*Random Matrices*)
+
+
+TestCase["QuantumSystems:RandomDensity",
+	And[
+		AllQ[And[Chop[Tr[#]-1]===0,AllQ[#>=0&,Chop@Eigenvalues[#]]]&,
+			{RandomDensity[4],RandomDensity[4,1],
+			RandomDensity[4,"HS"],RandomDensity[4,1,"HS"],
+			RandomDensity[4,"Bures"],RandomDensity[4,1,"Bures"]}],
+		Norm@Chop[Eigenvalues[RandomDensity[4,1]]-{1,0,0,0}]===0
+	]];
+
+
+TestCase["QuantumSystems:RandomUnitary",
+	0===Norm@Chop[IdentityMatrix[4]-ConjugateTranspose[#].#&@RandomUnitary[4]]
+	];
+
+
+TestCase["QuantumSystems:RandomHermitian",
+	0===Norm@Chop[#-ConjugateTranspose[#]&@RandomHermitian[4]]
+	];
+
+
+(* ::Subsection::Closed:: *)
+(*End*)
+
+
+End[];
 
 
 (* ::Section::Closed:: *)
@@ -1274,7 +1644,7 @@ End[];
 
 
 Protect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
-Protect[QPower,QExpand,QSimplify,ClearQSimplifyCache];
+Protect[Op,QPower,QExpand,QSimplify,ClearQSimplifyCache];
 Protect[CGate];
 Protect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Protect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];
