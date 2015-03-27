@@ -1139,63 +1139,77 @@ UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,val
 (*Pulse Penalties*)
 
 
+(* ::Subsubsection::Closed:: *)
+(*PulsePenalty*)
+
+
+PulsePenalty[function_,___][args__]:=function[args]
+PulsePenalty/:Format[PulsePenalty[_,format_]]:=format
+
+
+(* ::Subsubsection::Closed:: *)
+(*Zero Penalty*)
+
+
 ZeroPenalty[]:=Module[
 	{Penalty},
 	Penalty[pulse_, False]:=0;
 	Penalty[pulse_, True]:={0, ConstantArray[0, Dimensions[pulse[[All,2;;-1]]]]};
-	Penalty
+	PulsePenalty[
+		Function[{pulse,doGrad},
+			If[doGrad,{0, ConstantArray[0, Dimensions[pulse[[All,2;;-1]]]]},0]			
+		],
+		Format@HoldForm[ZeroPenalty[]]
+	]
 ]
 
 
-DemandValuePenalty[\[Epsilon]_,m_,r_,qmax_]:=Module[
-	{Penalty,norm},
-	norm[pulse_] := 1/\[Epsilon](*qmax * Total[Flatten@m] / \[Epsilon]*);
-	Penalty[pulse_, False] := Total[
-		(Flatten[(m pulse[[All, 2;;-1]]-r)^2 / norm[pulse]^2])
-	];
-	Penalty[pulse_, True] := {Penalty[pulse, False], (
-		2 * m (pulse[[All, 2;;-1]]-r) / norm[pulse]^2
-	)};
-	Penalty
-]
+(* ::Subsubsection::Closed:: *)
+(*DemandValuePenalty*)
 
 
-RingdownPenalty[\[Epsilon]_,startIndex_,qmax_]:=Module[
-	{Penalty,norm,mask},
-	norm[pulseLen_] := norm[pulseLen] = Abs[qmax * (pulseLen-startIndex+1)];
-	mask[pulseDim_] := mask[pulseDim] = Join[ConstantArray[0,{startIndex-1, Last@pulseDim-1}], ConstantArray[1,{First@pulseDim-startIndex+1, Last@pulseDim-1}]];
-	Penalty[pulse_, False] := \[Epsilon]*Total[Abs[Flatten[pulse[[startIndex;;-1, 2;;-1]]] / norm[Length@pulse]]^2];
-	Penalty[pulse_, True] := {Penalty[pulse, False], \[Epsilon]*2*pulse[[All, 2;;-1]]*mask[Dimensions@pulse] / (norm[Length@pulse]^2)};
-	Penalty
-]
+Unprotect@DemandValuePenalty;
+DemandValuePenalty[\[Epsilon]_,m_,r_,qmax_]:=With[{M=Total[Flatten[m]]},
+	PulsePenalty[
+		Function[{pulse,doGrad},
+			Module[{x,\[Kappa],\[Alpha],vec,sum,\[Sigma]sum,penalty},
+				x=m*(pulse[[All,2;;]]-r)/qmax;
 
+				\[Alpha]=1000;
 
-RingdownPenalty[\[Epsilon]_,startIndex_,qmax_]:=Module[
-	{Penalty, prob, probSum},
-	probSum[pulseLen_] := probSum[pulseLen]=Sum[(1./(1+(3*(m-startIndex)/(pulseLen-startIndex))^2)),{m,startIndex,pulseLen}];
-	prob[m_, pulseLen_] := prob[m,pulseLen]=(1/(1+(3*(m-startIndex)/(pulseLen-startIndex))^2))/probSum[pulseLen];
-	Penalty[pulse_, False] := With[
-		{pulseLength=Length@pulse, L=Last@Dimensions@pulse-1},
-		\[Epsilon]*Sum[
-			prob[m,pulseLength]*(1-Exp[(-1/(2*qmax^2))*Total[Abs[pulse[[m,2;;-1]]]^2]]), 
-			{m,startIndex,pulseLength}
-		]
-	];
-	Penalty[pulse_, True] := Module[
-		{penalties, pulseLength=Length@pulse, L=Last@Dimensions@pulse-1},
-		penalties = \[Epsilon]*Table[
-			1-Exp[(-1/(2*qmax^2))*Total[Abs[pulse[[m,2;;-1]]]^2]], 
-			{m,startIndex,pulseLength}
-		];
-		{
-			Sum[prob[m,pulseLength]*penalties[[m-startIndex+1]], {m,startIndex,pulseLength}],
-			Join[
-				ConstantArray[0,{startIndex-1, L}],
-				Table[prob[m,pulseLength]*(pulse[[m,2;;-1]]/qmax^2)*(1-penalties[[m-startIndex+1]]), {m,startIndex,pulseLength}]
+				vec=Exp[\[Alpha]*Abs[x]];
+				sum=Total[Flatten[vec]];
+				\[Sigma]sum=Total[Flatten[Abs[x]*vec]];
+				\[Kappa]=\[Sigma]sum/sum;
+
+				penalty=\[Epsilon]*\[Kappa];
+
+				If[doGrad,
+					{
+						penalty,
+						(\[Epsilon]*m/qmax)*Sign[x]*(((vec+\[Alpha]*Abs[x]*vec)*sum-\[Alpha]*vec*\[Sigma]sum)/sum^2)
+					},
+					penalty
+				]
 			]
-		}
-	];
-	Penalty
+		],
+		Format@HoldForm[DemandValuePenalty[MatrixForm[r]]]
+	]
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*RingdownPenalty*)
+
+
+RingdownPenalty[\[Epsilon]_,numRingdownSteps_,qmax_]:=Module[{penaltyFn},
+	(*Memoize a DemandValuePenalty based on the dimensions of the input pulse. The avoids the user 
+	having to tell us what the shape of the pulse will be when defining RingdownPenalty*)
+	penaltyFn[{M_,L_}]:=penaltyFn[{M,L}]=DemandValuePenalty[\[Epsilon],Array[ConstantArray[1,L-1]If[#<M-numRingdownSteps,0,1]&,M],0,qmax];
+	PulsePenalty[
+		Function[{pulse,doGrad},penaltyFn[Dimensions@pulse][pulse,doGrad]],
+		Format@HoldForm[RingdownPenalty[numRingdownSteps]]
+	]
 ]
 
 
@@ -1689,16 +1703,34 @@ RobustnessPlot[pulse_Pulse,spx_Rule,spy_Rule,cp_List,opt:OptionsPattern[]]:=Robu
 (*Monitor Functions*)
 
 
+(* ::Text:: *)
+(*Hacky check to see if some penalty function was made using ZeroPenalty[]*)
+
+
+IsZeroPenalty[penaltyfn_]:=And[Head@penaltyfn===PulsePenalty,Last@penaltyfn===Format[HoldForm[ZeroPenalty[]]]]
+
+
+Unprotect@FidelityMonitor;
 SetAttributes[FidelityMonitor,HoldAll];
 FidelityMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=Monitor[
 	GRAPE,
-	Row[{
-		Button["Good Enough",abortButton=True],
-		Button["Next Guess",abortButton=Next],
-		ProgressIndicator[currentPulse@UtilityValue], 
-		ToString[100 currentPulse@UtilityValue]<>"%"},
-		"  "
-	]
+	Grid[{
+		{
+			Button["Good Enough",abortButton=True],
+			Button["Next Guess",abortButton=Next],
+			"Utility Value: ",
+			ProgressIndicator[currentPulse@UtilityValue], 
+			ToString[100 currentPulse@UtilityValue]<>"%"
+		},
+		If[Not@IsZeroPenalty[currentPulse@PulsePenalty],
+			{"","","Penalty Value: ",ProgressIndicator[currentPulse@PenaltyValue],ToString[100 currentPulse@PenaltyValue]<>"%"},
+			Sequence@@{}
+		],
+		If[bestPulse=!=None,
+			{"","","Best Pulse: ","Utility "<>ToString[100 bestPulse@UtilityValue]<>"%", "Penalty "<>ToString[100 bestPulse@PenaltyValue]<>"%"},
+			Sequence@@{}
+		]
+	},Alignment->Right]
 ]
 
 
@@ -1707,22 +1739,56 @@ HistogramMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=
 	Monitor[
 		GRAPE,
 		Column[{
-			Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[currentPulse@UtilityValue],ToString[100 currentPulse@UtilityValue]<>"%"},"  "],
+			Grid[{
+				{
+					Button["Good Enough",abortButton=True],
+					Button["Next Guess",abortButton=Next],
+					"Utility Value: ",
+					ProgressIndicator[currentPulse@UtilityValue], 
+					ToString[100 currentPulse@UtilityValue]<>"%"
+				},
+				If[Not@IsZeroPenalty[currentPulse@PulsePenalty],
+					{"","","Penalty Value: ",ProgressIndicator[currentPulse@PenaltyValue],ToString[100 currentPulse@PenaltyValue]<>"%"},
+					Sequence@@{}
+				],
+				If[bestPulse=!=None,
+					{"","","Best Pulse: ","Utility "<>ToString[100 bestPulse@UtilityValue]<>"%", "Penalty "<>ToString[100 bestPulse@PenaltyValue]<>"%"},
+					Sequence@@{}
+				]
+			},Alignment->Right],
 			Histogram[utilityList,{0,1,0.01},"Count",AxesOrigin->{0,0},PlotLabel->"Utility Function Histogram",ImageSize->400,PlotTheme->"Detailed"]
 		}]
 	]
 
 
-SetAttributes[PulsePlotMonitor,HoldAll];
-PulsePlotMonitor[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=
-	Monitor[
+PulsePlotMonitor[opt:OptionsPattern[PulsePlot]]:=Module[{MonitorFn},
+	MonitorFn[GRAPE_,currentPulse_,bestPulse_,utilityList_,abortButton_]:=Monitor[
 		GRAPE,
 		Column[{
-			Row[{Button["Good Enough",abortButton=True],Button["Next Guess",abortButton=Next],ProgressIndicator[currentPulse@UtilityValue],ToString[100 currentPulse@UtilityValue]<>"%"},"  "],
-			PulsePlot[currentPulse,PlotTheme->"Detailed",ImageSize->300],
-			Sequence@@If[bestPulse=!=None,{PulsePlot[bestPulse,PlotTheme->"Detailed",ImageSize->300]},{}]
+			Grid[{
+				{
+					Button["Good Enough",abortButton=True],
+					Button["Next Guess",abortButton=Next],
+					"Utility Value: ",
+					ProgressIndicator[currentPulse@UtilityValue], 
+					ToString[100 currentPulse@UtilityValue]<>"%"
+				},
+				If[Not@IsZeroPenalty[currentPulse@PulsePenalty],
+					{"","","Penalty Value: ",ProgressIndicator[currentPulse@PenaltyValue],ToString[100 currentPulse@PenaltyValue]<>"%"},
+					Sequence@@{}
+				],
+				If[bestPulse=!=None,
+					{"","","Best Pulse: ","Utility "<>ToString[100 bestPulse@UtilityValue]<>"%", "Penalty "<>ToString[100 bestPulse@PenaltyValue]<>"%"},
+					Sequence@@{}
+				]
+			},Alignment->Right],
+			PulsePlot[currentPulse,opt,PlotTheme->"Detailed",ImageSize->300],
+			Sequence@@If[bestPulse=!=None,{PulsePlot[bestPulse,opt,PlotTheme->"Detailed",ImageSize->300]},{}]
 		},Dividers->All]
-	]
+	];
+	SetAttributes[MonitorFn,HoldAll];
+	MonitorFn
+]
 
 
 (* ::Subsection::Closed:: *)
@@ -1997,7 +2063,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 			bestPulseObj=PulseReplaceKey[bestPulseObj,ExitMessage,exitMessage];
 			bestPulseObj=PulseReplaceKey[bestPulseObj,TimeSteps,pulse[[All,1]]];
 			bestPulseObj=PulseReplaceKey[bestPulseObj,Pulse,pulse[[All,2;;]]];
-			bestPulseObj=PulseReplaceKey[bestPulseObj,UtilityValue,utility];
+			bestPulseObj=PulseReplaceKey[bestPulseObj,UtilityValue,rawUtility];
 			bestPulseObj=PulseReplaceKey[bestPulseObj,PenaltyValue,penalty];
 		);
 
