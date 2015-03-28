@@ -155,7 +155,7 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -964,15 +964,24 @@ $QSimplifyCavityN={
 $QSimplifyCavityAC={Cavity["n"]:> Cavity["c"].Cavity["a"]};
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Quantum Gates*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Controlled Gates*)
 
 
 Options[CGate]={Control->1};
+
+
+CGate[gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
+	With[{
+		d=If[MatrixQ[gate],
+			Length[gate],
+			Length[First[gate]]]},
+		CGate[d,gate,targ,ctrl,opts]
+	]
 
 
 CGate[dims_,gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
@@ -987,15 +996,6 @@ CGate[dims_,gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
 			CGateConstructor[dims,gates,targs,ctrls,CGateControl[ctrls,OptionValue[Control]]]
 		]]	
 	,Null]
-
-
-CGate[gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
-	With[{
-		d=If[MatrixQ[gate],
-			Length[gate],
-			Length[First[gate]]]},
-		CGate[d,gate,targ,ctrl,opts]
-	]
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1272,7 +1272,7 @@ RandomHermitian[n_,tr_:1]:=With[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Unit Testing*)
 
 
@@ -1503,7 +1503,7 @@ TestCase["QuantumSystems:QSimplifyCavity",
 (*Need to write more tests for QSimplify*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Quantum Gates*)
 
 
@@ -1513,11 +1513,37 @@ TestCase["QuantumSystems:QSimplifyCavity",
 
 TestCase["QuantumSystems:CGate",
 	And[
-		SameQ[CGate[PauliMatrix[1],2,1],
-			{{1,0,0,0},{0,1,0,0},{0,0,0,1},{0,0,1,0}}],
-		SameQ[CGate[PauliMatrix[1],3,{1,2}],
+		AllMatchQ[
+			{{1,0,0,0},{0,1,0,0},{0,0,0,1},{0,0,1,0}},
+			{CGate[PauliMatrix[1],2,1],CGate[PauliMatrix[1],2,{1}],
+			CGate[{PauliMatrix[1]},{2},1],CGate[{2,2},PauliMatrix[1],2,1],
+			CGate[{2,2},PauliMatrix[1],2,{1}],CGate[{2,2},{PauliMatrix[1]},{2},1],
+			CGate[PauliMatrix[1],2,1,Control->1],CGate[PauliMatrix[1],2,1,Control->{1}]
+			CGate[{2,2},PauliMatrix[1],2,1,Control->1],CGate[{2,2},PauliMatrix[1],2,1,Control->{1}]}
+		],
+		AllMatchQ[
 			{{1,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0},{0,0,1,0,0,0,0,0},{0,0,0,1,0,0,0,0},
-			{0,0,0,0,1,0,0,0},{0,0,0,0,0,1,0,0},{0,0,0,0,0,0,0,1},{0,0,0,0,0,0,1,0}}]
+			{0,0,0,0,1,0,0,0},{0,0,0,0,0,1,0,0},{0,0,0,0,0,0,0,1},{0,0,0,0,0,0,1,0}},
+			{CGate[PauliMatrix[1],3,{1,2}],CGate[{PauliMatrix[1]},{3},{1,2}],
+			CGate[{2,2,2},PauliMatrix[1],3,{1,2}],CGate[{2,2,2},{PauliMatrix[1]},{3},{1,2}],
+			CGate[PauliMatrix[1],3,{1,2},Control->1],CGate[PauliMatrix[1],3,{1,2},Control->{1,1}],
+			CGate[{2,2,2},PauliMatrix[1],3,{1,2},Control->1],CGate[{2,2,2},PauliMatrix[1],3,{1,2},Control->{1,1}]}
+		],
+		AllMatchQ[
+			{{1,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0},{0,0,0,1,0,0,0,0},{0,0,1,0,0,0,0,0},
+			{0,0,0,0,1,0,0,0},{0,0,0,0,0,1,0,0},{0,0,0,0,0,0,1,0},{0,0,0,0,0,0,0,1}},
+			{CGate[{2,2,2},PauliMatrix[1],3,{1,2},Control->{0,1}],
+			CGate[PauliMatrix[1],3,{1,2},Control->{0,1}],
+			CGate[{PauliMatrix[1]},{3},{1,2},Control->{0,1}]}
+		],
+		AllMatchQ[
+			{{1,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0},{0,0,1,0,0,0,0,0},{0,0,0,1,0,0,0,0},
+			{0,0,0,0,0,0,1,0},{0,0,0,0,0,0,0,-1},{0,0,0,0,1,0,0,0},{0,0,0,0,0,-1,0,0}},
+			{CGate[{PauliMatrix[1],PauliMatrix[3]},{2,3},1],
+			CGate[{2,2,2},{PauliMatrix[1],PauliMatrix[3]},{2,3},1],
+			CGate[{2,2,2},{PauliMatrix[1],PauliMatrix[3]},{2,3},{1}],
+			CGate[{2,2,2},{PauliMatrix[1],PauliMatrix[3]},{2,3},1,Control->1]}
+		]
 	]];
 
 
