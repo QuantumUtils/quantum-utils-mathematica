@@ -838,20 +838,8 @@ $defaultTPRules={
 Options[TP]={Method->CircleTimes,Replace->$defaultTPRules};
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Function*)
-
-
-(* ::Text:: *)
-(*The following function extracts the operators from a string defined by the Keys of the Association, or list of rules "rules".*)
-
-
-(* Backwards Compatability*)
-If[$VersionNumber<10,
-	SetAttributes[Keys,Listable];
-	Keys[Rule[expr_,_]]:=expr,
-	Null
-];
 
 
 (* ::Text:: *)

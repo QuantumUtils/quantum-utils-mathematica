@@ -37,8 +37,27 @@ BeginPackage["QUDevTools`"];
 (*Because this package defines LoadUsages and AssignUsage, functions from this package cannot (easily) be documented in the way that other packages are with auxilliary notebooks.*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
+
+
+(* ::Subsection::Closed:: *)
+(*Backwards Compatibility*)
+
+
+Polyfill::usage= "Polyfill[ver, expr] checks if the current version of mathematica is less than 'ver', and if so evaluates expr.";
+
+
+(* ::Subsubsection:: *)
+(*Pre Version 10*)
+
+
+Polyfill[10,
+	NormalMatrixQ::usage = "Returns True if the object is a normal matrix";
+	SquareMatrixQ::usage = "Returns True if and only if the argument is a square matrix";
+	PositiveSemidefiniteMatrixQ::usage = "Returns True if and only if the chopped eigenvalues of the argument are non-negative.";
+	Keys::usage = "Keys[{key1->val1,key2->val2,...}] gives a list of the keyj in a list of rules.";
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -114,11 +133,39 @@ SourceCodeButton::usage = "SourceCodeButton[] creates a button to the source cod
 AssignUsage::nousg = "No usage message in `1` for symbol `2` found; using a blank message instead.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
+
+
+(* ::Subsection::Closed:: *)
+(*Backwards Compatibility*)
+
+
+(* ::Subsubsection:: *)
+(*Polyfill Function*)
+
+
+SetAttributes[Polyfill, HoldAllComplete];
+
+Polyfill[goodVersion_, expr_] := 
+	If[$VersionNumber < goodVersion,
+		ReleaseHold[HoldComplete[expr]]
+	];
+
+
+(* ::Subsubsection:: *)
+(*Pre Version 10*)
+
+
+Polyfill[10,
+	NormalMatrixQ[M_]:=M.ConjugateTranspose[M]===ConjugateTranspose[M].M;
+	SquareMatrixQ[M_]:=TrueQ[MatrixQ[M]&&Dimensions[M][[1]]==Dimensions[M][[2]]];
+	PositiveSemidefiniteMatrixQ[M_?SquareMatrixQ]:=With[{evals=Eigenvalues[M]},Not[MemberQ[NonNegative[evals],False]]&&Not[Norm[evals]==0]];
+	SetAttributes[Keys,Listable];Keys[Rule[expr_,_]]:=expr;
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -139,7 +186,7 @@ $QUDocumentationPath = DocumentationPath /. QuantumUtilsOptions[];
 $QUSourcePath = SourcePath /. QuantumUtilsOptions[];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Function Options*)
 
 

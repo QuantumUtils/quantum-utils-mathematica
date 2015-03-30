@@ -44,6 +44,10 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Predicates.
 (*Usage Declarations*)
 
 
+(* ::Subsection:: *)
+(*Backwards Compatibility*)
+
+
 (* ::Subsection::Closed:: *)
 (*Fuzzy Logic*)
 
@@ -110,6 +114,10 @@ AssignUsage[GeneralVectorQ,$Usages];
 
 
 Begin["`Private`"];
+
+
+(* ::Subsection:: *)
+(*Backwards Compatibility*)
 
 
 (* ::Subsection::Closed:: *)
@@ -209,56 +217,6 @@ GeneralVectorQ[v_]:=Or[VectorQ[v],ColumnVectorQ[v]];
 
 (* ::Subsection::Closed:: *)
 (*End Private*)
-
-
-End[];
-
-
-(* ::Section::Closed:: *)
-(*Backward Compatibility*)
-
-
-(* ::Subsection:: *)
-(*Version Check*)
-
-
-Begin["`Private`"];
-
-(* TODO: check Polyfill works! *)
-
-SetAttributes[Polyfill, HoldRest];
-
-Polyfill[goodVersion_, expr_] := If[$VersionNumber < goodVersion,
-	ReleaseHold[HoldComplete[expr]]
-];
-
-
-End[];
-
-
-(* ::Subsection:: *)
-(*Usage Strings*)
-
-
-Predicates`Private`Polyfill[10,
-	NormalMatrixQ::usage="Returns True if the object is a normal matrix";
-	SquareMatrixQ::usage="Returns True if and only if the argument is a square matrix";
-	PositiveSemidefiniteMatrixQ::usage="Returns True if and only if the chopped eigenvalues of the argument are non-negative.";
-];
-
-
-(* ::Subsection:: *)
-(*Implementation*)
-
-
-Begin["`Private`"];
-
-
-Predicates`Private`Polyfill[10,
-	NormalMatrixQ[M_]:=M.ConjugateTranspose[M]===ConjugateTranspose[M].M;
-	SquareMatrixQ[M_]:=TrueQ[MatrixQ[M]&&Dimensions[M][[1]]==Dimensions[M][[2]]];
-	PositiveSemidefiniteMatrixQ[M_?SquareMatrixQ]:=With[{evals=Eigenvalues[M]},Not[MemberQ[NonNegative[evals],False]]&&Not[Norm[evals]==0]];
-];
 
 
 End[];
