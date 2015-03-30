@@ -165,7 +165,8 @@ Unprotect[
 	IdentityDistribution,
 	ParameterDistributionMean,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
-	UniformParameterDistribution
+	UniformParameterDistribution,
+	TargetSelectorDistribution
 ];
 
 
@@ -174,7 +175,8 @@ AssignUsage[
 		IdentityDistribution,
 		ParameterDistributionMean,
 		RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
-		UniformParameterDistribution
+		UniformParameterDistribution,
+		TargetSelectorDistribution
 	},
 	$Usages
 ];
@@ -1143,6 +1145,18 @@ UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,val
 	With[{valueval=values,n=Length@values},
 		 {ConstantArray[1/n,n], valueval}
 	]
+]
+
+
+TargetSelectorDistribution[{targetSymbols__},distribution_]:=Module[{n},
+	n=Length[{targetSymbols}];
+	{
+		Flatten[ConstantArray[First@distribution/n,n]],
+		Flatten[Table[
+			Map[Flatten@Join[{symb->1,(#->0&)/@Complement[{targetSymbols},{symb}]},#]&,Last[distribution]],
+			{symb,{targetSymbols}}
+		],1]
+	}
 ]
 
 
@@ -2471,7 +2485,8 @@ Protect[
 	IdentityDistribution,
 	ParameterDistributionMean,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
-	UniformParameterDistribution
+	UniformParameterDistribution,
+	TargetSelectorDistribution
 ];
 
 
