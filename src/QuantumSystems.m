@@ -59,16 +59,12 @@ AssignUsage[CGate,$Usages];
 (*Symbolic Evaluation*)
 
 
-Unprotect[Op,QPower,QExpand,QSimplifyComAlgebra,QSimplifyAlgebra,QSimplifyIdentity,QSimplifyPower,QSimplifyNormalOrder,QSimplify,ClearQSimplifyCache];
+Unprotect[Op,QPower,QExpand,QSimplifyRules,QSimplify,ClearQSimplifyCache];
 
 
 AssignUsage[QExpand,$Usages];
 AssignUsage[QPower,$Usages];
-AssignUsage[QSimplifyAlgebra,$Usages];
-AssignUsage[QSimplifyComAlgebra,$Usages];
-AssignUsage[QSimplifyIdentity,$Usages];
-AssignUsage[QSimplifyPower,$Usages];
-AssignUsage[QSimplifyNormalOrder,$Usages];
+AssignUsage[QSimplifyRules,$Usages];
 AssignUsage[QSimplify,$Usages];
 AssignUsage[ClearQSimplifyCache,$Usages];
 
@@ -129,9 +125,10 @@ KetForm::input = "Input must be a rank 1 or 2 array.";
 (*Symbolic Evaluation*)
 
 
-QSimplifyComAlgebra::alg = "Algebra matrix must be upper triangular, lower triangular, or skew-symmetric.";
-QSimplifyComAlgebra::ragls = "Invalid algebra input list.";
-QSimplifyComAlgebra::len = "Commutator algebra matrix does not match number of operators.";
+QSimplifyRules::alg = "Commutator algebra matrix must be upper triangular, lower triangular, or skew-symmetric.";
+QSimplifyRules::ragls = "Invalid algebra input list.";
+QSimplifyRules::comlen = "Commutator algebra matrix does not match number of operators.";
+QSimplifyRules::dotlen = "Dot matrix does not match number of operators.";
 
 
 (* ::Subsubsection::Closed:: *)
@@ -609,17 +606,12 @@ QSimplify[ACom[a_,b_,n_?Positive],rules_?ListQ,opts:OptionsPattern[]]:=QSimplify
 (*Memoized function for QSimplify*)
 
 
-Clear[QSimplifyCached]
-
-
-ClearQSimplifyCache[]:=(
-	DownValues[QSimplifyCached]=Part[DownValues[QSimplifyCached],{-1}];
-	DownValues[QSimplifyRules]=Part[DownValues[QSimplifyRules],{-1}];)
+Clear[QSimplifyCached];
 
 
 QSimplifyCached[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
 	QSimplifyCached[expr,rules,opts]=
-	With[{replaceRules=Join[rules,QSimplifyRules[opts]]},
+	With[{replaceRules=Join[rules,QSimplifyDefaultRules[opts]]},
 	Simplify[
 	ReplaceRepeated[
 			Simplify[QExpand[expr],TimeConstraint->OptionValue[TimeConstraint]],
@@ -629,14 +621,23 @@ QSimplifyCached[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
 
 
 (* ::Text:: *)
-(*Replacement rules for QSimplify*)
+(*Function to clear cached QSimplify values*)
 
 
-Clear[QSimplifyRules]
+ClearQSimplifyCache[]:=(
+	DownValues[QSimplifyCached]=Part[DownValues[QSimplifyCached],{-1}];
+	DownValues[QSimplifyDefaultRules]=Part[DownValues[QSimplifyDefaultRules],{-1}];)
 
 
-QSimplifyRules[opts:OptionsPattern[QSimplify]]:=
-	QSimplifyRules[opts]=
+(* ::Text:: *)
+(*Default replacement rules for QSimplify*)
+
+
+Clear[QSimplifyDefaultRules]
+
+
+QSimplifyDefaultRules[opts:OptionsPattern[QSimplify]]:=
+	QSimplifyDefaultRules[opts]=
 		Join[
 			QSimplifySpinRules[opts],
 			QSimplifyCavityRules[opts],
@@ -671,67 +672,110 @@ QSimplifyCavityRules[opts:OptionsPattern[QSimplify]]:=
 
 
 (* ::Subsubsection::Closed:: *)
-(*Algebra Constructors*)
+(*QSimplifyRules*)
 
 
 (* ::Text:: *)
-(*Combined Constructor*)
+(*Function for constructing QSimplify Rules*)
 
 
-Options[QSimplifyAlgebra]:={Identity->Automatic,"NormalOrder"->False}
+Options[QSimplifyRules]:={
+	Power->True,
+	Identity->None,
+	Com->None,
+	Dot->None,
+	Transpose->None,
+	Conjugate->None,
+	ConjugateTranspose->None,
+	"NormalOrder"->False
+	};
 
 
-QSimplifyAlgebra[opLabel_,ops_?ListQ,algebra_,opts:OptionsPattern[QSimplifyAlgebra]]:=
+QSimplifyRules[opLabel_,ops_?ListQ,opts:OptionsPattern[QSimplifyRules]]:=
 	With[{
 		id=OptionValue[Identity],
-		order=OptionValue["NormalOrder"]},
+		order=OptionValue["NormalOrder"],
+		comAlg=OptionValue[Com],
+		ctOps=OptionValue[ConjugateTranspose],
+		tOps=OptionValue[Transpose],
+		cOps=OptionValue[Conjugate],
+		dotAlg=OptionValue[Dot]},
 	Join[
-		QSimplifyPower[opLabel],
+		If[MemberQ[{Automatic,True},OptionValue[Power]],
+			QSimplifyPower[opLabel],
+			{}],
 		Which[
-			id===Automatic,QSimplifyIdentity[opLabel["I"]],
-			id===None,{},
-			True,QSimplifyIdentity[id]
-		],
-		QSimplifyComAlgebra[ops,algebra],
+			MemberQ[{Automatic,True},id],QSimplifyIdentity[opLabel["I"]],
+			MemberQ[{False,None},id],{},
+			True, QSimplifyIdentity[id]],
+		If[MemberQ[{False,None},comAlg],
+			{},
+			QSimplifyCom[ops,comAlg]],
+		If[MemberQ[{False,None},ctOps],
+			{},
+			QSimplifyFunction[ConjugateTranspose,ops,ctOps]],
+		If[MemberQ[{False,None},tOps],
+			{},
+			QSimplifyFunction[Transpose,ops,tOps]],
+		If[MemberQ[{False,None},cOps],
+			{},
+			QSimplifyFunction[Conjugate,ops,cOps]],
+		If[MemberQ[{False,None},dotAlg],
+			{},
+			QSimplifyDot[ops,dotAlg]],
 		Which[
-			SameQ[order,False],{},
-			MemberQ[{True,Automatic},order],QSimplifyNormalOrder[opLabel,ops],
-			True,QSimplifyNormalOrder[opLabel,order]
-		]
+			MemberQ[{False,None},order],{},
+			MemberQ[{Automatic,True},order],QSimplifyNormalOrder[opLabel,ops],
+			True,QSimplifyNormalOrder[opLabel,order]]
 	]]
+
+
+(* ::Subsubsection::Closed:: *)
+(*QSimplifyRules Constructors*)
+
+
+(* ::Text:: *)
+(*General function constructor*)
+
+
+QSimplifyFunction[fn_,ops_,opsFn_]:=
+	Select[
+		MapThread[fn[#1]:>#2&,{ops,opsFn}],
+		Not[MatchQ[#,_:>None]]&
+	]
 
 
 (* ::Text:: *)
 (*Commutator constructors*)
 
 
-QSimplifyComAlgebra[ops_List,algebra_]:=
-	With[{mat=ComAlgebraMatrix[algebra]},
+QSimplifyCom[ops_List,algebra_]:=
+	With[{mat=QSimplifyComMatrix[algebra]},
 	If[Length[mat]===Length[ops],
 		Select[
 			Flatten[
 				MapThread[
 					RuleDelayed,
 					{Outer[Com[#1,#2]&,ops,ops],
-					ComAlgebraMatrix[algebra]},2]
+					QSimplifyComMatrix[algebra]},2]
 			],
-		Not[MatchQ[#,0:>_]]&],
-		Message[QSimplifyComAlgebra::len]
+		Not[MatchQ[#,_:>None]]||Not[MatchQ[#,0:>_]]&],
+		Message[QSimplifyRules::comlen]
 	]]
 
 
-ComAlgebraMatrix[algebra_]:=
+QSimplifyComMatrix[algebra_]:=
 	Which[
 		And[ListQ[algebra],{1}===Dimensions[algebra]],
-			ComAlgebraMatrixRagged[{algebra}],
+			QSimplifyComMatrixRagged[{algebra}],
 		And[MatrixQ[algebra],{1,1}===Dimensions[algebra]],
-			ComAlgebraMatrixRagged[algebra],
+			QSimplifyComMatrixRagged[algebra],
 		MatrixQ[algebra],
-			ComAlgebraMatrixSkew[algebra],
+			QSimplifyComMatrixSkew[algebra],
 		ListQ[algebra],
-			ComAlgebraMatrixRagged[algebra],
+			QSimplifyComMatrixRagged[algebra],
 		True,
-			ComAlgebraMatrixRagged[{{algebra}}]
+			QSimplifyComMatrixRagged[{{algebra}}]
 	]
 
 
@@ -739,13 +783,13 @@ ComAlgebraMatrix[algebra_]:=
 (*Constructing algebra matrix for skew, upper or lower triangular matrices*)
 
 
-ComAlgebraMatrixSkew[mat_?MatrixQ]:=
+QSimplifyComMatrixSkew[mat_?MatrixQ]:=
 With[{utri=UpperTriangularize[mat,1],ltri=LowerTriangularize[mat,-1]},
 Which[
 	AllMatchQ[0,Flatten[utri]], ltri-Transpose[ltri],
 	AllMatchQ[0,Flatten[ltri]], utri-Transpose[utri],
 	AllMatchQ[0,Flatten[utri+Transpose[ltri]]], utri+ltri,
-	True, Message[QSimplifyComAlgebra::alg]
+	True, Message[QSimplifyRules::alg]
 ]]
 
 
@@ -753,11 +797,29 @@ Which[
 (*Constructing algebra matrix for ragged lists*)
 
 
-ComAlgebraMatrixRagged[raggedls_]:=
+QSimplifyComMatrixRagged[raggedls_]:=
 	With[{d=Length[First@raggedls]},
 	If[Flatten[Dimensions/@raggedls]===Range[d,1,-1],
-		ComAlgebraMatrixSkew[PadRight[PadLeft[raggedls,{d,d+1}],{d+1,d+1}]],
-		Message[QSimplifyComAlgebra::ragls]]
+		QSimplifyComMatrixSkew[PadRight[PadLeft[raggedls,{d,d+1}],{d+1,d+1}]],
+		Message[QSimplifyRules::ragls]]
+	]
+
+
+(* ::Text:: *)
+(*Dot constructors*)
+
+
+QSimplifyDot[ops_,algebra_]:=
+	If[Dimensions[algebra]==={#,#}&@Length[ops],
+		Select[
+			Flatten[
+				MapThread[
+					RuleDelayed,
+					{Outer[Dot[#1,#2]&,ops,ops],algebra}
+				,2]
+			],
+		Not[MatchQ[#,_:>None]]&],
+		Message[QSimplifyRules::dotlen]
 	]
 
 
@@ -765,14 +827,18 @@ ComAlgebraMatrixRagged[raggedls_]:=
 (*Identity operator constructor*)
 
 
-QSimplifyIdentity[id_]:=
-	{Dot[id,op_]:> op,
+QSimplifyIdentity[id_]:={
+	Dot[id,op_]:> op,
 	Dot[id,QPower[op_,m_]]:> QPower[op,m],
 	Dot[op_,id]:> op,
 	Dot[QPower[op_,m_],id]:> QPower[op,m],
 	QPower[id,n_]:> id,
 	Com[id,s_]:> 0,
-	Com[s_,id]:> 0};
+	Com[s_,id]:> 0,
+	ConjugateTranspose[id]:> id,
+	Transpose[id]:> id,
+	Conjugate[id]:> id
+	};
 
 
 (* ::Text:: *)
@@ -781,7 +847,8 @@ QSimplifyIdentity[id_]:=
 
 QSimplifyPower[container_]:={
 	Power[op_container,n_]:> QPower[op,n],
-	MatrixPower[op_container,n_]:> QPower[op,n]};
+	MatrixPower[op_container,n_]:> QPower[op,n]
+	};
 
 
 (* ::Text:: *)
@@ -914,35 +981,29 @@ ACom[a_,b_,n_?Positive]:> ACom[a,ACom[a,b],n-1]
 
 
 $QSimplifySpin=
-Join[
-QSimplifyAlgebra[Spin,
+QSimplifyRules[
+	Spin,
 	{Spin["X"],Spin["Y"],Spin["Z"],Spin["P"],Spin["M"]},
-	{{I*Spin["Z"],-I*Spin["Y"],-Spin["Z"],Spin["Z"]},
-	{I*Spin["X"],-I*Spin["Z"],-I*Spin["Z"]},
-	{Spin["P"],-Spin["M"]},
-	{2Spin["Z"]}}],
-{(* ConjugateTranspose *)
-ConjugateTranspose[Spin["I"]]:> Spin["I"],
-ConjugateTranspose[Spin["X"]]:> Spin["X"],
-ConjugateTranspose[Spin["Y"]]:> Spin["Y"],
-ConjugateTranspose[Spin["Z"]]:> Spin["Z"],
-ConjugateTranspose[Spin["P"]]:> Spin["M"],
-ConjugateTranspose[Spin["M"]]:>Spin["P"],
-(* Transpose *)
-Transpose[Spin["I"]]:> Spin["I"],
-Transpose[Spin["X"]]:> Spin["X"],
-Transpose[Spin["Y"]]:> -Spin["Y"],
-Transpose[Spin["Z"]]:> Spin["Z"],
-Transpose[Spin["P"]]:> Spin["M"],
-Transpose[Spin["M"]]:>Spin["P"],
-(* Conjugate *)
-Conjugate[Spin["I"]]:> Spin["I"],
-Conjugate[Spin["X"]]:> Spin["X"],
-Conjugate[Spin["Y"]]:> -Spin["Y"],
-Conjugate[Spin["Z"]]:> Spin["Z"],
-Conjugate[Spin["P"]]:> Spin["P"],
-Conjugate[Spin["M"]]:>Spin["M"]
-}];
+	Power->True,
+	Identity->True,
+	Com->{{I*Spin["Z"],-I*Spin["Y"],-Spin["Z"],Spin["Z"]},
+		{I*Spin["X"],-I*Spin["Z"],-I*Spin["Z"]},
+		{Spin["P"],-Spin["M"]},
+		{2Spin["Z"]}},
+	ConjugateTranspose->{Spin["X"],Spin["Y"],Spin["Z"],Spin["M"],Spin["P"]},
+	Transpose->{Spin["X"],-Spin["Y"],Spin["Z"],Spin["M"],Spin["P"]},
+	Conjugate->{Spin["X"],-Spin["Y"],Spin["Z"],Spin["P"],Spin["M"]}
+	]
+
+
+(* ::Text:: *)
+(*Spin Normal Ordering*)
+
+
+$QSimplifySpinOrdering=
+	QSimplifyNormalOrder[
+		Spin,
+		{Spin["Z"],Spin["X"],Spin["Y"],Spin["P"],Spin["M"]}]
 
 
 (* ::Text:: *)
@@ -951,109 +1012,82 @@ Conjugate[Spin["M"]]:>Spin["M"]
 
 (* X and Y expand to P and M *)
 $QSimplifySpinPM={
-Spin["X"]:> (Spin["P"]+Spin["M"])/2,
-Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2
-};
+	Spin["X"]:> (Spin["P"]+Spin["M"])/2,
+	Spin["Y"]:> (-I*Spin["P"]+I*Spin["M"])/2
+	};
 (* P and M expand to X and Y *)
 $QSimplifySpinXY={
-Spin["P"]:> Spin["X"]+I*Spin["Y"],
-Spin["M"]:> Spin["X"]-I*Spin["Y"]
-};
+	Spin["P"]:> Spin["X"]+I*Spin["Y"],
+	Spin["M"]:> Spin["X"]-I*Spin["Y"]
+	};
 
 
 (* ::Text:: *)
 (*Additional Spin 1/2 rules*)
 
 
-$QSimplifySpinHalf={
-ACom[Spin["X"],Spin["Y"]]:> 0,
-ACom[Spin["X"],Spin["Z"]]:> 0,
-ACom[Spin["Y"],Spin["X"]]:> 0,
-ACom[Spin["Y"],Spin["Z"]]:> 0,
-ACom[Spin["Z"],Spin["X"]]:> 0,
-ACom[Spin["Z"],Spin["Y"]]:> 0,
-
-Spin["X"].Spin["X"]:> Spin["I"]/4,
-Spin["X"].Spin["Y"]:> I*Spin["Z"]/2,
-Spin["X"].Spin["Z"]:> -I*Spin["Y"]/2,
-Spin["X"].Spin["P"]:> Spin["I"]/4-Spin["Z"]/2,
-Spin["X"].Spin["M"]:> Spin["I"]/4+Spin["Z"]/2,
-
-Spin["Y"].Spin["X"]:> -I*Spin["Z"]/2,
-Spin["Y"].Spin["Y"]:> Spin["I"]/4,
-Spin["Y"].Spin["Z"]:> I*Spin["X"]/2,
-Spin["Y"].Spin["P"]:> I*Spin["I"]/4-I*Spin["Z"]/2,
-Spin["Y"].Spin["M"]:> -I*Spin["I"]/4-I*Spin["Z"]/2,
-
-Spin["Z"].Spin["X"]:> I*Spin["Y"]/2,
-Spin["Z"].Spin["Y"]:> -I*Spin["X"]/2,
-Spin["Z"].Spin["Z"]:> Spin["I"]/4,
-Spin["Z"].Spin["P"]:> Spin["P"]/2,
-Spin["Z"].Spin["M"]:> -Spin["M"]/2,
-
-Spin["P"].Spin["X"]:> Spin["I"][1/2]/4+Spin["Z"][1/2]/2,
-Spin["P"].Spin["Y"]:> I*Spin["I"][1/2]/4+I*Spin["Z"][1/2]/2,
-Spin["P"].Spin["P"]:> 0,
-Spin["P"].Spin["M"]:> Spin["Z"]+Spin["I"]/2,
-Spin["P"].Spin["Z"]:> -Spin["P"]/2,
-
-Spin["M"].Spin["X"]:> Spin["I"][1/2]/4-Spin["Z"][1/2]/2,
-Spin["M"].Spin["Y"]:> -I*Spin["I"][1/2]/4+I*Spin["Z"][1/2]/2,
-Spin["M"].Spin["P"]:> -Spin["Z"]+Spin["I"]/2,
-Spin["M"].Spin["M"]:> 0,
-Spin["M"].Spin["Z"]:> Spin["M"]/2,
-
-QPower[Spin["X"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["X"]/2^(n-1)],
-QPower[Spin["Y"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["Y"]/2^(n-1)],
-QPower[Spin["Z"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["Z"]/2^(n-1)],
-QPower[Spin["P"]+Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]+Spin["M"]],
-QPower[Spin["P"]-Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]-Spin["M"]],
-QPower[Spin["M"]-Spin["P"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["M"]-Spin["P"]],
-QPower[Spin["P"],n_?Positive]:> If[n===1,Spin["P"],0],
-QPower[Spin["M"],n_?Positive]:> If[n===1,Spin["M"],0]
-};
+$spinHalfDotMatrix=
+	{{Spin["I"]/4,I*Spin["Z"]/2, -I*Spin["Y"]/2,Spin["I"]/4-Spin["Z"]/2,Spin["I"]/4+Spin["Z"]/2},
+	{-I*Spin["Z"]/2,Spin["I"]/4,I*Spin["X"]/2,I*Spin["I"]/4-I*Spin["Z"]/2,-I*Spin["I"]/4-I*Spin["Z"]/2},
+	{I*Spin["Y"]/2,-I*Spin["X"]/2,Spin["I"]/4,Spin["P"]/2,-Spin["M"]/2},
+	{Spin["I"][1/2]/4+Spin["Z"][1/2]/2,I*Spin["I"][1/2]/4+I*Spin["Z"][1/2]/2,-Spin["P"]/2,0,Spin["Z"]+Spin["I"]/2},
+	{Spin["I"][1/2]/4-Spin["Z"][1/2]/2,-I*Spin["I"][1/2]/4+I*Spin["Z"][1/2]/2,Spin["M"]/2,-Spin["Z"]+Spin["I"]/2,0}};
 
 
-(* ::Text:: *)
-(*Spin Normal Ordering*)
+$QSimplifySpinHalfDot=QSimplifyDot[{Spin["X"],Spin["Y"],Spin["Z"],Spin["P"],Spin["M"]},$spinHalfDotMatrix];
 
 
-$QSimplifySpinOrdering=QSimplifyNormalOrder[Spin,{Spin["Z"],Spin["X"],Spin["Y"],Spin["P"],Spin["M"]}];
+$QSimplifySpinACom={
+	ACom[Spin["X"],Spin["Y"]]:> 0,
+	ACom[Spin["X"],Spin["Z"]]:> 0,
+	ACom[Spin["Y"],Spin["X"]]:> 0,
+	ACom[Spin["Y"],Spin["Z"]]:> 0,
+	ACom[Spin["Z"],Spin["X"]]:> 0,
+	ACom[Spin["Z"],Spin["Y"]]:> 0};
+
+
+$QSimplifySpinHalfPower={
+	QPower[Spin["X"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["X"]/2^(n-1)],
+	QPower[Spin["Y"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["Y"]/2^(n-1)],
+	QPower[Spin["Z"],n_?Positive]:> If[EvenQ[n],Spin["I"]/2^n,Spin["Z"]/2^(n-1)],
+	QPower[Spin["P"]+Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]+Spin["M"]],
+	QPower[Spin["P"]-Spin["M"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["P"]-Spin["M"]],
+	QPower[Spin["M"]-Spin["P"],n_?Positive]:> If[EvenQ[n],Spin["I"],Spin["M"]-Spin["P"]],
+	QPower[Spin["P"],n_?Positive]:> If[n===1,Spin["P"],0],
+	QPower[Spin["M"],n_?Positive]:> If[n===1,Spin["M"],0]};
+
+
+$QSimplifySpinHalf=Join[
+	$QSimplifySpinACom,
+	$QSimplifySpinHalfDot,
+	$QSimplifySpinHalfPower];
 
 
 (* ::Subsubsection::Closed:: *)
 (*Cavity Rules*)
 
 
-$QSimplifyCavity=Join[
-QSimplifyAlgebra[Cavity,
-	{Cavity["a"],Cavity["c"],Cavity["n"]},
-	{{Cavity["I"],Cavity["a"]},{-Cavity["c"]}}],
-{(* ConjugateTranspose *)
-ConjugateTranspose[Cavity["I"]]:> Cavity["I"],
-ConjugateTranspose[Cavity["n"]]:> Cavity["n"],
-ConjugateTranspose[Cavity["a"]]:> Cavity["c"],
-ConjugateTranspose[Cavity["c"]]:> Cavity["a"],
-
-(* Transpose *)
-Transpose[Cavity["I"]]:> Cavity["I"],
-Transpose[Cavity["n"]]:> Cavity["n"],
-Transpose[Cavity["a"]]:> Cavity["c"],
-Transpose[Cavity["c"]]:> Cavity["a"],
-
-(* Conjugate *)
-Conjugate[Cavity["I"]]:> Cavity["I"],
-Conjugate[Cavity["n"]]:> Cavity["n"],
-Conjugate[Cavity["a"]]:> Cavity["a"],
-Conjugate[Cavity["c"]]:> Cavity["c"]
-}];
+$QSimplifyCavity=
+	QSimplifyRules[
+		Cavity,
+		{Cavity["a"],Cavity["c"],Cavity["n"]},
+		Power->True,
+		Identity->True,
+		Com->{{Cavity["I"],Cavity["a"]},{-Cavity["c"]}},
+		ConjugateTranspose->{Cavity["c"],Cavity["a"],Cavity["n"]},
+		Transpose->{Cavity["c"],Cavity["a"],Cavity["n"]},
+		Conjugate->{Cavity["a"],Cavity["c"],Cavity["n"]}
+	]
 
 
 (* ::Text:: *)
 (*Normal Ordering of operators*)
 
 
-$QSimplifyCavityOrdering=QSimplifyNormalOrder[Cavity,{Cavity["N"],Cavity["c"],Cavity["a"]}];
+$QSimplifyCavityOrdering=
+	QSimplifyNormalOrder[
+		Cavity,
+		{Cavity["N"],Cavity["c"],Cavity["a"]}]
 
 
 (* ::Text:: *)
@@ -1676,53 +1710,23 @@ TestCase["QuantumSystems:QSimplify:Algebra",
 	]];
 
 
-TestCase["QuantumSystems:QSimplifyPower",
-	SameQ[
-		QSimplify[Op["I"]^3,QSimplifyPower[Op]],
-		QPower[Op["I"],3]]
-	];
-
-
-TestCase["QuantumSystems:QSimplifyIdentity",
-	SameQ[
-		QSimplify[Op["I"].Op["A"],QSimplifyIdentity[Op["I"]]],
-		Op["A"]]
-	];
-
-
-TestCase["QuantumSystems:QSimplifyNormalOrder",
-	SameQ[
-		QSimplify[Op["B"].Op["A"],
-			QSimplifyNormalOrder[Op,{Op["A"],Op["B"]}]],
-		Op["A"].Op["B"]+Com[Op["B"],Op["A"]]]
-	];
-
-
-TestCase["QuantumSystems:QSimplifyComAlgebra",
-	SameQ[
-		QSimplify[Com[Op["A"],Op["B"]],
-			QSimplifyComAlgebra[{Op["A"],Op["B"]},{{Op["C"]}}]],
-		Op["C"]]
-	];
-
-
-TestCase["QuantumSystems:QSimplifyAlgebra",
+TestCase["QuantumSystems:QSimplifyRules",
 	And[
 		SameQ[
 			QSimplify[Com[Dot[Op["I"]^3].Op["A"],Op["B"]],
-				QSimplifyAlgebra[Op,{Op["A"],Op["B"]},{{Op["C"]}}]],
+				QSimplifyRules[Op,{Op["A"],Op["B"]},Identity->True,Com->{{Op["C"]}}]],
 			Op["C"]],
 		SameQ[
 			QSimplify[Com[Dot[Op["id"]^3].Op["A"],Op["B"]],
-				QSimplifyAlgebra[Op,{Op["A"],Op["B"]},{{Op["C"]}},Identity->Op["id"]]],
+				QSimplifyRules[Op,{Op["A"],Op["B"]},Com->{{Op["C"]}},Identity->Op["id"]]],
 			Op["C"]],
 		SameQ[
 			QSimplify[Op["B"].Op["A"],
-				QSimplifyAlgebra[Op,{Op["A"],Op["B"]},{{Op["C"]}},"NormalOrder"->True]],
+				QSimplifyRules[Op,{Op["A"],Op["B"]},Com->{{Op["C"]}},"NormalOrder"->True]],
 			Op["A"].Op["B"]-Op["C"]],
 		SameQ[
 			QSimplify[Op["B"].Op["A"],
-				QSimplifyAlgebra[Op,{Op["A"],Op["B"]},{{Op["C"]}},"NormalOrder"->{Op["B"],Op["A"]}]],
+				QSimplifyRules[Op,{Op["A"],Op["B"]},Com->{{Op["C"]}},"NormalOrder"->{Op["B"],Op["A"]}]],
 			Op["B"].Op["A"]]
 	]];
 
@@ -1894,7 +1898,7 @@ End[];
 
 
 Protect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
-Protect[Op,QPower,QExpand,QSimplifyIdentity,QSimplifyPower,QSimplifyNormalOrder,QSimplifyComAlgebra,QSimplifyAlgebra,QSimplify,ClearQSimplifyCache];
+Protect[Op,QPower,QExpand,QSimplifyRules,QSimplify,ClearQSimplifyCache];
 Protect[CGate];
 Protect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Protect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];

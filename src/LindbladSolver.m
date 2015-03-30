@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -38,7 +38,7 @@ Needs["QuantumChannel`"]
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "LindbladSolver.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declaration*)
 
 
@@ -68,7 +68,7 @@ AssignUsage[ODEFirstOrderSystem,$Usages];
 ODESolver::initcond = "Input state must be a square matrix or vector.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
@@ -279,29 +279,31 @@ LindbladSolver[
 
 ODESolver[generator_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
 	With[{sym=OptionValue[Symbol]},
+	With[{init=ODEInitialConditions[initState,{t0,sym}]},
 	Function[t,
-		Evaluate[With[{
-			init=ODEInitialConditions[initState,{t0,sym}]},
-		DSolveValue[
-			And[ODEFirstOrderSystem[generator,{t,sym}],init],
-			ODEVariables[{Length[init],t,sym}],
-			t,
-			FilterOptions[DSolveValue,opts]]]]]
-	]
+		Evaluate[
+			With[{
+				vars=ODEVariables[{Length[init],t,sym}],
+				sys=And[ODEFirstOrderSystem[generator,{t,sym}],init]},
+				vars/.Flatten[DSolve[sys,vars,t,FilterOptions[DSolve,opts]]]
+			]
+		]
+	]]]
 
 
 ODESolver[generator_,opts:OptionsPattern[ODESolver]]:=
 	With[{sym=OptionValue[Symbol]},
 	Function[t,
 		Evaluate[
-		With[{sys=ODEFirstOrderSystem[generator,{t,sym}]},
-		DSolveValue[
-			sys,ODEVariables[{Length[sys],t,sym}],t,
-			FilterOptions[DSolveValue,opts]]]]
+			Block[{sys=ODEFirstOrderSystem[generator,{t,sym}],vars},
+				vars=ODEVariables[{Length[sys],t,sym}];
+				vars/.Flatten[DSolve[sys,vars,t,FilterOptions[DSolve,opts]]]
+			]
+		]
 	]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Schrodinger Equation Solver*)
 
 
@@ -311,7 +313,7 @@ SchrodingerSolver[ham_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
 SchrodingerSolver[ham_,opts:OptionsPattern[ODESolver]]:=ODESolver[PreformatHamiltonian[ham],opts]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Lindblad Equation Solver*)
 
 
