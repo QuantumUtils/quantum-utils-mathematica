@@ -83,7 +83,7 @@ Unprotect[
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
 	ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-	PulsePhaseRotate,PulsePhaseRamp,
+	PulsePhaseRotate,PulsePhaseRamp,PulseDivide,
 	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 	LegalizePulse,NormalizePulse
 ];
@@ -95,7 +95,7 @@ AssignUsage[
 		InternalHamiltonian,AmplitudeRange,ExitMessage,
 		ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 		PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-		PulsePhaseRotate,PulsePhaseRamp,
+		PulsePhaseRotate,PulsePhaseRamp,PulseDivide,
 		RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 		LegalizePulse,NormalizePulse
 	},
@@ -316,7 +316,7 @@ JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Pulses*)
 
 
@@ -342,7 +342,7 @@ Pulse/:Format[Pulse[args__Rule]]:=Module[{modpulse},
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Pulse Conversion and Transformation*)
 
 
@@ -403,7 +403,7 @@ PulseHasKey[pulse_Pulse,key_]:=MemberQ[pulse[[All,1]],key]
 (*Pulse Manipulation*)
 
 
-DividePulse[pulse_Pulse,n_]:=
+PulseDivide[pulse_Pulse,n_]:=
 	Module[{p=pulse[Pulse],dt=pulse[TimeSteps]},
 		dt=Flatten[ConstantArray[dt/n,n]\[Transpose]];
 		p=p[[Flatten@Table[ConstantArray[k,n],{k,Length@p}]]];
@@ -1213,7 +1213,7 @@ RingdownPenalty[\[Epsilon]_,numRingdownSteps_,qmax_]:=Module[{penaltyFn},
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Plotting Tools*)
 
 
@@ -1442,7 +1442,7 @@ DiscreteFourierPlot[s,{-T/2,3T/2},Abs,Joined->True,PlotRange->{{\[Omega]LO-\[Ome
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*RobustnessPlot*)
 
 
@@ -1864,7 +1864,7 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*FindPulse*)
 
 
@@ -2430,7 +2430,7 @@ Protect[
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
 	ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-	PulsePhaseRotate,PulsePhaseRamp,
+	PulsePhaseRotate,PulsePhaseRamp,PulseDivide,
 	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 	LegalizePulse,NormalizePulse
 ];
