@@ -1148,13 +1148,15 @@ UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,val
 ]
 
 
-TargetSelectorDistribution[{targetSymbols__},distribution_]:=Module[{n},
-	n=Length[{targetSymbols}];
+TargetSelectorDistribution[targetDistributions__Rule]:=Module[{n,targetSymbols,dists},
+	targetSymbols={targetDistributions}[[All,1]];
+	dists={targetDistributions}[[All,2]];
+	n=Length[targetSymbols];
 	{
-		Flatten[ConstantArray[First@distribution/n,n]],
+		Flatten[Table[First@dist/n,{dist,dists}]],
 		Flatten[Table[
-			Map[Flatten@Join[{symb->1,(#->0&)/@Complement[{targetSymbols},{symb}]},#]&,Last[distribution]],
-			{symb,{targetSymbols}}
+			Map[Flatten@Join[{targetSymbols[[d]]->1},(#->0&)/@Complement[targetSymbols,targetSymbols[[{d}]]],{#}]&,Last[dists[[d]]]],
+			{d,n}
 		],1]
 	}
 ]
