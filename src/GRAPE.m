@@ -83,7 +83,7 @@ Unprotect[
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
 	ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-	PulsePhaseRotate,PulsePhaseRamp,
+	PulsePhaseRotate,PulsePhaseRamp,PulseDivide,PulseModulate,
 	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 	LegalizePulse,NormalizePulse
 ];
@@ -95,7 +95,7 @@ AssignUsage[
 		InternalHamiltonian,AmplitudeRange,ExitMessage,
 		ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 		PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-		PulsePhaseRotate,PulsePhaseRamp,
+		PulsePhaseRotate,PulsePhaseRamp,PulseDivide,PulseModulate,
 		RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 		LegalizePulse,NormalizePulse
 	},
@@ -350,7 +350,7 @@ Options[ToPulse]={
 	UtilityValue->None,
 	PenaltyValue->0,
 	Target->IdentityMatrix[2],
-	ControlHamiltonians->2\[Pi]{TP[X],TP[Y]},
+	ControlHamiltonians->2\[Pi]{TP[X]/2,TP[Y]/2},
 	InternalHamiltonian->0*TP[Z],
 	DistortionOperator->IdentityDistortion[],
 	PulsePenalty->ZeroPenalty[],
@@ -403,7 +403,7 @@ PulseHasKey[pulse_Pulse,key_]:=MemberQ[pulse[[All,1]],key]
 (*Pulse Manipulation*)
 
 
-DividePulse[pulse_Pulse,n_]:=
+PulseDivide[pulse_Pulse,n_]:=
 	Module[{p=pulse[Pulse],dt=pulse[TimeSteps]},
 		dt=Flatten[ConstantArray[dt/n,n]\[Transpose]];
 		p=p[[Flatten@Table[ConstantArray[k,n],{k,Length@p}]]];
@@ -412,8 +412,7 @@ DividePulse[pulse_Pulse,n_]:=
 
 
 PulsePhaseRotate[pulse_,\[Phi]_]:=
-	Module[
-		{xy=pulse[Pulse],a\[Theta]},
+	Module[{xy=pulse[Pulse],a\[Theta]},
 		a\[Theta]={Norm/@xy,\[Phi]+(ArcTan[First@#,Last@#]&/@xy)}\[Transpose];
 		xy={First[#]Cos[Last@#],First[#]Sin[Last@#]}&/@a\[Theta];
 		PulseReplaceKey[pulse,Pulse,xy]
@@ -421,11 +420,23 @@ PulsePhaseRotate[pulse_,\[Phi]_]:=
 
 
 PulsePhaseRamp[pulse_,f_]:=
-	Module[
-		{dt,xy=pulse[Pulse],a\[Theta]},
+	Module[{dt,xy=pulse[Pulse],a\[Theta]},
 		dt=pulse[TimeSteps];
-		a\[Theta]={Norm/@xy,2\[Pi]*f*(Accumulate[dt]-dt/2)+(If[First@#==0&&Last@#==0,0,ArcTan[First@#,Last@#]]&/@xy)}\[Transpose];
+		a\[Theta]={Norm/@xy,2\[Pi]*f*(Accumulate[dt]-dt/2)+(If[#=={0,0},0,ArcTan@@#]&/@xy)}\[Transpose];
 		xy={First[#]Cos[Last@#],First[#]Sin[Last@#]}&/@a\[Theta];
+		PulseReplaceKey[pulse,Pulse,xy]
+	]
+
+
+PulseModulate[pulse_,f_,\[Phi]_:0]:=
+	Module[{dt,xy=pulse[Pulse],a\[Theta]p,a\[Theta]m,a\[Theta]},
+		dt=pulse[TimeSteps];
+		a\[Theta]p={Norm/@xy,2\[Pi]*f*(Accumulate[dt]-dt/2)+(If[#=={0,0},0,ArcTan@@#]&/@xy)}\[Transpose];
+		a\[Theta]m={Norm/@xy,-2\[Pi]*f*(Accumulate[dt]-dt/2)+(If[#=={0,0},0,ArcTan@@#]&/@xy)}\[Transpose];
+		a\[Theta]p=#1*Exp[I*#2]&@@@a\[Theta]p;
+		a\[Theta]m=#1*Exp[I*#2]&@@@a\[Theta]m;
+		a\[Theta]=(Exp[-I*\[Phi]]a\[Theta]p+Exp[I*\[Phi]]a\[Theta]m)/2;
+		xy={Re[#],Im[\[Phi]]}&/@a\[Theta];
 		PulseReplaceKey[pulse,Pulse,xy]
 	]
 
@@ -2430,7 +2441,7 @@ Protect[
 	InternalHamiltonian,AmplitudeRange,ExitMessage,
 	ToPulse,FromPulse,SimForm,AddTimeSteps,SplitPulse,
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
-	PulsePhaseRotate,PulsePhaseRamp,
+	PulsePhaseRotate,PulsePhaseRamp,PulseDivide,PulseModulate,
 	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 	LegalizePulse,NormalizePulse
 ];
