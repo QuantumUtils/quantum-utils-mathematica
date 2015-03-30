@@ -316,7 +316,7 @@ JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulses*)
 
 
@@ -342,7 +342,7 @@ Pulse/:Format[Pulse[args__Rule]]:=Module[{modpulse},
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Pulse Conversion and Transformation*)
 
 
@@ -350,7 +350,7 @@ Options[ToPulse]={
 	UtilityValue->None,
 	PenaltyValue->0,
 	Target->IdentityMatrix[2],
-	ControlHamiltonians->2\[Pi]{TP[X],TP[Y]},
+	ControlHamiltonians->2\[Pi]{TP[X]/2,TP[Y]/2},
 	InternalHamiltonian->0*TP[Z],
 	DistortionOperator->IdentityDistortion[],
 	PulsePenalty->ZeroPenalty[],
@@ -1213,7 +1213,7 @@ RingdownPenalty[\[Epsilon]_,numRingdownSteps_,qmax_]:=Module[{penaltyFn},
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Plotting Tools*)
 
 
@@ -1442,7 +1442,7 @@ DiscreteFourierPlot[s,{-T/2,3T/2},Abs,Joined->True,PlotRange->{{\[Omega]LO-\[Ome
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*RobustnessPlot*)
 
 
@@ -1864,7 +1864,7 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*FindPulse*)
 
 
