@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     19185,        549]
-NotebookOptionsPosition[     18035,        508]
-NotebookOutlinePosition[     18369,        523]
-CellTagsIndexPosition[     18326,        520]
+NotebookDataLength[     20600,        589]
+NotebookOptionsPosition[     19387,        546]
+NotebookOutlinePosition[     19744,        562]
+CellTagsIndexPosition[     19701,        559]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -74,7 +74,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419388689*^9}],
+ CellChangeTimes->{3.636901928644802*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -106,7 +106,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419447154*^9}],
+ CellChangeTimes->{3.636901928709544*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -140,7 +140,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419506834*^9}],
+ CellChangeTimes->{3.6369019287891293`*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -176,7 +176,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419570326*^9}],
+ CellChangeTimes->{3.636901928861506*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -208,7 +208,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419640901*^9}],
+ CellChangeTimes->{3.636901928929929*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -244,7 +244,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419693947*^9}],
+ CellChangeTimes->{3.636901928990696*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -277,7 +277,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419779409*^9}],
+ CellChangeTimes->{3.636901929057209*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -311,7 +311,39 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.634330419860723*^9}],
+ CellChangeTimes->{3.636901929127121*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"QUTesting\"\>", True->
+        StyleBox["\<\"QUTesting\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/QUTesting.nb", None},
+       ButtonNote->"api-doc/QUTesting.nb"],
+      Annotation[#, "api-doc/QUTesting.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+     "Functions", " ", "for", " ", "running", " ", "unit", " ", "tests", " ", 
+      "for", " ", "QuantumUtils", " ", 
+      RowBox[{"packages", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.6369019291916847`*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -343,7 +375,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.6343304199412727`*^9}],
+ CellChangeTimes->{3.6369019292600327`*^9}],
 
 Cell[BoxData[GridBox[{
    {
@@ -377,7 +409,7 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.63433042001727*^9}]
+ CellChangeTimes->{3.636901929373824*^9}]
 }, Open  ]],
 
 Cell["Tutorials", "Section",
@@ -473,15 +505,21 @@ systems.\>\""}], "}"}], ",", "\[IndentingNewLine]",
         RowBox[{
         "\"\<Visualization\>\"", ",", 
          "\"\<A suite of tools for displaying matrices, quantum states, data, \
-etc.\>\""}], "}"}]}], "\[IndentingNewLine]", "}"}], "]"}]}]}], ";"}]], "Input",\
-
+etc.\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<QUTesting\>\"", ",", 
+         "\"\<Functions for running unit tests for QuantumUtils \
+packages.\>\""}], "}"}]}], "\[IndentingNewLine]", "}"}], "]"}]}]}], 
+  ";"}]], "Input",
  CellChangeTimes->{{3.633782706723302*^9, 3.6337827110747337`*^9}, {
   3.6341494009288387`*^9, 3.634149466765027*^9}, {3.634149504091381*^9, 
   3.6341495046902437`*^9}, {3.63414958879626*^9, 3.6341495949467793`*^9}, {
   3.634304483566258*^9, 3.634304488601351*^9}, {3.634304522124975*^9, 
   3.634304670732671*^9}, {3.634304754845304*^9, 3.634304782289897*^9}, {
   3.634304823067761*^9, 3.634304824888101*^9}, {3.6343048563233967`*^9, 
-  3.6343048566199427`*^9}, {3.634330367541362*^9, 3.634330395525217*^9}}],
+  3.6343048566199427`*^9}, {3.634330367541362*^9, 3.634330395525217*^9}, {
+  3.63690187879607*^9, 3.6369019171467323`*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -508,7 +546,8 @@ Cell[BoxData[
 },
 WindowSize->{1631, 1026},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -523,31 +562,32 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 112, 1, 66, "Chapter"],
-Cell[695, 25, 450, 12, 31, "Text"],
+Cell[580, 22, 112, 1, 65, "Chapter"],
+Cell[695, 25, 450, 12, 30, "Text"],
 Cell[CellGroupData[{
-Cell[1170, 41, 255, 3, 65, "Section"],
+Cell[1170, 41, 255, 3, 64, "Section"],
 Cell[1428, 46, 1136, 30, 33, "Text"],
 Cell[2567, 78, 1068, 30, 33, "Text"],
-Cell[3638, 110, 1247, 32, 33, "Text"],
-Cell[4888, 144, 1347, 34, 33, "Text"],
-Cell[6238, 180, 1101, 30, 33, "Text"],
-Cell[7342, 212, 1221, 34, 33, "Text"],
-Cell[8566, 248, 1173, 31, 33, "Text"],
-Cell[9742, 281, 1211, 32, 33, "Text"],
-Cell[10956, 315, 1103, 30, 33, "Text"],
-Cell[12062, 347, 1200, 32, 33, "Text"]
+Cell[3638, 110, 1249, 32, 33, "Text"],
+Cell[4890, 144, 1347, 34, 33, "Text"],
+Cell[6240, 180, 1101, 30, 33, "Text"],
+Cell[7344, 212, 1221, 34, 33, "Text"],
+Cell[8568, 248, 1173, 31, 33, "Text"],
+Cell[9744, 281, 1211, 32, 33, "Text"],
+Cell[10958, 315, 1102, 30, 33, "Text"],
+Cell[12063, 347, 1103, 30, 33, "Text"],
+Cell[13169, 379, 1201, 32, 33, "Text"]
 }, Open  ]],
-Cell[13277, 382, 96, 1, 65, "Section"],
+Cell[14385, 414, 96, 1, 64, "Section"],
 Cell[CellGroupData[{
-Cell[13398, 387, 173, 2, 51, "Section"],
-Cell[13574, 391, 201, 4, 31, "Text"],
-Cell[13778, 397, 159, 3, 32, "Input"],
+Cell[14506, 419, 173, 2, 50, "Section"],
+Cell[14682, 423, 201, 4, 30, "Text"],
+Cell[14886, 429, 159, 3, 28, "Input"],
 Cell[CellGroupData[{
-Cell[13962, 404, 105, 1, 44, "Subsection"],
-Cell[14070, 407, 140, 1, 31, "Text"],
-Cell[14213, 410, 3125, 73, 275, "Input"],
-Cell[17341, 485, 654, 18, 77, "Input"]
+Cell[15070, 436, 105, 1, 44, "Subsection"],
+Cell[15178, 439, 140, 1, 30, "Text"],
+Cell[15321, 442, 3369, 79, 233, "Input"],
+Cell[18693, 523, 654, 18, 63, "Input"]
 }, Closed]]
 }, Closed]]
 }, Open  ]]

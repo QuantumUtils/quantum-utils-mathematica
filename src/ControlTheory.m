@@ -30,7 +30,6 @@ BeginPackage["ControlTheory`",{"Tensor`"}];
 
 
 Needs["QUDevTools`"];
-Needs["UnitTesting`"];
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "ControlTheory.nb"}]];
@@ -260,10 +259,6 @@ GenerateLieAlgebra[generators__,OptionsPattern[]]:=Module[
 
 
 End[];
-
-
-(* ::Section:: *)
-(*Unit Testing*)
 
 
 (* ::Section::Closed:: *)

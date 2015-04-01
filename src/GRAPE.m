@@ -33,7 +33,6 @@ BeginPackage["GRAPE`"];
 (*The following packages are needed, but their contexts should not be loaded globally.*)
 
 
-Needs["UnitTesting`"];
 Needs["QUDevTools`"];
 Needs["Visualization`"];
 Needs["QSim`"];

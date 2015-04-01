@@ -30,7 +30,6 @@ BeginPackage["Perturbation`"];
 
 
 Needs["QUDevTools`"];
-Needs["UnitTesting`"];
 Needs["Tensor`"];
 
 
@@ -455,10 +454,6 @@ ZassenhausExpansion[\[Lambda]_:1,X_,Y_,n_]:=ZassenhausExpansionCached[\[Lambda],
 
 
 End[];
-
-
-(* ::Section:: *)
-(*Unit Testing*)
 
 
 (* ::Section:: *)

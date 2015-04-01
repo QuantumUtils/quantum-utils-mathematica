@@ -2,7 +2,7 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
-(*Unit Testing*)
+(*Visualization Unit Tests*)
 
 
 (* ::Subsection::Closed:: *)
@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["QUTesting`"];
+BeginPackage["VisualizationTests`"];
 
 
 (* ::Text:: *)
@@ -34,88 +34,32 @@ BeginPackage["QUTesting`"];
 
 
 Needs["QUDevTools`"];
+Needs["Visualization`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QUTesting.nb"}]];
+(* ::Section::Closed:: *)
+(*Results*)
 
 
-(* ::Section:: *)
-(*Usage Declarations*)
+Begin["`UnitTests`"];
 
 
-AssignUsage[TestResults,$Usages];
-AssignUsage[RunAllTests,$Usages];
+$RegisteredTests={};
+$TestResults := RunTest[$RegisteredTests];
 
 
-(* ::Section:: *)
-(*Implimentation*)
+End[];
 
 
-Begin["`Private`"];
+(* ::Section::Closed:: *)
+(*Unit Tests*)
 
 
-(* ::Subsection::Closed:: *)
-(*Test Results*)
-
-
-(* ::Text:: *)
-(*Unit tests for a package "name.m" are stored in the /tests/ folder under under the name "nameTests.m"*)
-
-
-(* ::Text:: *)
-(*The results of the unit tests are stored in the variable nameTests`UnitTests`$TestResults, which is set to delayed evaluation so that the tests will not be run until the variable is called.*)
-
-
-(* ::Text:: *)
-(*To call the test results of an individual package use TestResults["name"].  For example: TestResults["Tensor"]*)
-
-
-TestResults[name_String]:=(
-	Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
-	ToExpression[name<>"Tests`UnitTests`$TestResults"])
-
-
-TestResults[]:=Join@@Map[TestResults,$UnitTestManifest]
-
-
-(* ::Text:: *)
-(*Registered unit test packages*)
-
-
-$UnitTestManifest={
-	"Predicates",
-	"Tensor",
-	"QuantumSystems",
-	"QuantumChannel",
-	"LindbladSolver"
-	};
-
-
-(* ::Subsection:: *)
-(*Run All Tests*)
-
-
-(* ::Text:: *)
-(*This function checks how many unit tests passed, failed, or returned errors.*)
-
-
-RunAllTests[] := (
-	PrintTemporary["Running unit tests..."];
-	Block[{results,n,pass,fail,error},	
-		results = TestResults[];
-		n = Length[results];
-		pass=Length@Select[results,MatchQ[#,_->"T"]&];
-		fail=Length@Select[results,MatchQ[#,_->"F"]&];
-		error=Length@Select[results,MatchQ[#,_->"E"]&];
-		Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests passed."];
-		If[fail>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests failed."];
-		If[error>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests returned errors."]];
-		]
-	])
+Begin["`UnitTests`"];
 
 
 (* ::Subsection::Closed:: *)
-(*End Private*)
+(*End*)
 
 
 End[];

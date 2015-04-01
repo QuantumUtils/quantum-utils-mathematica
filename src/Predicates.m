@@ -33,19 +33,14 @@ BeginPackage["Predicates`"];
 (*The following packages are needed, but their contexts should not be loaded globally.*)
 
 
-Needs["UnitTesting`"];
 Needs["QUDevTools`"];
 
 
 $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Predicates.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
-
-
-(* ::Subsection:: *)
-(*Backwards Compatibility*)
 
 
 (* ::Subsection::Closed:: *)
@@ -109,15 +104,11 @@ AssignUsage[RowVectorQ,$Usages];
 AssignUsage[GeneralVectorQ,$Usages];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
-
-
-(* ::Subsection:: *)
-(*Backwards Compatibility*)
 
 
 (* ::Subsection::Closed:: *)
@@ -213,151 +204,6 @@ RowVectorQ[v_]:=MatchQ[Dimensions[v],{1,_}];
 
 
 GeneralVectorQ[v_]:=Or[VectorQ[v],ColumnVectorQ[v]];
-
-
-(* ::Subsection::Closed:: *)
-(*End Private*)
-
-
-End[];
-
-
-(* ::Section::Closed:: *)
-(*Unit Testing*)
-
-
-Begin["`Private`"];
-
-
-(* ::Subsection::Closed:: *)
-(*Fuzzy Logic*)
-
-
-TestCase["Predicates:PossiblyTrueQ", 
-	And[
-		Module[{maybe},PossiblyTrueQ[maybe]],
-		PossiblyTrueQ[True],
-		Not@PossiblyTrueQ[0 == 2]
-	]];
-
-
-TestCase["Predicates:PossiblyFalseQ", 
-	And[
-		Module[{maybe}, PossiblyFalseQ[maybe]],
-		Not@PossiblyFalseQ[True],
-		PossiblyFalseQ[0 == 2]
-	]]
-
-
-TestCase["Predicates:PossiblyNonzeroQ", 
-	And[
-		Module[{maybe}, PossiblyNonzeroQ[maybe]],
-		Not@PossiblyNonzeroQ[0]
-	]]
-
-
-(* ::Subsection::Closed:: *)
-(*Numbers and Lists*)
-
-
-TestCase["Predicates:AnyQ", AnyQ[# >= 2 &, {0, 1, 5}]];
-
-
-TestCase["Predicates:AllElementQ", AllElementQ[# >= 2 &, {3, {{{{4}}}}, 5}]];
-
-
-TestCase["Predicates:AnyMatchQ", AnyMatchQ[_Integer,{0, 1.2, 5.5}]];
-
-
-TestCase["Predicates:AllQ", AnyQ[# >= 2 &, {2, 4, 5}]];
-
-
-TestCase["Predicates:AnyElementQ", AnyElementQ[# >= 2 &, {{{{4}, 0}}, 1}]]
-
-
-TestCase["Predicates:AllMatchQ", AllMatchQ[_Integer,{2, 4, 5}]];
-
-
-TestCase["Predicates:AnyNonzeroQ", AnyNonzeroQ[{0, 1, 5}]];
-
-
-TestCase["Predicates:AnyPossiblyNonzeroQ", Module[{maybe}, AnyPossiblyNonzeroQ[{0, maybe, 0}]]]
-
-
-(* ::Subsection::Closed:: *)
-(*Symbolic Expressions*)
-
-
-TestCase["Predicates:SymbolQ", 
-	And[
-		Not@SymbolQ[12],
-		Module[{arg},SymbolQ[arg]],
-		Module[{f},f[x_]:=x; Not@SymbolQ[f]],
-		With[{x=10},Not@SymbolQ[x]]
-	]];
-
-
-TestCase["Predicates:CoefficientQ",
-	Module[{f,g,x,y},
-	And[
-		CoefficientQ[Sin[3*x]],
-		CoefficientQ[g[x,y]],
-		CoefficientQ[f[g[x]]],
-		CoefficientQ[x],
-		CoefficientQ[Sin["x"]],
-		SetAttributes[g,Protected];Not@CoefficientQ[g[x]],
-		Not@CoefficientQ[KroneckerProduct[x,y]],
-		Not@CoefficientQ[Dot[1,2]]
-	]]];
-
-
-(* ::Subsection::Closed:: *)
-(*Matrices and Lists*)
-
-
-TestCase["Predicates:NonzeroDimQ",
-	And[
-		Not@NonzeroDimQ[{{{},{}}}],
-		NonzeroDimQ[{1,2,3}]
-	]];
-
-
-TestCase["Predicates:DiagonalMatrixQ", 
-	And[
-		DiagonalMatrixQ@DiagonalMatrix[{1,2,3}],
-		Not@DiagonalMatrixQ[{{1,2},{3,4}}]
-	]];
-
-
-TestCase["Predicates:PureStateQ", 
-	And[
-		PureStateQ[{{1,1},{1,1}}/2],
-		Not@PureStateQ[{{1,0},{0,3}}/4]
-	]];
-
-
-TestCase["Predicates:ColumnVectorQ",
-	And[
-		ColumnVectorQ[{{0},{1}}],
-		Not@ColumnVectorQ[{0,0,1}],
-		Not@ColumnVectorQ[{{0,1}}]
-	]];
-
-
-TestCase["Predicates:RowVectorQ",
-	And[
-		Not@RowVectorQ[{{0},{1}}],
-		Not@RowVectorQ[{0,0,1}],
-		RowVectorQ[{{0,1}}]
-	]];
-
-
-TestCase["Predicates:GeneralVectorQ",
-	And[
-		GeneralVectorQ[{{0},{1}}],
-		GeneralVectorQ[{0,0,1}],
-		Not@GeneralVectorQ[{{0,1}}]
-	]];
 
 
 (* ::Subsection::Closed:: *)

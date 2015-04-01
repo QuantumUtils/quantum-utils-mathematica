@@ -36,7 +36,6 @@ BeginPackage["QSim`"];
 Needs["QuantumChannel`"];
 Needs["LindbladSolver`"];
 Needs["Predicates`"];
-Needs["UnitTesting`"];
 Needs["QUDevTools`"];
 
 

@@ -2,7 +2,7 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
-(*Unit Testing*)
+(*Control Theory Unit Tests*)
 
 
 (* ::Subsection::Closed:: *)
@@ -22,11 +22,11 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
-BeginPackage["QUTesting`"];
+BeginPackage["ControlTheoryTests`"];
 
 
 (* ::Text:: *)
@@ -34,88 +34,32 @@ BeginPackage["QUTesting`"];
 
 
 Needs["QUDevTools`"];
+Needs["ControlTheory`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QUTesting.nb"}]];
+(* ::Section::Closed:: *)
+(*Results*)
 
 
-(* ::Section:: *)
-(*Usage Declarations*)
+Begin["`UnitTests`"];
 
 
-AssignUsage[TestResults,$Usages];
-AssignUsage[RunAllTests,$Usages];
+$RegisteredTests={};
+$TestResults := RunTest[$RegisteredTests];
 
 
-(* ::Section:: *)
-(*Implimentation*)
+End[];
 
 
-Begin["`Private`"];
+(* ::Section::Closed:: *)
+(*Unit Tests*)
 
 
-(* ::Subsection::Closed:: *)
-(*Test Results*)
-
-
-(* ::Text:: *)
-(*Unit tests for a package "name.m" are stored in the /tests/ folder under under the name "nameTests.m"*)
-
-
-(* ::Text:: *)
-(*The results of the unit tests are stored in the variable nameTests`UnitTests`$TestResults, which is set to delayed evaluation so that the tests will not be run until the variable is called.*)
-
-
-(* ::Text:: *)
-(*To call the test results of an individual package use TestResults["name"].  For example: TestResults["Tensor"]*)
-
-
-TestResults[name_String]:=(
-	Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
-	ToExpression[name<>"Tests`UnitTests`$TestResults"])
-
-
-TestResults[]:=Join@@Map[TestResults,$UnitTestManifest]
-
-
-(* ::Text:: *)
-(*Registered unit test packages*)
-
-
-$UnitTestManifest={
-	"Predicates",
-	"Tensor",
-	"QuantumSystems",
-	"QuantumChannel",
-	"LindbladSolver"
-	};
-
-
-(* ::Subsection:: *)
-(*Run All Tests*)
-
-
-(* ::Text:: *)
-(*This function checks how many unit tests passed, failed, or returned errors.*)
-
-
-RunAllTests[] := (
-	PrintTemporary["Running unit tests..."];
-	Block[{results,n,pass,fail,error},	
-		results = TestResults[];
-		n = Length[results];
-		pass=Length@Select[results,MatchQ[#,_->"T"]&];
-		fail=Length@Select[results,MatchQ[#,_->"F"]&];
-		error=Length@Select[results,MatchQ[#,_->"E"]&];
-		Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests passed."];
-		If[fail>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests failed."];
-		If[error>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests returned errors."]];
-		]
-	])
+Begin["`UnitTests`"];
 
 
 (* ::Subsection::Closed:: *)
-(*End Private*)
+(*End*)
 
 
 End[];
