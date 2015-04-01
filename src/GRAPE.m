@@ -39,7 +39,7 @@ Needs["QSim`"];
 Needs["Tensor`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "GRAPE.nb"}]];
+$GRAPEUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "GRAPE.nb"}]];
 
 
 (* ::Section:: *)
@@ -69,7 +69,7 @@ AssignUsage[
 		SkipChecks,VerboseAscent,
 		Ignore,ProjectGradient
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -98,7 +98,7 @@ AssignUsage[
 		RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
 		LegalizePulse,NormalizePulse
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -119,7 +119,7 @@ AssignUsage[
 		PropagatorFromPulse,PropagatorListFromPulse,
 		CoherentSubspaces
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -152,7 +152,7 @@ AssignUsage[
 		FrequencySpaceDistortion,
 		CompositePulseDistortion
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -177,7 +177,7 @@ AssignUsage[
 		UniformParameterDistribution,
 		TargetSelectorDistribution
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -198,7 +198,7 @@ AssignUsage[
 		DemandValuePenalty,
 		RingdownPenalty
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -221,7 +221,7 @@ AssignUsage[
 		DistributeOption,
 		RobustnessPlot,LegendIsCell,DistortionOperatorSweep
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -235,7 +235,7 @@ RobustnessPlot::keys = "RobustnessPlot requires all input pulses to have at leas
 Unprotect[FidelityMonitor,HistogramMonitor,PulsePlotMonitor];
 
 
-AssignUsage[{FidelityMonitor,HistogramMonitor,PulsePlotMonitor},$Usages];
+AssignUsage[{FidelityMonitor,HistogramMonitor,PulsePlotMonitor},$GRAPEUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -253,7 +253,7 @@ AssignUsage[
 		QuadraticFitLineSearch,InterpolatedLineSearch,
 		MinStepMul,StepMulStep,MaxStepMul
 	},
-	$Usages
+	$GRAPEUsages
 ];
 
 
@@ -266,7 +266,7 @@ Unprotect[
 ];
 
 
-AssignUsage[{FindPulse},$Usages];
+AssignUsage[{FindPulse},$GRAPEUsages];
 
 
 FindPulse::badguess = "Error: the supplied initialGuess matrix was not understood.";
@@ -292,7 +292,7 @@ FindPulse::badderivmask = "Error: your derivative mask seems to have the wrong d
 Unprotect[ExportJCAMP,ExportSHP];
 
 
-AssignUsage[{ExportJCAMP,ExportSHP},$Usages]
+AssignUsage[{ExportJCAMP,ExportSHP},$GRAPEUsages]
 
 
 JCAMPTitle::usage = "JCAMPTitle is an ExportJCAMP option with default value Automatic, which sets the title to the filename.Otherwise it should be a string.";

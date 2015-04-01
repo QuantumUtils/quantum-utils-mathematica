@@ -34,7 +34,7 @@ Needs["Tensor`"]
 Needs["QuantumChannel`"]
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "LindbladSolver.nb"}]];
+$LindbladSolverUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "LindbladSolver.nb"}]];
 
 
 (* ::Section::Closed:: *)
@@ -48,7 +48,7 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "LindbladSol
 Unprotect[ODESolver,SchrodingerSolver,LindbladSolver];
 
 
-AssignUsage[{ODESolver,SchrodingerSolver,LindbladSolver},$Usages];
+AssignUsage[{ODESolver,SchrodingerSolver,LindbladSolver},$LindbladSolverUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -58,7 +58,7 @@ AssignUsage[{ODESolver,SchrodingerSolver,LindbladSolver},$Usages];
 Unprotect[ODECoefficients,ODEVariables,ODEInitialConditions,ODEFirstOrderSystem];
 
 
-AssignUsage[{ODECoefficients,ODEVariables,ODEInitialConditions,ODEFirstOrderSystem},$Usages];
+AssignUsage[{ODECoefficients,ODEVariables,ODEInitialConditions,ODEFirstOrderSystem},$LindbladSolverUsages];
 
 
 (* ::Subsection::Closed:: *)

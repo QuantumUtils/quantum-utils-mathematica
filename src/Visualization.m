@@ -38,7 +38,7 @@ Needs["Predicates`"];
 Needs["Tensor`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualization.nb"}]];
+$VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualization.nb"}]];
 
 
 (* ::Section:: *)
@@ -52,9 +52,9 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualizati
 Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm];
 
 
-AssignUsage[ComplexMatrixPlot,$Usages];
-AssignUsage[BlockForm,$Usages];
-AssignUsage[MatrixListForm,$Usages];
+AssignUsage[ComplexMatrixPlot,$VisualizationUsages];
+AssignUsage[BlockForm,$VisualizationUsages];
+AssignUsage[MatrixListForm,$VisualizationUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -64,13 +64,13 @@ AssignUsage[MatrixListForm,$Usages];
 Unprotect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels];
 
 
-AssignUsage[BlochPlot,$Usages];
-AssignUsage[BlochPlot2D,$Usages];
-AssignUsage[ListBlochPlot2D,$Usages];
-AssignUsage[BlochPlotColors,$Usages];
-AssignUsage[BlochPlotJoined,$Usages];
-AssignUsage[BlochPlotEndPoints,$Usages];
-AssignUsage[BlochPlotLabels,$Usages];
+AssignUsage[BlochPlot,$VisualizationUsages];
+AssignUsage[BlochPlot2D,$VisualizationUsages];
+AssignUsage[ListBlochPlot2D,$VisualizationUsages];
+AssignUsage[BlochPlotColors,$VisualizationUsages];
+AssignUsage[BlochPlotJoined,$VisualizationUsages];
+AssignUsage[BlochPlotEndPoints,$VisualizationUsages];
+AssignUsage[BlochPlotLabels,$VisualizationUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -80,7 +80,7 @@ AssignUsage[BlochPlotLabels,$Usages];
 Unprotect[EigensystemForm];
 
 
-AssignUsage[EigensystemForm,$Usages];
+AssignUsage[EigensystemForm,$VisualizationUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -90,7 +90,7 @@ AssignUsage[EigensystemForm,$Usages];
 Unprotect[FourierListPlot];
 
 
-AssignUsage[FourierListPlot,$Usages];
+AssignUsage[FourierListPlot,$VisualizationUsages];
 
 
 (* ::Subsection::Closed:: *)

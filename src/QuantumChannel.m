@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -33,7 +33,7 @@ Needs["QUDevTools`"]
 Needs["QuantumSystems`"]
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
+$QuantumChannelUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
 (* ::Section::Closed:: *)
@@ -48,21 +48,21 @@ Unprotect[QuantumChannel,ChannelRep,InputDim,OutputDim,Basis];
 Unprotect[Choi,Super,Chi,Kraus,Stinespring,Unitary,SysEnv];
 
 
-AssignUsage[QuantumChannel,$Usages];
-AssignUsage[Unitary,$Usages];
-AssignUsage[Super,$Usages];
-AssignUsage[Choi,$Usages];
-AssignUsage[Chi,$Usages];
-AssignUsage[Kraus,$Usages];
-AssignUsage[Stinespring,$Usages];
-AssignUsage[SysEnv,$Usages];
+AssignUsage[QuantumChannel,$QuantumChannelUsages];
+AssignUsage[Unitary,$QuantumChannelUsages];
+AssignUsage[Super,$QuantumChannelUsages];
+AssignUsage[Choi,$QuantumChannelUsages];
+AssignUsage[Chi,$QuantumChannelUsages];
+AssignUsage[Kraus,$QuantumChannelUsages];
+AssignUsage[Stinespring,$QuantumChannelUsages];
+AssignUsage[SysEnv,$QuantumChannelUsages];
 
 
-AssignUsage[InputDim,$Usages];
-AssignUsage[OutputDim,$Usages];
-AssignUsage[Basis,$Usages];
-AssignUsage[ChannelRep,$Usages];
-AssignUsage[ChannelParameters,$Usages];
+AssignUsage[InputDim,$QuantumChannelUsages];
+AssignUsage[OutputDim,$QuantumChannelUsages];
+AssignUsage[Basis,$QuantumChannelUsages];
+AssignUsage[ChannelRep,$QuantumChannelUsages];
+AssignUsage[ChannelParameters,$QuantumChannelUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -72,11 +72,11 @@ AssignUsage[ChannelParameters,$Usages];
 Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume];
 
 
-AssignUsage[ProcessFidelity,$Usages];
-AssignUsage[GateFidelity,$Usages];
-AssignUsage[AverageGateFidelity,$Usages];
-AssignUsage[EntanglementFidelity,$Usages];
-AssignUsage[ChannelVolume,$Usages];
+AssignUsage[ProcessFidelity,$QuantumChannelUsages];
+AssignUsage[GateFidelity,$QuantumChannelUsages];
+AssignUsage[AverageGateFidelity,$QuantumChannelUsages];
+AssignUsage[EntanglementFidelity,$QuantumChannelUsages];
+AssignUsage[ChannelVolume,$QuantumChannelUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -86,11 +86,11 @@ AssignUsage[ChannelVolume,$Usages];
 Unprotect[CompletelyPositiveQ,TracePreservingQ,HermitianPreservingQ,UnitalQ,PauliChannelQ];
 
 
-AssignUsage[CompletelyPositiveQ,$Usages];
-AssignUsage[TracePreservingQ,$Usages];
-AssignUsage[HermitianPreservingQ,$Usages];
-AssignUsage[UnitalQ,$Usages];
-AssignUsage[PauliChannelQ,$Usages];
+AssignUsage[CompletelyPositiveQ,$QuantumChannelUsages];
+AssignUsage[TracePreservingQ,$QuantumChannelUsages];
+AssignUsage[HermitianPreservingQ,$QuantumChannelUsages];
+AssignUsage[UnitalQ,$QuantumChannelUsages];
+AssignUsage[PauliChannelQ,$QuantumChannelUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -100,12 +100,12 @@ AssignUsage[PauliChannelQ,$Usages];
 Unprotect[ComChannel,AComChannel,Lindblad,LindbladDissipator,PartialTrChannel,FunctionChannel];
 
 
-AssignUsage[ComChannel,$Usages];
-AssignUsage[AComChannel,$Usages];
-AssignUsage[LindbladDissipator,$Usages];
-AssignUsage[Lindblad,$Usages];
-AssignUsage[PartialTrChannel,$Usages];
-AssignUsage[FunctionChannel,$Usages];
+AssignUsage[ComChannel,$QuantumChannelUsages];
+AssignUsage[AComChannel,$QuantumChannelUsages];
+AssignUsage[LindbladDissipator,$QuantumChannelUsages];
+AssignUsage[Lindblad,$QuantumChannelUsages];
+AssignUsage[PartialTrChannel,$QuantumChannelUsages];
+AssignUsage[FunctionChannel,$QuantumChannelUsages];
 
 
 (* ::Subsection::Closed:: *)

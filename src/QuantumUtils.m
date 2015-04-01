@@ -39,7 +39,8 @@ BeginPackage["QuantumUtils`",{
 	"QuantumSystems`",
 	"QuantumChannel`",
 	"Tensor`",
-	"Visualization`"	
+	"Visualization`",
+	"QUTesting`"
 }];
 
 

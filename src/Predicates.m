@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
@@ -36,7 +36,7 @@ BeginPackage["Predicates`"];
 Needs["QUDevTools`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Predicates.nb"}]];
+$PredicatesUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Predicates.nb"}]];
 
 
 (* ::Section:: *)
@@ -50,9 +50,9 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Predicates.
 Unprotect[PossiblyTrueQ,PossiblyFalseQ,PossiblyNonzeroQ];
 
 
-AssignUsage[PossiblyTrueQ,$Usages];
-AssignUsage[PossiblyFalseQ,$Usages];
-AssignUsage[PossiblyNonzeroQ,$Usages];
+AssignUsage[PossiblyTrueQ,$PredicatesUsages];
+AssignUsage[PossiblyFalseQ,$PredicatesUsages];
+AssignUsage[PossiblyNonzeroQ,$PredicatesUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -62,18 +62,18 @@ AssignUsage[PossiblyNonzeroQ,$Usages];
 Unprotect[AnyQ,AnyMatchQ,AnyElementQ,AllQ,AllMatchQ,AllElementQ,AnyNonzeroQ,AnyPossiblyNonzeroQ];
 
 
-AssignUsage[AnyQ,$Usages];
-AssignUsage[AnyMatchQ,$Usages];
-AssignUsage[AnyElementQ,$Usages];
+AssignUsage[AnyQ,$PredicatesUsages];
+AssignUsage[AnyMatchQ,$PredicatesUsages];
+AssignUsage[AnyElementQ,$PredicatesUsages];
 
 
-AssignUsage[AllQ,$Usages];
-AssignUsage[AllMatchQ,$Usages];
-AssignUsage[AllElementQ,$Usages];
+AssignUsage[AllQ,$PredicatesUsages];
+AssignUsage[AllMatchQ,$PredicatesUsages];
+AssignUsage[AllElementQ,$PredicatesUsages];
 
 
-AssignUsage[AnyNonzeroQ,$Usages];
-AssignUsage[AnyPossiblyNonzeroQ,$Usages];
+AssignUsage[AnyNonzeroQ,$PredicatesUsages];
+AssignUsage[AnyPossiblyNonzeroQ,$PredicatesUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -83,10 +83,10 @@ AssignUsage[AnyPossiblyNonzeroQ,$Usages];
 Unprotect[SymbolQ,ScalarQ,CoefficientSymbolQ,CoefficientQ];
 
 
-AssignUsage[SymbolQ,$Usages];
-AssignUsage[ScalarQ,$Usages];
-AssignUsage[CoefficientSymbolQ,$Usages];
-AssignUsage[CoefficientQ,$Usages];
+AssignUsage[SymbolQ,$PredicatesUsages];
+AssignUsage[ScalarQ,$PredicatesUsages];
+AssignUsage[CoefficientSymbolQ,$PredicatesUsages];
+AssignUsage[CoefficientQ,$PredicatesUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -96,12 +96,12 @@ AssignUsage[CoefficientQ,$Usages];
 Unprotect[NonzeroDimQ,DiagonalMatrixQ,PureStateQ,ColumnVectorQ,RowVectorQ,GeneralVectorQ];
 
 
-AssignUsage[NonzeroDimQ,$Usages];
-AssignUsage[DiagonalMatrixQ,$Usages];
-AssignUsage[PureStateQ,$Usages];
-AssignUsage[ColumnVectorQ,$Usages];
-AssignUsage[RowVectorQ,$Usages];
-AssignUsage[GeneralVectorQ,$Usages];
+AssignUsage[NonzeroDimQ,$PredicatesUsages];
+AssignUsage[DiagonalMatrixQ,$PredicatesUsages];
+AssignUsage[PureStateQ,$PredicatesUsages];
+AssignUsage[ColumnVectorQ,$PredicatesUsages];
+AssignUsage[RowVectorQ,$PredicatesUsages];
+AssignUsage[GeneralVectorQ,$PredicatesUsages];
 
 
 (* ::Section:: *)

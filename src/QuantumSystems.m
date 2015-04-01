@@ -32,7 +32,7 @@ BeginPackage["QuantumSystems`",{"Predicates`","Tensor`"}];
 Needs["QUDevTools`"]
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
+$QuantumSystemsUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
 (* ::Section::Closed:: *)
@@ -46,12 +46,12 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSyst
 Unprotect[Spin,Cavity,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
 
 
-AssignUsage[Spin,$Usages];
-AssignUsage[Cavity,$Usages];
-AssignUsage[QState,$Usages];
-AssignUsage[KetForm,$Usages];
-AssignUsage[VecForm,$Usages];
-AssignUsage[CGate,$Usages];
+AssignUsage[Spin,$QuantumSystemsUsages];
+AssignUsage[Cavity,$QuantumSystemsUsages];
+AssignUsage[QState,$QuantumSystemsUsages];
+AssignUsage[KetForm,$QuantumSystemsUsages];
+AssignUsage[VecForm,$QuantumSystemsUsages];
+AssignUsage[CGate,$QuantumSystemsUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -61,11 +61,11 @@ AssignUsage[CGate,$Usages];
 Unprotect[Op,QPower,QExpand,QSimplifyRules,QSimplify,ClearQSimplifyCache];
 
 
-AssignUsage[QExpand,$Usages];
-AssignUsage[QPower,$Usages];
-AssignUsage[QSimplifyRules,$Usages];
-AssignUsage[QSimplify,$Usages];
-AssignUsage[ClearQSimplifyCache,$Usages];
+AssignUsage[QExpand,$QuantumSystemsUsages];
+AssignUsage[QPower,$QuantumSystemsUsages];
+AssignUsage[QSimplifyRules,$QuantumSystemsUsages];
+AssignUsage[QSimplify,$QuantumSystemsUsages];
+AssignUsage[ClearQSimplifyCache,$QuantumSystemsUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -76,20 +76,20 @@ Unprotect[EntropyH,EntropyS,RelativeEntropyS,MutualInformationS];
 Unprotect[Purity,PNorm,Fidelity,EntangledQ,Concurrence,EntanglementF];
 
 
-AssignUsage[EntropyH,$Usages];
-AssignUsage[EntropyS,$Usages];
-AssignUsage[RelativeEntropyS,$Usages];
-AssignUsage[MutualInformationS,$Usages];
+AssignUsage[EntropyH,$QuantumSystemsUsages];
+AssignUsage[EntropyS,$QuantumSystemsUsages];
+AssignUsage[RelativeEntropyS,$QuantumSystemsUsages];
+AssignUsage[MutualInformationS,$QuantumSystemsUsages];
 
 
-AssignUsage[Purity,$Usages];
-AssignUsage[PNorm,$Usages];
-AssignUsage[Fidelity,$Usages];
+AssignUsage[Purity,$QuantumSystemsUsages];
+AssignUsage[PNorm,$QuantumSystemsUsages];
+AssignUsage[Fidelity,$QuantumSystemsUsages];
 
 
-AssignUsage[EntangledQ,$Usages];
-AssignUsage[Concurrence,$Usages];
-AssignUsage[EntanglementF,$Usages];
+AssignUsage[EntangledQ,$QuantumSystemsUsages];
+AssignUsage[Concurrence,$QuantumSystemsUsages];
+AssignUsage[EntanglementF,$QuantumSystemsUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -99,9 +99,9 @@ AssignUsage[EntanglementF,$Usages];
 Unprotect[RandomUnitary,RandomDensity,RandomHermitian];
 
 
-AssignUsage[RandomUnitary,$Usages];
-AssignUsage[RandomDensity,$Usages];
-AssignUsage[RandomHermitian,$Usages];
+AssignUsage[RandomUnitary,$QuantumSystemsUsages];
+AssignUsage[RandomDensity,$QuantumSystemsUsages];
+AssignUsage[RandomHermitian,$QuantumSystemsUsages];
 
 
 (* ::Subsection::Closed:: *)

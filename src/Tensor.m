@@ -32,7 +32,7 @@ BeginPackage["Tensor`",{"Predicates`"}];
 Needs["QUDevTools`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
+$TensorUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
 
 
 (* ::Section::Closed:: *)
@@ -46,16 +46,16 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}
 Unprotect[CircleTimes,BlockMatrix,UnitArray,TensorFactorPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
 
 
-AssignUsage[CircleTimes,$Usages];
-AssignUsage[\[DoubleStruckOne]->IdentityMatrixShorthand,$Usages];
-AssignUsage[BlockMatrix,$Usages];
-AssignUsage[UnitArray,$Usages];
-AssignUsage[TensorFactorPermutations,$Usages];
-AssignUsage[SwapMatrix,$Usages];
-AssignUsage[Com,$Usages];
-AssignUsage[ACom,$Usages];
-AssignUsage[OuterProduct,$Usages];
-AssignUsage[Projector,$Usages];
+AssignUsage[CircleTimes,$TensorUsages];
+AssignUsage[\[DoubleStruckOne]->IdentityMatrixShorthand,$TensorUsages];
+AssignUsage[BlockMatrix,$TensorUsages];
+AssignUsage[UnitArray,$TensorUsages];
+AssignUsage[TensorFactorPermutations,$TensorUsages];
+AssignUsage[SwapMatrix,$TensorUsages];
+AssignUsage[Com,$TensorUsages];
+AssignUsage[ACom,$TensorUsages];
+AssignUsage[OuterProduct,$TensorUsages];
+AssignUsage[Projector,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -65,12 +65,12 @@ AssignUsage[Projector,$Usages];
 Unprotect[MatrixToTensor,MatrixTranspose,Swap,Reshuffle,Unravel,Reravel];
 
 
-AssignUsage[MatrixToTensor,$Usages];
-AssignUsage[MatrixTranspose,$Usages];
-AssignUsage[Swap,$Usages];
-AssignUsage[Reshuffle,$Usages];
-AssignUsage[Unravel,$Usages];
-AssignUsage[Reravel,$Usages];
+AssignUsage[MatrixToTensor,$TensorUsages];
+AssignUsage[MatrixTranspose,$TensorUsages];
+AssignUsage[Swap,$TensorUsages];
+AssignUsage[Reshuffle,$TensorUsages];
+AssignUsage[Unravel,$TensorUsages];
+AssignUsage[Reravel,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -80,10 +80,10 @@ AssignUsage[Reravel,$Usages];
 Unprotect[PartialTr,TensorPairContract,MatrixContract,MatrixPairContract];
 
 
-AssignUsage[PartialTr,$Usages];
-AssignUsage[TensorPairContract,$Usages];
-AssignUsage[MatrixContract,$Usages];
-AssignUsage[MatrixPairContract,$Usages];
+AssignUsage[PartialTr,$TensorUsages];
+AssignUsage[TensorPairContract,$TensorUsages];
+AssignUsage[MatrixContract,$TensorUsages];
+AssignUsage[MatrixPairContract,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -93,9 +93,9 @@ AssignUsage[MatrixPairContract,$Usages];
 Unprotect[Basis,BasisLabels,ExpressInBasis];
 
 
-AssignUsage[Basis,$Usages];
-AssignUsage[BasisLabels,$Usages];
-AssignUsage[ExpressInBasis,$Usages];
+AssignUsage[Basis,$TensorUsages];
+AssignUsage[BasisLabels,$TensorUsages];
+AssignUsage[ExpressInBasis,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -105,11 +105,11 @@ AssignUsage[ExpressInBasis,$Usages];
 Unprotect[Vec,Devec,ProductIdentity,BasisMatrix,BasisTransformation];
 
 
-AssignUsage[Vec,$Usages];
-AssignUsage[Devec,$Usages];
-AssignUsage[ProductIdentity,$Usages];
-AssignUsage[BasisMatrix,$Usages];
-AssignUsage[BasisTransformation,$Usages];
+AssignUsage[Vec,$TensorUsages];
+AssignUsage[Devec,$TensorUsages];
+AssignUsage[ProductIdentity,$TensorUsages];
+AssignUsage[BasisMatrix,$TensorUsages];
+AssignUsage[BasisTransformation,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -119,7 +119,7 @@ AssignUsage[BasisTransformation,$Usages];
 Unprotect[TP];
 
 
-AssignUsage[TP,$Usages];
+AssignUsage[TP,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
