@@ -37,7 +37,7 @@ BeginPackage["QUDevTools`"];
 (*Because this package defines LoadUsages and AssignUsage, functions from this package cannot (easily) be documented in the way that other packages are with auxilliary notebooks.*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -127,6 +127,12 @@ NotebookLink::usage = "NotebookLink[notebookFile_,name_,description_] generates 
 SourceCodeButton::usage = "SourceCodeButton[] creates a button to the source code of the .m file with the same name as the current document."
 
 
+QUPackages::usage = "Creates links to documentation notebooks for index.nb."
+
+
+Tutorials::usage = "Creates links to tutorial notebooks for index.nb."
+
+
 (* ::Subsection::Closed:: *)
 (*Unit Testing Framework*)
 
@@ -142,7 +148,7 @@ RunTest::usage = "RunTest[name->expr] runs an instance of TestCase and returns i
 AssignUsage::nousg = "No usage message in `1` for symbol `2` found; using a blank message instead.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -360,6 +366,28 @@ NotebookLink[notebookFile_,name_,description_]:=Module[{headStyle},
 SourceCodeButton[]:=Button["Open Source Code",Needs["QUDevTools`"];NotebookOpen[
 	FileNameJoin[{$QUSourcePath,FileBaseName[NotebookFileName[]]<>".m"}]
 ]]
+
+
+QUPackages:=(
+(NotebookLink["api-doc/"<>#1<>".nb",#1,#2];)&@@@Sort[{
+{"ControlTheory","A package of tools commonly used in quantum control theory."},
+{"GRAPE","An implementation of GRadient Ascent Pulse Engineering."},
+{"Predicates","Provides type testing functions used by other packages."},
+{"Perturbation","A collection of perturbative expansion tools such as the Magnus series, the Zassenhaus formula, and matrix perturbation power series."},
+{"LindbladSolver","A set of functions for numerically or symbolically solving Schrodinger equations and Lindblad master equations."},
+{"QSim","A general purpose quantum system time-evolution simulator whose primary objective is ease of use."},
+{"QuantumChannel","Tools for constructing and manipulating quantum channels in various representations."},
+{"QuantumSystems","Tools for modelling quantum systems of qudits, spins, cavities and circuits."},
+{"Tensor","A package of tensor manipulations for multipartite quantum systems."},
+{"Visualization","A suite of tools for displaying matrices, quantum states, data, etc."},
+{"QUTesting","Functions for running unit tests for QuantumUtils packages."}
+}];)
+
+
+Tutorials:=(
+(NotebookLink["tutorials/"<>#1<>".nb",#2,#3];)&@@@Sort[{
+{"notebook-name","Display Name","Description."}
+}];)
 
 
 (* ::Subsection::Closed:: *)
