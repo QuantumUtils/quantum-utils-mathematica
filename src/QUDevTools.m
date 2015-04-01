@@ -22,14 +22,14 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
 BeginPackage["QUDevTools`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Note*)
 
 
@@ -66,7 +66,8 @@ Polyfill[10,
 
 QuantumUtilsOptions::usage = "QuantumUtilsOptions[] returns a list of options, formatted as Rules, that configure the QuantumUtils` package.";
 $QUDocumentationPath::usage = "$QUDocumentationPath returns the path to documentation for QuantumUtils`.";
-$QUSourcePath::usage = "$QUDocumentationPath returns the path to the source folder for QuantumUtils`.";
+$QUSourcePath::usage = "$QUSourcePath returns the path to the source folder for QuantumUtils`.";
+$QUTestingPath::usage = "$QUTesting returns the path to the test folder for QuantumUtils`.";
 
 
 (* ::Subsection::Closed:: *)
@@ -127,6 +128,14 @@ SourceCodeButton::usage = "SourceCodeButton[] creates a button to the source cod
 
 
 (* ::Subsection::Closed:: *)
+(*Unit Testing Framework*)
+
+
+TestCase::usage = "TestCase[name,expr] generates a new tests case named 'name' that asserts that 'expr' evaluates to True.";
+RunTest::usage = "RunTest[name->expr] runs an instance of TestCase and returns if the result was True, False or returned an Error. RunTest is Listable for lists of tests.";
+
+
+(* ::Subsection::Closed:: *)
 (*Messages*)
 
 
@@ -184,6 +193,7 @@ QuantumUtilsOptions[] := QuantumUtilsOptions[] = Module[{opts},
 
 $QUDocumentationPath = DocumentationPath /. QuantumUtilsOptions[];
 $QUSourcePath = SourcePath /. QuantumUtilsOptions[];
+$QUTestingPath = TestingPath /. QuantumUtilsOptions[];
 
 
 (* ::Subsection::Closed:: *)
@@ -353,14 +363,43 @@ SourceCodeButton[]:=Button["Open Source Code",Needs["QUDevTools`"];NotebookOpen[
 
 
 (* ::Subsection::Closed:: *)
+(*Unit Testing Framework*)
+
+
+SetAttributes[TestCase, HoldAll];
+
+TestCase[testVar_,name_, expr_] := (
+	AppendTo[Unevaluated[testVar], name -> Hold[expr]];
+	Null
+);
+
+
+SetAttributes[RunTest,Listable];
+
+
+RunTest[name_ -> expr_] := Module[{result}, 
+	result = Quiet[
+		Check[ReleaseHold[expr], $Failed]
+	];
+
+	If[Not[TrueQ @ result],
+		Print[name <> ":\t" <> (result /. {False -> "Failed", $Failed -> "Error", _ -> "Did something very weird indeed."})]
+	];
+
+	name -> (result /. {
+		True -> "T",
+		False -> "F",
+		$Failed -> "E",
+		_ -> "?"
+	})
+];
+
+
+(* ::Subsection::Closed:: *)
 (*End Private*)
 
 
 End[];
-
-
-(* ::Section:: *)
-(*Links*)
 
 
 (* ::Section::Closed:: *)

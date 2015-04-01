@@ -2,7 +2,7 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
-(*Unit Testing Framework*)
+(*Unit Testing*)
 
 
 (* ::Subsection::Closed:: *)
@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["UnitTesting`"];
+BeginPackage["QUTesting`"];
 
 
 (* ::Text:: *)
@@ -36,61 +36,87 @@ BeginPackage["UnitTesting`"];
 Needs["QUDevTools`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "UnitTesting.nb"}]];
+(*$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "UnitTesting.nb"}]];*)
 
 
 (* ::Section:: *)
-(*Usage Declaration*)
+(*Usage Declarations*)
 
 
-(* ::Subsection:: *)
-(*Test Cases and Harnesses*)
+TestResults::usage = "Unicorn";
 
 
-AssignUsage[{TestCase, RunAllTests}, $Usages];
+RunAllTests::usage = "RunAllTests[] runs all previously registered unit tests and reports on which, if any, failed or generated errors.";
+
+
+(*AssignUsage[{TestCase, RunAllTests}, $Usages];*)
 
 
 (* ::Section:: *)
-(*Implementations*)
+(*Implimentation*)
 
 
 Begin["`Private`"];
 
 
 (* ::Subsection:: *)
-(*Test Cases and Harnesses*)
+(*Test Results*)
 
 
-$RegisteredTests = {};
+(* ::Text:: *)
+(*Unit tests for a package "name.m" are stored in the /tests/ folder under under the name "nameTests.m"*)
 
 
-SetAttributes[TestCase, HoldRest];
-
-TestCase[name_, expr_] := (
-	$RegisteredTests = $RegisteredTests ~Join~ {name -> Hold[expr]};
-	Null
-);
+(* ::Text:: *)
+(*The results of the unit tests are stored in the variable nameTests`UnitTests`$TestResults, which is set to delayed evaluation so that the tests will not be run until the variable is called.*)
 
 
-RunOneTest[name_ -> expr_] := Module[{result}, 
-	result = Quiet[
-		Check[ReleaseHold[expr], $Failed]
-	];
-
-	If[Not[TrueQ @ result],
-		Print[name <> ":\t" <> (result /. {False -> "Failed", $Failed -> "Error", _ -> "Did something very weird indeed."})]
-	];
-
-	name -> (result /. {
-		True -> "T",
-		False -> "F",
-		$Failed -> "E",
-		_ -> "?"
-	})
-];
+(* ::Text:: *)
+(*To call the test results of an individual package use TestResults["name"].  For example: TestResults["Tensor"]*)
 
 
-RunAllTests[] := RunOneTest /@ $RegisteredTests
+TestResults[name_String]:=(
+	Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
+	ToExpression[name<>"Tests`UnitTests`$TestResults"])
+
+
+TestResults[]:=Join@@Map[TestResults,$UnitTestManifest]
+
+
+(* ::Text:: *)
+(*Registered unit test packages*)
+
+
+$UnitTestManifest={
+	"Predicates",
+	"Tensor",
+	"QuantumSystems",
+	"QuantumChannel",
+	"LindbladSolver"
+	};
+
+
+(* ::Subsection:: *)
+(*Run All Tests*)
+
+
+(* ::Text:: *)
+(*This function checks how many unit tests passed, failed, or returned errors.*)
+
+
+RunAllTests[] := (
+	PrintTemporary["Running unit tests..."];
+	Block[{results,n,pass,fail,error},	
+		results = TestResults[];
+		n = Length[results];
+		pass=Length@Select[results,MatchQ[#,_->"T"]&];
+		fail=Length@Select[results,MatchQ[#,_->"F"]&];
+		error=Length@Select[results,MatchQ[#,_->"E"]&];
+		Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests passed."];
+		If[fail>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests failed."];
+		If[error>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests returned errors."]];
+		]
+	])
 
 
 (* ::Subsection::Closed:: *)
