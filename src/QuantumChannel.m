@@ -183,7 +183,7 @@ SysEnvQ[set_]:=Or[SysEnvSingleQ[set],SysEnvPairQ[set]];
 SysEnvUnitaryQ[set_]:=And[SysEnvSingleQ[set],MemberQ[{{1},{1,1}},Dimensions@Last[set]]]
 
 
-ChoiUnitaryQ[choi_]:=SameQ[1,Length[Select[Eigenvalues[choi],PossiblyNonzeroQ]]]
+ChoiUnitaryQ[choi_]:=SameQ[1,Length[Select[Eigenvalues[choi,2],PossiblyNonzeroQ]]]
 
 
 UnitaryChannelQ[chan_QuantumChannel]:=
