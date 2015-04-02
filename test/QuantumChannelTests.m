@@ -37,7 +37,7 @@ Needs["QUDevTools`"];
 Needs["QuantumChannel`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Results*)
 
 
@@ -51,7 +51,7 @@ $TestResults := RunTest[$RegisteredTests];
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Unit Tests*)
 
 
@@ -875,7 +875,7 @@ TestCase[$RegisteredTests,"QuantumChannel:SimplifyFunctions",
 	]]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channel Functions*)
 
 
@@ -921,6 +921,21 @@ TestCase[$RegisteredTests,"QuantumChannel:EntanglementFidelity",
 	]]];
 
 ];
+
+
+TestCase[$RegisteredTests, "QuantumChannel:Unitarity",
+	And[
+		Unitarity[Unitary @ TP[X]] == 1,
+		Unitarity[Super[Projector[UnitVector[4,1]], Basis -> "Pauli"]] == 0,
+		Unitarity[Super[{
+			{1, 0, 0, 1},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0},
+			{0, 0, 0, 0}
+		}, Basis -> "Pauli"]] == 0,
+		Unitarity[Kraus[{Sqrt[1/2]TP[I],Sqrt[1/2]TP[X]}]] == 1/3
+	]
+]
 
 
 TestCase[$RegisteredTests,"QuantumChannel:ChannelVolume",

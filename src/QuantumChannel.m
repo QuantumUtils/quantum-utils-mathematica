@@ -36,7 +36,7 @@ Needs["QuantumSystems`"]
 $QuantumChannelUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
 
 
@@ -65,11 +65,11 @@ AssignUsage[ChannelRep,$QuantumChannelUsages];
 AssignUsage[ChannelParameters,$QuantumChannelUsages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channel Functions*)
 
 
-Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume];
+Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume, Unitarity];
 
 
 AssignUsage[ProcessFidelity,$QuantumChannelUsages];
@@ -77,6 +77,7 @@ AssignUsage[GateFidelity,$QuantumChannelUsages];
 AssignUsage[AverageGateFidelity,$QuantumChannelUsages];
 AssignUsage[EntanglementFidelity,$QuantumChannelUsages];
 AssignUsage[ChannelVolume,$QuantumChannelUsages];
+AssignUsage[Unitarity,$QuantumChannelUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -137,7 +138,7 @@ Lindblad::input = "Input must be a matrix, list of matrices, or sequence of matr
 FunctionChannel::indims = "InputDims option must be an integer.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -991,7 +992,7 @@ Evaluate[Map[(
 	$ChannelSimplifyFunctions];]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Fidelity and Volume*)
 
 
@@ -1032,6 +1033,14 @@ EntanglementFidelity[state_,chan_QuantumChannel]:=
 ]
 
 EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=EntanglementFidelity[state,ConjugateTranspose[Super[chan2,Basis->"Col"]].chan1]
+
+
+Unitarity[chan_QuantumChannel] :=
+	With[{
+		Eu = First[Super[chan, Basis -> "Pauli"]][[2;;, 2;;]]
+	},
+	Tr[Eu\[HermitianConjugate].Eu] / (First @ Dimensions @ Eu)
+]
 
 
 (* ::Subsection::Closed:: *)
