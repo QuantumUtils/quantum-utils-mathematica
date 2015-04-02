@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -376,7 +376,7 @@ Functions[data_,OptionsPattern[{TimeVector->False}]]:=
 Functions[data_,n_,opt:OptionsPattern[{TimeVector->False}]]:=Functions[data,opt][[n]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Simulators*)
 
 
@@ -641,13 +641,13 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 	(* Manual Case *)
 		outputList=OptionValue[SimulationOutput];
 		If[Not[ListQ[outputList]],outputList={outputList}];
+		If[isSuper&&MemberQ[outputList,Unitaries],Message[PulseSim::notunitary]];
 	];
 	AppendTo[outputList,TimeVector];
-	requiresInputState=AnyQ[MemberQ[outputList,#]&,{States,Observables,Functions}];
-	requiresProp=AnyQ[MemberQ[outputList,#]&,{Unitaries,Superoperators}];
+	requiresInputState=AnyQ[MemberQ[outputList,#]&,{States,Observables}];
+	requiresProp=AnyQ[MemberQ[outputList,#]&,{Unitaries,Superoperators}]||(MemberQ[outputList,Functions]&&Not[hasInputState]);
 	(* Check for some problems *)
 	If[Not[hasInputState]&&requiresInputState,Message[PulseSim::initstate];Abort[];];
-	If[isSuper&&MemberQ[outputList,Unitaries],Message[PulseSim::notunitary]];
 	(* We simply replace Unitaries output with Superoperators output in the case where we have dissipation. *)
 	If[isSuper,outputList = outputList /. Unitaries->Superoperators;];
 	outputList=DeleteDuplicates[outputList];
@@ -659,10 +659,10 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 	AppendReturnables[Observables,P_,\[Rho]_,t_]:=AppendTo[obsVals,Re[Tr[#.\[Rho]]]&/@obsVar];
 	If[hasInputState,
 		AppendReturnables[Functions,P_,\[Rho]_,t_]:=AppendTo[funVals,#[\[Rho]]&/@funVar];,
-		(* The following will get called with P as unitary or super *)
+		(* The following will get called with P as unitary or Super *)
 		AppendReturnables[Functions,P_,\[Rho]_,t_]:=AppendTo[funVals,#[P]&/@funVar];
 	];
-	(* The following will never get called with P as super *)
+	(* The following will never get called with P as Super *)
 	AppendReturnables[Unitaries,P_,\[Rho]_,t_]:=AppendTo[uniVals,P];
 	(* The following will never get called with P as unitary *)
 	AppendReturnables[Superoperators,P_,\[Rho]_,t_]:=AppendTo[sosVals,P];
@@ -673,8 +673,8 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 		requiresInputState&&requiresProp,
 			If[isSuper,
 				If[isLindblad||isChannel,
-					AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},Map[AppendReturnables[#,S,\[Rho],t]&,outputList]];,
-					AppendReturnables[U_,t_]:=With[{\[Rho]=U.staVar.U\[ConjugateTranspose]},Map[AppendReturnables[#,Conjugate[U]\[CircleTimes]U,\[Rho],t]&,outputList]];
+					AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},Map[AppendReturnables[#,Super[S],\[Rho],t]&,outputList]];,
+					AppendReturnables[U_,t_]:=With[{\[Rho]=U.staVar.U\[ConjugateTranspose]},Map[AppendReturnables[#,Super@Unitary[U],\[Rho],t]&,outputList]];
 				],
 				AppendReturnables[U_,t_]:=With[{\[Rho]=U.staVar.U\[ConjugateTranspose]},Map[AppendReturnables[#,U,\[Rho],t]&,outputList]];
 			];,
@@ -687,9 +687,12 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 				AppendReturnables[U_,t_]:=With[{\[Rho]=U.staVar.U\[ConjugateTranspose]},Map[AppendReturnables[#,None,\[Rho],t]&,outputList]];
 			];,
 		requiresProp,
-			If[isSuper&&Not[isLindblad||isChannel],
-				AppendReturnables[U_,t_]:=Map[AppendReturnables[#,Conjugate[U]\[CircleTimes]U,None,t]&,outputList];,
-				AppendReturnables[P_,t_]:=Map[AppendReturnables[#,P,None,t]&,outputList];
+			If[isSuper,
+				If[isLindblad||isChannel,
+					AppendReturnables[S_,t_]:=Map[AppendReturnables[#,Super[S],None,t]&,outputList];,
+					AppendReturnables[U_,t_]:=Map[AppendReturnables[#,Super@Unitary[U],None,t]&,outputList];
+				],
+				AppendReturnables[U_,t_]:=Map[AppendReturnables[#,U,None,t]&,outputList];
 			];
 	];
 
@@ -803,7 +806,7 @@ PulseSim[H_?GeneratorQ,pulse_?(PulseQ[#]||PulseSequenceQ[#]&),distribution_?Dist
 		AddHead[Superoperators,Sum[probs[[n]]Superoperators[allData[[n]]],{n,Length@probs}]]
 	];
 	If[MemberQ[heads,Unitaries],
-		AddHead[Superoperators,Sum[probs[[n]](First[Super@Unitary[#]]&/@Unitaries[allData[[n]]]),{n,Length@probs}]]
+		AddHead[Superoperators,Sum[probs[[n]](Super@Unitary[#]&/@Unitaries[allData[[n]]]),{n,Length@probs}]]
 	];
 	out
 ]
