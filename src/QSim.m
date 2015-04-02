@@ -35,11 +35,10 @@ BeginPackage["QSim`",{"QuantumChannel`","Predicates`"}];
 
 Needs["LindbladSolver`"];
 Needs["Tensor`"];
-Needs["UnitTesting`"];
 Needs["QUDevTools`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QSim.nb"}]];
+$QSimUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QSim.nb"}]];
 
 
 (* ::Section:: *)
@@ -96,7 +95,7 @@ AssignUsage[
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Auxiliary Functions*)
 
 
@@ -117,7 +116,7 @@ AssignUsage[
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Simulator*)
 
 
@@ -128,7 +127,7 @@ AssignUsage[PulseSim,$Usages];
 PulseSim::badControlDim = "The internal Hamiltonian dimension, `1`, is neither equal to nor a multiple of (one of) the control Hamiltonian dimension(s), `2`.";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Pulse Sequences*)
 
 
