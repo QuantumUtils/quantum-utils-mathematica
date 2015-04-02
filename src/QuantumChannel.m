@@ -65,7 +65,7 @@ AssignUsage[ChannelRep,$QuantumChannelUsages];
 AssignUsage[ChannelParameters,$QuantumChannelUsages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Channel Functions*)
 
 
@@ -992,7 +992,7 @@ Evaluate[Map[(
 	$ChannelSimplifyFunctions];]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Fidelity and Volume*)
 
 
@@ -1076,7 +1076,7 @@ AComChannel[A_QuantumChannel]:=
 LindbladDissipator[ops_]:=
 Which[
 	MatrixQ[ops],
-		Unitary[ops]-AComChannel[ConjugateTranspose[ops].ops]/2,
+		Super@Unitary[ops]-AComChannel[ConjugateTranspose[ops].ops]/2,
 	AllQ[MatrixQ,ops],
 		Total[LindbladDissipator/@ops],
 	True,
