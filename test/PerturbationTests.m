@@ -2,7 +2,7 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
-(*Unit Testing Framework*)
+(*Perturbation Unit Tests*)
 
 
 (* ::Subsection::Closed:: *)
@@ -22,11 +22,11 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
-BeginPackage["UnitTesting`"];
+BeginPackage["PerturbationTests`"];
 
 
 (* ::Text:: *)
@@ -34,67 +34,32 @@ BeginPackage["UnitTesting`"];
 
 
 Needs["QUDevTools`"];
+Needs["Perturbation`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "UnitTesting.nb"}]];
+(* ::Section::Closed:: *)
+(*Results*)
 
 
-(* ::Section:: *)
-(*Usage Declaration*)
+Begin["`UnitTests`"];
 
 
-(* ::Subsection:: *)
-(*Test Cases and Harnesses*)
+$RegisteredTests={};
+$TestResults := RunTest[$RegisteredTests];
 
 
-AssignUsage[{TestCase, RunAllTests}, $Usages];
+End[];
 
 
-(* ::Section:: *)
-(*Implementations*)
+(* ::Section::Closed:: *)
+(*Unit Tests*)
 
 
-Begin["`Private`"];
-
-
-(* ::Subsection:: *)
-(*Test Cases and Harnesses*)
-
-
-$RegisteredTests = {};
-
-
-SetAttributes[TestCase, HoldRest];
-
-TestCase[name_, expr_] := (
-	$RegisteredTests = $RegisteredTests ~Join~ {name -> Hold[expr]};
-	Null
-);
-
-
-RunOneTest[name_ -> expr_] := Module[{result}, 
-	result = Quiet[
-		Check[ReleaseHold[expr], $Failed]
-	];
-
-	If[Not[TrueQ @ result],
-		Print[name <> ":\t" <> (result /. {False -> "Failed", $Failed -> "Error", _ -> "Did something very weird indeed."})]
-	];
-
-	name -> (result /. {
-		True -> "T",
-		False -> "F",
-		$Failed -> "E",
-		_ -> "?"
-	})
-];
-
-
-RunAllTests[] := RunOneTest /@ $RegisteredTests
+Begin["`UnitTests`"];
 
 
 (* ::Subsection::Closed:: *)
-(*End Private*)
+(*End*)
 
 
 End[];

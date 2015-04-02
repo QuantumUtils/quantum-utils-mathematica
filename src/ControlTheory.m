@@ -30,10 +30,9 @@ BeginPackage["ControlTheory`",{"Tensor`"}];
 
 
 Needs["QUDevTools`"];
-Needs["UnitTesting`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "ControlTheory.nb"}]];
+$ControlTheoryUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "ControlTheory.nb"}]];
 
 
 (* ::Section:: *)
@@ -49,20 +48,20 @@ StoppingDepth,StoppingDimension,AssumeHamiltonians,GeneratorSymbols,
 NumericalLieAlgebra];
 
 
-AssignUsage[GenerateLieAlgebra,$Usages];
+AssignUsage[GenerateLieAlgebra,$ControlTheoryUsages];
 
 
-AssignUsage[G,$Usages];
+AssignUsage[G,$ControlTheoryUsages];
 
 
-AssignUsage[LieOperation,$Usages];
-AssignUsage[VSField,$Usages];
-AssignUsage[LinearIndependenceFun,$Usages];
-AssignUsage[StoppingDepth,$Usages];
-AssignUsage[StoppingDimension,$Usages];
-AssignUsage[AssumeHamiltonians,$Usages];
-AssignUsage[GeneratorSymbols,$Usages];
-AssignUsage[NumericalLieAlgebra,$Usages];
+AssignUsage[LieOperation,$ControlTheoryUsages];
+AssignUsage[VSField,$ControlTheoryUsages];
+AssignUsage[LinearIndependenceFun,$ControlTheoryUsages];
+AssignUsage[StoppingDepth,$ControlTheoryUsages];
+AssignUsage[StoppingDimension,$ControlTheoryUsages];
+AssignUsage[AssumeHamiltonians,$ControlTheoryUsages];
+AssignUsage[GeneratorSymbols,$ControlTheoryUsages];
+AssignUsage[NumericalLieAlgebra,$ControlTheoryUsages];
 
 
 (* ::Subsubsection:: *)
@@ -260,10 +259,6 @@ GenerateLieAlgebra[generators__,OptionsPattern[]]:=Module[
 
 
 End[];
-
-
-(* ::Section:: *)
-(*Unit Testing*)
 
 
 (* ::Section::Closed:: *)

@@ -30,11 +30,10 @@ BeginPackage["Perturbation`"];
 
 
 Needs["QUDevTools`"];
-Needs["UnitTesting`"];
 Needs["Tensor`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Perturbation.nb"}]];
+$PerturbationsUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Perturbation.nb"}]];
 
 
 (* ::Section:: *)
@@ -48,10 +47,10 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Perturbatio
 Unprotect[MagnusExpansionTerm,MagnusExpansion,MagnusConvergenceTest,ClearMagnusCache];
 
 
-AssignUsage[MagnusExpansionTerm,$Usages];
-AssignUsage[MagnusExpansion,$Usages];
-AssignUsage[MagnusConvergenceTest,$Usages];
-AssignUsage[ClearMagnusCache,$Usages];
+AssignUsage[MagnusExpansionTerm,$PerturbationsUsages];
+AssignUsage[MagnusExpansion,$PerturbationsUsages];
+AssignUsage[MagnusConvergenceTest,$PerturbationsUsages];
+AssignUsage[ClearMagnusCache,$PerturbationsUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -61,8 +60,8 @@ AssignUsage[ClearMagnusCache,$Usages];
 Unprotect[AverageHamiltonianTerm,AverageHamiltonian];
 
 
-AssignUsage[AverageHamiltonianTerm,$Usages];
-AssignUsage[AverageHamiltonian,$Usages];
+AssignUsage[AverageHamiltonianTerm,$PerturbationsUsages];
+AssignUsage[AverageHamiltonian,$PerturbationsUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -72,8 +71,8 @@ AssignUsage[AverageHamiltonian,$Usages];
 Unprotect[FirstOrderEigenvector,SecondOrderEigenvalue];
 
 
-AssignUsage[FirstOrderEigenvector,$Usages];
-AssignUsage[SecondOrderEigenvalue,$Usages];
+AssignUsage[FirstOrderEigenvector,$PerturbationsUsages];
+AssignUsage[SecondOrderEigenvalue,$PerturbationsUsages];
 
 
 (* ::Subsection:: *)
@@ -83,10 +82,10 @@ AssignUsage[SecondOrderEigenvalue,$Usages];
 Unprotect[ZassenhausTerm,ZassenhausSeries,ZassenhausExpansion,ClearZassenhausCache];
 
 
-AssignUsage[ZassenhausTerm,$Usages];
-AssignUsage[ZassenhausSeries,$Usages];
-AssignUsage[ZassenhausExpansion,$Usages];
-AssignUsage[ClearZassenhausCache,$Usages];
+AssignUsage[ZassenhausTerm,$PerturbationsUsages];
+AssignUsage[ZassenhausSeries,$PerturbationsUsages];
+AssignUsage[ZassenhausExpansion,$PerturbationsUsages];
+AssignUsage[ClearZassenhausCache,$PerturbationsUsages];
 
 
 (* ::Section:: *)
@@ -455,10 +454,6 @@ ZassenhausExpansion[\[Lambda]_:1,X_,Y_,n_]:=ZassenhausExpansionCached[\[Lambda],
 
 
 End[];
-
-
-(* ::Section:: *)
-(*Unit Testing*)
 
 
 (* ::Section:: *)

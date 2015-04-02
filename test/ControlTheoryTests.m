@@ -2,9 +2,10 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
+(*Control Theory Unit Tests*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Copyright and License Information*)
 
 
@@ -25,26 +26,46 @@
 (*Preamble*)
 
 
+BeginPackage["ControlTheoryTests`"];
+
+
 (* ::Text:: *)
-(*This package just exposes all user-end packages in Quantum Utils.*)
+(*The following packages are needed, but their contexts should not be loaded globally.*)
 
 
-BeginPackage["QuantumUtils`",{
-	"ControlTheory`",
-	"GRAPE`",
-	"LindbladSolver`",
-	"Predicates`",
-	"Perturbation`",
-	"QSim`",
-	"QuantumSystems`",
-	"QuantumChannel`",
-	"Tensor`",
-	"Visualization`",
-	"QUTesting`"
-}];
+Needs["QUDevTools`"];
+Needs["ControlTheory`"];
 
 
 (* ::Section::Closed:: *)
+(*Results*)
+
+
+Begin["`UnitTests`"];
+
+
+$RegisteredTests={};
+$TestResults := RunTest[$RegisteredTests];
+
+
+End[];
+
+
+(* ::Section::Closed:: *)
+(*Unit Tests*)
+
+
+Begin["`UnitTests`"];
+
+
+(* ::Subsection::Closed:: *)
+(*End*)
+
+
+End[];
+
+
+(* ::Section:: *)
 (*End Package*)
 
 

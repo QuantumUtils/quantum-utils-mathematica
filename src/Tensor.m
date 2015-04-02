@@ -30,10 +30,9 @@ BeginPackage["Tensor`",{"Predicates`"}];
 
 
 Needs["QUDevTools`"];
-Needs["UnitTesting`"];
 
 
-$Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
+$TensorUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
 
 
 (* ::Section::Closed:: *)
@@ -47,16 +46,16 @@ $Usages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}
 Unprotect[CircleTimes,BlockMatrix,UnitArray,TensorFactorPermutations,OuterProduct,Projector,Com,ACom,SwapMatrix];
 
 
-AssignUsage[CircleTimes,$Usages];
-AssignUsage[\[DoubleStruckOne]->IdentityMatrixShorthand,$Usages];
-AssignUsage[BlockMatrix,$Usages];
-AssignUsage[UnitArray,$Usages];
-AssignUsage[TensorFactorPermutations,$Usages];
-AssignUsage[SwapMatrix,$Usages];
-AssignUsage[Com,$Usages];
-AssignUsage[ACom,$Usages];
-AssignUsage[OuterProduct,$Usages];
-AssignUsage[Projector,$Usages];
+AssignUsage[CircleTimes,$TensorUsages];
+AssignUsage[\[DoubleStruckOne]->IdentityMatrixShorthand,$TensorUsages];
+AssignUsage[BlockMatrix,$TensorUsages];
+AssignUsage[UnitArray,$TensorUsages];
+AssignUsage[TensorFactorPermutations,$TensorUsages];
+AssignUsage[SwapMatrix,$TensorUsages];
+AssignUsage[Com,$TensorUsages];
+AssignUsage[ACom,$TensorUsages];
+AssignUsage[OuterProduct,$TensorUsages];
+AssignUsage[Projector,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -66,12 +65,12 @@ AssignUsage[Projector,$Usages];
 Unprotect[MatrixToTensor,MatrixTranspose,Swap,Reshuffle,Unravel,Reravel];
 
 
-AssignUsage[MatrixToTensor,$Usages];
-AssignUsage[MatrixTranspose,$Usages];
-AssignUsage[Swap,$Usages];
-AssignUsage[Reshuffle,$Usages];
-AssignUsage[Unravel,$Usages];
-AssignUsage[Reravel,$Usages];
+AssignUsage[MatrixToTensor,$TensorUsages];
+AssignUsage[MatrixTranspose,$TensorUsages];
+AssignUsage[Swap,$TensorUsages];
+AssignUsage[Reshuffle,$TensorUsages];
+AssignUsage[Unravel,$TensorUsages];
+AssignUsage[Reravel,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -81,10 +80,10 @@ AssignUsage[Reravel,$Usages];
 Unprotect[PartialTr,TensorPairContract,MatrixContract,MatrixPairContract];
 
 
-AssignUsage[PartialTr,$Usages];
-AssignUsage[TensorPairContract,$Usages];
-AssignUsage[MatrixContract,$Usages];
-AssignUsage[MatrixPairContract,$Usages];
+AssignUsage[PartialTr,$TensorUsages];
+AssignUsage[TensorPairContract,$TensorUsages];
+AssignUsage[MatrixContract,$TensorUsages];
+AssignUsage[MatrixPairContract,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -94,9 +93,9 @@ AssignUsage[MatrixPairContract,$Usages];
 Unprotect[Basis,BasisLabels,ExpressInBasis];
 
 
-AssignUsage[Basis,$Usages];
-AssignUsage[BasisLabels,$Usages];
-AssignUsage[ExpressInBasis,$Usages];
+AssignUsage[Basis,$TensorUsages];
+AssignUsage[BasisLabels,$TensorUsages];
+AssignUsage[ExpressInBasis,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -106,11 +105,11 @@ AssignUsage[ExpressInBasis,$Usages];
 Unprotect[Vec,Devec,ProductIdentity,BasisMatrix,BasisTransformation];
 
 
-AssignUsage[Vec,$Usages];
-AssignUsage[Devec,$Usages];
-AssignUsage[ProductIdentity,$Usages];
-AssignUsage[BasisMatrix,$Usages];
-AssignUsage[BasisTransformation,$Usages];
+AssignUsage[Vec,$TensorUsages];
+AssignUsage[Devec,$TensorUsages];
+AssignUsage[ProductIdentity,$TensorUsages];
+AssignUsage[BasisMatrix,$TensorUsages];
+AssignUsage[BasisTransformation,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -120,7 +119,7 @@ AssignUsage[BasisTransformation,$Usages];
 Unprotect[TP];
 
 
-AssignUsage[TP,$Usages];
+AssignUsage[TP,$TensorUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -907,277 +906,6 @@ TP[str_,opts:OptionsPattern[TP]]:=Total[
 
 (* ::Subsection::Closed:: *)
 (*End Private*)
-
-
-End[];
-
-
-(* ::Section::Closed:: *)
-(*Unit Testing*)
-
-
-Begin["`Private`"];
-
-
-(* ::Subsection::Closed:: *)
-(*Matrices and Operations*)
-
-
-TestCase["Tensor:CircleTimes", 
-	And[
-		Module[{a},CircleTimes[a->3]===CircleTimes[a,a,a]],
-		CircleTimes[{1,0},{1,0}]==={1,0,0,0},
-		CircleTimes[{1,0},{{1,0},{0,0}}]==={{1,0},{0,0},{0,0},{0,0}},
-		Module[{b},CircleTimes[3,b->2,{1,0}]===3*CircleTimes[b,b,{1,0}]]
-	]];
-
-
-TestCase["Tensor:\[DoubleStruckOne]", And[Subscript[\[DoubleStruckOne], 0]==={{}}, Subscript[\[DoubleStruckOne], 3]===IdentityMatrix[3]]];
-
-
-TestCase["Tensor:BlockMatrix", 
-	SameQ[
-		BlockMatrix[{{1,1},{1,1}},{{2,2},{2,2}}],
-		{{1,1,0,0},{1,1,0,0},{0,0,2,2},{0,0,2,2}}
-	]];
-
-
-TestCase["Tensor:UnitArray", UnitArray[{2,2},{1,1}]==={{1,0},{0,0}}];
-
-
-TestCase["Tensor:TensorFactorPermutations", 
-	Module[{a,b},
-		AllMatchQ[
-			CircleTimes[a,a,b]+CircleTimes[a,b,a]+CircleTimes[b,a,a],
-			{TensorFactorPermutations[{a,2},{b,1}],
-			TensorFactorPermutations[a->2,b->1]}]
-		
-	]];
-
-
-TestCase["Tensor:SwapMatrix",
-	And[
-		SwapMatrix[2,{2,1}]==={{1,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,1}},
-		SwapMatrix[2,{2,1}]===SwapMatrix[{2,2},{2,1}]
-	]];
-
-
-TestCase["Tensor:Com",
-	Module[{a,b},
-	And[
-		Com[a,b,1]===Com[a,b],
-		Com[a,b,0]===b,
-		AllMatchQ[0,{Com[1,b],Com[b,\[Pi]],Com[a,Zeta[3],3],Com[1/2,b,2]}],
-		Com[PauliMatrix[1],PauliMatrix[2]]===2*I*PauliMatrix[3],
-		Com[PauliMatrix[1],PauliMatrix[2],5]===32*I*PauliMatrix[3]
-	]]];
-
-
-TestCase["Tensor:ACom",
-	Module[{a,b},
-	And[
-		ACom[a,b,1]===ACom[a,b],
-		ACom[a,b,0]===b,
-		Norm[ACom[PauliMatrix[1],PauliMatrix[2]]]===0,
-		Norm[ACom[PauliMatrix[1],PauliMatrix[2],5]]===0
-	]]];
-
-
-TestCase["Tensor:OuterProduct", 
-	Module[{a,b},
-		SameQ[
-			OuterProduct[Array[a,2],Array[b,2]],
-			{{a[1] Conjugate[b[1]],a[1] Conjugate[b[2]]},
-			{a[2] Conjugate[b[1]],a[2] Conjugate[b[2]]}}]
-	]];
-
-
-TestCase["Tensor:Projector", 
-	With[{m={{1,0},{0,0}}},
-		And[
-			Projector[{1,0}]===m,
-			Projector[{{1,0}}]===m,
-			Projector[{{1},{0}}]===m
-		]
-	]];
-
-
-(* ::Subsection::Closed:: *)
-(*Matrix-Tensor Manipulations*)
-
-
-TestCase["Tensor:MatrixToTensor",
-	Module[{a,b},
-		SameQ[
-			Dimensions[
-			MatrixToTensor[
-				KroneckerProduct[Array[a,{2,3}],Array[b,{4,5}]],
-				{{2,4},{3,5}}]],
-			{2,4,3,5}]
-	]]; 
-
-
-TestCase["Tensor:MatrixTranspose",
-	SameQ[
-		MatrixTranspose[IdentityMatrix[4],{2,2},{2,1}],
-		{{1,0,0,0},{0,0,1,0},{0,1,0,0},{0,0,0,1}}]
-	];
-
-
-TestCase["Tensor:Swap",
-	Module[{a,b},
-		0===Norm[Swap[
-				KroneckerProduct[Array[a,{2,2}],Array[b,{2,2}]],{2,1}]
-				-KroneckerProduct[Array[b,{2,2}],Array[a,{2,2}]]]
-	]];
-
-
-TestCase["Tensor:Reshuffle",
-	And[
-		SameQ[
-			Reshuffle[IdentityMatrix[4],{2,2,2,2}],
-			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}],
-		SameQ[
-			Reshuffle[IdentityMatrix[4],{2,2,2,2},Basis->"Row"],
-			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{1,0,0,1}}]
-	]];
-
-
-TestCase["Tensor:Unravel",
-	With[{X=PauliMatrix[1],Y=PauliMatrix[2],Z=PauliMatrix[3]},
-	And[
-		Unravel[KroneckerProduct[X,Y,Z,X,Y,Z],2]===KroneckerProduct[X,X,Y,Y,Z,Z],
-		Unravel[KroneckerProduct[X,Y,Z,X,Y,Z],{2,2,2}]===KroneckerProduct[X,X,Y,Y,Z,Z],
-		Unravel[KroneckerProduct[X,Y,Z,X,Y,Z]]===KroneckerProduct[X,X,Y,Y,Z,Z]
-	]]];
-
-
-TestCase["Tensor:Reravel",
-	With[{X=PauliMatrix[1],Y=PauliMatrix[2],Z=PauliMatrix[3]},
-	And[
-		Reravel[KroneckerProduct[X,X,Y,Y,Z,Z],2]===KroneckerProduct[X,Y,Z,X,Y,Z],
-		Reravel[KroneckerProduct[X,X,Y,Y,Z,Z],{2,2,2}]===KroneckerProduct[X,Y,Z,X,Y,Z],
-		Reravel[KroneckerProduct[X,X,Y,Y,Z,Z]]===KroneckerProduct[X,Y,Z,X,Y,Z]
-	]]];
-
-
-(* ::Subsection::Closed:: *)
-(*Matrix-Tensor Contractions*)
-
-
-TestCase["Tensor:PartialTr", 
-	Module[{a,b},
-		Norm@Simplify[
-			PartialTr[KroneckerProduct[Array[a,{2,2}],Array[b,{3,3}]],{2,3},{2}]
-			-Tr[Array[b,{3,3}]]*Array[a,{2,2}]
-			]===0
-	]];
-
-
-TestCase["Tensor:TensorPairContract",
-	Module[{a,b},
-		SameQ[
-			TensorPairContract[Array[a,{2,3}],Array[b,{3,4}],{{2,1}}],
-			Array[a,{2,3}].Array[b,{3,4}]]
-	]];
-
-
-TestCase["Tensor:MatrixContract", 
-	Module[{a,b},
-		Norm@Simplify[
-			MatrixContract[KroneckerProduct[Array[a,{2,2}],Array[b,{3,3}]],{2,3},{{2,4}}]
-			-Tr[Array[b,{3,3}]]*Array[a,{2,2}]
-			]===0
-	]];
-
-
-TestCase["Tensor:MatrixPairContract",
-	Module[{a,b},
-		Norm@Simplify[
-			MatrixPairContract[
-				{KroneckerProduct[Array[a,{2,2}],Array[b,{3,3}]],{2,3}},
-				{{{1,0},{0,0}},{2}},{{1,1},{3,2}}]
-			-a[1,1]*Array[b,{3,3}]
-			]===0
-	]];
-
-
-(* ::Subsection::Closed:: *)
-(*Matrix Bases*)
-
-
-TestCase["Tensor:Basis",
-	Basis["PO"]===PauliMatrix/@Range[0,3]];
-
-
-TestCase["Tensor:BasisLabels",
-	BasisLabels["PO",2]==={
-		"I"\[CircleTimes]"I","I"\[CircleTimes]"X","I"\[CircleTimes]"Y","I"\[CircleTimes]"Z",
-		"X"\[CircleTimes]"I","X"\[CircleTimes]"X","X"\[CircleTimes]"Y","X"\[CircleTimes]"Z",
-		"Y"\[CircleTimes]"I","Y"\[CircleTimes]"X","Y"\[CircleTimes]"Y","Y"\[CircleTimes]"Z",
-		"Z"\[CircleTimes]"I","Z"\[CircleTimes]"X","Z"\[CircleTimes]"Y","Z"\[CircleTimes]"Z"}];
-
-
-TestCase["Tensor:ExpressInBasis",
-	ExpressInBasis[PauliMatrix[1]]==={0,1,0,0}];
-
-
-(* ::Subsection::Closed:: *)
-(*Vectorization*)
-
-
-TestCase["Tensor:Vec",
-	Module[{a},
-		And[
-			Vec[{{a[1],a[2]},{a[3],a[4]}}]==={{a[1]},{a[3]},{a[2]},{a[4]}},
-			Vec[{{a[1],a[2]},{a[3],a[4]}},Basis->"Row"]==={{a[1]},{a[2]},{a[3]},{a[4]}},
-			Vec[PauliMatrix[1],Basis->"Pauli"]==={{0},{Sqrt[2]},{0},{0}}
-		]
-	]];
-
-
-TestCase["Tensor:Devec",
-	Module[{a},
-		And[
-			Devec[{{a[1]},{a[3]},{a[2]},{a[4]}}]==={{a[1],a[2]},{a[3],a[4]}},
-			Devec[{{a[1]},{a[2]},{a[3]},{a[4]}},Basis->"Row"]==={{a[1],a[2]},{a[3],a[4]}},
-			Devec[{{0},{Sqrt[2]},{0},{0}},Basis->"Pauli"]===PauliMatrix[1]
-		]
-	]];
-
-
-TestCase["Tensor:ProductIdentity", 
-	And[
-		SameQ[
-			ProductIdentity[PauliMatrix[1],PauliMatrix[2]],
-			-1*KroneckerProduct[PauliMatrix[2],PauliMatrix[1]]],
-		SameQ[
-			ProductIdentity[PauliMatrix[1],PauliMatrix[2],Basis->"Row"],
-			-1*KroneckerProduct[PauliMatrix[1],PauliMatrix[2]]]
-	]];
-
-
-TestCase["Tensor:BasisMatrix",
-	BasisMatrix["Col"->"Pauli"]==={{1,0,0,1},{0,1,1,0},{0,-I,I,0},{1,0,0,-1}}/Sqrt[2]];
-
-
-TestCase["Tensor:BasisTransformation",
-	BasisTransformation[{0,1,1,0},"Col"->"Pauli"]==={0,Sqrt[2],0,0}];
-
-
-(* ::Subsection::Closed:: *)
-(*Tensor Product Parser*)
-
-
-TestCase["Tensor:TP",
-	And[
-		TP["XXX"]===CircleTimes[PauliMatrix[1],PauliMatrix[1],PauliMatrix[1]],
-		Module[{f},TP["ab",Replace->{"a"->"A","b"->"B"},Method->f]===f["A","B"]]
-	]];
-
-
-(* ::Subsection::Closed:: *)
-(*End*)
 
 
 End[];

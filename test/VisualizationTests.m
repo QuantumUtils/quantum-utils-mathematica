@@ -2,9 +2,10 @@
 
 (* ::Title:: *)
 (*QuantumUtils for Mathematica*)
+(*Visualization Unit Tests*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Copyright and License Information*)
 
 
@@ -21,30 +22,50 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
+BeginPackage["VisualizationTests`"];
+
+
 (* ::Text:: *)
-(*This package just exposes all user-end packages in Quantum Utils.*)
+(*The following packages are needed, but their contexts should not be loaded globally.*)
 
 
-BeginPackage["QuantumUtils`",{
-	"ControlTheory`",
-	"GRAPE`",
-	"LindbladSolver`",
-	"Predicates`",
-	"Perturbation`",
-	"QSim`",
-	"QuantumSystems`",
-	"QuantumChannel`",
-	"Tensor`",
-	"Visualization`",
-	"QUTesting`"
-}];
+Needs["QUDevTools`"];
+Needs["Visualization`"];
 
 
 (* ::Section::Closed:: *)
+(*Results*)
+
+
+Begin["`UnitTests`"];
+
+
+$RegisteredTests={};
+$TestResults := RunTest[$RegisteredTests];
+
+
+End[];
+
+
+(* ::Section::Closed:: *)
+(*Unit Tests*)
+
+
+Begin["`UnitTests`"];
+
+
+(* ::Subsection::Closed:: *)
+(*End*)
+
+
+End[];
+
+
+(* ::Section:: *)
 (*End Package*)
 
 

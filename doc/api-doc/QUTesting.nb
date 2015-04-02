@@ -1,0 +1,321 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10105,        312]
+NotebookOptionsPosition[      8584,        251]
+NotebookOutlinePosition[      9218,        277]
+CellTagsIndexPosition[      9102,        271]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["QUTesting` Documentation", "Chapter",
+ CellChangeTimes->{{3.6333515346579514`*^9, 3.63335154627586*^9}, {
+  3.633364320690548*^9, 3.63336432261762*^9}, {3.633459692992848*^9, 
+  3.633459695695156*^9}, {3.63352627649533*^9, 3.633526278958379*^9}, {
+  3.636901374637114*^9, 3.636901375728097*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Section",
+ CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
+  3.633781254199301*^9, 3.633781256261158*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<QUTesting`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
+  3.633459703938384*^9, 3.633459707396385*^9}, {3.633526282103736*^9, 
+  3.633526283991441*^9}, {3.636901378415098*^9, 3.636901380048747*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introduction and Overview", "Section",
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}, {
+  3.633878695511993*^9, 3.633878696655075*^9}}],
+
+Cell["\<\
+This package contains functions to run the unit tests for the various \
+packages in QuantumUtils. This can be used to check the installation, and to \
+check if everything still works after making modifications to the code.\
+\>", "Text",
+ CellChangeTimes->{{3.6369013984973183`*^9, 3.636901432406*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Unit Tests", "Section",
+ CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
+  3.633441643373975*^9, 3.633441643471745*^9}, {3.633459727021635*^9, 
+  3.633459727820011*^9}, {3.633526289590464*^9, 3.6335262930624027`*^9}, {
+  3.63378126135916*^9, 3.633781261452849*^9}, {3.6369014438326187`*^9, 
+  3.636901452273589*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["TestResults", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}}],
+
+Cell[TextData[{
+ StyleBox["TestResults[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["name\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the results of the unit tests for ",
+ StyleBox["QuantumUtils",
+  FontSlant->"Italic"],
+ " package ",
+ StyleBox["name.m", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[". These are returned as a list of rules ",
+  FontWeight->"Plain"],
+ StyleBox["\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["TestName", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["\[CloseCurlyDoubleQuote]\[Rule]", "Input"],
+ StyleBox["T/F/E", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",",
+  FontWeight->"Plain"],
+ " where result is \[OpenCurlyDoubleQuote]T\[CloseCurlyDoubleQuote] if the \
+test succeeded, \[OpenCurlyDoubleQuote]F\[CloseCurlyDoubleQuote] if the test \
+failed, or \[OpenCurlyDoubleQuote]E\[CloseCurlyDoubleQuote] if the test \
+returned an error and failed to evaluate to True or False.\n\n",
+ StyleBox["TestResults[]", "Input"],
+ " returns the results of the unit tests for all ",
+ StyleBox["QuantumUtils",
+  FontSlant->"Italic"],
+ " packages."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}},
+ CellTags->"TestResults::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.636901500668826*^9, 3.636901501457987*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"TestResults", "[", "\"\<Tensor\>\"", "]"}], "//", 
+  "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.636901505101733*^9, 3.636901514385421*^9}, {
+  3.6369023547295713`*^9, 3.6369023553894663`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", 
+   TagBox[GridBox[{
+      {
+       RowBox[{"\<\"Tensor:CircleTimes\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:\[DoubleStruckOne]\"\>", 
+        "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:BlockMatrix\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:UnitArray\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:TensorFactorPermutations\"\>", 
+        "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:SwapMatrix\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Com\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:ACom\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:OuterProduct\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Projector\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:MatrixToTensor\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:MatrixTranspose\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Swap\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Reshuffle\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Unravel\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Reravel\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:PartialTr\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:TensorPairContract\"\>", 
+        "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:MatrixContract\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:MatrixPairContract\"\>", 
+        "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Basis\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:BasisLabels\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:ExpressInBasis\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Vec\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:Devec\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:ProductIdentity\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:BasisMatrix\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:BasisTransformation\"\>", "\[Rule]", "\<\"T\"\>"}]},
+      {
+       RowBox[{"\<\"Tensor:TP\"\>", "\[Rule]", "\<\"T\"\>"}]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}},
+        "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    Column], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.6369015104258537`*^9, 3.636901514774818*^9}, 
+   3.636902355805007*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["RunAllTests", "Subsection",
+ CellChangeTimes->{{3.6335265055504847`*^9, 3.633526507574844*^9}}],
+
+Cell[TextData[{
+ StyleBox["RunAllTests[]", "Input"],
+ " runs all ",
+ StyleBox["QuantumUtils",
+  FontSlant->"Italic"],
+ " unit tests and reports on how many succeeded, failed, or returned errors."
+}], "Text",
+ CellChangeTimes->{
+  3.6338786671801777`*^9, {3.636901797949497*^9, 3.636901835178047*^9}},
+ CellTags->"RunAllTests::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.633526541390602*^9, 3.633526545774642*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RunAllTests", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.633526546432682*^9, 3.633526549179888*^9}}],
+
+Cell[BoxData["\<\"209 of 209 unit tests passed.\"\>"], "Print",
+ CellChangeTimes->{
+  3.63352657177526*^9, 3.6335266248302917`*^9, 3.633526667800214*^9, {
+   3.633526701498966*^9, 3.6335267311422577`*^9}, 3.633526763039488*^9, 
+   3.6335268894276114`*^9, 3.633527022952025*^9, 3.636901838762259*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1280, 1000},
+WindowMargins->{{317, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
+2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "RunAllTests::usage"->{
+  Cell[7612, 218, 333, 9, 31, "Text",
+   CellTags->"RunAllTests::usage"]},
+ "TestResults::usage"->{
+  Cell[2349, 69, 1672, 42, 89, "Text",
+   CellTags->"TestResults::usage"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"RunAllTests::usage", 8903, 262},
+ {"TestResults::usage", 9003, 265}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 301, 4, 65, "Chapter"],
+Cell[CellGroupData[{
+Cell[906, 30, 142, 2, 64, "Section"],
+Cell[1051, 34, 285, 4, 28, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1373, 43, 159, 2, 64, "Section"],
+Cell[1535, 47, 311, 5, 49, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1883, 57, 341, 5, 64, "Section"],
+Cell[CellGroupData[{
+Cell[2249, 66, 97, 1, 44, "Subsection"],
+Cell[2349, 69, 1672, 42, 89, "Text",
+ CellTags->"TestResults::usage"],
+Cell[CellGroupData[{
+Cell[4046, 115, 98, 1, 35, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[4169, 120, 232, 5, 28, "Input"],
+Cell[4404, 127, 3043, 81, 510, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7508, 215, 101, 1, 44, "Subsection"],
+Cell[7612, 218, 333, 9, 31, "Text",
+ CellTags->"RunAllTests::usage"],
+Cell[CellGroupData[{
+Cell[7970, 231, 98, 1, 35, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[8093, 236, 125, 2, 28, "Input"],
+Cell[8221, 240, 299, 4, 22, "Print"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
