@@ -1574,7 +1574,7 @@ RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:Optio
 						simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
 					{x, Fcn@Utility[
-						Last@Unitaries@EvalPulse[
+						Last@Unitaries@PulseSim[
 							Hint/.reps,
 							simpulse/.reps
 						],
@@ -1632,7 +1632,7 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 						simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
 					Fcn@Utility[
-						Last@Unitaries@EvalPulse[
+						Last@Unitaries@PulseSim[
 							Hint/.reps,
 							simpulse/.reps
 						],
