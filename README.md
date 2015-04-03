@@ -41,9 +41,15 @@ Documentation is stored as *.nb* notebooks in the *doc* folder. The documentatio
 
     <<QUDoc`
 
-Additionally, each function implemented by QuantumUtils should come with a `usage` tag. This tag can be displayed using the `?` symbol as with built-in functions:
+Alternatively, once any package from Quantum Utils for Mathematica has been loaded, the `QUDoc[]` function may be used: 
 
-    ?EvalPulse
+    QUDoc[]                       (* Opens index *)
+    QUDoc["QUPackageName`"]       (* Opens documentation notebook for PackageName` *)
+    QUDoc[FunctionName]           (* Opens and highlights documentation for FunctionName *)
+
+For inline function descriptions, the usage text can be displayed using the `?` symbol as with built-in functions:
+
+    ?FunctionName
 
 
 ## License
