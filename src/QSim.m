@@ -640,7 +640,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 	(* Determine whether we are doing open quantum systems *)
 	isLindblad=LindbladQ[G];
 	isChannel=ChannelPulseQ[p];
-	isSuper=isLindblad||OptionValue[ForceSuperoperator]||ChannelPulseQ[p];
+	isSuper=isLindblad||OptionValue[ForceSuperoperator]||ChannelPulseQ[p]||MemberQ[OptionValue[SimulationOutput],Superoperators];
 	hasInputState=SquareMatrixQ[staVar];
 
 	(* decide which function NN is set to *)
@@ -662,7 +662,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 		If[isSuper&&MemberQ[outputList,Unitaries],Message[PulseSim::notunitary]];
 	];
 	AppendTo[outputList,TimeVector];
-	requiresInputState=AnyQ[MemberQ[outputList,#]&,{States,Observables}];
+	requiresInputState=AnyQ[MemberQ[outputList,#]&,{States,Observables}]||(MemberQ[outputList,Functions]&&hasInputState);
 	requiresProp=AnyQ[MemberQ[outputList,#]&,{Unitaries,Superoperators}]||(MemberQ[outputList,Functions]&&Not[hasInputState]);
 	(* Check for some problems *)
 	If[Not[hasInputState]&&requiresInputState,Message[PulseSim::initstate];Abort[];];
