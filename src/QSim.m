@@ -167,10 +167,20 @@ ShapedPulseQ[p_]:=
 DriftPulseQ[p_]:=(NumericQ[p]&&p\[Element]Reals)||(Head[p]===Symbol)
 
 
-UnitaryPulseQ[p_]:=ListQ[p]&&SquareMatrixQ[p[[1]]]&&(p[[2]]\[Element]Reals)
+UnitaryPulseQ[p_]:=And[
+	ListQ[p],
+	Length[p]==2,
+	SquareMatrixQ[p[[1]]],
+	DriftPulseQ[p[[2]]]
+]
 
 
-ChannelPulseQ[p_]:=And[ListQ[p],QuantumChannel===Head[p[[1]]],p[[2]]\[Element]Reals]
+ChannelPulseQ[p_]:=And[
+	ListQ[p],
+	Length[p]==2,
+	QuantumChannel===Head[p[[1]]],
+	DriftPulseQ[p[[2]]]
+]
 
 
 PulseQ[p_]:=Or@@(Through[{ShapedPulseQ,DriftPulseQ,UnitaryPulseQ,ChannelPulseQ}[p]])
@@ -805,10 +815,10 @@ PulseSim[H_?GeneratorQ,pulse_?(PulseQ[#]||PulseSequenceQ[#]&),distribution_?Dist
 		AddHead[States,Sum[probs[[n]]States[allData[[n]]],{n,Length@probs}]]
 	];
 	If[MemberQ[heads,Observables],
-		AddHead[Observables,Sum[probs[[n]]Observables[allData[[n]]]\[Transpose],{n,Length@probs}]]
+		AddHead[Observables,Sum[probs[[n]]Observables[allData[[n]]],{n,Length@probs}]]
 	];
 	If[MemberQ[heads,Functions],
-		AddHead[Functions,Sum[probs[[n]]Functions[allData[[n]]]\[Transpose],{n,Length@probs}]]
+		AddHead[Functions,Sum[probs[[n]]Functions[allData[[n]]],{n,Length@probs}]]
 	];
 	If[MemberQ[heads,Superoperators],
 		AddHead[Superoperators,Sum[probs[[n]]Superoperators[allData[[n]]],{n,Length@probs}]]
