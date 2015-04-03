@@ -36,20 +36,20 @@
 <p>QuantumUtils for Mathematica is a software library for quantum information scientists. Features include:</p>
 
 <ul>
-<li>Multi-partite tensor manipulations.</li>
-<li>Quantum system modelling including qudits, circuits, spins, and cavities.</li>
-<li>Symbolic Lie algebra simplification for spin and cavity systems.</li>
-<li>Quantum channels in multiple representations.</li>
-<li>Numerical and symbolic simulators for open and closed quantum system evolution.</li>
-<li>An implementation of GRadient Ascent Pulse Engineering including distortions.</li>
-<li>Perturbative expansion tools such as the Magnus series, the Zassenhaus formula, and matrix power series.</li>
+<li>Multi-partite tensor manipulations</li>
+<li>Quantum system modelling including qudits, circuits, spins, and cavities</li>
+<li>Symbolic Lie algebra simplification for spin and cavity systems</li>
+<li>Quantum channels in multiple representations</li>
+<li>Numerical and symbolic simulators for open and closed quantum system evolution</li>
+<li>An implementation of GRadient Ascent Pulse Engineering including distortions</li>
+<li>Perturbative expansion tools such as the Magnus series, the Zassenhaus formula, and matrix power series</li>
 <li>Visualization functions for displaying matrices, quantum states, data etc.</li>
 </ul>
 
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
 
-<p>QuantumUtils officially requires Mathematica 10.0.0 or newer. Many features should still work with Mathematica 9, and further compatibility may be added in the future. Older versions of Mathematica are not supported.</p>
+<p>QuantumUtils officially requires Mathematica 10.0.0 or newer. Most features should work with Mathematica 9, and full compatibility with Mathematica 9 will be added in the future. Older versions of Mathematica are not supported.</p>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -58,10 +58,16 @@
 
 <p>The installation places and/or symlinks files in your <em><code>$UserBaseDirectory</code>/Applications</em> folder. </p>
 
+<p>QuantumUtils includes a suiet of unit tests to check if the installed packages are running correctly. After installation these tests can be accesed from the package <code>QUTesting</code> by running the commands:</p>
+
+<pre><code>Needs["QUTesting`"];
+RunAllTests[]
+</code></pre>
+
 <h2>
 <a id="using-quantumutils-for-mathematica" class="anchor" href="#using-quantumutils-for-mathematica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using QuantumUtils for Mathematica</h2>
 
-<p>Packages from the QuantumUtils for Mathematica library can then be loaded by invoking the <code>Needs</code> function, for example:</p>
+<p>Packages from the QuantumUtils for Mathematica library can be loaded by invoking the <code>Needs</code> function, for example:</p>
 
 <pre><code>Needs["QuantumChannel`"];
 </code></pre>
@@ -79,9 +85,16 @@
 <pre><code>&lt;&lt;QUDoc`
 </code></pre>
 
-<p>Additionally, each function implemented by QuantumUtils should come with a <code>usage</code> tag. This tag can be displayed using the <code>?</code> symbol as with built-in functions:</p>
+<p>Alternatively, once any package from Quantum Utils for Mathematica has been loaded, the <code>QUDoc[]</code> function may be used: </p>
 
-<pre><code>?EvalPulse
+<pre><code>QUDoc[]                       (* Opens index *)
+QUDoc["QUPackageName`"]       (* Opens documentation notebook for QUPackageName` *)
+QUDoc[FunctionName]           (* Opens and highlights documentation for FunctionName *)
+</code></pre>
+
+<p>For inline function descriptions, the usage text can be displayed using the <code>?</code> symbol as with built-in functions:</p>
+
+<pre><code>?FunctionName
 </code></pre>
 
 <h2>
