@@ -27,7 +27,7 @@ The installation places and/or symlinks files in your *`$UserBaseDirectory`/Appl
 
 ## Using QuantumUtils for Mathematica
 
-Packages from the QuantumUtils for Mathematica library can then be loaded by invoking the `Needs` function, for example:
+Packages from the QuantumUtils for Mathematica library can be loaded by invoking the `Needs` function, for example:
 
     Needs["QuantumChannel`"];
     
@@ -44,7 +44,7 @@ Documentation is stored as *.nb* notebooks in the *doc* folder. The documentatio
 Alternatively, once any package from Quantum Utils for Mathematica has been loaded, the `QUDoc[]` function may be used: 
 
     QUDoc[]                       (* Opens index *)
-    QUDoc["QUPackageName`"]       (* Opens documentation notebook for PackageName` *)
+    QUDoc["QUPackageName`"]       (* Opens documentation notebook for QUPackageName` *)
     QUDoc[FunctionName]           (* Opens and highlights documentation for FunctionName *)
 
 For inline function descriptions, the usage text can be displayed using the `?` symbol as with built-in functions:
