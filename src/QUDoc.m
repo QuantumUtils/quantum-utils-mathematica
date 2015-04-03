@@ -46,7 +46,7 @@ If[SameQ[First[$stack],Get],
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
 
 
@@ -69,9 +69,10 @@ QUDoc[func] opens the documentation notebook containing the documentation for th
 
 
 QUDoc::file = "Documentation notebook `1` does not exist.";
+QUDoc::fn = "`1` is not a QuantumUtils function.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implimentation*)
 
 
@@ -98,7 +99,10 @@ QUDoc[name_String]:=With[{
 
 QUDoc[sym_Symbol]:=
 	With[{str=ToString[sym]},
-		NotebookLocate[{QUDocPath[str/.$FunctionManifest],str<>"::usage"}];
+		If[MemberQ[$FunctionManifest,str],
+			NotebookLocate[{QUDocPath[str/.$FunctionNotebooks],str<>"::usage"}];,
+			Message[QUDoc::fn,str]
+		]
 	]
 
 
@@ -128,13 +132,20 @@ $DocumentNotebooks=
 (*Load a list of all functions in the documentation notebooks*)
 
 
-$FunctionManifest:=
-$FunctionManifest=
-	Dispatch[Join@@(
+$FunctionNotebooks:=
+$FunctionNotebooks=
+	Join@@(
 		ReplaceAll[
 			List@@LoadUsages[QUDocPath[#]],
 			{Rule[a_,_]:>Rule[a,#]}
-		]&/@$DocumentNotebooks)];
+		]&/@$DocumentNotebooks);
+
+
+(* ::Text:: *)
+(*List of all Quantum Utils functions*)
+
+
+$FunctionManifest:=$FunctionManifest=First/@$FunctionNotebooks
 
 
 (* ::Subsection::Closed:: *)
