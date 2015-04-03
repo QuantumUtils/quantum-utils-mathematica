@@ -274,7 +274,7 @@ SwapMatrix[d_Integer,perm_List]:= Normal@SwapMatrix[d,perm,SparseArray]
 (*Matrix-Tensor Manipulations*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Matrix-Tensor Transpose*)
 
 
@@ -306,7 +306,7 @@ MatrixToTensor[mat_,dims_]:=
 
 
 MatrixSplitPosition[mat_,matToTensDims_]:=
-		First@Flatten@Position[Rest@FoldList[Times,1,matToTensDims],First[Dimensions[mat]]]
+		Last@Flatten@Position[Rest@FoldList[Times,1,matToTensDims],First[Dimensions[mat]]]
 
 
 TransposedMatrixDims[mat_,matToTensDims_,translist_]:=
@@ -368,7 +368,7 @@ RowReshuffle[m_,{dL1_,dL2_,dR1_,dR2_}]:=
 	]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Subsystem Swap*)
 
 
