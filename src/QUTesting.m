@@ -69,9 +69,14 @@ Begin["`Private`"];
 (*To call the test results of an individual package use TestResults["name"].  For example: TestResults["Tensor"]*)
 
 
-TestResults[name_String]:=(
-	Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
-	ToExpression[name<>"Tests`UnitTests`$TestResults"])
+SetAttributes[TestResults,HoldAll];
+
+
+TestResults[package_]:=
+	With[{name=ToString[package]},
+		Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
+		ToExpression[name<>"Tests`UnitTests`$TestResults"]
+	]
 
 
 TestResults[]:=Join@@Map[TestResults,$UnitTestManifest]
