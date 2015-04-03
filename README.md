@@ -25,7 +25,7 @@ Once this repository is cloned onto your computer, open the *Install.nb* noteboo
 
 The installation places and/or symlinks files in your *`$UserBaseDirectory`/Applications* folder. 
 
-QuantumUtils includes a suiet of unit tests to check if the installed packages are running correctly. After installation these tests can be accesed from the package `QUTesting` by running the commands:
+QuantumUtils includes a suite of unit tests to check if the installed packages are running correctly. After installation these tests can be accesed from the package `QUTesting` by running the commands:
 
     Needs["QUTesting`"];
     RunAllTests[]
