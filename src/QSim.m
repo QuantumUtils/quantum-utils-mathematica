@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["QSim`",{"QuantumChannel`","Predicates`"}];
+BeginPackage["QSim`",{"QUDoc`","QuantumChannel`","Predicates`"}];
 
 
 (* ::Text:: *)

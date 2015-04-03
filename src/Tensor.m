@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["Tensor`",{"Predicates`"}];
+BeginPackage["Tensor`",{"QUDoc`","Predicates`"}];
 
 
 Needs["QUDevTools`"];
