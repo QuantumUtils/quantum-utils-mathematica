@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    401112,       8067]
-NotebookOptionsPosition[    394775,       7867]
-NotebookOutlinePosition[    396222,       7913]
-CellTagsIndexPosition[    395876,       7902]
+NotebookDataLength[    396337,       7968]
+NotebookOptionsPosition[    390090,       7770]
+NotebookOutlinePosition[    391537,       7816]
+CellTagsIndexPosition[    391191,       7805]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -854,8 +854,9 @@ Cell[BoxData[
                   None, Evaluator -> Automatic, Method -> "Preemptive"], 
                  Alignment -> {Center, Center}, ImageSize -> 
                  Dynamic[{
-                   Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                   Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                 GraphicsBox[{{
                    GrayLevel[0.6], 
                    AbsolutePointSize[5], 
@@ -929,8 +930,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                   None, Evaluator -> Automatic, Method -> "Preemptive"], 
                  Alignment -> {Center, Center}, ImageSize -> 
                  Dynamic[{
-                   Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                   Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                 GraphicsBox[{{
                    GrayLevel[0.6], 
                    AbsolutePointSize[5], 
@@ -1035,8 +1037,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                   None, Evaluator -> Automatic, Method -> "Preemptive"], 
                  Alignment -> {Center, Center}, ImageSize -> 
                  Dynamic[{
-                   Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                   Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                 GraphicsBox[{{
                    GrayLevel[0.6], 
                    AbsolutePointSize[5], 
@@ -1111,8 +1114,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                   None, Evaluator -> Automatic, Method -> "Preemptive"], 
                  Alignment -> {Center, Center}, ImageSize -> 
                  Dynamic[{
-                   Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                   Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                 GraphicsBox[{{
                    GrayLevel[0.6], 
                    AbsolutePointSize[5], 
@@ -1236,8 +1240,9 @@ Cell[BoxData[
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -1312,8 +1317,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -1421,8 +1427,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -1497,8 +1504,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -2566,8 +2574,9 @@ Cell[BoxData[
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -2642,8 +2651,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -2751,8 +2761,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -2827,8 +2838,9 @@ q5SZmRFAL++xNeOlE0Dwt3AR
                    None, Evaluator -> Automatic, Method -> "Preemptive"], 
                   Alignment -> {Center, Center}, ImageSize -> 
                   Dynamic[{
-                    Automatic, 3.5 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
                  GraphicsBox[{{
                     GrayLevel[0.6], 
                     AbsolutePointSize[5], 
@@ -4187,14 +4199,10 @@ HQEM8KEJCKvGgSuI+RcdA6zd4PCm1uke/A2NVr7oAbgyPpPyNyMW/gfIzEAE
    3.634056027921812*^9, 3.63405603820259*^9}, 3.6356068762819157`*^9}]
 }, Open  ]],
 
-Cell[TextData[{
- "Attempting to solve the previous equation symbolical fails (",
- StyleBox["Mathematica",
-  FontSlant->"Italic"],
- " returns the DSolve function without evaluation.)"
-}], "Text",
+Cell["Attempting to solve the previous equation symbolical fails", "Text",
  CellChangeTimes->{
-  3.63405605555846*^9, {3.635606942352705*^9, 3.6356069431288557`*^9}}],
+  3.63405605555846*^9, {3.635606942352705*^9, 3.6356069431288557`*^9}, {
+   3.637081041413761*^9, 3.637081041571982*^9}}],
 
 Cell[CellGroupData[{
 
@@ -4218,119 +4226,14 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
+   RowBox[{"ODESolver", "::", "symsol"}], "MessageName"], 
   RowBox[{
-  ":", " "}], \
-"\<\"\[NoBreak]\\!\\({\\(DSolve[\\(\\(\\(\\(\\(\\(\\(\\(\\(\\(\\*\
-SuperscriptBox[\\(\\\"x\\\"[1]\\), \\\"\[Prime]\\\", Rule[MultilineFunction, \
-None]]\\)\\)[LindbladSolver`Private`t$]\\)\\) \[Equal] \\(\\(\\(\\(\\(\\(-\
-\[ImaginaryI]\\)\\)\\\\ \
-\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[LindbladSolver`Private`t$]\\)\\)\\)\\) - \
-\\(\\(\[ImaginaryI]\\\\ \\(\\(Cos[LindbladSolver`Private`t$]\\)\\)\\\\ \\(\\(\
-\\(\\(\\\"x\\\"[2]\\)\\)[LindbladSolver`Private`t$]\\)\\)\\)\\)\\)\\)\\)\\) \
-&& \\(\\(\\(\\(\\(\\(\\*SuperscriptBox[\\(\\\"x\\\"[2]\\), \\\"\[Prime]\\\", \
-Rule[MultilineFunction, None]]\\)\\)[LindbladSolver`Private`t$]\\)\\) \
-\[Equal] \\(\\(\\(\\(\\(\\(-\[ImaginaryI]\\)\\)\\\\ \
-\\(\\(Cos[LindbladSolver`Private`t$]\\)\\)\\\\ \
-\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[LindbladSolver`Private`t$]\\)\\)\\)\\) + \
-\\(\\(\[ImaginaryI]\\\\ \
-\\(\\(\\(\\(\\\"x\\\"[2]\\)\\)[LindbladSolver`Private`t$]\\)\\)\\)\\)\\)\\)\\)\
-\\) && \\(\\(\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[0]\\)\\) \[Equal] 0\\)\\) && \
-\\(\\(\\(\\(\\(\\(\\\"x\\\"[2]\\)\\)[0]\\)\\) \[Equal] 1\\)\\)\\)\\), \\(\\({\
-\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[LindbladSolver`Private`t$]\\)\\), \\(\\(\\(\\(\
-\\\"x\\\"[2]\\)\\)[LindbladSolver`Private`t$]\\)\\)}\\)\\), \
-LindbladSolver`Private`t$\\)\\)]\\)}\\)\[NoBreak] is neither a list of \
-replacement rules nor a valid dispatch table, and so cannot be used for \
-replacing. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\
-\", ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.635606878274025*^9, 3.635606953678227*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], \
-"\<\"\[NoBreak]\\!\\({\\(DSolve[\\(\\(\\(\\(\\(\\(\\(\\(\\(\\(\\*\
-SuperscriptBox[\\(\\\"x\\\"[1]\\), \\\"\[Prime]\\\", Rule[MultilineFunction, \
-None]]\\)\\)[t]\\)\\) \[Equal] \\(\\(\\(\\(\\(\\(-\[ImaginaryI]\\)\\)\\\\ \\(\
-\\(\\(\\(\\\"x\\\"[1]\\)\\)[t]\\)\\)\\)\\) - \\(\\(\[ImaginaryI]\\\\ \
-\\(\\(Cos[t]\\)\\)\\\\ \\(\\(\\(\\(\\\"x\\\"[2]\\)\\)[t]\\)\\)\\)\\)\\)\\)\\)\
-\\) && \\(\\(\\(\\(\\(\\(\\*SuperscriptBox[\\(\\\"x\\\"[2]\\), \\\"\[Prime]\\\
-\", Rule[MultilineFunction, None]]\\)\\)[t]\\)\\) \[Equal] \
-\\(\\(\\(\\(\\(\\(-\[ImaginaryI]\\)\\)\\\\ \\(\\(Cos[t]\\)\\)\\\\ \
-\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[t]\\)\\)\\)\\) + \\(\\(\[ImaginaryI]\\\\ \
-\\(\\(\\(\\(\\\"x\\\"[2]\\)\\)[t]\\)\\)\\)\\)\\)\\)\\)\\) && \
-\\(\\(\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[0]\\)\\) \[Equal] 0\\)\\) && \
-\\(\\(\\(\\(\\(\\(\\\"x\\\"[2]\\)\\)[0]\\)\\) \[Equal] 1\\)\\)\\)\\), \\(\\({\
-\\(\\(\\(\\(\\\"x\\\"[1]\\)\\)[t]\\)\\), \\(\\(\\(\\(\\\"x\\\"[2]\\)\\)[t]\\)\
-\\)}\\)\\), t\\)\\)]\\)}\\)\[NoBreak] is neither a list of replacement rules \
-nor a valid dispatch table, and so cannot be used for replacing. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\", \
-ButtonNote -> \\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.635606878274025*^9, 3.635606953721531*^9}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"{", 
-   RowBox[{
-    RowBox[{
-     RowBox[{"\<\"x\"\>", "[", "1", "]"}], "[", "t", "]"}], ",", 
-    RowBox[{
-     RowBox[{"\<\"x\"\>", "[", "2", "]"}], "[", "t", "]"}]}], "}"}], "/.", 
-  "\[VeryThinSpace]", 
-  RowBox[{"DSolve", "[", 
-   RowBox[{
-    RowBox[{
-     RowBox[{
-      RowBox[{
-       SuperscriptBox[
-        RowBox[{"\<\"x\"\>", "[", "1", "]"}], "\[Prime]",
-        MultilineFunction->None], "[", "t", "]"}], "\[Equal]", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"-", "\[ImaginaryI]"}], " ", 
-        RowBox[{
-         RowBox[{"\<\"x\"\>", "[", "1", "]"}], "[", "t", "]"}]}], "-", 
-       RowBox[{"\[ImaginaryI]", " ", 
-        RowBox[{"Cos", "[", "t", "]"}], " ", 
-        RowBox[{
-         RowBox[{"\<\"x\"\>", "[", "2", "]"}], "[", "t", "]"}]}]}]}], "&&", 
-     RowBox[{
-      RowBox[{
-       SuperscriptBox[
-        RowBox[{"\<\"x\"\>", "[", "2", "]"}], "\[Prime]",
-        MultilineFunction->None], "[", "t", "]"}], "\[Equal]", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"-", "\[ImaginaryI]"}], " ", 
-        RowBox[{"Cos", "[", "t", "]"}], " ", 
-        RowBox[{
-         RowBox[{"\<\"x\"\>", "[", "1", "]"}], "[", "t", "]"}]}], "+", 
-       RowBox[{"\[ImaginaryI]", " ", 
-        RowBox[{
-         RowBox[{"\<\"x\"\>", "[", "2", "]"}], "[", "t", "]"}]}]}]}], "&&", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"\<\"x\"\>", "[", "1", "]"}], "[", "0", "]"}], "\[Equal]", 
-      "0"}], "&&", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"\<\"x\"\>", "[", "2", "]"}], "[", "0", "]"}], "\[Equal]", 
-      "1"}]}], ",", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{
-       RowBox[{"\<\"x\"\>", "[", "1", "]"}], "[", "t", "]"}], ",", 
-      RowBox[{
-       RowBox[{"\<\"x\"\>", "[", "2", "]"}], "[", "t", "]"}]}], "}"}], ",", 
-    "t"}], "]"}]}]], "Output",
- CellChangeTimes->{3.6340560612149143`*^9, 3.63560687833777*^9, 
-  3.635606953730295*^9}]
+  ":", " "}], "\<\"ODESolver failed to find an symbolic solution.\"\>"}]], \
+"Message", "MSG",
+ CellChangeTimes->{3.635606878274025*^9, 3.635606953678227*^9, 
+  3.637081031908504*^9}]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -7892,22 +7795,22 @@ CellTagsIndex->{
   Cell[13117, 430, 2711, 109, 31, "Text",
    CellTags->"ODEFirstOrderSystem::usage"]},
  "SchrodingerSolver::usage"->{
-  Cell[101828, 2302, 5206, 172, 268, "Text",
+  Cell[102012, 2310, 5206, 172, 268, "Text",
    CellTags->"SchrodingerSolver::usage"]},
  "LindbladSolver::usage"->{
-  Cell[289649, 5785, 7648, 262, 346, "Text",
+  Cell[284964, 5688, 7648, 262, 346, "Text",
    CellTags->"LindbladSolver::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ODESolver::usage", 395089, 7878},
- {"ODECoefficients::usage", 395195, 7881},
- {"ODEVariables::usage", 395301, 7884},
- {"ODEInitialConditions::usage", 395414, 7887},
- {"ODEFirstOrderSystem::usage", 395534, 7890},
- {"SchrodingerSolver::usage", 395652, 7893},
- {"LindbladSolver::usage", 395768, 7896}
+ {"ODESolver::usage", 390404, 7781},
+ {"ODECoefficients::usage", 390510, 7784},
+ {"ODEVariables::usage", 390616, 7787},
+ {"ODEInitialConditions::usage", 390729, 7790},
+ {"ODEFirstOrderSystem::usage", 390849, 7793},
+ {"SchrodingerSolver::usage", 390967, 7796},
+ {"LindbladSolver::usage", 391083, 7799}
  }
 *)
 (*NotebookFileOutline
@@ -7958,112 +7861,110 @@ Cell[27476, 803, 248, 3, 29, "Subsubsection"],
 Cell[27727, 808, 361, 9, 32, "Text"],
 Cell[CellGroupData[{
 Cell[28113, 821, 412, 12, 28, "Input"],
-Cell[28528, 835, 18368, 367, 64, "Output"]
+Cell[28528, 835, 18460, 371, 64, "Output"]
 }, Open  ]],
-Cell[46911, 1205, 170, 3, 30, "Text"],
+Cell[47003, 1209, 170, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[47106, 1212, 94, 2, 28, "Input"],
-Cell[47203, 1216, 18679, 373, 64, "Output"]
+Cell[47198, 1216, 94, 2, 28, "Input"],
+Cell[47295, 1220, 18771, 377, 64, "Output"]
 }, Open  ]],
-Cell[65897, 1592, 174, 4, 30, "Text"],
+Cell[66081, 1600, 174, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[66096, 1600, 599, 15, 28, "Input"],
-Cell[66698, 1617, 29181, 491, 237, "Output"]
+Cell[66280, 1608, 599, 15, 28, "Input"],
+Cell[66882, 1625, 29181, 491, 237, "Output"]
 }, Open  ]],
-Cell[95894, 2111, 191, 4, 30, "Text"],
+Cell[96078, 2119, 191, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[96110, 2119, 448, 13, 28, "Input"],
-Cell[96561, 2134, 383, 9, 28, "Output"]
+Cell[96294, 2127, 448, 13, 28, "Input"],
+Cell[96745, 2142, 383, 9, 28, "Output"]
 }, Open  ]],
-Cell[96959, 2146, 285, 6, 30, "Text"],
+Cell[97143, 2154, 285, 6, 30, "Text"],
 Cell[CellGroupData[{
-Cell[97269, 2156, 503, 12, 28, "Input"],
-Cell[97775, 2170, 784, 20, 28, "Output"]
+Cell[97453, 2164, 503, 12, 28, "Input"],
+Cell[97959, 2178, 784, 20, 28, "Output"]
 }, Open  ]],
-Cell[98574, 2193, 185, 4, 30, "Text"],
+Cell[98758, 2201, 185, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[98784, 2201, 827, 22, 46, "Input"],
-Cell[99614, 2225, 306, 8, 28, "Output"],
-Cell[99923, 2235, 394, 12, 52, "Output"]
+Cell[98968, 2209, 827, 22, 46, "Input"],
+Cell[99798, 2233, 306, 8, 28, "Output"],
+Cell[100107, 2243, 394, 12, 52, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[100354, 2252, 266, 6, 46, "Input"],
-Cell[100623, 2260, 283, 8, 28, "Output"],
-Cell[100909, 2270, 574, 20, 52, "Output"]
+Cell[100538, 2260, 266, 6, 46, "Input"],
+Cell[100807, 2268, 283, 8, 28, "Output"],
+Cell[101093, 2278, 574, 20, 52, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[101544, 2297, 281, 3, 44, "Subsection"],
-Cell[101828, 2302, 5206, 172, 268, "Text",
+Cell[101728, 2305, 281, 3, 44, "Subsection"],
+Cell[102012, 2310, 5206, 172, 268, "Text",
  CellTags->"SchrodingerSolver::usage"],
 Cell[CellGroupData[{
-Cell[107059, 2478, 98, 1, 35, "Subsubsection"],
-Cell[107160, 2481, 212, 6, 31, "Text"]
+Cell[107243, 2486, 98, 1, 35, "Subsubsection"],
+Cell[107344, 2489, 212, 6, 31, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[107409, 2492, 252, 4, 29, "Subsubsection"],
-Cell[107664, 2498, 569, 15, 32, "Text"],
+Cell[107593, 2500, 252, 4, 29, "Subsubsection"],
+Cell[107848, 2506, 569, 15, 32, "Text"],
 Cell[CellGroupData[{
-Cell[108258, 2517, 1007, 27, 28, "Input"],
-Cell[109268, 2546, 18854, 376, 64, "Output"]
+Cell[108442, 2525, 1007, 27, 28, "Input"],
+Cell[109452, 2554, 18946, 380, 64, "Output"]
 }, Open  ]],
-Cell[128137, 2925, 174, 4, 30, "Text"],
+Cell[128413, 2937, 174, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[128336, 2933, 609, 14, 28, "Input"],
-Cell[128948, 2949, 74685, 1237, 237, "Output"]
+Cell[128612, 2945, 609, 14, 28, "Input"],
+Cell[129224, 2961, 74685, 1237, 237, "Output"]
 }, Open  ]],
-Cell[203648, 4189, 286, 7, 30, "Text"],
+Cell[203924, 4201, 216, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[203959, 4200, 455, 15, 28, "Input"],
-Cell[204417, 4217, 1771, 29, 78, "Message"],
-Cell[206191, 4248, 1497, 24, 43, "Message"],
-Cell[207691, 4274, 1906, 56, 46, "Output"]
+Cell[204165, 4208, 455, 15, 28, "Input"],
+Cell[204623, 4225, 289, 8, 24, "Message"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[209646, 4336, 397, 5, 29, "Subsubsection"],
-Cell[210046, 4343, 1021, 28, 55, "Text"],
-Cell[211070, 4373, 752, 21, 28, "Input"],
-Cell[211825, 4396, 204, 4, 30, "Text"],
-Cell[212032, 4402, 348, 9, 28, "Input"],
-Cell[212383, 4413, 142, 1, 30, "Text"],
-Cell[212528, 4416, 623, 15, 28, "Input"],
-Cell[213154, 4433, 226, 5, 30, "Text"],
-Cell[213383, 4440, 1317, 35, 46, "Input"],
+Cell[204961, 4239, 397, 5, 35, "Subsubsection"],
+Cell[205361, 4246, 1021, 28, 55, "Text"],
+Cell[206385, 4276, 752, 21, 28, "Input"],
+Cell[207140, 4299, 204, 4, 30, "Text"],
+Cell[207347, 4305, 348, 9, 28, "Input"],
+Cell[207698, 4316, 142, 1, 30, "Text"],
+Cell[207843, 4319, 623, 15, 28, "Input"],
+Cell[208469, 4336, 226, 5, 30, "Text"],
+Cell[208698, 4343, 1317, 35, 46, "Input"],
 Cell[CellGroupData[{
-Cell[214725, 4479, 1144, 25, 28, "Input"],
-Cell[215872, 4506, 73454, 1267, 242, "Output"]
+Cell[210040, 4382, 1144, 25, 28, "Input"],
+Cell[211187, 4409, 73454, 1267, 242, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[289387, 5780, 259, 3, 44, "Subsection"],
-Cell[289649, 5785, 7648, 262, 346, "Text",
+Cell[284702, 5683, 259, 3, 44, "Subsection"],
+Cell[284964, 5688, 7648, 262, 346, "Text",
  CellTags->"LindbladSolver::usage"],
 Cell[CellGroupData[{
-Cell[297322, 6051, 98, 1, 35, "Subsubsection"],
-Cell[297423, 6054, 258, 7, 31, "Text"]
+Cell[292637, 5954, 98, 1, 35, "Subsubsection"],
+Cell[292738, 5957, 258, 7, 31, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[297718, 6066, 563, 9, 29, "Subsubsection"],
-Cell[298284, 6077, 1134, 30, 55, "Text"],
+Cell[293033, 5969, 563, 9, 29, "Subsubsection"],
+Cell[293599, 5980, 1134, 30, 55, "Text"],
 Cell[CellGroupData[{
-Cell[299443, 6111, 1335, 38, 46, "Input"],
-Cell[300781, 6151, 9530, 193, 64, "Output"]
+Cell[294758, 6014, 1335, 38, 46, "Input"],
+Cell[296096, 6054, 9530, 193, 64, "Output"]
 }, Open  ]],
-Cell[310326, 6347, 204, 4, 30, "Text"],
+Cell[305641, 6250, 204, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[310555, 6355, 748, 18, 46, "Input"],
-Cell[311306, 6375, 942, 30, 35, "Output"]
+Cell[305870, 6258, 748, 18, 46, "Input"],
+Cell[306621, 6278, 942, 30, 35, "Output"]
 }, Open  ]],
-Cell[312263, 6408, 142, 1, 30, "Text"],
-Cell[312408, 6411, 666, 15, 28, "Input"],
-Cell[313077, 6428, 226, 5, 30, "Text"],
-Cell[313306, 6435, 1350, 35, 46, "Input"],
+Cell[307578, 6311, 142, 1, 30, "Text"],
+Cell[307723, 6314, 666, 15, 28, "Input"],
+Cell[308392, 6331, 226, 5, 30, "Text"],
+Cell[308621, 6338, 1350, 35, 46, "Input"],
 Cell[CellGroupData[{
-Cell[314681, 6474, 1206, 26, 28, "Input"],
-Cell[315890, 6502, 78821, 1358, 232, "Output"]
+Cell[309996, 6377, 1206, 26, 28, "Input"],
+Cell[311205, 6405, 78821, 1358, 232, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]

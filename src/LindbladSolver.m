@@ -66,6 +66,7 @@ AssignUsage[{ODECoefficients,ODEVariables,ODEInitialConditions,ODEFirstOrderSyst
 
 
 ODESolver::initcond = "Input state must be a square matrix or vector.";
+ODESolver::symsol = "ODESolver failed to find an symbolic solution.";
 
 
 (* ::Section:: *)
@@ -269,35 +270,44 @@ LindbladSolver[
 		LindbladSolver[PreformatLindblad[ham,collapseOps],{initState,t0,tf},opts]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Symbolically Solver ODE*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*General Solver*)
 
 
 ODESolver[generator_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
 	With[{sym=OptionValue[Symbol]},
-	With[{init=ODEInitialConditions[initState,{t0,sym}]},
 	Function[t,
 		Evaluate[
-			With[{
-				vars=ODEVariables[{Length[init],t,sym}],
-				sys=And[ODEFirstOrderSystem[generator,{t,sym}],init]},
-				vars/.Flatten[DSolve[sys,vars,t,FilterOptions[DSolve,opts]]]
+			Block[{vars,sys,sol,
+				init=ODEInitialConditions[initState,{t0,sym}]},
+				vars=ODEVariables[{Length[init],t,sym}];
+				sys=And[ODEFirstOrderSystem[generator,{t,sym}],init];
+				sol=DSolve[sys,vars,t,FilterOptions[DSolve,opts]];
+				If[Head[sol]===DSolve,
+					Message[ODESolver::symsol],
+					vars/.Flatten[sol]
+				]
 			]
 		]
-	]]]
+	]]
 
 
 ODESolver[generator_,opts:OptionsPattern[ODESolver]]:=
 	With[{sym=OptionValue[Symbol]},
 	Function[t,
 		Evaluate[
-			Block[{sys=ODEFirstOrderSystem[generator,{t,sym}],vars},
+			Block[{vars,sol,
+				sys=ODEFirstOrderSystem[generator,{t,sym}],vars},
 				vars=ODEVariables[{Length[sys],t,sym}];
-				vars/.Flatten[DSolve[sys,vars,t,FilterOptions[DSolve,opts]]]
+				sol=DSolve[sys,vars,t,FilterOptions[DSolve,opts]];
+				If[Head[sol]===DSolve,
+					Message[ODESolver::symsol],
+					vars/.Flatten[sol]
+				]
 			]
 		]
 	]]
