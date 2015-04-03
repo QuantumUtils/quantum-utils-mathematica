@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[   1322895,      24460]
-NotebookOptionsPosition[   1302505,      23846]
-NotebookOutlinePosition[   1308894,      24023]
-CellTagsIndexPosition[   1307140,      23979]
+NotebookDataLength[   1327129,      24566]
+NotebookOptionsPosition[   1306576,      23947]
+NotebookOutlinePosition[   1312966,      24124]
+CellTagsIndexPosition[   1311212,      24080]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -714,7 +714,7 @@ specified by the ",
   3.636991747315199*^9}},
  CellTags->"Superoperators::usage"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1258,10 +1258,20 @@ superoperator space, even if unitary space is sufficient. In this case, ",
  StyleBox["Functions", "Input"],
  " which would normally act on unitaries instead act on superoperators. Note \
 that all computations that can still be done in unitary space will still be \
-done that way."
+done that way.\n\n",
+ StyleBox["Note",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nAlternatively, this can be acheived by listing ",
+ StyleBox["Superoperators", "Input"],
+ " in the ",
+ StyleBox["SimulationOutput", "Input"],
+ "."
 }], "Text",
  CellDingbat->"\[FilledSquare]",
- CellChangeTimes->{{3.636987150741417*^9, 3.6369872447730513`*^9}},
+ CellChangeTimes->{{3.636987150741417*^9, 3.6369872447730513`*^9}, {
+  3.637065627136381*^9, 3.6370656677072067`*^9}},
  CellTags->"ForceSuperoperator::usage"]
 }, Open  ]]
 }, Closed]],
@@ -16598,6 +16608,97 @@ Cell[BoxData[
 }, Open  ]],
 
 Cell[TextData[{
+ "Alternatively, we can demand ",
+ StyleBox["Superoperators", "Input"],
+ " as a ",
+ StyleBox["SimulationOutput", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.637065574263555*^9, 3.637065587645976*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PulseSim", "[", 
+  RowBox[{
+   RowBox[{"TP", "[", "X", "]"}], ",", "2", ",", 
+   RowBox[{"SimulationOutput", "\[Rule]", 
+    RowBox[{"{", "Superoperators", "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.637065560653606*^9, 3.63706556675034*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Superoperators", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\<\"Super\"\>", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"1", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "1", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}], 
+        ",", "\<\"<params>\"\>"}], "]"}], ",", 
+      RowBox[{"\<\"Super\"\>", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"0.173178189568194`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.37840124765396416`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+             RowBox[{"0.37840124765396416`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.8268218104318061`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"0.`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.37840124765396405`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.173178189568194`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.826821810431806`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+             RowBox[{"0.3784012476539641`", " ", "\[ImaginaryI]"}]}]}], "}"}],
+           ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+             RowBox[{"0.37840124765396405`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.826821810431806`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.173178189568194`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.3784012476539641`", " ", "\[ImaginaryI]"}]}]}], "}"}],
+           ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"0.8268218104318058`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.`", "\[VeryThinSpace]", "-", 
+             RowBox[{"0.378401247653964`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.378401247653964`", " ", "\[ImaginaryI]"}]}], ",", 
+            RowBox[{"0.17317818956819397`", "\[VeryThinSpace]", "+", 
+             RowBox[{"0.`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], "}"}], 
+        ",", "\<\"<params>\"\>"}], "]"}]}], "}"}]}], ",", 
+   RowBox[{"TimeVector", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "2"}], "}"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.63706556874109*^9}]
+}, Open  ]],
+
+Cell[TextData[{
  "This might be useful if, for example, our ",
  StyleBox["Functions", "Input"],
  " are most easily implemented on ",
@@ -23854,170 +23955,170 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "ChannelPulseQ::usage"->{
-  Cell[1293088, 23475, 692, 22, 32, "Text",
-   CellTags->"ChannelPulseQ::usage"]},
- "DistributionQ::usage"->{
-  Cell[1301587, 23811, 878, 30, 53, "Text",
-   CellTags->"DistributionQ::usage"]},
- "DivideEvenly::usage"->{
-  Cell[1287558, 23259, 738, 27, 32, "Text",
-   CellTags->"DivideEvenly::usage"]},
- "DriftHamConstQ::usage"->{
-  Cell[1295566, 23571, 420, 16, 32, "Text",
-   CellTags->"DriftHamConstQ::usage"]},
- "DriftHamQ::usage"->{
-  Cell[1296557, 23610, 717, 28, 32, "Text",
-   CellTags->"DriftHamQ::usage"]},
- "DriftHamTimeDepQ::usage"->{
-  Cell[1295989, 23589, 565, 19, 32, "Text",
-   CellTags->"DriftHamTimeDepQ::usage"]},
- "DriftPulseQ::usage"->{
-  Cell[1291940, 23430, 519, 20, 32, "Text",
-   CellTags->"DriftPulseQ::usage"]},
- "ForceSuperoperator::usage"->{
-  Cell[40943, 1253, 560, 11, 52, "Text",
-   CellTags->"ForceSuperoperator::usage"]},
- "FunctionListQ::usage"->{
-  Cell[1301004, 23785, 442, 18, 32, "Text",
-   CellTags->"FunctionListQ::usage"]},
- "Functions::usage"->{
-  Cell[16540, 467, 3407, 97, 303, "Text",
-   CellTags->"Functions::usage"]},
- "GeneratorQ::usage"->{
-  Cell[1299752, 23733, 661, 26, 32, "Text",
-   CellTags->"GeneratorQ::usage"]},
- "GetPollingInterval::usage"->{
-  Cell[1286652, 23222, 766, 29, 32, "Text",
-   CellTags->"GetPollingInterval::usage"]},
- "GetPulseShapeMatrix::usage"->{
-  Cell[1282492, 23079, 639, 19, 51, "Text",
-   CellTags->"GetPulseShapeMatrix::usage"]},
- "GetStepSize::usage"->{
-  Cell[1283321, 23107, 1355, 47, 73, "Text",
-   CellTags->"GetStepSize::usage"]},
- "InitialState::usage"->{
-  Cell[36161, 1098, 384, 9, 32, "Text",
-   CellTags->"InitialState::usage"]},
- "LindbladConstQ::usage"->{
-  Cell[1297414, 23646, 592, 20, 32, "Text",
-   CellTags->"LindbladConstQ::usage"]},
- "LindbladForm::usage"->{
-  Cell[1280424, 23000, 1917, 71, 53, "Text",
-   CellTags->"LindbladForm::usage"]},
- "LindbladQ::usage"->{
-  Cell[1298843, 23697, 770, 28, 32, "Text",
-   CellTags->"LindbladQ::usage"]},
- "LindbladTimeDepQ::usage"->{
-  Cell[1298009, 23668, 831, 27, 32, "Text",
-   CellTags->"LindbladTimeDepQ::usage"]},
- "MakeMultipleOf::usage"->{
-  Cell[1288437, 23294, 897, 35, 32, "Text",
-   CellTags->"MakeMultipleOf::usage"]},
- "NumericEvaluation::usage"->{
-  Cell[39432, 1203, 600, 19, 53, "Text",
-   CellTags->"NumericEvaluation::usage"]},
- "ObservableListQ::usage"->{
-  Cell[1300565, 23767, 436, 16, 32, "Text",
-   CellTags->"ObservableListQ::usage"]},
- "Observables::usage"->{
-  Cell[20138, 573, 3157, 97, 282, "Text",
-   CellTags->"Observables::usage"]},
- "PollingInterval::usage"->{
-  Cell[34739, 1062, 1279, 28, 152, "Text",
-   CellTags->"PollingInterval::usage"]},
- "PulseQ::usage"->{
-  Cell[1289956, 23353, 755, 28, 32, "Text",
-   CellTags->"PulseQ::usage"]},
- "PulseSequenceQ::usage"->{
-  Cell[1290714, 23383, 480, 18, 32, "Text",
-   CellTags->"PulseSequenceQ::usage"]},
- "PulseShapeFileQ::usage"->{
-  Cell[1293783, 23499, 460, 16, 32, "Text",
-   CellTags->"PulseShapeFileQ::usage"]},
- "PulseShapeMatrixQ::usage"->{
-  Cell[1294246, 23517, 444, 16, 32, "Text",
-   CellTags->"PulseShapeMatrixQ::usage"]},
- "PulseShapeQ::usage"->{
-  Cell[1294693, 23535, 729, 28, 32, "Text",
-   CellTags->"PulseShapeQ::usage"]},
- "PulseSim::usage"->{
-  Cell[25001, 726, 8742, 304, 629, "Text",
-   CellTags->"PulseSim::usage"]},
- "SequenceMode::usage"->{
-  Cell[40225, 1231, 569, 14, 52, "Text",
-   CellTags->"SequenceMode::usage"]},
- "ShapedPulseQ::usage"->{
-  Cell[1291197, 23403, 740, 25, 32, "Text",
-   CellTags->"ShapedPulseQ::usage"]},
  "SimulationOutput::section"->{
   Cell[8985, 230, 247, 4, 65, "Section",
    CellTags->"SimulationOutput::section"]},
  "SimulationOutput::usage"->{
   Cell[9749, 250, 2674, 77, 238, "Text",
    CellTags->"SimulationOutput::usage"]},
- "States::usage"->{
-  Cell[15250, 425, 1100, 33, 56, "Text",
-   CellTags->"States::usage"]},
- "StepSize::usage"->{
-  Cell[34064, 1043, 529, 11, 52, "Text",
-   CellTags->"StepSize::usage"]},
- "Superoperators::usage"->{
-  Cell[23486, 679, 1172, 35, 56, "Text",
-   CellTags->"Superoperators::usage"]},
  "TimeVector::usage"->{
   Cell[12598, 335, 1175, 38, 112, "Text",
    CellTags->"TimeVector::usage"]},
  "Unitaries::usage"->{
   Cell[13963, 382, 1102, 34, 56, "Text",
    CellTags->"Unitaries::usage"]},
+ "States::usage"->{
+  Cell[15250, 425, 1100, 33, 56, "Text",
+   CellTags->"States::usage"]},
+ "Functions::usage"->{
+  Cell[16540, 467, 3407, 97, 303, "Text",
+   CellTags->"Functions::usage"]},
+ "Observables::usage"->{
+  Cell[20138, 573, 3157, 97, 282, "Text",
+   CellTags->"Observables::usage"]},
+ "Superoperators::usage"->{
+  Cell[23486, 679, 1172, 35, 56, "Text",
+   CellTags->"Superoperators::usage"]},
+ "PulseSim::usage"->{
+  Cell[25001, 726, 8742, 304, 629, "Text",
+   CellTags->"PulseSim::usage"]},
+ "StepSize::usage"->{
+  Cell[34064, 1043, 529, 11, 52, "Text",
+   CellTags->"StepSize::usage"]},
+ "PollingInterval::usage"->{
+  Cell[34739, 1062, 1279, 28, 152, "Text",
+   CellTags->"PollingInterval::usage"]},
+ "InitialState::usage"->{
+  Cell[36161, 1098, 384, 9, 32, "Text",
+   CellTags->"InitialState::usage"]},
+ "NumericEvaluation::usage"->{
+  Cell[39432, 1203, 600, 19, 53, "Text",
+   CellTags->"NumericEvaluation::usage"]},
+ "SequenceMode::usage"->{
+  Cell[40225, 1231, 569, 14, 52, "Text",
+   CellTags->"SequenceMode::usage"]},
+ "ForceSuperoperator::usage"->{
+  Cell[40943, 1253, 859, 21, 111, "Text",
+   CellTags->"ForceSuperoperator::usage"]},
+ "LindbladForm::usage"->{
+  Cell[1284495, 23101, 1917, 71, 53, "Text",
+   CellTags->"LindbladForm::usage"]},
+ "GetPulseShapeMatrix::usage"->{
+  Cell[1286563, 23180, 639, 19, 51, "Text",
+   CellTags->"GetPulseShapeMatrix::usage"]},
+ "GetStepSize::usage"->{
+  Cell[1287392, 23208, 1355, 47, 73, "Text",
+   CellTags->"GetStepSize::usage"]},
+ "GetPollingInterval::usage"->{
+  Cell[1290723, 23323, 766, 29, 32, "Text",
+   CellTags->"GetPollingInterval::usage"]},
+ "DivideEvenly::usage"->{
+  Cell[1291629, 23360, 738, 27, 32, "Text",
+   CellTags->"DivideEvenly::usage"]},
+ "MakeMultipleOf::usage"->{
+  Cell[1292508, 23395, 897, 35, 32, "Text",
+   CellTags->"MakeMultipleOf::usage"]},
+ "PulseQ::usage"->{
+  Cell[1294027, 23454, 755, 28, 32, "Text",
+   CellTags->"PulseQ::usage"]},
+ "PulseSequenceQ::usage"->{
+  Cell[1294785, 23484, 480, 18, 32, "Text",
+   CellTags->"PulseSequenceQ::usage"]},
+ "ShapedPulseQ::usage"->{
+  Cell[1295268, 23504, 740, 25, 32, "Text",
+   CellTags->"ShapedPulseQ::usage"]},
+ "DriftPulseQ::usage"->{
+  Cell[1296011, 23531, 519, 20, 32, "Text",
+   CellTags->"DriftPulseQ::usage"]},
  "UnitaryPulseQ::usage"->{
-  Cell[1292462, 23452, 623, 21, 32, "Text",
-   CellTags->"UnitaryPulseQ::usage"]}
+  Cell[1296533, 23553, 623, 21, 32, "Text",
+   CellTags->"UnitaryPulseQ::usage"]},
+ "ChannelPulseQ::usage"->{
+  Cell[1297159, 23576, 692, 22, 32, "Text",
+   CellTags->"ChannelPulseQ::usage"]},
+ "PulseShapeFileQ::usage"->{
+  Cell[1297854, 23600, 460, 16, 32, "Text",
+   CellTags->"PulseShapeFileQ::usage"]},
+ "PulseShapeMatrixQ::usage"->{
+  Cell[1298317, 23618, 444, 16, 32, "Text",
+   CellTags->"PulseShapeMatrixQ::usage"]},
+ "PulseShapeQ::usage"->{
+  Cell[1298764, 23636, 729, 28, 32, "Text",
+   CellTags->"PulseShapeQ::usage"]},
+ "DriftHamConstQ::usage"->{
+  Cell[1299637, 23672, 420, 16, 32, "Text",
+   CellTags->"DriftHamConstQ::usage"]},
+ "DriftHamTimeDepQ::usage"->{
+  Cell[1300060, 23690, 565, 19, 32, "Text",
+   CellTags->"DriftHamTimeDepQ::usage"]},
+ "DriftHamQ::usage"->{
+  Cell[1300628, 23711, 717, 28, 32, "Text",
+   CellTags->"DriftHamQ::usage"]},
+ "LindbladConstQ::usage"->{
+  Cell[1301485, 23747, 592, 20, 32, "Text",
+   CellTags->"LindbladConstQ::usage"]},
+ "LindbladTimeDepQ::usage"->{
+  Cell[1302080, 23769, 831, 27, 32, "Text",
+   CellTags->"LindbladTimeDepQ::usage"]},
+ "LindbladQ::usage"->{
+  Cell[1302914, 23798, 770, 28, 32, "Text",
+   CellTags->"LindbladQ::usage"]},
+ "GeneratorQ::usage"->{
+  Cell[1303823, 23834, 661, 26, 32, "Text",
+   CellTags->"GeneratorQ::usage"]},
+ "ObservableListQ::usage"->{
+  Cell[1304636, 23868, 436, 16, 32, "Text",
+   CellTags->"ObservableListQ::usage"]},
+ "FunctionListQ::usage"->{
+  Cell[1305075, 23886, 442, 18, 32, "Text",
+   CellTags->"FunctionListQ::usage"]},
+ "DistributionQ::usage"->{
+  Cell[1305658, 23912, 878, 30, 53, "Text",
+   CellTags->"DistributionQ::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ChannelPulseQ::usage", 1302801, 23856},
- {"DistributionQ::usage", 1302911, 23859},
- {"DivideEvenly::usage", 1303020, 23862},
- {"DriftHamConstQ::usage", 1303130, 23865},
- {"DriftHamQ::usage", 1303237, 23868},
- {"DriftHamTimeDepQ::usage", 1303346, 23871},
- {"DriftPulseQ::usage", 1303457, 23874},
- {"ForceSuperoperator::usage", 1303570, 23877},
- {"FunctionListQ::usage", 1303682, 23880},
- {"Functions::usage", 1303788, 23883},
- {"GeneratorQ::usage", 1303889, 23886},
- {"GetPollingInterval::usage", 1304001, 23889},
- {"GetPulseShapeMatrix::usage", 1304122, 23892},
- {"GetStepSize::usage", 1304236, 23895},
- {"InitialState::usage", 1304344, 23898},
- {"LindbladConstQ::usage", 1304450, 23901},
- {"LindbladForm::usage", 1304560, 23904},
- {"LindbladQ::usage", 1304666, 23907},
- {"LindbladTimeDepQ::usage", 1304775, 23910},
- {"MakeMultipleOf::usage", 1304889, 23913},
- {"NumericEvaluation::usage", 1305004, 23916},
- {"ObservableListQ::usage", 1305117, 23919},
- {"Observables::usage", 1305227, 23922},
- {"PollingInterval::usage", 1305335, 23925},
- {"PulseQ::usage", 1305439, 23928},
- {"PulseSequenceQ::usage", 1305543, 23931},
- {"PulseShapeFileQ::usage", 1305656, 23934},
- {"PulseShapeMatrixQ::usage", 1305772, 23937},
- {"PulseShapeQ::usage", 1305884, 23940},
- {"PulseSim::usage", 1305987, 23943},
- {"SequenceMode::usage", 1306090, 23946},
- {"ShapedPulseQ::usage", 1306195, 23949},
- {"SimulationOutput::section", 1306309, 23952},
- {"SimulationOutput::usage", 1306424, 23955},
- {"States::usage", 1306527, 23958},
- {"StepSize::usage", 1306622, 23961},
- {"Superoperators::usage", 1306725, 23964},
- {"TimeVector::usage", 1306830, 23967},
- {"Unitaries::usage", 1306931, 23970},
- {"UnitaryPulseQ::usage", 1307034, 23973}
+ {"SimulationOutput::section", 1306877, 23957},
+ {"SimulationOutput::usage", 1306992, 23960},
+ {"TimeVector::usage", 1307099, 23963},
+ {"Unitaries::usage", 1307200, 23966},
+ {"States::usage", 1307296, 23969},
+ {"Functions::usage", 1307392, 23972},
+ {"Observables::usage", 1307494, 23975},
+ {"Superoperators::usage", 1307601, 23978},
+ {"PulseSim::usage", 1307704, 23981},
+ {"StepSize::usage", 1307803, 23984},
+ {"PollingInterval::usage", 1307907, 23987},
+ {"InitialState::usage", 1308017, 23990},
+ {"NumericEvaluation::usage", 1308126, 23993},
+ {"SequenceMode::usage", 1308236, 23996},
+ {"ForceSuperoperator::usage", 1308347, 23999},
+ {"LindbladForm::usage", 1308459, 24002},
+ {"GetPulseShapeMatrix::usage", 1308575, 24005},
+ {"GetStepSize::usage", 1308689, 24008},
+ {"GetPollingInterval::usage", 1308803, 24011},
+ {"DivideEvenly::usage", 1308917, 24014},
+ {"MakeMultipleOf::usage", 1309027, 24017},
+ {"PulseQ::usage", 1309131, 24020},
+ {"PulseSequenceQ::usage", 1309235, 24023},
+ {"ShapedPulseQ::usage", 1309345, 24026},
+ {"DriftPulseQ::usage", 1309452, 24029},
+ {"UnitaryPulseQ::usage", 1309560, 24032},
+ {"ChannelPulseQ::usage", 1309670, 24035},
+ {"PulseShapeFileQ::usage", 1309782, 24038},
+ {"PulseShapeMatrixQ::usage", 1309898, 24041},
+ {"PulseShapeQ::usage", 1310010, 24044},
+ {"DriftHamConstQ::usage", 1310119, 24047},
+ {"DriftHamTimeDepQ::usage", 1310233, 24050},
+ {"DriftHamQ::usage", 1310342, 24053},
+ {"LindbladConstQ::usage", 1310449, 24056},
+ {"LindbladTimeDepQ::usage", 1310563, 24059},
+ {"LindbladQ::usage", 1310672, 24062},
+ {"GeneratorQ::usage", 1310775, 24065},
+ {"ObservableListQ::usage", 1310884, 24068},
+ {"FunctionListQ::usage", 1310996, 24071},
+ {"DistributionQ::usage", 1311106, 24074}
  }
 *)
 (*NotebookFileOutline
@@ -24080,9 +24181,9 @@ Cell[23332, 675, 151, 2, 45, "Subsection"],
 Cell[23486, 679, 1172, 35, 56, "Text",
  CellTags->"Superoperators::usage"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[24707, 720, 291, 4, 51, "Section"],
+Cell[24707, 720, 291, 4, 65, "Section"],
 Cell[25001, 726, 8742, 304, 629, "Text",
  CellTags->"PulseSim::usage"],
 Cell[CellGroupData[{
@@ -24126,331 +24227,336 @@ Cell[40225, 1231, 569, 14, 52, "Text",
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[40831, 1250, 109, 1, 35, "Subsubsection"],
-Cell[40943, 1253, 560, 11, 52, "Text",
+Cell[40943, 1253, 859, 21, 111, "Text",
  CellTags->"ForceSuperoperator::usage"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[41552, 1270, 209, 3, 37, "Subsection"],
+Cell[41851, 1280, 209, 3, 37, "Subsection"],
 Cell[CellGroupData[{
-Cell[41786, 1277, 158, 2, 35, "Subsubsection"],
-Cell[41947, 1281, 462, 10, 31, "Text"],
+Cell[42085, 1287, 158, 2, 35, "Subsubsection"],
+Cell[42246, 1291, 462, 10, 31, "Text"],
 Cell[CellGroupData[{
-Cell[42434, 1295, 453, 10, 55, "Input"],
-Cell[42890, 1307, 1334, 34, 32, "Output"]
+Cell[42733, 1305, 453, 10, 55, "Input"],
+Cell[43189, 1317, 1334, 34, 32, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[44273, 1347, 124, 1, 29, "Subsubsection"],
-Cell[44400, 1350, 204, 7, 32, "Text"],
+Cell[44572, 1357, 124, 1, 29, "Subsubsection"],
+Cell[44699, 1360, 204, 7, 32, "Text"],
 Cell[CellGroupData[{
-Cell[44629, 1361, 286, 7, 32, "Input"],
-Cell[44918, 1370, 1263, 34, 32, "Output"]
+Cell[44928, 1371, 286, 7, 32, "Input"],
+Cell[45217, 1380, 1263, 34, 32, "Output"]
 }, Open  ]],
-Cell[46196, 1407, 413, 10, 32, "Text"],
+Cell[46495, 1417, 413, 10, 32, "Text"],
 Cell[CellGroupData[{
-Cell[46634, 1421, 425, 9, 32, "Input"],
-Cell[47062, 1432, 1218, 35, 48, "Output"]
+Cell[46933, 1431, 425, 9, 32, "Input"],
+Cell[47361, 1442, 1218, 35, 48, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[48329, 1473, 122, 1, 29, "Subsubsection"],
-Cell[48454, 1476, 218, 4, 31, "Text"],
+Cell[48628, 1483, 122, 1, 29, "Subsubsection"],
+Cell[48753, 1486, 218, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[48697, 1484, 324, 7, 32, "Input"],
-Cell[49024, 1493, 3908, 99, 99, "Output"]
+Cell[48996, 1494, 324, 7, 32, "Input"],
+Cell[49323, 1503, 3908, 99, 99, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[52981, 1598, 166, 2, 29, "Subsubsection"],
-Cell[53150, 1602, 287, 5, 32, "Text"],
+Cell[53280, 1608, 166, 2, 29, "Subsubsection"],
+Cell[53449, 1612, 287, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[53462, 1611, 723, 16, 32, "Input"],
-Cell[54188, 1629, 1905, 44, 103, "Output"]
+Cell[53761, 1621, 723, 16, 32, "Input"],
+Cell[54487, 1639, 1905, 44, 103, "Output"]
 }, Open  ]],
-Cell[56108, 1676, 265, 7, 32, "Text"],
+Cell[56407, 1686, 265, 7, 32, "Text"],
 Cell[CellGroupData[{
-Cell[56398, 1687, 298, 5, 55, "Input"],
-Cell[56699, 1694, 1273, 27, 55, "Output"],
-Cell[57975, 1723, 1825, 40, 225, "Output"]
+Cell[56697, 1697, 298, 5, 55, "Input"],
+Cell[56998, 1704, 1273, 27, 55, "Output"],
+Cell[58274, 1733, 1825, 40, 225, "Output"]
 }, Open  ]],
-Cell[59815, 1766, 195, 5, 32, "Text"],
+Cell[60114, 1776, 195, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[60035, 1775, 436, 10, 55, "Input"],
-Cell[60474, 1787, 2868, 86, 169, "Output"],
-Cell[63345, 1875, 1793, 41, 224, "Output"]
+Cell[60334, 1785, 436, 10, 55, "Input"],
+Cell[60773, 1797, 2868, 86, 169, "Output"],
+Cell[63644, 1885, 1793, 41, 224, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[65187, 1922, 168, 2, 29, "Subsubsection"],
-Cell[65358, 1926, 627, 10, 52, "Text"],
-Cell[65988, 1938, 2196, 52, 165, "Input"],
-Cell[68187, 1992, 461, 10, 32, "Text"],
+Cell[65486, 1932, 168, 2, 29, "Subsubsection"],
+Cell[65657, 1936, 627, 10, 52, "Text"],
+Cell[66287, 1948, 2196, 52, 165, "Input"],
+Cell[68486, 2002, 461, 10, 32, "Text"],
 Cell[CellGroupData[{
-Cell[68673, 2006, 271, 6, 32, "Input"],
-Cell[68947, 2014, 458, 8, 32, "Output"]
+Cell[68972, 2016, 271, 6, 32, "Input"],
+Cell[69246, 2024, 458, 8, 32, "Output"]
 }, Open  ]],
-Cell[69420, 2025, 203, 4, 31, "Text"],
+Cell[69719, 2035, 203, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[69648, 2033, 394, 9, 32, "Input"],
-Cell[70045, 2044, 2571, 53, 260, "Output"]
+Cell[69947, 2043, 394, 9, 32, "Input"],
+Cell[70344, 2054, 2571, 53, 260, "Output"]
 }, Open  ]],
-Cell[72631, 2100, 139, 1, 31, "Text"],
+Cell[72930, 2110, 139, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[72795, 2105, 622, 14, 32, "Input"],
-Cell[73420, 2121, 95723, 1645, 377, "Output"]
+Cell[73094, 2115, 622, 14, 32, "Input"],
+Cell[73719, 2131, 95723, 1645, 377, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[169192, 3772, 107, 1, 29, "Subsubsection"],
-Cell[169302, 3775, 232, 4, 32, "Text"],
-Cell[169537, 3781, 434, 11, 32, "Input"],
-Cell[169974, 3794, 107, 1, 31, "Text"],
+Cell[169491, 3782, 107, 1, 29, "Subsubsection"],
+Cell[169601, 3785, 232, 4, 32, "Text"],
+Cell[169836, 3791, 434, 11, 32, "Input"],
+Cell[170273, 3804, 107, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[170106, 3799, 202, 5, 32, "Input"],
-Cell[170311, 3806, 6440, 141, 120, "Output"]
+Cell[170405, 3809, 202, 5, 32, "Input"],
+Cell[170610, 3816, 6440, 141, 120, "Output"]
 }, Open  ]],
-Cell[176766, 3950, 125, 1, 31, "Text"],
+Cell[177065, 3960, 125, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[176916, 3955, 239, 5, 32, "Input"],
-Cell[177158, 3962, 118755, 1966, 375, 33226, 562, "CachedBoxData", "BoxData", \
+Cell[177215, 3965, 239, 5, 32, "Input"],
+Cell[177457, 3972, 118755, 1966, 375, 33226, 562, "CachedBoxData", "BoxData", \
 "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[295962, 5934, 116, 1, 29, "Subsubsection"],
-Cell[296081, 5937, 469, 9, 52, "Text"],
+Cell[296261, 5944, 116, 1, 29, "Subsubsection"],
+Cell[296380, 5947, 469, 9, 52, "Text"],
 Cell[CellGroupData[{
-Cell[296575, 5950, 778, 22, 55, "Input"],
-Cell[297356, 5974, 3033, 79, 121, "Output"],
-Cell[300392, 6055, 5252, 108, 173, "Output"]
+Cell[296874, 5960, 778, 22, 55, "Input"],
+Cell[297655, 5984, 3033, 79, 121, "Output"],
+Cell[300691, 6065, 5252, 108, 173, "Output"]
 }, Open  ]],
-Cell[305659, 6166, 345, 8, 32, "Text"],
+Cell[305958, 6176, 345, 8, 32, "Text"],
 Cell[CellGroupData[{
-Cell[306029, 6178, 798, 21, 55, "Input"],
-Cell[306830, 6201, 148302, 2456, 375, 62442, 1047, "CachedBoxData", \
+Cell[306328, 6188, 798, 21, 55, "Input"],
+Cell[307129, 6211, 148302, 2456, 375, 62442, 1047, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[455181, 8663, 118, 1, 29, "Subsubsection"],
-Cell[455302, 8666, 138, 1, 31, "Text"],
-Cell[455443, 8669, 361, 11, 32, "Input"],
-Cell[455807, 8682, 451, 10, 53, "Text"],
-Cell[456261, 8694, 1232, 29, 77, "Input"],
-Cell[457496, 8725, 161, 3, 31, "Text"],
+Cell[455480, 8673, 118, 1, 29, "Subsubsection"],
+Cell[455601, 8676, 138, 1, 31, "Text"],
+Cell[455742, 8679, 361, 11, 32, "Input"],
+Cell[456106, 8692, 451, 10, 53, "Text"],
+Cell[456560, 8704, 1232, 29, 77, "Input"],
+Cell[457795, 8735, 161, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[457682, 8732, 978, 25, 121, "Input"],
-Cell[458663, 8759, 3062, 65, 267, "Output"]
+Cell[457981, 8742, 978, 25, 121, "Input"],
+Cell[458962, 8769, 3062, 65, 267, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[461774, 8830, 105, 1, 29, "Subsubsection"],
-Cell[461882, 8833, 257, 5, 31, "Text"],
-Cell[462142, 8840, 745, 21, 32, "Input"],
-Cell[462890, 8863, 154, 3, 31, "Text"],
+Cell[462073, 8840, 105, 1, 29, "Subsubsection"],
+Cell[462181, 8843, 257, 5, 31, "Text"],
+Cell[462441, 8850, 745, 21, 32, "Input"],
+Cell[463189, 8873, 154, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[463069, 8870, 1635, 37, 121, "Input"],
-Cell[464707, 8909, 13212, 232, 244, 3871, 77, "CachedBoxData", "BoxData", \
+Cell[463368, 8880, 1635, 37, 121, "Input"],
+Cell[465006, 8919, 13212, 232, 244, 3871, 77, "CachedBoxData", "BoxData", \
 "Output"],
-Cell[477922, 9143, 223799, 3693, 375, 133717, 2215, "CachedBoxData", \
+Cell[478221, 9153, 223799, 3693, 375, 133717, 2215, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]],
-Cell[701736, 12839, 166, 3, 31, "Text"],
-Cell[701905, 12844, 847, 22, 37, "Input"],
+Cell[702035, 12849, 166, 3, 31, "Text"],
+Cell[702204, 12854, 847, 22, 37, "Input"],
 Cell[CellGroupData[{
-Cell[702777, 12870, 1494, 35, 121, "Input"],
-Cell[704274, 12907, 4552, 90, 244, "Output"],
-Cell[708829, 12999, 211996, 3498, 375, 115667, 1918, "CachedBoxData", \
+Cell[703076, 12880, 1494, 35, 121, "Input"],
+Cell[704573, 12917, 4552, 90, 244, "Output"],
+Cell[709128, 13009, 211996, 3498, 375, 115667, 1918, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[920874, 16503, 161, 2, 29, "Subsubsection"],
-Cell[921038, 16507, 205, 5, 32, "Text"],
+Cell[921173, 16513, 161, 2, 29, "Subsubsection"],
+Cell[921337, 16517, 205, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[921268, 16516, 363, 7, 32, "Input"],
-Cell[921634, 16525, 3408, 71, 99, "Output"]
+Cell[921567, 16526, 363, 7, 32, "Input"],
+Cell[921933, 16535, 3408, 71, 99, "Output"]
 }, Open  ]],
-Cell[925057, 16599, 310, 8, 32, "Text"],
+Cell[925356, 16609, 221, 7, 32, "Text"],
 Cell[CellGroupData[{
-Cell[925392, 16611, 908, 22, 77, "Input"],
-Cell[926303, 16635, 2111, 47, 245, "Output"]
+Cell[925602, 16620, 272, 6, 32, "Input"],
+Cell[925877, 16628, 3236, 69, 99, "Output"]
+}, Open  ]],
+Cell[929128, 16700, 310, 8, 32, "Text"],
+Cell[CellGroupData[{
+Cell[929463, 16712, 908, 22, 77, "Input"],
+Cell[930374, 16736, 2111, 47, 245, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[928463, 16688, 103, 1, 29, "Subsubsection"],
-Cell[928569, 16691, 412, 10, 52, "Text"],
-Cell[928984, 16703, 2170, 53, 319, "Input"],
-Cell[931157, 16758, 114, 1, 31, "Text"],
-Cell[931274, 16761, 594, 16, 32, "Input"],
-Cell[931871, 16779, 349, 8, 32, "Text"],
+Cell[932534, 16789, 103, 1, 29, "Subsubsection"],
+Cell[932640, 16792, 412, 10, 52, "Text"],
+Cell[933055, 16804, 2170, 53, 319, "Input"],
+Cell[935228, 16859, 114, 1, 31, "Text"],
+Cell[935345, 16862, 594, 16, 32, "Input"],
+Cell[935942, 16880, 349, 8, 32, "Text"],
 Cell[CellGroupData[{
-Cell[932245, 16791, 1051, 22, 55, "Input"],
-Cell[933299, 16815, 31397, 628, 360, "Output"]
+Cell[936316, 16892, 1051, 22, 55, "Input"],
+Cell[937370, 16916, 31397, 628, 360, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[964757, 17450, 114, 1, 45, "Subsection"],
+Cell[968828, 17551, 114, 1, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[964896, 17455, 206, 3, 35, "Subsubsection"],
-Cell[965105, 17460, 197, 4, 31, "Text"],
+Cell[968967, 17556, 206, 3, 35, "Subsubsection"],
+Cell[969176, 17561, 197, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[965327, 17468, 616, 16, 77, "Input"],
-Cell[965946, 17486, 2414, 51, 141, "Output"]
+Cell[969398, 17569, 616, 16, 77, "Input"],
+Cell[970017, 17587, 2414, 51, 141, "Output"]
 }, Open  ]],
-Cell[968375, 17540, 186, 4, 31, "Text"],
+Cell[972446, 17641, 186, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[968586, 17548, 1240, 30, 55, "Input"],
-Cell[969829, 17580, 2643, 56, 224, "Output"]
+Cell[972657, 17649, 1240, 30, 55, "Input"],
+Cell[973900, 17681, 2643, 56, 224, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[972521, 17642, 156, 2, 29, "Subsubsection"],
-Cell[972680, 17646, 197, 4, 31, "Text"],
+Cell[976592, 17743, 156, 2, 29, "Subsubsection"],
+Cell[976751, 17747, 197, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[972902, 17654, 1522, 43, 99, "Input"],
-Cell[974427, 17699, 4746, 104, 228, "Output"]
+Cell[976973, 17755, 1522, 43, 99, "Input"],
+Cell[978498, 17800, 4746, 104, 228, "Output"]
 }, Open  ]],
-Cell[979188, 17806, 186, 4, 31, "Text"],
+Cell[983259, 17907, 186, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[979399, 17814, 1960, 45, 121, "Input"],
-Cell[981362, 17861, 36536, 610, 225, 10246, 180, "CachedBoxData", "BoxData", \
+Cell[983470, 17915, 1960, 45, 121, "Input"],
+Cell[985433, 17962, 36536, 610, 225, 10246, 180, "CachedBoxData", "BoxData", \
 "Output"],
-Cell[1017901, 18473, 170353, 2815, 375, 82052, 1368, "CachedBoxData", \
+Cell[1021972, 18574, 170353, 2815, 375, 82052, 1368, "CachedBoxData", \
 "BoxData", "Output"],
-Cell[1188257, 21290, 1292, 28, 32, "Output"]
+Cell[1192328, 21391, 1292, 28, 32, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1189610, 21325, 121, 1, 45, "Subsection"],
+Cell[1193681, 21426, 121, 1, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[1189756, 21330, 103, 1, 35, "Subsubsection"],
-Cell[1189862, 21333, 590, 20, 36, "Text"],
-Cell[1190455, 21355, 1287, 40, 55, "Input"],
-Cell[1191745, 21397, 211, 4, 31, "Text"],
-Cell[1191959, 21403, 538, 14, 32, "Input"],
-Cell[1192500, 21419, 100, 1, 31, "Text"],
+Cell[1193827, 21431, 103, 1, 35, "Subsubsection"],
+Cell[1193933, 21434, 590, 20, 36, "Text"],
+Cell[1194526, 21456, 1287, 40, 55, "Input"],
+Cell[1195816, 21498, 211, 4, 31, "Text"],
+Cell[1196030, 21504, 538, 14, 32, "Input"],
+Cell[1196571, 21520, 100, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[1192625, 21424, 2126, 49, 187, "Input"],
-Cell[1194754, 21475, 52146, 877, 375, "Output"],
-Cell[1246903, 22354, 32159, 599, 253, "Output"]
+Cell[1196696, 21525, 2126, 49, 187, "Input"],
+Cell[1198825, 21576, 52146, 877, 375, "Output"],
+Cell[1250974, 22455, 32159, 599, 253, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1279123, 22960, 111, 1, 45, "Subsection"],
-Cell[1279237, 22963, 283, 7, 32, "Text"],
-Cell[1279523, 22972, 590, 13, 52, "Text"]
+Cell[1283194, 23061, 111, 1, 45, "Subsection"],
+Cell[1283308, 23064, 283, 7, 32, "Text"],
+Cell[1283594, 23073, 590, 13, 52, "Text"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1280162, 22991, 132, 2, 65, "Section"],
+Cell[1284233, 23092, 132, 2, 65, "Section"],
 Cell[CellGroupData[{
-Cell[1280319, 22997, 102, 1, 44, "Subsection"],
-Cell[1280424, 23000, 1917, 71, 53, "Text",
+Cell[1284390, 23098, 102, 1, 44, "Subsection"],
+Cell[1284495, 23101, 1917, 71, 53, "Text",
  CellTags->"LindbladForm::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1282378, 23076, 111, 1, 45, "Subsection"],
-Cell[1282492, 23079, 639, 19, 51, "Text",
+Cell[1286449, 23177, 111, 1, 45, "Subsection"],
+Cell[1286563, 23180, 639, 19, 51, "Text",
  CellTags->"GetPulseShapeMatrix::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1283168, 23103, 150, 2, 45, "Subsection"],
-Cell[1283321, 23107, 1355, 47, 73, "Text",
+Cell[1287239, 23204, 150, 2, 45, "Subsection"],
+Cell[1287392, 23208, 1355, 47, 73, "Text",
  CellTags->"GetStepSize::usage"],
 Cell[CellGroupData[{
-Cell[1284701, 23158, 97, 1, 35, "Subsubsection"],
-Cell[1284801, 23161, 118, 1, 31, "Text"],
-Cell[1284922, 23164, 297, 8, 32, "Input"],
-Cell[1285222, 23174, 133, 1, 31, "Text"],
+Cell[1288772, 23259, 97, 1, 35, "Subsubsection"],
+Cell[1288872, 23262, 118, 1, 31, "Text"],
+Cell[1288993, 23265, 297, 8, 32, "Input"],
+Cell[1289293, 23275, 133, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[1285380, 23179, 382, 8, 32, "Input"],
-Cell[1285765, 23189, 132, 3, 36, "Output"]
+Cell[1289451, 23280, 382, 8, 32, "Input"],
+Cell[1289836, 23290, 132, 3, 36, "Output"]
 }, Open  ]],
-Cell[1285912, 23195, 165, 3, 31, "Text"],
+Cell[1289983, 23296, 165, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[1286102, 23202, 208, 4, 32, "Input"],
-Cell[1286313, 23208, 167, 4, 49, "Output"]
+Cell[1290173, 23303, 208, 4, 32, "Input"],
+Cell[1290384, 23309, 167, 4, 49, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1286541, 23219, 108, 1, 45, "Subsection"],
-Cell[1286652, 23222, 766, 29, 32, "Text",
+Cell[1290612, 23320, 108, 1, 45, "Subsection"],
+Cell[1290723, 23323, 766, 29, 32, "Text",
  CellTags->"GetPollingInterval::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1287455, 23256, 100, 1, 45, "Subsection"],
-Cell[1287558, 23259, 738, 27, 32, "Text",
+Cell[1291526, 23357, 100, 1, 45, "Subsection"],
+Cell[1291629, 23360, 738, 27, 32, "Text",
  CellTags->"DivideEvenly::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1288333, 23291, 101, 1, 45, "Subsection"],
-Cell[1288437, 23294, 897, 35, 32, "Text",
+Cell[1292404, 23392, 101, 1, 45, "Subsection"],
+Cell[1292508, 23395, 897, 35, 32, "Text",
  CellTags->"MakeMultipleOf::usage"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[1289383, 23335, 95, 1, 51, "Section"],
-Cell[1289481, 23338, 351, 8, 32, "Text"],
+Cell[1293454, 23436, 95, 1, 51, "Section"],
+Cell[1293552, 23439, 351, 8, 32, "Text"],
 Cell[CellGroupData[{
-Cell[1289857, 23350, 96, 1, 44, "Subsection"],
-Cell[1289956, 23353, 755, 28, 32, "Text",
+Cell[1293928, 23451, 96, 1, 44, "Subsection"],
+Cell[1294027, 23454, 755, 28, 32, "Text",
  CellTags->"PulseQ::usage"],
-Cell[1290714, 23383, 480, 18, 32, "Text",
+Cell[1294785, 23484, 480, 18, 32, "Text",
  CellTags->"PulseSequenceQ::usage"],
-Cell[1291197, 23403, 740, 25, 32, "Text",
+Cell[1295268, 23504, 740, 25, 32, "Text",
  CellTags->"ShapedPulseQ::usage"],
-Cell[1291940, 23430, 519, 20, 32, "Text",
+Cell[1296011, 23531, 519, 20, 32, "Text",
  CellTags->"DriftPulseQ::usage"],
-Cell[1292462, 23452, 623, 21, 32, "Text",
+Cell[1296533, 23553, 623, 21, 32, "Text",
  CellTags->"UnitaryPulseQ::usage"],
-Cell[1293088, 23475, 692, 22, 32, "Text",
+Cell[1297159, 23576, 692, 22, 32, "Text",
  CellTags->"ChannelPulseQ::usage"],
-Cell[1293783, 23499, 460, 16, 32, "Text",
+Cell[1297854, 23600, 460, 16, 32, "Text",
  CellTags->"PulseShapeFileQ::usage"],
-Cell[1294246, 23517, 444, 16, 32, "Text",
+Cell[1298317, 23618, 444, 16, 32, "Text",
  CellTags->"PulseShapeMatrixQ::usage"],
-Cell[1294693, 23535, 729, 28, 32, "Text",
+Cell[1298764, 23636, 729, 28, 32, "Text",
  CellTags->"PulseShapeQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1295459, 23568, 104, 1, 44, "Subsection"],
-Cell[1295566, 23571, 420, 16, 32, "Text",
+Cell[1299530, 23669, 104, 1, 44, "Subsection"],
+Cell[1299637, 23672, 420, 16, 32, "Text",
  CellTags->"DriftHamConstQ::usage"],
-Cell[1295989, 23589, 565, 19, 32, "Text",
+Cell[1300060, 23690, 565, 19, 32, "Text",
  CellTags->"DriftHamTimeDepQ::usage"],
-Cell[1296557, 23610, 717, 28, 32, "Text",
+Cell[1300628, 23711, 717, 28, 32, "Text",
  CellTags->"DriftHamQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1297311, 23643, 100, 1, 44, "Subsection"],
-Cell[1297414, 23646, 592, 20, 32, "Text",
+Cell[1301382, 23744, 100, 1, 44, "Subsection"],
+Cell[1301485, 23747, 592, 20, 32, "Text",
  CellTags->"LindbladConstQ::usage"],
-Cell[1298009, 23668, 831, 27, 32, "Text",
+Cell[1302080, 23769, 831, 27, 32, "Text",
  CellTags->"LindbladTimeDepQ::usage"],
-Cell[1298843, 23697, 770, 28, 32, "Text",
+Cell[1302914, 23798, 770, 28, 32, "Text",
  CellTags->"LindbladQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1299650, 23730, 99, 1, 44, "Subsection"],
-Cell[1299752, 23733, 661, 26, 32, "Text",
+Cell[1303721, 23831, 99, 1, 44, "Subsection"],
+Cell[1303823, 23834, 661, 26, 32, "Text",
  CellTags->"GeneratorQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1300450, 23764, 112, 1, 44, "Subsection"],
-Cell[1300565, 23767, 436, 16, 32, "Text",
+Cell[1304521, 23865, 112, 1, 44, "Subsection"],
+Cell[1304636, 23868, 436, 16, 32, "Text",
  CellTags->"ObservableListQ::usage"],
-Cell[1301004, 23785, 442, 18, 32, "Text",
+Cell[1305075, 23886, 442, 18, 32, "Text",
  CellTags->"FunctionListQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1301483, 23808, 101, 1, 44, "Subsection"],
-Cell[1301587, 23811, 878, 30, 53, "Text",
+Cell[1305554, 23909, 101, 1, 44, "Subsection"],
+Cell[1305658, 23912, 878, 30, 53, "Text",
  CellTags->"DistributionQ::usage"]
 }, Open  ]]
 }, Closed]]
