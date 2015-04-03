@@ -376,7 +376,7 @@ Functions[data_,OptionsPattern[{TimeVector->False}]]:=
 Functions[data_,n_,opt:OptionsPattern[{TimeVector->False}]]:=Functions[data,opt][[n]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Simulators*)
 
 
@@ -385,7 +385,7 @@ Functions[data_,n_,opt:OptionsPattern[{TimeVector->False}]]:=Functions[data,opt]
 
 
 Simulator[H_?DriftHamConstQ,p_?ShapedPulseQ,{NN_,AppendReturnables_},opts:OptionsPattern[PulseSim]]:=
-	Module[{dt,ds,pt,t,T,dtAcc,pollTimes,pollQuery,ampQuery,m,U,dim,amps,Hctls},
+	Module[{dt,ds,pt,t,T,dtAcc,pollTimes,pollQuery,ampQuery,m,U,dim,amps,Hctls,\[Rho]out},
 
 		With[{pulse=GetPulseShapeMatrix[p[[1]]]},
 			amps = NN[If[Length[pulse[[1]]]>2,pulse[[All,2;;-1]],pulse[[All,{2}]]]];
@@ -429,12 +429,14 @@ Simulator[H_?DriftHamConstQ,p_?ShapedPulseQ,{NN_,AppendReturnables_},opts:Option
 		];
 
 		(* return final state *)
-		If[OptionValue@SequenceMode, If[OptionValue[InitialState]===None,None,U.OptionValue[InitialState].U\[ConjugateTranspose]]]
+		\[Rho]out=OptionValue[InitialState];
+		\[Rho]out=If[\[Rho]out===None,None,If[Length[\[Rho]out]===Length[U],U.\[Rho]out.U\[ConjugateTranspose],Devec[U.Vec[\[Rho]out]]]];
+		If[OptionValue@SequenceMode, \[Rho]out]
 	]
 
 
 Simulator[H_?DriftHamTimeDepQ,p_?ShapedPulseQ,{NN_,AppendReturnables_},opts:OptionsPattern[PulseSim]]:=
-	Module[{dt,ds,pt,t,T,dtAcc,tprev,tcurr,pollTimes,pollQuery,ampQuery,U,dim,m,n,amps,Hctls,nSteps},
+	Module[{dt,ds,pt,t,T,dtAcc,tprev,tcurr,pollTimes,pollQuery,ampQuery,U,dim,m,n,amps,Hctls,nSteps,\[Rho]out},
 
 		With[{pulse=GetPulseShapeMatrix[p[[1]]]},
 			amps = NN[If[Length[pulse[[1]]]>2,pulse[[All,2;;-1]],pulse[[All,{2}]]]];
@@ -488,7 +490,9 @@ Simulator[H_?DriftHamTimeDepQ,p_?ShapedPulseQ,{NN_,AppendReturnables_},opts:Opti
 		];
 
 		(* return final state *)
-		If[OptionValue@SequenceMode, If[OptionValue[InitialState]===None,None,U.OptionValue[InitialState].U\[ConjugateTranspose]]]
+		\[Rho]out=OptionValue[InitialState];
+		\[Rho]out=If[\[Rho]out===None,None,If[Length[\[Rho]out]===Length[U],U.\[Rho]out.U\[ConjugateTranspose],Devec[U.Vec[\[Rho]out]]]];
+		If[OptionValue@SequenceMode, \[Rho]out]
 	]
 
 
@@ -497,7 +501,7 @@ Simulator[H_?DriftHamTimeDepQ,p_?ShapedPulseQ,{NN_,AppendReturnables_},opts:Opti
 
 
 Simulator[H_?DriftHamConstQ,T_?DriftPulseQ,{NN_,AppendReturnables_},opts:OptionsPattern[PulseSim]]:=
-	Module[{dt,U,W},
+	Module[{dt,U,W,\[Rho]out},
 
 		dt=GetPollingInterval[OptionValue[PollingInterval],T];
 		(* reduce  the size of dt so that it divides T into an integer number of pieces *)
@@ -513,12 +517,14 @@ Simulator[H_?DriftHamConstQ,T_?DriftPulseQ,{NN_,AppendReturnables_},opts:Options
 		];
 
 		(* return final state *)
-		If[OptionValue@SequenceMode, If[OptionValue[InitialState]===None,None,W.OptionValue[InitialState].W\[ConjugateTranspose]]]
+		\[Rho]out=OptionValue[InitialState];
+		\[Rho]out=If[\[Rho]out===None,None,If[Length[\[Rho]out]===Length[W],W.\[Rho]out.W\[ConjugateTranspose],Devec[W.Vec[\[Rho]out]]]];
+		If[OptionValue@SequenceMode, \[Rho]out]
 	]
 
 
 Simulator[H_?DriftHamTimeDepQ,T_?DriftPulseQ,{NN_,AppendReturnables_},opts:OptionsPattern[PulseSim]]:=
-	Module[{dt,pt,U,dim,n},
+	Module[{dt,pt,U,dim,n,\[Rho]out},
 
 		dt=GetStepSize[H,T,OptionValue[StepSize]];
 		dt=CheckStepSizeVsTotalTime[dt,T];
@@ -557,7 +563,9 @@ Simulator[H_?DriftHamTimeDepQ,T_?DriftPulseQ,{NN_,AppendReturnables_},opts:Optio
 		];
 
 		(* return final state *)
-		If[OptionValue@SequenceMode, If[OptionValue[InitialState]===None,None,U.OptionValue[InitialState].U\[ConjugateTranspose]]]
+		\[Rho]out=OptionValue[InitialState];
+		\[Rho]out=If[\[Rho]out===None,None,If[Length[\[Rho]out]===Length[U],U.\[Rho]out.U\[ConjugateTranspose],Devec[U.Vec[\[Rho]out]]]];
+		If[OptionValue@SequenceMode, \[Rho]out]
 	]
 
 
