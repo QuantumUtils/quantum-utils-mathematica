@@ -165,7 +165,7 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -1222,7 +1222,7 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*State Measures*)
 
 
@@ -1322,7 +1322,7 @@ Fidelity[A_,B_]:=With[{
 	]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Entanglement Measures*)
 
 
@@ -1330,7 +1330,7 @@ EntangledQ[op_,{da_Integer,db_Integer},fn_]:=
 	Which[
 		GeneralVectorQ[op],EntangledQ[Projector[op],{da,db},fn],
 		SquareMatrixQ[op],
-			With[{vals=fn[Eigenvalues[MatrixTranspose[op,{da,db,da,db},{1,4,2,3}]]]},
+			With[{vals=fn[Eigenvalues[MatrixTranspose[op,{{da,db},{da,db}},{1,4,2,3}]]]},
 			If[AnyQ[Negative,vals],True,
 			If[Length[op]<=6,False,"Indeterminate"]]],
 		True,Message[EntangledQ::input]
