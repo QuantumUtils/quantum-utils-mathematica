@@ -110,9 +110,15 @@ class String(MathematicaObject, str):
 
 atom = [Integer, String]
 
-class MExpression(MathematicaObject, list):
+class MExpression(MathematicaObject):
     head = None
     body = None
+
+    def __init__(self, other=None):
+        # If other is not None, this clones the other here.
+        if other is not None:
+            self.head = other.head
+            self.body = other.body
 
 class List(MExpression):
     head = MSymbol("List")
@@ -120,6 +126,12 @@ class List(MExpression):
     grammar = (
         Literal("{"), optional(attr("body", csl(MExpression))), Literal("}")
     )
+
+    def __init__(self, seq=None):
+        if seq is not None:
+            self.body = seq
+        else:
+            self.body = []
 
 
 # Since MExpression is recursive, we need to define the class,
