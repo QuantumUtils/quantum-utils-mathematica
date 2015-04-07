@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["Tensor`",{"Predicates`"}];
+BeginPackage["Tensor`",{"QUDoc`","Predicates`"}];
 
 
 Needs["QUDevTools`"];
@@ -35,7 +35,7 @@ Needs["QUDevTools`"];
 $TensorUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Tensor.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -162,7 +162,7 @@ PartialTr::input = "Input must be a square matrix, vector, or column vector.";
 BasisMatrix::dims = "Dimensions of input system must be specified.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -279,42 +279,30 @@ SwapMatrix[d_Integer,perm_List]:= Normal@SwapMatrix[d,perm,SparseArray]
 
 
 (* ::Text:: *)
-(*Note that this function reshapes so that the subsystem order corresponds to the list of left indicies followed by the list of right indicies.*)
+(*Note that this function reshapes so that the subsystem order corresponds to the list of left indicies followed by the list of right indicies. If this splitting is not explicitly specified it will attempt to calculate where it places the split, however there is ambiguitity in where this split occurs in the presence of 1 dimensional subsystems.*)
 
 
-MatrixToTensorDims[mat_,dims_]:=
-	With[
-		{dmat=Times@@Dimensions[mat],
-		dtens=Times@@Flatten[dims]},
+MatrixToTensorDims[mat_,{dims__Integer}]:=
+	With[{dmat=Dimensions[mat]},
 	Which[
-		And[AllQ[ListQ,dims],dmat===dtens],
-			Flatten[dims],
-		And[AllQ[IntegerQ,dims],dmat===dtens],
-			dims,
-		And[AllQ[IntegerQ,dims],dmat===dtens^2],
-			Join[dims,dims],
-		True,Message[MatrixToTensor::dims]
+		Times[dims]^2===Times@@dmat,
+			{{dims},{dims}},
+		Times[dims]===Times@@dmat,
+			Last@Select[
+				{Part[{dims},1;;#],Part[{dims}#+1;;-1]}&/@Range[Length[{dims}]-1],
+				Apply[Times,#,{1}]==dmat&],
+		True,
+			Message[MatrixToTensor::dims]
 	]]
+
+MatrixToTensorDims[mat_,{{dimsL__Integer},{dimsR__Integer}}]:=
+	If[Times@@Dimensions[mat]===Times[dimsL,dimsR],
+		{{dimsL},{dimsR}},
+		Message[MatrixToTensor::dims]]
 
 
 MatrixToTensor[mat_,dims_]:=
-	ArrayReshape[mat,MatrixToTensorDims[mat,dims]]
-
-
-(* ::Text:: *)
-(*Utility function to determine where the a list of tensors dimensions should be partitioned for flattening to a matrix.*)
-
-
-MatrixSplitPosition[mat_,matToTensDims_]:=
-		First@Flatten@Position[Rest@FoldList[Times,1,matToTensDims],First[Dimensions[mat]]]
-
-
-TransposedMatrixDims[mat_,matToTensDims_,translist_]:=
-	With[{
-		pos=MatrixSplitPosition[mat,matToTensDims],
-		dims1=Permute[matToTensDims,translist]},
-		{Times@@Part[dims1,1;;pos],Times@@Part[dims1,pos+1;;All]}
-	]
+	ArrayReshape[mat,Flatten@MatrixToTensorDims[mat,dims]]
 
 
 (* ::Text:: *)
@@ -323,13 +311,21 @@ TransposedMatrixDims[mat_,matToTensDims_,translist_]:=
 
 
 MatrixTranspose[mat_,dims_,translist_]:=
-	With[{tdims=MatrixToTensorDims[mat,dims]},
-	ArrayReshape[
-		TensorTranspose[
-			MatrixToTensor[mat,dims],
-			translist],
-		TransposedMatrixDims[mat,tdims,translist]
+	With[{tensDims=MatrixToTensorDims[mat,dims]},
+	With[{
+		dimsT=Permute[Flatten[tensDims],translist],
+		nL=Length@First[tensDims]},
+		ArrayReshape[
+			TensorTranspose[
+				MatrixToTensor[mat,dims],
+				translist],
+			{Times@@Part[dimsT,1;;nL],Times@@Part[dimsT,nL+1;;-1]}
+		]
 	]]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Reshuffling*)
 
 
 Options[Reshuffle]={Basis->"Col"};
@@ -527,18 +523,19 @@ TensorPairContract[tens1_,tens2_,{}]:=TensorProduct[tens1,tens2]
 
 
 MatrixContractDims[mat_,matTensDims_,contr_List]:=
-	With[{pos=MatrixSplitPosition[mat,matTensDims],
-		finalDims=Delete[matTensDims,Partition[contr,1]]},
-		{Times@@Part[finalDims,1;;#],
-		Times@@Part[finalDims,#+1;;All]}&@(pos-Length[Select[contr,#<= pos&]])
+	With[{
+		pos=Length@First@matTensDims,
+		finalDims=Delete[Flatten[matTensDims],Partition[contr,1]]},
+			{Times@@Part[finalDims,1;;#],Times@@Part[finalDims,#+1;;-1]}&
+			[pos-Length[Select[contr,#<= pos&]]]
 	]
 
 
 MatrixContract[mat_,dims_,{pairs___List}]:=
-	With[{tdims=MatrixToTensorDims[mat,dims]},
+	With[{tensDims=MatrixToTensorDims[mat,dims]},
 		ArrayReshape[
 			TensorContract[MatrixToTensor[mat,dims],{pairs}],
-		MatrixContractDims[mat,tdims,Join[pairs]]]
+		MatrixContractDims[mat,tensDims,Join[pairs]]]
 	]
 
 

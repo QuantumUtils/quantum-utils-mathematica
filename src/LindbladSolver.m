@@ -22,11 +22,11 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
-BeginPackage["LindbladSolver`"];
+BeginPackage["LindbladSolver`",{"QUDoc`"}];
 
 
 Needs["QUDevTools`"];
@@ -66,6 +66,7 @@ AssignUsage[{ODECoefficients,ODEVariables,ODEInitialConditions,ODEFirstOrderSyst
 
 
 ODESolver::initcond = "Input state must be a square matrix or vector.";
+ODESolver::symsol = "ODESolver failed to find an symbolic solution.";
 
 
 (* ::Section:: *)
@@ -269,35 +270,44 @@ LindbladSolver[
 		LindbladSolver[PreformatLindblad[ham,collapseOps],{initState,t0,tf},opts]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Symbolically Solver ODE*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*General Solver*)
 
 
 ODESolver[generator_,{initState_,t0_},opts:OptionsPattern[ODESolver]]:=
 	With[{sym=OptionValue[Symbol]},
-	With[{init=ODEInitialConditions[initState,{t0,sym}]},
 	Function[t,
 		Evaluate[
-			With[{
-				vars=ODEVariables[{Length[init],t,sym}],
-				sys=And[ODEFirstOrderSystem[generator,{t,sym}],init]},
-				vars/.Flatten[DSolve[sys,vars,t,FilterOptions[DSolve,opts]]]
+			Block[{vars,sys,sol,
+				init=ODEInitialConditions[initState,{t0,sym}]},
+				vars=ODEVariables[{Length[init],t,sym}];
+				sys=And[ODEFirstOrderSystem[generator,{t,sym}],init];
+				sol=DSolve[sys,vars,t,FilterOptions[DSolve,opts]];
+				If[Head[sol]===DSolve,
+					Message[ODESolver::symsol],
+					vars/.Flatten[sol]
+				]
 			]
 		]
-	]]]
+	]]
 
 
 ODESolver[generator_,opts:OptionsPattern[ODESolver]]:=
 	With[{sym=OptionValue[Symbol]},
 	Function[t,
 		Evaluate[
-			Block[{sys=ODEFirstOrderSystem[generator,{t,sym}],vars},
+			Block[{vars,sol,
+				sys=ODEFirstOrderSystem[generator,{t,sym}],vars},
 				vars=ODEVariables[{Length[sys],t,sym}];
-				vars/.Flatten[DSolve[sys,vars,t,FilterOptions[DSolve,opts]]]
+				sol=DSolve[sys,vars,t,FilterOptions[DSolve,opts]];
+				If[Head[sol]===DSolve,
+					Message[ODESolver::symsol],
+					vars/.Flatten[sol]
+				]
 			]
 		]
 	]]

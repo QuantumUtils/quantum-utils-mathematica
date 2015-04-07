@@ -22,11 +22,11 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
-BeginPackage["GRAPE`"];
+BeginPackage["GRAPE`",{"QUDoc`"}];
 
 
 (* ::Text:: *)
@@ -1574,7 +1574,7 @@ RobustnessPlot[{pulses__Pulse}, sweepParams_Rule, constantParams_List, opt:Optio
 						simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
 					{x, Fcn@Utility[
-						Last@Unitaries@EvalPulse[
+						Last@Unitaries@PulseSim[
 							Hint/.reps,
 							simpulse/.reps
 						],
@@ -1632,7 +1632,7 @@ RobustnessPlot[pulseList_List, sweepParamsX_Rule, sweepParamsY_Rule, constantPar
 						simpulse = SimForm[PulseReplaceKey[pulse,DistortionOperator,pulse@DistortionOperator/.reps], True];
 					];
 					Fcn@Utility[
-						Last@Unitaries@EvalPulse[
+						Last@Unitaries@PulseSim[
 							Hint/.reps,
 							simpulse/.reps
 						],

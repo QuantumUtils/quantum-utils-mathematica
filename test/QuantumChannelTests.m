@@ -925,15 +925,26 @@ TestCase[$RegisteredTests,"QuantumChannel:EntanglementFidelity",
 
 TestCase[$RegisteredTests, "QuantumChannel:Unitarity",
 	And[
-		Unitarity[Unitary @ TP[X]] == 1,
-		Unitarity[Super[Projector[UnitVector[4,1]], Basis -> "Pauli"]] == 0,
-		Unitarity[Super[{
-			{1, 0, 0, 1},
-			{0, 0, 0, 0},
-			{0, 0, 0, 0},
-			{0, 0, 0, 0}
-		}, Basis -> "Pauli"]] == 0,
-		Unitarity[Kraus[{Sqrt[1/2]TP[I],Sqrt[1/2]TP[X]}]] == 1/3
+		Unitarity[
+			QuantumChannel[{{0,1},{1,0}},
+				{ChannelRep->Unitary,InputDim->2,OutputDim->2,Basis->"Col"}]
+			] == 1,
+		Unitarity[
+			QuantumChannel[DiagonalMatrix[{1,0,0,0}],
+				{ChannelRep->Super, InputDim->2, OutputDim->2, Basis -> "Pauli"}]
+			] == 0,
+		Unitarity[
+			QuantumChannel[{
+				{1, 0, 0, 1},
+				{0, 0, 0, 0},
+				{0, 0, 0, 0},
+				{0, 0, 0, 0}},
+				{ChannelRep->Super, InputDim->2, OutputDim->2, Basis -> "Pauli"}]
+			] == 0,
+		Unitarity[
+			QuantumChannel[{Sqrt[1/2]{{1,0},{0,1}},Sqrt[1/2]{{0,1},{1,0}}},
+				{ChannelRep->Kraus, InputDim->2, OutputDim->2, Basis->"Col"}]
+			] == 1/3
 	]
 ]
 

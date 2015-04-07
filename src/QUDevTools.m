@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["QUDevTools`"];
+BeginPackage["QUDevTools`",{"QUDoc`"}];
 
 
 (* ::Subsection::Closed:: *)

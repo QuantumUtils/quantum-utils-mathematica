@@ -26,7 +26,7 @@
 (*Preamble*)
 
 
-BeginPackage["QuantumChannel`",{"Tensor`","Predicates`"}];
+BeginPackage["QuantumChannel`",{"QUDoc`","Tensor`","Predicates`"}];
 
 
 Needs["QUDevTools`"]
@@ -65,7 +65,7 @@ AssignUsage[ChannelRep,$QuantumChannelUsages];
 AssignUsage[ChannelParameters,$QuantumChannelUsages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Channel Functions*)
 
 
@@ -183,7 +183,7 @@ SysEnvQ[set_]:=Or[SysEnvSingleQ[set],SysEnvPairQ[set]];
 SysEnvUnitaryQ[set_]:=And[SysEnvSingleQ[set],MemberQ[{{1},{1,1}},Dimensions@Last[set]]]
 
 
-ChoiUnitaryQ[choi_]:=SameQ[1,Length[Select[Eigenvalues[choi],PossiblyNonzeroQ]]]
+ChoiUnitaryQ[choi_]:=SameQ[1,Length[Select[Eigenvalues[choi,2],PossiblyNonzeroQ]]]
 
 
 UnitaryChannelQ[chan_QuantumChannel]:=
@@ -992,7 +992,7 @@ Evaluate[Map[(
 	$ChannelSimplifyFunctions];]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Fidelity and Volume*)
 
 
@@ -1076,7 +1076,7 @@ AComChannel[A_QuantumChannel]:=
 LindbladDissipator[ops_]:=
 Which[
 	MatrixQ[ops],
-		Unitary[ops]-AComChannel[ConjugateTranspose[ops].ops]/2,
+		Super@Unitary[ops]-AComChannel[ConjugateTranspose[ops].ops]/2,
 	AllQ[MatrixQ,ops],
 		Total[LindbladDissipator/@ops],
 	True,

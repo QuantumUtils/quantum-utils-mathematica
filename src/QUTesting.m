@@ -22,11 +22,11 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
-BeginPackage["QUTesting`"];
+BeginPackage["QUTesting`",{"QUDoc`"}];
 
 
 (* ::Text:: *)
@@ -69,9 +69,14 @@ Begin["`Private`"];
 (*To call the test results of an individual package use TestResults["name"].  For example: TestResults["Tensor"]*)
 
 
-TestResults[name_String]:=(
-	Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
-	ToExpression[name<>"Tests`UnitTests`$TestResults"])
+SetAttributes[TestResults,HoldAll];
+
+
+TestResults[package_]:=
+	With[{name=ToString[package]},
+		Needs[name<>"Tests`",FileNameJoin[{$QUTestingPath,name<>"Tests.m"}]];
+		ToExpression[name<>"Tests`UnitTests`$TestResults"]
+	]
 
 
 TestResults[]:=Join@@Map[TestResults,$UnitTestManifest]
