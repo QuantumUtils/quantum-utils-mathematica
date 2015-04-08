@@ -632,7 +632,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 		(* Variables to store user-input values *)
 		staVar,obsVar,funVar,
 		(* Booleans *)
-		isLindblad,isChannel,isSuper,hasInputState,requiresInputState,requiresProp,
+		isLindblad,isChannel,isSuper,isUnitary,hasInputState,requiresInputState,requiresProp,
 		(* List of keys to return *)
 		outputList,
 		(* Function which appends values of interest *)
@@ -648,6 +648,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 	(* Determine whether we are doing open quantum systems *)
 	isLindblad=LindbladQ[G];
 	isChannel=ChannelPulseQ[p];
+	isUnitary=UnitaryPulseQ[p];
 	isSuper=isLindblad||OptionValue[ForceSuperoperator]||ChannelPulseQ[p]||MemberQ[OptionValue[SimulationOutput],Superoperators];
 	hasInputState=SquareMatrixQ[staVar];
 
@@ -698,7 +699,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 	Which[
 		requiresInputState&&requiresProp,
 			If[isSuper,
-				If[isLindblad||isChannel,
+				If[(isLindblad||isChannel)&&Not[isUnitary],
 					AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},Map[AppendReturnables[#,Super[S],\[Rho],t]&,outputList]];,
 					AppendReturnables[U_,t_]:=With[{\[Rho]=U.staVar.U\[ConjugateTranspose]},Map[AppendReturnables[#,Super@Unitary[U],\[Rho],t]&,outputList]];
 				],
@@ -706,7 +707,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 			];,
 		requiresInputState,
 			If[isSuper,
-				If[isLindblad||isChannel,
+				If[(isLindblad||isChannel)&&Not[isUnitary],
 					AppendReturnables[S_,t_]:=With[{\[Rho]=Devec[S.Vec[staVar]]},Map[AppendReturnables[#,None,\[Rho],t]&,outputList]];,
 					AppendReturnables[U_,t_]:=With[{\[Rho]=U.staVar.U\[ConjugateTranspose]},Map[AppendReturnables[#,None,\[Rho],t]&,outputList]];
 				],
@@ -714,7 +715,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 			];,
 		requiresProp,
 			If[isSuper,
-				If[isLindblad||isChannel,
+				If[(isLindblad||isChannel)&&Not[isUnitary],
 					AppendReturnables[S_,t_]:=Map[AppendReturnables[#,Super[S],None,t]&,outputList];,
 					AppendReturnables[U_,t_]:=Map[AppendReturnables[#,Super@Unitary[U],None,t]&,outputList];
 				],
