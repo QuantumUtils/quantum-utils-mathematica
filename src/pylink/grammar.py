@@ -60,7 +60,7 @@ from __future__ import division
 
 ## IMPORTS ###########################################################
 
-from pypeg2 import Symbol, Literal, parse, optional, csl, attr
+from pypeg2 import Symbol, Literal, parse, optional, csl, attr, omit
 import re
 
 ## CLASSES ###########################################################
@@ -80,7 +80,7 @@ class MathematicaObject(object):
 ## GRAMMAR ELEMENTS ##################################################
 
 class MSymbol(MathematicaObject, Symbol):
-    Symbol.regex = re.compile(r'[\w\`]+')
+    Symbol.regex = re.compile(r'[a-zA-Z\`][\w\`]*')
 
     head = "Symbol"
 
@@ -96,8 +96,32 @@ class Integer(MathematicaObject, int):
     def body(self):
         return [int(self)]
 
+    def __repr__(self):
+        return repr(int(self))
+
+class Real(MathematicaObject, float):
+    grammar = re.compile(r'[+-]?[0-9]*\.?[0-9]*'), optional(Literal("`")), optional((Literal('*^'), re.compile(r'[+-]?[0-9]+')))
+    head = "Real"
+
+    def __new__(cls, val):
+        if isinstance(val, list):
+            if len(val) < 2 or not val[1]:
+                return super(Real, cls).__new__(cls, val[0])
+            else:
+                return super(Real, cls).__new__(cls, "{}e{}".format(val[0], val[1]))
+        else:
+            return super(Real, cls).__new__(cls, val)
+
+    @property
+    def body(self):
+        return [float(self)]
+
+    def __repr__(self):
+        return "{}".format(str(float(self)).replace('e', '*^'))
+    
+
 class String(MathematicaObject, str):
-    grammar = Literal('"'), re.compile(r'([^\"]*)'), Literal('"')
+    grammar = omit(Literal('"')), re.compile(r'([^\"]*)'), omit(Literal('"'))
     head = "String"
 
     @property
@@ -108,17 +132,22 @@ class String(MathematicaObject, str):
         return '"{}"'.format(str(self[:]))
     
 
-atom = [Integer, String]
+atom = [Integer, Real, String]
 
 class MExpression(MathematicaObject):
     head = None
     body = None
 
-    def __init__(self, other=None):
+    def __new__(cls, other=None):
         # If other is not None, this clones the other here.
-        if other is not None:
-            self.head = other.head
-            self.body = other.body
+        # This is a dirty hack to "skip" MExpression when it
+        # only wraps a single other grammar element.
+        if other is not None and getattr(other, 'head', None) is not None:
+            return other
+        else:
+            new = super(MExpression, cls).__new__(cls)
+            new.body = other
+            return new
 
 class List(MExpression):
     head = MSymbol("List")
@@ -139,9 +168,9 @@ class List(MExpression):
 # such things, we need to put it last.
 MExpression.grammar = [
     (
-        attr("head", MSymbol), Literal("["), optional(attr("body", csl(MExpression))), Literal("]")
+        attr("head", MSymbol), optional(Literal("["), optional(attr("body", csl(MExpression))), Literal("]"))
     ),
-    attr("head", MSymbol),
+    #attr("head", MSymbol),
     List,
     atom
 ]
@@ -152,6 +181,9 @@ MExpression.grammar = [
 if __name__ == "__main__":
     print parse("ab`c", MExpression)
     print parse('12', MExpression)
+    # FIXME: The following two don't work in MExpression, like integers and strings do.
+    print parse('12.0`', Real)
+    print parse('12.0`*^120', Real)
     print parse('"a"', MExpression)
     print parse("List", MExpression)
     print parse("List[]", MExpression)
