@@ -232,11 +232,7 @@ DistributionQ[dist_]:=ListQ[dist]&&(Length[dist]==2)&&(Length[First@dist]==Lengt
 
 
 (* ::Subsection::Closed:: *)
-(*Options and Helper Functions*)
-
-
-(* ::Subsubsection::Closed:: *)
-(*Options and Input Handling*)
+(*Options*)
 
 
 Options[PulseSim]={
@@ -252,8 +248,20 @@ Options[PulseSim]={
 };
 
 
+(* ::Subsection::Closed:: *)
+(*Helper Functions*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Shaped Pulses*)
+
+
 GetPulseShapeMatrix[in_?PulseShapeFileQ]:=With[{out=Import[in]//N},Pick[out,Length[#]>1&/@out]]
 GetPulseShapeMatrix[in_?PulseShapeMatrixQ]:=in//N
+
+
+(* ::Subsubsection::Closed:: *)
+(*Time Steps*)
 
 
 (* ::Text:: *)
@@ -347,7 +355,7 @@ MakeSuperPulse[L_?LindbladQ,p_?ChannelPulseQ]:=p
 MakeSuperPulse[L_?LindbladQ,p_?DriftPulseQ]:=p
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*Output Formatting*)
 
 
