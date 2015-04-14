@@ -317,7 +317,7 @@ JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulses*)
 
 
@@ -482,7 +482,7 @@ GaussianTailsPulse[dt_,T_,riseTime_,Max->max_]:=Module[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Legalization and Normalization*)
 
 
@@ -492,7 +492,7 @@ LegalizePulse[pulse_,controlRange_]:={#1, Sequence@@MapThread[Clip, {{##2},contr
 LegalizePulse[profile_][pulse_,controlRange_]:=Table[
 	{
 		pulse[[n,1]],
-		Sequence@@MapThread[Clip, {profile[[n]]*pulse[[n,2;;]],controlRange}, 1]
+		Sequence@@MapThread[Clip, {pulse[[n,2;;]],profile[[n]]*controlRange}, 1]
 	},
 	{n,Length@pulse}
 ]
