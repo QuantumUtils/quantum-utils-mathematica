@@ -165,7 +165,7 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
@@ -679,6 +679,7 @@ QSimplifyCavityRules[opts:OptionsPattern[QSimplify]]:=
 
 
 Options[QSimplifyRules]:={
+	Protect->True,
 	Power->True,
 	Identity->None,
 	Com->None,
@@ -692,6 +693,7 @@ Options[QSimplifyRules]:={
 
 QSimplifyRules[opLabel_,ops_?ListQ,opts:OptionsPattern[QSimplifyRules]]:=
 	With[{
+		attr=OptionValue[Protect],
 		id=OptionValue[Identity],
 		order=OptionValue["NormalOrder"],
 		comAlg=OptionValue[Com],
@@ -699,6 +701,7 @@ QSimplifyRules[opLabel_,ops_?ListQ,opts:OptionsPattern[QSimplifyRules]]:=
 		tOps=OptionValue[Transpose],
 		cOps=OptionValue[Conjugate],
 		dotAlg=OptionValue[Dot]},
+	If[MemberQ[{Automatic,True},attr],Protect[opLabel]];
 	Join[
 		If[MemberQ[{Automatic,True},OptionValue[Power]],
 			QSimplifyPower[opLabel],
@@ -983,6 +986,7 @@ $QSimplifySpin=
 QSimplifyRules[
 	Spin,
 	{Spin["X"],Spin["Y"],Spin["Z"],Spin["P"],Spin["M"]},
+	Protect->False,
 	Power->True,
 	Identity->True,
 	Com->{{I*Spin["Z"],-I*Spin["Y"],-Spin["Z"],Spin["Z"]},
@@ -1070,6 +1074,7 @@ $QSimplifyCavity=
 	QSimplifyRules[
 		Cavity,
 		{Cavity["a"],Cavity["c"],Cavity["n"]},
+		Protect->False,
 		Power->True,
 		Identity->True,
 		Com->{{Cavity["I"],Cavity["a"]},{-Cavity["c"]}},
@@ -1222,7 +1227,7 @@ CGateConstructor[dims_,gates_List,targs_List,ctrls_List,ctrlvals_List]:=
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*State Measures*)
 
 
@@ -1322,7 +1327,7 @@ Fidelity[A_,B_]:=With[{
 	]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Entanglement Measures*)
 
 
