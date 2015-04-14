@@ -486,11 +486,16 @@ GaussianTailsPulse[dt_,T_,riseTime_,Max->max_]:=Module[
 (*Legalization and Normalization*)
 
 
-LegalizePulse[pulse_,controlRange_]:=
-	If[ListQ[controlRange],
-		{#1, Sequence@@MapThread[Max[Min[#1,Last@#2],First@#2]&, {{##2},controlRange}]}& @@@ pulse,
-		{#1, Sequence@@( {##2} * Min[1, controlRange/Norm[{##2}]] )}& @@@ pulse
-	]
+LegalizePulse[pulse_,controlRange_]:={#1, Sequence@@MapThread[Clip, {{##2},controlRange}, 1]}& @@@ pulse
+
+
+LegalizePulse[profile_][pulse_,controlRange_]:=Table[
+	{
+		pulse[[n,1]],
+		Sequence@@MapThread[Clip, {profile[[n]]*pulse[[n,2;;]],controlRange}, 1]
+	},
+	{n,Length@pulse}
+]
 
 
 NormalizePulse[pulse_, controlRange_] := 
