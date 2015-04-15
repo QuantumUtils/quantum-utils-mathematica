@@ -22,8 +22,8 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
-(*Preample*)
+(* ::Subsection:: *)
+(*Preamble*)
 
 
 BeginPackage["Visualization`",{"QUDoc`"}];
@@ -36,6 +36,7 @@ BeginPackage["Visualization`",{"QUDoc`"}];
 Needs["QUDevTools`"];
 Needs["Predicates`"];
 Needs["Tensor`"];
+Needs["QuantumChannel`"];
 
 
 $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualization.nb"}]];
@@ -45,16 +46,17 @@ $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc",
 (*Usage Declaration*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
-Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm];
+Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm, HintonPlot];
 
 
 AssignUsage[ComplexMatrixPlot,$VisualizationUsages];
 AssignUsage[BlockForm,$VisualizationUsages];
 AssignUsage[MatrixListForm,$VisualizationUsages];
+AssignUsage[{Gap, HintonPlot, ChannelHintonPlot}, $VisualizationUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -108,7 +110,7 @@ BlochPlot::color = "BlochPlotColor option value not understood.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
@@ -145,6 +147,64 @@ BlockForm[mat_]:=BlockForm[mat,First@Last@FactorInteger[Length[mat],2]]
 
 
 MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
+
+
+Options[HintonPlot] = {
+	AxesLabel -> None,
+	Gap -> 0.05
+};
+
+
+HintonPlot[dat_,OptionsPattern[]] := With[{data=Reverse[dat\[Transpose],{2}]},With[{n=Dimensions[data][[1]],m=Dimensions[data][[2]],normdata=(1-OptionValue[Gap])data/Max[Abs[data]],graydata=Map[GrayLevel,(Sign[data]+1)/2,{2}]},
+    Module[{plot},
+        plot = Graphics[
+            {GrayLevel[1/2],Rectangle[{1/4,1/4},{n+3/4,m+3/4}]}~Join~
+            Table[
+                {
+                    graydata[[i,j]],
+                    Tooltip[Rectangle[
+                        {i-normdata[[i,j]]/2,j-normdata[[i,j]]/2},
+                        {i+normdata[[i,j]]/2,j+normdata[[i,j]]/2}
+                    ], data[[i,j]]]
+                },
+                {i,n}, {j,m}
+            ]
+        ];
+
+        If[OptionValue[AxesLabel]=!=None,
+            plot[[1]]=Join[
+                plot[[1]],
+                Table[
+                    Text[OptionValue[AxesLabel][[1,i]],{i,m+3/4},{0,-2}],
+                    {i,n}
+                ],
+                Table[
+                    Text[Reverse[OptionValue[AxesLabel][[2]]][[j]],{0,j},{1,0}],
+                    {j,m}
+                ]
+            ];
+        ];
+        plot
+    ]
+]];
+
+
+(* Not exposed by intention. *)
+PauliLabels[nq_] := Table[
+    StringJoin@@(Reverse[IntegerDigits[i,4,nq]]/.{
+        0->"I",1->"X",2->"Y",3->"Z"
+    }),
+    {i,0,4^nq-1}
+];
+
+
+ChannelHintonPlot[chan_]:=With[{
+		mtx=First@Super[chan,Basis->"Pauli"],
+		nqIn=Log2 @ InputDim@ chan,
+		nqOut=Log2 @ OutputDim @ chan
+	},
+	HintonPlot[mtx,AxesLabel->PauliLabels/@{nqOut,nqIn}]
+]
 
 
 (* ::Subsection::Closed:: *)
@@ -459,7 +519,7 @@ End[];
 
 
 Protect[ComplexMatrixPlot,BlockForm,MatrixListForm];
-Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels];
+Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels,HintonPlot];
 Protect[EigensystemForm];
 Protect[FourierListPlot];
 
