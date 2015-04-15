@@ -47,7 +47,7 @@ AssignUsage[{TestResults,RunAllTests},$QUTestingUsages];
 
 
 (* ::Section:: *)
-(*Implimentation*)
+(*Implementation*)
 
 
 Begin["`Private`"];
@@ -92,7 +92,8 @@ $UnitTestManifest={
 	"QuantumSystems",
 	"QuantumChannel",
 	"LindbladSolver",
-	"M2M"
+	"M2M",
+	"QSim"
 	};
 
 
@@ -113,8 +114,8 @@ RunAllTests[] := (
 		fail=Length@Select[results,MatchQ[#,_->"F"]&];
 		error=Length@Select[results,MatchQ[#,_->"E"]&];
 		Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests passed."];
-		If[fail>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests failed."];
-		If[error>0,Print[ToString[pass]<>" of "<>ToString[n]<> " unit tests returned errors."]];
+		If[fail>0,Print[ToString[fail]<>" of "<>ToString[n]<> " unit tests failed."];
+		If[error>0,Print[ToString[error]<>" of "<>ToString[n]<> " unit tests returned errors."]];
 		]
 	])
 
