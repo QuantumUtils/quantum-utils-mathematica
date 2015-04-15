@@ -212,7 +212,7 @@ Options[CompletelyPositiveQ]:={Assumptions->{}}
 CompletelyPositiveQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	Block[{
 		choi=First[Choi[chan]],
-		assum=OptionValue[Assumptions],
+		assum=And[$Assumptions,OptionValue[Assumptions]],
 		eigen,boole},
 	If[NumericQ[choi],	
 		PositiveSemidefiniteMatrixQ[choi],
@@ -229,7 +229,7 @@ CompletelyPositiveQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]
 HermitianPreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	With[{
 		choi=First[Choi[chan]],
-		assum=OptionValue[Assumptions]},		
+		assum=And[$Assumptions,OptionValue[Assumptions]]},		
 		Assuming[assum,
 			HermitianMatrixQ[FullSimplify[choi,Assumptions->assum]]
 		]
@@ -241,7 +241,7 @@ TracePreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	op=PartialTr[
 			First[Choi[chan,Basis->"Col"]],
 			{InputDim[chan],OutputDim[chan]},{2}],
-	assum=OptionValue[Assumptions],
+	assum=And[$Assumptions,OptionValue[Assumptions]],
 	id=IdentityMatrix[InputDim[chan]]},
 		AllMatchQ[0,
 			FullSimplify[Flatten[op-id],Assumptions->assum]
@@ -254,7 +254,7 @@ UnitalQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	op=PartialTr[
 			First[Choi[chan,Basis->"Col"]],
 			{InputDim[chan],OutputDim[chan]},{1}],
-	assum=OptionValue[Assumptions],
+	assum=And[$Assumptions,OptionValue[Assumptions]],
 	id=IdentityMatrix[OutputDim[chan]]},
 		AllMatchQ[0,
 			FullSimplify[Flatten[op-id],Assumptions->assum]
@@ -265,7 +265,7 @@ UnitalQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 PauliChannelQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	With[{
 		op=First[Chi[chan]],
-		assum=OptionValue[Assumptions]},
+		assum=And[$Assumptions,OptionValue[Assumptions]]},
 		AllMatchQ[0,
 			FullSimplify[
 				Flatten[op-DiagonalMatrix[Diagonal[op]]],
