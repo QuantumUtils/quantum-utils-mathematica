@@ -163,6 +163,7 @@ AssignUsage[
 Unprotect[
 	IdentityDistribution,
 	ParameterDistributionMean,
+	ProductParameterDistribution,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 	UniformParameterDistribution,
 	TargetSelectorDistribution
@@ -173,6 +174,7 @@ AssignUsage[
 	{
 		IdentityDistribution,
 		ParameterDistributionMean,
+		ProductParameterDistribution,
 		RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 		UniformParameterDistribution,
 		TargetSelectorDistribution
@@ -317,7 +319,7 @@ JCAMPCalibrationFactor::usage = "JCAMPCalibrationFactor is an ExportJCAMP option
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Pulses*)
 
 
@@ -482,7 +484,7 @@ GaussianTailsPulse[dt_,T_,riseTime_,Max->max_]:=Module[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Legalization and Normalization*)
 
 
@@ -1110,6 +1112,16 @@ CompositePulseDistortion[divisions_,sequence_]:=Module[{symbols,indeces,seq,dore
 
 
 IdentityDistribution[]:={{1}, {{}}};
+
+
+ProductParameterDistribution[dist1_,dist2_]:=Module[{ps,ps1,ps2,reps,reps1,reps2},
+	{ps1,reps1}=dist1;
+	{ps2,reps2}=dist2;
+	ps=Flatten[Outer[Times,ps1,ps2,1]];
+	reps=Flatten[Outer[Join,reps1,reps2,1],1];
+	{ps,reps}
+]
+ProductParameterDistribution[dist1_,dist2_,moreDists__]:=ProductParameterDistribution[ProductParameterDistribution[dist1,dist2],moreDists]
 
 
 ParameterDistributionMean[gdist_]:=Module[{ps,reps,symbs,mean},
@@ -2490,6 +2502,7 @@ Protect[
 Protect[
 	IdentityDistribution,
 	ParameterDistributionMean,
+	ProductParameterDistribution,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 	UniformParameterDistribution,
 	TargetSelectorDistribution
