@@ -656,14 +656,14 @@ ExpressInBasisLabels[op_,basis_]:=
 (*Vectorization*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Options and bases*)
 
 
 Options[Vec]={Basis->"Col"};
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Main Functions*)
 
 
@@ -683,7 +683,7 @@ BasisImplimentation[fn_String,args__,opts:OptionsPattern[Vec]]:=
 			True,funcs[[3]][basis,args]]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Convention Implementations*)
 
 
@@ -712,7 +712,7 @@ ProductIdentityBasis[basis_,A_,C_]:=
 	BasisTransformation[ProductIdentityCol[A,C],Rule["Col",basis]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Change of Basis Matrix*)
 
 
@@ -729,7 +729,7 @@ BasisMatrixCol[basis_List,1]:=With[{d=Length[basis]},ArrayReshape[basis,{d,d}]]
 BasisMatrixCol[basis_List,n_Integer]:=
 	BasisMatrixCol[basis,n]=
 		Reravel[
-			CircleTimes[SparseArray@BasisMatrixCol[basis,1],n]
+			CircleTimes[SparseArray[BasisMatrixCol[basis,1]]->n]
 			,Length[First[basis]]]
 
 
@@ -747,7 +747,7 @@ BasisMatrix[Rule[basis1_List,basis2_List],arg___]:=
 	BasisMatrix[Rule["Col",basis2],arg].BasisMatrix[Rule[basis1,"Col"],arg]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Basis Transformations*)
 
 
