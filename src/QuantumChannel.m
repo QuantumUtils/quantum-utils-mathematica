@@ -40,11 +40,11 @@ $QuantumChannelUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc"
 (*Usage Declarations*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Quantum Channels*)
 
 
-Unprotect[QuantumChannel,ChannelRep,InputDim,OutputDim,Basis];
+Unprotect[QuantumChannel,ChannelRep,InputDim,OutputDim,Basis, ExtendUnitary];
 Unprotect[Choi,Super,Chi,Kraus,Stinespring,Unitary,SysEnv];
 
 
@@ -61,6 +61,7 @@ AssignUsage[SysEnv,$QuantumChannelUsages];
 AssignUsage[InputDim,$QuantumChannelUsages];
 AssignUsage[OutputDim,$QuantumChannelUsages];
 AssignUsage[Basis,$QuantumChannelUsages];
+AssignUsage[ExtendUnitary, $QuantumChannelUsages];
 AssignUsage[ChannelRep,$QuantumChannelUsages];
 AssignUsage[ChannelParameters,$QuantumChannelUsages];
 
@@ -145,7 +146,7 @@ FunctionChannel::indims = "InputDims option must be an integer.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Predicates*)
 
 
@@ -251,15 +252,18 @@ PauliChannelQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 		]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Options and Formatting*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Options*)
 
 
-Options[QuantumChannel]={InputDim->Automatic,OutputDim->Automatic,Basis->Automatic};
+Options[QuantumChannel] = {
+	InputDim->Automatic,OutputDim->Automatic,Basis->Automatic,
+	ExtendUnitary -> False
+};
 
 
 ChannelParameters[chan_QuantumChannel]:=Last@chan
@@ -276,7 +280,7 @@ Basis[chan_QuantumChannel]:=Basis/.ChannelParameters[chan]
 Format[chan_QuantumChannel]:=ToString[ChannelRep[chan]][First[chan],"<params>"]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Constructing Channels*)
 
 
@@ -411,15 +415,20 @@ Chi[m_?SquareMatrixQ,opts:OptionsPattern[QuantumChannel]]:=
 	]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Transforming Representations*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Calling methods*)
 
 
-Options[TransformChannel]={ChannelRep->Automatic,InputDim->Automatic,OutputDim->Automatic,"InputBasis"->Automatic,"OutputBasis"->Automatic};
+Options[TransformChannel]={
+	ChannelRep->Automatic,InputDim->Automatic,OutputDim->Automatic,
+	"InputBasis"->Automatic,
+	"OutputBasis"->Automatic,
+	ExtendUnitary -> False
+};
 
 
 TransformChannel[chan_QuantumChannel,opts:OptionsPattern[TransformChannel]]:=
@@ -445,7 +454,9 @@ TransformChannel[chan_QuantumChannel,opts:OptionsPattern[TransformChannel]]:=
 				InputDim->inDim,
 				OutputDim->outDim,
 				"InputBasis"->inBasis,
-				"OutputBasis"->outBasis],
+				"OutputBasis"->outBasis,
+				ExtendUnitary -> OptionValue[ExtendUnitary]
+			],
 			{
 			ChannelRep->outRep,
 			InputDim->inDim,
@@ -473,7 +484,7 @@ Stinespring[chan_QuantumChannel,opts:OptionsPattern[QuantumChannel]]:=
 	TransformChannel[chan,ChannelRep->Stinespring,"OutputBasis"->OptionValue[Basis]]
 
 SysEnv[chan_QuantumChannel,opts:OptionsPattern[QuantumChannel]]:=
-	TransformChannel[chan,ChannelRep->SysEnv,"OutputBasis"->OptionValue[Basis]]
+	TransformChannel[chan,ChannelRep->SysEnv,"OutputBasis"->OptionValue[Basis], ExtendUnitary->OptionValue[ExtendUnitary]]
 
 (*Unitary[chan_QuantumChannel,opts:OptionsPattern[QuantumChannel]]:=
 	TransformChannel[chan,ChannelRep->ChannelRep[chan],"OutputBasis"->OptionValue[Basis]]*)
@@ -485,7 +496,7 @@ If[UnitaryChannelQ[chan],
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*From Stinespring*)
 
 
@@ -502,7 +513,29 @@ TransformChannel[Stinespring->Stinespring,op_,opts:OptionsPattern[TransformChann
 
 
 TransformChannel[Stinespring->SysEnv,op_,opts:OptionsPattern[TransformChannel]]:=
-			ReducedUnitary[op,OptionValue[OutputDim]]
+			Module[{RU = ReducedUnitary[op,OptionValue[OutputDim]]},
+				
+				If[OptionValue[ExtendUnitary],
+					
+					Module[{U, V, v0},
+						If[Length @ Dimensions[RU[[1]]] == 3,
+							{{U, V}, v0} = RU;
+							{CompleteUnitary /@ {U, V}, v0},
+							
+							{U, v0} = RU;
+							{CompleteUnitary[U], v0}
+						]
+					],
+
+					RU		
+				]
+			]
+
+
+CompleteUnitary[U_] := Module[{Uu, Uw, Uv},
+	{Uu, Uw, Uv} = SingularValueDecomposition[U];
+	Uu . Uv\[ConjugateTranspose]
+];
 
 
 ReducedUnitary[stine_,outDim_]:=
@@ -571,7 +604,7 @@ TransformChannel[Stinespring->Kraus,op_,opts:OptionsPattern[TransformChannel]]:=
 TransformChannel[Stinespring->Unitary,op_,opts:OptionsPattern[TransformChannel]]:=op
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*From SysEnv*)
 
 
