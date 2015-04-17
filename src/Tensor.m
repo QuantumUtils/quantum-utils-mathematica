@@ -624,32 +624,46 @@ Basis[basis_,n_Integer]:=
 Basis[basis_]:=Basis[basis,1];
 
 
-BasisLabels[labels_]:=BasisLabels[labels,1];
-BasisLabels[labels_,n_Integer]:=
-	With[{labels1=CheckNamedBasisLabels[labels]},
+Options[BasisLabels]:={Join->Automatic}
+
+
+BasisLabels[labels_,opts:OptionsPattern[]]:=BasisLabels[labels,1,opts];
+BasisLabels[labels_,n_Integer,opts:OptionsPattern[]]:=
+	If[labels==="Pauli",
+		BasisLabels["PO",n,opts]/Power[Sqrt[2],n],
+	With[{
+		labels1=CheckNamedBasisLabels[labels],
+		joinfun=Which[
+				#===Automatic, CircleTimes,
+				#===True, StringJoin,
+				#===False, List,
+				True,#]&[OptionValue[Join]]},
 		If[n===1,
 			labels1,
-	CircleTimes@@@Tuples[labels1,n]]]
+			joinfun@@@Tuples[labels1,n]]]
+	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Express In Basis*)
 
 
-Options[ExpressInBasis]:={Basis->"PO",BasisLabels->False};
+Options[ExpressInBasis]:={Basis->"PO",BasisLabels->False,Join->Automatic,Chop->False};
 
 
 ExpressInBasis[op_,opts:OptionsPattern[]]:=
 	With[{basis=OptionValue[Basis],
-		labels=OptionValue[BasisLabels]},
+		labels=OptionValue[BasisLabels],
+		joinfun=OptionValue[Join],
+		trim=If[OptionValue[Chop]===True,
+				Pick[#1,Abs@Sign@#2,1]&,#1&]},
 	With[{coeffs=ExpressInBasisCoeffs[op,basis]},
 		Which[
 		TrueQ[Not@labels],
 			coeffs,
-		TrueQ[labels],
-			Transpose[{ExpressInBasisLabels[op,basis],coeffs}],
 		True,
-			Transpose[{ExpressInBasisLabels[op,labels],coeffs}]
+			trim[Transpose[{ExpressInBasisLabels[op,If[TrueQ[labels],basis,labels],joinfun],coeffs}],
+				coeffs]
 		]
 	]]
 
@@ -662,11 +676,11 @@ ExpressInBasisCoeffs[op_,basis_]:=
 	]]
 
 
-ExpressInBasisLabels[op_,basis_]:=
+ExpressInBasisLabels[op_,basis_,joinfun_]:=
 	With[{labels1=CheckNamedBasisLabels[basis]},
 	With[{
 	n=Log[Length[labels1],Length[Flatten[op]]]},
-		BasisLabels[basis,n]
+		BasisLabels[basis,n,Join->joinfun]
 	]]
 
 
