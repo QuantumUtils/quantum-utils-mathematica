@@ -133,6 +133,9 @@ AssignUsage[TP,$TensorUsages];
 TensorFactorPermutations::input = "Input must be a sequence of elements {op,int}.";
 
 
+OuterProduct::input = "Inputs must be a vectors, column vectors, or matrices."
+
+
 (* ::Subsubsection:: *)
 (*Tensor Manipulations*)
 
@@ -245,10 +248,25 @@ ACom[A_?MatrixQ,B_?MatrixQ]:=A.B+B.A
 ACom[A_?MatrixQ,B_?MatrixQ,n_?Positive]:=ACom[A,ACom[A,B],n-1]
 
 
-OuterProduct[u_,v_]:=KroneckerProduct[Flatten[u],Conjugate[Flatten[v]]];
+(* ::Text:: *)
+(*Outer product of two vectors or two matrices. For matrices it returns the outer product of the vectorized matrices.*)
 
 
-Projector[v_]:=OuterProduct[v,v];
+OuterProduct[u_,v_]:=KroneckerProduct[OuterProductVec[u],Conjugate[OuterProductVec[v]]];
+OuterProduct[u_,v_,SparseArray]:=OuterProductVec[SparseArray@u,SparseArray@v];
+
+OuterProductVec[u_]:=
+	Which[
+		GeneralVectorQ[u],Flatten[u],
+		MatrixQ[u],Flatten@Vec[u],
+		True, Message[OuterProduct::input]]
+
+
+Projector[v_]:=OuterProduct[v,v]
+Projector[v_,SparseArray]:=Projector[SparseArray@v];
+
+Projector[v_,vs__]:=Fold[#1+Projector[#2]&,Projector[v],{vs}]
+Projector[v_,vs__,SparseArray]:=Fold[#1+Projector[#2,SparseArray]&,Projector[v,SparseArray],{vs}]
 
 
 BlockMatrix[B__?MatrixQ]:=
@@ -687,13 +705,13 @@ BasisImplimentation[fn_String,args__,opts:OptionsPattern[Vec]]:=
 (*Convention Implementations*)
 
 
-VecRow[m_]:= Flatten[{m},{{2,3},{1}}]
+VecRow[m_]:= Partition[Flatten[m],1]
 DevecRow[v_,{dL_,dR_}]:= ArrayReshape[v,{dL,dR}]
 DevecRow[v_]:= With[{d=Sqrt[Length[v]]},DevecRow[v,{d,d}]]
 ProductIdentityRow[A_,C_]:=CircleTimes[A,Transpose[C]]
 
 
-VecCol[m_]:= Flatten[{m},{{3,2},{1}}]
+VecCol[m_]:= Partition[Flatten[m,{2,1}],1]
 DevecCol[v_,{dL_,dR_}]:= Transpose[DevecRow[v,{dL,dR}]]
 DevecCol[v_]:= Transpose[DevecRow[v]]
 ProductIdentityCol[A_,C_]:=CircleTimes[Transpose[C],A]
