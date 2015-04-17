@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -46,11 +46,11 @@ $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc",
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices*)
 
 
-Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm, HintonPlot];
+Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm, HintonPlot,ChannelHintonPlot];
 
 
 AssignUsage[ComplexMatrixPlot,$VisualizationUsages];
@@ -110,7 +110,7 @@ BlochPlot::color = "BlochPlotColor option value not understood.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices*)
 
 
@@ -151,14 +151,24 @@ MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
 
 Options[HintonPlot] = {
 	AxesLabel -> None,
-	Gap -> 0.05
+	"Gap" -> 0.05,
+	"Colors" -> {Black,Gray,White},
+	AxesStyle -> {}
 };
 
 
-HintonPlot[dat_,OptionsPattern[]] := With[{data=Reverse[dat\[Transpose],{2}]},With[{n=Dimensions[data][[1]],m=Dimensions[data][[2]],normdata=(1-OptionValue[Gap])data/Max[Abs[data]],graydata=Map[GrayLevel,(Sign[data]+1)/2,{2}]},
+HintonPlot[dat_,OptionsPattern[]] := 
+	With[{
+		data=Reverse[dat\[Transpose],{2}],
+		colors=OptionValue["Colors"]},
+	With[{
+		n=Dimensions[data][[1]],
+		m=Dimensions[data][[2]],
+		normdata=(1-OptionValue["Gap"])data/Max[Abs[data]],
+		graydata=Map[colors[[#]]&,Sign[data]+2,{2}]},
     Module[{plot},
         plot = Graphics[
-            {GrayLevel[1/2],Rectangle[{1/4,1/4},{n+3/4,m+3/4}]}~Join~
+            {colors[[2]],Rectangle[{1/4,1/4},{n+3/4,m+3/4}]}~Join~
             Table[
                 {
                     graydata[[i,j]],
@@ -174,14 +184,14 @@ HintonPlot[dat_,OptionsPattern[]] := With[{data=Reverse[dat\[Transpose],{2}]},Wi
         If[OptionValue[AxesLabel]=!=None,
             plot[[1]]=Join[
                 plot[[1]],
-                Table[
-                    Text[OptionValue[AxesLabel][[1,i]],{i,m+3/4},{0,-2}],
+               {Gray,Table[
+                    Style[Text[OptionValue[AxesLabel][[1,i]],{i,m+3/4},{0,-2}],OptionValue[AxesStyle]],
                     {i,n}
-                ],
-                Table[
-                    Text[Reverse[OptionValue[AxesLabel][[2]]][[j]],{0,j},{1,0}],
+                ]},
+                {Gray,Table[
+                    Style[Text[Reverse[OptionValue[AxesLabel][[2]]][[j]],{0,j},{1,0}],OptionValue[AxesStyle]],
                     {j,m}
-                ]
+                ]}
             ];
         ];
         plot
@@ -198,12 +208,15 @@ PauliLabels[nq_] := Table[
 ];
 
 
-ChannelHintonPlot[chan_]:=With[{
+ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
 		mtx=First@Super[chan,Basis->"Pauli"],
 		nqIn=Log2 @ InputDim@ chan,
 		nqOut=Log2 @ OutputDim @ chan
 	},
-	HintonPlot[mtx,AxesLabel->PauliLabels/@{nqOut,nqIn}]
+	HintonPlot[mtx,
+		If[AnyMatchQ[AxesLabel->_,{opts}],
+			{opts},
+			Append[{opts},AxesLabel->PauliLabels/@{nqOut,nqIn}]]]
 ]
 
 
@@ -514,12 +527,12 @@ FourierListPlot[data_,{mint_,maxt_},function_,opt:OptionsPattern[ListPlot]]:=
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
 Protect[ComplexMatrixPlot,BlockForm,MatrixListForm];
-Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels,HintonPlot];
+Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels,HintonPlot,ChannelHintonPlot];
 Protect[EigensystemForm];
 Protect[FourierListPlot];
 
