@@ -46,7 +46,7 @@ $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc",
 (*Usage Declaration*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices*)
 
 
@@ -110,7 +110,7 @@ BlochPlot::color = "BlochPlotColor option value not understood.";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Matrices*)
 
 
@@ -200,7 +200,7 @@ HintonPlot[dat_,OptionsPattern[]] :=
 
 
 ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
-		mtx=First@Super[chan,Basis->"Pauli"],
+		mtx=Unravel[First@Super[chan,Basis->"Pauli"],2],
 		nqIn=Log2 @ InputDim@ chan,
 		nqOut=Log2 @ OutputDim @ chan
 	},
@@ -213,7 +213,7 @@ ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
                       It should be understood that the plot is with respect to the normalized basis,
                       but that the normalizations are omitted for brevity.
                   *)
-                 AxesLabel->(BasisLabels["PO", #, Join->StringJoin]&/@{nqOut,nqIn})]]
+                 AxesLabel->(BasisLabels["PO", #, Join->True]&/@{nqOut,nqIn})]]
             ]
 ]
 
