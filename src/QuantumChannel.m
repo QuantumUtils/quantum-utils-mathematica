@@ -109,8 +109,11 @@ AssignUsage[PartialTrChannel,$QuantumChannelUsages];
 AssignUsage[FunctionChannel,$QuantumChannelUsages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Error Messages*)
+
+
+CompletelyPositiveQ::assum = "Cannot deduce nonnegativity of eigenvalues `1` with given assumptions."
 
 
 QuantumChannel::dims = "Input channel matrix needs specification of input and output dimensions.";
@@ -145,11 +148,11 @@ FunctionChannel::indims = "InputDims option must be an integer.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Predicates*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Transformation Predicates*)
 
 
@@ -203,22 +206,33 @@ UnitaryChannelQ[chan_QuantumChannel]:=
 (*Channel Property Predicates*)
 
 
-Options[CompletelyPositiveQ]:={Simplify->Identity}
+Options[CompletelyPositiveQ]:={Assumptions->{}}
 
 
 CompletelyPositiveQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
-	With[{
+	Block[{
 		choi=First[Choi[chan]],
-		fun=OptionValue[Simplify]},		
-	PositiveSemidefiniteMatrixQ[fun[choi]]
-	];
+		assum=And[$Assumptions,OptionValue[Assumptions]],
+		eigen,boole},
+	If[NumericQ[choi],	
+		PositiveSemidefiniteMatrixQ[choi],
+		eigen=Simplify[Eigenvalues[choi],Assumptions->assum];
+		boole=FullSimplify[And@@NonNegative[eigen],Assumptions->assum];
+		Which[
+			TrueQ[boole],True,
+			TrueQ[Not@boole],False,
+			True,Message[CompletelyPositiveQ::assum, Select[eigen,Not@NumericQ[#]&]]
+		]
+	]];
 
 
 HermitianPreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	With[{
 		choi=First[Choi[chan]],
-		fun=OptionValue[Simplify]},		
-	HermitianMatrixQ[fun[choi]]
+		assum=And[$Assumptions,OptionValue[Assumptions]]},		
+		Assuming[assum,
+			HermitianMatrixQ[FullSimplify[choi,Assumptions->assum]]
+		]
 	];
 
 
@@ -227,9 +241,11 @@ TracePreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	op=PartialTr[
 			First[Choi[chan,Basis->"Col"]],
 			{InputDim[chan],OutputDim[chan]},{2}],
-	fun=OptionValue[Simplify],
+	assum=And[$Assumptions,OptionValue[Assumptions]],
 	id=IdentityMatrix[InputDim[chan]]},
-		AllMatchQ[0,fun[Flatten[op-id]]]		
+		AllMatchQ[0,
+			FullSimplify[Flatten[op-id],Assumptions->assum]
+		]		
 	]
 
 
@@ -238,17 +254,24 @@ UnitalQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	op=PartialTr[
 			First[Choi[chan,Basis->"Col"]],
 			{InputDim[chan],OutputDim[chan]},{1}],
-	fun=OptionValue[Simplify],
+	assum=And[$Assumptions,OptionValue[Assumptions]],
 	id=IdentityMatrix[OutputDim[chan]]},
-		AllMatchQ[0,fun[Flatten[op-id]]]		
+		AllMatchQ[0,
+			FullSimplify[Flatten[op-id],Assumptions->assum]
+		]		
 	]
 
 
 PauliChannelQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
-	With[{op=First[Chi[chan]],
-	fun=OptionValue[Simplify]},
-		AllMatchQ[0,fun[Flatten[op-DiagonalMatrix[Diagonal[op]]]]
-		]]
+	With[{
+		op=First[Chi[chan]],
+		assum=And[$Assumptions,OptionValue[Assumptions]]},
+		AllMatchQ[0,
+			FullSimplify[
+				Flatten[op-DiagonalMatrix[Diagonal[op]]],
+			Assumptions->assum]
+		]
+	]
 
 
 (* ::Subsection::Closed:: *)

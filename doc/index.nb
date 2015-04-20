@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     15362,        450]
-NotebookOptionsPosition[     14497,        418]
-NotebookOutlinePosition[     14854,        434]
-CellTagsIndexPosition[     14811,        431]
+NotebookDataLength[     16451,        481]
+NotebookOptionsPosition[     15560,        449]
+NotebookOutlinePosition[     15903,        464]
+CellTagsIndexPosition[     15860,        461]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -141,6 +141,37 @@ Cell[BoxData[GridBox[{
  GeneratedCell->True,
  CellAutoOverwrite->True,
  CellChangeTimes->{3.6369019287891293`*^9}],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox[
+     TagBox[
+      ButtonBox[
+       PaneSelectorBox[{False->"\<\"M2M\"\>", True->
+        StyleBox["\<\"M2M\"\>", "HyperlinkActive"]}, Dynamic[
+         CurrentValue["MouseOver"]],
+        BaseStyle->{"Hyperlink"},
+        FrameMargins->0,
+        ImageSize->Automatic],
+       BaseStyle->"Hyperlink",
+       ButtonData:>{"api-doc/M2M.nb", None},
+       ButtonNote->"api-doc/M2M.nb"],
+      Annotation[#, "api-doc/M2M.nb", "Hyperlink"]& ], "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{
+     "Code", " ", "generation", " ", "functions", " ", "for", " ", 
+      "exporting", " ", "to", " ", 
+      RowBox[{"MATLAB", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+  GridBoxItemSize->{"Columns" -> {
+      Scaled[0.15], {
+       Scaled[0.7]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ CellChangeTimes->{
+  3.6369019287891293`*^9, {3.6374656696800904`*^9, 3.6374656774095635`*^9}}],
 
 Cell[BoxData[GridBox[{
    {
@@ -418,8 +449,7 @@ Cell["Tutorials", "Section",
 },
 WindowSize->{1631, 1026},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
-2014)",
+FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -434,23 +464,24 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 112, 1, 65, "Chapter"],
+Cell[580, 22, 112, 1, 64, "Chapter"],
 Cell[695, 25, 450, 12, 30, "Text"],
 Cell[CellGroupData[{
-Cell[1170, 41, 255, 3, 64, "Section"],
+Cell[1170, 41, 255, 3, 63, "Section"],
 Cell[1428, 46, 1136, 30, 33, "Text"],
 Cell[2567, 78, 1068, 30, 33, "Text"],
 Cell[3638, 110, 1249, 32, 33, "Text"],
-Cell[4890, 144, 1347, 34, 33, "Text"],
-Cell[6240, 180, 1101, 30, 33, "Text"],
-Cell[7344, 212, 1221, 34, 33, "Text"],
-Cell[8568, 248, 1173, 31, 33, "Text"],
-Cell[9744, 281, 1211, 32, 33, "Text"],
-Cell[10958, 315, 1102, 30, 33, "Text"],
-Cell[12063, 347, 1103, 30, 33, "Text"],
-Cell[13169, 379, 1201, 32, 33, "Text"]
+Cell[4890, 144, 1060, 29, 33, "Text"],
+Cell[5953, 175, 1347, 34, 33, "Text"],
+Cell[7303, 211, 1101, 30, 33, "Text"],
+Cell[8407, 243, 1221, 34, 33, "Text"],
+Cell[9631, 279, 1173, 31, 33, "Text"],
+Cell[10807, 312, 1211, 32, 33, "Text"],
+Cell[12021, 346, 1102, 30, 33, "Text"],
+Cell[13126, 378, 1103, 30, 33, "Text"],
+Cell[14232, 410, 1201, 32, 33, "Text"]
 }, Open  ]],
-Cell[14385, 414, 96, 1, 64, "Section"]
+Cell[15448, 445, 96, 1, 63, "Section"]
 }, Open  ]]
 }
 ]

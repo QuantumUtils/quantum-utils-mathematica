@@ -133,6 +133,9 @@ AssignUsage[TP,$TensorUsages];
 TensorFactorPermutations::input = "Input must be a sequence of elements {op,int}.";
 
 
+OuterProduct::input = "Inputs must be a vectors, column vectors, or matrices."
+
+
 (* ::Subsubsection:: *)
 (*Tensor Manipulations*)
 
@@ -245,10 +248,25 @@ ACom[A_?MatrixQ,B_?MatrixQ]:=A.B+B.A
 ACom[A_?MatrixQ,B_?MatrixQ,n_?Positive]:=ACom[A,ACom[A,B],n-1]
 
 
-OuterProduct[u_,v_]:=KroneckerProduct[Flatten[u],Conjugate[Flatten[v]]];
+(* ::Text:: *)
+(*Outer product of two vectors or two matrices. For matrices it returns the outer product of the vectorized matrices.*)
 
 
-Projector[v_]:=OuterProduct[v,v];
+OuterProduct[u_,v_]:=KroneckerProduct[OuterProductVec[u],Conjugate[OuterProductVec[v]]];
+OuterProduct[u_,v_,SparseArray]:=OuterProductVec[SparseArray@u,SparseArray@v];
+
+OuterProductVec[u_]:=
+	Which[
+		GeneralVectorQ[u],Flatten[u],
+		MatrixQ[u],Flatten@Vec[u],
+		True, Message[OuterProduct::input]]
+
+
+Projector[v_]:=OuterProduct[v,v]
+Projector[v_,SparseArray]:=Projector[SparseArray@v];
+
+Projector[v_,vs__]:=Fold[#1+Projector[#2]&,Projector[v],{vs}]
+Projector[v_,vs__,SparseArray]:=Fold[#1+Projector[#2,SparseArray]&,Projector[v,SparseArray],{vs}]
 
 
 BlockMatrix[B__?MatrixQ]:=
@@ -606,32 +624,46 @@ Basis[basis_,n_Integer]:=
 Basis[basis_]:=Basis[basis,1];
 
 
-BasisLabels[labels_]:=BasisLabels[labels,1];
-BasisLabels[labels_,n_Integer]:=
-	With[{labels1=CheckNamedBasisLabels[labels]},
+Options[BasisLabels]:={Join->Automatic}
+
+
+BasisLabels[labels_,opts:OptionsPattern[]]:=BasisLabels[labels,1,opts];
+BasisLabels[labels_,n_Integer,opts:OptionsPattern[]]:=
+	If[labels==="Pauli",
+		BasisLabels["PO",n,opts]/Power[Sqrt[2],n],
+	With[{
+		labels1=CheckNamedBasisLabels[labels],
+		joinfun=Which[
+				#===Automatic, CircleTimes,
+				#===True, StringJoin,
+				#===False, List,
+				True,#]&[OptionValue[Join]]},
 		If[n===1,
 			labels1,
-	CircleTimes@@@Tuples[labels1,n]]]
+			joinfun@@@Tuples[labels1,n]]]
+	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Express In Basis*)
 
 
-Options[ExpressInBasis]:={Basis->"PO",BasisLabels->False};
+Options[ExpressInBasis]:={Basis->"PO",BasisLabels->False,Join->Automatic,Chop->False};
 
 
 ExpressInBasis[op_,opts:OptionsPattern[]]:=
 	With[{basis=OptionValue[Basis],
-		labels=OptionValue[BasisLabels]},
+		labels=OptionValue[BasisLabels],
+		joinfun=OptionValue[Join],
+		trim=If[OptionValue[Chop]===True,
+				Pick[#1,Abs@Sign@#2,1]&,#1&]},
 	With[{coeffs=ExpressInBasisCoeffs[op,basis]},
 		Which[
 		TrueQ[Not@labels],
 			coeffs,
-		TrueQ[labels],
-			Transpose[{ExpressInBasisLabels[op,basis],coeffs}],
 		True,
-			Transpose[{ExpressInBasisLabels[op,labels],coeffs}]
+			trim[Transpose[{ExpressInBasisLabels[op,If[TrueQ[labels],basis,labels],joinfun],coeffs}],
+				coeffs]
 		]
 	]]
 
@@ -644,11 +676,11 @@ ExpressInBasisCoeffs[op_,basis_]:=
 	]]
 
 
-ExpressInBasisLabels[op_,basis_]:=
+ExpressInBasisLabels[op_,basis_,joinfun_]:=
 	With[{labels1=CheckNamedBasisLabels[basis]},
 	With[{
 	n=Log[Length[labels1],Length[Flatten[op]]]},
-		BasisLabels[basis,n]
+		BasisLabels[basis,n,Join->joinfun]
 	]]
 
 
@@ -687,13 +719,13 @@ BasisImplimentation[fn_String,args__,opts:OptionsPattern[Vec]]:=
 (*Convention Implementations*)
 
 
-VecRow[m_]:= Flatten[{m},{{2,3},{1}}]
+VecRow[m_]:= Partition[Flatten[m],1]
 DevecRow[v_,{dL_,dR_}]:= ArrayReshape[v,{dL,dR}]
 DevecRow[v_]:= With[{d=Sqrt[Length[v]]},DevecRow[v,{d,d}]]
 ProductIdentityRow[A_,C_]:=CircleTimes[A,Transpose[C]]
 
 
-VecCol[m_]:= Flatten[{m},{{3,2},{1}}]
+VecCol[m_]:= Partition[Flatten[m,{2,1}],1]
 DevecCol[v_,{dL_,dR_}]:= Transpose[DevecRow[v,{dL,dR}]]
 DevecCol[v_]:= Transpose[DevecRow[v]]
 ProductIdentityCol[A_,C_]:=CircleTimes[Transpose[C],A]

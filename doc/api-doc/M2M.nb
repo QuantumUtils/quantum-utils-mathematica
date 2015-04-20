@@ -1,0 +1,966 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     33088,        957]
+NotebookOptionsPosition[     26869,        752]
+NotebookOutlinePosition[     29121,        817]
+CellTagsIndexPosition[     28554,        801]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["M2M` Documentation", "Chapter",
+ CellChangeTimes->{{3.6333515346579514`*^9, 3.63335154627586*^9}, {
+  3.633364320690548*^9, 3.63336432261762*^9}, {3.633459692992848*^9, 
+  3.633459695695156*^9}, {3.63352627649533*^9, 3.633526278958379*^9}, {
+  3.636901374637114*^9, 3.636901375728097*^9}, {3.63746571434685*^9, 
+  3.637465716396302*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Preamble", "Section",
+ CellChangeTimes->{{3.633351558518317*^9, 3.633351560041299*^9}, {
+  3.633781254199301*^9, 3.633781256261158*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<M2M`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
+  3.633459703938384*^9, 3.633459707396385*^9}, {3.633526282103736*^9, 
+  3.633526283991441*^9}, {3.636901378415098*^9, 3.636901380048747*^9}, {
+  3.637465719308366*^9, 3.637465720057892*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introduction and Overview", "Section",
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}, {
+  3.633878695511993*^9, 3.633878696655075*^9}}],
+
+Cell["\<\
+This package contains functions to generate and export MATLAB code from \
+Mathematica expressions.\
+\>", "Text",
+ CellChangeTimes->{{3.6369013984973183`*^9, 3.636901432406*^9}, {
+  3.6374661090640144`*^9, 3.6374661275611124`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Expression Converters", "Section",
+ CellChangeTimes->{{3.637466174633823*^9, 3.63746618314386*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["ExpressionToMATLAB", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.6374666469026556`*^9, 
+  3.6374666486318817`*^9}, {3.6374668250993176`*^9, 3.6374668282995787`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ExpressionToMATLAB[", "Input"],
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " converts the Mathematica expression ",
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " into a string representing an equivalent MATLAB expression."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}, {3.6374666513117795`*^9, 3.637466768770022*^9}, {
+   3.637466834651462*^9, 3.6374668965490055`*^9}},
+ CellTags->"ExpressionToMATLAB::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsubsection",
+ CellChangeTimes->{{3.6374669017577124`*^9, 3.6374669046387424`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpressionToMATLAB", "[", 
+  RowBox[{"Sin", "[", "x", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374669059256697`*^9, 3.637466914568774*^9}}],
+
+Cell[BoxData["\<\"sin(x)\"\>"], "Output",
+ CellChangeTimes->{3.6374669149330463`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpressionToMATLAB", "[", 
+  RowBox[{"a", " ", "+", " ", 
+   SuperscriptBox["b", "c"], " ", "-", " ", 
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{"-", "t"}]]}], "]"}]], "Input",
+ CellChangeTimes->{{3.637466916969494*^9, 3.6374669352104187`*^9}}],
+
+Cell[BoxData["\<\"(a+(b.^c)+(-1.*exp((-1.*t))))\"\>"], "Output",
+ CellChangeTimes->{3.637466935713755*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpressionToMATLAB", "[", 
+  RowBox[{"(", GridBox[{
+     {"1", "0"},
+     {"0", "2"}
+    }], ")"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374669422910795`*^9, 3.6374669523792133`*^9}}],
+
+Cell[BoxData["\<\"[1 0; 0 2]\"\>"], "Output",
+ CellChangeTimes->{3.637466952907584*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpressionToMATLAB", "[", 
+  RowBox[{
+   RowBox[{"a", "<", "b"}], "\[And]", "c"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374670089264193`*^9, 3.6374670643449745`*^9}}],
+
+Cell[BoxData["\<\"((a<b)&&c)\"\>"], "Output",
+ CellChangeTimes->{{3.6374670343809247`*^9, 3.6374670652606225`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpressionToMATLAB", "[", 
+  RowBox[{"Tr", "[", 
+   RowBox[{"MatrixExp", "[", 
+    RowBox[{
+     RowBox[{"-", "\[ImaginaryI]"}], " ", "H"}], "]"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374670826366825`*^9, 3.6374671055365157`*^9}}],
+
+Cell[BoxData["\<\"trace(expm(((0 + -1*i).*H)))\"\>"], "Output",
+ CellChangeTimes->{3.6374671060218616`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Function Converters", "Section",
+ CellChangeTimes->{{3.6374661863441215`*^9, 3.637466189662489*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["SimpleFunctionToMATLAB", "Subsection",
+ CellChangeTimes->{{3.637467186580274*^9, 3.637467194948204*^9}, {
+  3.637467893668769*^9, 3.6374678944983644`*^9}}],
+
+Cell[TextData[{
+ StyleBox["SimpleFunctionToMATLAB[", "Input"],
+ StyleBox["funcname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", {", "Input"],
+ StyleBox["args", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["}, ", "Input"],
+ StyleBox["func", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " constructs a single-expression MATLAB function from the Mathematica \
+function ",
+ StyleBox["func", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", with name ",
+ StyleBox["funcname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and that takes as input the MATLAB arguments ",
+ StyleBox["args", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", expressed as Mathematica symbols."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}, {3.6374666513117795`*^9, 3.637466768770022*^9}, {
+   3.637466834651462*^9, 3.6374668965490055`*^9}, {3.637467219300005*^9, 
+   3.6374673255275755`*^9}, {3.6374674104735613`*^9, 
+   3.6374674615452256`*^9}, {3.637467525143999*^9, 3.6374675290847893`*^9}, {
+   3.6374678892598677`*^9, 3.637467890068433*^9}},
+ CellTags->"SimpleFunctionToMATLAB::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsubsection",
+ CellChangeTimes->{{3.6374673281874743`*^9, 3.6374673313076987`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SimpleFunctionToMATLAB", "[", 
+  RowBox[{"\"\<foo\>\"", ",", 
+   RowBox[{"{", "x", "}"}], ",", " ", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"#", "<", "3"}], ",", 
+      SuperscriptBox["#", "2"], ",", 
+      RowBox[{"#", "+", "3"}]}], "]"}], "&"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374673462372084`*^9, 3.6374674002416105`*^9}, {
+  3.6374675521119623`*^9, 3.637467554943968*^9}, {3.637467900442568*^9, 
+  3.6374679012601604`*^9}}],
+
+Cell[BoxData["\<\"% foo TODO: add documentation here.\\nfunction Y = \
+foo(x)\\n% WARNING: This file was automatically generated by the M2M package \
+for Mathematica.\\n%          Do not edit the following lines directly.\\nY = \
+iif((x<3),(x.^2),(3+x));\\nend\"\>"], "Output",
+ CellChangeTimes->{{3.6374673699329977`*^9, 3.6374674009290953`*^9}, 
+   3.637467556097786*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["StatementToMATLAB", "Subsection",
+ CellChangeTimes->{{3.6374675782135563`*^9, 3.637467582802808*^9}}],
+
+Cell[TextData[{
+ StyleBox["StatementToMATLAB[", "Input"],
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " converts the Mathematica expression ",
+ StyleBox["expr", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " into one or more MATLAB statements. The final statement in a ",
+ StyleBox["CompoundExpression", "Input",
+  FontWeight->"Plain"],
+ " will be stored to the MATLAB variable ",
+ StyleBox["retval", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}, {3.6374666513117795`*^9, 3.637466768770022*^9}, {
+   3.637466834651462*^9, 3.6374668965490055`*^9}, {3.637467219300005*^9, 
+   3.6374673255275755`*^9}, {3.6374674104735613`*^9, 
+   3.6374674615452256`*^9}, {3.637467525143999*^9, 3.6374675290847893`*^9}, {
+   3.6374675923175507`*^9, 3.6374677381772747`*^9}, {3.6374677796805477`*^9, 
+   3.637467791800136*^9}},
+ CellTags->"StatementToMATLAB::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsubsection",
+ CellChangeTimes->{{3.6374676780376406`*^9, 3.63746767949769*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StatementToMATLAB", "[", 
+  RowBox[{
+   RowBox[{"a", "=", "b"}], ";", "c"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374676805884647`*^9, 3.63746769076966*^9}}],
+
+Cell[BoxData["\<\"a = b;\\nretval = c;\"\>"], "Output",
+ CellChangeTimes->{{3.637467685257752*^9, 3.637467691250996*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StatementToMATLAB", "[", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"a", ">", "3"}], ",", 
+    RowBox[{"b", "=", "foo"}], ",", 
+    RowBox[{"c", "=", "bar"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.637467797189953*^9, 3.637467824481839*^9}}],
+
+Cell[BoxData["\<\"if (a>3)\\n\\tb = foo;\\nelse\\n\\tc = bar;\\nend\"\>"], \
+"Output",
+ CellChangeTimes->{{3.6374678168168573`*^9, 3.637467824936158*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["FunctionToMATLAB", "Subsection",
+ CellChangeTimes->{{3.637467186580274*^9, 3.637467194948204*^9}, {
+   3.637467893668769*^9, 3.6374678944983644`*^9}, 3.6374681988201513`*^9}],
+
+Cell[TextData[{
+ StyleBox["FunctionToMATLAB[", "Input"],
+ StyleBox["funcname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", {", "Input"],
+ StyleBox["args", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["}, ", "Input"],
+ StyleBox["func", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " constructs a MATLAB function from the Mathematica expression ",
+ StyleBox["func", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", with name ",
+ StyleBox["funcname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and that takes as input the MATLAB arguments ",
+ StyleBox["args", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", expressed as Mathematica symbols."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}, {3.6374666513117795`*^9, 3.637466768770022*^9}, {
+   3.637466834651462*^9, 3.6374668965490055`*^9}, {3.637467219300005*^9, 
+   3.6374673255275755`*^9}, {3.6374674104735613`*^9, 
+   3.6374674615452256`*^9}, {3.637467525143999*^9, 3.6374675290847893`*^9}, {
+   3.6374678892598677`*^9, 3.637467890068433*^9}, {3.6374682036996136`*^9, 
+   3.6374682096284*^9}, {3.6374682565760584`*^9, 3.637468258151174*^9}},
+ CellTags->"FunctionToMATLAB::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Subsubsection",
+ CellChangeTimes->{{3.6374673281874743`*^9, 3.6374673313076987`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FunctionToMATLAB", "[", 
+  RowBox[{"\"\<foo\>\"", ",", 
+   RowBox[{"{", "x", "}"}], ",", " ", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"x", "<", "3"}], ",", 
+     SuperscriptBox["x", "2"], ",", 
+     RowBox[{"x", "+", "3"}]}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374673462372084`*^9, 3.6374674002416105`*^9}, {
+  3.6374675521119623`*^9, 3.637467554943968*^9}, {3.637467900442568*^9, 
+  3.6374679012601604`*^9}, {3.6374682137822285`*^9, 3.63746824530086*^9}}],
+
+Cell[BoxData["\<\"% foo TODO: add documentation here.\\nfunction retval = \
+foo(x)\\n% WARNING: This file was automatically generated by the M2M package \
+for Mathematica.\\n%          Do not edit the following lines directly.\\nif \
+(x<3)\\n\\tretval = (x.^2);\\nelse\\n\\tretval = (3+x);\\nend\\nend\"\>"], \
+"Output",
+ CellChangeTimes->{{3.6374673699329977`*^9, 3.6374674009290953`*^9}, 
+   3.637467556097786*^9, {3.637468222681402*^9, 3.637468245788185*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ExportFunctionToMATLAB", "Subsection",
+ CellChangeTimes->{{3.6374675782135563`*^9, 3.637467582802808*^9}, {
+  3.637467872698724*^9, 3.6374678851993585`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ExportFunctionToMATLAB[", "Input"],
+ StyleBox["dirname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", ", "Input"],
+ StyleBox["funcname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", {", "Input"],
+ StyleBox["args", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["}, ", "Input"],
+ StyleBox["func", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " constructs a MATLAB function from the Mathematica expression ",
+ StyleBox["func", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", with name ",
+ StyleBox["funcname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and that takes as input the MATLAB arguments ",
+ StyleBox["args", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", expressed as Mathematica symbols. The new function is then saved to the \
+directory ",
+ StyleBox["dirname", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " with the name required by MATLAB."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}, {3.6374666513117795`*^9, 3.637466768770022*^9}, {
+   3.637466834651462*^9, 3.6374668965490055`*^9}, {3.637467219300005*^9, 
+   3.6374673255275755`*^9}, {3.6374674104735613`*^9, 
+   3.6374674615452256`*^9}, {3.637467525143999*^9, 3.6374675290847893`*^9}, {
+   3.6374678892598677`*^9, 3.637467890068433*^9}, {3.6374682036996136`*^9, 
+   3.6374682096284*^9}, {3.6374682565760584`*^9, 3.637468258151174*^9}, {
+   3.637468306609461*^9, 3.6374683445491643`*^9}},
+ CellTags->"ExportFunctionToMATLAB::usage"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Utility Functions", "Section",
+ CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
+  3.633441643373975*^9, 3.633441643471745*^9}, {3.633459727021635*^9, 
+  3.633459727820011*^9}, {3.633526289590464*^9, 3.6335262930624027`*^9}, {
+  3.63378126135916*^9, 3.633781261452849*^9}, {3.6369014438326187`*^9, 
+  3.636901452273589*^9}, {3.6374660576881943`*^9, 3.637466061124601*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["JoinStrings", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.6374666469026556`*^9, 
+  3.6374666486318817`*^9}}],
+
+Cell[TextData[{
+ StyleBox["JoinStrings[{", "Input"],
+ StyleBox["string1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", ", "Input"],
+ StyleBox["string2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", ", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain"],
+ StyleBox["}, ", "Input"],
+ StyleBox["sep", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " joins the strings ",
+ StyleBox["string1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", ",
+ StyleBox["string2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", ... with the separator ",
+ StyleBox["sep", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}, {3.6374666513117795`*^9, 3.637466768770022*^9}},
+ CellTags->"JoinStrings::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.637466772709787*^9, 3.637466777489173*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"JoinStrings", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\"\<a\>\"", ",", " ", "\"\<b\>\"", ",", " ", "\"\<c\>\""}], 
+    "}"}], ",", " ", "\"\<,\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374667784378414`*^9, 3.637466793220314*^9}}],
+
+Cell[BoxData["\<\"a,b,c\"\>"], "Output",
+ CellChangeTimes->{{3.637466788673108*^9, 3.637466793841754*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["LatinLowerCaseQ", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}}],
+
+Cell[TextData[{
+ StyleBox["LatinLowerCaseQ[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns True if given a lower-case letter in the Latin alphabet."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.6374663188601327`*^9, 
+   3.6374663204782534`*^9}},
+ CellTags->"LatinLowerCaseQ::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["LatinUpperCaseQ", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.637466280718011*^9, 
+  3.6374662813484654`*^9}}],
+
+Cell[TextData[{
+ StyleBox["LatinUpperCaseQ[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns True if given a upper-case letter in the Latin alphabet."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374663245194244`*^9}},
+ CellTags->"LatinUpperCaseQ::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["LatinLetterQ", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.637466305758711*^9, 
+  3.6374663075779905`*^9}}],
+
+Cell[TextData[{
+ StyleBox["LatinLetterQ[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns True if given letter in the Latin alphabet."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.637466313278574*^9, 
+   3.6374663304386272`*^9}},
+ CellTags->"LatinLetterQ::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["UnderscoreQ", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.637466305758711*^9, 
+  3.6374663075779905`*^9}, {3.637466352798643*^9, 3.6374663552373695`*^9}}],
+
+Cell[TextData[{
+ StyleBox["UnderscoreQ[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns True if ",
+ StyleBox["\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the underscore character."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.637466313278574*^9, 
+   3.63746638978771*^9}},
+ CellTags->"UnderscoreQ::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ValidMATLABIdentifierCharacterQ", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.637466305758711*^9, 
+  3.6374663075779905`*^9}, {3.637466352798643*^9, 3.6374663552373695`*^9}, {
+  3.6374664117675858`*^9, 3.6374664178278832`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ValidMATLABIdentifierCharacterQ[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns True if ",
+ StyleBox["\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a character that is legal to appear in a MATLAB identifier."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.637466313278574*^9, 
+   3.63746638978771*^9}, {3.637466456378724*^9, 3.6374664860860558`*^9}, {
+   3.637466518789503*^9, 3.6374665200683928`*^9}},
+ CellTags->"ValidMATLABIdentiferCharacterQ::usage"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ValidMATLABIdentifierQ", "Subsection",
+ CellChangeTimes->{{3.63690145452*^9, 3.6369014577181673`*^9}, {
+  3.637466204519414*^9, 3.637466208770424*^9}, {3.637466305758711*^9, 
+  3.6374663075779905`*^9}, {3.637466352798643*^9, 3.6374663552373695`*^9}, {
+  3.6374664117675858`*^9, 3.6374664178278832`*^9}, {3.6374665092116218`*^9, 
+  3.6374665096689587`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ValidMATLABIdentifierQ[\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns True if ",
+ StyleBox["\[OpenCurlyDoubleQuote]", "Input"],
+ StyleBox["string\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a legal MATLAB identifier."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.634311328002417*^9, {3.634316418526174*^9, 3.634316521790423*^9}, {
+   3.634509526888596*^9, 3.634509548646995*^9}, {3.634924751102474*^9, 
+   3.634924781111176*^9}, {3.6349258561999493`*^9, 3.6349259526860847`*^9}, {
+   3.634926269549931*^9, 3.6349262813179913`*^9}, {3.634989908112784*^9, 
+   3.634989908825219*^9}, {3.636901524340518*^9, 3.636901768172884*^9}, {
+   3.6374662124724054`*^9, 3.6374662588588514`*^9}, {3.637466313278574*^9, 
+   3.63746638978771*^9}, {3.637466456378724*^9, 3.6374664860860558`*^9}, {
+   3.6374665371169586`*^9, 3.6374665410747557`*^9}},
+ CellTags->"ValidMATLABIdentifierQ::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.636901500668826*^9, 3.636901501457987*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"ValidMATLABIdentifierQ", "[", "\"\<23foo\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ValidMATLABIdentifierQ", "[", "\"\<foo_23\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.637466550904047*^9, 3.637466608397608*^9}}],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{3.637466602601468*^9}],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.6374666026024685`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{704, 864},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExpressionToMATLAB::usage"->{
+  Cell[2286, 69, 1019, 22, 50, "Text",
+   CellTags->"ExpressionToMATLAB::usage"]},
+ "SimpleFunctionToMATLAB::usage"->{
+  Cell[5602, 177, 1677, 42, 71, "Text",
+   CellTags->"SimpleFunctionToMATLAB::usage"]},
+ "StatementToMATLAB::usage"->{
+  Cell[8466, 257, 1470, 33, 71, "Text",
+   CellTags->"StatementToMATLAB::usage"]},
+ "FunctionToMATLAB::usage"->{
+  Cell[11110, 333, 1745, 42, 71, "Text",
+   CellTags->"FunctionToMATLAB::usage"]},
+ "ExportFunctionToMATLAB::usage"->{
+  Cell[14204, 414, 2079, 52, 91, "Text",
+   CellTags->"ExportFunctionToMATLAB::usage"]},
+ "JoinStrings::usage"->{
+  Cell[16955, 486, 1350, 40, 51, "Text",
+   CellTags->"JoinStrings::usage"]},
+ "LatinLowerCaseQ::usage"->{
+  Cell[19042, 555, 851, 17, 50, "Text",
+   CellTags->"LatinLowerCaseQ::usage"]},
+ "LatinUpperCaseQ::usage"->{
+  Cell[20134, 582, 797, 16, 50, "Text",
+   CellTags->"LatinUpperCaseQ::usage"]},
+ "LatinLetterQ::usage"->{
+  Cell[21169, 608, 830, 17, 31, "Text",
+   CellTags->"LatinLetterQ::usage"]},
+ "UnderscoreQ::usage"->{
+  Cell[22284, 635, 971, 22, 31, "Text",
+   CellTags->"UnderscoreQ::usage"]},
+ "ValidMATLABIdentiferCharacterQ::usage"->{
+  Cell[23613, 668, 1144, 23, 50, "Text",
+   CellTags->"ValidMATLABIdentiferCharacterQ::usage"]},
+ "ValidMATLABIdentifierQ::usage"->{
+  Cell[25159, 703, 1096, 23, 50, "Text",
+   CellTags->"ValidMATLABIdentifierQ::usage"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExpressionToMATLAB::usage", 27177, 762},
+ {"SimpleFunctionToMATLAB::usage", 27296, 765},
+ {"StatementToMATLAB::usage", 27415, 768},
+ {"FunctionToMATLAB::usage", 27528, 771},
+ {"ExportFunctionToMATLAB::usage", 27647, 774},
+ {"JoinStrings::usage", 27761, 777},
+ {"LatinLowerCaseQ::usage", 27868, 780},
+ {"LatinUpperCaseQ::usage", 27978, 783},
+ {"LatinLetterQ::usage", 28085, 786},
+ {"UnderscoreQ::usage", 28188, 789},
+ {"ValidMATLABIdentiferCharacterQ::usage", 28309, 792},
+ {"ValidMATLABIdentifierQ::usage", 28442, 795}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 343, 5, 64, "Chapter"],
+Cell[CellGroupData[{
+Cell[948, 31, 142, 2, 63, "Section"],
+Cell[1093, 35, 328, 5, 31, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1458, 45, 159, 2, 63, "Section"],
+Cell[1620, 49, 240, 5, 49, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1897, 59, 105, 1, 63, "Section"],
+Cell[CellGroupData[{
+Cell[2027, 64, 256, 3, 43, "Subsection"],
+Cell[2286, 69, 1019, 22, 50, "Text",
+ CellTags->"ExpressionToMATLAB::usage"],
+Cell[CellGroupData[{
+Cell[3330, 95, 103, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[3458, 100, 169, 3, 31, "Input"],
+Cell[3630, 105, 85, 1, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3752, 111, 276, 6, 33, "Input"],
+Cell[4031, 119, 106, 1, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4174, 125, 210, 6, 42, "Input"],
+Cell[4387, 133, 87, 1, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4511, 139, 193, 4, 31, "Input"],
+Cell[4707, 145, 115, 1, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4859, 151, 265, 6, 31, "Input"],
+Cell[5127, 159, 107, 1, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5307, 168, 106, 1, 63, "Section"],
+Cell[CellGroupData[{
+Cell[5438, 173, 161, 2, 43, "Subsection"],
+Cell[5602, 177, 1677, 42, 71, "Text",
+ CellTags->"SimpleFunctionToMATLAB::usage"],
+Cell[CellGroupData[{
+Cell[7304, 223, 103, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[7432, 228, 487, 12, 33, "Input"],
+Cell[7922, 242, 373, 5, 152, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8356, 254, 107, 1, 43, "Subsection"],
+Cell[8466, 257, 1470, 33, 71, "Text",
+ CellTags->"StatementToMATLAB::usage"],
+Cell[CellGroupData[{
+Cell[9961, 294, 100, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[10086, 299, 184, 4, 31, "Input"],
+Cell[10273, 305, 121, 1, 52, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10431, 311, 278, 7, 31, "Input"],
+Cell[10712, 320, 154, 2, 112, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10927, 329, 180, 2, 43, "Subsection"],
+Cell[11110, 333, 1745, 42, 71, "Text",
+ CellTags->"FunctionToMATLAB::usage"],
+Cell[CellGroupData[{
+Cell[12880, 379, 103, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[13008, 384, 504, 11, 33, "Input"],
+Cell[13515, 397, 462, 6, 232, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14038, 410, 163, 2, 43, "Subsection"],
+Cell[14204, 414, 2079, 52, 91, "Text",
+ CellTags->"ExportFunctionToMATLAB::usage"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16332, 472, 396, 5, 63, "Section"],
+Cell[CellGroupData[{
+Cell[16753, 481, 199, 3, 43, "Subsection"],
+Cell[16955, 486, 1350, 40, 51, "Text",
+ CellTags->"JoinStrings::usage"],
+Cell[CellGroupData[{
+Cell[18330, 530, 98, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[18453, 535, 266, 6, 31, "Input"],
+Cell[18722, 543, 106, 1, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18889, 551, 150, 2, 43, "Subsection"],
+Cell[19042, 555, 851, 17, 50, "Text",
+ CellTags->"LatinLowerCaseQ::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19930, 577, 201, 3, 43, "Subsection"],
+Cell[20134, 582, 797, 16, 50, "Text",
+ CellTags->"LatinUpperCaseQ::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20968, 603, 198, 3, 43, "Subsection"],
+Cell[21169, 608, 830, 17, 31, "Text",
+ CellTags->"LatinLetterQ::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22036, 630, 245, 3, 43, "Subsection"],
+Cell[22284, 635, 971, 22, 31, "Text",
+ CellTags->"UnderscoreQ::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23292, 662, 318, 4, 43, "Subsection"],
+Cell[23613, 668, 1144, 23, 50, "Text",
+ CellTags->"ValidMATLABIdentiferCharacterQ::usage"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24794, 696, 362, 5, 43, "Subsection"],
+Cell[25159, 703, 1096, 23, 50, "Text",
+ CellTags->"ValidMATLABIdentifierQ::usage"],
+Cell[CellGroupData[{
+Cell[26280, 730, 98, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[26403, 735, 247, 4, 52, "Input"],
+Cell[26653, 741, 74, 1, 31, "Output"],
+Cell[26730, 744, 75, 1, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
