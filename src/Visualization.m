@@ -46,7 +46,7 @@ $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc",
 (*Usage Declaration*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
@@ -110,7 +110,7 @@ BlochPlot::color = "BlochPlotColor option value not understood.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
@@ -199,15 +199,6 @@ HintonPlot[dat_,OptionsPattern[]] :=
 ]];
 
 
-(* Not exposed by intention. *)
-PauliLabels[nq_] := Table[
-    StringJoin@@(Reverse[IntegerDigits[i,4,nq]]/.{
-        0->"I",1->"X",2->"Y",3->"Z"
-    }),
-    {i,0,4^nq-1}
-];
-
-
 ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
 		mtx=First@Super[chan,Basis->"Pauli"],
 		nqIn=Log2 @ InputDim@ chan,
@@ -216,7 +207,14 @@ ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
 	HintonPlot[mtx,
 		If[AnyMatchQ[AxesLabel->_,{opts}],
 			{opts},
-			Append[{opts},AxesLabel->PauliLabels/@{nqOut,nqIn}]]]
+			Append[{opts},
+                 (*
+                      Note that we use PO, instead of Pauli, to suppress normalization in plot labels.
+                      It should be understood that the plot is with respect to the normalized basis,
+                      but that the normalizations are omitted for brevity.
+                  *)
+                 AxesLabel->(BasisLabels["PO", #, Join->StringJoin]&/@{nqOut,nqIn})]]
+            ]
 ]
 
 
