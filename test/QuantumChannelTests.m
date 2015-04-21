@@ -58,7 +58,7 @@ End[];
 Begin["`UnitTests`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channels*)
 
 
@@ -186,7 +186,7 @@ TestCase[$RegisteredTests,"QuantumChannel:Basis",
 	]];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Evolution*)
 
 
@@ -278,7 +278,7 @@ TestCase[$RegisteredTests,"QuantumChannel:StinespringEvolution",
 	]]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channel Transformations*)
 
 
@@ -328,6 +328,9 @@ TestCase[$RegisteredTests,"QuantumChannel:UnitaryToSysEnv",
 		QuantumChannel[
 			{{{0,1},{1,0}},{1}},
 			{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}]]];
+
+TestCase[$RegisteredTests,"QuantumChannel:UnitaryToExtendedSysEnv",
+	SameQ[SysEnv[chan, ExtendUnitary->True][[1,1]], PauliMatrix[1]]];
 ];
 
 
@@ -474,7 +477,7 @@ TestCase[$RegisteredTests,"QuantumChannel:ChoiToSysEnv",
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*From Kraus*)
 
 
@@ -522,6 +525,15 @@ TestCase[$RegisteredTests,"QuantumChannel:KrausToStinespring",
 		QuantumChannel[
 			{{Sqrt[3],0},{0,1},{0,Sqrt[3]},{1,0}}/2,
 			{ChannelRep->Stinespring,InputDim->2,OutputDim->2,Basis->"Col"}]]
+	];
+
+TestCase[$RegisteredTests,"QuantumChannel:KrausToExtendedSysEnv",
+		SameQ[SysEnv[chan,ExtendUnitary->True],
+			QuantumChannel[
+				{{{Sqrt[3]/2, 0, 0, -1/2}, {0, -Sqrt[3]/2, 1/2, 0}, {0, 1/2, Sqrt[3]/2, 0}, {1/2, 0, 0, Sqrt[3]/2}}, {1, 0}},
+				{ChannelRep->SysEnv,InputDim->2,OutputDim->2,Basis->"Col"}
+			]
+		]
 	];
 
 TestCase[$RegisteredTests,"QuantumChannel:KrausToSysEnv",
