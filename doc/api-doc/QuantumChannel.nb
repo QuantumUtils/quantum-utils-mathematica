@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    314821,       9686]
-NotebookOptionsPosition[    293689,       9010]
-NotebookOutlinePosition[    298424,       9147]
-CellTagsIndexPosition[    297195,       9113]
+NotebookDataLength[    320609,       9892]
+NotebookOptionsPosition[    299161,       9207]
+NotebookOutlinePosition[    304046,       9348]
+CellTagsIndexPosition[    302776,       9313]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -717,182 +717,333 @@ Cell[BoxData[GridBox[{
     StyleBox[
      RowBox[{
       RowBox[{
-       TagBox[
-        StyleBox["InputDim", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], " ", "is", " ", "the", " ", "input", " ", "dimension", 
-       " ", "option", " ", "for", " ", 
        RowBox[{
         TagBox[
-         StyleBox["QuantumChannel", "Input",
+         StyleBox["Inp", "Input",
           FontFamily->"Courier"],
-         DisplayForm], ".", " ", "Additionally"}]}], ",", " ", 
-      RowBox[{
-       TagBox[
-        StyleBox[
-         RowBox[{"InputDim", "[", 
-          StyleBox["chan",
-           FontSlant->"Italic"], "]"}], "Input",
-         FontFamily->"Courier"],
-        DisplayForm], " ", "returns", " ", "the", " ", "dimension", " ", "of",
-        " ", "the", " ", "input", " ", "space", " ", "of", " ", "the", " ", 
-       TagBox[
-        StyleBox["QuantumChannel", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], " ", 
-       RowBox[{
-        StyleBox[
-         TagBox[
-          StyleBox["chan", "Input",
-           FontFamily->"Courier"],
-          DisplayForm],
-         FontSlant->"Italic"], "."}]}]}], "Text"]},
-   {"OutputDim", "Automatic", 
-    RowBox[{
-     StyleBox[
-      RowBox[{
-       TagBox[
-        StyleBox["OutputDim", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], " ", "is", " ", "the", " ", "output", " ", "dimension", 
-       " ", "option", " ", "for", " ", 
-       RowBox[{
+         DisplayForm], 
+        TagBox[
+         StyleBox["utDim", "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{" ", 
+           RowBox[{
+           "is", " ", "the", " ", "input", " ", "dimension", " ", "option", 
+            " ", "for", " "}]}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
         TagBox[
          StyleBox["QuantumChannel", "Input",
-          FontFamily->"Courier"],
-         DisplayForm], ".", " ", "Additionally"}]}], "Text"], 
-     StyleBox[",", "Text"], 
-     StyleBox[" ", "Text"], 
-     RowBox[{
-      StyleBox[
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{
+           RowBox[{".", " ", "Additionally"}], ",", " "}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{"InputDim", "["}], "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier",
+          FontWeight->"Plain",
+          FontSlant->"Italic",
+          FontColor->GrayLevel[0]],
+         DisplayForm]}], 
        TagBox[
-        StyleBox[
-         RowBox[{"OutputDim", "[", 
-          StyleBox["chan",
-           FontSlant->"Italic"], "]"}], "Input",
-         FontFamily->"Courier"],
-        DisplayForm], "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["returns", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["dimension", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["of", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["output", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["space", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["of", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       TagBox[
-        StyleBox["QuantumChannel", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], "Text"], 
-      StyleBox[" ", "Text"], 
-      RowBox[{
-       StyleBox["chan", "Input",
+        StyleBox["]", "Input",
+         FontFamily->"Courier",
+         FontColor->GrayLevel[0]],
+        DisplayForm]}], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", 
+         RowBox[{
+         "returns", " ", "the", " ", "dimension", " ", "of", " ", "the", " ", 
+          "input", " ", "space", " ", "of", " ", "the", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["QuantumChannel", "Input",
         FontFamily->"Courier",
-        FontSlant->"Italic"], 
-       StyleBox[".", "Text"]}]}]}]},
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[" ",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      RowBox[{
+       TagBox[
+        StyleBox["chan", "Input",
+         FontFamily->"Courier",
+         FontWeight->"Plain",
+         FontSlant->"Italic",
+         FontColor->GrayLevel[0]],
+        DisplayForm], 
+       TagBox[
+        StyleBox[".",
+         FontColor->GrayLevel[0]],
+        DisplayForm]}]}], "Text"]},
+   {"OutputDim", "Automatic", 
+    StyleBox[
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        TagBox[
+         StyleBox["OutputDim", "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{" ", 
+           RowBox[{
+           "is", " ", "the", " ", "output", " ", "dimension", " ", "option", 
+            " ", "for", " "}]}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox["QuantumChannel", "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{
+           RowBox[{".", " ", "Additionally"}], ",", " "}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{"OutputDim", "["}], "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier",
+          FontWeight->"Plain",
+          FontSlant->"Italic",
+          FontColor->GrayLevel[0]],
+         DisplayForm]}], 
+       TagBox[
+        StyleBox["]", "Input",
+         FontFamily->"Courier",
+         FontColor->GrayLevel[0]],
+        DisplayForm]}], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", 
+         RowBox[{
+         "returns", " ", "the", " ", "dimension", " ", "of", " ", "the", " ", 
+          "output", " ", "space", " ", "of", " ", "the", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["QuantumChannel", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[" ",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      RowBox[{
+       TagBox[
+        StyleBox["chan", "Input",
+         FontFamily->"Courier",
+         FontWeight->"Plain",
+         FontSlant->"Italic",
+         FontColor->GrayLevel[0]],
+        DisplayForm], 
+       TagBox[
+        StyleBox[".",
+         FontColor->GrayLevel[0]],
+        DisplayForm]}]}], "Text"]},
    {"Basis", "Automatic", 
-    RowBox[{
-     StyleBox[
+    StyleBox[
+     RowBox[{
       RowBox[{
        RowBox[{
         TagBox[
          StyleBox["Basis", "Input",
-          FontFamily->"Courier"],
-         DisplayForm], " ", "is", " ", "the", " ", "option", " ", "for", " ", 
-        
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{" ", 
+           RowBox[{"is", " ", "the", " ", "option", " ", "for", " "}]}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
         TagBox[
          StyleBox["QuantumChannel", "Input",
-          FontFamily->"Courier"],
-         DisplayForm], " ", "which", " ", "specifies", " ", "the", " ", 
-        "representation", " ", "basis"}], ";", " ", 
-       RowBox[{"see", " ", 
-        RowBox[{
-         TagBox[
-          StyleBox["Tensor`Basis", "Input",
-           FontFamily->"Courier"],
-          DisplayForm], ".", " ", "Additionally"}]}]}], "Text"], 
-     StyleBox[",", "Text"], 
-     StyleBox[" ", "Text"], 
-     RowBox[{
-      StyleBox[
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{" ", 
+           RowBox[{
+            RowBox[{
+            "which", " ", "specifies", " ", "the", " ", "representation", " ",
+              "basis"}], ";", " ", "see", " "}]}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox["Tensor`Basis", "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{
+           RowBox[{".", " ", "Additionally"}], ",", " "}],
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox[
+          RowBox[{"Basis", "["}], "Input",
+          FontFamily->"Courier",
+          FontColor->GrayLevel[0]],
+         DisplayForm], 
+        TagBox[
+         StyleBox["chan", "Input",
+          FontFamily->"Courier",
+          FontWeight->"Plain",
+          FontSlant->"Italic",
+          FontColor->GrayLevel[0]],
+         DisplayForm]}], 
        TagBox[
-        StyleBox[
-         RowBox[{"Basis", "[", 
-          StyleBox["chan",
-           FontSlant->"Italic"], "]"}], "Input",
-         FontFamily->"Courier"],
-        DisplayForm], "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["returns", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["vectorization", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["basis", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["for", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       TagBox[
-        StyleBox["QuantumChannel", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       RowBox[{
-        StyleBox[
-         TagBox[
-          StyleBox["chan", "Input",
-           FontFamily->"Courier"],
-          DisplayForm],
-         FontSlant->"Italic"], ".", " ", "This"}], "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["basis", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["used", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["for", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["the", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       TagBox[
-        StyleBox["Super", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["and", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox[
-       TagBox[
-        StyleBox["Choi", "Input",
-         FontFamily->"Courier"],
-        DisplayForm], "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["representations", "Text"], 
-      StyleBox[" ", "Text"], 
-      StyleBox["of", "Text"], 
-      StyleBox[" ", "Text"], 
-      RowBox[{
+        StyleBox["]", "Input",
+         FontFamily->"Courier",
+         FontColor->GrayLevel[0]],
+        DisplayForm]}], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", 
+         RowBox[{
+         "returns", " ", "the", " ", "vectorization", " ", "basis", " ", 
+          "for", " ", "the", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["QuantumChannel", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[" ",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
        StyleBox["chan", "Input",
         FontFamily->"Courier",
-        FontSlant->"Italic"], 
-       StyleBox[".", "Text"]}]}]}]}
+        FontWeight->"Plain",
+        FontSlant->"Italic",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{
+         RowBox[{".", " ", "This"}], " ", "basis", " ", "used", " ", "for", 
+         " ", "the", " "}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["Super", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", "and", " "}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["Choi", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", 
+         RowBox[{"representations", " ", "of", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      RowBox[{
+       TagBox[
+        StyleBox["chan", "Input",
+         FontFamily->"Courier",
+         FontWeight->"Plain",
+         FontSlant->"Italic",
+         FontColor->GrayLevel[0]],
+        DisplayForm], 
+       TagBox[
+        StyleBox[".",
+         FontColor->GrayLevel[0]],
+        DisplayForm]}]}], "Text"]},
+   {"ExtendUnitary", "False", 
+    StyleBox[
+     RowBox[{
+      TagBox[
+       StyleBox["ExtendUnitary", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", 
+         RowBox[{"is", " ", "an", " ", "option", " ", "to", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["QuantumChannel", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{",", " ", 
+         RowBox[{"which", " ", "if", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["True", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{",", " ", 
+         RowBox[{"specifies", " ", "that", " "}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox["SysEnv", "Input",
+        FontFamily->"Courier",
+        FontColor->GrayLevel[0]],
+       DisplayForm], 
+      TagBox[
+       StyleBox[
+        RowBox[{" ", 
+         RowBox[{
+         "representations", " ", "are", " ", "to", " ", "be", " ", "extended",
+           " ", "from", " ", "partial", " ", "isometries", " ", "to", " ", 
+          "unitaries", " ", "acting", " ", "on", " ", "the", " ", "entire", 
+          " ", 
+          RowBox[{"space", "."}]}]}],
+        FontColor->GrayLevel[0]],
+       DisplayForm]}], "Text"]}
   },
   GridBoxAlignment->{"Columns" -> {{Left}}},
   GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
@@ -901,8 +1052,8 @@ Cell[BoxData[GridBox[{
     "RowsIndexed" -> {}}]], "Text",
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.633880600085744*^9}]
-}, Closed]],
+ CellChangeTimes->{3.638566068222276*^9}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1058,6 +1209,38 @@ Cell[TextData[{
  " package."
 }], "Text",
  CellChangeTimes->{{3.6338802140101423`*^9, 3.6338802270980797`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ExtendUnitary", "Subsubsection",
+ CellChangeTimes->{{3.633880176808527*^9, 3.6338801772159224`*^9}, {
+  3.638565904856024*^9, 3.638565907216702*^9}}],
+
+Cell[TextData[{
+ StyleBox["ExtendUnitary", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" is an option to ",
+  FontColor->GrayLevel[0]],
+ StyleBox["QuantumChannel", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[", which if ",
+  FontColor->GrayLevel[0]],
+ StyleBox["True", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[", specifies that ",
+  FontColor->GrayLevel[0]],
+ StyleBox["SysEnv", "Input",
+  FontColor->GrayLevel[0]],
+ StyleBox[" representations are to be extended from partial isometries to \
+unitaries acting on the entire space.",
+  FontColor->GrayLevel[0]]
+}], "Text",
+ CellDingbat->"\[FilledSmallSquare]",
+ CellChangeTimes->{{3.633880189338952*^9, 3.633880191566524*^9}, {
+  3.633880425487042*^9, 3.633880481103354*^9}, {3.6341674194696913`*^9, 
+  3.634167426605584*^9}, {3.6385659234093757`*^9, 3.638565993689343*^9}},
+ CellTags->"ExtendUnitary::usage"]
 }, Open  ]]
 }, Open  ]],
 
@@ -4255,7 +4438,17 @@ Cell[TextData[{
  StyleBox["Vec", "Input"],
  " ",
  StyleBox["Basis", "Input"],
- " option.\n\n",
+ " option.\n\[Bullet]",
+ StyleBox[" ExtendUnitary\[Rule]", "Input"],
+ StyleBox["extend", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ ", if ",
+ StyleBox["True", "Input"],
+ " specifies the partial isometry generated by ",
+ StyleBox["SysEnv", "Input"],
+ " should be extended to a unitary on the entire space.\n\n",
  StyleBox["Evolution",
   FontWeight->"Bold",
   FontSlant->"Italic",
@@ -4389,7 +4582,9 @@ matrix.",
    3.634168586693243*^9, 3.6341686289546623`*^9}, {3.634168752581564*^9, 
    3.6341687590869827`*^9}, {3.63416908471635*^9, 3.634169132963215*^9}, {
    3.634169428580132*^9, 3.634169430702869*^9}, {3.634299118343618*^9, 
-   3.6342991671451893`*^9}, {3.634299198802853*^9, 3.6342992016491327`*^9}},
+   3.6342991671451893`*^9}, {3.634299198802853*^9, 3.6342992016491327`*^9}, {
+   3.6385661029212275`*^9, 3.6385661309941893`*^9}, {3.6385662771807895`*^9, 
+   3.6385663388566685`*^9}},
  CellTags->"SysEnv::usage"],
 
 Cell[CellGroupData[{
@@ -4431,7 +4626,8 @@ Cell[BoxData[
       RowBox[{"e0", ",", "e1"}], "}"}]}], "}"}], ",", "\<\"<params>\"\>"}], 
   "]"}]], "Output",
  CellChangeTimes->{{3.634486512593666*^9, 3.634486522988387*^9}, {
-   3.634486659236014*^9, 3.634486673606764*^9}, 3.6344876992528152`*^9}]
+   3.634486659236014*^9, 3.634486673606764*^9}, 3.6344876992528152`*^9, 
+   3.6385663534689245`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4472,9 +4668,10 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
- CellChangeTimes->{{3.634487707562055*^9, 3.634487711496274*^9}}]
+ CellChangeTimes->{{3.634487707562055*^9, 3.634487711496274*^9}, 
+   3.638566355585415*^9}]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -9010,7 +9207,7 @@ Cell[BoxData[
 },
 WindowSize->{904, 755},
 WindowMargins->{{Automatic, 24}, {Automatic, 0}},
-FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
+FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -9022,126 +9219,130 @@ CellTagsIndex->{
   Cell[3586, 102, 17876, 597, 1188, "Text",
    CellTags->"QuantumChannel::usage"]},
  "InputDim::usage"->{
-  Cell[27847, 911, 1077, 35, 51, "Text",
+  Cell[31758, 1062, 1077, 35, 51, "Text",
    CellTags->"InputDim::usage"]},
  "OutputDim::usage"->{
-  Cell[29066, 954, 1059, 34, 51, "Text",
+  Cell[32977, 1105, 1059, 34, 51, "Text",
    CellTags->"OutputDim::usage"]},
  "Basis::usage"->{
-  Cell[30263, 996, 1583, 52, 71, "Text",
+  Cell[34174, 1147, 1583, 52, 71, "Text",
    CellTags->"Basis::usage"]},
+ "ExtendUnitary::usage"->{
+  Cell[36217, 1219, 869, 23, 50, "Text",
+   CellTags->"ExtendUnitary::usage"]},
  "Unitary::usage"->{
-  Cell[32311, 1069, 6748, 236, 402, "Text",
+  Cell[37286, 1252, 6748, 236, 402, "Text",
    CellTags->"Unitary::usage"]},
  "Super::usage"->{
-  Cell[41905, 1406, 8215, 287, 462, "Text",
+  Cell[46880, 1589, 8215, 287, 462, "Text",
    CellTags->"Super::usage"]},
  "Choi::usage"->{
-  Cell[57962, 1932, 8874, 305, 542, "Text",
+  Cell[62937, 2115, 8874, 305, 542, "Text",
    CellTags->"Choi::usage"]},
  "Chi::usage"->{
-  Cell[86155, 2861, 7863, 269, 522, "Text",
+  Cell[91130, 3044, 7863, 269, 522, "Text",
    CellTags->"Chi::usage"]},
  "Kraus::usage"->{
-  Cell[98263, 3263, 8765, 315, 461, "Text",
+  Cell[103238, 3446, 8765, 315, 461, "Text",
    CellTags->"Kraus::usage"]},
  "Stinespring::usage"->{
-  Cell[110963, 3719, 8533, 298, 501, "Text",
+  Cell[115938, 3902, 8533, 298, 501, "Text",
    CellTags->"Stinespring::usage"]},
  "SysEnv::usage"->{
-  Cell[121207, 4084, 8507, 308, 461, "Text",
+  Cell[126182, 4267, 8950, 320, 500, "Text",
    CellTags->"SysEnv::usage"]},
  "ChannelRep::usage"->{
-  Cell[132423, 4484, 787, 26, 31, "Text",
+  Cell[137895, 4681, 787, 26, 31, "Text",
    CellTags->"ChannelRep::usage"]},
  "ChannelParameters::usage"->{
-  Cell[134317, 4554, 1556, 53, 51, "Text",
+  Cell[139789, 4751, 1556, 53, 51, "Text",
    CellTags->"ChannelParameters::usage"]},
  "CompletelyPositiveQ::usage"->{
-  Cell[137278, 4659, 3631, 125, 188, "Text",
+  Cell[142750, 4856, 3631, 125, 188, "Text",
    CellTags->"CompletelyPositiveQ::usage"]},
  "TracePreservingQ::usage"->{
-  Cell[144055, 4892, 3625, 123, 187, "Text",
+  Cell[149527, 5089, 3625, 123, 187, "Text",
    CellTags->"TracePreservingQ::usage"]},
  "HermitianPreservingQ::usage"->{
-  Cell[147876, 5024, 3442, 115, 188, "Text",
+  Cell[153348, 5221, 3442, 115, 188, "Text",
    CellTags->"HermitianPreservingQ::usage"]},
  "UnitalQ::usage"->{
-  Cell[151480, 5148, 3670, 124, 129, "Text",
+  Cell[156952, 5345, 3670, 124, 129, "Text",
    CellTags->"UnitalQ::usage"]},
  "PauliChannelQ::usage"->{
-  Cell[157128, 5338, 3727, 125, 148, "Text",
+  Cell[162600, 5535, 3727, 125, 148, "Text",
    CellTags->"PauliChannelQ::usage"]},
  "ProcessFidelity::usage"->{
-  Cell[161945, 5504, 2383, 80, 90, "Text",
+  Cell[167417, 5701, 2383, 80, 90, "Text",
    CellTags->"ProcessFidelity::usage"]},
  "GateFidelity::usage"->{
-  Cell[166181, 5654, 3080, 107, 90, "Text",
+  Cell[171653, 5851, 3080, 107, 90, "Text",
    CellTags->"GateFidelity::usage"]},
  "AverageGateFidelity::usage"->{
-  Cell[173944, 5914, 2362, 76, 109, "Text",
+  Cell[179416, 6111, 2362, 76, 109, "Text",
    CellTags->"AverageGateFidelity::usage"]},
  "Unitarity::usage"->{
-  Cell[178445, 6069, 1289, 37, 50, "Text",
+  Cell[183917, 6266, 1289, 37, 50, "Text",
    CellTags->"Unitarity::usage"]},
  "EntanglementFidelity::usage"->{
-  Cell[181657, 6175, 3278, 110, 130, "Text",
+  Cell[187129, 6372, 3278, 110, 130, "Text",
    CellTags->"EntanglementFidelity::usage"]},
  "ChannelVolume::usage"->{
-  Cell[207692, 6819, 750, 19, 50, "Text",
+  Cell[213164, 7016, 750, 19, 50, "Text",
    CellTags->"ChannelVolume::usage"]},
  "ComChannel::usage"->{
-  Cell[209633, 6887, 2551, 93, 71, "Text",
+  Cell[215105, 7084, 2551, 93, 71, "Text",
    CellTags->"ComChannel::usage"]},
  "AComChannel::usage"->{
-  Cell[213765, 7038, 2554, 94, 71, "Text",
+  Cell[219237, 7235, 2554, 94, 71, "Text",
    CellTags->"AComChannel::usage"]},
  "LindbladDissipator::usage"->{
-  Cell[218913, 7221, 5405, 196, 149, "Text",
+  Cell[224385, 7418, 5405, 196, 149, "Text",
    CellTags->"LindbladDissipator::usage"]},
  "Lindblad::usage"->{
-  Cell[227530, 7526, 3702, 128, 169, "Text",
+  Cell[233002, 7723, 3702, 128, 169, "Text",
    CellTags->"Lindblad::usage"]},
  "PartialTrChannel::usage"->{
-  Cell[272753, 8441, 3155, 111, 111, "Text",
+  Cell[278225, 8638, 3155, 111, 111, "Text",
    CellTags->"PartialTrChannel::usage"]},
  "FunctionChannel::usage"->{
-  Cell[288415, 8839, 3282, 105, 168, "Text",
+  Cell[293887, 9036, 3282, 105, 168, "Text",
    CellTags->"FunctionChannel::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"QuantumChannel::usage", 293996, 9020},
- {"InputDim::usage", 294102, 9023},
- {"OutputDim::usage", 294200, 9026},
- {"Basis::usage", 294295, 9029},
- {"Unitary::usage", 294388, 9032},
- {"Super::usage", 294484, 9035},
- {"Choi::usage", 294577, 9038},
- {"Chi::usage", 294668, 9041},
- {"Kraus::usage", 294760, 9044},
- {"Stinespring::usage", 294860, 9047},
- {"SysEnv::usage", 294962, 9050},
- {"ChannelRep::usage", 295063, 9053},
- {"ChannelParameters::usage", 295172, 9056},
- {"CompletelyPositiveQ::usage", 295291, 9059},
- {"TracePreservingQ::usage", 295411, 9062},
- {"HermitianPreservingQ::usage", 295532, 9065},
- {"UnitalQ::usage", 295644, 9068},
- {"PauliChannelQ::usage", 295749, 9071},
- {"ProcessFidelity::usage", 295862, 9074},
- {"GateFidelity::usage", 295972, 9077},
- {"AverageGateFidelity::usage", 296087, 9080},
- {"Unitarity::usage", 296199, 9083},
- {"EntanglementFidelity::usage", 296311, 9086},
- {"ChannelVolume::usage", 296429, 9089},
- {"ComChannel::usage", 296534, 9092},
- {"AComChannel::usage", 296638, 9095},
- {"LindbladDissipator::usage", 296750, 9098},
- {"Lindblad::usage", 296861, 9101},
- {"PartialTrChannel::usage", 296970, 9104},
- {"FunctionChannel::usage", 297086, 9107}
+ {"QuantumChannel::usage", 299466, 9217},
+ {"InputDim::usage", 299572, 9220},
+ {"OutputDim::usage", 299671, 9223},
+ {"Basis::usage", 299767, 9226},
+ {"ExtendUnitary::usage", 299867, 9229},
+ {"Unitary::usage", 299968, 9232},
+ {"Super::usage", 300064, 9235},
+ {"Choi::usage", 300157, 9238},
+ {"Chi::usage", 300248, 9241},
+ {"Kraus::usage", 300340, 9244},
+ {"Stinespring::usage", 300441, 9247},
+ {"SysEnv::usage", 300543, 9250},
+ {"ChannelRep::usage", 300644, 9253},
+ {"ChannelParameters::usage", 300753, 9256},
+ {"CompletelyPositiveQ::usage", 300872, 9259},
+ {"TracePreservingQ::usage", 300992, 9262},
+ {"HermitianPreservingQ::usage", 301113, 9265},
+ {"UnitalQ::usage", 301225, 9268},
+ {"PauliChannelQ::usage", 301330, 9271},
+ {"ProcessFidelity::usage", 301443, 9274},
+ {"GateFidelity::usage", 301553, 9277},
+ {"AverageGateFidelity::usage", 301668, 9280},
+ {"Unitarity::usage", 301780, 9283},
+ {"EntanglementFidelity::usage", 301892, 9286},
+ {"ChannelVolume::usage", 302010, 9289},
+ {"ComChannel::usage", 302115, 9292},
+ {"AComChannel::usage", 302219, 9295},
+ {"LindbladDissipator::usage", 302331, 9298},
+ {"Lindblad::usage", 302442, 9301},
+ {"PartialTrChannel::usage", 302551, 9304},
+ {"FunctionChannel::usage", 302667, 9307}
  }
 *)
 (*NotebookFileOutline
@@ -9170,519 +9371,524 @@ Cell[3586, 102, 17876, 597, 1188, "Text",
  CellTags->"QuantumChannel::usage"],
 Cell[CellGroupData[{
 Cell[21487, 703, 97, 1, 34, "Subsubsection"],
-Cell[21587, 706, 6121, 197, 313, "Text"]
-}, Closed]],
+Cell[21587, 706, 10032, 348, 402, "Text"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[27745, 908, 99, 1, 28, "Subsubsection"],
-Cell[27847, 911, 1077, 35, 51, "Text",
+Cell[31656, 1059, 99, 1, 34, "Subsubsection"],
+Cell[31758, 1062, 1077, 35, 51, "Text",
  CellTags->"InputDim::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28961, 951, 102, 1, 34, "Subsubsection"],
-Cell[29066, 954, 1059, 34, 51, "Text",
+Cell[32872, 1102, 102, 1, 34, "Subsubsection"],
+Cell[32977, 1105, 1059, 34, 51, "Text",
  CellTags->"OutputDim::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[30162, 993, 98, 1, 34, "Subsubsection"],
-Cell[30263, 996, 1583, 52, 71, "Text",
+Cell[34073, 1144, 98, 1, 34, "Subsubsection"],
+Cell[34174, 1147, 1583, 52, 71, "Text",
  CellTags->"Basis::usage"],
-Cell[31849, 1050, 262, 9, 31, "Text"]
+Cell[35760, 1201, 262, 9, 31, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36059, 1215, 155, 2, 34, "Subsubsection"],
+Cell[36217, 1219, 869, 23, 50, "Text",
+ CellTags->"ExtendUnitary::usage"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32160, 1065, 148, 2, 43, "Subsection"],
-Cell[32311, 1069, 6748, 236, 402, "Text",
+Cell[37135, 1248, 148, 2, 43, "Subsection"],
+Cell[37286, 1252, 6748, 236, 402, "Text",
  CellTags->"Unitary::usage"],
 Cell[CellGroupData[{
-Cell[39084, 1309, 96, 1, 34, "Subsubsection"],
-Cell[39183, 1312, 134, 1, 30, "Text"],
+Cell[44059, 1492, 96, 1, 34, "Subsubsection"],
+Cell[44158, 1495, 134, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[39342, 1317, 228, 5, 28, "Input"],
-Cell[39573, 1324, 356, 11, 28, "Output"]
+Cell[44317, 1500, 228, 5, 28, "Input"],
+Cell[44548, 1507, 356, 11, 28, "Output"]
 }, Open  ]],
-Cell[39944, 1338, 135, 1, 30, "Text"],
+Cell[44919, 1521, 135, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[40104, 1343, 183, 4, 28, "Input"],
-Cell[40290, 1349, 152, 3, 28, "Output"]
+Cell[45079, 1526, 183, 4, 28, "Input"],
+Cell[45265, 1532, 152, 3, 28, "Output"]
 }, Open  ]],
-Cell[40457, 1355, 98, 1, 30, "Text"],
+Cell[45432, 1538, 98, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[40580, 1360, 268, 8, 28, "Input"],
-Cell[40851, 1370, 893, 26, 58, "Output"]
+Cell[45555, 1543, 268, 8, 28, "Input"],
+Cell[45826, 1553, 893, 26, 58, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[41805, 1403, 97, 1, 43, "Subsection"],
-Cell[41905, 1406, 8215, 287, 462, "Text",
+Cell[46780, 1586, 97, 1, 43, "Subsection"],
+Cell[46880, 1589, 8215, 287, 462, "Text",
  CellTags->"Super::usage"],
 Cell[CellGroupData[{
-Cell[50145, 1697, 193, 3, 34, "Subsubsection"],
-Cell[50341, 1702, 239, 3, 30, "Text"],
+Cell[55120, 1880, 193, 3, 34, "Subsubsection"],
+Cell[55316, 1885, 239, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[50605, 1709, 357, 6, 46, "Input"],
-Cell[50965, 1717, 633, 16, 28, "Output"],
-Cell[51601, 1735, 822, 22, 92, "Output"]
+Cell[55580, 1892, 357, 6, 46, "Input"],
+Cell[55940, 1900, 633, 16, 28, "Output"],
+Cell[56576, 1918, 822, 22, 92, "Output"]
 }, Open  ]],
-Cell[52438, 1760, 309, 6, 49, "Text"],
+Cell[57413, 1943, 309, 6, 49, "Text"],
 Cell[CellGroupData[{
-Cell[52772, 1770, 309, 8, 28, "Input"],
-Cell[53084, 1780, 1003, 27, 62, "Output"]
+Cell[57747, 1953, 309, 8, 28, "Input"],
+Cell[58059, 1963, 1003, 27, 62, "Output"]
 }, Open  ]],
-Cell[54102, 1810, 202, 4, 30, "Text"],
+Cell[59077, 1993, 202, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[54329, 1818, 317, 9, 28, "Input"],
-Cell[54649, 1829, 942, 27, 58, "Output"]
+Cell[59304, 2001, 317, 9, 28, "Input"],
+Cell[59624, 2012, 942, 27, 58, "Output"]
 }, Open  ]],
-Cell[55606, 1859, 206, 4, 30, "Text"],
+Cell[60581, 2042, 206, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[55837, 1867, 360, 8, 46, "Input"],
-Cell[56200, 1877, 682, 18, 28, "Output"],
-Cell[56885, 1897, 872, 24, 92, "Output"]
+Cell[60812, 2050, 360, 8, 46, "Input"],
+Cell[61175, 2060, 682, 18, 28, "Output"],
+Cell[61860, 2080, 872, 24, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[57818, 1928, 141, 2, 43, "Subsection"],
-Cell[57962, 1932, 8874, 305, 542, "Text",
+Cell[62793, 2111, 141, 2, 43, "Subsection"],
+Cell[62937, 2115, 8874, 305, 542, "Text",
  CellTags->"Choi::usage"],
 Cell[CellGroupData[{
-Cell[66861, 2241, 151, 2, 34, "Subsubsection"],
-Cell[67015, 2245, 189, 4, 30, "Text"],
+Cell[71836, 2424, 151, 2, 34, "Subsubsection"],
+Cell[71990, 2428, 189, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[67229, 2253, 231, 5, 28, "Input"],
-Cell[67463, 2260, 614, 18, 47, "Output"]
+Cell[72204, 2436, 231, 5, 28, "Input"],
+Cell[72438, 2443, 614, 18, 47, "Output"]
 }, Open  ]],
-Cell[68092, 2281, 226, 5, 30, "Text"],
+Cell[73067, 2464, 226, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[68343, 2290, 324, 9, 28, "Input"],
-Cell[68670, 2301, 1137, 34, 74, "Output"]
+Cell[73318, 2473, 324, 9, 28, "Input"],
+Cell[73645, 2484, 1137, 34, 74, "Output"]
 }, Open  ]],
-Cell[69822, 2338, 217, 4, 30, "Text"]
+Cell[74797, 2521, 217, 4, 30, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[70076, 2347, 100, 1, 28, "Subsubsection"],
-Cell[70179, 2350, 863, 25, 58, "Text"],
+Cell[75051, 2530, 100, 1, 28, "Subsubsection"],
+Cell[75154, 2533, 863, 25, 58, "Text"],
 Cell[CellGroupData[{
-Cell[71067, 2379, 357, 8, 28, "Input"],
-Cell[71427, 2389, 539, 14, 28, "Output"]
+Cell[76042, 2562, 357, 8, 28, "Input"],
+Cell[76402, 2572, 539, 14, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[72003, 2408, 142, 2, 28, "Input"],
-Cell[72148, 2412, 106, 1, 28, "Output"]
+Cell[76978, 2591, 142, 2, 28, "Input"],
+Cell[77123, 2595, 106, 1, 28, "Output"]
 }, Open  ]],
-Cell[72269, 2416, 103, 1, 30, "Text"],
+Cell[77244, 2599, 103, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[72397, 2421, 326, 9, 28, "Input"],
-Cell[72726, 2432, 2395, 74, 74, "Output"]
+Cell[77372, 2604, 326, 9, 28, "Input"],
+Cell[77701, 2615, 2395, 74, 74, "Output"]
 }, Open  ]],
-Cell[75136, 2509, 155, 3, 30, "Text"],
+Cell[80111, 2692, 155, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[75316, 2516, 214, 4, 28, "Input"],
-Cell[75533, 2522, 1206, 38, 84, "Output"]
+Cell[80291, 2699, 214, 4, 28, "Input"],
+Cell[80508, 2705, 1206, 38, 84, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[76788, 2566, 149, 2, 28, "Subsubsection"],
-Cell[76940, 2570, 727, 18, 71, "Text"],
-Cell[77670, 2590, 132, 1, 30, "Text"],
+Cell[81763, 2749, 149, 2, 28, "Subsubsection"],
+Cell[81915, 2753, 727, 18, 71, "Text"],
+Cell[82645, 2773, 132, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[77827, 2595, 209, 5, 28, "Input"],
-Cell[78039, 2602, 513, 14, 28, "Output"]
+Cell[82802, 2778, 209, 5, 28, "Input"],
+Cell[83014, 2785, 513, 14, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78589, 2621, 419, 12, 28, "Input"],
-Cell[79011, 2635, 893, 26, 58, "Output"]
+Cell[83564, 2804, 419, 12, 28, "Input"],
+Cell[83986, 2818, 893, 26, 58, "Output"]
 }, Open  ]],
-Cell[79919, 2664, 228, 4, 49, "Text"],
+Cell[84894, 2847, 228, 4, 49, "Text"],
 Cell[CellGroupData[{
-Cell[80172, 2672, 368, 10, 28, "Input"],
-Cell[80543, 2684, 295, 7, 24, "Message"]
+Cell[85147, 2855, 368, 10, 28, "Input"],
+Cell[85518, 2867, 295, 7, 24, "Message"]
 }, Open  ]],
-Cell[80853, 2694, 152, 3, 30, "Text"],
+Cell[85828, 2877, 152, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[81030, 2701, 902, 25, 46, "Input"],
-Cell[81935, 2728, 1302, 37, 63, "Output"],
-Cell[83240, 2767, 1302, 37, 63, "Output"]
+Cell[86005, 2884, 902, 25, 46, "Input"],
+Cell[86910, 2911, 1302, 37, 63, "Output"],
+Cell[88215, 2950, 1302, 37, 63, "Output"]
 }, Open  ]],
-Cell[84557, 2807, 169, 2, 30, "Text"],
+Cell[89532, 2990, 169, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[84751, 2813, 283, 8, 28, "Input"],
-Cell[85037, 2823, 964, 28, 92, "Output"]
+Cell[89726, 2996, 283, 8, 28, "Input"],
+Cell[90012, 3006, 964, 28, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[86062, 2858, 90, 1, 43, "Subsection"],
-Cell[86155, 2861, 7863, 269, 522, "Text",
+Cell[91037, 3041, 90, 1, 43, "Subsection"],
+Cell[91130, 3044, 7863, 269, 522, "Text",
  CellTags->"Chi::usage"],
 Cell[CellGroupData[{
-Cell[94043, 3134, 97, 1, 34, "Subsubsection"],
-Cell[94143, 3137, 241, 3, 30, "Text"],
+Cell[99018, 3317, 97, 1, 34, "Subsubsection"],
+Cell[99118, 3320, 241, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[94409, 3144, 479, 13, 46, "Input"],
-Cell[94891, 3159, 1606, 46, 46, "Output"],
-Cell[96500, 3207, 1606, 46, 46, "Output"]
+Cell[99384, 3327, 479, 13, 46, "Input"],
+Cell[99866, 3342, 1606, 46, 46, "Output"],
+Cell[101475, 3390, 1606, 46, 46, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[98167, 3260, 93, 1, 43, "Subsection"],
-Cell[98263, 3263, 8765, 315, 461, "Text",
+Cell[103142, 3443, 93, 1, 43, "Subsection"],
+Cell[103238, 3446, 8765, 315, 461, "Text",
  CellTags->"Kraus::usage"],
 Cell[CellGroupData[{
-Cell[107053, 3582, 98, 1, 34, "Subsubsection"],
-Cell[107154, 3585, 169, 3, 30, "Text"],
+Cell[112028, 3765, 98, 1, 34, "Subsubsection"],
+Cell[112129, 3768, 169, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[107348, 3592, 415, 13, 43, "Input"],
-Cell[107766, 3607, 672, 24, 42, "Output"]
+Cell[112323, 3775, 415, 13, 43, "Input"],
+Cell[112741, 3790, 672, 24, 42, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[108475, 3636, 400, 11, 28, "Input"],
-Cell[108878, 3649, 1920, 60, 58, "Output"]
+Cell[113450, 3819, 400, 11, 28, "Input"],
+Cell[113853, 3832, 1920, 60, 58, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[110859, 3716, 101, 1, 43, "Subsection"],
-Cell[110963, 3719, 8533, 298, 501, "Text",
+Cell[115834, 3899, 101, 1, 43, "Subsection"],
+Cell[115938, 3902, 8533, 298, 501, "Text",
  CellTags->"Stinespring::usage"],
 Cell[CellGroupData[{
-Cell[119521, 4021, 96, 1, 34, "Subsubsection"],
-Cell[119620, 4024, 164, 3, 30, "Text"],
+Cell[124496, 4204, 96, 1, 34, "Subsubsection"],
+Cell[124595, 4207, 164, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[119809, 4031, 494, 16, 61, "Input"],
-Cell[120306, 4049, 613, 21, 42, "Output"]
+Cell[124784, 4214, 494, 16, 61, "Input"],
+Cell[125281, 4232, 613, 21, 42, "Output"]
 }, Open  ]],
-Cell[120934, 4073, 116, 2, 28, "Input"]
+Cell[125909, 4256, 116, 2, 28, "Input"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[121099, 4081, 105, 1, 43, "Subsection"],
-Cell[121207, 4084, 8507, 308, 461, "Text",
+Cell[126074, 4264, 105, 1, 43, "Subsection"],
+Cell[126182, 4267, 8950, 320, 500, "Text",
  CellTags->"SysEnv::usage"],
 Cell[CellGroupData[{
-Cell[129739, 4396, 98, 1, 34, "Subsubsection"],
+Cell[135157, 4591, 98, 1, 34, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[129862, 4401, 415, 11, 28, "Input"],
-Cell[130280, 4414, 734, 19, 28, "Output"]
+Cell[135280, 4596, 415, 11, 31, "Input"],
+Cell[135698, 4609, 762, 20, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[131051, 4438, 272, 8, 28, "Input"],
-Cell[131326, 4448, 935, 26, 58, "Output"]
+Cell[136497, 4634, 272, 8, 31, "Input"],
+Cell[136772, 4644, 961, 27, 56, "Output"]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[132322, 4481, 98, 1, 43, "Subsection"],
-Cell[132423, 4484, 787, 26, 31, "Text",
+Cell[137794, 4678, 98, 1, 43, "Subsection"],
+Cell[137895, 4681, 787, 26, 31, "Text",
  CellTags->"ChannelRep::usage"],
 Cell[CellGroupData[{
-Cell[133235, 4514, 98, 1, 34, "Subsubsection"],
+Cell[138707, 4711, 98, 1, 34, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[133358, 4519, 411, 11, 46, "Input"],
-Cell[133772, 4532, 96, 1, 28, "Output"]
+Cell[138830, 4716, 411, 11, 46, "Input"],
+Cell[139244, 4729, 96, 1, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[133905, 4538, 164, 3, 28, "Input"],
-Cell[134072, 4543, 76, 1, 28, "Output"]
+Cell[139377, 4735, 164, 3, 28, "Input"],
+Cell[139544, 4740, 76, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[134209, 4551, 105, 1, 43, "Subsection"],
-Cell[134317, 4554, 1556, 53, 51, "Text",
+Cell[139681, 4748, 105, 1, 43, "Subsection"],
+Cell[139789, 4751, 1556, 53, 51, "Text",
  CellTags->"ChannelParameters::usage"],
 Cell[CellGroupData[{
-Cell[135898, 4611, 98, 1, 34, "Subsubsection"],
+Cell[141370, 4808, 98, 1, 34, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[136021, 4616, 546, 16, 46, "Input"],
-Cell[136570, 4634, 297, 7, 28, "Output"]
+Cell[141493, 4813, 546, 16, 46, "Input"],
+Cell[142042, 4831, 297, 7, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[136940, 4649, 154, 2, 63, "Section"],
+Cell[142412, 4846, 154, 2, 63, "Section"],
 Cell[CellGroupData[{
-Cell[137119, 4655, 156, 2, 43, "Subsection"],
-Cell[137278, 4659, 3631, 125, 188, "Text",
+Cell[142591, 4852, 156, 2, 43, "Subsection"],
+Cell[142750, 4856, 3631, 125, 188, "Text",
  CellTags->"CompletelyPositiveQ::usage"],
 Cell[CellGroupData[{
-Cell[140934, 4788, 98, 1, 34, "Subsubsection"],
-Cell[141035, 4791, 176, 2, 30, "Text"],
-Cell[141214, 4795, 555, 17, 40, "Input"],
+Cell[146406, 4985, 98, 1, 34, "Subsubsection"],
+Cell[146507, 4988, 176, 2, 30, "Text"],
+Cell[146686, 4992, 555, 17, 40, "Input"],
 Cell[CellGroupData[{
-Cell[141794, 4816, 142, 2, 28, "Input"],
-Cell[141939, 4820, 97, 1, 28, "Output"]
+Cell[147266, 5013, 142, 2, 28, "Input"],
+Cell[147411, 5017, 97, 1, 28, "Output"]
 }, Open  ]],
-Cell[142051, 4824, 227, 5, 30, "Text"],
+Cell[147523, 5021, 227, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[142303, 4833, 529, 16, 61, "Input"],
-Cell[142835, 4851, 74, 1, 28, "Output"]
+Cell[147775, 5030, 529, 16, 61, "Input"],
+Cell[148307, 5048, 74, 1, 28, "Output"]
 }, Open  ]],
-Cell[142924, 4855, 212, 4, 30, "Text"],
+Cell[148396, 5052, 212, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[143161, 4863, 342, 8, 28, "Input"],
-Cell[143506, 4873, 330, 8, 28, "Output"]
+Cell[148633, 5060, 342, 8, 28, "Input"],
+Cell[148978, 5070, 330, 8, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[143897, 4888, 155, 2, 43, "Subsection"],
-Cell[144055, 4892, 3625, 123, 187, "Text",
+Cell[149369, 5085, 155, 2, 43, "Subsection"],
+Cell[149527, 5089, 3625, 123, 187, "Text",
  CellTags->"TracePreservingQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[147717, 5020, 156, 2, 43, "Subsection"],
-Cell[147876, 5024, 3442, 115, 188, "Text",
+Cell[153189, 5217, 156, 2, 43, "Subsection"],
+Cell[153348, 5221, 3442, 115, 188, "Text",
  CellTags->"HermitianPreservingQ::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[151355, 5144, 122, 2, 43, "Subsection"],
-Cell[151480, 5148, 3670, 124, 129, "Text",
+Cell[156827, 5341, 122, 2, 43, "Subsection"],
+Cell[156952, 5345, 3670, 124, 129, "Text",
  CellTags->"UnitalQ::usage"],
 Cell[CellGroupData[{
-Cell[155175, 5276, 98, 1, 34, "Subsubsection"],
-Cell[155276, 5279, 218, 4, 30, "Text"],
+Cell[160647, 5473, 98, 1, 34, "Subsubsection"],
+Cell[160748, 5476, 218, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[155519, 5287, 407, 10, 46, "Input"],
-Cell[155929, 5299, 220, 3, 28, "Output"]
+Cell[160991, 5484, 407, 10, 46, "Input"],
+Cell[161401, 5496, 220, 3, 28, "Output"]
 }, Open  ]],
-Cell[156164, 5305, 221, 4, 49, "Text"],
+Cell[161636, 5502, 221, 4, 49, "Text"],
 Cell[CellGroupData[{
-Cell[156410, 5313, 404, 11, 28, "Input"],
-Cell[156817, 5326, 95, 1, 28, "Output"]
+Cell[161882, 5510, 404, 11, 28, "Input"],
+Cell[162289, 5523, 95, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[156973, 5334, 152, 2, 43, "Subsection"],
-Cell[157128, 5338, 3727, 125, 148, "Text",
+Cell[162445, 5531, 152, 2, 43, "Subsection"],
+Cell[162600, 5535, 3727, 125, 148, "Text",
  CellTags->"PauliChannelQ::usage"],
 Cell[CellGroupData[{
-Cell[160880, 5467, 98, 1, 34, "Subsubsection"],
-Cell[160981, 5470, 140, 1, 30, "Text"],
+Cell[166352, 5664, 98, 1, 34, "Subsubsection"],
+Cell[166453, 5667, 140, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[161146, 5475, 362, 9, 46, "Input"],
-Cell[161511, 5486, 125, 2, 28, "Output"]
+Cell[166618, 5672, 362, 9, 46, "Input"],
+Cell[166983, 5683, 125, 2, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[161709, 5496, 104, 1, 63, "Section"],
+Cell[167181, 5693, 104, 1, 63, "Section"],
 Cell[CellGroupData[{
-Cell[161838, 5501, 104, 1, 43, "Subsection"],
-Cell[161945, 5504, 2383, 80, 90, "Text",
+Cell[167310, 5698, 104, 1, 43, "Subsection"],
+Cell[167417, 5701, 2383, 80, 90, "Text",
  CellTags->"ProcessFidelity::usage"],
 Cell[CellGroupData[{
-Cell[164353, 5588, 102, 1, 34, "Subsubsection"],
-Cell[164458, 5591, 173, 4, 30, "Text"],
+Cell[169825, 5785, 102, 1, 34, "Subsubsection"],
+Cell[169930, 5788, 173, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[164656, 5599, 561, 18, 60, "Input"],
-Cell[165220, 5619, 174, 4, 31, "Output"]
+Cell[170128, 5796, 561, 18, 60, "Input"],
+Cell[170692, 5816, 174, 4, 31, "Output"]
 }, Open  ]],
-Cell[165409, 5626, 133, 1, 30, "Text"],
+Cell[170881, 5823, 133, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[165567, 5631, 267, 7, 31, "Input"],
-Cell[165837, 5640, 178, 4, 31, "Output"]
+Cell[171039, 5828, 267, 7, 31, "Input"],
+Cell[171309, 5837, 178, 4, 31, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[166076, 5651, 102, 1, 43, "Subsection"],
-Cell[166181, 5654, 3080, 107, 90, "Text",
+Cell[171548, 5848, 102, 1, 43, "Subsection"],
+Cell[171653, 5851, 3080, 107, 90, "Text",
  CellTags->"GateFidelity::usage"],
 Cell[CellGroupData[{
-Cell[169286, 5765, 99, 1, 34, "Subsubsection"],
-Cell[169388, 5768, 217, 4, 30, "Text"],
-Cell[169608, 5774, 397, 13, 43, "Input"],
+Cell[174758, 5962, 99, 1, 34, "Subsubsection"],
+Cell[174860, 5965, 217, 4, 30, "Text"],
+Cell[175080, 5971, 397, 13, 43, "Input"],
 Cell[CellGroupData[{
-Cell[170030, 5791, 1317, 37, 69, "Input"],
-Cell[171350, 5830, 188, 3, 28, "Output"],
-Cell[171541, 5835, 168, 2, 28, "Output"],
-Cell[171712, 5839, 976, 27, 52, "Output"]
+Cell[175502, 5988, 1317, 37, 69, "Input"],
+Cell[176822, 6027, 188, 3, 28, "Output"],
+Cell[177013, 6032, 168, 2, 28, "Output"],
+Cell[177184, 6036, 976, 27, 52, "Output"]
 }, Open  ]],
-Cell[172703, 5869, 179, 4, 30, "Text"],
+Cell[178175, 6066, 179, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[172907, 5877, 588, 18, 56, "Input"],
-Cell[173498, 5897, 146, 3, 28, "Output"],
-Cell[173647, 5902, 122, 2, 28, "Output"]
+Cell[178379, 6074, 588, 18, 56, "Input"],
+Cell[178970, 6094, 146, 3, 28, "Output"],
+Cell[179119, 6099, 122, 2, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[173830, 5911, 111, 1, 43, "Subsection"],
-Cell[173944, 5914, 2362, 76, 109, "Text",
+Cell[179302, 6108, 111, 1, 43, "Subsection"],
+Cell[179416, 6111, 2362, 76, 109, "Text",
  CellTags->"AverageGateFidelity::usage"],
 Cell[CellGroupData[{
-Cell[176331, 5994, 98, 1, 34, "Subsubsection"],
-Cell[176432, 5997, 155, 3, 30, "Text"],
+Cell[181803, 6191, 98, 1, 34, "Subsubsection"],
+Cell[181904, 6194, 155, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[176612, 6004, 599, 19, 61, "Input"],
-Cell[177214, 6025, 163, 4, 48, "Output"]
+Cell[182084, 6201, 599, 19, 61, "Input"],
+Cell[182686, 6222, 163, 4, 48, "Output"]
 }, Open  ]],
-Cell[177392, 6032, 162, 3, 30, "Text"],
+Cell[182864, 6229, 162, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[177579, 6039, 410, 10, 28, "Input"],
-Cell[177992, 6051, 237, 7, 48, "Output"]
+Cell[183051, 6236, 410, 10, 28, "Input"],
+Cell[183464, 6248, 237, 7, 48, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[178290, 6065, 152, 2, 43, "Subsection"],
-Cell[178445, 6069, 1289, 37, 50, "Text",
+Cell[183762, 6262, 152, 2, 43, "Subsection"],
+Cell[183917, 6266, 1289, 37, 50, "Text",
  CellTags->"Unitarity::usage"],
 Cell[CellGroupData[{
-Cell[179759, 6110, 98, 1, 34, "Subsubsection"],
-Cell[179860, 6113, 184, 2, 30, "Text"],
+Cell[185231, 6307, 98, 1, 34, "Subsubsection"],
+Cell[185332, 6310, 184, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[180069, 6119, 640, 19, 60, "Input"],
-Cell[180712, 6140, 418, 11, 46, "Output"]
+Cell[185541, 6316, 640, 19, 60, "Input"],
+Cell[186184, 6337, 418, 11, 46, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[181167, 6156, 171, 4, 31, "Input"],
-Cell[181341, 6162, 141, 3, 46, "Output"]
+Cell[186639, 6353, 171, 4, 31, "Input"],
+Cell[186813, 6359, 141, 3, 46, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[181543, 6172, 111, 1, 43, "Subsection"],
-Cell[181657, 6175, 3278, 110, 130, "Text",
+Cell[187015, 6369, 111, 1, 43, "Subsection"],
+Cell[187129, 6372, 3278, 110, 130, "Text",
  CellTags->"EntanglementFidelity::usage"],
 Cell[CellGroupData[{
-Cell[184960, 6289, 154, 2, 34, "Subsubsection"],
-Cell[185117, 6293, 359, 7, 49, "Text"],
+Cell[190432, 6486, 154, 2, 34, "Subsubsection"],
+Cell[190589, 6490, 359, 7, 49, "Text"],
 Cell[CellGroupData[{
-Cell[185501, 6304, 1771, 51, 100, "Input"],
-Cell[187275, 6357, 240, 4, 28, "Output"],
-Cell[187518, 6363, 220, 3, 28, "Output"],
-Cell[187741, 6368, 1028, 28, 52, "Output"]
+Cell[190973, 6501, 1771, 51, 100, "Input"],
+Cell[192747, 6554, 240, 4, 28, "Output"],
+Cell[192990, 6560, 220, 3, 28, "Output"],
+Cell[193213, 6565, 1028, 28, 52, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[188818, 6402, 100, 1, 28, "Subsubsection"],
-Cell[188921, 6405, 195, 4, 30, "Text"],
+Cell[194290, 6599, 100, 1, 28, "Subsubsection"],
+Cell[194393, 6602, 195, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[189141, 6413, 1628, 50, 78, "Input"],
-Cell[190772, 6465, 335, 5, 28, "Output"],
-Cell[191110, 6472, 570, 15, 48, "Output"]
+Cell[194613, 6610, 1628, 50, 78, "Input"],
+Cell[196244, 6662, 335, 5, 28, "Output"],
+Cell[196582, 6669, 570, 15, 48, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[191717, 6492, 416, 11, 28, "Input"],
-Cell[192136, 6505, 15388, 304, 239, "Output"]
+Cell[197189, 6689, 416, 11, 28, "Input"],
+Cell[197608, 6702, 15388, 304, 239, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[207585, 6816, 104, 1, 43, "Subsection"],
-Cell[207692, 6819, 750, 19, 50, "Text",
+Cell[213057, 7013, 104, 1, 43, "Subsection"],
+Cell[213164, 7016, 750, 19, 50, "Text",
  CellTags->"ChannelVolume::usage"],
 Cell[CellGroupData[{
-Cell[208467, 6842, 98, 1, 34, "Subsubsection"],
+Cell[213939, 7039, 98, 1, 34, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[208590, 6847, 591, 19, 61, "Input"],
-Cell[209184, 6868, 139, 3, 28, "Output"]
+Cell[214062, 7044, 591, 19, 61, "Input"],
+Cell[214656, 7065, 139, 3, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[209396, 6879, 101, 1, 63, "Section"],
+Cell[214868, 7076, 101, 1, 63, "Section"],
 Cell[CellGroupData[{
-Cell[209522, 6884, 108, 1, 43, "Subsection"],
-Cell[209633, 6887, 2551, 93, 71, "Text",
+Cell[214994, 7081, 108, 1, 43, "Subsection"],
+Cell[215105, 7084, 2551, 93, 71, "Text",
  CellTags->"ComChannel::usage"],
 Cell[CellGroupData[{
-Cell[212209, 6984, 98, 1, 34, "Subsubsection"],
-Cell[212310, 6987, 428, 12, 39, "Text"],
+Cell[217681, 7181, 98, 1, 34, "Subsubsection"],
+Cell[217782, 7184, 428, 12, 39, "Text"],
 Cell[CellGroupData[{
-Cell[212763, 7003, 202, 5, 28, "Input"],
-Cell[212968, 7010, 622, 18, 28, "Output"]
+Cell[218235, 7200, 202, 5, 28, "Input"],
+Cell[218440, 7207, 622, 18, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[213651, 7035, 111, 1, 43, "Subsection"],
-Cell[213765, 7038, 2554, 94, 71, "Text",
+Cell[219123, 7232, 111, 1, 43, "Subsection"],
+Cell[219237, 7235, 2554, 94, 71, "Text",
  CellTags->"AComChannel::usage"],
 Cell[CellGroupData[{
-Cell[216344, 7136, 98, 1, 34, "Subsubsection"],
-Cell[216445, 7139, 215, 5, 31, "Text"],
+Cell[221816, 7333, 98, 1, 34, "Subsubsection"],
+Cell[221917, 7336, 215, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[216685, 7148, 294, 7, 28, "Input"],
-Cell[216982, 7157, 589, 16, 28, "Output"]
+Cell[222157, 7345, 294, 7, 28, "Input"],
+Cell[222454, 7354, 589, 16, 28, "Output"]
 }, Open  ]],
-Cell[217586, 7176, 98, 1, 30, "Text"],
+Cell[223058, 7373, 98, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[217709, 7181, 485, 14, 48, "Input"],
-Cell[218197, 7197, 536, 14, 28, "Output"]
+Cell[223181, 7378, 485, 14, 48, "Input"],
+Cell[223669, 7394, 536, 14, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[218794, 7218, 116, 1, 43, "Subsection"],
-Cell[218913, 7221, 5405, 196, 149, "Text",
+Cell[224266, 7415, 116, 1, 43, "Subsection"],
+Cell[224385, 7418, 5405, 196, 149, "Text",
  CellTags->"LindbladDissipator::usage"],
 Cell[CellGroupData[{
-Cell[224343, 7421, 149, 2, 35, "Subsubsection"],
-Cell[224495, 7425, 151, 3, 30, "Text"],
+Cell[229815, 7618, 149, 2, 35, "Subsubsection"],
+Cell[229967, 7622, 151, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[224671, 7432, 305, 8, 48, "Input"],
-Cell[224979, 7442, 687, 19, 47, "Output"]
+Cell[230143, 7629, 305, 8, 48, "Input"],
+Cell[230451, 7639, 687, 19, 47, "Output"]
 }, Open  ]],
-Cell[225681, 7464, 120, 1, 30, "Text"],
+Cell[231153, 7661, 120, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[225826, 7469, 332, 10, 28, "Input"],
-Cell[226161, 7481, 1192, 35, 78, "Output"]
+Cell[231298, 7666, 332, 10, 28, "Input"],
+Cell[231633, 7678, 1192, 35, 78, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[227414, 7523, 113, 1, 44, "Subsection"],
-Cell[227530, 7526, 3702, 128, 169, "Text",
+Cell[232886, 7720, 113, 1, 44, "Subsection"],
+Cell[233002, 7723, 3702, 128, 169, "Text",
  CellTags->"Lindblad::usage"],
 Cell[CellGroupData[{
-Cell[231257, 7658, 149, 2, 35, "Subsubsection"],
-Cell[231409, 7662, 329, 6, 30, "Text"],
-Cell[231741, 7670, 1950, 59, 120, "Input"],
+Cell[236729, 7855, 149, 2, 35, "Subsubsection"],
+Cell[236881, 7859, 329, 6, 30, "Text"],
+Cell[237213, 7867, 1950, 59, 120, "Input"],
 Cell[CellGroupData[{
-Cell[233716, 7733, 410, 11, 28, "Input"],
-Cell[234129, 7746, 38451, 685, 228, "Output"]
+Cell[239188, 7930, 410, 11, 28, "Input"],
+Cell[239601, 7943, 38451, 685, 228, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[272641, 8438, 109, 1, 44, "Subsection"],
-Cell[272753, 8441, 3155, 111, 111, "Text",
+Cell[278113, 8635, 109, 1, 44, "Subsection"],
+Cell[278225, 8638, 3155, 111, 111, "Text",
  CellTags->"PartialTrChannel::usage"],
 Cell[CellGroupData[{
-Cell[275933, 8556, 98, 1, 35, "Subsubsection"],
-Cell[276034, 8559, 162, 3, 30, "Text"],
+Cell[281405, 8753, 98, 1, 35, "Subsubsection"],
+Cell[281506, 8756, 162, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[276221, 8566, 262, 7, 28, "Input"],
-Cell[276486, 8575, 9718, 200, 64, "Output"]
+Cell[281693, 8763, 262, 7, 28, "Input"],
+Cell[281958, 8772, 9718, 200, 64, "Output"]
 }, Open  ]],
-Cell[286219, 8778, 138, 1, 30, "Text"],
+Cell[291691, 8975, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[286382, 8783, 330, 7, 46, "Input"],
-Cell[286715, 8792, 1158, 27, 63, "Output"],
-Cell[287876, 8821, 372, 8, 28, "Output"]
+Cell[291854, 8980, 330, 7, 46, "Input"],
+Cell[292187, 8989, 1158, 27, 63, "Output"],
+Cell[293348, 9018, 372, 8, 28, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[288309, 8836, 103, 1, 44, "Subsection"],
-Cell[288415, 8839, 3282, 105, 168, "Text",
+Cell[293781, 9033, 103, 1, 44, "Subsection"],
+Cell[293887, 9036, 3282, 105, 168, "Text",
  CellTags->"FunctionChannel::usage"],
 Cell[CellGroupData[{
-Cell[291722, 8948, 100, 1, 35, "Subsubsection"],
-Cell[291825, 8951, 240, 5, 31, "Text"],
+Cell[297194, 9145, 100, 1, 35, "Subsubsection"],
+Cell[297297, 9148, 240, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[292090, 8960, 263, 5, 46, "Input"],
-Cell[292356, 8967, 537, 14, 28, "Output"],
-Cell[292896, 8983, 729, 20, 92, "Output"]
+Cell[297562, 9157, 263, 5, 46, "Input"],
+Cell[297828, 9164, 537, 14, 28, "Output"],
+Cell[298368, 9180, 729, 20, 92, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
