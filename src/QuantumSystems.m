@@ -165,7 +165,7 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -536,11 +536,11 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Symbolic Evaluation*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Symbolic Operators*)
 
 
@@ -559,6 +559,7 @@ QPower[arg_?MatrixQ,n_]:=MatrixPower[arg,n]
 QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
 QPower[Times[x_?CoefficientQ,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
 QPower[Times[xs__,x_?CoefficientQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
+QPower[Dot[a_,b__],n_]:=Dot[Sequence@@Flatten[ConstantArray[{a,b},n]]]
 
 
 (* ::Text:: *)
@@ -578,7 +579,7 @@ QExpand[expr_]:=expr//.{
 }
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*QSimplify*)
 
 
@@ -610,7 +611,7 @@ Clear[QSimplifyCached];
 
 QSimplifyCached[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
 	QSimplifyCached[expr,rules,opts]=
-	With[{replaceRules=Join[rules,QSimplifyDefaultRules[opts]]},
+	With[{replaceRules=Join[QSimplifyDefaultRules[opts],rules]},
 	Simplify[
 	ReplaceRepeated[
 			Simplify[QExpand[expr],TimeConstraint->OptionValue[TimeConstraint]],
@@ -732,7 +733,7 @@ QSimplifyRules[opLabel_,ops_?ListQ,opts:OptionsPattern[QSimplifyRules]]:=
 	]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*QSimplifyRules Constructors*)
 
 
@@ -909,7 +910,7 @@ Join[
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Linear Algebra Rules*)
 
 
