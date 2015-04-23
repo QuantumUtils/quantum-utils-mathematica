@@ -715,6 +715,9 @@ ComposeDistortions[Distortions__DistortionOperator]:=DistortionOperator[
 
 
 
+DistortionOperator /: Composition[distortions__DistortionOperator] := ComposeDistortions[distortions];
+
+
 PerturbateDistortion[Distortion_DistortionOperator, h_:10^-8]:=Module[{jacobian},
 	jacobian[dts_,numControlKnobs_]:=jacobian[dts,numControlKnobs]=Transpose[
 		Table[
