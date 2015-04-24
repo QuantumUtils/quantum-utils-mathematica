@@ -110,7 +110,7 @@ BlochPlot::color = "BlochPlotColor option value not understood.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
@@ -153,18 +153,19 @@ Options[HintonPlot] = {
 	AxesLabel -> None,
 	"Gap" -> 0.05,
 	"Colors" -> {Black,Gray,White},
-	AxesStyle -> {}
+	AxesStyle -> {},
+	"Normalization" -> Automatic
 };
 
 
 HintonPlot[dat_,OptionsPattern[]] := 
 	With[{
-		data=Reverse[dat\[Transpose],{2}],
+		data=Re@Reverse[dat\[Transpose],{2}],
 		colors=OptionValue["Colors"]},
 	With[{
 		n=Dimensions[data][[1]],
 		m=Dimensions[data][[2]],
-		normdata=(1-OptionValue["Gap"])data/Max[Abs[data]],
+		normdata=(1-OptionValue["Gap"]) data / If[OptionValue@"Normalization" === Automatic, Max[Abs[data]], OptionValue@"Normalization"],
 		graydata=Map[colors[[#]]&,Sign[data]+2,{2}]},
     Module[{plot},
         plot = Graphics[
@@ -204,7 +205,7 @@ ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
 		nqIn=Log2 @ InputDim@ chan,
 		nqOut=Log2 @ OutputDim @ chan
 	},
-	HintonPlot[mtx,
+	HintonPlot[Chop @ mtx,
 		If[AnyMatchQ[AxesLabel->_,{opts}],
 			{opts},
 			Append[{opts},
