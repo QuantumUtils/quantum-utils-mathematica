@@ -35,11 +35,19 @@ Needs["QUDevTools`"]
 $QuantumSystemsUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
+(*Curried Expressions*)
+
+
+Unprotect[CurriedExpression];
+AssignUsage[CurriedExpression, $QuantumSystemsUsages];
+
+
+(* ::Subsection:: *)
 (*States, Operators and Gates*)
 
 
@@ -104,11 +112,11 @@ AssignUsage[RandomDensity,$QuantumSystemsUsages];
 AssignUsage[RandomHermitian,$QuantumSystemsUsages];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Error Messages*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*States and Operators*)
 
 
@@ -172,11 +180,39 @@ EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States and Operators*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
+(*Curried Expressions*)
+
+
+SetAttributes[CurriedExpression, {HoldRest}];
+
+
+LiftAlgebraicOperation[curryHead_, opHead_] := (
+	curryHead /: opHead[first__curryHead, rest__curryHead] := CurriedExpression[curryHead, opHead[first, rest]];
+	curryHead /: opHead[left___curryHead, CurriedExpression[curryHead, middle_], right___curryHead] := CurriedExpression[curryHead, opHead[left, middle, right]];
+)
+
+
+DefineAlgebraicOperationsForCurrying[head_] := (
+	LiftAlgebraicOperation[head, Plus];
+	LiftAlgebraicOperation[head, Dot];
+
+	(* Scalar multiplication is weird. *)
+	head /: Times[leftScalarArgs___?ScalarQ, curriedArg_head, rightScalarArgs___?ScalarQ] := CurriedExpression[head, Times[leftScalarArgs, curriedArg, rightScalarArgs]];
+)
+
+
+CurriedExpression[head_, expr_][args__] := Unevaluated[expr] /. head[innerExpr__] :> head[innerExpr][args]
+
+
+CurriedExpression /: Format[CurriedExpression[head_, expr_]] := expr /. head :> HoldForm[head]
+
+
+(* ::Subsubsection:: *)
 (*Spin Operators*)
 
 
@@ -224,6 +260,13 @@ Spin[expr_]["Symbolic"]:=TP[expr,Replace->SpinTPRules["Symbolic"]]
 
 
 (* ::Text:: *)
+(*Curry over dimensions while still allowing algebraic operations.*)
+
+
+DefineAlgebraicOperationsForCurrying[Spin];
+
+
+(* ::Text:: *)
 (*Short hand for single spin operators*)
 
 
@@ -253,7 +296,7 @@ SpinFormatting[Spin[op_]]:=
 Format[Spin[op_],TraditionalForm]:=SpinFormatting[Spin[op]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Cavity Operators*)
 
 
@@ -284,6 +327,13 @@ Cavity[expr_][n_Integer,SparseArray]:=
 Cavity[expr_][n_Integer]:=Normal[Cavity[expr][n,SparseArray]]
 Cavity[expr_][n_Integer,Identity]:=Cavity[expr][n]
 Cavity[expr_]["Symbolic"]:=TP[expr,Replace->CavityTPRules["Symbolic"]]
+
+
+(* ::Text:: *)
+(*Curry over dimensions while still allowing algebraic operations.*)
+
+
+DefineAlgebraicOperationsForCurrying[Cavity];
 
 
 (* ::Text:: *)
@@ -540,7 +590,7 @@ VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
 (*Symbolic Evaluation*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Symbolic Operators*)
 
 
@@ -559,7 +609,6 @@ QPower[arg_?MatrixQ,n_]:=MatrixPower[arg,n]
 QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
 QPower[Times[x_?CoefficientQ,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
 QPower[Times[xs__,x_?CoefficientQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
-QPower[Dot[a_,b__],n_]:=Dot[Sequence@@Flatten[ConstantArray[{a,b},n]]]
 
 
 (* ::Text:: *)
@@ -579,7 +628,7 @@ QExpand[expr_]:=expr//.{
 }
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*QSimplify*)
 
 
@@ -611,7 +660,7 @@ Clear[QSimplifyCached];
 
 QSimplifyCached[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
 	QSimplifyCached[expr,rules,opts]=
-	With[{replaceRules=Join[QSimplifyDefaultRules[opts],rules]},
+	With[{replaceRules=Join[rules,QSimplifyDefaultRules[opts]]},
 	Simplify[
 	ReplaceRepeated[
 			Simplify[QExpand[expr],TimeConstraint->OptionValue[TimeConstraint]],
@@ -733,7 +782,7 @@ QSimplifyRules[opLabel_,ops_?ListQ,opts:OptionsPattern[QSimplifyRules]]:=
 	]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*QSimplifyRules Constructors*)
 
 
@@ -910,7 +959,7 @@ Join[
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Linear Algebra Rules*)
 
 
@@ -979,7 +1028,7 @@ ACom[a_,b_,n_?Positive]:> ACom[a,ACom[a,b],n-1]
 	};
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Spin Rules*)
 
 
@@ -1426,10 +1475,11 @@ RandomHermitian[n_,tr_:1]:=With[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
+Protect[CurriedExpression];
 Protect[Spin,Cavity,QState,KetForm,VecForm,Ket,Bra,KetBra];
 Protect[Op,QPower,QExpand,QSimplifyRules,QSimplify,ClearQSimplifyCache];
 Protect[CGate];
