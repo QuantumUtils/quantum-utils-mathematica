@@ -330,6 +330,7 @@ Begin["`Private`"];
 Pulse/:Pulse[args___][key_]:=Association[args][key]
 
 
+Unprotect@Pulse;
 Pulse/:Format[Pulse[args__Rule]]:=Module[{modpulse},
 	modpulse=Pulse[args];
 	If[PulseHasKey[modpulse,Pulse],modpulse=PulseReplaceKey[modpulse,Pulse,MatrixForm[modpulse[Pulse]\[Transpose]]]];
@@ -337,10 +338,17 @@ Pulse/:Format[Pulse[args__Rule]]:=Module[{modpulse},
 	If[PulseHasKey[modpulse,InternalHamiltonian],modpulse=PulseReplaceKey[modpulse,InternalHamiltonian,MatrixForm[modpulse[InternalHamiltonian]]]];
 	If[PulseHasKey[modpulse,Target]&&MatrixQ[modpulse[Target]],modpulse=PulseReplaceKey[modpulse,Target,MatrixForm[modpulse[Target]]]];
 	Grid[
-		{#,#/.List@@modpulse}&/@
-		{UtilityValue,PenaltyValue,ExitMessage,Target,InternalHamiltonian,ControlHamiltonians,AmplitudeRange,TimeSteps,Pulse,ParameterDistribution,DistortionOperator,PulsePenalty},
-		Alignment->Left,
-		Dividers->All
+		Prepend[
+			{#,#/.List@@modpulse}&/@
+			{UtilityValue,PenaltyValue,ExitMessage,Target,InternalHamiltonian,ControlHamiltonians,AmplitudeRange,TimeSteps,Pulse,ParameterDistribution,DistortionOperator,PulsePenalty},
+			{Head,Value}
+		],
+		Alignment->{Left,Top},
+		Dividers->All,
+		ItemSize->{{13,32},Automatic},
+		Background->{{LightBlue,None},{LightGreen,None}},
+		ItemStyle->{Automatic,{"Subsubsubsection"}},
+		Spacings->{2,.8}
 	]
 ]
 
