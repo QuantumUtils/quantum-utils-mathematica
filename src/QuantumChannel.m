@@ -36,7 +36,7 @@ Needs["QuantumSystems`"]
 $QuantumChannelUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Usage Declarations*)
 
 
@@ -202,7 +202,7 @@ UnitaryChannelQ[chan_QuantumChannel]:=
 	]]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Channel Property Predicates*)
 
 
@@ -434,7 +434,7 @@ Chi[m_?SquareMatrixQ,opts:OptionsPattern[QuantumChannel]]:=
 	]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Transforming Representations*)
 
 
@@ -681,7 +681,7 @@ TransformChannel[Kraus->SysEnv,kraus_,opts:OptionsPattern[TransformChannel]]:=
 TransformChannel[Kraus->Unitary,op_,opts:OptionsPattern[TransformChannel]]:=First[op]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*From Choi*)
 
 
@@ -703,20 +703,22 @@ TransformChannel[Choi->Super,mat_,opts:OptionsPattern[TransformChannel]]:=
 	]
 
 
-DevecKraus[singVals_,ops_]:=
+DevecKraus[singVals_,ops_,{dimIn_,dimOut_}]:=
 	Select[
-		Map[Devec[#,Basis->"Col"]&,Sqrt[singVals]*ops],
+		Map[Devec[#,{dimIn,dimOut},Basis->"Col"]&,Sqrt[singVals]*ops],
 		AnyPossiblyNonzeroQ]
 
 
 TransformChannel[Choi->Kraus,mat_,opts:OptionsPattern[TransformChannel]]:=
 	With[{
+		dimIn=OptionValue[InputDim],
+		dimOut=OptionValue[OutputDim],
 		svd=SingularValueDecomposition[
 			BasisTransformation[mat,OptionValue["InputBasis"]->"Col"]]},
 	With[{
-		kraus1=DevecKraus[Diagonal[Part[svd,2]],Transpose[First[svd]]],
-		kraus2=DevecKraus[Diagonal[Part[svd,2]],Transpose[Last[svd]]]},
-	If[kraus1===kraus2,
+		kraus1=DevecKraus[Diagonal[Part[svd,2]],Transpose[First[svd]],{dimIn,dimOut}],
+		kraus2=DevecKraus[Diagonal[Part[svd,2]],Transpose[Last[svd]],{dimIn,dimOut}]},
+	If[0===Chop@Norm@Flatten[kraus1-kraus2],
 		kraus1,
 		{kraus1,kraus2}
 	]]];
