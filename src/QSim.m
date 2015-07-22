@@ -72,7 +72,7 @@ AssignUsage[
 		ObservableListQ,FunctionListQ,
 		DistributionQ
 	},
-	$Usages
+	$QSimUsages
 ];
 
 
@@ -91,7 +91,7 @@ AssignUsage[
 		StepSize,PollingInterval,InitialState,SimulationOutput,SequenceMode,NumericEvaluation,ForceSuperoperator,
 		TimeVector,Superoperators,Unitaries,States,Functions,Observables
 	},
-	$Usages
+	$QSimUsages
 ];
 
 
@@ -112,7 +112,7 @@ AssignUsage[
 		GetPulseShapeMatrix,
 		GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf
 	},
-	$Usages
+	$QSimUsages
 ];
 
 
@@ -121,7 +121,7 @@ AssignUsage[
 
 
 Unprotect[PulseSim];
-AssignUsage[PulseSim,$Usages];
+AssignUsage[PulseSim,$QSimUsages];
 
 
 PulseSim::badControlDim = "The internal Hamiltonian dimension, `1`, is neither equal to nor a multiple of (one of) the control Hamiltonian dimension(s), `2`.";
@@ -132,7 +132,7 @@ PulseSim::badControlDim = "The internal Hamiltonian dimension, `1`, is neither e
 
 
 Unprotect[DrawSequence];
-AssignUsage[DrawSequence,$Usages];
+AssignUsage[DrawSequence,$QSimUsages];
 
 
 (* ::Section:: *)
@@ -909,7 +909,7 @@ DrawPulse[p_?DriftPulseQ,width_,height_,offset_]:=
 (*We give each kind of pulse its own width weight for aesthetics.*)
 
 
-DrawSequence[seq_?PulseSequenceQ]:=
+DrawSequence[seq_?PulseSequenceQ,opt:OptionsPattern[Graphics]]:=
 	Module[{shapedFrac=0.3,uFrac=0.07,sFrac=0.07,driftFrac=0.63,width=500,height=100,widths},
 		widths=shapedFrac*(ShapedPulseQ/@seq)/.{True->1,False->0};
 		widths=widths+uFrac*(UnitaryPulseQ/@seq)/.{True->1,False->0};
@@ -921,7 +921,7 @@ DrawSequence[seq_?PulseSequenceQ]:=
 			Arrow[{{0,0},{width,0}},-width/20],
 			Text["t",{width+width/15,0}],
 			Table[DrawPulse[seq[[k]],widths[[k]],height*0.8,Total[Take[widths,k]]-widths[[k]]],{k,Length[seq]}]
-		}]
+		},opt]
 	]
 
 
