@@ -736,9 +736,9 @@ PerturbateDistortion[Distortion_DistortionOperator, h_:10^-8]:=Module[{jacobian}
 	];
 	DistortionOperator[
 		Function[{pulse,computeJac},
-			If[Not@computeJac,
-				Distortion[pulse,False],
-				{Distortion[pulse,False], jacobian[pulse[[All,1]],Last@Dimensions@pulse-1]}
+			If[computeJac===True,
+				{Distortion[pulse,False], jacobian[pulse[[All,1]],Last@Dimensions@pulse-1]},
+				Distortion[pulse,computeJac]
 			]
 		],
 		Format@HoldForm[PerturbateDistortion[Format[Distortion]]]
