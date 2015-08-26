@@ -647,12 +647,7 @@ DistortionOperator/:Format[DistortionOperator[_,format_]]:=format
 
 LiftDistortionRank[distortion_DistortionOperator]:=DistortionOperator[
 	Function[{pulse,computeJac},
-		If[Not@computeJac,
-			Module[{d},
-				(* Compute the distortion for each control channel *)
-				d = Table[distortion[pulse[[All,{1,n}]], False], {n,2,Last@Dimensions@pulse}];
-				AddTimeSteps[d[[1,All,1]], d[[All,All,2]]\[Transpose]]
-			],
+		Which[computeJac===True,
 			Module[{d,jac,all,controlRank},
 				controlRank=Last@Dimensions@pulse-1;
 				(* Compute the Jacobian and distortion for each control channel*)
@@ -669,6 +664,22 @@ LiftDistortionRank[distortion_DistortionOperator]:=DistortionOperator[
 					jac = Transpose[ConstantArray[jac[[All,All,1,All,1]], controlRank], {2,4,1,3}];
 				];
 			{d, jac}
+			],
+			computeJac===False,
+			Module[{d},
+				(* Compute the distortion for each control channel *)
+				d = Table[distortion[pulse[[All,{1,n}]], False], {n,2,Last@Dimensions@pulse}];
+				AddTimeSteps[d[[1,All,1]], d[[All,All,2]]\[Transpose]]
+			],
+			computeJac===All,
+			Module[{d},
+				(* Compute the distortion for each control channel *)
+				d = Table[distortion[pulse[[All,{1,n}]], All], {n,2,Last@Dimensions@pulse}];
+				{
+					AddTimeSteps[d[[1,1,All,1]], d[[All,1,All,2]]\[Transpose]],
+					AddTimeSteps[d[[1,2,All,1]], d[[All,2,All,2]]\[Transpose]],
+					AddTimeSteps[d[[1,3,All,1]], d[[All,3,All,2]]\[Transpose]]
+				}
 			]
 		]
 	],
@@ -678,13 +689,8 @@ LiftDistortionRank[distortion_DistortionOperator]:=DistortionOperator[
 
 JoinDistortions[Distortions__DistortionOperator]:=DistortionOperator[
 	Function[{pulse,computeJac},
-		If[Not@computeJac,
-			Module[{d},
-				(* Compute the distortion for each control channel *)
-				d = MapIndexed[#1[pulse[[All,{1, First@#2+1}]], False]&, {Distortions}];
-				AddTimeSteps[d[[1,All,1]], d[[All,All,2]]\[Transpose]]
-			],
-				Module[{d,jac,all,controlRank},
+		Which[computeJac===True,
+			Module[{d,jac,all,controlRank},
 				controlRank=Length@{Distortions};
 				(* Compute the Jacobian and distortion for each control channel*)
 				all = MapIndexed[#1[pulse[[All,{1, First@#2+1}]], True]&, {Distortions}];
@@ -694,6 +700,22 @@ JoinDistortions[Distortions__DistortionOperator]:=DistortionOperator[
 				(* The user supplied Jacobian is rank 4 for each channel *)
 				jac = Transpose[ConstantArray[jac[[All,All,1,All,1]], controlRank], {2,4,1,3}];
 				{d, jac}
+			],
+			computeJac===False,
+			Module[{d},
+				(* Compute the distortion for each control channel *)
+				d = MapIndexed[#1[pulse[[All,{1, First@#2+1}]], False]&, {Distortions}];
+				AddTimeSteps[d[[1,All,1]], d[[All,All,2]]\[Transpose]]
+			],
+			computeJac===All,
+			Module[{d},
+				(* Compute the distortion for each control channel *)
+				d = MapIndexed[#1[pulse[[All,{1, First@#2+1}]], All]&, {Distortions}];
+				{
+					AddTimeSteps[d[[1,1,All,1]], d[[All,1,All,2]]\[Transpose]],
+					AddTimeSteps[d[[1,2,All,1]], d[[All,2,All,2]]\[Transpose]],
+					AddTimeSteps[d[[1,3,All,1]], d[[All,3,All,2]]\[Transpose]]
+				}
 			]
 		]
 	],
@@ -703,8 +725,7 @@ JoinDistortions[Distortions__DistortionOperator]:=DistortionOperator[
 
 ComposeDistortions[Distortions__DistortionOperator]:=DistortionOperator[
 	Function[{pulse,computeJac},
-		If[Not@computeJac,
-			Fold[#2[#1,False]&,pulse,{Distortions}],
+		Which[computeJac===True,
 			Fold[
 				With[{result=#2[First@#1,True]},{
 					First@result,
@@ -715,7 +736,11 @@ ComposeDistortions[Distortions__DistortionOperator]:=DistortionOperator[
 				}]&,
 				{pulse,None},
 				{Distortions}
-			]
+			],
+			computeJac===False,
+			Fold[#2[#1,False]&,pulse,{Distortions}],
+			computeJac===All,
+			Fold[{#1[[1]],Sequence@@((#2[#1[[3]],All])[[{2,3}]])}&,{pulse,pulse,pulse},{Distortions}]
 		]
 	],
 	With[{format=Row[Riffle[Format/@{Distortions},"\[EmptyCircle]"]]},Format[HoldForm[format]]]
@@ -754,7 +779,14 @@ IdentityDistortion[]:=Module[{jac},
 	jac[{n_,k_}]:=(jac[{n,k}]=Transpose[Table[KroneckerDelta[kk,ll]*IdentityMatrix[n],{kk,k},{ll,k}], {2,4,1,3}]);
 	DistortionOperator[
 		Function[{pulse,computeJac},
-			If[Not@computeJac,pulse,{pulse,jac[Dimensions@pulse-{0,1}]}]
+			Which[
+				computeJac===False,
+				pulse,
+				computeJac===True,
+				{pulse,jac[Dimensions@pulse-{0,1}]},
+				computeJac===All,
+				{pulse,pulse,pulse}
+			]
 		],
 		Format@HoldForm[IdentityDistortion[]]
 	]
@@ -784,8 +816,11 @@ VariableChangeDistortion[changeFn_List,{variableSymbols__Symbol},OptionsPattern[
 	With[{subjacVal=subJacobian},
 		DistortionOperator[
 			Function[{pulse,computeJac},
-				If[Not@computeJac,
+				Which[computeJac===False,
 					AddTimeSteps[pulse[[All,1]],(changeFn/.Thread[{variableSymbols}->#])& /@ pulse[[All, 2;;-1]]],
+					computeJac===All,
+					{pulse,pulse,AddTimeSteps[pulse[[All,1]],(changeFn/.Thread[{variableSymbols}->#])& /@ pulse[[All, 2;;-1]]]},
+					computeJac===True,
 					{
 						AddTimeSteps[pulse[[All,1]],(changeFn/.Thread[{variableSymbols}->#])& /@ pulse[[All, 2;;-1]]],
 						Transpose[#,{1,3,2,4}]&@Table[
@@ -807,13 +842,16 @@ VariableChangeDistortion[changeFn_List,{variableSymbols__Symbol},OptionsPattern[
 
 TimeScaleDistortion[multiplier_]:=DistortionOperator[
 	Function[{pulse,computeJac},
-		If[computeJac,
+		Which[computeJac===True,
 			{
 				AddTimeSteps[multiplier * pulse[[All,1]], pulse[[All,2;;-1]]],
 				(* The jacobian is the same as IdentityDistortion... *)
 				Transpose[ConstantArray[IdentityMatrix[Length@pulse],{Last@Dimensions@pulse-1, Last@Dimensions@pulse-1}], {2,4,1,3}]
 			},
-			AddTimeSteps[multiplier * pulse[[All,1]], pulse[[All,2;;-1]]]
+			computeJac===False,
+			AddTimeSteps[multiplier * pulse[[All,1]], pulse[[All,2;;-1]]],
+			computeJac===All,
+			{pulse,pulse,AddTimeSteps[multiplier * pulse[[All,1]], pulse[[All,2;;-1]]]}
 		]
 	],
 	Format@HoldForm[TimeScaleDistortion[multiplier]]
@@ -838,7 +876,14 @@ ConvolutionDistortion[integral_,numInput_,numOutput_,dtOutput_]:=
 				Function[{pulse,computeJac},
 					Module[{jac=jacval,outputPulse},
 						outputPulse=AddTimeSteps[dtOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
-						If[computeJac,{outputPulse,jac},outputPulse]
+						Which[
+							computeJac===True,
+							{outputPulse,jac},
+							computeJac===False,
+							outputPulse,
+							computeJac===All,
+							{pulse,pulse,outputPulse}
+						]
 					]
 				],
 				Format@HoldForm[ConvolutionDistortion[Integral[integral]]]
@@ -1019,7 +1064,10 @@ NonlinearTransferDistortion[gainFcn_]:=DistortionOperator[
 			timeDom=(#1+I*#2)&@@@pulse[[All,{2,3}]];
 			freqDom={freqs,Fourier[timeDom]/L}\[Transpose];
 			distorted=L*InverseFourier[freqDom[[All,2]]*(gainFcn@@@freqDom)];
-			{pulse[[All,1]],Re@distorted,Im@distorted}\[Transpose]
+			If[computeJac===False,
+				{pulse[[All,1]],Re@distorted,Im@distorted}\[Transpose],
+				{pulse,pulse,{pulse[[All,1]],Re@distorted,Im@distorted}\[Transpose]}
+			]
 		]
 	],
 	Format@HoldForm[NonlinearTransferDistortion[gainFcn]]
@@ -1058,9 +1106,9 @@ DEDistortion[deFn_, outputForm_,{solnSymbols__Symbol}, t_Symbol, min_, max_, \[D
 			];
 		
 			(* Make a distorted pulse by applying the solution function to the given timesteps. *)
-			AddTimeSteps[
-				\[Delta]t,
-				Table[outputForm /. Prepend[solution,t->\[Tau]],{\[Tau], \[Delta]t, M \[Delta]t, \[Delta]t}]
+			If[computeJac===False,
+				AddTimeSteps[\[Delta]t,Table[outputForm /. Prepend[solution,t->\[Tau]],{\[Tau], \[Delta]t, M \[Delta]t, \[Delta]t}]],
+				{pulse,pulse,AddTimeSteps[\[Delta]t,Table[outputForm /. Prepend[solution,t->\[Tau]],{\[Tau], \[Delta]t, M \[Delta]t, \[Delta]t}]]}
 			]
 		]
 	],
@@ -1081,7 +1129,12 @@ FrequencySpaceDistortion[freqs_List,dt_,M_] := Module[{c,s,numN,distortionFn},
 	With[{cval=c,sval=s},
 		DistortionOperator[
 			First@PerturbateDistortion@DistortionOperator@Function[{pulse,computeJac},
-				{ConstantArray[dt,M],cval.pulse[[All,2]]+sval.pulse[[All,3]],cval.pulse[[All,3]]-sval.pulse[[All,2]]}\[Transpose]
+				With[{p={ConstantArray[dt,M],cval.pulse[[All,2]]+sval.pulse[[All,3]],cval.pulse[[All,3]]-sval.pulse[[All,2]]}\[Transpose]},
+					If[computeJac===False,
+						p,
+						{pulse,pulse,p}
+					]
+				]
 			],
 			Format@HoldForm[FrequencySpaceDistortion[freqs]]
 		]
@@ -1102,15 +1155,22 @@ CompositePulseDistortion[divisions_,sequence_]:=Module[{symbols,indeces,seq,dore
 	With[{seqval=seq},
 		DistortionOperator[
 			First@PerturbateDistortion@DistortionOperator@Function[{pulse,computeJac},
-				Flatten[
-					Table[
-						(If[Last@s,Reverse,Identity])@If[Abs[s[[2]]]>0,
-							pulse[[First@s/.divisions]].RotationMatrix[-s[[2]],{1,0,0}],
-							pulse[[(First@s)/.divisions]]
+				With[{p=
+					Flatten[
+						Table[
+							(If[Last@s,Reverse,Identity])@If[Abs[s[[2]]]>0,
+								pulse[[First@s/.divisions]].RotationMatrix[-s[[2]],{1,0,0}],
+								pulse[[(First@s)/.divisions]]
+							],
+							{s,seqval}
 						],
-						{s,seqval}
-					],
-				1]
+					1]
+				},
+					If[computeJac===False,
+						p,
+						{pulse,pulse,p}
+					]
+				]
 			],
 			Format@HoldForm[CompositePulseDistortion[sequence]]
 		]
@@ -1295,36 +1355,36 @@ Chunks[list_List,num_Integer]:=Module[{ds,len,spans},
 ]
 
 
-(*This private function is used by both PulsePlot and Fourier Pulse Plot*)
+(*This private function is used by both PulsePlot and FourierPulsePlot (not yet implemented)*)
 MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
 	Module[{plotlist,rows,cols,nInput,nOutput,chanMap,inputMax,outputMax,scaleList,scales,inputMat,outputMat,mult},
 
-		nInput=Last@Dimensions@input-1;
-		If[output=!=None,nOutput=Last@Dimensions@output-1;,nOutput=nInput;];
+		nInput=Length@input;
+		If[output=!=None,nOutput=Length@output;,nOutput=nInput;];
 		inputMat=input;
 		outputMat=output;
 
 		(*Figure out pulse scaling*)
-		scaleList[{xscale_,yscale_}]:=If[ListQ[yscale],Prepend[yscale,xscale],Prepend[ConstantArray[yscale,nInput],xscale]];
+		scaleList[{xscale_,yscale_},num_]:=If[ListQ[yscale],Table[{xscale,ys},{ys,yscale}],ConstantArray[{xscale,yscale},num]];
 		scales=OptionValue[PulseScaling];
 		If[scales=!=None,
-			inputMat=(scaleList[scales[[{1,2}]]]*#)&/@inputMat;
-			If[outputMat=!=None,outputMat=scaleList[scales[[{1,3}]]]*#&/@outputMat;];,
+			inputMat=scaleList[scales[[{1,2}]],nInput]*inputMat;
+			If[outputMat=!=None,outputMat=scaleList[scales[[{1,3}]],nOutput]*outputMat];,
 			scales={1,1,1};
 		];
 
 		(*Figure out max values for plots*)
 		If[ListQ[scales[[2]]],
-			inputMax=Table[Max[Abs[Flatten[inputMat[[All,n]]]]],{n,2,nInput+1}];,
-			inputMax=ConstantArray[Max[Abs[Flatten[inputMat[[All,2;;]]]]],nInput];
+			inputMax=Table[Max[Abs[inputMat[[n,2]]]],{n,nInput}];,
+			inputMax=ConstantArray[Max[Abs[Flatten[inputMat[[All,2]]]]],nInput];
 		];
 
 		If[output=!=None,If[ListQ[scales[[3]]],
-			outputMax=Table[Max[Abs[Flatten[outputMat[[All,n]]]]],{n,2,nOutput+1}];,
-			outputMax=ConstantArray[Max[Abs[Flatten[outputMat[[All,2;;]]]]],nOutput];
+			outputMax=Table[Max[Abs[outputMat[[n,2]]]],{n,nOutput}];,
+			outputMax=ConstantArray[Max[Abs[Flatten[outputMat[[All,2]]]]],nOutput];
 		],outputMax=ConstantArray[1,nOutput];];
-		mult=OptionValue[PulsePaddingMultiplier];
 
+		mult=OptionValue[PulsePaddingMultiplier];
 		If[NumericQ[mult],
 			inputMax=mult*inputMax;
 			outputMax=mult*outputMax;,
@@ -1335,7 +1395,7 @@ MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
 		(*Fork between plotter that does input or input/output*)
 		If[output===None,
 			plotlist=Table[
-				Plotter[inputMat[[All,{1,n+1}]],inputMax[[n]],FilterOptions[{DistributeOption,n},ListPlot,opt]],
+				Plotter[inputMat[[n]],inputMax[[n]],FilterOptions[{DistributeOption,n},ListPlot,opt]],
 				{n,nInput}
 			];,
 			If[OptionValue[ChannelMapping]===Automatic,
@@ -1344,8 +1404,8 @@ MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
 			];
 			plotlist=Table[
 				Plotter[
-					inputMat[[All,{1,n+1}]], inputMax[[n]],
-					outputMat[[All,Prepend[chanMap[[n]]+1,1]]], Max[outputMax[[chanMap[[n]]]]],
+					inputMat[[n]], inputMax[[n]],
+					outputMat[[chanMap[[n]]]], Max[outputMax[[chanMap[[n]]]]],
 					FilterOptions[{DistributeOption,n},ListPlot,opt]
 				],
 				{n,nInput}
@@ -1371,8 +1431,8 @@ MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
 
 SingleChannelPulsePlot[input_,inputmax_,opt:OptionsPattern[ListPlot]]:=
 	Module[{xaxis,yaxis,range},
-		xaxis=Prepend[Accumulate[input[[All,1]]],0];
-		yaxis=Append[input[[All,2]],0];
+		xaxis=Prepend[Accumulate[input[[1]]],0];
+		yaxis=Append[input[[2]],0];
 		range={{Min@xaxis,Max@xaxis},inputmax*{-1,1}};
 		ListPlot[
 			{xaxis,yaxis}\[Transpose],
@@ -1388,16 +1448,14 @@ SingleChannelPulsePlot[input_,inputmax_,opt:OptionsPattern[ListPlot]]:=
 
 
 SingleChannelPulsePlot[input_,inputmax_,output_,outputmax_,opt:OptionsPattern[ListPlot]]:=
-	Module[{xaxis1,yaxis1,range1,n2,xaxis2,yaxes2,xy2,range2,minx,maxx,pallette},
-		xaxis1=Prepend[Accumulate[input[[All,1]]],0];
-		yaxis1=Append[input[[All,2]], 0];
+	Module[{xaxis1,yaxis1,range1,n2,xy2,range2,minx,maxx,pallette},
+		xaxis1=Prepend[Accumulate[input[[1]]],0];
+		yaxis1=Append[input[[2]], 0];
 
-		n2=Last@Dimensions@output-1;
-		xaxis2=Prepend[Accumulate[output[[All,1]]],0];
-		yaxes2=Transpose[Append[output[[All,2;;]], ConstantArray[0,n2]]];
-		xy2=Transpose[{xaxis2,#}]&/@yaxes2;
+		n2=Length@output;
+		xy2={Prepend[Accumulate[#[[1]]],0],Append[#[[2]], 0]}\[Transpose]&/@output;
 
-		{minx,maxx}={Min@Join[xaxis1,xaxis2],Max@Join[xaxis1,xaxis2]};
+		{minx,maxx}=#[Flatten[{xaxis1,Table[xy[[All,1]],{xy,xy2}]}]]&/@{Min,Max};
 		range1={{minx,maxx},inputmax*{-1,1}};
 		range2={{minx,maxx},outputmax*{-1,1}};
 
@@ -1436,6 +1494,12 @@ SingleChannelPulsePlot[input_,inputmax_,output_,outputmax_,opt:OptionsPattern[Li
 	]
 
 
+(*This function turns a pulse matrix of the form {{dt1,a11,a12,..},{dt2,a21,a22,..},...} into the
+form {{{dt1,dt2,..},{a11,a12,..}},{{dt1,dt2,..},{a21,a22,..}},...} --- there is now redundant time information,
+but this structure is more natural for plotting, and is required to make ShowDistortedPulse\[Rule]All work.*)
+SeparatePulseMatrix[pulseMat_]:=Table[{pulseMat[[All,1]],pulseMat[[All,n]]},{n,2,Last@Dimensions@pulseMat}];
+
+
 Unprotect@PulsePlot;
 PulsePlot[pulse_Pulse,opt:OptionsPattern[]]:=
 	Module[{plotter,input,output},
@@ -1443,57 +1507,23 @@ PulsePlot[pulse_Pulse,opt:OptionsPattern[]]:=
 		input=FromPulse[pulse];
 		Which[
 			OptionValue[ShowDistortedPulse]===True,
-				output=pulse[DistortionOperator][input,False];,
+				output=SeparatePulseMatrix[pulse[DistortionOperator][input,False]];,
 			OptionValue[ShowDistortedPulse]===False,
 				output=None;,
 			OptionValue[ShowDistortedPulse]==="Only",
 				(*Use the input plotting mechanism if only the distorted pulse is to be plotted*)
 				output=None;
-				input=pulse[DistortionOperator][input,False];
+				input=pulse[DistortionOperator][input,False];,
+			OptionValue[ShowDistortedPulse]===All,
+				(*Make the modifiedInputPulse a part of the output pulse list*)
+				output=pulse[DistortionOperator][input,All];
+				output=Riffle[
+					SeparatePulseMatrix[output[[2]]],
+					SeparatePulseMatrix[output[[3]]]
+				];
 		];
-		MasterPulsePlot[plotter,input,output,opt]		
+		MasterPulsePlot[plotter,SeparatePulseMatrix[input],output,opt]		
 	]
-
-
-PulseFourierPlot[pulse_,controlNames_:{"X","Y"},normalization_:(2*\[Pi]),freqSpace_:False]:=
-	Module[{fid=Utility@pulse,data=Pulse@pulse,dt=First@TimeSteps@pulse,T,len},
-		If[freqSpace,
-			data=DistortionOperator[pulse][AddTimeSteps[TimeSteps@pulse,data],False];
-			len=Length[data];
-			T=dt*len;
-			DiscreteFourierPlot[data[[All,2]]-I*data[[All,3]],{0,T},{Re,Im},Joined->True,PlotRange->All,ImageSize->500]
-			,
-			If[Mean[TimeSteps@pulse]=!=dt,Print["Warning: pulse sequence is unequally spaced. Assuming a spacing of the first time step for all steps."]];
-			len=Length[data];
-			T=dt*len;
-			GraphicsRow[Table[
-				DiscreteFourierPlot[data[[All,k]],{0,T},Abs,Joined->True,PlotRange->All,ImageSize->500,PlotLabel->{"Fourier of "<>controlNames[[Max[k,Length[controlNames]]]]<>" component"},AxesLabel->{"MHz",""}],
-				{k,Length[data\[Transpose]]}
-			]]
-		]
-	]
-
-
-PulseFourierPlot[pulse_,\[Omega]LO_,\[Omega]lowpass_]:=Module[
-{x,y,data,dt,len,T,\[Omega]max,d\[Omega],fun,t,box,Fs,samples,xfun,yfun,s,ts},
-data=DistortionOperator[pulse][FromPulse[pulse],False];
-dt=data[[1,1]];x=data[[All,2]];y=data[[All,3]];
-len=Length@data;T=len*dt;
-Fs=20*\[Omega]LO;
-\[Omega]max=1/dt;
-d\[Omega]=1/(len*dt);
-box[t_,m_]:=Piecewise[{{1,(m-1)*dt<t<=m*dt}},0];
-xfun[t_]:=If[t<0||t>T-dt,0,x[[Ceiling[(t+dt/5)/dt]]]];
-yfun[t_]:=If[t<0||t>T-dt,0,y[[Ceiling[(t+dt/5)/dt]]]];
-x=LowpassFilter[xfun/@Range[-T/2,3T/2,1/Fs],\[Omega]lowpass];
-y=LowpassFilter[yfun/@Range[-T/2,3T/2,1/Fs],\[Omega]lowpass];
-ts=Range[-T/2,3T/2,1/Fs];
-s=Cos[2\[Pi] ts \[Omega]LO]*x+Sin[2 \[Pi] ts \[Omega]LO]*y;
-(*fun[t_]=Cos[2*\[Pi]*\[Omega]LO*t]*Sum[x[[m]]*box[t,m],{m,len}]+Sin[2*\[Pi]*\[Omega]LO*t]*Sum[y[[m]]*box[t,m],{m,len}];
-samples=fun/@Range[-T/2,3T/2,1/Fs];
-ListPlot[Evaluate[{Range[0,Fs,Fs/(Length@samples-1)],Abs@Fourier@samples}\[Transpose]],Joined->True,PlotRange->{{\[Omega]LO-\[Omega]max,\[Omega]LO+\[Omega]max},All}]*)
-DiscreteFourierPlot[s,{-T/2,3T/2},Abs,Joined->True,PlotRange->{{\[Omega]LO-\[Omega]max,\[Omega]LO+\[Omega]max},All},PlotLabel->"Pulse Power Spectrum",AxesLabel->{"(MHz)",""}]
-]
 
 
 (* ::Subsubsection::Closed:: *)
