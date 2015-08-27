@@ -1356,12 +1356,13 @@ Chunks[list_List,num_Integer]:=Module[{ds,len,spans},
 
 
 (*This private function is used by both PulsePlot and FourierPulsePlot (not yet implemented)*)
-MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
-	Module[{plotlist,rows,cols,nInput,nOutput,chanMap,inputMax,outputMax,scaleList,scales,inputMat,outputMat,mult},
+MasterPulsePlot[Plotter_,input_,modinput_,output_,opt:OptionsPattern[PulsePlot]]:=
+	Module[{plotlist,rows,cols,nInput,nOutput,chanMap,inputMax,outputMax,scaleList,scales,inputMat,modinputMat,outputMat,mult},
 
 		nInput=Length@input;
 		If[output=!=None,nOutput=Length@output;,nOutput=nInput;];
 		inputMat=input;
+		modinputMat=modinput;
 		outputMat=output;
 
 		(*Figure out pulse scaling*)
@@ -1369,14 +1370,22 @@ MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
 		scales=OptionValue[PulseScaling];
 		If[scales=!=None,
 			inputMat=scaleList[scales[[{1,2}]],nInput]*inputMat;
-			If[outputMat=!=None,outputMat=scaleList[scales[[{1,3}]],nOutput]*outputMat];,
+			If[modinputMat=!=None,modinputMat=scaleList[scales[[{1,2}]],nInput]*modinputMat;];
+			If[outputMat=!=None,outputMat=scaleList[scales[[{1,3}]],nOutput]*outputMat;];,
 			scales={1,1,1};
 		];
 
 		(*Figure out max values for plots*)
-		If[ListQ[scales[[2]]],
-			inputMax=Table[Max[Abs[inputMat[[n,2]]]],{n,nInput}];,
-			inputMax=ConstantArray[Max[Abs[Flatten[inputMat[[All,2]]]]],nInput];
+		If[modinputMat===None,
+			If[ListQ[scales[[2]]],
+				inputMax=Table[Max[Abs[inputMat[[n,2]]]],{n,nInput}];,
+				inputMax=ConstantArray[Max[Abs[Flatten[inputMat[[All,2]]]]],nInput];
+			];,
+			If[ListQ[scales[[2]]],
+				(*Here we take the max over both input and modinput amplitudes*)
+				inputMax=Table[Max[Abs[Join[inputMat[[n,2]],modinputMat[[n,2]]]]],{n,nInput}];,
+				inputMax=ConstantArray[Max[Abs[Flatten[{inputMat[[All,2]],modinputMat[[All,2]]}]]],nInput];
+			];
 		];
 
 		If[output=!=None,If[ListQ[scales[[3]]],
@@ -1404,7 +1413,7 @@ MasterPulsePlot[Plotter_,input_,output_,opt:OptionsPattern[PulsePlot]]:=
 			];
 			plotlist=Table[
 				Plotter[
-					inputMat[[n]], inputMax[[n]],
+					If[modinput===None,{inputMat[[n]]},{inputMat[[n]],modinputMat[[n]]}], inputMax[[n]],
 					outputMat[[chanMap[[n]]]], Max[outputMax[[chanMap[[n]]]]],
 					FilterOptions[{DistributeOption,n},ListPlot,opt]
 				],
@@ -1448,14 +1457,14 @@ SingleChannelPulsePlot[input_,inputmax_,opt:OptionsPattern[ListPlot]]:=
 
 
 SingleChannelPulsePlot[input_,inputmax_,output_,outputmax_,opt:OptionsPattern[ListPlot]]:=
-	Module[{xaxis1,yaxis1,range1,n2,xy2,range2,minx,maxx,pallette},
-		xaxis1=Prepend[Accumulate[input[[1]]],0];
-		yaxis1=Append[input[[2]], 0];
+	Module[{xy1,range1,n1,n2,xy2,range2,minx,maxx,pallette},
 
-		n2=Length@output;
+		xy1={Prepend[Accumulate[#[[1]]],0],Append[#[[2]], 0]}\[Transpose]&/@input;
 		xy2={Prepend[Accumulate[#[[1]]],0],Append[#[[2]], 0]}\[Transpose]&/@output;
+		n1=Length@input;
+		n2=Length@output;
 
-		{minx,maxx}=#[Flatten[{xaxis1,Table[xy[[All,1]],{xy,xy2}]}]]&/@{Min,Max};
+		{minx,maxx}=#[Flatten[{Table[xy[[All,1]],{xy,xy1}],Table[xy[[All,1]],{xy,xy2}]}]]&/@{Min,Max};
 		range1={{minx,maxx},inputmax*{-1,1}};
 		range2={{minx,maxx},outputmax*{-1,1}};
 
@@ -1464,15 +1473,16 @@ SingleChannelPulsePlot[input_,inputmax_,output_,outputmax_,opt:OptionsPattern[Li
 
 		Overlay[{
 			ListPlot[
-				{xaxis1,yaxis1}\[Transpose],
+				xy1,
 				PlotLegends->None,
 				Evaluate@FilterOptions[ListPlot,opt], 
 				PlotRange->range1,
 				InterpolationOrder->0,
 				Joined->True,
 				ImageSize->400,
-				Filling->Axis,
+				Filling->{1->Axis,2->None},
 				Frame->{True,True,True,False},
+				PlotStyle->pallette[[;;n1]],
 				FrameStyle->{Automatic,First@pallette,Automatic,Automatic},
 				ImagePadding->{{40,40},{40,10}}
 			],
@@ -1483,9 +1493,9 @@ SingleChannelPulsePlot[input_,inputmax_,output_,outputmax_,opt:OptionsPattern[Li
 				InterpolationOrder->0,
 				Joined->True,
 				ImageSize->400,
-				PlotStyle->If[n2==1,pallette[[2]],Rest[pallette]],
+				PlotStyle->If[n2==1,pallette[[n1+1]],pallette[[n1+1;;]]],
 				Frame->{False,False,False,True},
-				FrameStyle->{Automatic,Automatic,Automatic,pallette[[2]]},
+				FrameStyle->{Automatic,Automatic,Automatic,pallette[[n1+1]]},
 				FrameTicks->{None,None,None,All},
 				ImagePadding->{{40,40},{40,10}}
 			]
@@ -1500,11 +1510,11 @@ but this structure is more natural for plotting, and is required to make ShowDis
 SeparatePulseMatrix[pulseMat_]:=Table[{pulseMat[[All,1]],pulseMat[[All,n]]},{n,2,Last@Dimensions@pulseMat}];
 
 
-Unprotect@PulsePlot;
 PulsePlot[pulse_Pulse,opt:OptionsPattern[]]:=
-	Module[{plotter,input,output},
+	Module[{plotter,input,modinput,output},
 		plotter=SingleChannelPulsePlot;
 		input=FromPulse[pulse];
+		modinput=None;
 		Which[
 			OptionValue[ShowDistortedPulse]===True,
 				output=SeparatePulseMatrix[pulse[DistortionOperator][input,False]];,
@@ -1517,12 +1527,9 @@ PulsePlot[pulse_Pulse,opt:OptionsPattern[]]:=
 			OptionValue[ShowDistortedPulse]===All,
 				(*Make the modifiedInputPulse a part of the output pulse list*)
 				output=pulse[DistortionOperator][input,All];
-				output=Riffle[
-					SeparatePulseMatrix[output[[2]]],
-					SeparatePulseMatrix[output[[3]]]
-				];
+				{modinput,output}=SeparatePulseMatrix/@output[[{2,3}]];
 		];
-		MasterPulsePlot[plotter,SeparatePulseMatrix[input],output,opt]		
+		MasterPulsePlot[plotter,SeparatePulseMatrix[input],modinput,output,opt]		
 	]
 
 
