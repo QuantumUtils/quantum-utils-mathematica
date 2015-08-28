@@ -135,6 +135,7 @@ Unprotect[
 	IQDistortion,
 	NonlinearTransferDistortion,
 	DEDistortion,DESolver,DESolverArgs,
+	LinearDEDistortion,
 	FrequencySpaceDistortion,
 	CompositePulseDistortion
 ];
@@ -149,6 +150,7 @@ AssignUsage[
 		IQDistortion,
 		NonlinearTransferDistortion,
 		DEDistortion,DESolver,DESolverArgs,
+		LinearDEDistortion,
 		FrequencySpaceDistortion,
 		CompositePulseDistortion
 	},
@@ -1075,7 +1077,7 @@ NonlinearTransferDistortion[gainFcn_]:=DistortionOperator[
 
 
 (* ::Subsubsection::Closed:: *)
-(*DEDistortion*)
+(*Differential Equation Distortions*)
 
 
 Options[DEDistortion]:=Join[
@@ -1113,6 +1115,62 @@ DEDistortion[deFn_, outputForm_,{solnSymbols__Symbol}, t_Symbol, min_, max_, \[D
 		]
 	],
 	Format[HoldForm[DEDistortion[outputForm]]]
+]
+
+
+LinearDEDistortion[A_,b_,outputComponent_,numInput_,numOutput_,dtInput_,dtOutput_]:=Module[
+	{phi,nc,normA,d,U,c,u,v,w,t},
+
+	(*Medium-efficiency implementation of discrete convolution tensor (phi) of the DE*)
+	(*We need to be careful not to do MatrixExp[-t*A] for positive t; this could lead
+	to numerical instability. In general, we want to group all of the matrix exponentials 
+	together *)
+	nc=Length[A];
+	normA=Norm[A];
+	{d,U}=Eigensystem[A/normA];
+	d=normA*d; U=U\[Transpose];
+
+	w=Inverse[U].b/normA;
+	u=-UnitVector[nc,outputComponent].Inverse[A/normA];
+	c=u.b/normA;
+	v=u.(IdentityMatrix[nc]-MatrixExp[dtInput*A]).U;
+	u=u.U;
+
+	phi=Table[
+		t=(m-0.5)*dtOutput;
+		Table[
+			Which[
+				t < (n-1)*dtInput,
+					{{0,0},{0,0}},
+				t >= n*dtInput,
+					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[v.(Exp[(t-n*dtInput)*d]*w)],
+				True,
+					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[c-u.(Exp[(t-(n-1)*dtInput)*d]*w)]
+			], 
+			{n,numInput}
+		], {m,numOutput}
+	]; (* index order (M,N,L,K) *)
+	phi=Transpose[phi,{1,3,2,4}]; (*index order (M,L,N,K)*)
+
+	(*The rest is no different than, eg, ConvolutionDistortion *)
+	With[{phimat=phi},
+		DistortionOperator[
+			Function[{pulse,computeJac},
+					Module[{jac=phimat,outputPulse},
+						outputPulse=AddTimeSteps[dtOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
+						Which[
+							computeJac===True,
+							{outputPulse,jac},
+							computeJac===False,
+							outputPulse,
+							computeJac===All,
+							{pulse,pulse,outputPulse}
+						]
+					]
+				],
+			Format[HoldForm[LinearDEDistortion[MatrixForm[A],MatrixForm[b]]]]
+		]
+	]
 ]
 
 
@@ -2502,7 +2560,7 @@ ExportSHP[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
@@ -2541,7 +2599,8 @@ Protect[
 	ConvolutionDistortion,ExponentialDistortion,
 	IQDistortion,
 	NonlinearTransferDistortion,
-	DEDistortion,
+	DEDistortion,DESolver,DESolverArgs,
+	LinearDEDistortion,
 	FrequencySpaceDistortion,
 	CompositePulseDistortion
 ];
