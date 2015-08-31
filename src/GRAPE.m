@@ -128,7 +128,7 @@ AssignUsage[
 
 
 Unprotect[
-	LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,
+	LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,ScaleDistortion,
 	IdentityDistortion,
 	TimeScaleDistortion,VariableChangeDistortion,
 	ConvolutionDistortion,ExponentialDistortion,
@@ -143,7 +143,7 @@ Unprotect[
 
 AssignUsage[
 	{
-		LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,
+		LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,ScaleDistortion,
 		IdentityDistortion,
 		TimeScaleDistortion,VariableChangeDistortion,
 		ConvolutionDistortion,ExponentialDistortion,
@@ -769,6 +769,48 @@ PerturbateDistortion[Distortion_DistortionOperator, h_:10^-8]:=Module[{jacobian}
 			]
 		],
 		Format@HoldForm[PerturbateDistortion[Format[Distortion]]]
+	]
+]
+
+
+ScaleDistortion[distortion_DistortionOperator,timeScale_,amplitudeScale_?NumericQ]:=DistortionOperator[
+	Function[{pulse,computeJac},
+		Which[
+			computeJac===False,
+				Transpose[Prepend[ConstantArray[amplitudeScale,Length[#]-1],timeScale]*#]&[Transpose@distortion[pulse,False]],
+			computeJac===True,
+				Module[{outpulse,jac,scale},
+					{outpulse,jac}=distortion[pulse,True];
+					{
+						Transpose[Prepend[ConstantArray[amplitudeScale,Length[#]-1],timeScale]*#]&[Transpose@outpulse],
+						amplitudeScale@jac
+					}
+				],
+			computeJac===All,
+				{#1,#2,Transpose[Prepend[ConstantArray[amplitudeScale,Length[First@#3]-1],timeScale]*Transpose[#3]]}&@@distortion[pulse,All]
+		]
+	],
+	HoldForm@Format[ScaleDistortion[distortion,Row[{"t\[Rule]",timeScale,"t"}],Row[{"amps\[Rule]",amplitudeScale,"amps"}]]]
+];
+ScaleDistortion[distortion_DistortionOperator,timeScale_,amplitudeScale_List]:=DistortionOperator[
+	Function[{pulse,computeJac},
+		Which[
+			computeJac===False,
+				Transpose[Prepend[amplitudeScale,timeScale]*Transpose[distortion[pulse,False]]],
+			computeJac===True,
+				Module[{outpulse,jac,scale},
+					{outpulse,jac}=distortion[pulse,True];
+					{
+						Transpose[Prepend[amplitudeScale,timeScale]*Transpose[outpulse]],
+						Transpose[amplitudeScale*Transpose[jac,{2,1,3,4}],{2,1,3,4}]
+					}
+				],
+			computeJac===All,
+				{#1,#2,Transpose[Prepend[amplitudeScale,timeScale]*Transpose[#3]]}&@@@distortion[pulse,All]
+		]
+	],
+	With[{amps=Row[Flatten@Riffle[Table[{"amp",n,"\[Rule]",amplitudeScale[[n]],"amp",n},{n,Length@amplitudeScale}],", "]]},
+		HoldForm@Format[ScaleDistortion[distortion,Row[{"t\[Rule]",timeScale,"t"}],amps]]
 	]
 ]
 
@@ -2708,7 +2750,7 @@ Protect[
 
 
 Protect[
-	LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,
+	LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,ScaleDistortion,
 	IdentityDistortion,
 	TimeScaleDistortion,VariableChangeDistortion,
 	ConvolutionDistortion,ExponentialDistortion,
