@@ -783,7 +783,7 @@ ScaleDistortion[distortion_DistortionOperator,timeScale_,amplitudeScale_?Numeric
 					{outpulse,jac}=distortion[pulse,True];
 					{
 						Transpose[Prepend[ConstantArray[amplitudeScale,Length[#]-1],timeScale]*#]&[Transpose@outpulse],
-						amplitudeScale@jac
+						amplitudeScale*jac
 					}
 				],
 			computeJac===All,
