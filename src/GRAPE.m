@@ -631,7 +631,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Distortions*)
 
 
@@ -1076,7 +1076,7 @@ NonlinearTransferDistortion[gainFcn_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Differential Equation Distortions*)
 
 
@@ -1158,6 +1158,67 @@ LinearDEDistortion[A_,b_,outputComponent_,numInput_,numOutput_,dtInput_,dtOutput
 			Function[{pulse,computeJac},
 					Module[{jac=phimat,outputPulse},
 						outputPulse=AddTimeSteps[dtOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
+						Which[
+							computeJac===True,
+							{outputPulse,jac},
+							computeJac===False,
+							outputPulse,
+							computeJac===All,
+							{pulse,pulse,outputPulse}
+						]
+					]
+				],
+			Format[HoldForm[LinearDEDistortion[MatrixForm[A],MatrixForm[b]]]]
+		]
+	]
+]
+
+
+Unprotect@LinearDEDistortion;
+LinearDEDistortion[A_,b_,outputComponent_,dtsInput_,dtsOutput_]:=Module[
+	{phi,nc,normA,d,U,c,v,w,ts,taus,numInput,numOutput},
+
+	numInput=Length@dtsInput;
+	numOutput=Length@dtsOutput;
+	ts=Prepend[Accumulate[dtsInput],0];
+	taus=Accumulate[dtsOutput];
+	taus=(Most@Prepend[taus,0]+taus)/2;
+
+	(*Medium-efficiency implementation of discrete convolution tensor (phi) of the DE*)
+	(*We need to be careful not to do MatrixExp[-t*A] for positive t; this could lead
+	to numerical instability. In general, we want to group all of the matrix exponentials 
+	together *)
+	nc=Length[A];
+	normA=Norm[A];
+	{d,U}=Eigensystem[A/normA];
+	d=normA*d; U=U\[Transpose];
+
+	w=Inverse[U].b/normA;
+	v=-UnitVector[nc,outputComponent].Inverse[A/normA];
+	c=v.b/normA;
+	v=v.U;
+
+	phi=Table[
+		Table[
+			Which[
+				taus[[m]] < ts[[n-1+1]],
+					{{0,0},{0,0}},
+				taus[[m]] >= ts[[n+1]],
+					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[v.((Exp[(taus[[m]]-ts[[n+1]])*d]-Exp[(taus[[m]]-ts[[n-1+1]])*d])*w)],
+				True,
+					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[c-v.(Exp[(taus[[m]]-ts[[n-1+1]])*d]*w)]
+			], 
+			{n,numInput}
+		], {m,numOutput}
+	]; (* index order (M,N,L,K) *)
+	phi=Transpose[phi,{1,3,2,4}]; (*index order (M,L,N,K)*)
+
+	(*The rest is no different than, eg, ConvolutionDistortion *)
+	With[{phimat=phi},
+		DistortionOperator[
+			Function[{pulse,computeJac},
+					Module[{jac=phimat,outputPulse},
+						outputPulse=AddTimeSteps[dtsOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
 						Which[
 							computeJac===True,
 							{outputPulse,jac},
@@ -2560,7 +2621,7 @@ ExportSHP[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
