@@ -135,7 +135,7 @@ Unprotect[
 	IQDistortion,
 	NonlinearTransferDistortion,
 	DEDistortion,DESolver,DESolverArgs,
-	LinearDEDistortion,
+	LinearDEDistortion,CompensationTimeSteps,DecayRatios,StateMetric,
 	FrequencySpaceDistortion,
 	CompositePulseDistortion
 ];
@@ -150,7 +150,7 @@ AssignUsage[
 		IQDistortion,
 		NonlinearTransferDistortion,
 		DEDistortion,DESolver,DESolverArgs,
-		LinearDEDistortion,
+		LinearDEDistortion,CompensationTimeSteps,DecayRatios,StateMetric,
 		FrequencySpaceDistortion,
 		CompositePulseDistortion
 	},
@@ -631,7 +631,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Distortions*)
 
 
@@ -1076,7 +1076,7 @@ NonlinearTransferDistortion[gainFcn_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Differential Equation Distortions*)
 
 
@@ -1118,88 +1118,51 @@ DEDistortion[deFn_, outputForm_,{solnSymbols__Symbol}, t_Symbol, min_, max_, \[D
 ]
 
 
-LinearDEDistortion[A_,b_,outputComponent_,numInput_,numOutput_,dtInput_,dtOutput_]:=Module[
-	{phi,nc,normA,d,U,c,u,v,w,t},
+Options[LinearDEDistortion]={
+	CompensationTimeSteps->None,
+	DecayRatios->Automatic,
+	StateMetric->Automatic
+};
 
-	(*Medium-efficiency implementation of discrete convolution tensor (phi) of the DE*)
-	(*We need to be careful not to do MatrixExp[-t*A] for positive t; this could lead
-	to numerical instability. In general, we want to group all of the matrix exponentials 
-	together *)
+
+LinearDEDistortion[A_,b_,outputComponent_,numInput_?IntegerQ,numOutput_?IntegerQ,dtInput_?NumericQ,dtOutput_?NumericQ,opt:OptionsPattern[]]:=LinearDEDistortion[A,b,outputComponent,ConstantArray[dtInput,numInput],ConstantArray[dtOutput,numOutput],opt]
+
+
+LinearDEDistortion[A_,b_,outputComponent_,dtsInput_List,dtsOutput_List,OptionsPattern[]]:=Module[
+	{phi,nc,normA,d,U,c,v,w,ts,taus,numInput,numOutput,dtsComp,P,compensationTimeStep,ratios},
 	nc=Length[A];
-	normA=Norm[A];
-	{d,U}=Eigensystem[A/normA];
-	d=normA*d; U=U\[Transpose];
 
-	w=Inverse[U].b/normA;
-	u=-UnitVector[nc,outputComponent].Inverse[A/normA];
-	c=u.b/normA;
-	v=u.(IdentityMatrix[nc]-MatrixExp[dtInput*A]).U;
-	u=u.U;
+	If[OptionValue[CompensationTimeSteps]=!=None,
+		(*For the sake of efficiency, we branch to a another function if we have to do compensation*)
+		dtsComp=OptionValue[CompensationTimeSteps];
+		P=OptionValue[StateMetric];
+		If[P===Automatic,P=DiagonalMatrix[UnitVector[nc,outputComponent]];];
+		ratios=OptionValue[DecayRatios];
+		If[ratios===Automatic,ratios=ConstantArray[0,Length@dtsComp]];
+		LinearDEDistortion[A,b,outputComponent,dtsInput,dtsOutput,dtsComp,ratios,P],
 
-	phi=Table[
-		t=(m-0.5)*dtOutput;
-		Table[
-			Which[
-				t < (n-1)*dtInput,
-					{{0,0},{0,0}},
-				t >= n*dtInput,
-					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[v.(Exp[(t-n*dtInput)*d]*w)],
-				True,
-					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[c-u.(Exp[(t-(n-1)*dtInput)*d]*w)]
-			], 
-			{n,numInput}
-		], {m,numOutput}
-	]; (* index order (M,N,L,K) *)
-	phi=Transpose[phi,{1,3,2,4}]; (*index order (M,L,N,K)*)
+		(*With no compensation, we do the following*)
+		numInput=Length@dtsInput;
+		numOutput=Length@dtsOutput;
+	
+		ts=Prepend[Accumulate[dtsInput],0];
+		taus=Accumulate[dtsOutput];
+		taus=(Most@Prepend[taus,0]+taus)/2;
 
-	(*The rest is no different than, eg, ConvolutionDistortion *)
-	With[{phimat=phi},
-		DistortionOperator[
-			Function[{pulse,computeJac},
-					Module[{jac=phimat,outputPulse},
-						outputPulse=AddTimeSteps[dtOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
-						Which[
-							computeJac===True,
-							{outputPulse,jac},
-							computeJac===False,
-							outputPulse,
-							computeJac===All,
-							{pulse,pulse,outputPulse}
-						]
-					]
-				],
-			Format[HoldForm[LinearDEDistortion[MatrixForm[A],MatrixForm[b]]]]
-		]
-	]
-]
+		(*Medium-efficiency implementation of discrete convolution tensor (phi) of the DE*)
+		(*We need to be careful not to do MatrixExp[-t*A] for positive t; this could lead
+		to numerical instability. In general, we want to group all of the matrix exponentials 
+		together *)
+		normA=Norm[A];
+		{d,U}=Eigensystem[A/normA];
+		d=normA*d; U=U\[Transpose];
 
+		w=Inverse[U].b/normA;
+		v=-UnitVector[nc,outputComponent].Inverse[A/normA];
+		c=v.b/normA;
+		v=v.U;
 
-Unprotect@LinearDEDistortion;
-LinearDEDistortion[A_,b_,outputComponent_,dtsInput_,dtsOutput_]:=Module[
-	{phi,nc,normA,d,U,c,v,w,ts,taus,numInput,numOutput},
-
-	numInput=Length@dtsInput;
-	numOutput=Length@dtsOutput;
-	ts=Prepend[Accumulate[dtsInput],0];
-	taus=Accumulate[dtsOutput];
-	taus=(Most@Prepend[taus,0]+taus)/2;
-
-	(*Medium-efficiency implementation of discrete convolution tensor (phi) of the DE*)
-	(*We need to be careful not to do MatrixExp[-t*A] for positive t; this could lead
-	to numerical instability. In general, we want to group all of the matrix exponentials 
-	together *)
-	nc=Length[A];
-	normA=Norm[A];
-	{d,U}=Eigensystem[A/normA];
-	d=normA*d; U=U\[Transpose];
-
-	w=Inverse[U].b/normA;
-	v=-UnitVector[nc,outputComponent].Inverse[A/normA];
-	c=v.b/normA;
-	v=v.U;
-
-	phi=Table[
-		Table[
+		phi=Table[
 			Which[
 				taus[[m]] < ts[[n-1+1]],
 					{{0,0},{0,0}},
@@ -1208,24 +1171,115 @@ LinearDEDistortion[A_,b_,outputComponent_,dtsInput_,dtsOutput_]:=Module[
 				True,
 					{{Re[#],-Im[#]},{Im[#],Re[#]}}&[c-v.(Exp[(taus[[m]]-ts[[n-1+1]])*d]*w)]
 			], 
-			{n,numInput}
-		], {m,numOutput}
-	]; (* index order (M,N,L,K) *)
+			{m,numOutput},{n,numInput}
+		]; (* index order (M,N,L,K) *)
+		phi=Transpose[phi,{1,3,2,4}]; (*index order (M,L,N,K)*)
+
+		(*The rest is no different than, eg, ConvolutionDistortion *)
+		With[{phimat=phi},
+			DistortionOperator[
+				Function[{pulse,computeJac},
+						Module[{jac=phimat,outputPulse},
+							outputPulse=AddTimeSteps[dtsOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
+							Which[
+								computeJac===True,
+								(*The compensation timesteps should not appear in in the jacobian*)
+								{outputPulse,jac[[All,All,1;;numInput,All]]},
+								computeJac===False,
+								outputPulse,
+								computeJac===All,
+								{pulse,pulse,outputPulse}
+							]
+						]
+					],
+				Format[HoldForm[LinearDEDistortion[MatrixForm[A],MatrixForm[b]]]]
+			]
+		]
+	]
+]
+
+
+(*This pattern is not documented; it should be accessed through the options*)
+LinearDEDistortion[A_,b_,outputComponent_,dtsInput_,dtsOutput_,dtsComp_List,ratios_List,P_?MatrixQ]:=Module[
+	{phi,deConv,nc,normA,Ainv,d,U,c,v,w,ts,taus,numInput,numOutput,numModInput,compensationTimeStep,AUs},
+
+	nc=Length[A];
+	numInput=Length@dtsInput;
+	numOutput=Length@dtsOutput;
+	numModInput=Length@dtsComp;
+	
+	ts=Prepend[Accumulate[Join[dtsInput,dtsComp]],0];
+	taus=Accumulate[dtsOutput];
+	taus=(Most@Prepend[taus,0]+taus)/2;
+
+	(*Medium-efficiency implementation of discrete convolution tensor (phi) of the DE*)
+	(*We need to be careful not to do MatrixExp[-t*A] for positive t; this could lead
+	to numerical instability. In general, we want to group all of the matrix exponentials 
+	together *)
+	normA=Norm[A];
+	{d,U}=Eigensystem[A/normA];
+	d=normA*d; U=U\[Transpose];
+	Ainv=Inverse[A/normA];
+
+	w=Inverse[U].b/normA;
+	c=-Ainv.b/normA;
+	v=-Ainv.U;
+
+	(*This array will solve for the tensor which solves the entire DE*)
+	deConv=Table[
+		Which[
+			taus[[m]] < ts[[n-1+1]],
+				ConstantArray[0,nc],
+			taus[[m]] >= ts[[n+1]],
+				v.((Exp[(taus[[m]]-ts[[n+1]])*d]-Exp[(taus[[m]]-ts[[n-1+1]])*d])*w),
+			True,
+				c-v.(Exp[(taus[[m]]-ts[[n-1+1]])*d]*w)
+		], 
+		{m,numOutput},{n,numInput+numModInput}
+	]; (* index order (M,N,nc) *)
+
+	(*We can pick out the component of interest to get the jacobian*)
+	phi=Map[{{Re[#],-Im[#]},{Im[#],Re[#]}}&,deConv[[All,All,outputComponent]],{2}]; (* index order (M,N,L,K) *)
 	phi=Transpose[phi,{1,3,2,4}]; (*index order (M,L,N,K)*)
 
+	(*We will only care about the last state, so throw out the rest of the tensor*)
+	deConv=deConv[[Position[taus-Total[dtsInput], _?Positive, 1, 1][[1, 1]], 1;;numInput,All]]\[Transpose]; (*index order (M,nc)*)
+
+	(*Good idea to precompute these*)
+	AUs=MatrixExp[#*A]&/@dtsComp;
+
 	(*The rest is no different than, eg, ConvolutionDistortion *)
-	With[{phimat=phi},
+	With[{phimat=phi,deConvMat=deConv,AUsMat=AUs},
 		DistortionOperator[
 			Function[{pulse,computeJac},
-					Module[{jac=phimat,outputPulse},
-						outputPulse=AddTimeSteps[dtsOutput, Normal@TensorPairContract[jac,pulse[[All,2;;]],{{3,1},{4,2}}]];
+					Module[{jac=phimat,AUsM=AUsMat,outputPulse,lastState,modInput,vv,ww,amp},
+						modInput=pulse;
+						(*Compute the full state of the DE at the end of numInput steps*)
+						lastState=deConvMat.(pulse[[All,2]]+I*pulse[[All,3]]);
+						(*Now loop through the compensation time steps and find the amplitude we need*)
+						Table[
+							With[{tmp1=Ainv.(IdentityMatrix[nc]-AUsM[[step]]).b/normA,tmp2=AUsM[[step]].lastState},
+								(*This projection finds the optimal compensation amplitude*)
+								vv=P.tmp1;
+								ww=P.(tmp2-ratios[[step]]*lastState);
+								amp=(vv.ww)/(vv.vv);
+								AppendTo[modInput,{dtsComp[[step]],Re[amp],Im[amp]}];
+								(*This computes the state at the end of the current compensation*)
+								lastState=tmp2-amp*tmp1;
+							],
+							{step,Length@dtsComp}
+						];
+
+						(*We have the modified input pulse, and so can compute the output pulse.*)
+						outputPulse=AddTimeSteps[dtsOutput, Normal@TensorPairContract[jac,modInput[[All,2;;]],{{3,1},{4,2}}]];
 						Which[
 							computeJac===True,
-							{outputPulse,jac},
+							(*The compensation timesteps should not appear in in the jacobian*)
+							{outputPulse,jac[[All,All,1;;numInput,All]]},
 							computeJac===False,
 							outputPulse,
 							computeJac===All,
-							{pulse,pulse,outputPulse}
+							{pulse,modInput,outputPulse}
 						]
 					]
 				],
@@ -2661,7 +2715,7 @@ Protect[
 	IQDistortion,
 	NonlinearTransferDistortion,
 	DEDistortion,DESolver,DESolverArgs,
-	LinearDEDistortion,
+	LinearDEDistortion,CompensationTimeSteps,DecayRatios,StateMetric,
 	FrequencySpaceDistortion,
 	CompositePulseDistortion
 ];
