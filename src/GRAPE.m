@@ -870,7 +870,7 @@ VariableChangeDistortion[changeFn_List,{variableSymbols__Symbol},OptionsPattern[
 						Transpose[#,{1,3,2,4}]&@Table[
 							(* Whenever m!=n, we get no derivative, ie, different time steps do not affect each other. *)
 							If[m==n,
-								subJacobian /. Thread[{variableSymbols}->pulse[[n, 2;;-1]]],
+								subjacVal /. Thread[{variableSymbols}->pulse[[n, 2;;-1]]],
 								ConstantArray[0,{Length@changeFn, Last@Dimensions@pulse-1}]
 							],
 							{m, Length@pulse}, {n, Length@pulse}
