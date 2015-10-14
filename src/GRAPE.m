@@ -631,7 +631,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Distortions*)
 
 
@@ -643,7 +643,7 @@ DistortionOperator[function_,___][args__]:=function[args]
 DistortionOperator/:Format[DistortionOperator[_,format_]]:=format
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Distortion Operator Tools*)
 
 
@@ -659,11 +659,11 @@ LiftDistortionRank[distortion_DistortionOperator]:=DistortionOperator[
 				jac = all[[All,2]];
 				If[Length@Dimensions@jac===3,
 					(* The user supplied Jacobian is a matrix for each channel; lift to rank 4. *)
-					jac = Transpose[ConstantArray[jac, controlRank], {2,4,1,3}];
+					jac = Transpose[Table[KroneckerDelta[in,out]*jac[[in,All,All]],{in,controlRank},{out,controlRank}], {4,2,1,3}];
 				];
 				If[Length@Dimensions@jac===5,
 					(* The user supplied Jacobian is rank 4 for each channel; remove singleton dimensions and repeat above procedure. *)
-					jac = Transpose[ConstantArray[jac[[All,All,1,All,1]], controlRank], {2,4,1,3}];
+					jac = Transpose[Table[KroneckerDelta[in,out]*jac[[in,All,1,All,1]],{in,controlRank},{out,controlRank}], {4,2,1,3}];
 				];
 			{d, jac}
 			],
