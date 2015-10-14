@@ -128,6 +128,7 @@ AssignUsage[
 
 
 Unprotect[
+	ApplyInverseDistortion,
 	LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,ScaleDistortion,
 	IdentityDistortion,
 	TimeScaleDistortion,VariableChangeDistortion,
@@ -143,6 +144,7 @@ Unprotect[
 
 AssignUsage[
 	{
+		ApplyInverseDistortion,
 		LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,ScaleDistortion,
 		IdentityDistortion,
 		TimeScaleDistortion,VariableChangeDistortion,
@@ -644,6 +646,23 @@ DistortionOperator/:Format[DistortionOperator[_,format_]]:=format
 
 
 (* ::Subsubsection:: *)
+(*Apply Inverse Distortion*)
+
+
+ApplyInverseDistortion[distortion_,exampleInput_,pulseMat_]:=Module[{p,jac,dM,dL,dN,dK},
+	p=pulseMat[[All,2;;-1]];
+	jac=Last[distortion[exampleInput,True]];
+	{dM,dL,dN,dK}=Dimensions[jac];
+	(* The idea here is to cast the contraction MLNK.NK over two indeces into regular
+		matrix multiplication so that we can use LinearSolve to do all of the work *)
+	AddTimeSteps[
+		exampleInput[[All,1]],
+		ArrayReshape[LinearSolve[ArrayReshape[jac,{dM*dL,dN*dK}],ArrayReshape[p,{dM*dL,1}]],{dN,dK}]
+	]
+]
+
+
+(* ::Subsubsection::Closed:: *)
 (*Distortion Operator Tools*)
 
 
@@ -2750,6 +2769,7 @@ Protect[
 
 
 Protect[
+	ApplyInverseDistortion,
 	LiftDistortionRank,JoinDistortions,ComposeDistortions,PerturbateDistortion,ScaleDistortion,
 	IdentityDistortion,
 	TimeScaleDistortion,VariableChangeDistortion,
