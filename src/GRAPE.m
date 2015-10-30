@@ -168,6 +168,7 @@ Unprotect[
 	IdentityDistribution,
 	ParameterDistributionMean,
 	ProductParameterDistribution,
+	HistogramParameterDistribution,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 	UniformParameterDistribution,
 	TargetSelectorDistribution
@@ -179,6 +180,7 @@ AssignUsage[
 		IdentityDistribution,
 		ParameterDistributionMean,
 		ProductParameterDistribution,
+		HistogramParameterDistribution,
 		RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 		UniformParameterDistribution,
 		TargetSelectorDistribution
@@ -633,7 +635,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Distortions*)
 
 
@@ -645,7 +647,7 @@ DistortionOperator[function_,___][args__]:=function[args]
 DistortionOperator/:Format[DistortionOperator[_,format_]]:=format
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Apply Inverse Distortion*)
 
 
@@ -1445,6 +1447,17 @@ RandomSampleParameterDistribution[probDist_,symbols_,n_]:=Module[{Distribution,s
 
 RandomMultinormalParameterDistribution[\[Mu]_,\[CapitalSigma]_,symbols_,n_]:=RandomSampleParameterDistribution[MultinormalDistribution[\[Mu],If[MatrixQ[\[CapitalSigma]],\[CapitalSigma],DiagonalMatrix[\[CapitalSigma]^2]]],symbols,n]
 RandomUniformParameterDistribution[minsAndMaxes_,symbols_,n_]:=RandomSampleParameterDistribution[UniformDistribution[Evaluate@minsAndMaxes],symbols,n]
+
+
+HistogramParameterDistribution[parameter_,distribution_,range_,numSamples_]:=Module[
+	{variates,probs,binLimits},
+		variates=RandomVariate[distribution,numSamples];
+		{binLimits,probs}=HistogramList[variates,range,"Probability"];
+		{
+			probs,
+			{parameter->#}&/@N[Mean/@Partition[binLimits,2,1]]
+		}
+	]
 
 
 UniformParameterDistribution[rules__Rule]:=Module[{symbols,means,widths,nums,values},
@@ -2787,6 +2800,7 @@ Protect[
 	IdentityDistribution,
 	ParameterDistributionMean,
 	ProductParameterDistribution,
+	HistogramParameterDistribution,
 	RandomSampleParameterDistribution,RandomMultinormalParameterDistribution,RandomUniformParameterDistribution,
 	UniformParameterDistribution,
 	TargetSelectorDistribution
