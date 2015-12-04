@@ -582,32 +582,34 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
 (*Matrix Bases*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Named Bases*)
 
 
 $POBasis=(PauliMatrix/@Range[0,3]);
 $PauliBasis=(PauliMatrix/@Range[0,3])/Sqrt[2];
+$WeylBasis[d_]:=Flatten[Table[RotateLeft[DiagonalMatrix[Table[Exp[2\[Pi]*I*n*b/d],{n,0,d-1}]],a],{a,0,d-1},{b,0,d-1}],1];
 
 
-$NamedBasis={"Pauli"->$PauliBasis,"PO"->$POBasis};
+$NamedBasis={"Pauli"->$PauliBasis,"PO"->$POBasis,"Weyl"[d_]:>$WeylBasis[d]};
 
 
 CheckNamedBasis[basis_]:=
-	If[MemberQ[Keys[$NamedBasis],basis],
+	If[(basis/.Thread[RuleDelayed[Keys[$NamedBasis],True]])===True,
 		basis/.$NamedBasis,
 		basis]
 
 
 $POBasisLabels={"I","X","Y","Z"};
 $PauliBasisLabels={"I","X","Y","Z"}/Sqrt[2];
+$WeylBasisLabels[d_]:=Flatten[Table["W["<>ToString[a]<>","<>ToString[b]<>"]",{a,0,d-1},{b,0,d-1}],1]
 
 
-$NamedBasisLabels={"Pauli"->$PauliBasisLabels,"PO"->$POBasisLabels};
+$NamedBasisLabels={"Pauli"->$PauliBasisLabels,"PO"->$POBasisLabels,"Weyl"[d_]:>$WeylBasisLabels[d]};
 
 
 CheckNamedBasisLabels[basis_]:=
-	If[MemberQ[Keys[$NamedBasisLabels],basis],
+	If[(basis/.Thread[RuleDelayed[Keys[$NamedBasisLabels],True]])===True,
 		basis/.$NamedBasisLabels,
 		basis]
 
