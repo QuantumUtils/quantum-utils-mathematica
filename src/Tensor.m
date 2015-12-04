@@ -594,8 +594,12 @@ $WeylBasis[d_]:=Flatten[Table[RotateLeft[DiagonalMatrix[Table[Exp[2\[Pi]*I*n*b/d
 $NamedBasis={"Pauli"->$PauliBasis,"PO"->$POBasis,"Weyl"[d_]:>$WeylBasis[d]};
 
 
+(*We need to be fancier than MemberQ because of possible dimension arguments*)
+NamedBasisMemberQ[basis_]:=(basis/.Thread[RuleDelayed[Keys[$NamedBasis],True]])===True
+
+
 CheckNamedBasis[basis_]:=
-	If[(basis/.Thread[RuleDelayed[Keys[$NamedBasis],True]])===True,
+	If[NamedBasisMemberQ[basis],
 		basis/.$NamedBasis,
 		basis]
 
@@ -608,8 +612,12 @@ $WeylBasisLabels[d_]:=Flatten[Table["W["<>ToString[a]<>","<>ToString[b]<>"]",{a,
 $NamedBasisLabels={"Pauli"->$PauliBasisLabels,"PO"->$POBasisLabels,"Weyl"[d_]:>$WeylBasisLabels[d]};
 
 
+(*We need to be fancier than MemberQ because of possible dimension arguments*)
+NamedBasisLabelsMemberQ[basis_]:=(basis/.Thread[RuleDelayed[Keys[$NamedBasisLabels],True]])===True
+
+
 CheckNamedBasisLabels[basis_]:=
-	If[(basis/.Thread[RuleDelayed[Keys[$NamedBasisLabels],True]])===True,
+	If[NamedBasisLabelsMemberQ[basis],
 		basis/.$NamedBasisLabels,
 		basis]
 
@@ -713,7 +721,7 @@ BasisImplimentation[fn_String,args__,opts:OptionsPattern[Vec]]:=
 		Which[
 			basis==="Col",funcs[[1]][args],
 			basis==="Row",funcs[[2]][args],
-			MemberQ[Keys[$NamedBasis],basis],funcs[[3]][(basis/.$NamedBasis),args],
+			NamedBasisMemberQ[basis],funcs[[3]][(basis/.$NamedBasis),args],
 			True,funcs[[3]][basis,args]]]
 
 
@@ -771,7 +779,7 @@ BasisMatrix[Rule["Col",basis_],arg___]:=
 	Which[
 		basis==="Row",BasisMatrixCol["Row",arg],
 		ListQ[basis],BasisMatrixCol[basis,arg],
-		MemberQ[Keys[$NamedBasis],basis],BasisMatrixCol[basis/.$NamedBasis,arg],
+		NamedBasisMemberQ[basis],BasisMatrixCol[basis/.$NamedBasis,arg],
 		True,Message[BasisMatrix::input]
 	]
 BasisMatrix[Rule[basis_,"Col"],arg___]:=ConjugateTranspose@BasisMatrix[Rule["Col",basis],arg]
@@ -803,7 +811,7 @@ BasisMatrixColList[basis_List,op_]:=
 
 
 BasisMatrixColList[basis_,op_]:=
-	If[MemberQ[Keys[$NamedBasis],basis],
+	If[NamedBasisMemberQ[basis],
 		BasisMatrixColList[basis/.$NamedBasis,op],
 		Message[BasisMatrix::keys]
 	]
