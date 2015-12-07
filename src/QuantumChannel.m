@@ -36,7 +36,7 @@ Needs["QuantumSystems`"]
 $QuantumChannelUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumChannel.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declarations*)
 
 
@@ -66,10 +66,10 @@ AssignUsage[ChannelParameters,$QuantumChannelUsages];
 
 
 (* ::Subsection::Closed:: *)
-(*Channel Functions*)
+(*Channel Functions and Metrics*)
 
 
-Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume, Unitarity];
+Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume,Unitarity,DiamondNormDistance];
 
 
 AssignUsage[ProcessFidelity,$QuantumChannelUsages];
@@ -215,7 +215,7 @@ CompletelyPositiveQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]
 		choi=First[Choi[chan]],
 		assum=And[$Assumptions,OptionValue[Assumptions]],
 		eigen,boole},
-	If[NumericQ[choi],	
+	If[AllQ[NumericQ,Flatten[choi]],	
 		PositiveSemidefiniteMatrixQ[choi,Tolerance->10^(-12)],
 		eigen=Simplify[Eigenvalues[choi],Assumptions->assum];
 		boole=FullSimplify[And@@NonNegative[eigen],Assumptions->assum];
@@ -239,12 +239,11 @@ HermitianPreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ
 
 TracePreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 	With[{
-	op=PartialTr[
-			First[Choi[chan,Basis->"Col"]],
-			{InputDim[chan],OutputDim[chan]},{2}],
-	assum=And[$Assumptions,OptionValue[Assumptions]],
-	id=IdentityMatrix[InputDim[chan]]},
-		AllMatchQ[0,
+		op=PartialTr[First[Choi[chan,Basis->"Col"]],{InputDim[chan],OutputDim[chan]},{2}],
+		assum=And[$Assumptions,OptionValue[Assumptions]],
+		id=IdentityMatrix[InputDim[chan]]
+	},
+		AllQ[FullSimplify[#*#\[Conjugate],Assumptions->assum]<10.^-12&,
 			FullSimplify[Flatten[op-id],Assumptions->assum]
 		]		
 	]
@@ -254,15 +253,14 @@ TracePreservingQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=
 UnitaryQ[chan_QuantumChannel,opts:OptionsPattern[CompletelyPositiveQ]]:=Or[
 	(ChannelRep/.ChannelParameters[chan])===Unitary,
 	And[
-		TracePreservingQ[chan,opts],
-		CompletelyPositiveQ[chan,opts],
-		With[{
-			choi=First[Choi[chan]],
-			assum=And[$Assumptions,OptionValue[Assumptions]]},		
-			Assuming[assum,
-				MatrixRank[choi]==1
+		TracePreservingQ[chan,Assumptions->OptionValue[Assumptions]],
+		Module[{unitarity=FullSimplify[Unitarity[chan],And[$Assumptions,OptionValue[Assumptions]]]},
+			If[NumericQ[unitarity],
+				Abs[unitarity-1]<10^-12,
+				TrueQ[unitarity==1]
 			]
-		]
+		],
+		CompletelyPositiveQ[chan,Assumptions->OptionValue[Assumptions]]
 	]
 ];
 
@@ -1036,7 +1034,7 @@ Evaluate[Map[(
 
 
 (* ::Subsection::Closed:: *)
-(*Fidelity and Volume*)
+(*Channel Functions and Metrics*)
 
 
 ChannelVolume[chan_QuantumChannel]:=Det[MatrixPower[Part[Super[chan,Basis->"Pauli"],1,2;;All,2;;All],1/2]];
@@ -1080,10 +1078,27 @@ EntanglementFidelity[state_,chan1_QuantumChannel,chan2_QuantumChannel]:=Entangle
 
 Unitarity[chan_QuantumChannel] :=
 	With[{
-		Eu = First[Super[chan, Basis -> "Pauli"]][[2;;, 2;;]]
+		Eu = First[Super[chan, Basis -> "Weyl"[InputDim[chan]]]][[2;;, 2;;]]
 	},
-	Tr[Eu\[HermitianConjugate].Eu] / (First @ Dimensions @ Eu)
+	Chop[Tr[Eu\[HermitianConjugate].Eu]] / (First @ Dimensions @ Eu)
 ]
+
+
+DiamondNormDistance[U_?SquareMatrixQ]:=Module[{eiglist, minangle},
+	eiglist = Sort[Arg[Eigenvalues[U]]];
+	minangle = Min[\[Pi],2\[Pi]-Max@Differences[{##, #1 + 2 \[Pi]} & @@ eiglist]];
+	2*Sin[minangle/2]
+];
+DiamondNormDistance[U_?SquareMatrixQ,V_?SquareMatrixQ]:=DiamondNormDistance[U\[ConjugateTranspose].V]
+GetFirstKraus[chan_]:=If[
+	ChannelRep[chan]===Unitary,
+	First@chan,
+	With[{K=First@Kraus@chan},
+		If[KrausSingleQ[K],First@K,First@First@K]
+	]
+]
+DiamondNormDistance[U_QuantumChannel?UnitaryQ]:=DiamondNormDistance@GetFirstKraus[U]
+DiamondNormDistance[U_QuantumChannel?UnitaryQ,V_QuantumChannel?UnitaryQ]:=DiamondNormDistance[GetFirstKraus[U],GetFirstKraus[V]]
 
 
 (* ::Subsection::Closed:: *)
@@ -1193,7 +1208,7 @@ End[];
 
 Protect[Choi,Super,Chi,Kraus,Stinespring,Unitary,SysEnv];
 Protect[QuantumChannel,ChannelRep,InputDim,OutputDim,Basis];
-Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume];
+Unprotect[GateFidelity,AverageGateFidelity,EntanglementFidelity,ChannelVolume,Unitarity,DiamondNormDistance];
 Protect[CompletelyPositiveQ,TracePreservingQ,HermitianPreservingQ,UnitaryQ,UnitalQ,PauliChannelQ];
 Unprotect[ComChannel,AComChannel,LindbladDissipator,Lindblad,PartialTrChannel,FunctionChannel];
 

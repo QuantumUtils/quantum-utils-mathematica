@@ -876,7 +876,7 @@ TestCase[$RegisteredTests,"QuantumChannel:SimplifyFunctions",
 
 
 (* ::Subsection::Closed:: *)
-(*Channel Functions*)
+(*Channel Functions and Metrics*)
 
 
 Module[{a,b,chan1,chan2},
@@ -921,6 +921,13 @@ TestCase[$RegisteredTests,"QuantumChannel:EntanglementFidelity",
 	]]];
 
 ];
+
+
+TestCase[$RegisteredTests, "QuantumChannel:DiamondNormDistance",
+	And[
+		Module[{\[Theta]},FullSimplify[DiamondNormDistance[Unitary[MatrixExp[-I \[Theta] {{0,1},{1,0}}/2]]]-2*Sin[\[Theta]/2],Assumptions->0<=\[Theta]<2\[Pi]]==0]
+	]
+]
 
 
 TestCase[$RegisteredTests, "QuantumChannel:Unitarity",
