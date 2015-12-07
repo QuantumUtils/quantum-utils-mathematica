@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    299425,       9407]
-NotebookOptionsPosition[    274882,       8609]
-NotebookOutlinePosition[    279395,       8742]
-CellTagsIndexPosition[    278223,       8709]
+NotebookDataLength[    300843,       9463]
+NotebookOptionsPosition[    276301,       8665]
+NotebookOutlinePosition[    280813,       8798]
+CellTagsIndexPosition[    279641,       8765]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -4818,7 +4818,7 @@ Cell[TextData[{
  StyleBox["\[OpenCurlyDoubleQuote]Weyl\[CloseCurlyDoubleQuote][d]", "Input"],
  " for the dimension ",
  StyleBox["d", "Input"],
- " Weyl basis\n\n",
+ " normalized Weyl basis\n\n",
  StyleBox["Basis[", "Input"],
  StyleBox["basis", "Input",
   FontWeight->"Plain",
@@ -4835,7 +4835,8 @@ operators if it is a named basis string. "
  CellChangeTimes->{{3.6343111181549892`*^9, 3.634311128056398*^9}, {
   3.6343186498517714`*^9, 3.634318651337723*^9}, {3.6343285183123293`*^9, 
   3.634328761875929*^9}, {3.634328914570189*^9, 3.634328956619102*^9}, {
-  3.6582422708977833`*^9, 3.658242298264565*^9}},
+  3.6582422708977833`*^9, 3.658242298264565*^9}, {3.65824415296458*^9, 
+  3.658244154307097*^9}},
  CellTags->"Basis::usage"],
 
 Cell[CellGroupData[{
@@ -5315,20 +5316,20 @@ Cell[TextData[{
   FormBox[
    RowBox[{
     SuperscriptBox["U", "a"], 
-    SuperscriptBox["V", "b"]}], TraditionalForm]],
-  FormatType->"TraditionalForm"],
+    RowBox[{
+     SuperscriptBox["V", "b"], "/", 
+     SqrtBox["d"]}]}], TraditionalForm]]],
  " for all powers a=0,..,d-1 and b=0,..,d-1 where ",
  Cell[BoxData[
-  FormBox["U", TraditionalForm]],
-  FormatType->"TraditionalForm"],
+  FormBox["U", TraditionalForm]]],
  " and ",
  Cell[BoxData[
-  FormBox["V", TraditionalForm]],
-  FormatType->"TraditionalForm"],
+  FormBox["V", TraditionalForm]]],
  " are defined as:"
 }], "Text",
  CellChangeTimes->{{3.658242347486588*^9, 3.658242387831071*^9}, {
-   3.658242449302395*^9, 3.658242467485632*^9}, 3.658242858259571*^9}],
+   3.658242449302395*^9, 3.658242467485632*^9}, 3.658242858259571*^9, {
+   3.6582441239644117`*^9, 3.658244130978009*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -5370,34 +5371,15 @@ Cell[BoxData[
   RowBox[{
    TagBox[
     RowBox[{"(", "\[NoBreak]", GridBox[{
-       {"1", "0", "0"},
-       {"0", "1", "0"},
-       {"0", "0", "1"}
-      },
-      GridBoxAlignment->{
-       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
-      GridBoxSpacings->{"Columns" -> {
-          Offset[0.27999999999999997`], {
-           Offset[0.7]}, 
-          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-          Offset[0.2], {
-           Offset[0.4]}, 
-          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
-    Function[BoxForm`e$, 
-     MatrixForm[BoxForm`e$]]], ",", 
-   TagBox[
-    RowBox[{"(", "\[NoBreak]", GridBox[{
-       {"1", "0", "0"},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"},
        {"0", 
-        SuperscriptBox["\[ExponentialE]", 
-         FractionBox[
-          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], "0"},
+        FractionBox["1", 
+         SqrtBox["3"]], "0"},
        {"0", "0", 
-        SuperscriptBox["\[ExponentialE]", 
-         RowBox[{"-", 
-          FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]]}
+        FractionBox["1", 
+         SqrtBox["3"]]}
       },
       GridBoxAlignment->{
        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
@@ -5413,16 +5395,22 @@ Cell[BoxData[
      MatrixForm[BoxForm`e$]]], ",", 
    TagBox[
     RowBox[{"(", "\[NoBreak]", GridBox[{
-       {"1", "0", "0"},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"},
        {"0", 
-        SuperscriptBox["\[ExponentialE]", 
-         RowBox[{"-", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
           FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], "0"},
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], 
+         SqrtBox["3"]], "0"},
        {"0", "0", 
-        SuperscriptBox["\[ExponentialE]", 
-         FractionBox[
-          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]]}
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], 
+         SqrtBox["3"]]}
       },
       GridBoxAlignment->{
        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
@@ -5438,34 +5426,22 @@ Cell[BoxData[
      MatrixForm[BoxForm`e$]]], ",", 
    TagBox[
     RowBox[{"(", "\[NoBreak]", GridBox[{
-       {"0", "1", "0"},
-       {"0", "0", "1"},
-       {"1", "0", "0"}
-      },
-      GridBoxAlignment->{
-       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
-      GridBoxSpacings->{"Columns" -> {
-          Offset[0.27999999999999997`], {
-           Offset[0.7]}, 
-          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-          Offset[0.2], {
-           Offset[0.4]}, 
-          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
-    Function[BoxForm`e$, 
-     MatrixForm[BoxForm`e$]]], ",", 
-   TagBox[
-    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"},
        {"0", 
-        SuperscriptBox["\[ExponentialE]", 
-         FractionBox[
-          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], "0"},
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], 
+         SqrtBox["3"]], "0"},
        {"0", "0", 
-        SuperscriptBox["\[ExponentialE]", 
-         RowBox[{"-", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
           FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]]},
-       {"1", "0", "0"}
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], 
+         SqrtBox["3"]]}
       },
       GridBoxAlignment->{
        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
@@ -5482,15 +5458,14 @@ Cell[BoxData[
    TagBox[
     RowBox[{"(", "\[NoBreak]", GridBox[{
        {"0", 
-        SuperscriptBox["\[ExponentialE]", 
-         RowBox[{"-", 
-          FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], "0"},
+        FractionBox["1", 
+         SqrtBox["3"]], "0"},
        {"0", "0", 
-        SuperscriptBox["\[ExponentialE]", 
-         FractionBox[
-          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]]},
-       {"1", "0", "0"}
+        FractionBox["1", 
+         SqrtBox["3"]]},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"}
       },
       GridBoxAlignment->{
        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
@@ -5506,34 +5481,53 @@ Cell[BoxData[
      MatrixForm[BoxForm`e$]]], ",", 
    TagBox[
     RowBox[{"(", "\[NoBreak]", GridBox[{
-       {"0", "0", "1"},
-       {"1", "0", "0"},
-       {"0", "1", "0"}
-      },
-      GridBoxAlignment->{
-       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
-      GridBoxSpacings->{"Columns" -> {
-          Offset[0.27999999999999997`], {
-           Offset[0.7]}, 
-          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-          Offset[0.2], {
-           Offset[0.4]}, 
-          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
-    Function[BoxForm`e$, 
-     MatrixForm[BoxForm`e$]]], ",", 
-   TagBox[
-    RowBox[{"(", "\[NoBreak]", GridBox[{
-       {"0", "0", 
-        SuperscriptBox["\[ExponentialE]", 
-         RowBox[{"-", 
-          FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]]},
-       {"1", "0", "0"},
        {"0", 
-        SuperscriptBox["\[ExponentialE]", 
-         FractionBox[
-          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], "0"}
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          FractionBox[
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], 
+         SqrtBox["3"]], "0"},
+       {"0", "0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], 
+         SqrtBox["3"]]},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]], ",", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], 
+         SqrtBox["3"]], "0"},
+       {"0", "0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          FractionBox[
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], 
+         SqrtBox["3"]]},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"}
       },
       GridBoxAlignment->{
        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
@@ -5550,15 +5544,76 @@ Cell[BoxData[
    TagBox[
     RowBox[{"(", "\[NoBreak]", GridBox[{
        {"0", "0", 
-        SuperscriptBox["\[ExponentialE]", 
-         FractionBox[
-          RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]]},
-       {"1", "0", "0"},
+        FractionBox["1", 
+         SqrtBox["3"]]},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"},
        {"0", 
-        SuperscriptBox["\[ExponentialE]", 
-         RowBox[{"-", 
+        FractionBox["1", 
+         SqrtBox["3"]], "0"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]], ",", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"0", "0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], 
+         SqrtBox["3"]]},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"},
+       {"0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
           FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], "0"}
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], 
+         SqrtBox["3"]], "0"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]], ",", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"0", "0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          FractionBox[
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]], 
+         SqrtBox["3"]]},
+       {
+        FractionBox["1", 
+         SqrtBox["3"]], "0", "0"},
+       {"0", 
+        FractionBox[
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"-", 
+           FractionBox[
+            RowBox[{"2", " ", "\[ImaginaryI]", " ", "\[Pi]"}], "3"]}]], 
+         SqrtBox["3"]], "0"}
       },
       GridBoxAlignment->{
        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
@@ -5576,7 +5631,7 @@ Cell[BoxData[
   3.658241439977421*^9, 3.658242084883539*^9, {3.658242135366235*^9, 
    3.658242147798822*^9}, {3.658242207569419*^9, 3.65824222979673*^9}, 
    3.658242263252007*^9, 3.6582425095696707`*^9, 3.6582428152705097`*^9, 
-   3.658242866893631*^9}]
+   3.658242866893631*^9, 3.65824414096014*^9}]
 }, Open  ]]
 }, Closed]],
 
@@ -5853,7 +5908,7 @@ multipartite system with ",
  StyleBox["\[OpenCurlyDoubleQuote]Weyl\[CloseCurlyDoubleQuote][d]", "Input"],
  " for the dimension ",
  StyleBox["d", "Input"],
- " Weyl basis\n\n",
+ " normalized Weyl basis\n\n",
  StyleBox["Options",
   FontWeight->"Bold",
   FontSlant->"Italic",
@@ -5912,7 +5967,8 @@ returned as a list ",
   3.634311123104019*^9, {3.6343186537641172`*^9, 3.634318655298319*^9}, {
    3.634328796250102*^9, 3.6343288898478327`*^9}, {3.638287344838895*^9, 
    3.638287593283258*^9}, {3.638288457970565*^9, 3.6382884977811737`*^9}, {
-   3.658242537791894*^9, 3.658242540695698*^9}},
+   3.658242537791894*^9, 3.658242540695698*^9}, {3.658244166973588*^9, 
+   3.658244168173009*^9}},
  CellTags->"BasisLabels::usage"],
 
 Cell[CellGroupData[{
@@ -8608,7 +8664,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{873, 998},
-WindowMargins->{{219, Automatic}, {Automatic, -10}},
+WindowMargins->{{393, Automatic}, {Automatic, 52}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (December 4, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -8617,126 +8673,126 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "ACom::usage"->{
-  Cell[31569, 1046, 3428, 141, 74, "Text",
-   CellTags->"ACom::usage"]},
- "BasisLabels::usage"->{
-  Cell[179623, 5815, 3230, 100, 320, "Text",
-   CellTags->"BasisLabels::usage"]},
- "BasisMatrix::usage"->{
-  Cell[252227, 8009, 3385, 95, 178, "Text",
-   CellTags->"BasisMatrix::usage"]},
- "BasisTransformation::usage"->{
-  Cell[255615, 8106, 1482, 45, 74, "Text",
-   CellTags->"BasisTransformation::usage"]},
- "Basis::usage"->{
-  Cell[143946, 4760, 2525, 78, 215, "Text",
-   CellTags->"Basis::usage"]},
- "BlockMatrix::usage"->{
-  Cell[22248, 698, 538, 17, 32, "Text",
-   CellTags->"BlockMatrix::usage"]},
  "CircleTimes::usage"->{
   Cell[2856, 87, 2459, 81, 213, "Text",
    CellTags->"CircleTimes::usage"]},
- "Com::usage"->{
-  Cell[28058, 901, 3508, 143, 74, "Text",
-   CellTags->"Com::usage"]},
- "Devec::usage"->{
-  Cell[236288, 7496, 1688, 49, 155, "Text",
-   CellTags->"Devec::usage"]},
- "ExpressInBasis::usage"->{
-  Cell[201169, 6431, 2561, 82, 259, "Text",
-   CellTags->"ExpressInBasis::usage"]},
  "IdentityMatrixShorthand::usage"->{
   Cell[9113, 288, 1579, 40, 74, "Text",
    CellTags->"IdentityMatrixShorthand::usage"]},
- "MatrixContract::usage"->{
-  Cell[135845, 4475, 1859, 65, 133, "Text",
-   CellTags->"MatrixContract::usage"]},
- "MatrixPairContract::usage"->{
-  Cell[139958, 4621, 1871, 67, 135, "Text",
-   CellTags->"MatrixPairContract::usage"]},
+ "TensorFactorPermutations::usage"->{
+  Cell[12879, 400, 1756, 59, 114, "Text",
+   CellTags->"TensorFactorPermutations::usage"]},
+ "SwapMatrix::usage"->{
+  Cell[18822, 574, 1967, 72, 175, "Text",
+   CellTags->"SwapMatrix::usage"]},
+ "BlockMatrix::usage"->{
+  Cell[22248, 698, 538, 17, 32, "Text",
+   CellTags->"BlockMatrix::usage"]},
+ "UnitArray::usage"->{
+  Cell[25398, 805, 1195, 43, 74, "Text",
+   CellTags->"UnitArray::usage"]},
+ "Com::usage"->{
+  Cell[28058, 901, 3508, 143, 74, "Text",
+   CellTags->"Com::usage"]},
+ "ACom::usage"->{
+  Cell[31569, 1046, 3428, 141, 74, "Text",
+   CellTags->"ACom::usage"]},
+ "OuterProduct::usage"->{
+  Cell[37517, 1273, 1955, 67, 114, "Text",
+   CellTags->"OuterProduct::usage"]},
+ "Projector::usage"->{
+  Cell[54491, 1829, 1522, 51, 152, "Text",
+   CellTags->"Projector::usage"]},
+ "TP::usage"->{
+  Cell[69841, 2255, 3801, 106, 439, "Text",
+   CellTags->"TP::usage"]},
  "MatrixToTensor::usage"->{
   Cell[80155, 2571, 2617, 103, 175, "Text",
    CellTags->"MatrixToTensor::usage"]},
  "MatrixTranspose::usage"->{
   Cell[89312, 2894, 1325, 37, 136, "Text",
    CellTags->"MatrixTranspose::usage"]},
- "OuterProduct::usage"->{
-  Cell[37517, 1273, 1955, 67, 114, "Text",
-   CellTags->"OuterProduct::usage"]},
- "PartialTr::usage"->{
-  Cell[125307, 4116, 2042, 70, 135, "Text",
-   CellTags->"PartialTr::usage"]},
- "ProductIdentity::usage"->{
-  Cell[243396, 7725, 2100, 67, 155, "Text",
-   CellTags->"ProductIdentity::usage"]},
- "Projector::usage"->{
-  Cell[54491, 1829, 1522, 51, 152, "Text",
-   CellTags->"Projector::usage"]},
- "Reravel::usage"->{
-  Cell[121716, 3985, 2360, 86, 154, "Text",
-   CellTags->"Reravel::usage"]},
- "Reshuffle::usage"->{
-  Cell[108914, 3559, 3277, 111, 315, "Text",
-   CellTags->"Reshuffle::usage"]},
- "SwapMatrix::usage"->{
-  Cell[18822, 574, 1967, 72, 175, "Text",
-   CellTags->"SwapMatrix::usage"]},
  "Swap::usage"->{
   Cell[96813, 3138, 3005, 118, 154, "Text",
    CellTags->"Swap::usage"]},
- "TensorFactorPermutations::usage"->{
-  Cell[12879, 400, 1756, 59, 114, "Text",
-   CellTags->"TensorFactorPermutations::usage"]},
- "TensorPairContract::usage"->{
-  Cell[132983, 4370, 1417, 52, 74, "Text",
-   CellTags->"TensorPairContract::usage"]},
- "TP::usage"->{
-  Cell[69841, 2255, 3801, 106, 439, "Text",
-   CellTags->"TP::usage"]},
- "UnitArray::usage"->{
-  Cell[25398, 805, 1195, 43, 74, "Text",
-   CellTags->"UnitArray::usage"]},
+ "Reshuffle::usage"->{
+  Cell[108914, 3559, 3277, 111, 315, "Text",
+   CellTags->"Reshuffle::usage"]},
  "Unravel::usage"->{
   Cell[116200, 3798, 2935, 105, 213, "Text",
    CellTags->"Unravel::usage"]},
+ "Reravel::usage"->{
+  Cell[121716, 3985, 2360, 86, 154, "Text",
+   CellTags->"Reravel::usage"]},
+ "PartialTr::usage"->{
+  Cell[125307, 4116, 2042, 70, 135, "Text",
+   CellTags->"PartialTr::usage"]},
+ "TensorPairContract::usage"->{
+  Cell[132983, 4370, 1417, 52, 74, "Text",
+   CellTags->"TensorPairContract::usage"]},
+ "MatrixContract::usage"->{
+  Cell[135845, 4475, 1859, 65, 133, "Text",
+   CellTags->"MatrixContract::usage"]},
+ "MatrixPairContract::usage"->{
+  Cell[139958, 4621, 1871, 67, 135, "Text",
+   CellTags->"MatrixPairContract::usage"]},
+ "Basis::usage"->{
+  Cell[143946, 4760, 2584, 79, 215, "Text",
+   CellTags->"Basis::usage"]},
+ "BasisLabels::usage"->{
+  Cell[180981, 5870, 3291, 101, 320, "Text",
+   CellTags->"BasisLabels::usage"]},
+ "ExpressInBasis::usage"->{
+  Cell[202588, 6487, 2561, 82, 259, "Text",
+   CellTags->"ExpressInBasis::usage"]},
  "Vec::usage"->{
-  Cell[227434, 7212, 1718, 50, 155, "Text",
-   CellTags->"Vec::usage"]}
+  Cell[228853, 7268, 1718, 50, 155, "Text",
+   CellTags->"Vec::usage"]},
+ "Devec::usage"->{
+  Cell[237707, 7552, 1688, 49, 155, "Text",
+   CellTags->"Devec::usage"]},
+ "ProductIdentity::usage"->{
+  Cell[244815, 7781, 2100, 67, 155, "Text",
+   CellTags->"ProductIdentity::usage"]},
+ "BasisMatrix::usage"->{
+  Cell[253646, 8065, 3385, 95, 178, "Text",
+   CellTags->"BasisMatrix::usage"]},
+ "BasisTransformation::usage"->{
+  Cell[257034, 8162, 1482, 45, 74, "Text",
+   CellTags->"BasisTransformation::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ACom::usage", 275174, 8619},
- {"BasisLabels::usage", 275272, 8622},
- {"BasisMatrix::usage", 275379, 8625},
- {"BasisTransformation::usage", 275493, 8628},
- {"Basis::usage", 275600, 8631},
- {"BlockMatrix::usage", 275700, 8634},
- {"CircleTimes::usage", 275802, 8637},
- {"Com::usage", 275896, 8640},
- {"Devec::usage", 275986, 8643},
- {"ExpressInBasis::usage", 276089, 8646},
- {"IdentityMatrixShorthand::usage", 276210, 8649},
- {"MatrixContract::usage", 276327, 8652},
- {"MatrixPairContract::usage", 276443, 8655},
- {"MatrixToTensor::usage", 276559, 8658},
- {"MatrixTranspose::usage", 276672, 8661},
- {"OuterProduct::usage", 276782, 8664},
- {"PartialTr::usage", 276886, 8667},
- {"ProductIdentity::usage", 276994, 8670},
- {"Projector::usage", 277102, 8673},
- {"Reravel::usage", 277201, 8676},
- {"Reshuffle::usage", 277301, 8679},
- {"SwapMatrix::usage", 277405, 8682},
- {"Swap::usage", 277501, 8685},
- {"TensorFactorPermutations::usage", 277613, 8688},
- {"TensorPairContract::usage", 277737, 8691},
- {"TP::usage", 277840, 8694},
- {"UnitArray::usage", 277935, 8697},
- {"Unravel::usage", 278032, 8700},
- {"Vec::usage", 278127, 8703}
+ {"CircleTimes::usage", 276599, 8675},
+ {"IdentityMatrixShorthand::usage", 276713, 8678},
+ {"TensorFactorPermutations::usage", 276840, 8681},
+ {"SwapMatrix::usage", 276956, 8684},
+ {"BlockMatrix::usage", 277059, 8687},
+ {"UnitArray::usage", 277159, 8690},
+ {"Com::usage", 277252, 8693},
+ {"ACom::usage", 277341, 8696},
+ {"OuterProduct::usage", 277440, 8699},
+ {"Projector::usage", 277544, 8702},
+ {"TP::usage", 277638, 8705},
+ {"MatrixToTensor::usage", 277738, 8708},
+ {"MatrixTranspose::usage", 277851, 8711},
+ {"Swap::usage", 277953, 8714},
+ {"Reshuffle::usage", 278050, 8717},
+ {"Unravel::usage", 278151, 8720},
+ {"Reravel::usage", 278250, 8723},
+ {"PartialTr::usage", 278350, 8726},
+ {"TensorPairContract::usage", 278461, 8729},
+ {"MatrixContract::usage", 278576, 8732},
+ {"MatrixPairContract::usage", 278692, 8735},
+ {"Basis::usage", 278799, 8738},
+ {"BasisLabels::usage", 278899, 8741},
+ {"ExpressInBasis::usage", 279009, 8744},
+ {"Vec::usage", 279110, 8747},
+ {"Devec::usage", 279202, 8750},
+ {"ProductIdentity::usage", 279306, 8753},
+ {"BasisMatrix::usage", 279416, 8756},
+ {"BasisTransformation::usage", 279530, 8759}
  }
 *)
 (*NotebookFileOutline
@@ -9142,268 +9198,268 @@ Cell[CellGroupData[{
 Cell[143724, 4752, 101, 1, 51, "Section"],
 Cell[CellGroupData[{
 Cell[143850, 4757, 93, 1, 44, "Subsection"],
-Cell[143946, 4760, 2525, 78, 215, "Text",
+Cell[143946, 4760, 2584, 79, 215, "Text",
  CellTags->"Basis::usage"],
 Cell[CellGroupData[{
-Cell[146496, 4842, 222, 3, 35, "Subsubsection"],
-Cell[146721, 4847, 115, 1, 31, "Text"],
+Cell[146555, 4843, 222, 3, 35, "Subsubsection"],
+Cell[146780, 4848, 115, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[146861, 4852, 220, 4, 32, "Input"],
-Cell[147084, 4858, 3138, 92, 74, "Output"]
+Cell[146920, 4853, 220, 4, 32, "Input"],
+Cell[147143, 4859, 3138, 92, 74, "Output"]
 }, Open  ]],
-Cell[150237, 4953, 122, 1, 31, "Text"],
+Cell[150296, 4954, 122, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[150384, 4958, 194, 4, 32, "Input"],
-Cell[150581, 4964, 11973, 334, 238, "Output"]
+Cell[150443, 4959, 194, 4, 32, "Input"],
+Cell[150640, 4965, 11973, 334, 238, "Output"]
 }, Open  ]],
-Cell[162569, 5301, 124, 1, 31, "Text"]
+Cell[162628, 5302, 124, 1, 31, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[162730, 5307, 167, 2, 29, "Subsubsection"],
-Cell[162900, 5311, 617, 19, 52, "Text"],
-Cell[163520, 5332, 646, 18, 55, "Input"],
-Cell[164169, 5352, 178, 2, 31, "Text"],
+Cell[162789, 5308, 167, 2, 29, "Subsubsection"],
+Cell[162959, 5312, 611, 19, 62, "Text"],
+Cell[163573, 5333, 646, 18, 55, "Input"],
+Cell[164222, 5353, 178, 2, 31, "Text"],
 Cell[CellGroupData[{
-Cell[164372, 5358, 320, 7, 32, "Input"],
-Cell[164695, 5367, 7740, 211, 170, "Output"]
+Cell[164425, 5359, 320, 7, 32, "Input"],
+Cell[164748, 5368, 9045, 265, 414, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[172484, 5584, 216, 3, 29, "Subsubsection"],
-Cell[172703, 5589, 211, 4, 31, "Text"],
+Cell[173842, 5639, 216, 3, 29, "Subsubsection"],
+Cell[174061, 5644, 211, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[172939, 5597, 513, 15, 32, "Input"],
-Cell[173455, 5614, 1711, 52, 72, "Output"]
+Cell[174297, 5652, 513, 15, 32, "Input"],
+Cell[174813, 5669, 1711, 52, 72, "Output"]
 }, Open  ]],
-Cell[175181, 5669, 170, 2, 31, "Text"],
+Cell[176539, 5724, 170, 2, 31, "Text"],
 Cell[CellGroupData[{
-Cell[175376, 5675, 552, 17, 32, "Input"],
-Cell[175931, 5694, 3529, 111, 124, "Output"]
+Cell[176734, 5730, 552, 17, 32, "Input"],
+Cell[177289, 5749, 3529, 111, 124, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[179521, 5812, 99, 1, 36, "Subsection"],
-Cell[179623, 5815, 3230, 100, 320, "Text",
+Cell[180879, 5867, 99, 1, 36, "Subsection"],
+Cell[180981, 5870, 3291, 101, 320, "Text",
  CellTags->"BasisLabels::usage"],
 Cell[CellGroupData[{
-Cell[182878, 5919, 98, 1, 35, "Subsubsection"],
-Cell[182979, 5922, 1040, 26, 81, "Text"]
+Cell[184297, 5975, 98, 1, 35, "Subsubsection"],
+Cell[184398, 5978, 1040, 26, 81, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[184056, 5953, 161, 2, 29, "Subsubsection"],
-Cell[184220, 5957, 122, 1, 30, "Text"],
+Cell[185475, 6009, 161, 2, 29, "Subsubsection"],
+Cell[185639, 6013, 122, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[184367, 5962, 164, 3, 28, "Input"],
-Cell[184534, 5967, 1203, 20, 28, "Output"]
+Cell[185786, 6018, 164, 3, 28, "Input"],
+Cell[185953, 6023, 1203, 20, 28, "Output"]
 }, Open  ]],
-Cell[185752, 5990, 109, 1, 30, "Text"],
+Cell[187171, 6046, 109, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[185886, 5995, 209, 4, 28, "Input"],
-Cell[186098, 6001, 415, 7, 28, "Output"]
+Cell[187305, 6051, 209, 4, 28, "Input"],
+Cell[187517, 6057, 415, 7, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[186550, 6013, 207, 4, 28, "Input"],
-Cell[186760, 6019, 1375, 35, 46, "Output"]
+Cell[187969, 6069, 207, 4, 28, "Input"],
+Cell[188179, 6075, 1375, 35, 46, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[188184, 6060, 114, 1, 29, "Subsubsection"],
-Cell[188301, 6063, 272, 9, 43, "Text"],
+Cell[189603, 6116, 114, 1, 29, "Subsubsection"],
+Cell[189720, 6119, 272, 9, 43, "Text"],
 Cell[CellGroupData[{
-Cell[188598, 6076, 169, 3, 32, "Input"],
-Cell[188770, 6081, 1498, 36, 87, "Output"]
+Cell[190017, 6132, 169, 3, 32, "Input"],
+Cell[190189, 6137, 1498, 36, 87, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[190305, 6122, 213, 4, 32, "Input"],
-Cell[190521, 6128, 751, 19, 48, "Output"]
+Cell[191724, 6178, 213, 4, 32, "Input"],
+Cell[191940, 6184, 751, 19, 48, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[191321, 6153, 112, 1, 29, "Subsubsection"],
-Cell[191436, 6156, 721, 25, 54, "Text"],
+Cell[192740, 6209, 112, 1, 29, "Subsubsection"],
+Cell[192855, 6212, 721, 25, 54, "Text"],
 Cell[CellGroupData[{
-Cell[192182, 6185, 220, 5, 32, "Input"],
-Cell[192405, 6192, 1290, 20, 99, "Output"]
+Cell[193601, 6241, 220, 5, 32, "Input"],
+Cell[193824, 6248, 1290, 20, 99, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[193744, 6218, 142, 2, 29, "Subsubsection"],
-Cell[193889, 6222, 135, 1, 31, "Text"],
+Cell[195163, 6274, 142, 2, 29, "Subsubsection"],
+Cell[195308, 6278, 135, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[194049, 6227, 243, 6, 32, "Input"],
-Cell[194295, 6235, 706, 13, 32, "Output"]
+Cell[195468, 6283, 243, 6, 32, "Input"],
+Cell[195714, 6291, 706, 13, 32, "Output"]
 }, Open  ]],
-Cell[195016, 6251, 109, 1, 31, "Text"],
+Cell[196435, 6307, 109, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[195150, 6256, 264, 7, 32, "Input"],
-Cell[195417, 6265, 1399, 35, 55, "Output"]
+Cell[196569, 6312, 264, 7, 32, "Input"],
+Cell[196836, 6321, 1399, 35, 55, "Output"]
 }, Open  ]],
-Cell[196831, 6303, 153, 3, 31, "Text"],
+Cell[198250, 6359, 153, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[197009, 6310, 312, 8, 32, "Input"],
-Cell[197324, 6320, 512, 10, 23, "Message"],
-Cell[197839, 6332, 512, 10, 23, "Message"],
-Cell[198354, 6344, 510, 10, 23, "Message"],
-Cell[198867, 6356, 535, 11, 23, "Message"],
-Cell[199405, 6369, 501, 15, 32, "Output"]
+Cell[198428, 6366, 312, 8, 32, "Input"],
+Cell[198743, 6376, 512, 10, 23, "Message"],
+Cell[199258, 6388, 512, 10, 23, "Message"],
+Cell[199773, 6400, 510, 10, 23, "Message"],
+Cell[200286, 6412, 535, 11, 23, "Message"],
+Cell[200824, 6425, 501, 15, 32, "Output"]
 }, Open  ]],
-Cell[199921, 6387, 142, 1, 31, "Text"],
+Cell[201340, 6443, 142, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[200088, 6392, 310, 8, 32, "Input"],
-Cell[200401, 6402, 603, 19, 32, "Output"]
+Cell[201507, 6448, 310, 8, 32, "Input"],
+Cell[201820, 6458, 603, 19, 32, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[201065, 6428, 101, 1, 37, "Subsection"],
-Cell[201169, 6431, 2561, 82, 259, "Text",
+Cell[202484, 6484, 101, 1, 37, "Subsection"],
+Cell[202588, 6487, 2561, 82, 259, "Text",
  CellTags->"ExpressInBasis::usage"],
 Cell[CellGroupData[{
-Cell[203755, 6517, 100, 1, 35, "Subsubsection"],
-Cell[203858, 6520, 2234, 53, 227, "Text"]
+Cell[205174, 6573, 100, 1, 35, "Subsubsection"],
+Cell[205277, 6576, 2234, 53, 227, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[206129, 6578, 155, 2, 29, "Subsubsection"],
-Cell[206287, 6582, 124, 1, 30, "Text"],
+Cell[207548, 6634, 155, 2, 29, "Subsubsection"],
+Cell[207706, 6638, 124, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[206436, 6587, 280, 8, 28, "Input"],
-Cell[206719, 6597, 8551, 252, 424, "Output"]
+Cell[207855, 6643, 280, 8, 28, "Input"],
+Cell[208138, 6653, 8551, 252, 424, "Output"]
 }, Open  ]],
-Cell[215285, 6852, 117, 1, 30, "Text"],
+Cell[216704, 6908, 117, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[215427, 6857, 354, 10, 28, "Input"],
-Cell[215784, 6869, 9225, 267, 424, "Output"]
+Cell[216846, 6913, 354, 10, 28, "Input"],
+Cell[217203, 6925, 9225, 267, 424, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[225058, 7142, 102, 1, 29, "Subsubsection"],
-Cell[225163, 7145, 190, 4, 30, "Text"],
+Cell[226477, 7198, 102, 1, 29, "Subsubsection"],
+Cell[226582, 7201, 190, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[225378, 7153, 323, 7, 28, "Input"],
-Cell[225704, 7162, 199, 5, 28, "Output"]
+Cell[226797, 7209, 323, 7, 28, "Input"],
+Cell[227123, 7218, 199, 5, 28, "Output"]
 }, Open  ]],
-Cell[225918, 7170, 153, 2, 30, "Text"],
+Cell[227337, 7226, 153, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[226096, 7176, 224, 5, 28, "Input"],
-Cell[226323, 7183, 770, 12, 46, "Output"]
+Cell[227515, 7232, 224, 5, 28, "Input"],
+Cell[227742, 7239, 770, 12, 46, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[227166, 7203, 98, 1, 51, "Section"],
+Cell[228585, 7259, 98, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[227289, 7208, 142, 2, 44, "Subsection"],
-Cell[227434, 7212, 1718, 50, 155, "Text",
+Cell[228708, 7264, 142, 2, 44, "Subsection"],
+Cell[228853, 7268, 1718, 50, 155, "Text",
  CellTags->"Vec::usage"],
 Cell[CellGroupData[{
-Cell[229177, 7266, 98, 1, 35, "Subsubsection"],
-Cell[229278, 7269, 1364, 32, 139, "Text"]
+Cell[230596, 7322, 98, 1, 35, "Subsubsection"],
+Cell[230697, 7325, 1364, 32, 139, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[230679, 7306, 149, 2, 29, "Subsubsection"],
-Cell[230831, 7310, 168, 2, 30, "Text"],
+Cell[232098, 7362, 149, 2, 29, "Subsubsection"],
+Cell[232250, 7366, 168, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[231024, 7316, 269, 8, 28, "Input"],
-Cell[231296, 7326, 960, 29, 70, "Output"]
+Cell[232443, 7372, 269, 8, 28, "Input"],
+Cell[232715, 7382, 960, 29, 70, "Output"]
 }, Open  ]],
-Cell[232271, 7358, 138, 1, 30, "Text"],
+Cell[233690, 7414, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[232434, 7363, 344, 10, 28, "Input"],
-Cell[232781, 7375, 932, 29, 70, "Output"]
+Cell[233853, 7419, 344, 10, 28, "Input"],
+Cell[234200, 7431, 932, 29, 70, "Output"]
 }, Open  ]],
-Cell[233728, 7407, 182, 2, 30, "Text"],
+Cell[235147, 7463, 182, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[233935, 7413, 344, 10, 28, "Input"],
-Cell[234282, 7425, 1750, 59, 70, "Output"]
+Cell[235354, 7469, 344, 10, 28, "Input"],
+Cell[235701, 7481, 1750, 59, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[236093, 7491, 192, 3, 36, "Subsection"],
-Cell[236288, 7496, 1688, 49, 155, "Text",
+Cell[237512, 7547, 192, 3, 36, "Subsection"],
+Cell[237707, 7552, 1688, 49, 155, "Text",
  CellTags->"Devec::usage"],
 Cell[CellGroupData[{
-Cell[238001, 7549, 98, 1, 35, "Subsubsection"],
-Cell[238102, 7552, 120, 1, 31, "Text"]
+Cell[239420, 7605, 98, 1, 35, "Subsubsection"],
+Cell[239521, 7608, 120, 1, 31, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[238259, 7558, 149, 2, 35, "Subsubsection"],
-Cell[238411, 7562, 202, 4, 30, "Text"],
+Cell[239678, 7614, 149, 2, 35, "Subsubsection"],
+Cell[239830, 7618, 202, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[238638, 7570, 266, 6, 28, "Input"],
-Cell[238907, 7578, 857, 23, 70, "Output"]
+Cell[240057, 7626, 266, 6, 28, "Input"],
+Cell[240326, 7634, 857, 23, 70, "Output"]
 }, Open  ]],
-Cell[239779, 7604, 138, 1, 30, "Text"],
+Cell[241198, 7660, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[239942, 7609, 342, 9, 28, "Input"],
-Cell[240287, 7620, 832, 24, 70, "Output"]
+Cell[241361, 7665, 342, 9, 28, "Input"],
+Cell[241706, 7676, 832, 24, 70, "Output"]
 }, Open  ]],
-Cell[241134, 7647, 182, 2, 30, "Text"],
+Cell[242553, 7703, 182, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[241341, 7653, 340, 9, 28, "Input"],
-Cell[241684, 7664, 1520, 50, 70, "Output"]
+Cell[242760, 7709, 340, 9, 28, "Input"],
+Cell[243103, 7720, 1520, 50, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[243265, 7721, 128, 2, 37, "Subsection"],
-Cell[243396, 7725, 2100, 67, 155, "Text",
+Cell[244684, 7777, 128, 2, 37, "Subsection"],
+Cell[244815, 7781, 2100, 67, 155, "Text",
  CellTags->"ProductIdentity::usage"],
 Cell[CellGroupData[{
-Cell[245521, 7796, 98, 1, 35, "Subsubsection"],
-Cell[245622, 7799, 93, 1, 30, "Text"]
+Cell[246940, 7852, 98, 1, 35, "Subsubsection"],
+Cell[247041, 7855, 93, 1, 30, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[245752, 7805, 148, 2, 29, "Subsubsection"],
-Cell[245903, 7809, 117, 1, 30, "Text"],
+Cell[247171, 7861, 148, 2, 29, "Subsubsection"],
+Cell[247322, 7865, 117, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[246045, 7814, 1114, 36, 80, "Input"],
-Cell[247162, 7852, 4583, 137, 70, "Output"],
-Cell[251748, 7991, 305, 8, 70, "Output"]
+Cell[247464, 7870, 1114, 36, 80, "Input"],
+Cell[248581, 7908, 4583, 137, 70, "Output"],
+Cell[253167, 8047, 305, 8, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[252114, 8006, 110, 1, 37, "Subsection"],
-Cell[252227, 8009, 3385, 95, 178, "Text",
+Cell[253533, 8062, 110, 1, 37, "Subsection"],
+Cell[253646, 8065, 3385, 95, 178, "Text",
  CellTags->"BasisMatrix::usage"],
-Cell[255615, 8106, 1482, 45, 74, "Text",
+Cell[257034, 8162, 1482, 45, 74, "Text",
  CellTags->"BasisTransformation::usage"],
 Cell[CellGroupData[{
-Cell[257122, 8155, 101, 1, 35, "Subsubsection"],
-Cell[257226, 8158, 272, 5, 49, "Text"],
+Cell[258541, 8211, 101, 1, 35, "Subsubsection"],
+Cell[258645, 8214, 272, 5, 49, "Text"],
 Cell[CellGroupData[{
-Cell[257523, 8167, 218, 5, 28, "Input"],
-Cell[257744, 8174, 1181, 39, 70, "Output"]
+Cell[258942, 8223, 218, 5, 28, "Input"],
+Cell[259163, 8230, 1181, 39, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[258962, 8218, 316, 7, 28, "Input"],
-Cell[259281, 8227, 322, 10, 70, "Output"]
+Cell[260381, 8274, 316, 7, 28, "Input"],
+Cell[260700, 8283, 322, 10, 70, "Output"]
 }, Open  ]],
-Cell[259618, 8240, 139, 1, 30, "Text"],
+Cell[261037, 8296, 139, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[259782, 8245, 243, 6, 28, "Input"],
-Cell[260028, 8253, 1309, 39, 70, "Output"]
+Cell[261201, 8301, 243, 6, 28, "Input"],
+Cell[261447, 8309, 1309, 39, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[261374, 8297, 296, 8, 28, "Input"],
-Cell[261673, 8307, 1284, 22, 70, "Message"],
-Cell[262960, 8331, 10113, 212, 70, "Output"]
+Cell[262793, 8353, 296, 8, 28, "Input"],
+Cell[263092, 8363, 1284, 22, 70, "Message"],
+Cell[264379, 8387, 10113, 212, 70, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[273122, 8549, 153, 2, 29, "Subsubsection"],
-Cell[273278, 8553, 217, 4, 30, "Text"],
+Cell[274541, 8605, 153, 2, 29, "Subsubsection"],
+Cell[274697, 8609, 217, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[273520, 8561, 275, 6, 28, "Input"],
-Cell[273798, 8569, 322, 9, 70, "Output"]
+Cell[274939, 8617, 275, 6, 28, "Input"],
+Cell[275217, 8625, 322, 9, 70, "Output"]
 }, Open  ]],
-Cell[274135, 8581, 141, 1, 30, "Text"],
+Cell[275554, 8637, 141, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[274301, 8586, 221, 5, 28, "Input"],
-Cell[274525, 8593, 293, 9, 70, "Output"]
+Cell[275720, 8642, 221, 5, 28, "Input"],
+Cell[275944, 8649, 293, 9, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]]

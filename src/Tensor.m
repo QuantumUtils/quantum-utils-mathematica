@@ -588,7 +588,7 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
 
 $POBasis=(PauliMatrix/@Range[0,3]);
 $PauliBasis=(PauliMatrix/@Range[0,3])/Sqrt[2];
-$WeylBasis[d_]:=Flatten[Table[RotateLeft[DiagonalMatrix[Table[Exp[2\[Pi]*I*n*b/d],{n,0,d-1}]],a],{a,0,d-1},{b,0,d-1}],1];
+$WeylBasis[d_]:=Flatten[Table[RotateLeft[DiagonalMatrix[Table[Exp[2\[Pi]*I*n*b/d],{n,0,d-1}]],a]/Sqrt[d],{a,0,d-1},{b,0,d-1}],1];
 
 
 $NamedBasis={"Pauli"->$PauliBasis,"PO"->$POBasis,"Weyl"[d_]:>$WeylBasis[d]};
@@ -841,8 +841,9 @@ BasisTransformation[op_,Rule[basis_,"Col"]]:=
 
 BasisTransformation[op_,Rule[basis1_,basis2_]]:=
 	BasisTransformation[
-		BasisTransformation[op,Rule[basis1,"Col"],
-		Rule["Col",basis2]]]
+		BasisTransformation[op,Rule[basis1,"Col"]],
+		Rule["Col",basis2]
+	]
 
 
 (* ::Subsection::Closed:: *)
