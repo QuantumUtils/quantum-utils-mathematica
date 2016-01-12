@@ -582,32 +582,42 @@ MatrixPairContract[{mat1_,dims1_},{mat2_,dims2_},{}]:=CircleTimes[mat1,mat2]
 (*Matrix Bases*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Named Bases*)
 
 
 $POBasis=(PauliMatrix/@Range[0,3]);
 $PauliBasis=(PauliMatrix/@Range[0,3])/Sqrt[2];
+$WeylBasis[d_]:=Flatten[Table[RotateLeft[DiagonalMatrix[Table[Exp[2\[Pi]*I*n*b/d],{n,0,d-1}]],a]/Sqrt[d],{a,0,d-1},{b,0,d-1}],1];
 
 
-$NamedBasis={"Pauli"->$PauliBasis,"PO"->$POBasis};
+$NamedBasis={"Pauli"->$PauliBasis,"PO"->$POBasis,"Weyl"[d_]:>$WeylBasis[d]};
+
+
+(*We need to be fancier than MemberQ because of possible dimension arguments*)
+NamedBasisMemberQ[basis_]:=(basis/.Thread[RuleDelayed[Keys[$NamedBasis],True]])===True
 
 
 CheckNamedBasis[basis_]:=
-	If[MemberQ[Keys[$NamedBasis],basis],
+	If[NamedBasisMemberQ[basis],
 		basis/.$NamedBasis,
 		basis]
 
 
 $POBasisLabels={"I","X","Y","Z"};
 $PauliBasisLabels={"I","X","Y","Z"}/Sqrt[2];
+$WeylBasisLabels[d_]:=Flatten[Table["W["<>ToString[a]<>","<>ToString[b]<>"]",{a,0,d-1},{b,0,d-1}],1]
 
 
-$NamedBasisLabels={"Pauli"->$PauliBasisLabels,"PO"->$POBasisLabels};
+$NamedBasisLabels={"Pauli"->$PauliBasisLabels,"PO"->$POBasisLabels,"Weyl"[d_]:>$WeylBasisLabels[d]};
+
+
+(*We need to be fancier than MemberQ because of possible dimension arguments*)
+NamedBasisLabelsMemberQ[basis_]:=(basis/.Thread[RuleDelayed[Keys[$NamedBasisLabels],True]])===True
 
 
 CheckNamedBasisLabels[basis_]:=
-	If[MemberQ[Keys[$NamedBasisLabels],basis],
+	If[NamedBasisLabelsMemberQ[basis],
 		basis/.$NamedBasisLabels,
 		basis]
 
@@ -711,7 +721,7 @@ BasisImplimentation[fn_String,args__,opts:OptionsPattern[Vec]]:=
 		Which[
 			basis==="Col",funcs[[1]][args],
 			basis==="Row",funcs[[2]][args],
-			MemberQ[Keys[$NamedBasis],basis],funcs[[3]][(basis/.$NamedBasis),args],
+			NamedBasisMemberQ[basis],funcs[[3]][(basis/.$NamedBasis),args],
 			True,funcs[[3]][basis,args]]]
 
 
@@ -769,7 +779,7 @@ BasisMatrix[Rule["Col",basis_],arg___]:=
 	Which[
 		basis==="Row",BasisMatrixCol["Row",arg],
 		ListQ[basis],BasisMatrixCol[basis,arg],
-		MemberQ[Keys[$NamedBasis],basis],BasisMatrixCol[basis/.$NamedBasis,arg],
+		NamedBasisMemberQ[basis],BasisMatrixCol[basis/.$NamedBasis,arg],
 		True,Message[BasisMatrix::input]
 	]
 BasisMatrix[Rule[basis_,"Col"],arg___]:=ConjugateTranspose@BasisMatrix[Rule["Col",basis],arg]
@@ -801,7 +811,7 @@ BasisMatrixColList[basis_List,op_]:=
 
 
 BasisMatrixColList[basis_,op_]:=
-	If[MemberQ[Keys[$NamedBasis],basis],
+	If[NamedBasisMemberQ[basis],
 		BasisMatrixColList[basis/.$NamedBasis,op],
 		Message[BasisMatrix::keys]
 	]
@@ -831,8 +841,9 @@ BasisTransformation[op_,Rule[basis_,"Col"]]:=
 
 BasisTransformation[op_,Rule[basis1_,basis2_]]:=
 	BasisTransformation[
-		BasisTransformation[op,Rule[basis1,"Col"],
-		Rule["Col",basis2]]]
+		BasisTransformation[op,Rule[basis1,"Col"]],
+		Rule["Col",basis2]
+	]
 
 
 (* ::Subsection::Closed:: *)

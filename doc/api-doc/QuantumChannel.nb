@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    305743,       9330]
-NotebookOptionsPosition[    284608,       8653]
-NotebookOutlinePosition[    289349,       8791]
-CellTagsIndexPosition[    288120,       8757]
+NotebookDataLength[    337714,      10168]
+NotebookOptionsPosition[    314613,       9431]
+NotebookOutlinePosition[    319632,       9576]
+CellTagsIndexPosition[    318320,       9540]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -35,7 +35,8 @@ Cell[BoxData[
  CellChangeTimes->{{3.633351696261045*^9, 3.633351701530016*^9}, {
   3.633781146956828*^9, 3.633781148275402*^9}, {3.633781294331254*^9, 
   3.633781296275483*^9}, {3.633781369011711*^9, 3.633781370275049*^9}, {
-  3.633781401233733*^9, 3.633781403767733*^9}}],
+  3.633781401233733*^9, 3.633781403767733*^9}, {3.658104056383564*^9, 
+  3.65810405746312*^9}}],
 
 Cell["\<\
 The following packages are needed to run some code found in this \
@@ -55,7 +56,8 @@ Cell[BoxData[{
 Cell[CellGroupData[{
 
 Cell["Source Code", "Subsection",
- CellChangeTimes->{{3.6351824420646763`*^9, 3.635182446927919*^9}}],
+ CellChangeTimes->{{3.6351824420646763`*^9, 3.635182446927919*^9}, {
+  3.6581037867043457`*^9, 3.658103786818471*^9}}],
 
 Cell[BoxData[
  ButtonBox["\<\"Open Source Code\"\>",
@@ -93,7 +95,8 @@ Cell[CellGroupData[{
 Cell["Quantum Channels", "Section",
  CellChangeTimes->{{3.63335202563237*^9, 3.6333520385490847`*^9}, {
   3.633441643373975*^9, 3.633441643471745*^9}, {3.633795856617426*^9, 
-  3.633795859078514*^9}, {3.633880663540921*^9, 3.633880663641457*^9}}],
+  3.633795859078514*^9}, {3.633880663540921*^9, 3.633880663641457*^9}, {
+  3.6584948292492857`*^9, 3.658494829330955*^9}}],
 
 Cell[CellGroupData[{
 
@@ -1059,7 +1062,7 @@ Cell[TextData[{
 }], "Text",
  CellChangeTimes->{{3.6338802140101423`*^9, 3.6338802270980797`*^9}}]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1397,7 +1400,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.6343906607264223`*^9, 3.634390664129133*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -1922,7 +1925,7 @@ Cell[BoxData[
   3.6343916924147863`*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2852,7 +2855,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.63439222653787*^9, 3.634392229638082*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3254,7 +3257,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.63439227687915*^9, 3.634392309440975*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3710,7 +3713,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.634486353212184*^9, 3.63448638875668*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4075,7 +4078,7 @@ Cell[BoxData[""], "Input",
  CellChangeTimes->{{3.634486432882883*^9, 3.6344864347077*^9}, 
    3.634486471621543*^9}]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4475,7 +4478,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.634487707562055*^9, 3.634487711496274*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4545,7 +4548,7 @@ Cell[BoxData["Super"], "Output",
  CellChangeTimes->{3.6344867523215837`*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4642,7 +4645,7 @@ Cell[BoxData[
  CellChangeTimes->{3.634486770581704*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4666,7 +4669,7 @@ Cell[TextData[{
   FontColor->GrayLevel[0]],
  StyleBox["]", "Input",
   FontColor->GrayLevel[0]],
- StyleBox[" yeilds ",
+ StyleBox[" yields ",
   FontColor->GrayLevel[0]],
  StyleBox["True", "Input",
   FontColor->GrayLevel[0]],
@@ -4710,7 +4713,7 @@ positive."
    3.63416413520212*^9, 3.634164144770364*^9}, 3.634166219820169*^9, {
    3.634166735040598*^9, 3.634166738503635*^9}, 3.634299388253508*^9, {
    3.638116899819501*^9, 3.638117075326619*^9}, {3.638117109251939*^9, 
-   3.6381171148158703`*^9}},
+   3.6381171148158703`*^9}, {3.658102898735711*^9, 3.658102899395361*^9}},
  CellTags->"CompletelyPositiveQ::usage"],
 
 Cell[CellGroupData[{
@@ -4821,7 +4824,7 @@ Cell[BoxData["True"], "Output",
    3.634487213879422*^9}, 3.638116752132036*^9, 3.6381168918736153`*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4838,7 +4841,7 @@ Cell[TextData[{
   FontColor->GrayLevel[0]],
  StyleBox["] ", "Input",
   FontColor->GrayLevel[0]],
- StyleBox["yeilds True if the ",
+ StyleBox["yields True if the ",
   FontColor->GrayLevel[0]],
  StyleBox["QuantumChannel", "Input",
   FontColor->GrayLevel[0]],
@@ -4878,9 +4881,9 @@ preserving."
    3.634163973445751*^9}, {3.63416408776619*^9, 3.634164088326902*^9}, 
    3.6341662180120583`*^9, {3.634166747373219*^9, 3.634166749401022*^9}, {
    3.634299341861849*^9, 3.634299413229549*^9}, {3.638117089894884*^9, 
-   3.638117105175025*^9}},
+   3.638117105175025*^9}, {3.65810289274187*^9, 3.658102893376171*^9}},
  CellTags->"TracePreservingQ::usage"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4895,7 +4898,9 @@ Cell[TextData[{
   FontSlant->"Italic",
   FontColor->GrayLevel[0]],
  StyleBox["] ", "Input"],
- "yeilds True if the ",
+ "yeilds ",
+ StyleBox["True", "Input"],
+ " if the ",
  StyleBox["QuantumChannel", "Input"],
  " ",
  StyleBox["chan", "Input",
@@ -4930,7 +4935,233 @@ preserving."
    3.6341667567384567`*^9, 3.634166759977413*^9}, {3.634299397391348*^9, 
    3.634299424985209*^9}, {3.638117119732553*^9, 3.638117128423739*^9}},
  CellTags->"HermitianPreservingQ::usage"]
-}, Open  ]],
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Unitary", "Subsection",
+ CellChangeTimes->{{3.658102777444056*^9, 3.658102805765897*^9}}],
+
+Cell[TextData[{
+ StyleBox["UnitaryQ[", "Input"],
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " yields ",
+ StyleBox["True", "Input"],
+ " if the ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is a unitary channel. This is decided by first checking if the channel has \
+the ",
+ StyleBox["Unitary", "Input"],
+ " ",
+ StyleBox["Head", "Input"],
+ ", and if it does not,  whether the ",
+ StyleBox["Unitarity", "Input"],
+ " is equal to 1.\n\n",
+ StyleBox["Options",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" Assumptions\[Rule]", "Input"],
+ StyleBox["assum", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ "  takes the assumptions ",
+ StyleBox["assum", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " into account for determining whether a symbolic channel is unitary."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6581028472955427`*^9, 3.658103148319531*^9}, {
+  3.658238486945675*^9, 3.658238501704907*^9}},
+ CellTags->"UnitaryQ::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.658103166165887*^9, 3.6581031669758663`*^9}}],
+
+Cell["Run a bunch of numeric and symbolic tests:", "Text",
+ CellChangeTimes->{{3.658235634350401*^9, 3.658235660454275*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\"\<Simple:\>\"", ",", 
+      RowBox[{"ToString", "@", 
+       RowBox[{"UnitaryQ", "[", 
+        RowBox[{"Unitary", "[", 
+         RowBox[{"TP", "[", "X", "]"}], "]"}], "]"}]}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Symbolic:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{
+        RowBox[{"Super", "@", 
+         RowBox[{"Unitary", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Cos", "[", "a", "]"}], ",", 
+              RowBox[{"Sin", "[", "a", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"Sin", "[", "a", "]"}]}], ",", 
+              RowBox[{"Cos", "[", "a", "]"}]}], "}"}]}], "}"}], "]"}]}], ",", 
+        
+        RowBox[{"Assumptions", "\[Rule]", 
+         RowBox[{"a", "\[Element]", "Reals"}]}]}], "]"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Symbolic:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{
+        RowBox[{"Kraus", "[", 
+         RowBox[{"{", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"a", ",", "b"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"b", "\[Conjugate]"}]}], ",", 
+              RowBox[{"a", "\[Conjugate]"}]}], "}"}]}], "}"}], "}"}], "]"}], 
+        ",", 
+        RowBox[{"Assumptions", "\[Rule]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"Abs", "[", "a", "]"}], "2"], "+", 
+            SuperscriptBox[
+             RowBox[{"Abs", "[", "b", "]"}], "2"]}], "\[Equal]", "1"}], 
+          ")"}]}]}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Numerical:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{"Super", "[", 
+        RowBox[{"Unitary", "[", 
+         RowBox[{"RandomUnitary", "[", "7", "]"}], "]"}], "]"}], "]"}]}], 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Not TP but CP symbolic:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{
+        RowBox[{"Kraus", "[", 
+         RowBox[{"{", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"a", ",", "b"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"b", "\[Conjugate]"}]}], ",", 
+              RowBox[{"a", "\[Conjugate]"}]}], "}"}]}], "}"}], "}"}], "]"}], 
+        ",", 
+        RowBox[{"Assumptions", "\[Rule]", 
+         RowBox[{
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"Abs", "[", "a", "]"}], "2"], "+", 
+           SuperscriptBox[
+            RowBox[{"Abs", "[", "b", "]"}], "2"]}], "\[Equal]", "2"}]}]}], 
+       "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<General Pauli channel:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{"Chi", "[", 
+        RowBox[{"DiagonalMatrix", "[", 
+         RowBox[{"{", 
+          RowBox[{"p0", ",", "p1", ",", "p2", ",", "p3"}], "}"}], "]"}], 
+        "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Numerical Mixed Unitary:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{"Kraus", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"RandomUnitary", "[", "7", "]"}], "/", 
+           RowBox[{"Sqrt", "[", "2", "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"RandomUnitary", "[", "7", "]"}], "/", 
+           RowBox[{"Sqrt", "[", "2", "]"}]}]}], "}"}], "]"}], "]"}]}], "}"}], 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Unitarity=1 and TP but not CP:\>\"", ",", 
+      RowBox[{"UnitaryQ", "[", 
+       RowBox[{"Super", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"1", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0", ",", "1", ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}], ",", 
+         
+         RowBox[{"Basis", "\[Rule]", 
+          RowBox[{"\"\<Weyl\>\"", "[", "2", "]"}]}]}], "]"}], "]"}]}], 
+     "}"}]}], "\[IndentingNewLine]", "}"}], "//", "Grid"}]], "Input",
+ CellChangeTimes->{{3.6581038803306503`*^9, 3.658103889214209*^9}, {
+  3.658104144697795*^9, 3.658104171504343*^9}, {3.65810422410148*^9, 
+  3.65810427225062*^9}, {3.658104310537822*^9, 3.658104442020549*^9}, {
+  3.65810451168401*^9, 3.6581045868686457`*^9}, {3.65810472883961*^9, 
+  3.6581047465243273`*^9}, {3.658104785079788*^9, 3.658104836734126*^9}, {
+  3.658235389207746*^9, 3.6582354176068*^9}, {3.6582466135915623`*^9, 
+  3.658246672078239*^9}, {3.6584924964107*^9, 3.658492843536909*^9}, {
+  3.658492931132696*^9, 3.6584929616948843`*^9}, {3.658493018656518*^9, 
+  3.6584930690692463`*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Simple:\"\>", "\<\"True\"\>"},
+    {"\<\"Symbolic:\"\>", "True"},
+    {"\<\"Symbolic:\"\>", "True"},
+    {"\<\"Numerical:\"\>", "True"},
+    {"\<\"Not TP but CP symbolic:\"\>", "False"},
+    {"\<\"General Pauli channel:\"\>", "False"},
+    {"\<\"Numerical Mixed Unitary:\"\>", "False"},
+    {"\<\"Unitarity=1 and TP but not CP:\"\>", "False"}
+   },
+   AutoDelete->False,
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{
+  3.658103890136435*^9, 3.6581040772681313`*^9, {3.658104134802383*^9, 
+   3.658104172858451*^9}, {3.658104230264344*^9, 3.6581042726837263`*^9}, {
+   3.658104417111999*^9, 3.658104443225832*^9}, {3.658104531602933*^9, 
+   3.658104543847611*^9}, 3.658104587281876*^9, {3.658104831814041*^9, 
+   3.658104837355569*^9}, 3.6581049621174498`*^9, 3.658235293817482*^9, {
+   3.658235400146338*^9, 3.658235418353608*^9}, 3.658239027686973*^9, 
+   3.658239087693782*^9, {3.6582466149954443`*^9, 3.658246635218277*^9}, 
+   3.658246672435589*^9, 3.6584924336155577`*^9, 3.6584925195248003`*^9, {
+   3.658492811762939*^9, 3.65849284400255*^9}, {3.658492933242613*^9, 
+   3.658492963212582*^9}, {3.6584930246569443`*^9, 3.658493070185575*^9}, 
+   3.6584934379139147`*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4947,7 +5178,7 @@ Cell[TextData[{
   FontColor->GrayLevel[0]],
  StyleBox["] ", "Input",
   FontColor->GrayLevel[0]],
- StyleBox["yeilds True if the ",
+ StyleBox["yields True if the ",
   FontColor->GrayLevel[0]],
  StyleBox["QuantumChannel", "Input",
   FontColor->GrayLevel[0]],
@@ -4987,7 +5218,8 @@ Cell[TextData[{
   3.634164311877493*^9}, {3.634166210859696*^9, 3.634166214427957*^9}, {
   3.6341667624587*^9, 3.634166764353469*^9}, {3.634299443280422*^9, 
   3.634299459761408*^9}, {3.638116683398087*^9, 3.638116688196005*^9}, {
-  3.638117131379209*^9, 3.63811713733639*^9}},
+  3.638117131379209*^9, 3.63811713733639*^9}, {3.658102887479536*^9, 
+  3.658102889231666*^9}},
  CellTags->"UnitalQ::usage"],
 
 Cell[CellGroupData[{
@@ -5046,7 +5278,7 @@ Cell[BoxData["True"], "Output",
   3.638116658003788*^9, 3.638117155868474*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5131,14 +5363,15 @@ Cell[BoxData["True"], "Output",
  CellChangeTimes->{{3.634487258275023*^9, 3.634487267365224*^9}, 
    3.6344873139829063`*^9, 3.6381171589455957`*^9}]
 }, Open  ]]
-}, Closed]]
 }, Open  ]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Channel Functions", "Section",
- CellChangeTimes->{{3.6337958629257603`*^9, 3.633795866880727*^9}}],
+Cell["Channel Functions and Metrics", "Section",
+ CellChangeTimes->{{3.6337958629257603`*^9, 3.633795866880727*^9}, {
+  3.658237308936578*^9, 3.658237310496462*^9}}],
 
 Cell[CellGroupData[{
 
@@ -5288,7 +5521,7 @@ Cell[BoxData[
    3.634487764610879*^9}]
 }, Open  ]]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5548,7 +5781,7 @@ Cell[BoxData["1"], "Output",
    3.634488636266572*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5702,7 +5935,7 @@ Cell[BoxData[
    3.634488120362327*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -5730,14 +5963,7 @@ Cell[TextData[{
   FontSlant->"Italic",
   FontColor->GrayLevel[0]],
  StyleBox[" , a number between 0 and 1 describing the coherence of that \
-channel ",
-  FontColor->GrayLevel[0]],
- ButtonBox["[WGHF15",
-  BaseStyle->"Hyperlink",
-  ButtonData->{
-    URL["https://scirate.com/arxiv/1503.07865"], None},
-  ButtonNote->"https://scirate.com/arxiv/1503.07865"],
- StyleBox["].",
+channel ].",
   FontColor->GrayLevel[0]]
 }], "Text",
  CellDingbat->"\[FilledSmallSquare]",
@@ -5746,7 +5972,7 @@ channel ",
    3.63416413520212*^9, 3.634164144770364*^9}, {3.6341644378016577`*^9, 
    3.63416453244445*^9}, {3.6341648883193617`*^9, 3.634165041939763*^9}, 
    3.634166201059535*^9, {3.6369388668304358`*^9, 3.6369389327696905`*^9}, {
-   3.6369390336485915`*^9, 3.636939061649585*^9}},
+   3.6369390336485915`*^9, 3.636939061649585*^9}, 3.658237367624638*^9},
  CellTags->"Unitarity::usage"],
 
 Cell[CellGroupData[{
@@ -5777,7 +6003,8 @@ Cell[BoxData[{
  RowBox[{"FullSimplify", "[", 
   RowBox[{
    RowBox[{"Unitarity", "[", "chan", "]"}], ",", 
-   RowBox[{"0", "\[LessEqual]", "p", "\[LessEqual]", "1"}]}], "]"}]}], "Input",
+   RowBox[{"0", "\[LessEqual]", "p", "\[LessEqual]", "1"}]}], "]"}]}], "Input",\
+
  CellChangeTimes->{{3.6344880558797417`*^9, 3.634488075205922*^9}, {
   3.6369390827336187`*^9, 3.6369390839274473`*^9}}],
 
@@ -5789,10 +6016,11 @@ Cell[BoxData[
     RowBox[{"8", " ", 
      RowBox[{"(", 
       RowBox[{
-       RowBox[{"-", "1"}], "+", "p"}], ")"}], " ", "p"}]}], ")"}]}]], "Output",
+       RowBox[{"-", "1"}], "+", "p"}], ")"}], " ", "p"}]}], ")"}]}]], "Output",\
+
  CellChangeTimes->{{3.634488061663404*^9, 3.6344880756850348`*^9}, 
    3.63693908561464*^9, 3.6369391181878834`*^9, 3.6369397877578597`*^9, 
-   3.636939849058366*^9, 3.636939964449659*^9}]
+   3.636939849058366*^9, 3.636939964449659*^9, 3.658493524280737*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5806,10 +6034,10 @@ Cell[BoxData[
 Cell[BoxData[
  FractionBox["1", "3"]], "Output",
  CellChangeTimes->{3.6369398087438235`*^9, 3.636939850624482*^9, 
-  3.6369399656454973`*^9}]
+  3.6369399656454973`*^9, 3.658493526567588*^9}]
 }, Open  ]]
-}, Open  ]]
-}, Open  ]],
+}, Closed]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6453,7 +6681,7 @@ OJ9CalMT5w7pk+ZZl7/8OI9C0t47Hg6kL7vLCi40SFBg55hs2Ur2BS2NA83u
  CellChangeTimes->{{3.6344888372054787`*^9, 3.6344888654407587`*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6514,14 +6742,564 @@ Cell[BoxData[
   RowBox[{"2", " ", "p"}]}]], "Output",
  CellChangeTimes->{{3.634488899956882*^9, 3.634488909493375*^9}}]
 }, Open  ]]
-}, Closed]]
 }, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Diamond Norm Distance", "Subsection",
+ CellChangeTimes->{{3.6582362817379*^9, 3.658236293070361*^9}}],
+
+Cell[TextData[{
+ StyleBox["DiamondNormDistance[", "Input"],
+ StyleBox["U1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["U2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the diamond norm distance between the unitary channels defined by \
+the given unitary matrices ",
+ StyleBox["U1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["U2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[".", "Input"],
+ "\n",
+ StyleBox["DiamondNormDistance[", "Input"],
+ StyleBox["U1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the diamond norm distance between the unitary channel defined by \
+the given unitary matrix ",
+ StyleBox["U", "Input"],
+ " and the identity channel.\n\n",
+ StyleBox["DiamondNormDistance[", "Input"],
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the diamond norm distance between the given ",
+ StyleBox["QuantumChannel", "Input"],
+ " ",
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and the identity channel. \n",
+ StyleBox["DiamondNormDistance[", "Input"],
+ StyleBox["chan1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["chan2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns the diamond norm distance between the given ",
+ StyleBox["QuantumChannel", "Input"],
+ "s ",
+ StyleBox["chan1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and ",
+ StyleBox["chan2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ".\n\n",
+ StyleBox["Notes",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" ", "Input"],
+ "This function currently only works when supplied ",
+ StyleBox["QuantumChannel", "Input"],
+ "s are unitary channels, ie. satisfy ",
+ StyleBox["UnitaryQ", "Input"],
+ ". This limitation will remain until a full diamond norm function is \
+implemented.\n\n",
+ StyleBox["Options",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" Assumptions\[Rule]", "Input"],
+ StyleBox["assum", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ "  takes the assumptions ",
+ StyleBox["assum", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " into account when determining what properties the given channel(s) satisfy."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6582363105661*^9, 3.658236311938712*^9}, {
+   3.658236347907879*^9, 3.658236600948786*^9}, {3.658236634086507*^9, 
+   3.658236723586851*^9}, {3.6582367958694*^9, 3.658236893772932*^9}, 
+   3.658237050750692*^9},
+ CellTags->"DiamondNormDistance::usage"],
+
+Cell[CellGroupData[{
+
+Cell["References", "Subsubsection",
+ CellChangeTimes->{{3.6582369242470913`*^9, 3.6582369262428703`*^9}}],
+
+Cell[TextData[{
+ " Nathaniel Johnston, David W. Kribs, Vern I. Paulsen, ",
+ StyleBox["arXiv:0711.3636 [quant-ph]\n\nSummary: ",
+  FontSlant->"Italic"],
+ "In this paper (Theorem 26) the authors show that the diamond norm distance \
+between a unitary channel and the idenity channel is given by the diameter of \
+the smallest disk enclosing all eigenvalues of the unitary matrix."
+}], "Text",
+ CellChangeTimes->{{3.658237033798806*^9, 3.658237045554119*^9}, {
+  3.658237147220861*^9, 3.658237151998558*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 1", "Subsubsection",
+ CellChangeTimes->{{3.658237160685314*^9, 3.658237166036746*^9}, {
+  3.658494501436445*^9, 3.658494501620344*^9}, {3.6584947892104273`*^9, 
+  3.6584948016650677`*^9}}],
+
+Cell["\<\
+The diamond norm distance from a unitary channel to the identity operation is \
+the diameter of the smallest enclosing circle of the eigenvalues of the \
+unitary. For the 2x2 case, this is just the distance between the two \
+eigenvalues.\
+\>", "Text",
+ CellChangeTimes->{{3.658493929328382*^9, 3.658493980848328*^9}, {
+  3.658494489260685*^9, 3.658494493828085*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"U", "=", 
+     RowBox[{"RandomUnitary", "[", "2", "]"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "@", 
+     RowBox[{"DiamondNormDistance", "[", "U", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Show", "[", 
+     RowBox[{
+      RowBox[{"ConvexHullMesh", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Re", "@", "#"}], ",", 
+           RowBox[{"Im", "@", "#"}]}], "}"}], "&"}], "/@", 
+        RowBox[{"Eigenvalues", "[", "U", "]"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Circle", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
+         RowBox[{"Arrow", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"1.2", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+         RowBox[{"Arrow", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "1.2"}], "}"}]}], "}"}], "]"}], ",", 
+         "\[IndentingNewLine]", "Red", ",", 
+         RowBox[{"PointSize", "[", "Large", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Point", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Re", "@", "#"}], ",", 
+              RowBox[{"Im", "@", "#"}]}], "}"}], "]"}], "&"}], "/@", 
+          RowBox[{"Eigenvalues", "[", "U", "]"}]}]}], "}"}], 
+       "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.658493534516458*^9, 3.658493732754489*^9}, 
+   3.658493871271123*^9, {3.658494429401711*^9, 3.6584944351012278`*^9}}],
+
+Cell[BoxData["1.1551502768823634`"], "Print",
+ CellChangeTimes->{{3.658493644132503*^9, 3.6584936665704603`*^9}, {
+   3.65849371542854*^9, 3.6584937482606497`*^9}, {3.658493862887773*^9, 
+   3.6584938717734137`*^9}, 3.658494435495536*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   GraphicsComplexBox[{{0.9969945717037888, -0.07747143985482052}, {
+    0.2587586821363334, -0.9659419984756163}}, 
+    {Hue[0.6, 0.3, 0.75], 
+     LineBox[{{1, 2}}], {PointBox[{{1}}], PointBox[{{2}}]}}], {
+    CircleBox[{0, 0}], ArrowBox[{{0, 0}, {1.2, 0}}], 
+    ArrowBox[{{0, 0}, {0, 1.2}}], 
+    {RGBColor[1, 0, 0], PointSize[Large], 
+     PointBox[{0.9969945717037888, -0.07747143985482052}], 
+     PointBox[{0.2587586821363334, -0.9659419984756163}]}}}]], "Output",
+ CellChangeTimes->{
+  3.6584935497009373`*^9, {3.658493644221479*^9, 3.658493666573263*^9}, {
+   3.65849371545404*^9, 3.658493748262622*^9}, {3.6584938628925667`*^9, 
+   3.6584938717778788`*^9}, 3.658494435498806*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "When d>2, there is a good chance a random unitary will have eigenvalues \
+that have the origin in their convex hull, in which case the diamond norm is \
+exactly 2 because the smallest enclosing circle ",
+ StyleBox["is",
+  FontSlant->"Italic"],
+ " the unit circle. If the origin is not contained in the convex hull of the \
+eigenvalues, the minimum enclosing circle touches only two of the eigenvalues."
+}], "Text",
+ CellChangeTimes->{{3.65849426713374*^9, 3.6584943322462673`*^9}, {
+  3.658494670387967*^9, 3.658494765523479*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"d", "=", "3"}], ",", "U", ",", "chull", ",", "nearest"}], "}"}],
+    ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"U", "=", 
+     RowBox[{"RandomUnitary", "[", "d", "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Print", "@", 
+     RowBox[{"DiamondNormDistance", "[", "U", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"chull", "=", 
+     RowBox[{"ConvexHullMesh", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Re", "@", "#"}], ",", 
+          RowBox[{"Im", "@", "#"}]}], "}"}], "&"}], "/@", 
+       RowBox[{"Eigenvalues", "[", "U", "]"}]}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"nearest", "=", 
+     RowBox[{"RegionNearest", "[", 
+      RowBox[{"chull", ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Show", "[", 
+     RowBox[{"chull", ",", "\[IndentingNewLine]", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Circle", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
+         RowBox[{"Arrow", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"1.2", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+         RowBox[{"Arrow", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"0", ",", "1.2"}], "}"}]}], "}"}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"PointSize", "[", "Large", "]"}], ",", "\[IndentingNewLine]",
+          "Blue", ",", 
+         RowBox[{"Point", "[", "nearest", "]"}], ",", 
+         RowBox[{"Point", "[", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0"}], "}"}], "]"}], ",", 
+         RowBox[{"Line", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", "nearest"}], "}"}], "]"}], 
+         ",", "\[IndentingNewLine]", 
+         RowBox[{"Circle", "[", 
+          RowBox[{"nearest", ",", 
+           RowBox[{
+            RowBox[{"DiamondNormDistance", "[", "U", "]"}], "/", "2"}]}], 
+          "]"}], ",", "\[IndentingNewLine]", "Red", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Point", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Re", "@", "#"}], ",", 
+              RowBox[{"Im", "@", "#"}]}], "}"}], "]"}], "&"}], "/@", 
+          RowBox[{"Eigenvalues", "[", "U", "]"}]}]}], "}"}], 
+       "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.658493993435582*^9, 3.658493997530752*^9}, {
+  3.658494029798608*^9, 3.658494235740901*^9}, {3.658494347052314*^9, 
+  3.658494413974451*^9}}],
+
+Cell[BoxData["1.918832199781212`"], "Print",
+ CellChangeTimes->{{3.658494368896858*^9, 3.658494454646048*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   GraphicsComplexBox[{{0.8825168912257765, 0.4702806999029317}, {
+    0.9729583077329089, -0.23098080312769295`}, {-0.6932339409679547, 
+    0.7207126355837223}}, 
+    {Hue[0.6, 0.3, 0.95], EdgeForm[Hue[0.6, 0.3, 0.75]], 
+     PolygonBox[{{1, 3, 2}}]}], {CircleBox[{0, 0}], 
+    ArrowBox[{{0, 0}, {1.2, 0}}], ArrowBox[{{0, 0}, {0, 1.2}}], 
+    {RGBColor[0, 0, 1], PointSize[Large], 
+     PointBox[{0.13986218338247647`, 0.24486591622801507`}], PointBox[{0, 0}],
+      LineBox[{{0, 0}, {0.13986218338247647`, 0.24486591622801507`}}], 
+     CircleBox[{0.13986218338247647`, 0.24486591622801507`}, 
+      0.959416099890606], 
+     {RGBColor[1, 0, 0], PointBox[{0.8825168912257765, 0.4702806999029317}], 
+      PointBox[{0.9729583077329089, -0.23098080312769295`}], 
+      PointBox[{-0.6932339409679547, 0.7207126355837223}]}}}}]], "Output",
+ CellChangeTimes->{{3.65849436889937*^9, 3.658494454649364*^9}}]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example 2", "Subsubsection",
+ CellChangeTimes->{{3.658494511564919*^9, 3.6584945129245567`*^9}}],
+
+Cell["\<\
+Compute the diamond norm distance between a rotation by \[Theta] about x, and \
+the identity operation.\
+\>", "Text",
+ CellChangeTimes->{{3.6584953541488733`*^9, 3.658495354923469*^9}, {
+  3.658495392164083*^9, 3.658495413910078*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dnd", "[", "\[Theta]_", "]"}], "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    RowBox[{"DiamondNormDistance", "[", 
+     RowBox[{"Unitary", "[", 
+      RowBox[{"MatrixExp", "[", 
+       RowBox[{
+        RowBox[{"-", "I"}], " ", "\[Theta]", " ", 
+        RowBox[{
+         RowBox[{"Spin", "[", "X", "]"}], "[", 
+         RowBox[{"1", "/", "2"}], "]"}]}], "]"}], "]"}], "]"}], ",", 
+    RowBox[{"Assumptions", "\[Rule]", 
+     RowBox[{"0", "<=", "\[Theta]", "<", 
+      RowBox[{"2", "\[Pi]"}]}]}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Plot", "[", 
+  RowBox[{
+   RowBox[{"dnd", "[", "\[Theta]", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Theta]", ",", "0", ",", 
+     RowBox[{"2", "\[Pi]"}]}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.658495169050482*^9, 3.6584953260739594`*^9}, {
+  3.6584953579154654`*^9, 3.658495388299387*^9}}],
+
+Cell[BoxData[
+ RowBox[{"2", " ", 
+  RowBox[{"Sin", "[", 
+   FractionBox["\[Theta]", "2"], "]"}]}]], "Output",
+ CellChangeTimes->{{3.658495216682341*^9, 3.658495271305501*^9}, {
+  3.658495315461378*^9, 3.658495328093992*^9}, {3.658495366672092*^9, 
+  3.6584953887542067`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {}, 
+   {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[
+    1.], LineBox[CompressedData["
+1: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
+
+     "]]}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{"DefaultBoundaryStyle" -> Automatic, "ScalingFunctions" -> None},
+  PlotRange->
+   NCache[{{0, 2 Pi}, {0., 1.9999999415675904`}}, {{0, 6.283185307179586}, {
+     0., 1.9999999415675904`}}],
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.658495216682341*^9, 3.658495271305501*^9}, {
+  3.658495315461378*^9, 3.658495328093992*^9}, {3.658495366672092*^9, 
+  3.6584953888222017`*^9}}]
+}, Open  ]],
+
+Cell["Compute the distance between two random unitary matrices:", "Text",
+ CellChangeTimes->{{3.658494615259495*^9, 3.658494647826169*^9}, {
+  3.658495653348515*^9, 3.658495654076475*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"U1", "=", 
+   RowBox[{"RandomUnitary", "[", "2", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"U2", "=", 
+   RowBox[{"RandomUnitary", "[", "2", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"chan1", "=", 
+   RowBox[{"Unitary", "@", "U1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"chan2", "=", 
+    RowBox[{"Unitary", "@", "U2"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"DiamondNormDistance", "[", 
+  RowBox[{"U1", ",", "U2"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"DiamondNormDistance", "[", 
+  RowBox[{"chan1", ",", "chan2"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"DiamondNormDistance", "[", 
+  RowBox[{
+   RowBox[{"Super", "@", "chan1"}], ",", "chan2"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.658494515006947*^9, 3.658494607131834*^9}}],
+
+Cell[BoxData["1.9852380607623783`"], "Output",
+ CellChangeTimes->{
+  3.6584945394326057`*^9, {3.658494589815749*^9, 3.658494609726151*^9}}],
+
+Cell[BoxData["1.9852380607623783`"], "Output",
+ CellChangeTimes->{
+  3.6584945394326057`*^9, {3.658494589815749*^9, 3.658494609729055*^9}}],
+
+Cell[BoxData["1.9852380607623783`"], "Output",
+ CellChangeTimes->{
+  3.6584945394326057`*^9, {3.658494589815749*^9, 3.658494609731934*^9}}]
+}, Open  ]]
+}, Closed]]
+}, Closed]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Special Channels", "Section",
- CellChangeTimes->{{3.633795871486487*^9, 3.633795874039425*^9}}],
+ CellChangeTimes->{{3.633795871486487*^9, 3.633795874039425*^9}, {
+  3.658495669524681*^9, 3.6584956696245832`*^9}}],
 
 Cell[CellGroupData[{
 
@@ -6672,7 +7450,7 @@ Cell[BoxData[
  CellChangeTimes->{3.634488967239542*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -6855,7 +7633,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.634489055235631*^9, 3.634489100634571*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -7160,7 +7938,7 @@ Cell[BoxData[
   3.634489399800272*^9, 3.634489425144617*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -8075,7 +8853,7 @@ peWkx/oZ4ASuDbKNJEYGGs+wZqruJjbJgNT9u/HtveeX/g8NHpnF
  CellChangeTimes->{{3.63449068036016*^9, 3.63449071107902*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -8473,7 +9251,7 @@ Cell[BoxData[
   3.6344903116860037`*^9, 3.634490322628244*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -8647,14 +9425,13 @@ Cell[BoxData[
  CellChangeTimes->{{3.6345086833135233`*^9, 3.6345087106122103`*^9}}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{904, 755},
-WindowMargins->{{Automatic, 24}, {Automatic, 0}},
-FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (December 4, \
-2014)",
+WindowSize->{1631, 1026},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (December 4, 2014)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -8663,673 +9440,734 @@ StyleDefinitions->"Default.nb"
 (*CellTagsOutline
 CellTagsIndex->{
  "QuantumChannel::usage"->{
-  Cell[3586, 102, 17876, 597, 1169, "Text",
+  Cell[3736, 105, 17876, 597, 990, "Text",
    CellTags->"QuantumChannel::usage"]},
  "InputDim::usage"->{
-  Cell[27847, 911, 1077, 35, 51, "Text",
+  Cell[27997, 914, 1077, 35, 53, "Text",
    CellTags->"InputDim::usage"]},
  "OutputDim::usage"->{
-  Cell[29066, 954, 1059, 34, 51, "Text",
+  Cell[29216, 957, 1059, 34, 53, "Text",
    CellTags->"OutputDim::usage"]},
  "Basis::usage"->{
-  Cell[30263, 996, 1583, 52, 71, "Text",
+  Cell[30413, 999, 1583, 52, 74, "Text",
    CellTags->"Basis::usage"]},
  "Unitary::usage"->{
-  Cell[32311, 1069, 6748, 236, 402, "Text",
+  Cell[32461, 1072, 6748, 236, 353, "Text",
    CellTags->"Unitary::usage"]},
  "Super::usage"->{
-  Cell[41905, 1406, 8215, 287, 462, "Text",
+  Cell[42055, 1409, 8215, 287, 416, "Text",
    CellTags->"Super::usage"]},
  "Choi::usage"->{
-  Cell[57962, 1932, 8874, 305, 542, "Text",
+  Cell[58112, 1935, 8874, 305, 537, "Text",
    CellTags->"Choi::usage"]},
  "Chi::usage"->{
-  Cell[86155, 2861, 7863, 269, 522, "Text",
+  Cell[86305, 2864, 7863, 269, 516, "Text",
    CellTags->"Chi::usage"]},
  "Kraus::usage"->{
-  Cell[98263, 3263, 8765, 315, 461, "Text",
+  Cell[98413, 3266, 8765, 315, 394, "Text",
    CellTags->"Kraus::usage"]},
  "Stinespring::usage"->{
-  Cell[110963, 3719, 8533, 298, 501, "Text",
+  Cell[111113, 3722, 8533, 298, 453, "Text",
    CellTags->"Stinespring::usage"]},
  "SysEnv::usage"->{
-  Cell[121207, 4084, 8507, 308, 461, "Text",
+  Cell[121357, 4087, 8507, 308, 394, "Text",
    CellTags->"SysEnv::usage"]},
  "ChannelRep::usage"->{
-  Cell[132423, 4484, 787, 26, 31, "Text",
+  Cell[132573, 4487, 787, 26, 32, "Text",
    CellTags->"ChannelRep::usage"]},
  "ChannelParameters::usage"->{
-  Cell[134317, 4554, 1556, 53, 51, "Text",
+  Cell[134467, 4557, 1556, 53, 53, "Text",
    CellTags->"ChannelParameters::usage"]},
  "CompletelyPositiveQ::usage"->{
-  Cell[137278, 4659, 1770, 54, 128, "Text",
+  Cell[137428, 4662, 1816, 54, 92, "Text",
    CellTags->"CompletelyPositiveQ::usage"]},
  "TracePreservingQ::usage"->{
-  Cell[142828, 4831, 1629, 50, 127, "Text",
+  Cell[143024, 4834, 1674, 50, 92, "Text",
    CellTags->"TracePreservingQ::usage"]},
  "HermitianPreservingQ::usage"->{
-  Cell[144653, 4890, 1430, 41, 128, "Text",
+  Cell[144894, 4893, 1459, 43, 92, "Text",
    CellTags->"HermitianPreservingQ::usage"]},
+ "UnitaryQ::usage"->{
+  Cell[146488, 4944, 1193, 41, 92, "Text",
+   CellTags->"UnitaryQ::usage"]},
  "UnitalQ::usage"->{
-  Cell[146245, 4940, 1742, 50, 89, "Text",
+  Cell[154670, 5171, 1791, 51, 92, "Text",
    CellTags->"UnitalQ::usage"]},
  "PauliChannelQ::usage"->{
-  Cell[150012, 5056, 1738, 50, 127, "Text",
+  Cell[158486, 5288, 1738, 50, 111, "Text",
    CellTags->"PauliChannelQ::usage"]},
  "ProcessFidelity::usage"->{
-  Cell[152864, 5147, 2383, 80, 90, "Text",
+  Cell[161399, 5380, 2383, 80, 93, "Text",
    CellTags->"ProcessFidelity::usage"]},
  "GateFidelity::usage"->{
-  Cell[157100, 5297, 3080, 107, 90, "Text",
+  Cell[165635, 5530, 3080, 107, 72, "Text",
    CellTags->"GateFidelity::usage"]},
  "AverageGateFidelity::usage"->{
-  Cell[164863, 5557, 2362, 76, 109, "Text",
+  Cell[173398, 5790, 2362, 76, 93, "Text",
    CellTags->"AverageGateFidelity::usage"]},
  "Unitarity::usage"->{
-  Cell[169364, 5712, 1289, 37, 50, "Text",
+  Cell[177899, 5945, 1094, 30, 32, "Text",
    CellTags->"Unitarity::usage"]},
  "EntanglementFidelity::usage"->{
-  Cell[172576, 5818, 3278, 110, 130, "Text",
+  Cell[180964, 6046, 3278, 110, 93, "Text",
    CellTags->"EntanglementFidelity::usage"]},
  "ChannelVolume::usage"->{
-  Cell[198611, 6462, 750, 19, 50, "Text",
+  Cell[206999, 6690, 750, 19, 32, "Text",
    CellTags->"ChannelVolume::usage"]},
+ "DiamondNormDistance::usage"->{
+  Cell[208801, 6752, 2877, 95, 233, "Text",
+   CellTags->"DiamondNormDistance::usage"]},
  "ComChannel::usage"->{
-  Cell[200552, 6530, 2551, 93, 71, "Text",
+  Cell[230557, 7308, 2551, 93, 53, "Text",
    CellTags->"ComChannel::usage"]},
  "AComChannel::usage"->{
-  Cell[204684, 6681, 2554, 94, 71, "Text",
+  Cell[234689, 7459, 2554, 94, 53, "Text",
    CellTags->"AComChannel::usage"]},
  "LindbladDissipator::usage"->{
-  Cell[209832, 6864, 5405, 196, 149, "Text",
+  Cell[239837, 7642, 5405, 196, 154, "Text",
    CellTags->"LindbladDissipator::usage"]},
  "Lindblad::usage"->{
-  Cell[218449, 7169, 3702, 128, 169, "Text",
+  Cell[248454, 7947, 3702, 128, 154, "Text",
    CellTags->"Lindblad::usage"]},
  "PartialTrChannel::usage"->{
-  Cell[263672, 8084, 3155, 111, 111, "Text",
+  Cell[293677, 8862, 3155, 111, 95, "Text",
    CellTags->"PartialTrChannel::usage"]},
  "FunctionChannel::usage"->{
-  Cell[279334, 8482, 3282, 105, 168, "Text",
+  Cell[309339, 9260, 3282, 105, 155, "Text",
    CellTags->"FunctionChannel::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"QuantumChannel::usage", 284927, 8664},
- {"InputDim::usage", 285033, 8667},
- {"OutputDim::usage", 285131, 8670},
- {"Basis::usage", 285226, 8673},
- {"Unitary::usage", 285319, 8676},
- {"Super::usage", 285415, 8679},
- {"Choi::usage", 285508, 8682},
- {"Chi::usage", 285599, 8685},
- {"Kraus::usage", 285691, 8688},
- {"Stinespring::usage", 285791, 8691},
- {"SysEnv::usage", 285893, 8694},
- {"ChannelRep::usage", 285994, 8697},
- {"ChannelParameters::usage", 286103, 8700},
- {"CompletelyPositiveQ::usage", 286222, 8703},
- {"TracePreservingQ::usage", 286341, 8706},
- {"HermitianPreservingQ::usage", 286461, 8709},
- {"UnitalQ::usage", 286572, 8712},
- {"PauliChannelQ::usage", 286675, 8715},
- {"ProcessFidelity::usage", 286787, 8718},
- {"GateFidelity::usage", 286897, 8721},
- {"AverageGateFidelity::usage", 287012, 8724},
- {"Unitarity::usage", 287124, 8727},
- {"EntanglementFidelity::usage", 287236, 8730},
- {"ChannelVolume::usage", 287354, 8733},
- {"ComChannel::usage", 287459, 8736},
- {"AComChannel::usage", 287563, 8739},
- {"LindbladDissipator::usage", 287675, 8742},
- {"Lindblad::usage", 287786, 8745},
- {"PartialTrChannel::usage", 287895, 8748},
- {"FunctionChannel::usage", 288011, 8751}
+ {"QuantumChannel::usage", 314913, 9441},
+ {"InputDim::usage", 315018, 9444},
+ {"OutputDim::usage", 315116, 9447},
+ {"Basis::usage", 315211, 9450},
+ {"Unitary::usage", 315304, 9453},
+ {"Super::usage", 315400, 9456},
+ {"Choi::usage", 315493, 9459},
+ {"Chi::usage", 315584, 9462},
+ {"Kraus::usage", 315676, 9465},
+ {"Stinespring::usage", 315776, 9468},
+ {"SysEnv::usage", 315878, 9471},
+ {"ChannelRep::usage", 315979, 9474},
+ {"ChannelParameters::usage", 316088, 9477},
+ {"CompletelyPositiveQ::usage", 316207, 9480},
+ {"TracePreservingQ::usage", 316325, 9483},
+ {"HermitianPreservingQ::usage", 316444, 9486},
+ {"UnitaryQ::usage", 316555, 9489},
+ {"UnitalQ::usage", 316653, 9492},
+ {"PauliChannelQ::usage", 316756, 9495},
+ {"ProcessFidelity::usage", 316868, 9498},
+ {"GateFidelity::usage", 316978, 9501},
+ {"AverageGateFidelity::usage", 317093, 9504},
+ {"Unitarity::usage", 317204, 9507},
+ {"EntanglementFidelity::usage", 317316, 9510},
+ {"ChannelVolume::usage", 317433, 9513},
+ {"DiamondNormDistance::usage", 317547, 9516},
+ {"ComChannel::usage", 317660, 9519},
+ {"AComChannel::usage", 317764, 9522},
+ {"LindbladDissipator::usage", 317876, 9525},
+ {"Lindblad::usage", 317987, 9528},
+ {"PartialTrChannel::usage", 318096, 9531},
+ {"FunctionChannel::usage", 318211, 9534}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 257, 3, 65, "Chapter"],
+Cell[580, 22, 257, 3, 66, "Chapter"],
 Cell[CellGroupData[{
 Cell[862, 29, 94, 1, 44, "Subsection"],
-Cell[959, 32, 339, 5, 28, "Input"],
-Cell[1301, 39, 182, 4, 30, "Text"],
-Cell[1486, 45, 359, 6, 46, "Input"]
+Cell[959, 32, 387, 6, 32, "Input"],
+Cell[1349, 40, 182, 4, 31, "Text"],
+Cell[1534, 46, 359, 6, 55, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1882, 56, 101, 1, 44, "Subsection"],
-Cell[1986, 59, 531, 12, 42, "Output"]
+Cell[1930, 57, 152, 2, 44, "Subsection"],
+Cell[2085, 61, 531, 12, 39, "Output"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[2554, 76, 110, 1, 50, "Section"],
-Cell[2667, 79, 502, 8, 87, "Text"]
+Cell[2653, 78, 110, 1, 51, "Section"],
+Cell[2766, 81, 502, 8, 51, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3206, 92, 246, 3, 64, "Section"],
+Cell[3305, 94, 297, 4, 65, "Section"],
 Cell[CellGroupData[{
-Cell[3477, 99, 106, 1, 44, "Subsection"],
-Cell[3586, 102, 17876, 597, 1169, "Text",
+Cell[3627, 102, 106, 1, 44, "Subsection"],
+Cell[3736, 105, 17876, 597, 990, "Text",
  CellTags->"QuantumChannel::usage"],
 Cell[CellGroupData[{
-Cell[21487, 703, 97, 1, 34, "Subsubsection"],
-Cell[21587, 706, 6121, 197, 313, "Text"]
+Cell[21637, 706, 97, 1, 35, "Subsubsection"],
+Cell[21737, 709, 6121, 197, 313, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[27745, 908, 99, 1, 28, "Subsubsection"],
-Cell[27847, 911, 1077, 35, 51, "Text",
+Cell[27895, 911, 99, 1, 29, "Subsubsection"],
+Cell[27997, 914, 1077, 35, 53, "Text",
  CellTags->"InputDim::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28961, 951, 102, 1, 34, "Subsubsection"],
-Cell[29066, 954, 1059, 34, 51, "Text",
+Cell[29111, 954, 102, 1, 35, "Subsubsection"],
+Cell[29216, 957, 1059, 34, 53, "Text",
  CellTags->"OutputDim::usage"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[30162, 993, 98, 1, 34, "Subsubsection"],
-Cell[30263, 996, 1583, 52, 71, "Text",
+Cell[30312, 996, 98, 1, 35, "Subsubsection"],
+Cell[30413, 999, 1583, 52, 74, "Text",
  CellTags->"Basis::usage"],
-Cell[31849, 1050, 262, 9, 31, "Text"]
+Cell[31999, 1053, 262, 9, 32, "Text"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[32160, 1065, 148, 2, 43, "Subsection"],
-Cell[32311, 1069, 6748, 236, 402, "Text",
+Cell[32310, 1068, 148, 2, 37, "Subsection"],
+Cell[32461, 1072, 6748, 236, 353, "Text",
  CellTags->"Unitary::usage"],
 Cell[CellGroupData[{
-Cell[39084, 1309, 96, 1, 34, "Subsubsection"],
-Cell[39183, 1312, 134, 1, 30, "Text"],
+Cell[39234, 1312, 96, 1, 35, "Subsubsection"],
+Cell[39333, 1315, 134, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[39342, 1317, 228, 5, 28, "Input"],
-Cell[39573, 1324, 356, 11, 28, "Output"]
+Cell[39492, 1320, 228, 5, 32, "Input"],
+Cell[39723, 1327, 356, 11, 32, "Output"]
 }, Open  ]],
-Cell[39944, 1338, 135, 1, 30, "Text"],
+Cell[40094, 1341, 135, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[40104, 1343, 183, 4, 28, "Input"],
-Cell[40290, 1349, 152, 3, 28, "Output"]
+Cell[40254, 1346, 183, 4, 32, "Input"],
+Cell[40440, 1352, 152, 3, 32, "Output"]
 }, Open  ]],
-Cell[40457, 1355, 98, 1, 30, "Text"],
+Cell[40607, 1358, 98, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[40580, 1360, 268, 8, 28, "Input"],
-Cell[40851, 1370, 893, 26, 58, "Output"]
+Cell[40730, 1363, 268, 8, 32, "Input"],
+Cell[41001, 1373, 893, 26, 58, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[41805, 1403, 97, 1, 43, "Subsection"],
-Cell[41905, 1406, 8215, 287, 462, "Text",
+Cell[41955, 1406, 97, 1, 37, "Subsection"],
+Cell[42055, 1409, 8215, 287, 416, "Text",
  CellTags->"Super::usage"],
 Cell[CellGroupData[{
-Cell[50145, 1697, 193, 3, 34, "Subsubsection"],
-Cell[50341, 1702, 239, 3, 30, "Text"],
+Cell[50295, 1700, 193, 3, 35, "Subsubsection"],
+Cell[50491, 1705, 239, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[50605, 1709, 357, 6, 46, "Input"],
-Cell[50965, 1717, 633, 16, 28, "Output"],
-Cell[51601, 1735, 822, 22, 92, "Output"]
+Cell[50755, 1712, 357, 6, 46, "Input"],
+Cell[51115, 1720, 633, 16, 28, "Output"],
+Cell[51751, 1738, 822, 22, 92, "Output"]
 }, Open  ]],
-Cell[52438, 1760, 309, 6, 49, "Text"],
+Cell[52588, 1763, 309, 6, 49, "Text"],
 Cell[CellGroupData[{
-Cell[52772, 1770, 309, 8, 28, "Input"],
-Cell[53084, 1780, 1003, 27, 62, "Output"]
+Cell[52922, 1773, 309, 8, 28, "Input"],
+Cell[53234, 1783, 1003, 27, 62, "Output"]
 }, Open  ]],
-Cell[54102, 1810, 202, 4, 30, "Text"],
+Cell[54252, 1813, 202, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[54329, 1818, 317, 9, 28, "Input"],
-Cell[54649, 1829, 942, 27, 58, "Output"]
+Cell[54479, 1821, 317, 9, 28, "Input"],
+Cell[54799, 1832, 942, 27, 58, "Output"]
 }, Open  ]],
-Cell[55606, 1859, 206, 4, 30, "Text"],
+Cell[55756, 1862, 206, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[55837, 1867, 360, 8, 46, "Input"],
-Cell[56200, 1877, 682, 18, 28, "Output"],
-Cell[56885, 1897, 872, 24, 92, "Output"]
+Cell[55987, 1870, 360, 8, 46, "Input"],
+Cell[56350, 1880, 682, 18, 28, "Output"],
+Cell[57035, 1900, 872, 24, 92, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[57818, 1928, 141, 2, 43, "Subsection"],
-Cell[57962, 1932, 8874, 305, 542, "Text",
+Cell[57968, 1931, 141, 2, 36, "Subsection"],
+Cell[58112, 1935, 8874, 305, 537, "Text",
  CellTags->"Choi::usage"],
 Cell[CellGroupData[{
-Cell[66861, 2241, 151, 2, 34, "Subsubsection"],
-Cell[67015, 2245, 189, 4, 30, "Text"],
+Cell[67011, 2244, 151, 2, 34, "Subsubsection"],
+Cell[67165, 2248, 189, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[67229, 2253, 231, 5, 28, "Input"],
-Cell[67463, 2260, 614, 18, 47, "Output"]
+Cell[67379, 2256, 231, 5, 28, "Input"],
+Cell[67613, 2263, 614, 18, 47, "Output"]
 }, Open  ]],
-Cell[68092, 2281, 226, 5, 30, "Text"],
+Cell[68242, 2284, 226, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[68343, 2290, 324, 9, 28, "Input"],
-Cell[68670, 2301, 1137, 34, 74, "Output"]
+Cell[68493, 2293, 324, 9, 28, "Input"],
+Cell[68820, 2304, 1137, 34, 74, "Output"]
 }, Open  ]],
-Cell[69822, 2338, 217, 4, 30, "Text"]
+Cell[69972, 2341, 217, 4, 30, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[70076, 2347, 100, 1, 28, "Subsubsection"],
-Cell[70179, 2350, 863, 25, 58, "Text"],
+Cell[70226, 2350, 100, 1, 28, "Subsubsection"],
+Cell[70329, 2353, 863, 25, 58, "Text"],
 Cell[CellGroupData[{
-Cell[71067, 2379, 357, 8, 28, "Input"],
-Cell[71427, 2389, 539, 14, 28, "Output"]
+Cell[71217, 2382, 357, 8, 28, "Input"],
+Cell[71577, 2392, 539, 14, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[72003, 2408, 142, 2, 28, "Input"],
-Cell[72148, 2412, 106, 1, 28, "Output"]
+Cell[72153, 2411, 142, 2, 28, "Input"],
+Cell[72298, 2415, 106, 1, 28, "Output"]
 }, Open  ]],
-Cell[72269, 2416, 103, 1, 30, "Text"],
+Cell[72419, 2419, 103, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[72397, 2421, 326, 9, 28, "Input"],
-Cell[72726, 2432, 2395, 74, 74, "Output"]
+Cell[72547, 2424, 326, 9, 28, "Input"],
+Cell[72876, 2435, 2395, 74, 74, "Output"]
 }, Open  ]],
-Cell[75136, 2509, 155, 3, 30, "Text"],
+Cell[75286, 2512, 155, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[75316, 2516, 214, 4, 28, "Input"],
-Cell[75533, 2522, 1206, 38, 84, "Output"]
+Cell[75466, 2519, 214, 4, 28, "Input"],
+Cell[75683, 2525, 1206, 38, 84, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[76788, 2566, 149, 2, 28, "Subsubsection"],
-Cell[76940, 2570, 727, 18, 71, "Text"],
-Cell[77670, 2590, 132, 1, 30, "Text"],
+Cell[76938, 2569, 149, 2, 28, "Subsubsection"],
+Cell[77090, 2573, 727, 18, 71, "Text"],
+Cell[77820, 2593, 132, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[77827, 2595, 209, 5, 28, "Input"],
-Cell[78039, 2602, 513, 14, 28, "Output"]
+Cell[77977, 2598, 209, 5, 28, "Input"],
+Cell[78189, 2605, 513, 14, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[78589, 2621, 419, 12, 28, "Input"],
-Cell[79011, 2635, 893, 26, 58, "Output"]
+Cell[78739, 2624, 419, 12, 28, "Input"],
+Cell[79161, 2638, 893, 26, 58, "Output"]
 }, Open  ]],
-Cell[79919, 2664, 228, 4, 49, "Text"],
+Cell[80069, 2667, 228, 4, 49, "Text"],
 Cell[CellGroupData[{
-Cell[80172, 2672, 368, 10, 28, "Input"],
-Cell[80543, 2684, 295, 7, 24, "Message"]
+Cell[80322, 2675, 368, 10, 28, "Input"],
+Cell[80693, 2687, 295, 7, 24, "Message"]
 }, Open  ]],
-Cell[80853, 2694, 152, 3, 30, "Text"],
+Cell[81003, 2697, 152, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[81030, 2701, 902, 25, 46, "Input"],
-Cell[81935, 2728, 1302, 37, 63, "Output"],
-Cell[83240, 2767, 1302, 37, 63, "Output"]
+Cell[81180, 2704, 902, 25, 46, "Input"],
+Cell[82085, 2731, 1302, 37, 63, "Output"],
+Cell[83390, 2770, 1302, 37, 63, "Output"]
 }, Open  ]],
-Cell[84557, 2807, 169, 2, 30, "Text"],
+Cell[84707, 2810, 169, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[84751, 2813, 283, 8, 28, "Input"],
-Cell[85037, 2823, 964, 28, 92, "Output"]
+Cell[84901, 2816, 283, 8, 28, "Input"],
+Cell[85187, 2826, 964, 28, 92, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[86062, 2858, 90, 1, 43, "Subsection"],
-Cell[86155, 2861, 7863, 269, 522, "Text",
+Cell[86212, 2861, 90, 1, 36, "Subsection"],
+Cell[86305, 2864, 7863, 269, 516, "Text",
  CellTags->"Chi::usage"],
 Cell[CellGroupData[{
-Cell[94043, 3134, 97, 1, 34, "Subsubsection"],
-Cell[94143, 3137, 241, 3, 30, "Text"],
+Cell[94193, 3137, 97, 1, 34, "Subsubsection"],
+Cell[94293, 3140, 241, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[94409, 3144, 479, 13, 46, "Input"],
-Cell[94891, 3159, 1606, 46, 46, "Output"],
-Cell[96500, 3207, 1606, 46, 46, "Output"]
+Cell[94559, 3147, 479, 13, 46, "Input"],
+Cell[95041, 3162, 1606, 46, 46, "Output"],
+Cell[96650, 3210, 1606, 46, 46, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[98167, 3260, 93, 1, 43, "Subsection"],
-Cell[98263, 3263, 8765, 315, 461, "Text",
+Cell[98317, 3263, 93, 1, 36, "Subsection"],
+Cell[98413, 3266, 8765, 315, 394, "Text",
  CellTags->"Kraus::usage"],
 Cell[CellGroupData[{
-Cell[107053, 3582, 98, 1, 34, "Subsubsection"],
-Cell[107154, 3585, 169, 3, 30, "Text"],
+Cell[107203, 3585, 98, 1, 35, "Subsubsection"],
+Cell[107304, 3588, 169, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[107348, 3592, 415, 13, 43, "Input"],
-Cell[107766, 3607, 672, 24, 42, "Output"]
+Cell[107498, 3595, 415, 13, 43, "Input"],
+Cell[107916, 3610, 672, 24, 42, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[108475, 3636, 400, 11, 28, "Input"],
-Cell[108878, 3649, 1920, 60, 58, "Output"]
+Cell[108625, 3639, 400, 11, 28, "Input"],
+Cell[109028, 3652, 1920, 60, 58, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[110859, 3716, 101, 1, 43, "Subsection"],
-Cell[110963, 3719, 8533, 298, 501, "Text",
+Cell[111009, 3719, 101, 1, 37, "Subsection"],
+Cell[111113, 3722, 8533, 298, 453, "Text",
  CellTags->"Stinespring::usage"],
 Cell[CellGroupData[{
-Cell[119521, 4021, 96, 1, 35, "Subsubsection"],
-Cell[119620, 4024, 164, 3, 30, "Text"],
+Cell[119671, 4024, 96, 1, 35, "Subsubsection"],
+Cell[119770, 4027, 164, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[119809, 4031, 494, 16, 61, "Input"],
-Cell[120306, 4049, 613, 21, 42, "Output"]
+Cell[119959, 4034, 494, 16, 61, "Input"],
+Cell[120456, 4052, 613, 21, 42, "Output"]
 }, Open  ]],
-Cell[120934, 4073, 116, 2, 28, "Input"]
+Cell[121084, 4076, 116, 2, 28, "Input"]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[121099, 4081, 105, 1, 44, "Subsection"],
-Cell[121207, 4084, 8507, 308, 461, "Text",
+Cell[121249, 4084, 105, 1, 37, "Subsection"],
+Cell[121357, 4087, 8507, 308, 394, "Text",
  CellTags->"SysEnv::usage"],
 Cell[CellGroupData[{
-Cell[129739, 4396, 98, 1, 35, "Subsubsection"],
+Cell[129889, 4399, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[129862, 4401, 415, 11, 28, "Input"],
-Cell[130280, 4414, 734, 19, 28, "Output"]
+Cell[130012, 4404, 415, 11, 28, "Input"],
+Cell[130430, 4417, 734, 19, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[131051, 4438, 272, 8, 28, "Input"],
-Cell[131326, 4448, 935, 26, 58, "Output"]
+Cell[131201, 4441, 272, 8, 28, "Input"],
+Cell[131476, 4451, 935, 26, 58, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[132322, 4481, 98, 1, 44, "Subsection"],
-Cell[132423, 4484, 787, 26, 31, "Text",
+Cell[132472, 4484, 98, 1, 37, "Subsection"],
+Cell[132573, 4487, 787, 26, 32, "Text",
  CellTags->"ChannelRep::usage"],
 Cell[CellGroupData[{
-Cell[133235, 4514, 98, 1, 35, "Subsubsection"],
+Cell[133385, 4517, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[133358, 4519, 411, 11, 46, "Input"],
-Cell[133772, 4532, 96, 1, 28, "Output"]
+Cell[133508, 4522, 411, 11, 46, "Input"],
+Cell[133922, 4535, 96, 1, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[133905, 4538, 164, 3, 28, "Input"],
-Cell[134072, 4543, 76, 1, 28, "Output"]
+Cell[134055, 4541, 164, 3, 28, "Input"],
+Cell[134222, 4546, 76, 1, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[134209, 4551, 105, 1, 44, "Subsection"],
-Cell[134317, 4554, 1556, 53, 51, "Text",
+Cell[134359, 4554, 105, 1, 36, "Subsection"],
+Cell[134467, 4557, 1556, 53, 53, "Text",
  CellTags->"ChannelParameters::usage"],
 Cell[CellGroupData[{
-Cell[135898, 4611, 98, 1, 35, "Subsubsection"],
+Cell[136048, 4614, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[136021, 4616, 546, 16, 46, "Input"],
-Cell[136570, 4634, 297, 7, 28, "Output"]
+Cell[136171, 4619, 546, 16, 46, "Input"],
+Cell[136720, 4637, 297, 7, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[136940, 4649, 154, 2, 64, "Section"],
+Cell[137090, 4652, 154, 2, 65, "Section"],
 Cell[CellGroupData[{
-Cell[137119, 4655, 156, 2, 44, "Subsection"],
-Cell[137278, 4659, 1770, 54, 128, "Text",
+Cell[137269, 4658, 156, 2, 45, "Subsection"],
+Cell[137428, 4662, 1816, 54, 92, "Text",
  CellTags->"CompletelyPositiveQ::usage"],
 Cell[CellGroupData[{
-Cell[139073, 4717, 98, 1, 35, "Subsubsection"],
-Cell[139174, 4720, 176, 2, 30, "Text"],
-Cell[139353, 4724, 555, 17, 40, "Input"],
+Cell[139269, 4720, 98, 1, 35, "Subsubsection"],
+Cell[139370, 4723, 176, 2, 30, "Text"],
+Cell[139549, 4727, 555, 17, 40, "Input"],
 Cell[CellGroupData[{
-Cell[139933, 4745, 142, 2, 28, "Input"],
-Cell[140078, 4749, 124, 2, 28, "Output"]
+Cell[140129, 4748, 142, 2, 28, "Input"],
+Cell[140274, 4752, 124, 2, 28, "Output"]
 }, Open  ]],
-Cell[140217, 4754, 227, 5, 30, "Text"],
+Cell[140413, 4757, 227, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[140469, 4763, 886, 23, 46, "Input"],
-Cell[141358, 4788, 351, 8, 24, "Message"]
+Cell[140665, 4766, 886, 23, 46, "Input"],
+Cell[141554, 4791, 351, 8, 24, "Message"]
 }, Open  ]],
-Cell[141724, 4799, 212, 4, 30, "Text"],
+Cell[141920, 4802, 212, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[141961, 4807, 402, 8, 28, "Input"],
-Cell[142366, 4817, 243, 3, 28, "Output"]
+Cell[142157, 4810, 402, 8, 28, "Input"],
+Cell[142562, 4820, 243, 3, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[142670, 4827, 155, 2, 44, "Subsection"],
-Cell[142828, 4831, 1629, 50, 127, "Text",
+Cell[142866, 4830, 155, 2, 37, "Subsection"],
+Cell[143024, 4834, 1674, 50, 92, "Text",
  CellTags->"TracePreservingQ::usage"]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[144494, 4886, 156, 2, 44, "Subsection"],
-Cell[144653, 4890, 1430, 41, 128, "Text",
+Cell[144735, 4889, 156, 2, 37, "Subsection"],
+Cell[144894, 4893, 1459, 43, 92, "Text",
  CellTags->"HermitianPreservingQ::usage"]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[146120, 4936, 122, 2, 44, "Subsection"],
-Cell[146245, 4940, 1742, 50, 89, "Text",
+Cell[146390, 4941, 95, 1, 37, "Subsection"],
+Cell[146488, 4944, 1193, 41, 92, "Text",
+ CellTags->"UnitaryQ::usage"],
+Cell[CellGroupData[{
+Cell[147706, 4989, 100, 1, 35, "Subsubsection"],
+Cell[147809, 4992, 124, 1, 31, "Text"],
+Cell[CellGroupData[{
+Cell[147958, 4997, 5233, 136, 241, "Input"],
+Cell[153194, 5135, 1290, 25, 148, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[154545, 5167, 122, 2, 36, "Subsection"],
+Cell[154670, 5171, 1791, 51, 92, "Text",
  CellTags->"UnitalQ::usage"],
 Cell[CellGroupData[{
-Cell[148012, 4994, 98, 1, 35, "Subsubsection"],
-Cell[148113, 4997, 218, 4, 30, "Text"],
+Cell[156486, 5226, 98, 1, 35, "Subsubsection"],
+Cell[156587, 5229, 218, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[148356, 5005, 407, 10, 46, "Input"],
-Cell[148766, 5017, 268, 4, 28, "Output"]
+Cell[156830, 5237, 407, 10, 46, "Input"],
+Cell[157240, 5249, 268, 4, 28, "Output"]
 }, Open  ]],
-Cell[149049, 5024, 221, 4, 49, "Text"],
+Cell[157523, 5256, 221, 4, 49, "Text"],
 Cell[CellGroupData[{
-Cell[149295, 5032, 356, 9, 28, "Input"],
-Cell[149654, 5043, 142, 2, 28, "Output"]
+Cell[157769, 5264, 356, 9, 28, "Input"],
+Cell[158128, 5275, 142, 2, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[149857, 5052, 152, 2, 44, "Subsection"],
-Cell[150012, 5056, 1738, 50, 127, "Text",
+Cell[158331, 5284, 152, 2, 36, "Subsection"],
+Cell[158486, 5288, 1738, 50, 111, "Text",
  CellTags->"PauliChannelQ::usage"],
 Cell[CellGroupData[{
-Cell[151775, 5110, 98, 1, 35, "Subsubsection"],
-Cell[151876, 5113, 140, 1, 30, "Text"],
+Cell[160249, 5342, 98, 1, 35, "Subsubsection"],
+Cell[160350, 5345, 140, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[152041, 5118, 362, 9, 46, "Input"],
-Cell[152406, 5129, 149, 2, 28, "Output"]
+Cell[160515, 5350, 362, 9, 55, "Input"],
+Cell[160880, 5361, 149, 2, 32, "Output"]
+}, Open  ]]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[152628, 5139, 104, 1, 64, "Section"],
+Cell[161102, 5371, 165, 2, 65, "Section"],
 Cell[CellGroupData[{
-Cell[152757, 5144, 104, 1, 44, "Subsection"],
-Cell[152864, 5147, 2383, 80, 90, "Text",
+Cell[161292, 5377, 104, 1, 45, "Subsection"],
+Cell[161399, 5380, 2383, 80, 93, "Text",
  CellTags->"ProcessFidelity::usage"],
 Cell[CellGroupData[{
-Cell[155272, 5231, 102, 1, 35, "Subsubsection"],
-Cell[155377, 5234, 173, 4, 30, "Text"],
+Cell[163807, 5464, 102, 1, 35, "Subsubsection"],
+Cell[163912, 5467, 173, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[155575, 5242, 561, 18, 61, "Input"],
-Cell[156139, 5262, 174, 4, 28, "Output"]
+Cell[164110, 5475, 561, 18, 68, "Input"],
+Cell[164674, 5495, 174, 4, 32, "Output"]
 }, Open  ]],
-Cell[156328, 5269, 133, 1, 30, "Text"],
+Cell[164863, 5502, 133, 1, 31, "Text"],
 Cell[CellGroupData[{
-Cell[156486, 5274, 267, 7, 28, "Input"],
-Cell[156756, 5283, 178, 4, 28, "Output"]
+Cell[165021, 5507, 267, 7, 32, "Input"],
+Cell[165291, 5516, 178, 4, 32, "Output"]
 }, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[156995, 5294, 102, 1, 44, "Subsection"],
-Cell[157100, 5297, 3080, 107, 90, "Text",
- CellTags->"GateFidelity::usage"],
-Cell[CellGroupData[{
-Cell[160205, 5408, 99, 1, 35, "Subsubsection"],
-Cell[160307, 5411, 217, 4, 30, "Text"],
-Cell[160527, 5417, 397, 13, 43, "Input"],
-Cell[CellGroupData[{
-Cell[160949, 5434, 1317, 37, 69, "Input"],
-Cell[162269, 5473, 188, 3, 28, "Output"],
-Cell[162460, 5478, 168, 2, 28, "Output"],
-Cell[162631, 5482, 976, 27, 52, "Output"]
-}, Open  ]],
-Cell[163622, 5512, 179, 4, 30, "Text"],
-Cell[CellGroupData[{
-Cell[163826, 5520, 588, 18, 56, "Input"],
-Cell[164417, 5540, 146, 3, 28, "Output"],
-Cell[164566, 5545, 122, 2, 28, "Output"]
-}, Open  ]]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[164749, 5554, 111, 1, 44, "Subsection"],
-Cell[164863, 5557, 2362, 76, 109, "Text",
- CellTags->"AverageGateFidelity::usage"],
-Cell[CellGroupData[{
-Cell[167250, 5637, 98, 1, 35, "Subsubsection"],
-Cell[167351, 5640, 155, 3, 30, "Text"],
-Cell[CellGroupData[{
-Cell[167531, 5647, 599, 19, 61, "Input"],
-Cell[168133, 5668, 163, 4, 48, "Output"]
-}, Open  ]],
-Cell[168311, 5675, 162, 3, 30, "Text"],
-Cell[CellGroupData[{
-Cell[168498, 5682, 410, 10, 28, "Input"],
-Cell[168911, 5694, 237, 7, 48, "Output"]
-}, Open  ]]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[169209, 5708, 152, 2, 44, "Subsection"],
-Cell[169364, 5712, 1289, 37, 50, "Text",
- CellTags->"Unitarity::usage"],
-Cell[CellGroupData[{
-Cell[170678, 5753, 98, 1, 35, "Subsubsection"],
-Cell[170779, 5756, 184, 2, 30, "Text"],
-Cell[CellGroupData[{
-Cell[170988, 5762, 640, 19, 61, "Input"],
-Cell[171631, 5783, 418, 11, 48, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[172086, 5799, 171, 4, 31, "Input"],
-Cell[172260, 5805, 141, 3, 46, "Output"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[172462, 5815, 111, 1, 43, "Subsection"],
-Cell[172576, 5818, 3278, 110, 130, "Text",
- CellTags->"EntanglementFidelity::usage"],
-Cell[CellGroupData[{
-Cell[175879, 5932, 154, 2, 34, "Subsubsection"],
-Cell[176036, 5936, 359, 7, 49, "Text"],
-Cell[CellGroupData[{
-Cell[176420, 5947, 1771, 51, 100, "Input"],
-Cell[178194, 6000, 240, 4, 28, "Output"],
-Cell[178437, 6006, 220, 3, 28, "Output"],
-Cell[178660, 6011, 1028, 28, 52, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[179737, 6045, 100, 1, 28, "Subsubsection"],
-Cell[179840, 6048, 195, 4, 30, "Text"],
+Cell[165530, 5527, 102, 1, 37, "Subsection"],
+Cell[165635, 5530, 3080, 107, 72, "Text",
+ CellTags->"GateFidelity::usage"],
 Cell[CellGroupData[{
-Cell[180060, 6056, 1628, 50, 78, "Input"],
-Cell[181691, 6108, 335, 5, 28, "Output"],
-Cell[182029, 6115, 570, 15, 48, "Output"]
+Cell[168740, 5641, 99, 1, 35, "Subsubsection"],
+Cell[168842, 5644, 217, 4, 30, "Text"],
+Cell[169062, 5650, 397, 13, 43, "Input"],
+Cell[CellGroupData[{
+Cell[169484, 5667, 1317, 37, 69, "Input"],
+Cell[170804, 5706, 188, 3, 28, "Output"],
+Cell[170995, 5711, 168, 2, 28, "Output"],
+Cell[171166, 5715, 976, 27, 52, "Output"]
 }, Open  ]],
+Cell[172157, 5745, 179, 4, 30, "Text"],
 Cell[CellGroupData[{
-Cell[182636, 6135, 416, 11, 28, "Input"],
-Cell[183055, 6148, 15388, 304, 239, "Output"]
+Cell[172361, 5753, 588, 18, 56, "Input"],
+Cell[172952, 5773, 146, 3, 28, "Output"],
+Cell[173101, 5778, 122, 2, 28, "Output"]
 }, Open  ]]
 }, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[173284, 5787, 111, 1, 37, "Subsection"],
+Cell[173398, 5790, 2362, 76, 93, "Text",
+ CellTags->"AverageGateFidelity::usage"],
+Cell[CellGroupData[{
+Cell[175785, 5870, 98, 1, 35, "Subsubsection"],
+Cell[175886, 5873, 155, 3, 31, "Text"],
+Cell[CellGroupData[{
+Cell[176066, 5880, 599, 19, 68, "Input"],
+Cell[176668, 5901, 163, 4, 49, "Output"]
+}, Open  ]],
+Cell[176846, 5908, 162, 3, 31, "Text"],
+Cell[CellGroupData[{
+Cell[177033, 5915, 410, 10, 32, "Input"],
+Cell[177446, 5927, 237, 7, 49, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[177744, 5941, 152, 2, 37, "Subsection"],
+Cell[177899, 5945, 1094, 30, 32, "Text",
+ CellTags->"Unitarity::usage"],
+Cell[CellGroupData[{
+Cell[179018, 5979, 98, 1, 35, "Subsubsection"],
+Cell[179119, 5982, 184, 2, 31, "Text"],
+Cell[CellGroupData[{
+Cell[179328, 5988, 642, 20, 68, "Input"],
+Cell[179973, 6010, 442, 12, 49, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[198504, 6459, 104, 1, 43, "Subsection"],
-Cell[198611, 6462, 750, 19, 50, "Text",
+Cell[180452, 6027, 171, 4, 32, "Input"],
+Cell[180626, 6033, 163, 3, 49, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[180850, 6043, 111, 1, 37, "Subsection"],
+Cell[180964, 6046, 3278, 110, 93, "Text",
+ CellTags->"EntanglementFidelity::usage"],
+Cell[CellGroupData[{
+Cell[184267, 6160, 154, 2, 35, "Subsubsection"],
+Cell[184424, 6164, 359, 7, 49, "Text"],
+Cell[CellGroupData[{
+Cell[184808, 6175, 1771, 51, 100, "Input"],
+Cell[186582, 6228, 240, 4, 28, "Output"],
+Cell[186825, 6234, 220, 3, 28, "Output"],
+Cell[187048, 6239, 1028, 28, 52, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[188125, 6273, 100, 1, 29, "Subsubsection"],
+Cell[188228, 6276, 195, 4, 30, "Text"],
+Cell[CellGroupData[{
+Cell[188448, 6284, 1628, 50, 78, "Input"],
+Cell[190079, 6336, 335, 5, 28, "Output"],
+Cell[190417, 6343, 570, 15, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[191024, 6363, 416, 11, 28, "Input"],
+Cell[191443, 6376, 15388, 304, 239, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[206892, 6687, 104, 1, 36, "Subsection"],
+Cell[206999, 6690, 750, 19, 32, "Text",
  CellTags->"ChannelVolume::usage"],
 Cell[CellGroupData[{
-Cell[199386, 6485, 98, 1, 34, "Subsubsection"],
+Cell[207774, 6713, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[199509, 6490, 591, 19, 61, "Input"],
-Cell[200103, 6511, 139, 3, 28, "Output"]
+Cell[207897, 6718, 591, 19, 68, "Input"],
+Cell[208491, 6739, 139, 3, 32, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[208691, 6749, 107, 1, 36, "Subsection"],
+Cell[208801, 6752, 2877, 95, 233, "Text",
+ CellTags->"DiamondNormDistance::usage"],
+Cell[CellGroupData[{
+Cell[211703, 6851, 105, 1, 35, "Subsubsection"],
+Cell[211811, 6854, 505, 9, 89, "Text"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[212353, 6868, 202, 3, 29, "Subsubsection"],
+Cell[212558, 6873, 376, 7, 31, "Text"],
+Cell[CellGroupData[{
+Cell[212959, 6884, 2043, 56, 209, "Input"],
+Cell[215005, 6942, 238, 3, 23, "Print"],
+Cell[215246, 6947, 719, 14, 374, "Output"]
+}, Open  ]],
+Cell[215980, 6964, 548, 10, 51, "Text"],
+Cell[CellGroupData[{
+Cell[216553, 6978, 3073, 81, 341, "Input"],
+Cell[219629, 7061, 110, 1, 23, "Print"],
+Cell[219742, 7064, 932, 16, 375, "Output"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[220723, 7086, 102, 1, 29, "Subsubsection"],
+Cell[220828, 7089, 244, 5, 31, "Text"],
+Cell[CellGroupData[{
+Cell[221097, 7098, 888, 23, 55, "Input"],
+Cell[221988, 7123, 275, 6, 46, "Output"],
+Cell[222266, 7131, 6408, 117, 233, "Output"]
+}, Open  ]],
+Cell[228689, 7251, 188, 2, 31, "Text"],
+Cell[CellGroupData[{
+Cell[228902, 7257, 868, 22, 187, "Input"],
+Cell[229773, 7281, 139, 2, 32, "Output"],
+Cell[229915, 7285, 139, 2, 32, "Output"],
+Cell[230057, 7289, 139, 2, 32, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[200315, 6522, 101, 1, 63, "Section"],
+Cell[230269, 7299, 152, 2, 65, "Section"],
 Cell[CellGroupData[{
-Cell[200441, 6527, 108, 1, 43, "Subsection"],
-Cell[200552, 6530, 2551, 93, 71, "Text",
+Cell[230446, 7305, 108, 1, 44, "Subsection"],
+Cell[230557, 7308, 2551, 93, 53, "Text",
  CellTags->"ComChannel::usage"],
 Cell[CellGroupData[{
-Cell[203128, 6627, 98, 1, 34, "Subsubsection"],
-Cell[203229, 6630, 428, 12, 39, "Text"],
+Cell[233133, 7405, 98, 1, 35, "Subsubsection"],
+Cell[233234, 7408, 428, 12, 39, "Text"],
 Cell[CellGroupData[{
-Cell[203682, 6646, 202, 5, 28, "Input"],
-Cell[203887, 6653, 622, 18, 28, "Output"]
+Cell[233687, 7424, 202, 5, 28, "Input"],
+Cell[233892, 7431, 622, 18, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[204570, 6678, 111, 1, 43, "Subsection"],
-Cell[204684, 6681, 2554, 94, 71, "Text",
+Cell[234575, 7456, 111, 1, 36, "Subsection"],
+Cell[234689, 7459, 2554, 94, 53, "Text",
  CellTags->"AComChannel::usage"],
 Cell[CellGroupData[{
-Cell[207263, 6779, 98, 1, 34, "Subsubsection"],
-Cell[207364, 6782, 215, 5, 31, "Text"],
+Cell[237268, 7557, 98, 1, 35, "Subsubsection"],
+Cell[237369, 7560, 215, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[207604, 6791, 294, 7, 28, "Input"],
-Cell[207901, 6800, 589, 16, 28, "Output"]
+Cell[237609, 7569, 294, 7, 28, "Input"],
+Cell[237906, 7578, 589, 16, 28, "Output"]
 }, Open  ]],
-Cell[208505, 6819, 98, 1, 30, "Text"],
+Cell[238510, 7597, 98, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[208628, 6824, 485, 14, 48, "Input"],
-Cell[209116, 6840, 536, 14, 28, "Output"]
+Cell[238633, 7602, 485, 14, 48, "Input"],
+Cell[239121, 7618, 536, 14, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[209713, 6861, 116, 1, 43, "Subsection"],
-Cell[209832, 6864, 5405, 196, 149, "Text",
+Cell[239718, 7639, 116, 1, 37, "Subsection"],
+Cell[239837, 7642, 5405, 196, 154, "Text",
  CellTags->"LindbladDissipator::usage"],
 Cell[CellGroupData[{
-Cell[215262, 7064, 149, 2, 35, "Subsubsection"],
-Cell[215414, 7068, 151, 3, 30, "Text"],
+Cell[245267, 7842, 149, 2, 35, "Subsubsection"],
+Cell[245419, 7846, 151, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[215590, 7075, 305, 8, 48, "Input"],
-Cell[215898, 7085, 687, 19, 47, "Output"]
+Cell[245595, 7853, 305, 8, 48, "Input"],
+Cell[245903, 7863, 687, 19, 47, "Output"]
 }, Open  ]],
-Cell[216600, 7107, 120, 1, 30, "Text"],
+Cell[246605, 7885, 120, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[216745, 7112, 332, 10, 28, "Input"],
-Cell[217080, 7124, 1192, 35, 78, "Output"]
+Cell[246750, 7890, 332, 10, 28, "Input"],
+Cell[247085, 7902, 1192, 35, 78, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[218333, 7166, 113, 1, 44, "Subsection"],
-Cell[218449, 7169, 3702, 128, 169, "Text",
+Cell[248338, 7944, 113, 1, 37, "Subsection"],
+Cell[248454, 7947, 3702, 128, 154, "Text",
  CellTags->"Lindblad::usage"],
 Cell[CellGroupData[{
-Cell[222176, 7301, 149, 2, 35, "Subsubsection"],
-Cell[222328, 7305, 329, 6, 30, "Text"],
-Cell[222660, 7313, 1950, 59, 120, "Input"],
+Cell[252181, 8079, 149, 2, 35, "Subsubsection"],
+Cell[252333, 8083, 329, 6, 30, "Text"],
+Cell[252665, 8091, 1950, 59, 120, "Input"],
 Cell[CellGroupData[{
-Cell[224635, 7376, 410, 11, 28, "Input"],
-Cell[225048, 7389, 38451, 685, 228, "Output"]
+Cell[254640, 8154, 410, 11, 28, "Input"],
+Cell[255053, 8167, 38451, 685, 228, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[263560, 8081, 109, 1, 44, "Subsection"],
-Cell[263672, 8084, 3155, 111, 111, "Text",
+Cell[293565, 8859, 109, 1, 36, "Subsection"],
+Cell[293677, 8862, 3155, 111, 95, "Text",
  CellTags->"PartialTrChannel::usage"],
 Cell[CellGroupData[{
-Cell[266852, 8199, 98, 1, 35, "Subsubsection"],
-Cell[266953, 8202, 162, 3, 30, "Text"],
+Cell[296857, 8977, 98, 1, 35, "Subsubsection"],
+Cell[296958, 8980, 162, 3, 30, "Text"],
 Cell[CellGroupData[{
-Cell[267140, 8209, 262, 7, 28, "Input"],
-Cell[267405, 8218, 9718, 200, 64, "Output"]
+Cell[297145, 8987, 262, 7, 28, "Input"],
+Cell[297410, 8996, 9718, 200, 64, "Output"]
 }, Open  ]],
-Cell[277138, 8421, 138, 1, 30, "Text"],
+Cell[307143, 9199, 138, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[277301, 8426, 330, 7, 46, "Input"],
-Cell[277634, 8435, 1158, 27, 63, "Output"],
-Cell[278795, 8464, 372, 8, 28, "Output"]
+Cell[307306, 9204, 330, 7, 46, "Input"],
+Cell[307639, 9213, 1158, 27, 63, "Output"],
+Cell[308800, 9242, 372, 8, 28, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[279228, 8479, 103, 1, 44, "Subsection"],
-Cell[279334, 8482, 3282, 105, 168, "Text",
+Cell[309233, 9257, 103, 1, 36, "Subsection"],
+Cell[309339, 9260, 3282, 105, 155, "Text",
  CellTags->"FunctionChannel::usage"],
 Cell[CellGroupData[{
-Cell[282641, 8591, 100, 1, 35, "Subsubsection"],
-Cell[282744, 8594, 240, 5, 31, "Text"],
+Cell[312646, 9369, 100, 1, 35, "Subsubsection"],
+Cell[312749, 9372, 240, 5, 32, "Text"],
 Cell[CellGroupData[{
-Cell[283009, 8603, 263, 5, 46, "Input"],
-Cell[283275, 8610, 537, 14, 28, "Output"],
-Cell[283815, 8626, 729, 20, 92, "Output"]
+Cell[313014, 9381, 263, 5, 55, "Input"],
+Cell[313280, 9388, 537, 14, 32, "Output"],
+Cell[313820, 9404, 729, 20, 80, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]]
 }, Open  ]]
 }

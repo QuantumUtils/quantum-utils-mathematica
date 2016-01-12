@@ -875,8 +875,8 @@ TestCase[$RegisteredTests,"QuantumChannel:SimplifyFunctions",
 	]]];
 
 
-(* ::Subsection:: *)
-(*Channel Functions*)
+(* ::Subsection::Closed:: *)
+(*Channel Functions and Metrics*)
 
 
 Module[{a,b,chan1,chan2},
@@ -921,6 +921,13 @@ TestCase[$RegisteredTests,"QuantumChannel:EntanglementFidelity",
 	]]];
 
 ];
+
+
+TestCase[$RegisteredTests, "QuantumChannel:DiamondNormDistance",
+	And[
+		Module[{\[Theta]},FullSimplify[DiamondNormDistance[Unitary[MatrixExp[-I \[Theta] {{0,1},{1,0}}/2]]]-2*Sin[\[Theta]/2],Assumptions->0<=\[Theta]<2\[Pi]]==0]
+	]
+]
 
 
 TestCase[$RegisteredTests, "QuantumChannel:Unitarity",
@@ -992,6 +999,21 @@ TestCase[$RegisteredTests,"QuantumChannel:HermitianPreservingQ",
 			{{1,0,0,1},{0,0,0,0},{0,0,0,0},{0,0,0,1}},
 			{ChannelRep->Choi,InputDim->2,OutputDim->2,Basis->"Col"}]
 	]];
+
+
+TestCase[$RegisteredTests,"QuantumChannel:UnitaryQ",
+	Module[{a,b,p0,p1,p2,p3},
+	And[
+		UnitaryQ[Unitary[{{0,1},{1,0}}]],
+		UnitaryQ[Kraus[{{{Cos[a],Sin[a]},{-Sin[a],Cos[a]}}}],Assumptions->a\[Element]Reals],
+		UnitaryQ[Kraus[{{{a,b},{-b\[Conjugate],a\[Conjugate]}}}],Assumptions->Abs[a]^2+Abs[b]^2==1],
+		Not@UnitaryQ[Kraus[{{{a,b},{-b\[Conjugate],a\[Conjugate]}}}],Assumptions->Abs[a]^2+Abs[b]^2==2],
+		Not@UnitaryQ[Chi[DiagonalMatrix[{p0,p1,p2,p3}]]],
+		UnitaryQ[Chi[DiagonalMatrix[{2,0,0,0}]]],
+		UnitaryQ[Kraus[{{{-0.15655368690078914`+ 0.3430921066545964` I,-0.2348331888076826`- 0.05351542084751404` I,0.15434364097586445` -0.7761828151024415` I,0.4126091294603258` +0.05692281573291967` I},{-0.20161584271439267`+ 0.19817760822741248` I,-0.16484366732378541`- 0.4753872264482968` I,-0.3635752839999726`+ 0.43813126093787663` I,0.5287549284414077` +0.2513612431126086` I},{0.8487976714138722` +0.03598473246540806` I,-0.10339410593987132`- 0.09547646392229023` I,0.10895450613616803` -0.029258702335285096` I,0.05717734865987785` +0.49238715504781155` I},{-0.042404220777264696`- 0.23303418445576338` I,-0.6832106295507965`- 0.44971119932859627` I,-0.12711459846245918`- 0.14382980174948` I,-0.4835653853512809`- 0.06480284622646271` I}}}]],
+		Not@UnitaryQ[Kraus[{{{0.062322322567051225` +0.4499103526192444` I,-0.0030534708049662967`+ 0.7475381561426192` I,-0.36536281946601035`- 0.3184085336398186` I},{-0.7251449050775644`- 0.06243481298569527` I,0.39685356189665594` +0.36971092879610457` I,0.2807315180487294` +0.31189365989100587` I},{0.5135328388272068` -0.0157285386936368` I,-0.03753268853883381`+ 0.3815622600004384` I,0.7607430120380767` +0.10152952864202755` I}}/Sqrt[2],{{-0.3385280862506501`- 0.11148473131686024` I,-0.09839679668003078`- 0.20068656570790783` I,0.7898784700625915` +0.44621168158367813` I},{0.47420455444381676` -0.7834563570746536` I,0.11075193848722416` +0.007811711947949143` I,0.2662964187271937` -0.2794376133502603` I},{0.18364835205881913` +0.023861043414192033` I,-0.444049899273856`- 0.8605438077054051` I,-0.14114688592590158`- 0.08980830675081206` I}}/Sqrt[2]}]]
+	]]
+	];
 
 
 TestCase[$RegisteredTests,"QuantumChannel:UnitalQ",
