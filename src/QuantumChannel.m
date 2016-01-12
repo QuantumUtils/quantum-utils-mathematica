@@ -825,7 +825,7 @@ chan_QuantumChannel[state_]:=
 	]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Channel Operations*)
 
 
@@ -1001,15 +1001,15 @@ QuantumChannel/:Tr[chan_QuantumChannel]:=
 	]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Simplify Etc*)
 
 
 QuantumChannel/:MatrixForm[chan_QuantumChannel]:=MatrixForm[First[chan]]
 
 
-$ChannelSimplifyFunctions={MatrixPlot,ArrayPlot,SparseArray,Normal,Simplify,FullSimplify,Refine,ComplexExpand,FunctionExpand,PowerExpand,
-	ExpToTrig,TrigToExp,TrigExpand,TrigFactor,TrigReduce};
+$ChannelSimplifyFunctions={N,MatrixPlot,ArrayPlot,SparseArray,Normal,Simplify,FullSimplify,Refine,ComplexExpand,FunctionExpand,PowerExpand,
+	ExpToTrig,TrigToExp,TrigExpand,TrigFactor,TrigReduce,Rationalize};
 
 
 Evaluate[Map[(
