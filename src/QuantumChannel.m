@@ -909,19 +909,36 @@ CheckDotDims[chans__]:=
 
 QuantumChannel/:Dot[chans__QuantumChannel]:=
 	If[CheckDotDims[chans],
-		With[{
-		rep=ChannelRep@First@{chans},
-		basis=Basis@First@{chans},
-		inDim=InputDim@Last@{chans},
-		outDim=OutputDim@First@{chans}},
-		rep[QuantumChannel[
-			Apply[Dot,First[Super[#,Basis->"Col"]]&/@{chans}],
-			{ChannelRep->Super,
-			InputDim->inDim,
-			OutputDim->outDim,
-			Basis->"Col"}]
-		,Basis->basis]],
-		Message[QuantumChannel::dot]	
+		If[Not@AllQ[ChannelRep[#]===Unitary&,{chans}],
+			With[{
+				(*Pick the first non-unitary channel as the rep*)
+				rep=First@Select[ChannelRep/@{chans},#=!=Unitary&,1],
+				basis=Basis@First@{chans},
+				inDim=InputDim@Last@{chans},
+				outDim=OutputDim@First@{chans}
+			},
+			rep[QuantumChannel[
+				Apply[Dot,First[Super[#,Basis->"Col"]]&/@{chans}],
+				{ChannelRep->Super,
+				InputDim->inDim,
+				OutputDim->outDim,
+				Basis->"Col"}]
+			,Basis->basis]],
+			(*We add a special case where all of the channels are Unitary*)
+			With[{
+				basis=Basis@First@{chans},
+				inDim=InputDim@Last@{chans},
+				outDim=OutputDim@First@{chans}
+			},
+			Unitary[QuantumChannel[
+				Apply[Dot,First[Unitary[#,Basis->"Col"]]&/@{chans}],
+				{ChannelRep->Unitary,
+				InputDim->inDim,
+				OutputDim->outDim,
+				Basis->"Col"}]
+			,Basis->basis]]
+		],
+		Message[QuantumChannel::dot]
 	]
 
 
