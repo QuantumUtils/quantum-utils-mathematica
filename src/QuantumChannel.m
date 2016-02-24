@@ -76,6 +76,7 @@ AssignUsage[ProcessFidelity,$QuantumChannelUsages];
 AssignUsage[GateFidelity,$QuantumChannelUsages];
 AssignUsage[AverageGateFidelity,$QuantumChannelUsages];
 AssignUsage[EntanglementFidelity,$QuantumChannelUsages];
+AssignUsage[DiamondNormDistance,$QuantumChannelUsages];
 AssignUsage[ChannelVolume,$QuantumChannelUsages];
 AssignUsage[Unitarity,$QuantumChannelUsages];
 
@@ -841,7 +842,7 @@ chan_QuantumChannel[state_]:=
 	]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Channel Operations*)
 
 
@@ -961,11 +962,29 @@ ChannelFunction[chan_QuantumChannel,rep_,fn_Function]:=ChannelFunction[rep[chan]
 
 
 QuantumChannel/:Transpose[chan_QuantumChannel]:=
-		ChannelRep[chan][ChannelFunction[Super[chan,Basis->"Col"],Transpose]]
+		With[{super=First@Super[chan,Basis->"Col"],
+			inDim=InputDim[chan],
+			outDim=OutputDim[chan]},
+		ChannelRep[chan][
+			QuantumChannel[Transpose[super],
+				{ChannelRep->Super,
+				InputDim->outDim,
+				OutputDim->inDim,
+				Basis->"Col"}]
+		]]
 
 
 QuantumChannel/:ConjugateTranspose[chan_QuantumChannel]:=
-		ChannelRep[chan][ChannelFunction[Super[chan,Basis->"Col"],ConjugateTranspose]]
+		With[{super=First@Super[chan,Basis->"Col"],
+			inDim=InputDim[chan],
+			outDim=OutputDim[chan]},
+		ChannelRep[chan][
+			QuantumChannel[ConjugateTranspose[super],
+				{ChannelRep->Super,
+				InputDim->outDim,
+				OutputDim->inDim,
+				Basis->"Col"}]
+		]]
 
 
 QuantumChannel/:Conjugate[chan_QuantumChannel]:=
@@ -1034,8 +1053,11 @@ QuantumChannel/:Tr[chan_QuantumChannel]:=
 	]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Simplify Etc*)
+
+
+QuantumChannel/:Dimensions[chan_QuantumChannel]:={InputDim->InputDim[chan],InputDim->OutputDim[chan]}
 
 
 QuantumChannel/:MatrixForm[chan_QuantumChannel]:=MatrixForm[First[chan]]
