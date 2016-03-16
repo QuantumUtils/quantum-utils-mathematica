@@ -42,6 +42,8 @@ All packages provided by QuantumUtils for Mathematica can be loaded simultaneous
     
 ## Documentation
 
+**It is highly recommended that the icon for opening/closing cell groups be enabled. This makes it easy to expand and contract sections in the documentation notebooks. This option can be found in the Interface tab of the Preferences window (Edit>Preferences in Windows/Linux, Mathematica>Preferences in MacOS).**
+
 Documentation is stored as *.nb* notebooks in the *doc* folder. The documentation index can be opened from within Mathematica at any time by evaluating:
 
     <<QUDoc`
