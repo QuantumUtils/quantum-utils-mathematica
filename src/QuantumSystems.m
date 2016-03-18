@@ -561,7 +561,6 @@ QPower[QPower[arg_,m_],n_]:=QPower[arg,m+n]
 QPower[Times[x_?CoefficientQ,xs__],n_]:=QPower[x,n]*QPower[Times[xs],n]
 QPower[Times[xs__,x_?CoefficientQ],n_]:=QPower[x,n]*QPower[Times[xs],n]
 QPower[CircleTimes[a_,b__],n_]:=CircleTimes[QPower[a,n],QPower[CircleTimes[b],n]]
-(*QPower[Dot[a_,b__],n_Integer]:=Dot[Sequence@@Flatten[ConstantArray[{a,b},n]]]*)
 
 
 (* ::Text:: *)
@@ -613,17 +612,6 @@ QPowerExpand[expr_,nMax_Integer]:=expr//.{QPower[Plus[a_,b__],n_?(IntegerQ[#]&&#
 Clear[QSimplifyCached];
 
 
-QSimplifyCachedOld[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
-	QSimplifyCached[expr,rules,opts]=
-	With[{replaceRules=Join[QSimplifyDefaultRules[opts],rules]},
-	Simplify[
-	ReplaceRepeated[
-			Simplify[QExpand[expr],TimeConstraint->OptionValue[TimeConstraint]],
-			replaceRules
-		],
-	TimeConstraint->OptionValue[TimeConstraint]]]
-
-
 QSimplifyCached[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
 	QSimplifyCached[expr,rules,opts]=
 	With[{
@@ -639,9 +627,7 @@ QSimplifyCached[expr_,rules_,opts:OptionsPattern[QSimplify]]:=
 							Simplify[#,TimeConstraint->OptionValue[TimeConstraint]]&
 						]},
 		FixedPoint[
-			OuterSimplify@ReplaceRepeated[
-				Simplify[#,TimeConstraint->OptionValue[TimeConstraint]],
-				Join[QSimplifyDefaultRules[opts],rules]]&,
+			OuterSimplify@ReplaceRepeated[#,Join[QSimplifyDefaultRules[opts],rules]]&,
 			Simplify[QExpand[expr],TimeConstraint->OptionValue[TimeConstraint]]
 		]
 	]]
