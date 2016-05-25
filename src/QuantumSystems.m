@@ -35,7 +35,7 @@ Needs["QUDevTools`"]
 $QuantumSystemsUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "QuantumSystems.nb"}]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Usage Declaration*)
 
 
@@ -139,6 +139,7 @@ CGate::dims = "Input dimensions must be an integer or list of integers";
 CGate::targctrl = "Targets and Control subsystem lists must not intersect.";
 CGate::gates = "Gate must be matrix or a list of matrices of same length as list of targets.";
 CGate::ctrlval = "Control values must be integer or list of integers same length as controls list.";
+CGate::ctrldim = "The dimension of the control system is must be greater than 1."
 
 
 (* ::Subsubsection::Closed:: *)
@@ -166,7 +167,7 @@ EntanglementF::input = "Input must be satisfy either SquareMatrixQ or GeneralVec
 EntanglementF::dim = "Concurrence currently only works for 2-qubit states.";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Implementation*)
 
 
@@ -1105,7 +1106,7 @@ $QSimplifyCavity=
 $QSimplifyCavityOrdering=
 	QSimplifyNormalOrder[
 		Cavity,
-		{Cavity["N"],Cavity["c"],Cavity["a"]}]
+		{Cavity["c"],Cavity["a"],Cavity["n"]}]
 
 
 (* ::Text:: *)
@@ -1135,14 +1136,17 @@ $QSimplifyCavityAC={Cavity["n"]:> Cavity["c"].Cavity["a"]};
 (*Quantum Gates*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Controlled Gates*)
 
 
 Options[CGate]={Control->1};
 
 
-CGate[gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
+CGateGuard=Or[MatrixQ[#],And[ListQ[#],AllQ[MatrixQ,#]]]&;
+
+
+CGate[gate_?CGateGuard,targ_,ctrl_,opts:OptionsPattern[]]:=
 	With[{
 		d=If[MatrixQ[gate],
 			Length[gate],
@@ -1154,7 +1158,7 @@ CGate[gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
 CGate[dims_,gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
 	If[
 		CGateArgTests[dims,gate,targ,ctrl],
-		If[IntegerQ[dims],	
+		If[IntegerQ[dims],
 			CGate[ConstantArray[dims,Max[targ,ctrl]],gate,targ,ctrl,opts],
 		With[{
 			gates=If[MatrixQ[gate],{gate},gate],
@@ -1165,7 +1169,7 @@ CGate[dims_,gate_,targ_,ctrl_,opts:OptionsPattern[]]:=
 	,Null]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Controlled-Gate Utility Functions*)
 
 
@@ -1189,9 +1193,13 @@ CGateControl[ctrls_List,ctrlval_]:=
 
 
 CGateArgTests[dims_,gate_,targs_,ctrls_]:=
-	Which[
+	Which[		
 		Not[Or[IntegerQ[dims],AllQ[IntegerQ,dims]]],
 			Message[CGate::dims];False,
+		dims===1,
+			Message[CGate::ctrldim];False,
+		And[ListQ[dims],Not[Cases[Part[dims,Flatten[{ctrls}]],1]==={}]],
+			Message[CGate::ctrldim];False,
 		Not[Intersection[Flatten[{targs}],Flatten[{ctrls}]]==={}],
 			Message[CGate::targctrl];False,
 		Not[Or[
