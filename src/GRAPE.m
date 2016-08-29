@@ -84,7 +84,7 @@ Unprotect[
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
 	PulsePhaseRotate,PulsePhaseRamp,PulseDivide,PulseModulate,
 	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
-	LegalizePulse,NormalizePulse
+	LegalizePulse,LegalizeQuadraturePulse,NormalizePulse
 ];
 
 
@@ -96,7 +96,7 @@ AssignUsage[
 		PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
 		PulsePhaseRotate,PulsePhaseRamp,PulseDivide,PulseModulate,
 		RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
-		LegalizePulse,NormalizePulse
+		LegalizePulse,LegalizeQuadraturePulse,NormalizePulse
 	},
 	$GRAPEUsages
 ];
@@ -511,6 +511,14 @@ LegalizePulse[profile_][pulse_,controlRange_]:=Table[
 		Sequence@@MapThread[Clip, {pulse[[n,2;;]],profile[[n]]*controlRange}, 1]
 	},
 	{n,Length@pulse}
+]
+
+
+LegalizeQuadraturePulse[Rmax_][pulse_,controlRange_]:=Module[
+	{dts=pulse[[All,1]],r,amps=pulse[[All,2;;]]},
+		r=Norm/@amps;
+		amps=amps*Clip[Rmax/r,{0,1}];
+		AddTimeSteps[dts,amps]
 ]
 
 
@@ -2770,7 +2778,7 @@ Protect[
 	PulseRemoveKeys,PulseReplaceKey,PulseHasKey,
 	PulsePhaseRotate,PulsePhaseRamp,PulseDivide,PulseModulate,
 	RandomPulse,RandomSmoothPulse,GenerateAnnealedPulse,AnnealingGenerator,GaussianTailsPulse,
-	LegalizePulse,NormalizePulse
+	LegalizePulse,LegalizeQuadrature,NormalizePulse
 ];
 
 
