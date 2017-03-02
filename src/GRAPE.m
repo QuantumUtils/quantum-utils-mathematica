@@ -646,7 +646,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Distortions*)
 
 
@@ -934,7 +934,7 @@ TimeScaleDistortion[multiplier_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Linear Distortions*)
 
 
@@ -1100,6 +1100,17 @@ Selectable->False]\)
 	],
 	Format@HoldForm[ExponentialDistortion[\[Tau]c]]
 ];
+
+
+ExponentialDistortion[\[Tau]c_,mult_,extra_]:=Module[{distortion},
+	distortion[nInput_,dt_]:=distortion[nInput,dt]=LiftDistortionRank@ExponentialDistortion[\[Tau]c,nInput,mult*(nInput+extra),dt,dt/mult];
+	DistortionOperator[
+		Function[{pulse,computeJac},
+			distortion[Length@pulse,pulse[[1,1]]][pulse,computeJac]
+		],
+		Format@HoldForm[ExponentialDistortion[\[Tau]c]]
+	]
+]
 
 
 (* ::Subsubsection::Closed:: *)
