@@ -430,7 +430,7 @@ PulseDivide[pulse_Pulse,n_]:=
 
 PulsePhaseRotate[pulse_,\[Phi]_]:=
 	Module[{xy=pulse[Pulse],a\[Theta]},
-		a\[Theta]={Norm/@xy,\[Phi]+(ArcTan[First@#,Last@#]&/@xy)}\[Transpose];
+		a\[Theta]={Norm/@xy,\[Phi]+(If[First@#==0&&Last@#==0,0,ArcTan[First@#,Last@#]]&/@xy)}\[Transpose];
 		xy={First[#]Cos[Last@#],First[#]Sin[Last@#]}&/@a\[Theta];
 		PulseReplaceKey[pulse,Pulse,xy]
 	]
@@ -486,10 +486,13 @@ GaussianTailsPulse[dt_,T_,riseTime_,Area->area_]:=
 	Module[{\[Sigma],NI,fun,pulse},
 		\[Sigma]=riseTime/3;
 		fun[t_]:=Piecewise[{{1,riseTime<t<T-riseTime},{Exp[-(t-riseTime)^2/(2\[Sigma]^2)],t<=riseTime},{Exp[-(t-T+riseTime)^2/(2\[Sigma]^2)],t>=T-riseTime}}];
-		NI=NIntegrate[fun[t],{t,0,T}];
-		pulse=Table[{area*fun[t-dt/2]/NI,0},{t,0,T,dt}];
-		(*Correct the area now that we have a descent shape*)
-		pulse=area*pulse/(dt*Total@Flatten@pulse);
+		If[area!=0,
+			NI=NIntegrate[fun[t],{t,0,T}];
+			pulse=Table[{area*fun[t-dt/2]/NI,0},{t,0,T,dt}];
+			(*Correct the area now that we have a descent shape*)
+			pulse=area*pulse/(dt*Total@Flatten@pulse);,
+			pulse=Table[{0,0},{t,0,T,dt}];
+		];
 		AddTimeSteps[dt, pulse]
 	];
 GaussianTailsPulse[dt_,T_,riseTime_,Max->max_]:=Module[
