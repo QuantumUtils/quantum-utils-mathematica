@@ -133,6 +133,7 @@ Unprotect[
 	IdentityDistortion,
 	TimeScaleDistortion,VariableChangeDistortion,
 	ConvolutionDistortion,ExponentialDistortion,
+	ListConvolveDistortion,FastExponentialDistortion,
 	IQDistortion,
 	NonlinearTransferDistortion,
 	DEDistortion,DESolver,DESolverArgs,
@@ -149,6 +150,7 @@ AssignUsage[
 		IdentityDistortion,
 		TimeScaleDistortion,VariableChangeDistortion,
 		ConvolutionDistortion,ExponentialDistortion,
+		ListConvolveDistortion,FastExponentialDistortion,
 		IQDistortion,
 		NonlinearTransferDistortion,
 		DEDistortion,DESolver,DESolverArgs,
@@ -646,7 +648,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Distortions*)
 
 
@@ -934,7 +936,7 @@ TimeScaleDistortion[multiplier_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Linear Distortions*)
 
 
@@ -1110,6 +1112,45 @@ ExponentialDistortion[\[Tau]c_,mult_,extra_]:=Module[{distortion},
 		],
 		Format@HoldForm[ExponentialDistortion[\[Tau]c]]
 	]
+]
+
+
+ListConvolveDistortion[kernel_List,mult_,extraSteps_]:=DistortionOperator[
+	Function[{pulse,computeJac},
+		Module[{outputPulse,dt},
+			dt=pulse[[1,1]];
+			outputPulse=Transpose[ListConvolve[
+				kernel,
+				ArrayPad[
+					Flatten[(ConstantArray[#,mult]&)/@#],
+					{Length@kernel-1,mult*extraSteps}
+				]
+			]&/@Transpose[pulse[[All,2;;]]]];
+			outputPulse=AddTimeSteps[ConstantArray[dt/mult,Length@outputPulse],outputPulse];
+			If[Not@computeJac,outputPulse,{outputPulse,$Failed}]
+		]
+	],
+	Format@HoldForm[ListConvolveDistortion[kernel]]
+]
+
+
+FastExponentialDistortion[\[Tau]c_,mult_,extraSteps_]:=DistortionOperator[
+	Function[{pulse,computeJac},
+		Module[{outputPulse,dt,kernel},
+			dt=pulse[[1,1]];
+			kernel=#/Total[#]&@Table[Exp[-t/\[Tau]c],{t,0,-\[Tau]c Log[0.01],dt/mult}];
+			outputPulse=Transpose[ListConvolve[
+				kernel,
+				ArrayPad[
+					Flatten[(ConstantArray[#,mult]&)/@#],
+					{Length@kernel-1,mult*extraSteps}
+				]
+			]&/@Transpose[pulse[[All,2;;]]]];
+			outputPulse=AddTimeSteps[ConstantArray[dt/mult,Length@outputPulse],outputPulse];
+			If[Not@computeJac,outputPulse,{outputPulse,$Failed}]
+		]
+	],
+	Format@HoldForm[ListConvolveDistortion[\[Tau]c]]
 ]
 
 
@@ -2809,6 +2850,7 @@ Protect[
 	IdentityDistortion,
 	TimeScaleDistortion,VariableChangeDistortion,
 	ConvolutionDistortion,ExponentialDistortion,
+	ListConvolveDistortion,FastExponentialDistortion,
 	IQDistortion,
 	NonlinearTransferDistortion,
 	DEDistortion,DESolver,DESolverArgs,
