@@ -40,14 +40,25 @@ TakeOverlap::usage = "GateIndeces is a boolean option for TestGateSetPulses, Tes
 
 
 (* ::Subsection:: *)
+(*Noise Models*)
+
+
+NoiseModel::usage = "NoiseModel is a container for information detailing the noise model of a given quantum system.";
+
+
+(* ::Message:: *)
+(*Message::name*)
+
+
+GateNoise::usage = "GateNoise is a NoiseModel Property which specifies a function f[i1,i2,...,in] that returns a ChannelPulseQ given the gate index history i1,i2,...,in where in is the most recent";
+DistortionMultiplier::usage = "DistortionMultiplier is a NoiseModel Property which is a number specifying how many output pulses there are per input pulse. In particular, the end of the i'th pulse is calculation as this number times the total number of input time steps until this point.";
+StochasticNoise::usage = "StochasticNoise is a NoiseModel Property which is a list of the form, for example, {\[Gamma]\[Distributed]WeinerProcess[0,0.1],\[Delta]\[Distributed]OrnsteinUhlenbeckProcess[1,2,3]}.";
+StaticNoise::usage = "StaticNoise is a NoiseModel Property which is a list of the form, for example, {{x,y}\[Distributed]MultinormalDistribution[{0,1},{{1,0},{0.5,1}}], \[Xi]\[Distributed]BetaDistribution[1,2]}.";
+Generator::usage = "Generator is a NoiseModel Property which specifies a hamiltonian matrix or LindbladForm of the system.";
+
+
+(* ::Subsection::Closed:: *)
 (*Compiler*)
-
-
-GateNoise::usage = "GateNoise is an option to CompileSequence which specifies a function f[i1,i2,...,in] that returns a ChannelPulseQ given the gate index history i1,i2,...,in where in is the most recent";
-DistortionMultiplier::usage = "DistortionMultiplier is an option to CompileSequence which is a number specifying how many output pulses there are per input pulse. In particular, the end of the i'th pulse is calculation as this number times the total number of input time steps until this point.";
-StochasticNoise::usage = "StochasticNoise is an option to CompileSequence which is a list of the form, for example, {\[Gamma]\[Distributed]WeinerProcess[0,0.1],\[Delta]\[Distributed]OrnsteinUhlenbeckProcess[1,2,3]}.";
-StaticNoise::usage = "StaticNoise is an option to CompileSequence which is a list of the form, for example, {{x,y}\[Distributed]MultinormalDistribution[{0,1},{{1,0},{0.5,1}}], \[Xi]\[Distributed]BetaDistribution[1,2]}.";
-Generator::usage = "Generator is an option to CompileSequence which specifies a hamiltonian matrix or LindbladForm of the system.";
 
 
 CompileSequence::usage = "CompileSequence[gateSet, sequence, gateNoise, generator, stochasticNoise, distortion] outputs valid arguments to PulseSim given the GateSet, list of indeces sequence, and noise models.";
@@ -77,7 +88,12 @@ PlotSequence::usage = "PlotSequence[seq_CompiledSequence] plots the pulse sequen
 
 
 Protocol::usage = "";
-SimulationOptions::usage = "SimulationOptions";
+ProtocolName::usage = "ProtocolName is a Protocol property specifying a human readable name for the protocol.";
+SimulationOptions::usage = "SimulationOptions is a Protocol property specifying a list of options to pass to the simulator, such as InitialState.";
+DataDimensions::usage = "DataDimensions is a Protocol property specifying the output shape of the array containing data from the protocol.";
+SequenceGenerator::usage = "SequenceGenerator is a Protocol property specifying a function seqGen[gs,{idx1,idx2,..}] that takes a GateSet and indeces within DataDimensions[protocol] and returns the corresponding gate sequence indeces according to the protocol.";
+SimulationParser::usage = "SimulationParser is a Protocol property specifying a function which acts on the output of PulseSim to return the quantity of interest.";
+SequenceLengths::usage = "SequenceLengths is a Protocol property for some protocols specifying which sequence lengths to use.";
 
 
 RBDraw::usage = "RBDraw[gateSet, seqLength] returns a list of gate indeces of length seqLength+1, as specified by the Randomized Benchmarking protocol.";
@@ -92,7 +108,7 @@ $gaussianQubitGateset::usage = "Example gateset for qubits with gaussian pulse s
 
 
 (* ::Subsection:: *)
-(*Noise Models*)
+(*Example Gate Noise*)
 
 
 IndependentNoise::usage = "IndependentNoise[channel]";
@@ -105,20 +121,46 @@ IndependentNoise::usage = "IndependentNoise[channel]";
 Begin["`Private`"];
 
 
+(* ::Subsection::Closed:: *)
+(*Private Helper Functions*)
+
+
+getValue[container_,key_] := With[{assoc=Association@@container}, assoc[key]]
+getValue[container_,key_,default_] := If[MemberQ[container[[All,1]], key],
+	getValue[container, key],
+	default
+]
+
+
+makeContainer[head_,{validProperties__}] := (
+	UpValues[head] = Table[
+		If[
+		Head[property]===Rule,
+			With[{h=head,p=property[[1]],v=property[[2]]}, p[h[args___]]:>getValue[h[args], p, v]],
+			With[{h=head,p=property}, p[h[args___]]:>getValue[h[args], p]]
+		], 
+		{property,{validProperties}}
+	]
+)
+(*Table[
+	head/:property[head[args__]] := getValue[head[args], property];,
+	{property, {validProperties}}
+]*)
+
+
 (* ::Subsection:: *)
 (*Gate Sets*)
 
 
-getValue[container_,key_]:=Module[{assoc=Association@@container},assoc[key]]
-
-
-GateSet/:GateSetName[GateSet[args__]]:=getValue[GateSet[args], GateSetName]
-GateSet/:Size[GateSet[args__]]:=getValue[GateSet[args], Size]
-GateSet/:Dimension[GateSet[args__]]:=getValue[GateSet[args], Dimension]
-GateSet/:GateProduct[GateSet[args__]]:=getValue[GateSet[args], GateProduct]
-GateSet/:GateInverse[GateSet[args__]]:=getValue[GateSet[args], GateInverse]
-GateSet/:GateUnitary[GateSet[args__]]:=getValue[GateSet[args], GateUnitary]
-GateSet/:GatePulse[GateSet[args__]]:=getValue[GateSet[args], GatePulse]
+makeContainer[GateSet, {
+	GateSetName -> "Unnamed gate set",
+	Size,
+	Dimension,
+	GateProduct,
+	GateInverse,
+	GateUnitary,
+	GatePulse
+}];
 GateSet/:Format[gs:GateSet[args__]]:="GateSet"[GateSetName->"\""<>ToString@GateSetName[gs]<>"\"",Dimension->Dimension[gs],Size->Size[gs],"..."]
 
 
@@ -184,22 +226,26 @@ TestGateSetProducts[gs_, OptionsPattern[]] := Module[{U, idxs, f},
 ]
 
 
+(* ::Subsection::Closed:: *)
+(*Noise Model*)
+
+
+makeContainer[NoiseModel, {
+	GateNoise->None, 
+	DistortionMultiplier->Automatic, 
+	DistortionOperator->None, 
+	StochasticNoise->None, 
+	StaticNoise->None, 
+	Generator->Automatic, 
+	StepSize->Automatic
+}];
+
+
 (* ::Subsection:: *)
 (*Compiler*)
 
 
-Options[CompileSequence] = {
-	GateNoise->None,
-	DistortionOperator->None,
-	DistortionMultiplier->Automatic,
-	StochasticNoise->None,
-	StaticNoise->None,
-	StepSize->Automatic,
-	Generator->Automatic
-};
-
-
-CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
+CompileSequence[gs_GateSet,sequence_,nm_NoiseModel]:=Module[
 	{
 		nGates, totalDim, controlDims,
 		pulses, pulseLengths, longPulse, undistortedLongPulse,
@@ -224,11 +270,11 @@ CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
 	longPulse = Catenate[pulses];
 	undistortedLongPulse = longPulse;
 	distMult = 1;
-	If[OptionValue[DistortionOperator]=!=None, 
-		longPulse = OptionValue[DistortionOperator][longPulse,False];
-		If[OptionValue[DistortionMultiplier]===Automatic,
+	If[DistortionOperator[nm]=!=None, 
+		longPulse = DistortionOperator[nm][longPulse,False];
+		If[DistortionMultiplier[nm]===Automatic,
 			distMult = Floor[Length[longPulse]/Total[pulseLengths]];,
-			distMult = OptionValue[DistortionMultiplier];
+			distMult = DistortionMultiplier[nm];
 		];
 	];
 	(* Now break them up again *)
@@ -239,14 +285,14 @@ CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
 	];
 	
 	(* Gate noise *)
-	hasGateNoise = OptionValue@GateNoise =!= None;
+	hasGateNoise = GateNoise[nm] =!= None;
 	gateNoiseChannels = If[hasGateNoise,
-		Table[{OptionValue[GateNoise]@@(sequence[[;;n]]), stepSize}, {n, nGates}],
+		Table[{GateNoise[nm]@@(sequence[[;;n]]), stepSize}, {n, nGates}],
 		None
 	];
 	
 	(* Timing *)
-	stepSize = If[OptionValue[StepSize]===Automatic, longPulse[[1,1]], OptionValue[StepSize]];
+	stepSize = If[StepSize[nm]===Automatic, longPulse[[1,1]], StepSize[nm]];
 	totalTime = Total[longPulse[[All,1]]];
 	totalTime += If[hasGateNoise, stepSize * nGates, 0]; (* specifies that each noise op takes one stepSize *)
 	With[{accTime = Prepend[Accumulate[stepSize * (pulseLengths * distMult + 1)],0]},
@@ -261,19 +307,19 @@ CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
 	stochSymbols={};
 	staticNoiseInstance={};
 	stochNoiseInstance={};
-	If[ListQ@OptionValue[StochasticNoise],
-		stochSymbols = OptionValue[StochasticNoise][[All,1]];
+	If[ListQ@StochasticNoise[nm],
+		stochSymbols = StochasticNoise[nm][[All,1]];
 		Table[
-			Module[{sn = OptionValue[StochasticNoise][[n,2]], symbol=stochSymbols[[n]], variate},
+			Module[{sn = StochasticNoise[nm][[n,2]], symbol=stochSymbols[[n]], variate},
 				variate = RandomFunction[sn, {0,totalTime + stepSize*10,stepSize}];
 				AppendTo[stochNoiseInstance, symbol->variate];
 			],
 			{n, Length@stochSymbols}
 		];
 	];
-	If[ListQ@OptionValue[StaticNoise],
+	If[ListQ@StaticNoise[nm],
 		Table[
-			Module[{sn = OptionValue[StaticNoise][[n,2]], symbol=OptionValue[StaticNoise][[n,1]], variate},
+			Module[{sn = StaticNoise[nm][[n,2]], symbol=StaticNoise[nm][[n,1]], variate},
 				variate = RandomVariate[sn];
 				If[ListQ@symbol,
 					staticSymbols = Join[staticSymbols, symbol];
@@ -283,7 +329,7 @@ CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
 				];
 				variate
 			],
-			{n, Length@OptionValue@StaticNoise}
+			{n, Length@StaticNoise[nm]}
 		];
 		staticSymbols = Flatten[staticSymbols];
 	];
@@ -308,9 +354,9 @@ CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
 			]*)
 		]
 	];
-	generator = If[OptionValue@Generator===Automatic, 
+	generator = If[Generator[nm]===Automatic, 
 		ConstantArray[0, {First@controlDims, First@controlDims}], 
-		OptionValue@Generator
+		Generator[nm]
 	];
 	If[LindbladQ[generator],
 		totalDim = Length@First@generator;
@@ -329,34 +375,49 @@ CompileSequence[gs_GateSet,sequence_,opt:OptionsPattern[]]:=Module[
 		Generator->generator, 
 		PulseSequence->If[hasGateNoise, Riffle[pulses, gateNoiseChannels], pulses], 
 		StepSize->stepSize,
-		DistortionOperator->OptionValue[DistortionOperator],
 		GateSequence->sequence,
 		UndistortedLongPulse->undistortedLongPulse,
-		GateSet->gs
+		GateSet->gs,
+		NoiseModel->nm
 	]
 ]
 
 
-CompiledSequence/:Generator[CompiledSequence[args__]] := getValue[CompiledSequence[args], Generator];
-CompiledSequence/:PulseSequence[CompiledSequence[args__]] := getValue[CompiledSequence[args], PulseSequence];
-CompiledSequence/:StepSize[CompiledSequence[args__]] := getValue[CompiledSequence[args], StepSize];
-CompiledSequence/:DistortionOperator[CompiledSequence[args__]] := getValue[CompiledSequence[args], DistortionOperator];
-CompiledSequence/:GateSequence[CompiledSequence[args__]] := getValue[CompiledSequence[args], GateSequence];
-CompiledSequence/:UndistortedLongPulse[CompiledSequence[args__]] := getValue[CompiledSequence[args], UndistortedLongPulse];
-CompiledSequence/:GateSet[CompiledSequence[args__]] := getValue[CompiledSequence[args], GateSet];
+makeContainer[CompiledSequence, {
+	Generator,
+	PulseSequence,
+	StepSize,
+	GateSequence,
+	UndistortedLongPulse,
+	GateSet,
+	NoiseModel
+}];
 
 
 (* ::Subsection:: *)
 (*Simulator*)
 
 
-SimulateSequence[seq_CompiledSequence, \[Rho]_, opt:OptionsPattern[PulseSim]]:=Module[{},
+SimulateSequence[seq_CompiledSequence, opt:OptionsPattern[PulseSim]]:=Module[{},
 	PulseSim[
 		Generator[seq],
 		PulseSequence[seq],
 		opt,
-		StepSize->StepSize[seq],
-		InitialState->\[Rho]
+		StepSize->StepSize[seq]
+	]
+]
+
+
+SimulateProtocol[gs_GateSet, protocol_Protocol, nm_NoiseModel] := Module[{simSeq},
+	simSeq[idxs__] := SimulationParser[protocol][
+		SimulateSequence[
+			CompileSequence[gs, SequenceGenerator[protocol][gs, {idxs}], nm], 
+			SimulationOptions[protocol]
+		]
+	];
+	ParallelArray[
+		simSeq,
+		DataDimensions[protocol]
 	]
 ]
 
@@ -366,7 +427,7 @@ SimulateSequence[seq_CompiledSequence, \[Rho]_, opt:OptionsPattern[PulseSim]]:=M
 
 
 PlotSequence[seq_CompiledSequence, opt:OptionsPattern[PulsePlot]]:=Module[{pulses, longPulse, distortion, showDistorted},
-	distortion = DistortionOperator[seq];
+	distortion = DistortionOperator@NoiseModel[seq];
 	showDistorted = distortion=!=None;
 	longPulse = UndistortedLongPulse[seq];
 	PulsePlot[
@@ -380,36 +441,46 @@ PlotSequence[seq_CompiledSequence, opt:OptionsPattern[PulsePlot]]:=Module[{pulse
 (*Protocols*)
 
 
+makeContainer[Protocol, {
+	ProtocolName->"Unnamed protocol",
+	SequenceLengths,
+	DataDimensions,
+	SequenceGenerator,
+	SimulationOptions,
+	SimulationParser
+}];
+Protocol/:Format[Protocol[args___]] := "Protocol"[ProtocolName[Protocol[args]]]
+
+
 RBDraw[gs_GateSet,seqLength_]:=Module[{seq},
 	seq = RandomInteger[{1, Size[gs]}, seqLength];
 	Append[seq, GateInverse[gs][Fold[GateProduct[gs], seq]]]
 ]
 
 
-RBProtocol[gs_GateSet,seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{},
+RBProtocol[seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{seqGen},
+	(* Use two closures to make sure every shot of the same (seqLength,seqNum) is identical *)
+	seqGen[gs_,{idxSeqLength_,seqNum_}] := seqGen[gs,{idxSeqLength,seqNum}] = RBDraw[gs, seqLengths[[idxSeqLength]]];
+	seqGen[gs_,{idxSeqLength_,seqNum_,_}] := seqGen[gs,{idxSeqLength,seqNum}];
 	Protocol[
-		GateSet->gs,
+		ProtocolName -> "Randomized Benchmarking",
 		SequenceLengths -> seqLengths,
-		Dimensions -> {Length@seqLengths, numSeqs, shotsPerSeq},
-		Sequences -> Table[
-			ConstantArray[RBDraw[gs,seqLength], shotsPerSeq],
-			{n, numSeqs},
-			{seqLength, seqLengths}
-		],
+		DataDimensions -> {Length@seqLengths, numSeqs, shotsPerSeq},
+		SequenceGenerator -> seqGen,
 		SimulationOptions -> {InitialState->\[Rho], Observables->{M}},
-		SimulationParse -> (Last@Observables[#]&)
+		SimulationParser -> (Last@First@Observables[#]&)
 	]
 ]
 
 
-(* ::Subsection::Closed:: *)
-(*Noise Models*)
+(* ::Subsection:: *)
+(*Example Gate Noise*)
 
 
 IndependentNoise[channel_QuantumChannel][___]:=channel
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Example Gate Sets*)
 
 
@@ -444,19 +515,19 @@ With[{
 	unitaries = $gqgUnitaries,
 	pulses = $gqgPulses
 },
-$gaussianQubitGateset = GateSet[
-	GateSetName->"Gaussian 2-design on Qubits",
-	Dimension->2,
-	Size->12,
-	GateProduct->(productTable[[#1,#2]]&),
-	GateInverse->(inverseTable[[#]]&),
-	GateUnitary->(unitaries[[#]]&),
-	GatePulse->(pulses[[#]]&)
-];
+	$gaussianQubitGateset = GateSet[
+		GateSetName->"Gaussian 2-design on Qubits",
+		Dimension->2,
+		Size->12,
+		GateProduct->(productTable[[#1,#2]]&),
+		GateInverse->(inverseTable[[#]]&),
+		GateUnitary->(unitaries[[#]]&),
+		GatePulse->(pulses[[#]]&)
+	];
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*End*)
 
 
