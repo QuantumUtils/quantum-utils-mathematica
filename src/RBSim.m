@@ -46,10 +46,6 @@ TakeOverlap::usage = "GateIndeces is a boolean option for TestGateSetPulses, Tes
 NoiseModel::usage = "NoiseModel is a container for information detailing the noise model of a given quantum system.";
 
 
-(* ::Message:: *)
-(*Message::name*)
-
-
 GateNoise::usage = "GateNoise is a NoiseModel Property which specifies a function f[i1,i2,...,in] that returns a ChannelPulseQ given the gate index history i1,i2,...,in where in is the most recent";
 DistortionMultiplier::usage = "DistortionMultiplier is a NoiseModel Property which is a number specifying how many output pulses there are per input pulse. In particular, the end of the i'th pulse is calculation as this number times the total number of input time steps until this point.";
 StochasticNoise::usage = "StochasticNoise is a NoiseModel Property which is a list of the form, for example, {\[Gamma]\[Distributed]WeinerProcess[0,0.1],\[Delta]\[Distributed]OrnsteinUhlenbeckProcess[1,2,3]}.";
@@ -408,16 +404,24 @@ SimulateSequence[seq_CompiledSequence, opt:OptionsPattern[PulseSim]]:=Module[{},
 ]
 
 
-SimulateProtocol[gs_GateSet, protocol_Protocol, nm_NoiseModel] := Module[{simSeq},
+SimulateProtocol[gs_GateSet, protocol_Protocol, nm_NoiseModel] := Module[{simSeq, j=0},
 	simSeq[idxs__] := SimulationParser[protocol][
 		SimulateSequence[
 			CompileSequence[gs, SequenceGenerator[protocol][gs, {idxs}], nm], 
 			SimulationOptions[protocol]
 		]
 	];
-	ParallelArray[
-		simSeq,
-		DataDimensions[protocol]
+	If[$KernelCount > 0,
+		DistributeDefinitions[simSeq];
+		SetSharedVariable[j];
+		Monitor[
+			ParallelArray[(j++;simSeq[##])&, DataDimensions[protocol]],
+			ProgressIndicator[j / Times@@DataDimensions[protocol]]
+		],
+		Monitor[
+			Array[(j++;simSeq[##])&, DataDimensions[protocol]],
+			ProgressIndicator[j / Times@@DataDimensions[protocol]]
+		]
 	]
 ]
 
