@@ -51,14 +51,14 @@ $TestResults := RunTest[$RegisteredTests];
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Unit Tests*)
 
 
 Begin["`UnitTests`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*States and Operators*)
 
 
@@ -226,7 +226,7 @@ TestCase[$RegisteredTests,"QuantumSystems:KetForm",
 	]];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Vec Form*)
 
 
@@ -250,7 +250,7 @@ TestCase[$RegisteredTests,"QuantumSystems:VecForm",
 	]];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Rotating Frame Conversions*)
 
 
@@ -520,7 +520,7 @@ TestCase[$RegisteredTests,"QuantumSystems:EntanglementF",
 	]];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Random Matrices*)
 
 
