@@ -51,14 +51,14 @@ $TestResults := RunTest[$RegisteredTests];
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Unit Tests*)
 
 
 Begin["`UnitTests`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*States and Operators*)
 
 
@@ -226,7 +226,7 @@ TestCase[$RegisteredTests,"QuantumSystems:KetForm",
 	]];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Vec Form*)
 
 
@@ -248,6 +248,34 @@ TestCase[$RegisteredTests,"QuantumSystems:VecForm",
 			{{0,0,0,0,1,0},{0,0,0,0,0,Sqrt[2]},{0,0,0,0,0,0},
 			{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0}}]
 	]];
+
+
+(* ::Subsubsection:: *)
+(*Rotating Frame Conversions*)
+
+
+TestCase[$RegisteredTests, "QuantumSystems:RotatingFrameConversions:RotatingHamiltonian:TransformToItselfInvariant",
+	Module[{BaseHamiltonian, RandomTime, RandomMatrixSize},
+		RandomMatrixSize = RandomInteger[{1, 10}];
+		BaseHamiltonian = RandomHermitian[RandomMatrixSize];
+		RandomTime = RandomInteger[{1, 100}];
+		Chop[EffectiveHamiltonian[BaseHamiltonian, BaseHamiltonian][RandomTime]] ==
+			ConstantArray[0, {RandomMatrixSize, RandomMatrixSize}]
+	]
+];
+
+
+TestCase[$RegisteredTests, "QuantumSystems:RotatingFrameConversions:RotatingHamiltonian:FunctionOfTimeInvariant",
+	Module[{BaseHamiltonian, RandomTime, RandomMatrixSize, HamiltonianFunction},
+		RandomMatrixSize = RandomInteger[{1, 10}];
+		BaseHamiltonian = RandomHermitian[RandomMatrixSize];
+		RandomTime = RandomInteger[{1, 100}];
+		HamiltonianFunction = Function[{time}, BaseHamiltonian];
+		Chop[EffectiveHamiltonian[HamiltonianFunction, BaseHamiltonian][RandomTime]] == 
+		ConstantArray[0, {RandomMatrixSize, RandomMatrixSize}]
+	]
+];
+		
 
 
 (* ::Subsection::Closed:: *)
@@ -492,7 +520,7 @@ TestCase[$RegisteredTests,"QuantumSystems:EntanglementF",
 	]];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Random Matrices*)
 
 
