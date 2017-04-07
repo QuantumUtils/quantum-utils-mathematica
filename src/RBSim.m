@@ -1,45 +1,69 @@
 (* ::Package:: *)
 
-(* ::Chapter:: *)
-(*RBSim*)
+(* ::Title:: *)
+(*QuantumUtils for Mathematica RBSim Package*)
+
+
+(* ::Subsection::Closed:: *)
+(*Copyright and License Information*)
+
+
+(* ::Text:: *)
+(*This package is part of QuantumUtils for Mathematica.*)
+(**)
+(*Copyright (c) 2015 and later, Christopher J. Wood, Christopher E. Granade, Ian N. Hincks*)
+(**)
+(*Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:*)
+(*1. Redistributions of source code must retain the above copyright notice, this  list of conditions and the following disclaimer.*)
+(*2. Redistributions in binary form must reproduce the above copyright notice,  this list of conditions and the following disclaimer in the documentation  and/or other materials provided with the distribution.*)
+(*3. Neither the name of quantum-utils-mathematica nor the names of its  contributors may be used to endorse or promote products derived from  this software without specific prior written permission.*)
+(**)
+(*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
 (* ::Subsection:: *)
 (*Preamble*)
 
 
-BeginPackage["RBSim`",{"QSim`","Tensor`","GRAPE`","QuantumChannel`"}];
+BeginPackage["RBSim`",{"QUDoc`","QSim`","Tensor`","GRAPE`","QuantumChannel`"}];
+
+
+Needs["QUDevTools`"];
+
+
+$RBSimUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "RBSim.nb"}]];
 
 
 (* ::Section:: *)
 (*Usage Declarations*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Gate Sets*)
 
 
-GateSet::usage = "GateSet[name, size, dimension, gateProductFunction, gateInverseFunction, idealUnitaryFunction, gatePulseFunction] stores the necessary info of a gateset. The arguments to the functions should be indeces between 1 and Size[gateset]. gateProductFunction obviously needs two indeces.";
-GateSetName::usage = "GaseSetName[gs_GateSet] returns a string with some unimportant human readable string describing the gate set gs";
-Size::usage = "Size[gs_GateSet] returns the number of gates in the gateset";
-Dimension::usage = "Dimension[gs_GateSet] returns the Hilbert space dimension of the gates";
-GateProduct::usage = "GateProduct[gs_GateSet] returns the function f[i,j] that multiplies i and j together, returning the resulting index.";
-GateInverse::usage = "GateInverse[gs_GateSet] returns the function f[i] that returns the index of the inverse of the i'th gate";
-GateUnitary::usage = "GateUnitary[gs_GateSet] returns the function f[i] that returns the ideal unitary matrix corresponding to the i'th gate of the gateset.";
-GatePulse::usage = "GatePulse[gs_GateSet] returns the function f[i] that returns the pulse corresponding to the given gate in a format accepted by PulseSim.";
+Unprotect[
+	GateSet, GateSetName, Size, Dimension,
+	GateProduct, GateInverse,
+	GateUnitary, GatePulse,
+	FramePotential, TestGateSetPulses, TestGateSetInverses, TestGateSetProducts,
+	GateIndeces, TakeOverlap
+];
 
 
-FramePotential::usage = "FramePotential[gs_GateSet, t] returns the t-frame potential of the given gateset.";
+AssignUsage[
+	{
+		GateSet, GateSetName, Size, Dimension,
+		GateProduct, GateInverse,
+		GateUnitary, GatePulse,
+		FramePotential, TestGateSetPulses, TestGateSetInverses, TestGateSetProducts,
+		GateIndeces, TakeOverlap
+	},
+	$RBSimUsages
+]
 
 
-TestGateSetPulses::usage = "TestGateSetPulses[gateSet] simulates the pulses (with no drift hamiltonian) and compares the result with the ideal unitary. By default, a list of overlaps is returned.";
-TestGateSetInverses::usage = "TestGateSetInverses[gateSet] uses the gateSet inverse function to multiply gates with their supposed inverses. By default, a list of overlaps with the identity matrix is returned.";
-TestGateSetProducts::usage = "TestGateSetProducts[gateSet] uses the gateSet product function to multply  gates together. By default, a list of overlaps with product as calculatedi with matrix multiplication is returned.";
-GateIndeces::usage = "GateIndeces is an option for TestGateSetPulses, TestGateSetInverses, and TestGateSetProducts specifying which indeces or pairs of indeces to test. Default is All.";
-TakeOverlap::usage = "GateIndeces is a boolean option for TestGateSetPulses, TestGateSetInverses, and TestGateSetProducts specifying whether to return the matrices themsevlves, or just the relevant overlap.";
-
-
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Noise Models*)
 
 
@@ -64,7 +88,7 @@ GateSequence::usage = "GateSequence refers to a list of integers corresponding t
 CompiledSequence::usage = "CompiledSequence is a storage container for the output of CompileSequence";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Simulator*)
 
 
@@ -72,14 +96,14 @@ SimulateSequence::usage = "SimulateSequence[seq_CompiledSequence, \[Rho], Option
 SimulateProtocol::usage = "SimulateProtocol[gateSet, protocol, noiseModel]";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Visualization*)
 
 
 PlotSequence::usage = "PlotSequence[seq_CompiledSequence] plots the pulse sequence inside some output of CompileSequence."
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Protocols*)
 
 
@@ -103,7 +127,8 @@ RBProtocol::usage = "";
 (*Example Gate Sets*)
 
 
-$gaussianQubitGateset::usage = "Example gateset for qubits with gaussian pulse shapes.";
+Unprotect[$gaussianQubitGateSet];
+AssignUsage[{$gaussianQubitGateSet}, $RBSimUsages];
 
 
 (* ::Subsection:: *)
@@ -120,7 +145,7 @@ IndependentNoise::usage = "IndependentNoise[channel]";
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Private Helper Functions*)
 
 
@@ -162,7 +187,7 @@ makeContainer[head_,{validProperties__}] := (
 )
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Gate Sets*)
 
 
@@ -408,7 +433,7 @@ makeContainer[CompiledSequence, {
 }];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Simulator*)
 
 
@@ -464,7 +489,7 @@ SimulateProtocol[gs_GateSet, protocol_Protocol, nm_NoiseModel] := Module[{simSeq
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Visualization*)
 
 
@@ -521,7 +546,7 @@ RBProtocol[seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{seqGen},
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Example Gate Noise*)
 
 
@@ -563,7 +588,7 @@ With[{
 	unitaries = $gqgUnitaries,
 	pulses = $gqgPulses
 },
-	$gaussianQubitGateset = GateSet[
+	$gaussianQubitGateSet = GateSet[
 		GateSetName->"Gaussian 2-design on Qubits",
 		Dimension->2,
 		Size->12,
@@ -576,7 +601,7 @@ With[{
 
 
 (* ::Subsection:: *)
-(*End*)
+(*End Private*)
 
 
 End[];
@@ -584,6 +609,18 @@ End[];
 
 (* ::Section:: *)
 (*End Package*)
+
+
+Protect[
+	GateSet, GateSetName, Size, Dimension,
+	GateProduct, GateInverse,
+	GateUnitary, GatePulse,
+	FramePotential, TestGateSetPulses, TestGateSetInverses, TestGateSetProducts,
+	GateIndeces, TakeOverlap
+];
+
+
+Protect[$gaussianQubitGateSet];
 
 
 EndPackage[];
