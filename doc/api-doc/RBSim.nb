@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[    108352,       2398]
-NotebookOptionsPosition[    102393,       2207]
-NotebookOutlinePosition[    105051,       2288]
-CellTagsIndexPosition[    104364,       2268]
+NotebookDataLength[    218987,       5040]
+NotebookOptionsPosition[    203237,       4571]
+NotebookOutlinePosition[    210426,       4772]
+CellTagsIndexPosition[    208495,       4722]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,7 +27,8 @@ Cell["Preamble", "Subsection",
   3.635193767599886*^9}, {3.6357763910767603`*^9, 3.635776391166196*^9}, {
   3.63646826310387*^9, 3.6364682632018557`*^9}, {3.650023482305333*^9, 
   3.650023482405375*^9}, {3.6538391825136347`*^9, 3.653839182588071*^9}, {
-  3.69755650546826*^9, 3.697556505610845*^9}},
+  3.69755650546826*^9, 3.697556505610845*^9}, {3.700822522404282*^9, 
+  3.7008225224981213`*^9}},
  CellTags->"Preamble::section"],
 
 Cell[BoxData[{
@@ -114,7 +115,8 @@ Cell[CellGroupData[{
 
 Cell["Gate Sets", "Section",
  CellChangeTimes->{{3.634499315580278*^9, 3.6344993201551857`*^9}, 
-   3.6361984185927258`*^9, {3.697642333880053*^9, 3.697642335331832*^9}}],
+   3.6361984185927258`*^9, {3.697642333880053*^9, 3.697642335331832*^9}, {
+   3.700575473184161*^9, 3.700575473263701*^9}}],
 
 Cell[TextData[{
  StyleBox["GateSet", "Input"],
@@ -190,6 +192,90 @@ GateUnitary\nGatePulse", "Input"]
   3.700567930643736*^9}},
  CellTags->"GateSet::usage"],
 
+Cell[TextData[{
+ StyleBox["GateNoiseGateSet", "Input"],
+ " is a ",
+ StyleBox["Head", "Input"],
+ " used to store all relevant information about a particular set of quantum \
+gates and their structure, along with a ",
+ StyleBox["GateNoise", "Input"],
+ " error model.  Such objects have the format ",
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["=GateNoiseGateSet[", "Input"],
+ StyleBox["key1\[Rule]value1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ". \n\nThis object is a combination of ",
+ StyleBox["GateSet", "Input"],
+ " and ",
+ StyleBox["NoiseModel", "Input"],
+ " where the only noise is ",
+ StyleBox["GateNoise", "Input"],
+ ", that is, all noise happens as a discrete CPTP map. There is no \
+implementation of the gate as a pulse; it is assumed that all noise is in the \
+GateNoise. \n\n",
+ StyleBox["Retrieving Values",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nValues of keys can be retrieved by calling the key: ",
+ StyleBox["Dimension[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ "\n\n",
+ StyleBox["Notes",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" ", "Input"],
+ "A gate set is formatted as ",
+ StyleBox["GateNoiseGateSet[", "Input"],
+ StyleBox["\[OpenCurlyDoubleQuote]name\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " when printed -- do not let this fool you about the contents. Use ",
+ StyleBox["FullForm[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " or ",
+ StyleBox["List@@", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " to see all of the explicit contents.\n\[Bullet]  This object can be \
+created manually, or compiled from a ",
+ StyleBox["GateSet", "Input"],
+ " and ",
+ StyleBox["NoiseModel", "Input"],
+ " with ",
+ StyleBox["CompileGateSet", "Input"],
+ ".\n\n",
+ StyleBox["Possible Keys\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["GateSetName\nSize\nDimension\nGateProduct\nGateInverse\n\
+GateUnitary\nGateNoise", "Input"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.7006607329057713`*^9, 3.70066075391953*^9}, {
+  3.7006608359535503`*^9, 3.700660838897089*^9}, {3.700660967067718*^9, 
+  3.700661274060649*^9}},
+ CellTags->"GateNoiseGateSet::usage"],
+
 Cell[CellGroupData[{
 
 Cell["GateSet Keys", "Subsection",
@@ -203,6 +289,7 @@ Cell[TextData[{
  StyleBox["GateSet", "Input"],
  " key storing a string with a human-readable gate set name."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567191402363*^9}, {
   3.700567963229566*^9, 3.700567978819016*^9}},
  CellTags->"GateSetName::usage"],
@@ -213,6 +300,7 @@ Cell[TextData[{
  StyleBox["GateSet", "Input"],
  " key storing the number of gates in the gate set."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567191402363*^9}},
  CellTags->"Size::usage"],
 
@@ -222,6 +310,7 @@ Cell[TextData[{
  StyleBox["GateSet", "Input"],
  " key storing the Hilbert space dimension the gates in the gate set act on."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567221216147*^9}},
  CellTags->"Dimension::usage"],
 
@@ -240,6 +329,7 @@ Gate ",
  StyleBox["gate[j].gate[i]", "Input"],
  "."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567191402363*^9}, {
   3.7005672443952093`*^9, 3.700567283150799*^9}, {3.700567403541587*^9, 
   3.700567438564158*^9}, {3.700567480464538*^9, 3.700567492766582*^9}},
@@ -253,6 +343,7 @@ Cell[TextData[{
  StyleBox["f[i]", "Input"],
  " that takes a gate index and returns the index of the inverse gate."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567191402363*^9}, {
   3.700567449727736*^9, 3.700567475276484*^9}},
  CellTags->"GateInverse::usage"],
@@ -267,6 +358,7 @@ Cell[TextData[{
  StyleBox["i", "Input"],
  "."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567191402363*^9}, {
   3.700567529537837*^9, 3.700567562099168*^9}},
  CellTags->"GateUnitary::usage"],
@@ -284,9 +376,19 @@ Cell[TextData[{
  StyleBox["i", "Input"],
  "."
 }], "Text",
+ CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700567164547894*^9, 3.700567191402363*^9}, {
   3.700567574913677*^9, 3.7005676480738792`*^9}},
- CellTags->"GatePulse::usage"]
+ CellTags->"GatePulse::usage"],
+
+Cell[TextData[{
+ ButtonBox["GateNoise",
+  BaseStyle->"Hyperlink",
+  ButtonData->"GateNoise::usage"],
+ " (for GateNoiseGateSet only)"
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700660860092545*^9, 3.700660898869829*^9}}]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -318,10 +420,12 @@ Cell[BoxData[{
   3.7005728171903143`*^9, 3.700572820411291*^9}}],
 
 Cell[BoxData["12"], "Output",
- CellChangeTimes->{3.7005725792554417`*^9, 3.700572821933507*^9}],
+ CellChangeTimes->{3.7005725792554417`*^9, 3.700572821933507*^9, 
+  3.700584227572151*^9}],
 
 Cell[BoxData["2"], "Output",
- CellChangeTimes->{3.7005725792554417`*^9, 3.700572821934716*^9}]
+ CellChangeTimes->{3.7005725792554417`*^9, 3.700572821933507*^9, 
+  3.700584227572795*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -517,7 +621,8 @@ Cell[BoxData[
      MatrixForm[BoxForm`e$]]]},
   "RowDefault"]], "Output",
  CellChangeTimes->{{3.700572533011829*^9, 3.700572546201993*^9}, {
-   3.7005725834782677`*^9, 3.7005725894850807`*^9}, 3.7005728249184437`*^9}]
+   3.7005725834782677`*^9, 3.7005725894850807`*^9}, 3.7005728249184437`*^9, 
+   3.700584227593356*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1903,8 +2008,9 @@ A8fXGpx8OZYwPt1Na3Hy94Hjcx1OPgCRYvMH
        Ticks -> {Automatic, Automatic}}]}, "RowDefault"]},
   "RowDefault"]], "Output",
  CellChangeTimes->{{3.700572847269374*^9, 3.700572932376862*^9}, {
-  3.700572963351022*^9, 3.7005730091017637`*^9}, {3.700573047736456*^9, 
-  3.700573065610817*^9}, {3.7005730963957567`*^9, 3.700573102293084*^9}}]
+   3.700572963351022*^9, 3.7005730091017637`*^9}, {3.700573047736456*^9, 
+   3.700573065610817*^9}, {3.7005730963957567`*^9, 3.700573102293084*^9}, 
+   3.7005842281782007`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1916,7 +2022,8 @@ Cell[BoxData[
  CellChangeTimes->{{3.700573111421863*^9, 3.7005731238145*^9}}],
 
 Cell[BoxData["6"], "Output",
- CellChangeTimes->{{3.700573117685234*^9, 3.700573124317284*^9}}]
+ CellChangeTimes->{{3.700573117685234*^9, 3.700573124317284*^9}, 
+   3.700584228193029*^9}]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
@@ -2095,7 +2202,8 @@ Cell[BoxData[
  CellChangeTimes->{{3.700573167569525*^9, 3.700573188270131*^9}}],
 
 Cell[BoxData["2"], "Output",
- CellChangeTimes->{{3.7005731733401747`*^9, 3.700573188477627*^9}}]
+ CellChangeTimes->{{3.7005731733401747`*^9, 3.700573188477627*^9}, 
+   3.700584228207604*^9}]
 }, Open  ]]
 }, Closed]],
 
@@ -2122,7 +2230,7 @@ Cell[BoxData[
    "0.9999999999999984`", ",", "0.9999999999999993`", ",", 
    "0.9999999999999982`", ",", "1.0000000000000009`", ",", 
    "1.0000000000000009`"}], "}"}]], "Output",
- CellChangeTimes->{3.700573274915436*^9}]
+ CellChangeTimes->{3.700573274915436*^9, 3.700584228259481*^9}]
 }, Open  ]],
 
 Cell[TextData[{
@@ -2172,7 +2280,8 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
- CellChangeTimes->{{3.7005733169839487`*^9, 3.700573321027521*^9}}]
+ CellChangeTimes->{{3.7005733169839487`*^9, 3.700573321027521*^9}, 
+   3.700584228295504*^9}]
 }, Open  ]],
 
 Cell[TextData[{
@@ -2198,15 +2307,2270 @@ Cell[BoxData[
   RowBox[{
   "1", ",", "1", ",", "1", ",", "1", ",", "1", ",", "1", ",", "1", ",", "1", 
    ",", "1", ",", "1", ",", "1", ",", "1"}], "}"}]], "Output",
- CellChangeTimes->{3.700573366935803*^9}]
+ CellChangeTimes->{3.700573366935803*^9, 3.700584228361745*^9}]
 }, Open  ]]
 }, Closed]]
 }, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Noise Models", "Section",
+ CellChangeTimes->{{3.700574087743601*^9, 3.7005740915777817`*^9}}],
+
+Cell[TextData[{
+ StyleBox["NoiseModel", "Input"],
+ " is a ",
+ StyleBox["Head", "Input"],
+ " used to store all relevant information about a particular noise model.  \
+Such objects have the format ",
+ StyleBox["noiseModel", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["=NoiseModel[", "Input"],
+ StyleBox["key1\[Rule]value1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ". \n\n",
+ StyleBox["Retrieving Values",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nValues of keys can be retrieved by calling the key: ",
+ StyleBox["GateNoise[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ "\n\n",
+ StyleBox["Possible Keys\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["GateNoise\nDistortionMultiplier\nDistortionOperator\n\
+StochasticNoise\nStaticNoise\nGenerator\nStepSize", "Input"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6344996477785463`*^9, 3.634499648332594*^9}, {
+  3.6345002099990873`*^9, 3.634500628404138*^9}, {3.6345007418132677`*^9, 
+  3.634500914003952*^9}, {3.63450112157022*^9, 3.634501123890213*^9}, {
+  3.634501193768155*^9, 3.634501201142671*^9}, {3.634501989868088*^9, 
+  3.6345020089884663`*^9}, {3.635772721205873*^9, 3.635772740285365*^9}, {
+  3.700565785736985*^9, 3.700566063894699*^9}, {3.7005660992536917`*^9, 
+  3.700566103725062*^9}, {3.700566142548973*^9, 3.700566225811758*^9}, {
+  3.7005662806132593`*^9, 3.7005663629158163`*^9}, {3.700567921422406*^9, 
+  3.700567930643736*^9}, {3.700574113649282*^9, 3.700574214947003*^9}},
+ CellTags->"NoiseModel::usage"],
+
+Cell[CellGroupData[{
+
+Cell["GateNoise Keys", "Subsection",
+ CellChangeTimes->{{3.7005774882656918`*^9, 3.7005774910906477`*^9}}],
+
+Cell[TextData[{
+ StyleBox["GateNoise", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key storing a function  ",
+ StyleBox["f[", "Input"],
+ StyleBox["i1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["i2", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["in", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " that returns an object satisfying ",
+ StyleBox["ChannelPulseQ", "Input"],
+ " given the gate index history ",
+ StyleBox["i1,i2,...,in", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " where ",
+ StyleBox["in", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the most recent."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700574370981217*^9, 3.700574470938939*^9}, {
+  3.700575369151657*^9, 3.7005753793526363`*^9}},
+ CellTags->"GateNoise::usage"],
+
+Cell[TextData[{
+ StyleBox["DistortionMultiplier", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key storing a number specifying how many output pulse steps there are per \
+input pulse step. This is only relevant when the noise model has a ",
+ StyleBox["DistortionOperator", "Input"],
+ " set. The important use of this property is that in simulation of a pulse \
+sequence, the end of the i\[CloseCurlyQuote]th pulse is calculated as this \
+number times the total number of input time steps until the end of the i\
+\[CloseCurlyQuote]th pulse."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700574596586396*^9, 3.70057473780046*^9}},
+ CellTags->"DistortionMultiplier::usage"],
+
+Cell[TextData[{
+ StyleBox["DistortionOperator", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key storing a ",
+ StyleBox["DistortionOperator", "Input"],
+ ", as defined in the ",
+ StyleBox["GRAPE`", "Input"],
+ " package,  to be used on any concatenated pulse sequence. "
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700575177502709*^9, 3.700575232481399*^9}}],
+
+Cell[TextData[{
+ StyleBox["StochasticNoise", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key storing a list of random function symbols along with their random \
+functions, for example, ",
+ StyleBox["{\[Gamma] \[Distributed] WeinerProcess[0,0.1], \[Delta] \
+\[Distributed] OrnsteinUhlenbeckProcess[1,2,3]}", "Input"],
+ ". The distributed symbol is typed with escape+dist+escape."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700574779054101*^9, 3.700574856670841*^9}, {
+  3.700574942358099*^9, 3.7005749567511*^9}, {3.700575021258769*^9, 
+  3.700575044495638*^9}},
+ CellTags->"StochasticNoise::usage"],
+
+Cell[TextData[{
+ StyleBox["StaticNoise", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key storing a list of symbols and their corresponding distributions, for \
+example, ",
+ StyleBox["{{x,y} \[Distributed] \
+MultinormalDistribution[{0,1},{{1,0},{0.5,1}}], \[Xi] \[Distributed] \
+BetaDistribution[1,2]}", "Input"],
+ ". The distributed symbol is typed with escape+dist+escape."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700574869373107*^9, 3.700574932610814*^9}, {
+  3.700575052551943*^9, 3.7005750528407927`*^9}},
+ CellTags->"StaticNoise::usage"],
+
+Cell[TextData[{
+ StyleBox["Generator", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key which specifies a Hamiltonian matrix or LindbladForm of the system. \
+This can possibly act on a Hilbert space larger than that of the gate set."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700575000687212*^9, 3.700575003674*^9}, {
+  3.700575068833808*^9, 3.700575112213317*^9}},
+ CellTags->"Generator::usage"],
+
+Cell[TextData[{
+ StyleBox["StepSize", "Input"],
+ " is a ",
+ StyleBox["NoiseModel", "Input"],
+ " key storing a number representing the step size of time slicing in the \
+quantum dynamics simulator."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700575306832677*^9, 3.700575351552236*^9}},
+ CellTags->"StepSize::link"]
+}, Closed]],
+
+Cell["Example: GateNoise", "Subsection",
+ CellChangeTimes->{{3.7005755459558277`*^9, 3.700575563907899*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Protocols", "Section",
+ CellChangeTimes->{{3.700582589092091*^9, 3.700582590606159*^9}}],
+
+Cell[TextData[{
+ StyleBox["Protocol", "Input"],
+ " is a ",
+ StyleBox["Head", "Input"],
+ " used to store all relevant information about a particular protocol.  Such \
+objects have the format ",
+ StyleBox["protocol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["=Protocol[", "Input"],
+ StyleBox["key1\[Rule]value1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ". \n\n",
+ StyleBox["Retrieving Values",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nValues of keys can be retrieved by calling the key: ",
+ StyleBox["ProtocolName[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ "\n\n",
+ StyleBox["Notes",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\n\[Bullet]",
+ StyleBox[" ", "Input"],
+ "A gate set is formatted as ",
+ StyleBox["Protocol[", "Input"],
+ StyleBox["\[OpenCurlyDoubleQuote]name\[CloseCurlyDoubleQuote]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " when printed -- do not let this fool you about the contents. Use ",
+ StyleBox["FullForm[", "Input"],
+ StyleBox["protocol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " or ",
+ StyleBox["List@@", "Input"],
+ StyleBox["protocol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " to see all of the explicit contents.\n\n",
+ StyleBox["Possible Keys\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["ProtocolName\nSequenceLengths\nExperimentTypes\nNumSequenceDraws\n\
+NumRepetitions\nSequenceGenerator\nSimulationOptions\nSimulationParser\n\
+ParallelOptions\nTotalGates", "Input"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6344996477785463`*^9, 3.634499648332594*^9}, {
+   3.6345002099990873`*^9, 3.634500628404138*^9}, {3.6345007418132677`*^9, 
+   3.634500914003952*^9}, {3.63450112157022*^9, 3.634501123890213*^9}, {
+   3.634501193768155*^9, 3.634501201142671*^9}, {3.634501989868088*^9, 
+   3.6345020089884663`*^9}, {3.635772721205873*^9, 3.635772740285365*^9}, {
+   3.700565785736985*^9, 3.700566063894699*^9}, {3.7005660992536917`*^9, 
+   3.700566103725062*^9}, {3.700566142548973*^9, 3.700566225811758*^9}, {
+   3.7005662806132593`*^9, 3.7005663629158163`*^9}, {3.700567921422406*^9, 
+   3.700567930643736*^9}, {3.700582620909094*^9, 3.700582720327632*^9}, 
+   3.700767995660067*^9, {3.7007681231337633`*^9, 3.700768150313905*^9}},
+ CellTags->"Protocol::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Protocol Keys", "Subsection",
+ CellChangeTimes->{{3.7005827303996487`*^9, 3.7005827329632797`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ProtocolName", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a human readable string describing the protocol."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}},
+ CellTags->"ProtocolName::usage"],
+
+Cell[TextData[{
+ StyleBox["SequenceLengths", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a list of integers specifying the lengths of sequences to \
+use."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.7005830420075073`*^9, 3.7005830559361343`*^9}, {3.700583735360283*^9, 
+  3.70058373544865*^9}, {3.70068396403293*^9, 3.700683966518495*^9}, {
+  3.7006841846881437`*^9, 3.70068419469705*^9}},
+ CellTags->"SequenceLengths::usage"],
+
+Cell[TextData[{
+ StyleBox["ExperimentTypes", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a function ",
+ StyleBox["f[", "Input"],
+ StyleBox["M", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " that returns a list of experiment types for the sequence length ",
+ StyleBox["M", "Input",
+  FontSlant->"Italic"],
+ ". The list can contain any types of values; they are used by ",
+ StyleBox["SequenceGenerator", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.7005830420075073`*^9, 3.7005830559361343`*^9}, {3.700583735360283*^9, 
+  3.70058373544865*^9}, {3.700683982466826*^9, 3.7006839846035137`*^9}, {
+  3.700684072317649*^9, 3.700684136076358*^9}},
+ CellTags->"ExperimentTypes::usage"],
+
+Cell[TextData[{
+ StyleBox["NumSequenceDraws", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a function ",
+ StyleBox["f[", "Input"],
+ StyleBox["M", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["e", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " that returns an integer specifying the number of random draws to take \
+using Sequence generator at the sequence length ",
+ StyleBox["M", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and experiment type ",
+ StyleBox["e", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.7005830420075073`*^9, 3.7005830559361343`*^9}, {3.700583735360283*^9, 
+  3.70058373544865*^9}, {3.7006839688289623`*^9, 3.7006839726424923`*^9}, {
+  3.700684219632728*^9, 3.700684272954935*^9}},
+ CellTags->"NumSequenceDraws::usage"],
+
+Cell[TextData[{
+ StyleBox["NumRepetitions", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a function ",
+ StyleBox["f[M,e,i]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " that returns an integer specifying the number of random draws to take at \
+sequence length ",
+ StyleBox["M", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", experiment type ",
+ StyleBox["e", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", and sequence draw ",
+ StyleBox["i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.7005830420075073`*^9, 3.7005830559361343`*^9}, {3.700583735360283*^9, 
+  3.70058373544865*^9}, {3.700683974652008*^9, 3.700683978615847*^9}, {
+  3.7006843086321087`*^9, 3.700684353166782*^9}},
+ CellTags->"NumRepetitions::usage"],
+
+Cell[TextData[{
+ StyleBox["SequenceGenerator", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a function ",
+ StyleBox["seqGen[", "Input"],
+ StyleBox["gs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",{", "Input"],
+ StyleBox["M,e,i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["}]", "Input"],
+ " that takes a ",
+ StyleBox["GateSet", "Input"],
+ " along with a sequence length ",
+ StyleBox["M", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", experiment type ",
+ StyleBox["e", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ", and sequence draw index ",
+ StyleBox["i", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " and returns a gate sequence, which is a list of indices corresponding to \
+gates from ",
+ StyleBox["gs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+   3.700583075784091*^9, 3.700583179116555*^9}, {3.700583213872574*^9, 
+   3.700583247631716*^9}, 3.700584220364539*^9, {3.700817715952558*^9, 
+   3.70081771961553*^9}, {3.700817749986923*^9, 3.700817776736979*^9}},
+ CellTags->"SequenceGenerator::usage"],
+
+Cell[TextData[{
+ StyleBox["SimulationOptions", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a list of options to pass to the simulator, such as ",
+ StyleBox["InitialState", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, 
+   3.700583001251995*^9, {3.70058303443493*^9, 3.700583036725656*^9}},
+ CellTags->"SimulationOptions::usage"],
+
+Cell[TextData[{
+ StyleBox["SimulationParser", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a function which acts on the output of ",
+ StyleBox["PulseSim", "Input"],
+ " to return the quantity of interest."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.7005832644120073`*^9, 3.700583279560821*^9}},
+ CellTags->"SimulationParser::usage"],
+
+Cell[TextData[{
+ StyleBox["ParallelOptions", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing a list of options to be passed to ",
+ StyleBox["ParallelTable", "Input"],
+ " during simulation."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.7005836012621307`*^9, 3.700583626746196*^9}, {3.700822497977167*^9, 
+  3.700822498420911*^9}},
+ CellTags->"ParallelOptions::usage"],
+
+Cell[TextData[{
+ StyleBox["TotalGates", "Input"],
+ " is a ",
+ StyleBox["Protocol", "Input"],
+ " key storing how many gates need to be implemented in total to perform the \
+entire protocol. Used for the simulation progress monitor."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700582952423715*^9, 3.700582968907834*^9}, {
+  3.700583646454034*^9, 3.700583663399702*^9}},
+ CellTags->"TotalGates::usage"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Built-in Protocols", "Subsection",
+ CellChangeTimes->{{3.700583692653751*^9, 3.7005836967849092`*^9}}],
+
+Cell[TextData[{
+ StyleBox["RBDraw[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[", ", "Input"],
+ StyleBox["seqLength", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " is a helper function that returns a list of gate indices of length ",
+ StyleBox["seqLength", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["+1", "Input"],
+ ", such that the total product according to gs is the identity unitary. The ",
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " requires the keys ",
+ StyleBox["GateProduct", "Input"],
+ " and ",
+ StyleBox["GateInverse", "Input"],
+ " to be implemented."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700583788797639*^9, 3.700583863812643*^9}},
+ CellTags->"RBDraw::usage"],
+
+Cell[TextData[{
+ StyleBox["RBProtocol[", "Input"],
+ StyleBox["seqLengths", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["numSeqs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["shotsPerSeq", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["\[Rho]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["E", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " returns a ",
+ StyleBox["Protocol", "Input"],
+ " object specifying the standard RB protocol, with sequences whose lengths \
+are given by the list ",
+ StyleBox["seqLengths", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". For every sequence length, ",
+ StyleBox["numSeqs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " different random sequences are drawn, and each random sequence is repeated \
+",
+ StyleBox["shotPerSeq", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " number of times. ",
+ StyleBox["\[Rho]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the initial density matrix, and ",
+ StyleBox["E", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " is the observable."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.70058380104671*^9, 3.7005838039032383`*^9}, {
+   3.700583866323764*^9, 3.700583982248109*^9}, 3.700584042788686*^9, 
+   3.7005840813343973`*^9},
+ CellTags->"RBProtocol::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.700584236620591*^9, 3.700584241390806*^9}}],
+
+Cell["\<\
+Create an instance of the RB protocol with 10 draws of each of the sequence \
+lengths 2,4,10, and 2 repetitions per draw. We initialize and measure the |0\
+\[RightAngleBracket] state.\
+\>", "Text",
+ CellChangeTimes->{{3.70081855027133*^9, 3.7008186277430153`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rb", "=", 
+   RowBox[{"RBProtocol", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"2", ",", "4", ",", "10"}], "}"}], ",", "10", ",", "2", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0"}], "}"}]}], "}"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.700584242490383*^9, 3.7005842795712*^9}}],
+
+Cell[TextData[{
+ "Note that there is only one ",
+ StyleBox["ExperimentType", "Input"],
+ ", named ",
+ StyleBox["0", "Input"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.700818635561886*^9, 3.700818649239613*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"TotalGates", "[", "rb", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ExperimentTypes", "[", "rb", "]"}], "[", "10", "]"}]}], "Input",
+ CellChangeTimes->{{3.700584285511221*^9, 3.700584288160557*^9}, {
+  3.700818499460402*^9, 3.700818508078504*^9}}],
+
+Cell[BoxData["380"], "Output",
+ CellChangeTimes->{
+  3.700584288407885*^9, {3.70081848093056*^9, 3.7008185084891367`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", "0", "}"}]], "Output",
+ CellChangeTimes->{
+  3.700584288407885*^9, {3.70081848093056*^9, 3.7008185084922247`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+Get a sequence of length 10 (plus an inversion) with experiment type 0, and \
+random draw index 1:\
+\>", "Text",
+ CellChangeTimes->{{3.700818677503243*^9, 3.700818718352165*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"seq", "=", 
+  RowBox[{
+   RowBox[{"SequenceGenerator", "[", "rb", "]"}], "[", 
+   RowBox[{"$gaussianQubitGateSet", ",", 
+    RowBox[{"{", 
+     RowBox[{"10", ",", "0", ",", "1"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.700584302746723*^9, 3.7005843830015297`*^9}, {
+  3.700584434734421*^9, 3.700584435835206*^9}, {3.700818493711534*^9, 
+  3.7008184938422527`*^9}, {3.700818667696855*^9, 3.700818667791926*^9}, {
+  3.700818728426754*^9, 3.7008187291968813`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "1", ",", "6", ",", "11", ",", "4", ",", "11", ",", "5", ",", "3", ",", "2",
+    ",", "12", ",", "9", ",", "4"}], "}"}]], "Output",
+ CellChangeTimes->{{3.700584309982183*^9, 3.700584387376319*^9}, 
+   3.700584436200727*^9, {3.7008184856135693`*^9, 3.70081849525721*^9}, 
+   3.7008186681243362`*^9, 3.700818729575655*^9, 3.700818829383792*^9}]
+}, Open  ]],
+
+Cell["These are the unitaries they correspond to:", "Text",
+ CellChangeTimes->{{3.700818777873383*^9, 3.700818788002946*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"GateUnitary", "[", "$gaussianQubitGateSet", "]"}], "/@", "seq"}], 
+  "//", "MatrixListForm"}]], "Input",
+ CellChangeTimes->{{3.7008187311824093`*^9, 3.7008187945685177`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{"1", "0"}, {"0", "1"}}, RowSpacings -> 1, ColumnSpacings -> 1,
+        RowAlignments -> Baseline, ColumnAlignments -> Center], "\[NoBreak]", 
+      ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}, {
+         RowBox[{
+           RowBox[{"-", 
+             FractionBox["1", "2"]}], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{"0", 
+         RowBox[{"-", "1"}]}, {"1", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+       1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+      "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}]}, {
+         RowBox[{
+           RowBox[{"-", 
+             FractionBox["1", "2"]}], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{"0", 
+         RowBox[{"-", "1"}]}, {"1", "0"}}, RowSpacings -> 1, ColumnSpacings -> 
+       1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
+      "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           RowBox[{"-", 
+             FractionBox["1", "2"]}], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}]}, {
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{"-", "\[ImaginaryI]"}], "0"}, {"0", "\[ImaginaryI]"}}, 
+       RowSpacings -> 1, ColumnSpacings -> 1, RowAlignments -> Baseline, 
+       ColumnAlignments -> Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           RowBox[{"-", 
+             FractionBox["1", "2"]}], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}, {
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}]}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{"0", "\[ImaginaryI]"}, {"\[ImaginaryI]", "0"}}, RowSpacings -> 
+       1, ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}, {
+         RowBox[{
+           RowBox[{"-", 
+             FractionBox["1", "2"]}], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}]}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+      GridBox[{{
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}]}, {
+         RowBox[{
+           RowBox[{"-", 
+             FractionBox["1", "2"]}], "-", 
+           FractionBox["\[ImaginaryI]", "2"]}], 
+         RowBox[{
+           FractionBox["1", "2"], "+", 
+           FractionBox["\[ImaginaryI]", "2"]}]}}, RowSpacings -> 1, 
+       ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+       Center], "\[NoBreak]", ")"}], 
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]},
+  "RowDefault"]], "Output",
+ CellChangeTimes->{{3.700818755773508*^9, 3.7008187949632387`*^9}, 
+   3.7008188310122433`*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Check that they multiply to the identity. Notice the ",
+ StyleBox["Reverse", "Input"],
+ ", because by convention, this package always lists gates chronologically."
+}], "Text",
+ CellChangeTimes->{{3.700818854558832*^9, 3.7008188989897633`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Fold", "[", 
+   RowBox[{"Dot", ",", 
+    RowBox[{"Reverse", "[", 
+     RowBox[{
+      RowBox[{"GateUnitary", "[", "$gaussianQubitGateSet", "]"}], "/@", 
+      "seq"}], "]"}]}], "]"}], "//", "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.700818806020174*^9, 3.700818850308094*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"-", "1"}], "0"},
+     {"0", 
+      RowBox[{"-", "1"}]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.7008188195203342`*^9, 3.700818850610841*^9}}]
 }, Open  ]]
+}, Closed]]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Compilers", "Section",
+ CellChangeTimes->{{3.700576354546076*^9, 3.7005763600174503`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["CompileSequence and CompiledSequence", "Subsection",
+ CellChangeTimes->{{3.7005763691404676`*^9, 3.700576378379393*^9}, {
+  3.70057664502385*^9, 3.7005766479484987`*^9}}],
+
+Cell[TextData[{
+ StyleBox["CompileSequence[", "Input"],
+ StyleBox["gs_GateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["sequence", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["nm_NoiseModel", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " compiles the gates from the ",
+ StyleBox["GateSet", "Input"],
+ " ",
+ StyleBox["gs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " corresponding to the sequence of gate indices sequence under the given ",
+ StyleBox["NoiseModel", "Input"],
+ " ",
+ StyleBox["nm", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". The gate indices are integers between 1 and ",
+ StyleBox["Size[", "Input"],
+ StyleBox["gs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ", and should appear in chronological order, that is,\nthe first element of \
+sequence is the first gate applied.\n\nThe output of this function a ",
+ StyleBox["CompiledSequence", "Input"],
+ " object."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700576392522789*^9, 3.7005765624089813`*^9}, {
+  3.700576601393935*^9, 3.70057665074257*^9}},
+ CellTags->"CompileSequence::usage"],
+
+Cell[TextData[{
+ StyleBox["CompiledSequence", "Input"],
+ " is a ",
+ StyleBox["Head", "Input"],
+ " used to store a compiled version of the relevant information needed to \
+simulate a specific gate sequence under some model, as output by the ",
+ StyleBox["CompileSequence", "Input"],
+ " function.  Such objects have the format ",
+ StyleBox["compiledSequence", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["=CompiledSequence[", "Input"],
+ StyleBox["key1\[Rule]value1", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["...", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ". \n\n",
+ StyleBox["Retrieving Values",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ "\nValues of keys can be retrieved by calling the key: ",
+ StyleBox["Generator[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ "\n\n",
+ StyleBox["Possible Keys\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["Generator\nPulseSequence\nStepSize\nGateSequence\n\
+UndistortedLongPulse\nGateSet\nNoiseModel", "Input"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.6344996477785463`*^9, 3.634499648332594*^9}, {
+  3.6345002099990873`*^9, 3.634500628404138*^9}, {3.6345007418132677`*^9, 
+  3.634500914003952*^9}, {3.63450112157022*^9, 3.634501123890213*^9}, {
+  3.634501193768155*^9, 3.634501201142671*^9}, {3.634501989868088*^9, 
+  3.6345020089884663`*^9}, {3.635772721205873*^9, 3.635772740285365*^9}, {
+  3.700565785736985*^9, 3.700566063894699*^9}, {3.7005660992536917`*^9, 
+  3.700566103725062*^9}, {3.700566142548973*^9, 3.700566225811758*^9}, {
+  3.7005662806132593`*^9, 3.7005663629158163`*^9}, {3.700567921422406*^9, 
+  3.700567930643736*^9}, {3.700576693450428*^9, 3.700576868931697*^9}},
+ CellTags->"CompiledSequence::usage"],
+
+Cell[CellGroupData[{
+
+Cell["CompiledSequence Keys", "Subsubsection",
+ CellChangeTimes->{{3.700576902447823*^9, 3.700576907109582*^9}}],
+
+Cell[TextData[ButtonBox["Generator",
+ BaseStyle->"Hyperlink",
+ ButtonData->"Generator::usage"]], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700577615284093*^9, 3.700577630585182*^9}}],
+
+Cell[TextData[{
+ StyleBox["PulseSequence", "Input"],
+ " is a ",
+ StyleBox["CompiledSequence", "Input"],
+ " key storing a list of operations to be performed by ",
+ StyleBox["PulseSim", "Input"],
+ ". This list should satisfy ",
+ StyleBox["PulseSequenceQ", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700576976216125*^9, 3.700577038239419*^9}},
+ CellTags->"PulseSequence::usage"],
+
+Cell[TextData[ButtonBox["StepSize",
+ BaseStyle->"Hyperlink",
+ ButtonData->"StepSize::link"]], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700577647364106*^9, 3.700577663299608*^9}}],
+
+Cell[TextData[{
+ StyleBox["GateSequence", "Input"],
+ " is a ",
+ StyleBox["CompiledSequence", "Input"],
+ " key storing a list of integers corresponding to gates from a given ",
+ StyleBox["GateSet", "Input"],
+ ". The gate indices are integers between 1 and ",
+ StyleBox["Size[", "Input"],
+ StyleBox["gateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ ", and should appear in chronological order, that is, the first element of \
+sequence is the first gate applied."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{
+  3.700576958563342*^9, {3.700577084572669*^9, 3.7005771395216312`*^9}},
+ CellTags->"GateSequence::usage"],
+
+Cell[TextData[{
+ StyleBox["UndistortedLongPulse", "Input"],
+ " is a ",
+ StyleBox["CompiledSequence", "Input"],
+ " key storing the catenated pulse sequence  before the ",
+ StyleBox["DistortionOperator", "Input"],
+ " (if any) is applied."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.70057705099502*^9, 3.700577069389894*^9}, {
+  3.700577108805126*^9, 3.700577111567223*^9}},
+ CellTags->"UndistortedLongPulse::usage"],
+
+Cell[TextData[ButtonBox["GateSet",
+ BaseStyle->"Hyperlink",
+ ButtonData->"GateSet::usage"]], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700577686901629*^9, 3.700577702536708*^9}}],
+
+Cell[TextData[ButtonBox["NoiseModel",
+ BaseStyle->"Hyperlink",
+ ButtonData->"NoiseModel::usage"]], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700577691355665*^9, 3.700577715218219*^9}}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.700577756251316*^9, 3.700577757030229*^9}}],
+
+Cell[TextData[{
+ "Compile gates 12,10,2 of the ",
+ StyleBox["$gaussianQubitGateSet", "Input"],
+ " under a distortion noise model."
+}], "Text",
+ CellChangeTimes->{{3.7005778003992023`*^9, 3.700577804357457*^9}, {
+   3.7005778450660553`*^9, 3.700577853177885*^9}, {3.7005778862403517`*^9, 
+   3.70057793810642*^9}, 3.700578033011095*^9, {3.7005780772848597`*^9, 
+   3.700578078642733*^9}, {3.700578328478826*^9, 3.7005783289678183`*^9}, {
+   3.70058251610867*^9, 3.7005825170155563`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nm", "=", 
+   RowBox[{"NoiseModel", "[", 
+    RowBox[{"DistortionOperator", "->", 
+     RowBox[{"FastExponentialDistortion", "[", 
+      RowBox[{"0.01", ",", "4", ",", "20"}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"compiledSequence", "=", 
+   RowBox[{"CompileSequence", "[", 
+    RowBox[{"$gaussianQubitGateSet", ",", 
+     RowBox[{"{", 
+      RowBox[{"12", ",", "10", ",", "2"}], "}"}], ",", "nm"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.700577779322353*^9, 3.700577792782989*^9}, {
+   3.700577854365047*^9, 3.700577882231372*^9}, 3.700578034935267*^9, {
+   3.700578207836516*^9, 3.700578210794166*^9}, {3.70057829486683*^9, 
+   3.7005783205506563`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"GateSequence", "[", "compiledSequence", "]"}]], "Input",
+ CellChangeTimes->{{3.700578364891554*^9, 3.700578368873459*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"12", ",", "10", ",", "2"}], "}"}]], "Output",
+ CellChangeTimes->{3.700578369146282*^9, 3.700582031460338*^9, 
+  3.700582074091256*^9, 3.700584228383896*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PlotSequence", "[", 
+  RowBox[{"compiledSequence", ",", 
+   RowBox[{"ImageSize", "\[Rule]", "300"}], ",", 
+   RowBox[{"PlotLabel", "\[Rule]", 
+    RowBox[{"DistributeOption", "[", 
+     RowBox[{"\"\<X\>\"", ",", "\"\<Y\>\""}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7005779423951483`*^9, 3.7005780641978188`*^9}, {
+  3.700578106956203*^9, 3.700578149792557*^9}, {3.700578190495635*^9, 
+  3.7005782237855883`*^9}, {3.700581972267877*^9, 3.700581988652564*^9}, {
+  3.700582035288273*^9, 3.700582048186648*^9}, {3.700582079269347*^9, 
+  3.700582095241849*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{OverlayBox[{
+     GraphicsBox[{{}, 
+       GraphicsComplexBox[CompressedData["
+1:eJx11GtIk2EUB/AlIhGRfYglIdMilhQxRESWl80PIRGxLCipUBEriWgSXazG
+VlRYVKwb2Sq2dC1bLp06bdXalq2UCo0IhlQOExOJEAsdlZfe5zy8fujh/8KQ
+Hw497zn/c5ZXGLfsTlAoFB3Sh/2cco9/2FRRrlOA5//fc1dD/zHvCxy6VgPN
+v38S+sSS5qLB42eg+d87B31sVJ0533MRmv+/y9B5McOlugNXoU1Uz3XowIaF
+CWtqb0BPUb03ofN8PUeCjlvQJnqfO9AB1dnvxX479Ay9711oeyTde7CqHrqA
++tEAPfCbvZAT2kz9uifY9rW/4Z3NoVNpvqxMOuUSPLhxMlmrTdIHqZ/3BX/L
+/zkvd+c6fWllrlRRo+DWEsuezYcL9TPU7wfQdht73NAFNI+H0AO98a1DriZo
+M83LA61K3LZobdsjwW+zPmcPN6n1QZpns2C5X6VaVlCLYLlfszRvr2C5X4ac
+84Xlw6LlehyUh1bosWK/VBG2jvLSBm3dP/LXPY4dozy1Q2tqlf29cdFyvyyU
+N59gOY999es7f01jp1EeO6CNUppSEjuhQ5RX7OSoszp/wWPoMsozdgsb52I/
+9CzlHdvAylE+gXbQPojmebOGxlicU58K5nmbDOloX0TzvK0OW6W0vV/xTDCf
+Z2Y4RvuErdll7ZrICEBbaN+w+6RqlmmeQ6fRPmIbr/ww6bKDgnnelOEQ7avo
+uXl7UndU5oagy2ifsbcPuW5H0sPQfN+xG6W0RZ3Y/B5gx6c/1oyqX0Dze4Fd
+dIEtPDa/J9h1KWwgXdD83mCPsHZ5sfk9ws7JYs9LaH6vsGvDb6SLg83vGXZU
+2vYSbQSa3zvR8r6u+sQKEi3vK7+HouV9PVrFAv9K8Ny+0L3E7p7IkDYWm9/T
+19BLT7OGYfN7i71X6pavR7S8r/wedwuW+/kPKsX9Pg==
+        "], {{{
+           EdgeForm[], 
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            Opacity[0.2]], 
+           GraphicsGroupBox[{
+             
+             PolygonBox[{{121, 100, 101, 102, 103, 104, 105, 106, 107, 108, 
+              109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120}, {
+              181, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171,
+               172, 173, 174, 175, 176, 177, 178, 179, 180}}]}]}, {
+           EdgeForm[], 
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            Opacity[0.2]], 
+           GraphicsGroupBox[{
+             
+             PolygonBox[{{40, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 
+              69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 
+              53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 
+              41}}]}]}, {}, {}}, {{}, {}, {
+           Hue[0.67, 0.6, 0.6], 
+           Directive[
+            PointSize[0.011000000000000001`], 
+            AbsoluteThickness[1.6], 
+            RGBColor[0.368417, 0.506779, 0.709798]], 
+           
+           LineBox[{2, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+             18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+            34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 
+            50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 
+            66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 
+            82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 
+            98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 
+            111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 
+            124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 
+            137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 
+            150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 
+            163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 
+            176, 177, 178, 179, 180, 181}]}}}], {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{True, False}, {True, True}}, 
+       FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> {Automatic, 
+         RGBColor[0.368417, 0.506779, 0.709798], Automatic, Automatic}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"X\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}], 
+     GraphicsBox[{{}, {{{}, {}, {
+          Hue[0.67, 0.6, 0.6], 
+          Directive[
+           PointSize[0.007333333333333334], 
+           AbsoluteThickness[1.6], 
+           RGBColor[0.922526, 0.385626, 0.209179]], 
+          LineBox[CompressedData["
+1:eJx12nlcjtn7B/AnhUQqklTaV2t70l3PMYlJfBUhiWIs2bdBSCMNaqwjJiYZ
+KRrCpEgl3Qep7EVUE3qMGoylTYnE77nPdfvj97q6n3+83q/XvMa9nXOuz3Ux
+m7N80rwuMplspapMJvz5/38K7vPJxvsT5hB5524T7S9hBfcpalH+j/FBkob/
+PkzSG3XPjn22Ya6k4f8XLuEGbv0rawf100sk/O3vWyHhBo6rmbgrYdkqSUey
+6/lRwm1cvm+vLoO3r5VwA/eZXW+EhBUcd75kbcEfGyQsk0Wy+4mUdL7x1tcB
+OVESVnBf2P1ulrBMdqTQNGNVeLSEGzgv9jy2SFgme/pRuKEYCTdwUex5/Sxh
+BWc8/Illt+itEpbJCtjz3CbhBm7WXA/lFW2XsPJ+2fOOlfSRQ8IvTtJe7H38
+IuEG7undD5OfH98h6Sj2vnZKWHm/alN7D83cJWHl/bL3uVvCivxZ7sIF7ZGw
+TPaVve+9kp7oFjcqrE7KDdwf7Hv4VcIKrj4gR3lFUpbJ5Ox72SfhBm7Pkhft
+JxulrMivYd9TvJS54dv1qu5+kLJM9hP73vZLWMHdS/bJbu6Qskxmwr7HAxJ+
+yS1XXoy+2m8SVuTz7HuVskymVZGywlMjQdKh7HuWcmn+X8Lr1D4oYeX7Zo9L
+2hOFy9E7JOFS7g+2HqQsk9ULn7PR7xJu4ORsvUhZJtuj/NpKzRMlrHzfbD1J
+e3jInqsttoclrHzfbL1J+57yagyGJ0lYwZmw9SjlUm75r28j5S5HJCyT8Wy9
+Spnma502Cp7r8YekQ9l6lnIlN035MApNj0qY5sN6l3aa8murSJFyJQf7gZRf
+ch86yiNeWSdLuFbcL6Ss4MbuEBa8lGk+7CdSVuQn6Asv5JiEv+03Ui7lXgiP
+K0PKCnE/knJpvpuT8EuR8EsO9ispy2Tb6U3ljiPl0nzYz6T8Pr9CudqD3FMl
+XMrBfteJGyZan6gLkttUCxfUiWPtb7mPC5fDftiJ/YcF1hatlK8LFz7449jv
+j14LNl8nh/0Sm3KBQaGOV+XFLbbKFYttGnf1Kg0vk8N+egK54YjK4d3+VfL+
+McIDw9ZP2RZSvkghh/0W+7NLok3Zvs/yBcqndb4Ee+eYkec/tXUnsB+nIW95
+0xpyL0GbXEyqTyvyw/Zr3O2V9FGXwH6NnZ89LHRquQHpPlh4odg9OZPr7Y6m
+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
+B8xeJzk=
+           "]]}}}, {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{False, True}, {False, False}}, 
+       FrameLabel -> {{None, None}, {None, None}}, 
+       FrameStyle -> {Automatic, Automatic, Automatic, 
+         RGBColor[0.922526, 0.385626, 0.209179]}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"X\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}]}],OverlayBox[{
+     GraphicsBox[{{}, 
+       GraphicsComplexBox[CompressedData["
+1:eJx11G1Ik1EUB/AlEhHR+hBLQqZFmBQxRETG1Gd9CImIZUFJhYpYSUST6MVq
+bEXFior1RraKLV3LlkunTVu1NrOVUqERwZDKYWIiEWGho/Kl557L04cu/wfG
++LGxnXvu+Z8lleaNO1JUKlW7/GLvk76xd+srKyQVeP7/nLsG+rd1d3j/5Vpo
+/v1j0EcXNhcPHjkJzX/vNPTh0aycOf5z0Pz/LkAXJEzn6/ZegrZQPVegw2vn
+pay0X4WepHqvQRcEew5G3NehLXSem9Bh7amvJSEX9DSd9xa0K5YZ2FddD11E
+/WiAHvjFDuSBtlK/bkNrdZ+WzT7uhY5QP+9Al1UZ5Ioaoaep33ehXU72+KCL
+6D7uQQ/0JjcNeZugrXRffmht6ub5q9ruQ0foPpuhy/SsoBboGbrvALQp/8zq
+imFsN81DK/T3kpBcEbZE89IG7dgz8sc3hp2geXoArbNr+nuT2Daat6Bg5+f+
+hjdOh9RXv6bj55TowXUTar1+QsqgeWwX/KXwxyzDthVGszxNaakdgltLbTs3
+HMgxRmlesdVxT03h3IfQ5TTP2C3sOheEoGdo3rFNrBzNI8Gvcz/mDTdpjG7K
+g+h/983GOf0xtER5wXbI0/Z26RPoBOUJW7fd0TWeHYa2Ud6w++RqFuueQmdQ
+HrHNF79ZpLwIdJTyiq32p2+tMkShyynP2FuGvDdimZ3QPO/YjfK0xT3YfB9g
+J6fe145mPYPm+wK7+CwLPDbfJ6KVvNalsQvpEqzkle8b0UpeR1i7AqKVPPB9
+hJ2fy57n0HxfYds7X8kbB5vvM+y4nPZSfUywkle+70Qr/Vz+gRWEzfch9qFq
+NvAvoPm+xO4ez5YTi8336UvoRSdYw7D5vsXeJXcr2IPN93E39F/nI18q
+        "], {{{}, {
+           EdgeForm[], 
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            Opacity[0.2]], 
+           GraphicsGroupBox[{
+             
+             PolygonBox[{{80, 101, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 
+              90, 89, 88, 87, 86, 85, 84, 83, 82, 81}, {140, 161, 160, 159, 
+              158, 157, 156, 155, 154, 153, 152, 151, 150, 149, 148, 147, 146,
+               145, 144, 143, 142, 141}}]}]}, {}, {}}, {{}, {}, {
+           Hue[0.67, 0.6, 0.6], 
+           Directive[
+            PointSize[0.011000000000000001`], 
+            AbsoluteThickness[1.6], 
+            RGBColor[0.368417, 0.506779, 0.709798]], 
+           
+           LineBox[{2, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+             18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+            34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 
+            50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 
+            66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 
+            82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 
+            98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 
+            111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 
+            124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 
+            137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 
+            150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 
+            163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 
+            176, 177, 178, 179, 180, 181}]}}}], {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{True, False}, {True, True}}, 
+       FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> {Automatic, 
+         RGBColor[0.368417, 0.506779, 0.709798], Automatic, Automatic}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"Y\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}], 
+     GraphicsBox[{{}, {{{}, {}, {
+          Hue[0.67, 0.6, 0.6], 
+          Directive[
+           PointSize[0.007333333333333334], 
+           AbsoluteThickness[1.6], 
+           RGBColor[0.922526, 0.385626, 0.209179]], 
+          LineBox[CompressedData["
+1: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
+vslmqx6nbNf/PwBlw/gvpqzXOw==
+           "]]}}}, {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{False, True}, {False, False}}, 
+       FrameLabel -> {{None, None}, {None, None}}, 
+       FrameStyle -> {Automatic, Automatic, Automatic, 
+         RGBColor[0.922526, 0.385626, 0.209179]}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"Y\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}]}]},
+  "RowDefault"]], "Output",
+ CellChangeTimes->{{3.7005779525780163`*^9, 3.7005779790979443`*^9}, {
+   3.7005780093960114`*^9, 3.700578064618286*^9}, {3.700578122928776*^9, 
+   3.7005781547555656`*^9}, {3.7005781924628572`*^9, 
+   3.7005782246326427`*^9}, {3.700578296941077*^9, 3.7005783228775167`*^9}, {
+   3.700582032619801*^9, 3.700582096328006*^9}, 3.700584228457716*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["CompileGateNoise", "Subsection",
+ CellChangeTimes->{{3.700661393365766*^9, 3.700661405148055*^9}}],
+
+Cell["CompileGateNoise[gs_GateSet, nm_NoiseModel,depth] ", "Text",
+ CellChangeTimes->{{3.700665244376052*^9, 3.7006652652441387`*^9}, {
+  3.700665493951645*^9, 3.7006654956931868`*^9}},
+ CellTags->"CompileGateNoise::usage"]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Simulators", "Section",
+ CellChangeTimes->{{3.700582783372263*^9, 3.70058278662013*^9}, {
+  3.700661604885981*^9, 3.700661606346571*^9}},
+ CellTags->"SimulateSequence::usage"],
+
+Cell[TextData[{
+ StyleBox["SimulateSequence[", "Input"],
+ StyleBox["seq_CompiledSequence", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["OptionsPattern[PulseSim]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " simulates the given the ",
+ StyleBox["CompiledSequence", "Input"],
+ " ",
+ StyleBox["seq", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " generated by ",
+ StyleBox["CompileSequence ", "Input"],
+ "using ",
+ StyleBox["PulseSim", "Input"],
+ " and its provided options. The output is the output of ",
+ StyleBox["PulseSim", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700661451880248*^9, 3.70066157933114*^9}, {
+  3.700664709830126*^9, 3.7006647206936893`*^9}}],
+
+Cell[TextData[{
+ StyleBox["SimulateProtocol[", "Input"],
+ StyleBox["gs_GateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["ns_NoiseModel", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["protocol_Protocol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " simulates the given ",
+ StyleBox["protocol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " with the given gate set ",
+ StyleBox["gs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " under the noise model ",
+ StyleBox["ns", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". The output is an array of results whose shape depends on the ",
+ StyleBox["protocol", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["; if the properties ",
+  FontWeight->"Plain"],
+ StyleBox["ExperimentTypes", "Input",
+  FontWeight->"Plain"],
+ StyleBox[", ",
+  FontWeight->"Plain"],
+ StyleBox["NumSequenceDraws", "Input",
+  FontWeight->"Plain"],
+ StyleBox[", ",
+  FontWeight->"Plain"],
+ StyleBox["NumRepetitions", "Input",
+  FontWeight->"Plain"],
+ StyleBox[" are all constant, the output will be an array with dimensions ",
+  FontWeight->"Plain"],
+ StyleBox["{numSeqLengths, numExpTypes, numSeqDraws, numReps}", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[". Otherwise, the output will be ragged, but with the same index \
+types.",
+  FontWeight->"Plain"]
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700664596625371*^9, 3.7006646971406*^9}, {
+  3.700664742631546*^9, 3.700664745024555*^9}, {3.7008223463683434`*^9, 
+  3.7008224482606373`*^9}},
+ CellTags->"SimulateProtocol::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example: SimulateProtocol with GateSet and NoiseModel", "Subsection",
+ CellChangeTimes->{{3.7006647749292707`*^9, 3.700664793014469*^9}}],
+
+Cell["Set up a noise model and a protocol and simulate.", "Text",
+ CellChangeTimes->{{3.70066518367332*^9, 3.700665196829412*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Run", " ", "this", " ", "for", " ", 
+     RowBox[{"parallelization", ":", " ", 
+      RowBox[{"LaunchKernels", "[", "]"}]}]}], ";", " ", 
+    RowBox[{"ParallelNeeds", "[", "\"\<RBSim`\>\"", "]"}], ";"}], " ", "*)"}],
+   "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"nm", "=", 
+     RowBox[{"NoiseModel", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"DistortionOperator", "\[Rule]", 
+        RowBox[{"FastExponentialDistortion", "[", 
+         RowBox[{"0.01", ",", "4", ",", "20"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"GateNoise", "->", 
+        RowBox[{"IndependentNoise", "[", 
+         RowBox[{"Kraus", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Sqrt", "[", "0.01", "]"}], 
+             RowBox[{"TP", "[", "X", "]"}]}], ",", 
+            RowBox[{
+             RowBox[{"Sqrt", "[", "0.99", "]"}], 
+             RowBox[{"TP", "[", "I", "]"}]}]}], "}"}], "]"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"DistortionMultiplier", "\[Rule]", "4"}]}], 
+      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"protocol", "=", 
+     RowBox[{"RBProtocol", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "2", ",", "100"}], "}"}], ",", 
+       "\[IndentingNewLine]", "30", ",", "1", ",", "\[IndentingNewLine]", 
+       RowBox[{"Projector", "[", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], "]"}], ",", 
+       RowBox[{"Projector", "[", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], "]"}]}], "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"SimulateProtocol", "[", "\[IndentingNewLine]", 
+    RowBox[{
+    "$gaussianQubitGateSet", ",", "\[IndentingNewLine]", "nm", ",", 
+     "\[IndentingNewLine]", "protocol"}], "\[IndentingNewLine]", 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.700664993987941*^9, 3.700665066995852*^9}, {
+  3.70066510326081*^9, 3.700665107533292*^9}, {3.7006651500190783`*^9, 
+  3.7006651585210667`*^9}, {3.700821471698897*^9, 3.700821473117477*^9}, {
+  3.700821661565982*^9, 3.7008216617178307`*^9}, {3.700821743465642*^9, 
+  3.7008217457331123`*^9}, {3.70082184351973*^9, 3.700821852268368*^9}, {
+  3.7008222781878653`*^9, 3.700822329603306*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"24.297853`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.700665175481551*^9, 3.700819270779697*^9, 3.7008193773288*^9, 
+   3.700819466114861*^9, 3.7008195266275253`*^9, 3.700819631042642*^9, 
+   3.700820780029233*^9, 3.700821011936675*^9, {3.7008211080135593`*^9, 
+   3.700821123253265*^9}, 3.700821208156756*^9, {3.7008214267028847`*^9, 
+   3.700821477752096*^9}, {3.700821550917622*^9, 3.700821565345656*^9}, 
+   3.700821596455017*^9, {3.700821629386574*^9, 3.700821654204204*^9}, 
+   3.7008217405793247`*^9, 3.700821779003603*^9, 3.7008219007218313`*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Visualization", "Section",
+ CellChangeTimes->{{3.7005821274800453`*^9, 3.700582129897574*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["PlotSequence", "Subsection",
+ CellChangeTimes->{{3.7005821413842907`*^9, 3.700582144323337*^9}}],
+
+Cell[TextData[{
+ StyleBox["PlotSequence[", "Input"],
+ StyleBox["seq_CompiledSequence", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["OptionsPattern[PulsePlot]", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " plots the pulse profile of some ",
+ StyleBox["CompiledSequence", "Input"],
+ " object ",
+ StyleBox["seq", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". "
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.7005822174639797`*^9, 3.700582284587408*^9}},
+ CellTags->"PlotSequence::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.700582306765732*^9, 3.700582307419448*^9}}],
+
+Cell[TextData[{
+ "Compile gates 12,10,2 of the ",
+ StyleBox["$gaussianQubitGateSet", "Input"],
+ " under a distortion noise model and plot it."
+}], "Text",
+ CellChangeTimes->{{3.7005778003992023`*^9, 3.700577804357457*^9}, {
+   3.7005778450660553`*^9, 3.700577853177885*^9}, {3.7005778862403517`*^9, 
+   3.70057793810642*^9}, 3.700578033011095*^9, {3.7005780772848597`*^9, 
+   3.700578078642733*^9}, {3.700578328478826*^9, 3.7005783289678183`*^9}, {
+   3.700582500354986*^9, 3.700582504791213*^9}, {3.7005825383428288`*^9, 
+   3.7005825395783997`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nm", "=", 
+   RowBox[{"NoiseModel", "[", 
+    RowBox[{"DistortionOperator", "->", 
+     RowBox[{"FastExponentialDistortion", "[", 
+      RowBox[{"0.01", ",", "4", ",", "20"}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"compiledSequence", "=", 
+   RowBox[{"CompileSequence", "[", 
+    RowBox[{"$gaussianQubitGateSet", ",", 
+     RowBox[{"{", 
+      RowBox[{"12", ",", "10", ",", "2"}], "}"}], ",", "nm"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"PlotSequence", "[", 
+  RowBox[{"compiledSequence", ",", 
+   RowBox[{"ImageSize", "\[Rule]", "300"}], ",", 
+   RowBox[{"PlotLabel", "\[Rule]", 
+    RowBox[{"DistributeOption", "[", 
+     RowBox[{"\"\<X\>\"", ",", "\"\<Y\>\""}], "]"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.700577779322353*^9, 3.700577792782989*^9}, {
+   3.700577854365047*^9, 3.700577882231372*^9}, 3.700578034935267*^9, {
+   3.700578207836516*^9, 3.700578210794166*^9}, {3.70057829486683*^9, 
+   3.7005783205506563`*^9}, {3.7005825277150917`*^9, 3.700582527963485*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{OverlayBox[{
+     GraphicsBox[{{}, 
+       GraphicsComplexBox[CompressedData["
+1:eJx11GtIk2EUB/AlIhGRfYglIdMilhQxRESWl80PIRGxLCipUBEriWgSXazG
+VlRYVKwb2Sq2dC1bLp06bdXalq2UCo0IhlQOExOJEAsdlZfe5zy8fujh/8KQ
+Hw497zn/c5ZXGLfsTlAoFB3Sh/2cco9/2FRRrlOA5//fc1dD/zHvCxy6VgPN
+v38S+sSS5qLB42eg+d87B31sVJ0533MRmv+/y9B5McOlugNXoU1Uz3XowIaF
+CWtqb0BPUb03ofN8PUeCjlvQJnqfO9AB1dnvxX479Ay9711oeyTde7CqHrqA
++tEAPfCbvZAT2kz9uifY9rW/4Z3NoVNpvqxMOuUSPLhxMlmrTdIHqZ/3BX/L
+/zkvd+c6fWllrlRRo+DWEsuezYcL9TPU7wfQdht73NAFNI+H0AO98a1DriZo
+M83LA61K3LZobdsjwW+zPmcPN6n1QZpns2C5X6VaVlCLYLlfszRvr2C5X4ac
+84Xlw6LlehyUh1bosWK/VBG2jvLSBm3dP/LXPY4dozy1Q2tqlf29cdFyvyyU
+N59gOY999es7f01jp1EeO6CNUppSEjuhQ5RX7OSoszp/wWPoMsozdgsb52I/
+9CzlHdvAylE+gXbQPojmebOGxlicU58K5nmbDOloX0TzvK0OW6W0vV/xTDCf
+Z2Y4RvuErdll7ZrICEBbaN+w+6RqlmmeQ6fRPmIbr/ww6bKDgnnelOEQ7avo
+uXl7UndU5oagy2ifsbcPuW5H0sPQfN+xG6W0RZ3Y/B5gx6c/1oyqX0Dze4Fd
+dIEtPDa/J9h1KWwgXdD83mCPsHZ5sfk9ws7JYs9LaH6vsGvDb6SLg83vGXZU
+2vYSbQSa3zvR8r6u+sQKEi3vK7+HouV9PVrFAv9K8Ny+0L3E7p7IkDYWm9/T
+19BLT7OGYfN7i71X6pavR7S8r/wedwuW+/kPKsX9Pg==
+        "], {{{
+           EdgeForm[], 
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            Opacity[0.2]], 
+           GraphicsGroupBox[{
+             
+             PolygonBox[{{121, 100, 101, 102, 103, 104, 105, 106, 107, 108, 
+              109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120}, {
+              181, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171,
+               172, 173, 174, 175, 176, 177, 178, 179, 180}}]}]}, {
+           EdgeForm[], 
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            Opacity[0.2]], 
+           GraphicsGroupBox[{
+             
+             PolygonBox[{{40, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 
+              69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 
+              53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 
+              41}}]}]}, {}, {}}, {{}, {}, {
+           Hue[0.67, 0.6, 0.6], 
+           Directive[
+            PointSize[0.011000000000000001`], 
+            AbsoluteThickness[1.6], 
+            RGBColor[0.368417, 0.506779, 0.709798]], 
+           
+           LineBox[{2, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+             18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+            34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 
+            50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 
+            66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 
+            82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 
+            98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 
+            111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 
+            124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 
+            137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 
+            150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 
+            163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 
+            176, 177, 178, 179, 180, 181}]}}}], {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{True, False}, {True, True}}, 
+       FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> {Automatic, 
+         RGBColor[0.368417, 0.506779, 0.709798], Automatic, Automatic}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"X\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}], 
+     GraphicsBox[{{}, {{{}, {}, {
+          Hue[0.67, 0.6, 0.6], 
+          Directive[
+           PointSize[0.007333333333333334], 
+           AbsoluteThickness[1.6], 
+           RGBColor[0.922526, 0.385626, 0.209179]], 
+          LineBox[CompressedData["
+1:eJx12nlcjtn7B/AnhUQqklTaV2t70l3PMYlJfBUhiWIs2bdBSCMNaqwjJiYZ
+KRrCpEgl3Qep7EVUE3qMGoylTYnE77nPdfvj97q6n3+83q/XvMa9nXOuz3Ux
+m7N80rwuMplspapMJvz5/38K7vPJxvsT5hB5524T7S9hBfcpalH+j/FBkob/
+PkzSG3XPjn22Ya6k4f8XLuEGbv0rawf100sk/O3vWyHhBo6rmbgrYdkqSUey
+6/lRwm1cvm+vLoO3r5VwA/eZXW+EhBUcd75kbcEfGyQsk0Wy+4mUdL7x1tcB
+OVESVnBf2P1ulrBMdqTQNGNVeLSEGzgv9jy2SFgme/pRuKEYCTdwUex5/Sxh
+BWc8/Illt+itEpbJCtjz3CbhBm7WXA/lFW2XsPJ+2fOOlfSRQ8IvTtJe7H38
+IuEG7undD5OfH98h6Sj2vnZKWHm/alN7D83cJWHl/bL3uVvCivxZ7sIF7ZGw
+TPaVve+9kp7oFjcqrE7KDdwf7Hv4VcIKrj4gR3lFUpbJ5Ox72SfhBm7Pkhft
+JxulrMivYd9TvJS54dv1qu5+kLJM9hP73vZLWMHdS/bJbu6Qskxmwr7HAxJ+
+yS1XXoy+2m8SVuTz7HuVskymVZGywlMjQdKh7HuWcmn+X8Lr1D4oYeX7Zo9L
+2hOFy9E7JOFS7g+2HqQsk9ULn7PR7xJu4ORsvUhZJtuj/NpKzRMlrHzfbD1J
+e3jInqsttoclrHzfbL1J+57yagyGJ0lYwZmw9SjlUm75r28j5S5HJCyT8Wy9
+Spnma502Cp7r8YekQ9l6lnIlN035MApNj0qY5sN6l3aa8murSJFyJQf7gZRf
+ch86yiNeWSdLuFbcL6Ss4MbuEBa8lGk+7CdSVuQn6Asv5JiEv+03Ui7lXgiP
+K0PKCnE/knJpvpuT8EuR8EsO9ispy2Tb6U3ljiPl0nzYz6T8Pr9CudqD3FMl
+XMrBfteJGyZan6gLkttUCxfUiWPtb7mPC5fDftiJ/YcF1hatlK8LFz7449jv
+j14LNl8nh/0Sm3KBQaGOV+XFLbbKFYttGnf1Kg0vk8N+egK54YjK4d3+VfL+
+McIDw9ZP2RZSvkghh/0W+7NLok3Zvs/yBcqndb4Ee+eYkec/tXUnsB+nIW95
+0xpyL0GbXEyqTyvyw/Zr3O2V9FGXwH6NnZ89LHRquQHpPlh4odg9OZPr7Y6m
+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
+B8xeJzk=
+           "]]}}}, {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{False, True}, {False, False}}, 
+       FrameLabel -> {{None, None}, {None, None}}, 
+       FrameStyle -> {Automatic, Automatic, Automatic, 
+         RGBColor[0.922526, 0.385626, 0.209179]}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"X\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}]}],OverlayBox[{
+     GraphicsBox[{{}, 
+       GraphicsComplexBox[CompressedData["
+1:eJx11G1Ik1EUB/AlEhHR+hBLQqZFmBQxRETG1Gd9CImIZUFJhYpYSUST6MVq
+bEXFior1RraKLV3LlkunTVu1NrOVUqERwZDKYWIiEWGho/Kl557L04cu/wfG
++LGxnXvu+Z8lleaNO1JUKlW7/GLvk76xd+srKyQVeP7/nLsG+rd1d3j/5Vpo
+/v1j0EcXNhcPHjkJzX/vNPTh0aycOf5z0Pz/LkAXJEzn6/ZegrZQPVegw2vn
+pay0X4WepHqvQRcEew5G3NehLXSem9Bh7amvJSEX9DSd9xa0K5YZ2FddD11E
+/WiAHvjFDuSBtlK/bkNrdZ+WzT7uhY5QP+9Al1UZ5Ioaoaep33ehXU72+KCL
+6D7uQQ/0JjcNeZugrXRffmht6ub5q9ruQ0foPpuhy/SsoBboGbrvALQp/8zq
+imFsN81DK/T3kpBcEbZE89IG7dgz8sc3hp2geXoArbNr+nuT2Daat6Bg5+f+
+hjdOh9RXv6bj55TowXUTar1+QsqgeWwX/KXwxyzDthVGszxNaakdgltLbTs3
+HMgxRmlesdVxT03h3IfQ5TTP2C3sOheEoGdo3rFNrBzNI8Gvcz/mDTdpjG7K
+g+h/983GOf0xtER5wXbI0/Z26RPoBOUJW7fd0TWeHYa2Ud6w++RqFuueQmdQ
+HrHNF79ZpLwIdJTyiq32p2+tMkShyynP2FuGvDdimZ3QPO/YjfK0xT3YfB9g
+J6fe145mPYPm+wK7+CwLPDbfJ6KVvNalsQvpEqzkle8b0UpeR1i7AqKVPPB9
+hJ2fy57n0HxfYds7X8kbB5vvM+y4nPZSfUywkle+70Qr/Vz+gRWEzfch9qFq
+NvAvoPm+xO4ez5YTi8336UvoRSdYw7D5vsXeJXcr2IPN93E39F/nI18q
+        "], {{{}, {
+           EdgeForm[], 
+           Directive[
+            RGBColor[0.368417, 0.506779, 0.709798], 
+            Opacity[0.2]], 
+           GraphicsGroupBox[{
+             
+             PolygonBox[{{80, 101, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 
+              90, 89, 88, 87, 86, 85, 84, 83, 82, 81}, {140, 161, 160, 159, 
+              158, 157, 156, 155, 154, 153, 152, 151, 150, 149, 148, 147, 146,
+               145, 144, 143, 142, 141}}]}]}, {}, {}}, {{}, {}, {
+           Hue[0.67, 0.6, 0.6], 
+           Directive[
+            PointSize[0.011000000000000001`], 
+            AbsoluteThickness[1.6], 
+            RGBColor[0.368417, 0.506779, 0.709798]], 
+           
+           LineBox[{2, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+             18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+            34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 
+            50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 
+            66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 
+            82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 
+            98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 
+            111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 
+            124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 
+            137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 
+            150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 
+            163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 
+            176, 177, 178, 179, 180, 181}]}}}], {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{True, False}, {True, True}}, 
+       FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> {Automatic, 
+         RGBColor[0.368417, 0.506779, 0.709798], Automatic, Automatic}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"Y\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-37.01150709239172, 
+         37.01150709239172}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}], 
+     GraphicsBox[{{}, {{{}, {}, {
+          Hue[0.67, 0.6, 0.6], 
+          Directive[
+           PointSize[0.007333333333333334], 
+           AbsoluteThickness[1.6], 
+           RGBColor[0.922526, 0.385626, 0.209179]], 
+          LineBox[CompressedData["
+1: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
+vslmqx6nbNf/PwBlw/gvpqzXOw==
+           "]]}}}, {}, {}, {{}, {}}}, {
+      DisplayFunction -> Identity, PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       AxesOrigin -> {0, 0}, 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       ImagePadding -> {{40, 40}, {40, 10}}, DisplayFunction -> Identity, 
+       AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
+       Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+       DisplayFunction :> Identity, Frame -> {{False, True}, {False, False}}, 
+       FrameLabel -> {{None, None}, {None, None}}, 
+       FrameStyle -> {Automatic, Automatic, Automatic, 
+         RGBColor[0.922526, 0.385626, 0.209179]}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], ImagePadding -> {{40, 40}, {40, 10}}, 
+       ImageSize -> 300, 
+       Method -> {"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+              Part[#, 1]], 
+             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+              Part[#, 2]]}& )}}, PlotLabel -> 
+       FormBox["\"Y\"", TraditionalForm], 
+       PlotRange -> {{0, 0.22000000000000017`}, {-31.911868188209507`, 
+         31.911868188209507`}}, PlotRangeClipping -> True, 
+       PlotRangePadding -> {{0, 0}, {0, 0}}, 
+       Ticks -> {Automatic, Automatic}}]}]},
+  "RowDefault"]], "Output",
+ CellChangeTimes->{3.700582542998332*^9, 3.70058422852922*^9}]
+}, Open  ]]
+}, Closed]]
+}, Closed]]
+}, Closed]]
 }, Open  ]]
 },
 WindowSize->{1855, 1056},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
 FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
 StyleDefinitions->"Default.nb"
 ]
@@ -2215,74 +4579,194 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
+ "CompiledSequence::usage"->{
+  Cell[136441, 3235, 1944, 49, 305, "Text",
+   CellTags->"CompiledSequence::usage"]},
+ "CompileGateNoise::usage"->{
+  Cell[168932, 3873, 223, 3, 33, "Text",
+   CellTags->"CompileGateNoise::usage"]},
+ "CompileSequence::usage"->{
+  Cell[135157, 3193, 1281, 40, 121, "Text",
+   CellTags->"CompileSequence::usage"]},
  "Dimension::usage"->{
-  Cell[8610, 218, 277, 7, 33, "Text",
+  Cell[11444, 306, 310, 8, 33, "Text",
    CellTags->"Dimension::usage"]},
+ "DistortionMultiplier::usage"->{
+  Cell[108954, 2413, 705, 14, 121, "Text",
+   CellTags->"DistortionMultiplier::usage"]},
+ "ExperimentTypes::usage"->{
+  Cell[115940, 2611, 824, 22, 33, "Text",
+   CellTags->"ExperimentTypes::usage"]},
  "FramePotential::usage"->{
-  Cell[93265, 1928, 492, 16, 33, "Text",
+  Cell[96642, 2035, 492, 16, 33, "Text",
    CellTags->"FramePotential::usage"]},
  "GateIndeces::usage"->{
-  Cell[96914, 2045, 467, 14, 33, "Text",
+  Cell[100291, 2152, 467, 14, 33, "Text",
    CellTags->"GateIndeces::usage"]},
  "GateInverse::usage"->{
-  Cell[9540, 247, 390, 10, 55, "Text",
+  Cell[12440, 337, 423, 11, 55, "Text",
    CellTags->"GateInverse::usage"]},
+ "GateNoiseGateSet::usage"->{
+  Cell[7876, 194, 2664, 82, 547, "Text",
+   CellTags->"GateNoiseGateSet::usage"]},
+ "GateNoise::usage"->{
+  Cell[107918, 2374, 1033, 37, 55, "Text",
+   CellTags->"GateNoise::usage"]},
  "GateProduct::usage"->{
-  Cell[8890, 227, 647, 18, 77, "Text",
+  Cell[11757, 316, 680, 19, 77, "Text",
    CellTags->"GateProduct::usage"]},
  "GatePulse::usage"->{
-  Cell[10343, 273, 482, 15, 55, "Text",
+  Cell[13309, 365, 515, 16, 55, "Text",
    CellTags->"GatePulse::usage"]},
+ "GateSequence::usage"->{
+  Cell[139351, 3317, 675, 18, 77, "Text",
+   CellTags->"GateSequence::usage"]},
  "GateSetName::usage"->{
-  Cell[8048, 199, 314, 8, 33, "Text",
+  Cell[10816, 285, 347, 9, 33, "Text",
    CellTags->"GateSetName::usage"]},
  "GateSet::usage"->{
-  Cell[5267, 118, 2505, 72, 349, "Text",
+  Cell[5368, 120, 2505, 72, 415, "Text",
    CellTags->"GateSet::usage"]},
  "GateUnitary::usage"->{
-  Cell[9933, 259, 407, 12, 55, "Text",
+  Cell[12866, 350, 440, 13, 55, "Text",
    CellTags->"GateUnitary::usage"]},
  "$gaussianQubitGateSet::usage"->{
-  Cell[10970, 296, 341, 7, 33, "Text",
+  Cell[14215, 398, 341, 7, 55, "Text",
    CellTags->"$gaussianQubitGateSet::usage"]},
+ "Generator::usage"->{
+  Cell[111282, 2474, 434, 10, 55, "Text",
+   CellTags->"Generator::usage"]},
+ "NoiseModel::usage"->{
+  Cell[105977, 2320, 1807, 47, 305, "Text",
+   CellTags->"NoiseModel::usage"]},
+ "NumRepetitions::usage"->{
+  Cell[117763, 2667, 911, 28, 33, "Text",
+   CellTags->"NumRepetitions::usage"]},
+ "NumSequenceDraws::usage"->{
+  Cell[116767, 2635, 993, 30, 33, "Text",
+   CellTags->"NumSequenceDraws::usage"]},
+ "ParallelOptions::usage"->{
+  Cell[120790, 2765, 457, 12, 33, "Text",
+   CellTags->"ParallelOptions::usage"]},
+ "PlotSequence::usage"->{
+  Cell[175563, 4065, 604, 20, 55, "Text",
+   CellTags->"PlotSequence::usage"]},
  "Preamble::section"->{
-  Cell[751, 23, 469, 7, 44, "Subsection",
+  Cell[751, 23, 520, 8, 44, "Subsection",
    CellTags->"Preamble::section"]},
+ "ProtocolName::usage"->{
+  Cell[115108, 2587, 304, 8, 33, "Text",
+   CellTags->"ProtocolName::usage"]},
+ "Protocol::usage"->{
+  Cell[112313, 2507, 2662, 73, 409, "Text",
+   CellTags->"Protocol::usage"]},
+ "PulseSequence::usage"->{
+  Cell[138731, 3297, 414, 12, 55, "Text",
+   CellTags->"PulseSequence::usage"]},
+ "RBDraw::usage"->{
+  Cell[121821, 2797, 854, 27, 55, "Text",
+   CellTags->"RBDraw::usage"]},
+ "RBProtocol::usage"->{
+  Cell[122678, 2826, 1543, 52, 55, "Text",
+   CellTags->"RBProtocol::usage"]},
+ "SequenceGenerator::usage"->{
+  Cell[118677, 2697, 1246, 40, 55, "Text",
+   CellTags->"SequenceGenerator::usage"]},
+ "SequenceLengths::usage"->{
+  Cell[115415, 2597, 522, 12, 33, "Text",
+   CellTags->"SequenceLengths::usage"]},
+ "SimulateProtocol::usage"->{
+  Cell[170190, 3915, 1736, 55, 55, "Text",
+   CellTags->"SimulateProtocol::usage"]},
+ "SimulateSequence::usage"->{
+  Cell[169204, 3882, 181, 3, 51, "Section",
+   CellTags->"SimulateSequence::usage"]},
+ "SimulationOptions::usage"->{
+  Cell[119926, 2739, 431, 11, 33, "Text",
+   CellTags->"SimulationOptions::usage"]},
+ "SimulationParser::usage"->{
+  Cell[120360, 2752, 427, 11, 33, "Text",
+   CellTags->"SimulationParser::usage"]},
  "Size::usage"->{
-  Cell[8365, 209, 242, 7, 33, "Text",
+  Cell[11166, 296, 275, 8, 33, "Text",
    CellTags->"Size::usage"]},
+ "StaticNoise::usage"->{
+  Cell[110696, 2458, 583, 14, 77, "Text",
+   CellTags->"StaticNoise::usage"]},
+ "StepSize::link"->{
+  Cell[111719, 2486, 337, 9, 55, "Text",
+   CellTags->"StepSize::link"]},
+ "StochasticNoise::usage"->{
+  Cell[110057, 2442, 636, 14, 77, "Text",
+   CellTags->"StochasticNoise::usage"]},
  "TakeOverlap::usage"->{
-  Cell[97384, 2061, 498, 14, 33, "Text",
+  Cell[100761, 2168, 498, 14, 33, "Text",
    CellTags->"TakeOverlap::usage"]},
  "TestGateSetInverses::usage"->{
-  Cell[94695, 1975, 1150, 33, 121, "Text",
+  Cell[98072, 2082, 1150, 33, 121, "Text",
    CellTags->"TestGateSetInverses::usage"]},
  "TestGateSetProducts::usage"->{
-  Cell[95848, 2010, 1063, 33, 121, "Text",
+  Cell[99225, 2117, 1063, 33, 121, "Text",
    CellTags->"TestGateSetProducts::usage"]},
  "TestGateSetPulses::usage"->{
-  Cell[93760, 1946, 932, 27, 121, "Text",
-   CellTags->"TestGateSetPulses::usage"]}
+  Cell[97137, 2053, 932, 27, 121, "Text",
+   CellTags->"TestGateSetPulses::usage"]},
+ "TotalGates::usage"->{
+  Cell[121250, 2779, 423, 10, 33, "Text",
+   CellTags->"TotalGates::usage"]},
+ "UndistortedLongPulse::usage"->{
+  Cell[140029, 3337, 437, 11, 55, "Text",
+   CellTags->"UndistortedLongPulse::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Dimension::usage", 102690, 2217},
- {"FramePotential::usage", 102791, 2220},
- {"GateIndeces::usage", 102897, 2223},
- {"GateInverse::usage", 103000, 2226},
- {"GateProduct::usage", 103101, 2229},
- {"GatePulse::usage", 103200, 2232},
- {"GateSetName::usage", 103300, 2235},
- {"GateSet::usage", 103396, 2238},
- {"GateUnitary::usage", 103495, 2241},
- {"$gaussianQubitGateSet::usage", 103606, 2244},
- {"Preamble::section", 103716, 2247},
- {"Size::usage", 103812, 2250},
- {"TakeOverlap::usage", 103905, 2253},
- {"TestGateSetInverses::usage", 104016, 2256},
- {"TestGateSetProducts::usage", 104137, 2259},
- {"TestGateSetPulses::usage", 104256, 2262}
+ {"CompiledSequence::usage", 203541, 4581},
+ {"CompileGateNoise::usage", 203657, 4584},
+ {"CompileSequence::usage", 203769, 4587},
+ {"Dimension::usage", 203877, 4590},
+ {"DistortionMultiplier::usage", 203985, 4593},
+ {"ExperimentTypes::usage", 204103, 4596},
+ {"FramePotential::usage", 204214, 4599},
+ {"GateIndeces::usage", 204320, 4602},
+ {"GateInverse::usage", 204424, 4605},
+ {"GateNoiseGateSet::usage", 204531, 4608},
+ {"GateNoise::usage", 204637, 4611},
+ {"GateProduct::usage", 204740, 4614},
+ {"GatePulse::usage", 204840, 4617},
+ {"GateSequence::usage", 204941, 4620},
+ {"GateSetName::usage", 205046, 4623},
+ {"GateSet::usage", 205143, 4626},
+ {"GateUnitary::usage", 205242, 4629},
+ {"$gaussianQubitGateSet::usage", 205354, 4632},
+ {"Generator::usage", 205463, 4635},
+ {"NoiseModel::usage", 205564, 4638},
+ {"NumRepetitions::usage", 205672, 4641},
+ {"NumSequenceDraws::usage", 205784, 4644},
+ {"ParallelOptions::usage", 205897, 4647},
+ {"PlotSequence::usage", 206006, 4650},
+ {"Preamble::section", 206110, 4653},
+ {"ProtocolName::usage", 206214, 4656},
+ {"Protocol::usage", 206315, 4659},
+ {"PulseSequence::usage", 206420, 4662},
+ {"RBDraw::usage", 206521, 4665},
+ {"RBProtocol::usage", 206619, 4668},
+ {"SequenceGenerator::usage", 206729, 4671},
+ {"SequenceLengths::usage", 206844, 4674},
+ {"SimulateProtocol::usage", 206957, 4677},
+ {"SimulateSequence::usage", 207072, 4680},
+ {"SimulationOptions::usage", 207189, 4683},
+ {"SimulationParser::usage", 207304, 4686},
+ {"Size::usage", 207406, 4689},
+ {"StaticNoise::usage", 207500, 4692},
+ {"StepSize::link", 207600, 4695},
+ {"StochasticNoise::usage", 207703, 4698},
+ {"TakeOverlap::usage", 207811, 4701},
+ {"TestGateSetInverses::usage", 207923, 4704},
+ {"TestGateSetProducts::usage", 208044, 4707},
+ {"TestGateSetPulses::usage", 208163, 4710},
+ {"TotalGates::usage", 208272, 4713},
+ {"UndistortedLongPulse::usage", 208384, 4716}
  }
 *)
 (*NotebookFileOutline
@@ -2290,108 +4774,266 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[422, 15, 304, 4, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[751, 23, 469, 7, 44, "Subsection",
+Cell[751, 23, 520, 8, 44, "Subsection",
  CellTags->"Preamble::section"],
-Cell[1223, 32, 559, 8, 55, "Input"],
-Cell[1785, 42, 182, 4, 33, "Text"]
+Cell[1274, 33, 559, 8, 55, "Input"],
+Cell[1836, 43, 182, 4, 33, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[2004, 51, 326, 4, 36, "Subsection"],
-Cell[2333, 57, 531, 12, 39, "Output"]
+Cell[2055, 52, 326, 4, 36, "Subsection"],
+Cell[2384, 58, 531, 12, 39, "Output"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[2901, 74, 184, 2, 51, "Section"],
-Cell[3088, 78, 1863, 28, 187, "Text"],
-Cell[4954, 108, 103, 1, 35, "Subsubsection"]
+Cell[2952, 75, 184, 2, 51, "Section"],
+Cell[3139, 79, 1863, 28, 187, "Text"],
+Cell[5005, 109, 103, 1, 35, "Subsubsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5094, 114, 170, 2, 65, "Section"],
-Cell[5267, 118, 2505, 72, 349, "Text",
+Cell[5145, 115, 220, 3, 65, "Section"],
+Cell[5368, 120, 2505, 72, 415, "Text",
  CellTags->"GateSet::usage"],
+Cell[7876, 194, 2664, 82, 547, "Text",
+ CellTags->"GateNoiseGateSet::usage"],
 Cell[CellGroupData[{
-Cell[7797, 194, 248, 3, 45, "Subsection"],
-Cell[8048, 199, 314, 8, 33, "Text",
+Cell[10565, 280, 248, 3, 45, "Subsection"],
+Cell[10816, 285, 347, 9, 33, "Text",
  CellTags->"GateSetName::usage"],
-Cell[8365, 209, 242, 7, 33, "Text",
+Cell[11166, 296, 275, 8, 33, "Text",
  CellTags->"Size::usage"],
-Cell[8610, 218, 277, 7, 33, "Text",
+Cell[11444, 306, 310, 8, 33, "Text",
  CellTags->"Dimension::usage"],
-Cell[8890, 227, 647, 18, 77, "Text",
+Cell[11757, 316, 680, 19, 77, "Text",
  CellTags->"GateProduct::usage"],
-Cell[9540, 247, 390, 10, 55, "Text",
+Cell[12440, 337, 423, 11, 55, "Text",
  CellTags->"GateInverse::usage"],
-Cell[9933, 259, 407, 12, 55, "Text",
+Cell[12866, 350, 440, 13, 55, "Text",
  CellTags->"GateUnitary::usage"],
-Cell[10343, 273, 482, 15, 55, "Text",
- CellTags->"GatePulse::usage"]
+Cell[13309, 365, 515, 16, 55, "Text",
+ CellTags->"GatePulse::usage"],
+Cell[13827, 383, 243, 7, 33, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[10862, 293, 105, 1, 36, "Subsection"],
-Cell[10970, 296, 341, 7, 33, "Text",
+Cell[14107, 395, 105, 1, 36, "Subsection"],
+Cell[14215, 398, 341, 7, 55, "Text",
  CellTags->"$gaussianQubitGateSet::usage"],
 Cell[CellGroupData[{
-Cell[11336, 307, 190, 2, 35, "Subsubsection"],
+Cell[14581, 409, 190, 2, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[11551, 313, 279, 4, 55, "Input"],
-Cell[11833, 319, 95, 1, 32, "Output"],
-Cell[11931, 322, 94, 1, 32, "Output"]
+Cell[14796, 415, 279, 4, 55, "Input"],
+Cell[15078, 421, 120, 2, 70, "Output"],
+Cell[15201, 425, 119, 2, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12062, 328, 390, 7, 32, "Input"],
-Cell[12455, 337, 7109, 182, 70, "Output"]
+Cell[15357, 432, 390, 7, 32, "Input"],
+Cell[15750, 441, 7135, 183, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[19601, 524, 954, 24, 78, "Input"],
-Cell[20558, 550, 72201, 1356, 190, "Output"]
+Cell[22922, 629, 954, 24, 78, "Input"],
+Cell[23879, 655, 72231, 1357, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[92796, 1911, 199, 4, 34, "Input"],
-Cell[92998, 1917, 94, 1, 32, "Output"]
+Cell[96147, 2017, 199, 4, 34, "Input"],
+Cell[96349, 2023, 120, 2, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[93153, 1925, 109, 1, 37, "Subsection"],
-Cell[93265, 1928, 492, 16, 33, "Text",
+Cell[96530, 2032, 109, 1, 37, "Subsection"],
+Cell[96642, 2035, 492, 16, 33, "Text",
  CellTags->"FramePotential::usage"],
-Cell[93760, 1946, 932, 27, 121, "Text",
+Cell[97137, 2053, 932, 27, 121, "Text",
  CellTags->"TestGateSetPulses::usage"],
-Cell[94695, 1975, 1150, 33, 121, "Text",
+Cell[98072, 2082, 1150, 33, 121, "Text",
  CellTags->"TestGateSetInverses::usage"],
-Cell[95848, 2010, 1063, 33, 121, "Text",
+Cell[99225, 2117, 1063, 33, 121, "Text",
  CellTags->"TestGateSetProducts::usage"],
-Cell[96914, 2045, 467, 14, 33, "Text",
+Cell[100291, 2152, 467, 14, 33, "Text",
  CellTags->"GateIndeces::usage"],
-Cell[97384, 2061, 498, 14, 33, "Text",
+Cell[100761, 2168, 498, 14, 33, "Text",
  CellTags->"TakeOverlap::usage"],
 Cell[CellGroupData[{
-Cell[97907, 2079, 163, 2, 35, "Subsubsection"],
-Cell[98073, 2083, 196, 4, 33, "Text"],
+Cell[101284, 2186, 163, 2, 35, "Subsubsection"],
+Cell[101450, 2190, 196, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[98294, 2091, 176, 3, 34, "Input"],
-Cell[98473, 2096, 96, 1, 32, "Output"]
+Cell[101671, 2198, 176, 3, 34, "Input"],
+Cell[101850, 2203, 122, 2, 70, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[98618, 2103, 107, 1, 29, "Subsubsection"],
-Cell[98728, 2106, 135, 1, 33, "Text"],
+Cell[102021, 2211, 107, 1, 29, "Subsubsection"],
+Cell[102131, 2214, 135, 1, 33, "Text"],
 Cell[CellGroupData[{
-Cell[98888, 2111, 156, 2, 32, "Input"],
-Cell[99047, 2115, 438, 9, 34, "Output"]
+Cell[102291, 2219, 156, 2, 32, "Input"],
+Cell[102450, 2223, 460, 9, 70, "Output"]
 }, Open  ]],
-Cell[99500, 2127, 382, 9, 33, "Text"],
+Cell[102925, 2235, 382, 9, 33, "Text"],
 Cell[CellGroupData[{
-Cell[99907, 2140, 194, 4, 32, "Input"],
-Cell[100104, 2146, 1423, 28, 242, "Output"]
+Cell[103332, 2248, 194, 4, 32, "Input"],
+Cell[103529, 2254, 1449, 29, 70, "Output"]
 }, Open  ]],
-Cell[101542, 2177, 375, 9, 33, "Text"],
+Cell[104993, 2286, 375, 9, 33, "Text"],
 Cell[CellGroupData[{
-Cell[101942, 2190, 162, 3, 32, "Input"],
-Cell[102107, 2195, 222, 5, 34, "Output"]
+Cell[105393, 2299, 162, 3, 32, "Input"],
+Cell[105558, 2304, 244, 5, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[105875, 2317, 99, 1, 51, "Section"],
+Cell[105977, 2320, 1807, 47, 305, "Text",
+ CellTags->"NoiseModel::usage"],
+Cell[CellGroupData[{
+Cell[107809, 2371, 106, 1, 45, "Subsection"],
+Cell[107918, 2374, 1033, 37, 55, "Text",
+ CellTags->"GateNoise::usage"],
+Cell[108954, 2413, 705, 14, 121, "Text",
+ CellTags->"DistortionMultiplier::usage"],
+Cell[109662, 2429, 392, 11, 55, "Text"],
+Cell[110057, 2442, 636, 14, 77, "Text",
+ CellTags->"StochasticNoise::usage"],
+Cell[110696, 2458, 583, 14, 77, "Text",
+ CellTags->"StaticNoise::usage"],
+Cell[111282, 2474, 434, 10, 55, "Text",
+ CellTags->"Generator::usage"],
+Cell[111719, 2486, 337, 9, 55, "Text",
+ CellTags->"StepSize::link"]
+}, Closed]],
+Cell[112071, 2498, 108, 1, 37, "Subsection"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[112216, 2504, 94, 1, 51, "Section"],
+Cell[112313, 2507, 2662, 73, 409, "Text",
+ CellTags->"Protocol::usage"],
+Cell[CellGroupData[{
+Cell[115000, 2584, 105, 1, 45, "Subsection"],
+Cell[115108, 2587, 304, 8, 33, "Text",
+ CellTags->"ProtocolName::usage"],
+Cell[115415, 2597, 522, 12, 33, "Text",
+ CellTags->"SequenceLengths::usage"],
+Cell[115940, 2611, 824, 22, 33, "Text",
+ CellTags->"ExperimentTypes::usage"],
+Cell[116767, 2635, 993, 30, 33, "Text",
+ CellTags->"NumSequenceDraws::usage"],
+Cell[117763, 2667, 911, 28, 33, "Text",
+ CellTags->"NumRepetitions::usage"],
+Cell[118677, 2697, 1246, 40, 55, "Text",
+ CellTags->"SequenceGenerator::usage"],
+Cell[119926, 2739, 431, 11, 33, "Text",
+ CellTags->"SimulationOptions::usage"],
+Cell[120360, 2752, 427, 11, 33, "Text",
+ CellTags->"SimulationParser::usage"],
+Cell[120790, 2765, 457, 12, 33, "Text",
+ CellTags->"ParallelOptions::usage"],
+Cell[121250, 2779, 423, 10, 33, "Text",
+ CellTags->"TotalGates::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[121710, 2794, 108, 1, 36, "Subsection"],
+Cell[121821, 2797, 854, 27, 55, "Text",
+ CellTags->"RBDraw::usage"],
+Cell[122678, 2826, 1543, 52, 55, "Text",
+ CellTags->"RBProtocol::usage"],
+Cell[CellGroupData[{
+Cell[124246, 2882, 98, 1, 35, "Subsubsection"],
+Cell[124347, 2885, 274, 5, 33, "Text"],
+Cell[124624, 2892, 624, 19, 34, "Input"],
+Cell[125251, 2913, 207, 7, 33, "Text"],
+Cell[CellGroupData[{
+Cell[125483, 2924, 280, 5, 55, "Input"],
+Cell[125766, 2931, 122, 2, 32, "Output"],
+Cell[125891, 2935, 142, 3, 32, "Output"]
+}, Open  ]],
+Cell[126048, 2941, 188, 4, 33, "Text"],
+Cell[CellGroupData[{
+Cell[126261, 2949, 496, 10, 34, "Input"],
+Cell[126760, 2961, 384, 7, 34, "Output"]
+}, Open  ]],
+Cell[127159, 2971, 125, 1, 33, "Text"],
+Cell[CellGroupData[{
+Cell[127309, 2976, 221, 5, 32, "Input"],
+Cell[127533, 2983, 5934, 151, 70, "Output"]
+}, Open  ]],
+Cell[133482, 3137, 261, 5, 33, "Text"],
+Cell[CellGroupData[{
+Cell[133768, 3146, 316, 8, 34, "Input"],
+Cell[134087, 3156, 697, 20, 62, "Output"]
 }, Open  ]]
+}, Closed]]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[134857, 3184, 96, 1, 51, "Section"],
+Cell[CellGroupData[{
+Cell[134978, 3189, 176, 2, 45, "Subsection"],
+Cell[135157, 3193, 1281, 40, 121, "Text",
+ CellTags->"CompileSequence::usage"],
+Cell[136441, 3235, 1944, 49, 305, "Text",
+ CellTags->"CompiledSequence::usage"],
+Cell[CellGroupData[{
+Cell[138410, 3288, 112, 1, 35, "Subsubsection"],
+Cell[138525, 3291, 203, 4, 33, "Text"],
+Cell[138731, 3297, 414, 12, 55, "Text",
+ CellTags->"PulseSequence::usage"],
+Cell[139148, 3311, 200, 4, 33, "Text"],
+Cell[139351, 3317, 675, 18, 77, "Text",
+ CellTags->"GateSequence::usage"],
+Cell[140029, 3337, 437, 11, 55, "Text",
+ CellTags->"UndistortedLongPulse::usage"],
+Cell[140469, 3350, 199, 4, 33, "Text"],
+Cell[140671, 3356, 205, 4, 33, "Text"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[140913, 3365, 98, 1, 29, "Subsubsection"],
+Cell[141014, 3368, 486, 9, 33, "Text"],
+Cell[141503, 3379, 739, 18, 57, "Input"],
+Cell[CellGroupData[{
+Cell[142267, 3401, 146, 2, 32, "Input"],
+Cell[142416, 3405, 196, 4, 34, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[142649, 3414, 592, 11, 57, "Input"],
+Cell[143244, 3427, 25520, 436, 219, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[168825, 3870, 104, 1, 37, "Subsection"],
+Cell[168932, 3873, 223, 3, 33, "Text",
+ CellTags->"CompileGateNoise::usage"]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[169204, 3882, 181, 3, 51, "Section",
+ CellTags->"SimulateSequence::usage"],
+Cell[169388, 3887, 799, 26, 33, "Text"],
+Cell[170190, 3915, 1736, 55, 55, "Text",
+ CellTags->"SimulateProtocol::usage"],
+Cell[CellGroupData[{
+Cell[171951, 3974, 143, 1, 45, "Subsection"],
+Cell[172097, 3977, 130, 1, 33, "Text"],
+Cell[CellGroupData[{
+Cell[172252, 3982, 2407, 56, 373, "Input"],
+Cell[174662, 4040, 610, 10, 34, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[175333, 4057, 100, 1, 51, "Section"],
+Cell[CellGroupData[{
+Cell[175458, 4062, 102, 1, 45, "Subsection"],
+Cell[175563, 4065, 604, 20, 55, "Text",
+ CellTags->"PlotSequence::usage"],
+Cell[CellGroupData[{
+Cell[176192, 4089, 98, 1, 35, "Subsubsection"],
+Cell[176293, 4092, 551, 10, 33, "Text"],
+Cell[CellGroupData[{
+Cell[176869, 4106, 1066, 24, 80, "Input"],
+Cell[177938, 4132, 25235, 432, 70, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Closed]]
+}, Closed]]
 }, Open  ]]
 }
 ]
