@@ -102,7 +102,7 @@ AssignUsage[
 Unprotect[
 	LindbladForm,
 	GetPulseShapeMatrix,
-	GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf
+	GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf,Fraction
 ];
 
 
@@ -110,7 +110,7 @@ AssignUsage[
 	{
 		LindbladForm,
 		GetPulseShapeMatrix,
-		GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf
+		GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf,Fraction
 	},
 	$QSimUsages
 ];
@@ -283,11 +283,14 @@ GetStepSize[H_,p_,stepsize_:Automatic]:=
 	]
 
 
-GetPollingInterval[pollInt_,T_]:=If[pollInt===Off,T,Min[pollInt,T]]
+GetPollingInterval[pollInt_,T_]:=If[pollInt===Off,T,If[Head[pollInt]===Fraction, GetPollingInterval[T * First@pollInt,T],Min[pollInt,T]]]
 GetPollingInterval[pollInt_,T_,dt_]:=
 	If[pollInt===Off,
 		T,
-		Min[T,MakeMultipleOf[dt,pollInt]]
+		If[Head[pollInt]===Fraction,
+			GetPollingInterval[T * First@pollInt, T, dt],
+			Min[T,MakeMultipleOf[dt,pollInt]]
+		]
 	]
 
 
@@ -957,7 +960,7 @@ Protect[
 Protect[
 	LindbladForm,
 	GetPulseShapeMatrix,
-	GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf
+	GetStepSize,GetPollingInterval,DivideEvenly,MakeMultipleOf,Fraction
 ];
 
 
