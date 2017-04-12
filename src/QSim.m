@@ -652,7 +652,7 @@ PulseSim[G_?GeneratorQ,p_?PulseQ,opts:OptionsPattern[]]:=Module[
 	isLindblad=LindbladQ[G];
 	isChannel=ChannelPulseQ[p];
 	isUnitary=UnitaryPulseQ[p];
-	isSuper=isLindblad||OptionValue[ForceSuperoperator]||ChannelPulseQ[p]||MemberQ[OptionValue[SimulationOutput],Superoperators];
+	isSuper=isLindblad||OptionValue[ForceSuperoperator]||ChannelPulseQ[p]||MemberQ[Flatten[{OptionValue[SimulationOutput]}],Superoperators];
 	hasInputState=SquareMatrixQ[staVar];
 
 	(* decide which function NN is set to *)
