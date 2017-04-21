@@ -109,7 +109,7 @@ AssignUsage[
 Unprotect[
 	Utility,UtilityGradient,
 	PropagatorFromPulse,PropagatorListFromPulse,
-	CoherentSubspaces
+	CoherentSubspaces,DensityTransfer
 ];
 
 
@@ -117,7 +117,7 @@ AssignUsage[
 	{
 		Utility,UtilityGradient,
 		PropagatorFromPulse,PropagatorListFromPulse,
-		CoherentSubspaces
+		CoherentSubspaces,DensityTransfer
 	},
 	$GRAPEUsages
 ];
@@ -645,6 +645,42 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 		]/numSubspaces;
 		performIndex=Utility[Last[Uforw],target];
 		{performIndex,derivs}
+	];
+
+
+(* ::Subsubsection::Closed:: *)
+(*Density Transfer*)
+
+
+Utility[Ucalc_,target_DensityTransfer]:=
+	With[
+		{\[Rho]0=target[[1]],\[Rho]1=target[[2]]},
+			Re[Tr[\[Rho]1\[ConjugateTranspose].Ucalc.\[Rho]0.Ucalc\[ConjugateTranspose]]/Tr[\[Rho]1.\[Rho]1]]
+	]
+
+
+UtilityGradient[pulse_,Hint_,Hcontrol_,target_DensityTransfer]:=
+	Module[
+		{
+			dim=Length[Hint],
+			\[Rho]forw,\[Rho]back,derivs,unitaries,
+			\[Rho]0=target[[1]],
+			\[Rho]1=target[[2]],
+			dts,amps
+		},
+		unitaries=PropagatorListFromPulse[pulse,Hint,Hcontrol];
+
+		{dts, amps} = SplitPulse[pulse];
+
+		\[Rho]forw=Rest[FoldList[(#2.#1.#2\[ConjugateTranspose])&,\[Rho]0,unitaries]];
+		\[Rho]back=Reverse[FoldList[(#2\[ConjugateTranspose].#1.#2)&,\[Rho]1,Reverse[Rest[unitaries]]]];
+
+		derivs=-Re[Table[
+			Tr[\[Rho]back[[i]]\[ConjugateTranspose].(I dts[[i]] Com[Hcontrol[[j]], \[Rho]forw[[i]]])],
+			{i,Length[unitaries]}, {j,Length[Hcontrol]}
+		]/Tr[\[Rho]1.\[Rho]1]];
+		
+		{Re[Tr[\[Rho]1\[ConjugateTranspose].Last[\[Rho]forw]]/Tr[\[Rho]1.\[Rho]1]], derivs}
 	];
 
 
@@ -2840,7 +2876,7 @@ Protect[
 Protect[
 	Utility,UtilityGradient,
 	PropagatorFromPulse,PropagatorListFromPulse,
-	CoherentSubspaces
+	CoherentSubspaces,DensityTransfer
 ];
 
 
