@@ -301,7 +301,8 @@ LoadUsages[nbName_] := Module[{notebook, usageData, processCell, possibleBoxToSt
 		StringJoin@Map[possibleBoxToString,First@contents,1]
 	];
 
-	If[\[Not](notebook === $Failed),
+	(*It is a waste of time for parallel kernels to load documentation*)
+	If[Not[notebook === $Failed] && $KernelID==0,
 		usageData = Cases[notebook,
 			Cell[contents_, ___, CellTags -> tag_, ___] /;
 				StringMatchQ[tag, __ ~~ "::usage"] :>
@@ -325,13 +326,16 @@ Format[usageData_UsageData] := Interpretation[UsageData, "UsageData"][Interpreta
 
 
 AssignUsage[codeSymb_Symbol->docSymb_Symbol, usageData_UsageData] := Module[{docName},
-	docName = SymbolName @ Unevaluated[docSymb];
-	If[FreeQ[usageData, (docName -> _)],
-		Message[AssignUsage::nousg, usageData, HoldForm[docSymb]];
-		MessageName[docSymb, "usage"] = "";
-		$Failed,
-
-		MessageName[codeSymb, "usage"] = docName /. List @@ usageData
+	If[$KernelID == 0,
+		docName = SymbolName @ Unevaluated[docSymb];
+		If[FreeQ[usageData, (docName -> _)],
+			Message[AssignUsage::nousg, usageData, HoldForm[docSymb]];
+			MessageName[docSymb, "usage"] = "";
+			$Failed,
+			MessageName[codeSymb, "usage"] = docName /. List @@ usageData
+		],
+		(*It is a waste of time for parallel kernels to load documentation*)
+		MessageName[codeSymb, "usage"] = "QU function on parallel kernel.";
 	]
 ]
 
