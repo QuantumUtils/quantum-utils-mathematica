@@ -46,9 +46,9 @@ Unprotect[
 	GateSet, GateNoiseGateSet,
 	GateSetName, Size, Dimension,
 	GateProduct, GateInverse,
-	GateUnitary, GatePulse,
+	GateUnitary, GatePulse, GateChannel,
 	FramePotential, TestGateSetPulses, TestGateSetInverses, TestGateSetProducts,
-	GateIndeces, TakeOverlap
+	GateIndices, TakeOverlap
 ];
 
 
@@ -57,9 +57,9 @@ AssignUsage[
 		GateSet, GateNoiseGateSet,
 		GateSetName, Size, Dimension,
 		GateProduct, GateInverse,
-		GateUnitary, GatePulse,
+		GateUnitary, GatePulse, GateChannel,
 		FramePotential, TestGateSetPulses, TestGateSetInverses, TestGateSetProducts,
-		GateIndeces, TakeOverlap
+		GateIndices, TakeOverlap
 	},
 	$RBSimUsages
 ]
@@ -91,7 +91,7 @@ AssignUsage[
 Unprotect[
 	CompileSequence,
 	CompiledSequence, PulseSequence, UndistortedLongPulse, GateSequence,
-	CompileGateNoise
+	CompileGateNoise, GateNoiseProtocol, AllowFinalRingdown
 ];
 
 
@@ -99,7 +99,7 @@ AssignUsage[
 	{
 		CompileSequence,
 		CompiledSequence, PulseSequence, UndistortedLongPulse, GateSequence,
-		CompileGateNoise
+		CompileGateNoise, GateNoiseProtocol, AllowFinalRingdown
 	},
 	$RBSimUsages
 ];
@@ -110,13 +110,13 @@ AssignUsage[
 
 
 Unprotect[
-	SimulateSequence, SimulateProtocol
+	SimulateSequence, SimulateProtocol, PulseSubset
 ];
 
 
 AssignUsage[
 	{
-		SimulateSequence, SimulateProtocol
+		SimulateSequence, SimulateProtocol, PulseSubset
 	},
 	$RBSimUsages
 ]
@@ -135,7 +135,7 @@ AssignUsage[PlotSequence, $RBSimUsages];
 
 
 Unprotect[
-	Protocol, ProtocolName, SimulationOptions, SimulationParser,
+	Protocol, ProtocolName, SimulationOptions, SimulationParser, GateSimulator,
 	SequenceLengths, ExperimentTypes, NumSequenceDraws, NumRepetitions, 
 	SequenceGenerator, ParallelOptions, TotalGates,
 	RBDraw, RBProtocol
@@ -144,13 +144,16 @@ Unprotect[
 
 AssignUsage[
 	{
-		Protocol, ProtocolName, SimulationOptions, SimulationParser,
+		Protocol, ProtocolName, SimulationOptions, SimulationParser, GateSimulator,
 		SequenceLengths, ExperimentTypes, NumSequenceDraws, NumRepetitions, 
 		SequenceGenerator, ParallelOptions, TotalGates,
 		RBDraw, RBProtocol
 	},
 	$RBSimUsages
 ];
+
+
+GateSimulator::NotImplemented = "GateSimulator is not implemented for this protocol.";
 
 
 (* ::Subsection::Closed:: *)
@@ -257,7 +260,8 @@ makeContainer[GateNoiseGateSet, {
 	GateProduct,
 	GateInverse,
 	GateUnitary,
-	GateNoise
+	GateNoise,
+	GateChannel
 }];
 GateNoiseGateSet/:Format[gs:GateNoiseGateSet[args__]]:="GateNoiseGateSet"[GateSetName->"\""<>ToString@GateSetName[gs]<>"\"",Dimension->Dimension[gs],Size->Size[gs],"..."]
 
@@ -266,7 +270,7 @@ FramePotential[gs_GateSet, t_]:=Sum[Abs[Tr[GateUnitary[gs][k]]]^(2 t),{k,Size[gs
 
 
 Options[TestGateSetPulses] = {
-	GateIndeces->All,
+	GateIndices->All,
 	TakeOverlap->True
 };
 TestGateSetPulses[gs_, OptionsPattern[]] := Module[{Uideal, Upulse, idxs, f, i},
@@ -276,7 +280,7 @@ TestGateSetPulses[gs_, OptionsPattern[]] := Module[{Uideal, Upulse, idxs, f, i},
 		f[{W_,V_}]:=Abs[Tr[W\[ConjugateTranspose].V]/Length[W]]^2,
 		f=Identity;
 	];
-	idxs = If[OptionValue[GateIndeces]===All, Range[Size[gs]], OptionValue[GateIndeces]];
+	idxs = If[OptionValue[GateIndices]===All, Range[Size[gs]], OptionValue[GateIndices]];
 	Table[
 		f[{Uideal[i], Upulse[i]}],
 		{i,idxs}
@@ -285,7 +289,7 @@ TestGateSetPulses[gs_, OptionsPattern[]] := Module[{Uideal, Upulse, idxs, f, i},
 
 
 Options[TestGateSetInverses] = {
-	GateIndeces->All,
+	GateIndices->All,
 	TakeOverlap->True
 };
 TestGateSetInverses[gs_, OptionsPattern[]] := Module[{U, idxs, f},
@@ -294,7 +298,7 @@ TestGateSetInverses[gs_, OptionsPattern[]] := Module[{U, idxs, f},
 		f[W_]:=Abs[Tr[W]/Length[W]]^2,
 		f=Identity;
 	];
-	idxs = If[OptionValue[GateIndeces]===All, Range[Size[gs]], OptionValue[GateIndeces]];
+	idxs = If[OptionValue[GateIndices]===All, Range[Size[gs]], OptionValue[GateIndices]];
 	Table[
 		f[U[i].U[GateInverse[gs][i]]],
 		{i,idxs}
@@ -303,7 +307,7 @@ TestGateSetInverses[gs_, OptionsPattern[]] := Module[{U, idxs, f},
 
 
 Options[TestGateSetProducts] = {
-	GateIndeces->All,
+	GateIndices->All,
 	TakeOverlap->True
 };
 TestGateSetProducts[gs_, OptionsPattern[]] := Module[{U, idxs, f},
@@ -312,9 +316,9 @@ TestGateSetProducts[gs_, OptionsPattern[]] := Module[{U, idxs, f},
 		f[{W_,V_}]:=Abs[Tr[W\[ConjugateTranspose].V]/Length[W]]^2,
 		f=Identity;
 	];
-	idxs = If[OptionValue[GateIndeces]===All, 
+	idxs = If[OptionValue[GateIndices]===All, 
 		Outer[List, Range[Size[gs]], Range[Size[gs]]], 
-		OptionValue[GateIndeces]
+		OptionValue[GateIndices]
 	];
 	Apply[
 		f[{GateUnitary[gs][GateProduct[gs][##]], U[#2].U[#1]}]&,
@@ -339,11 +343,11 @@ makeContainer[NoiseModel, {
 }];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Compiler*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*CompileSequence*)
 
 
@@ -358,7 +362,10 @@ makeContainer[CompiledSequence, {
 }];
 
 
-CompileSequence[gs_GateSet,sequence_,nm_NoiseModel]:=Module[
+Options[CompileSequence] = {AllowFinalRingdown -> True};
+
+
+CompileSequence[gs_GateSet,sequence_,nm_NoiseModel,OptionsPattern[]]:=Module[
 	{
 		nGates, totalDim, controlDims,
 		pulses, pulseLengths, longPulse, undistortedLongPulse,
@@ -393,7 +400,7 @@ CompileSequence[gs_GateSet,sequence_,nm_NoiseModel]:=Module[
 	(* Now break them up again *)
 	pulses = FoldPairList[TakeDrop, longPulse, pulseLengths * distMult];
 	(* And if there is some ringdown at the end, tack in on *)
-	If[Length@longPulse > Total[pulseLengths] * distMult,
+	If[OptionValue[AllowFinalRingdown] && (Length@longPulse > Total[pulseLengths] * distMult),
 		AppendTo[pulses, longPulse[[Total[pulseLengths] * distMult+1;;]]];
 	];
 	
@@ -500,36 +507,82 @@ CompileSequence[gs_GateSet,sequence_,nm_NoiseModel]:=Module[
 (*CompileGateNoise*)
 
 
-Options[CompileGateNoise]={
-	Method->"MonteCarlo"
-};
-
-
-CompileGateNoise[gs_GateSet,nm_NoiseModel,depth_]:=Module[{gateNoise,protocol},
-	protocol = Protocol[
-		DataDimensions
-	];
-	gateNoise[]
-	CompileSequence[gs,seq,nm]
+GateNoiseProtocol[depth_,gateIndices_,repetitions_,hasGateNoise_] := Protocol[
+	ProtocolName -> "Protocol for finding gate noise description",
+	SequenceLengths -> Range[depth],
+	ExperimentTypes -> Function[M, Tuples[gateIndices, M]], (* here, M is the depth *)
+	NumRepetitions -> (repetitions&),
+	SequenceGenerator ->  (#2[[2]]&), (* this just returns the experiment type *)
+	SimulationOptions -> {SimulationOutput->Superoperators,PulseSubset->Span[If[hasGateNoise,-2,-1],All]}, (*only simulate the last gate *)
+	SimulationParser -> (Last@Superoperators[#]&),
+	ParallelOptions -> {Method->"CoarsestGrained"},
+	TotalGates -> Sum[d * (Length[gateIndices]^d), {d,depth}]
 ]
 
 
-(* ::Subsection::Closed:: *)
+Options[CompileGateNoise]={
+	NumRepetitions->Automatic,
+	GateIndices->All
+};
+
+
+CompileGateNoise[gs_GateSet,nm_NoiseModel,depth_,OptionsPattern[]]:=Module[{gateChannel,gateNoise,protocol,gateIdxs,numIdxs,results,numReps},
+	gateIdxs = If[OptionValue[GateIndices]===All, Range[Size[gs]], OptionValue[GateIndices]];
+	numIdxs = Length[gateIdxs];
+	
+	numReps = If[OptionValue[NumRepetitions] === Automatic,
+		If[FreeQ[nm,StochasticNoise] && FreeQ[nm,StaticNoise], 1, 100],
+		OptionValue[NumRepetitions]
+	];
+	
+	(*Run the protocol which will do all of the heavy lifting*)
+	protocol = GateNoiseProtocol[depth, gateIdxs, numReps, GateNoise[nm]=!=None];
+	results = SimulateProtocol[gs, nm, protocol, AllowFinalRingdown->False];
+	
+	(* now go through the results and average over repetitions *)
+	results = Table[
+		Map[Super, Total[results[[d,All,1]],{2}] / numReps],
+		{d, depth}
+	];
+	gateChannel[idxs___]:=Module[{i={idxs}, d},
+		d=Length[i];
+		If[d>depth, 
+			gateChannel[Sequence@@(i[[-depth;;]])], 
+			i = Total[(i - 1) * Table[numIdxs^n, {n,d-1,0,-1}]] + 1;
+			results[[d,i]]
+		]
+	];
+	gateNoise[idxs___]:= gateChannel[idxs] . Unitary[GateUnitary[gs][Last[{idxs}]]\[ConjugateTranspose]];
+	Join[
+		DeleteCases[GateNoiseGateSet@@gs, (GatePulse->_)],
+		GateNoiseGateSet[
+			GateChannel -> gateChannel,
+			GateNoise -> gateNoise
+		]
+	]
+]
+
+
+(* ::Subsection:: *)
 (*Simulator*)
 
 
-SimulateSequence[seq_CompiledSequence, opt:OptionsPattern[PulseSim]]:=Module[{},
+InheritOptions[SimulateSequence, {PulseSim}, {PulseSubset->All}];
+SimulateSequence[seq_CompiledSequence, opt:OptionsPattern[]]:=Module[{},
 	PulseSim[
 		Generator[seq],
-		PulseSequence[seq],
-		opt,
+		PulseSequence[seq][[OptionValue[PulseSubset]]],
+		FilterOptions[PulseSim, opt],
 		StepSize->StepSize[seq]
 	]
 ]
 
 
-Unprotect[SimulateProtocol];
-SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol] := Module[
+(* ::Subsubsection::Closed:: *)
+(*General Simulator*)
+
+
+SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPattern[CompileSequence]] := Module[
 	{
 		simSeq, getSeq, 
 		j=0.0, doParallel,
@@ -553,7 +606,7 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol] := Module[
 	getSeq[seqLength_,e_,i_] := SequenceGenerator[protocol][gs, {seqLength,e,i}];
 	simSeq[seq_] := SimulationParser[protocol][
 		SimulateSequence[
-			CompileSequence[gs, seq, nm], 
+			CompileSequence[gs, seq, nm, opt], 
 			SimulationOptions[protocol]
 		]
 	];
@@ -571,7 +624,7 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol] := Module[
 					ParallelOptions[protocol]
 				]&, 
 				experiments,
-				{-2}
+				{2}
 			],
 			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
 		],
@@ -585,7 +638,69 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol] := Module[
 					{i,#3}
 				]&, 
 				experiments,
-				{-2}
+				{2}
+			],
+			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
+		]
+	]
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*GateNoiseGateSet Simulator*)
+
+
+SimulateProtocol[gs_GateNoiseGateSet, protocol_Protocol] := Module[
+	{
+		getSeq, 
+		j=0.0, doParallel,
+		seqLengths, experiments, totalGates
+	},
+
+	doParallel = $KernelCount > 0;
+	seqLengths = SequenceLengths[protocol];
+	experiments = Map[
+		Function[M, 
+			Map[{M, #, NumSequenceDraws[protocol][#]}&, ExperimentTypes[protocol][M]]
+		], 
+		seqLengths
+	];
+	
+	If[TotalGates[protocol]===Automatic,
+		totalGates = Total@Flatten@Apply[(#1 * NumRepetitions[protocol][##])&, experiments, {-2}];,
+		totalGates = TotalGates[protocol];
+	];
+	
+	getSeq[seqLength_,e_,i_] := SequenceGenerator[protocol][gs, {seqLength,e,i}];
+	If[doParallel,
+		DistributeDefinitions[getSeq];
+		SetSharedVariable[j];
+		Monitor[
+			Apply[
+				ParallelTable[
+					With[{seq = getSeq[#1,#2,i]}, 
+						j += Length[seq]; 
+						Table[GateSimulator[protocol][gs,seq], {n, NumRepetitions[protocol][#1,#2,i]}]
+					],
+					{i,#3},
+					ParallelOptions[protocol]
+				]&, 
+				experiments,
+				{2}
+			],
+			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
+		],
+		Monitor[
+			Apply[
+				Table[
+					With[{seq = getSeq[#1,#2,i]}, 
+						j += Length[seq]; 
+						Table[GateSimulator[protocol][gs,seq], {n, NumRepetitions[protocol][#1,#2,i]}]
+					],
+					{i,#3}
+				]&, 
+				experiments,
+				{2}
 			],
 			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
 		]
@@ -622,6 +737,7 @@ makeContainer[Protocol, {
 	SequenceGenerator,
 	SimulationOptions,
 	SimulationParser,
+	GateSimulator->Function[{gs,idxs},Message[GateSimulator::NotImplemented];$Failed],
 	ParallelOptions -> {},
 	TotalGates -> Automatic
 }];
@@ -632,15 +748,18 @@ Protocol/:Format[Protocol[args___]] := "Protocol"[ProtocolName[Protocol[args]]]
 (*Example Protocols*)
 
 
-RBDraw[gs_GateSet,seqLength_]:=Module[{seq},
+RBDraw[gs:(_GateSet|_GateNoiseGateSet),seqLength_]:=Module[{seq},
 	seq = RandomInteger[{1, Size[gs]}, seqLength];
 	Append[seq, GateInverse[gs][Fold[GateProduct[gs], seq]]]
 ]
 
 
-RBProtocol[seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{seqGen},
+RBProtocol[seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{seqGen,gateSim},
 	(* Use two closures to make sure every shot of the same (seqLength,seqNum) is identical *)
 	seqGen[gs_,{seqLength_,0,seqNum_}] := RBDraw[gs, seqLength];
+	gateSim[gs_GateNoiseGateSet,{idxs__}] := Re@Tr[
+		M.Last[Fold[With[{l=Append[First@#1,#2]}, {l, (GateChannel[gs]@@l)[Last@#1]}]&, {{},\[Rho]}, {idxs}]]
+	];
 	Protocol[
 		ProtocolName -> "Randomized Benchmarking",
 		SequenceLengths -> seqLengths,
@@ -650,6 +769,7 @@ RBProtocol[seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{seqGen},
 		SequenceGenerator -> seqGen,
 		SimulationOptions -> {InitialState->\[Rho], Observables->{M}},
 		SimulationParser -> (Last@First@Observables[#]&),
+		GateSimulator -> gateSim,
 		ParallelOptions -> {Method->"CoarsestGrained"},
 		TotalGates -> (shotsPerSeq * numSeqs * Total[seqLengths+1])
 	]
@@ -728,9 +848,9 @@ Protect[
 	GateSet, GateNoiseGateSet, 
 	GateSetName, Size, Dimension,
 	GateProduct, GateInverse,
-	GateUnitary, GatePulse,
+	GateUnitary, GatePulse, GateChannel,
 	FramePotential, TestGateSetPulses, TestGateSetInverses, TestGateSetProducts,
-	GateIndeces, TakeOverlap
+	GateIndices, TakeOverlap
 ];
 Protect[$gaussianQubitGateSet];
 
@@ -744,17 +864,17 @@ Protect[
 Protect[
 	CompileSequence,
 	CompiledSequence, PulseSequence, UndistortedLongPulse, GateSequence,
-	CompileGateNoise
+	CompileGateNoise, GateNoiseProtocol, AllowFinalRingdown
 ];
 
 
 Protect[
-	SimulateSequence, SimulateProtocol
+	SimulateSequence, SimulateProtocol, PulseSubset
 ];
 
 
 Protect[
-	Protocol, ProtocolName, SimulationOptions, SimulationParser,
+	Protocol, ProtocolName, SimulationOptions, SimulationParser, GateSimulator,
 	SequenceLengths, ExperimentTypes, NumSequenceDraws, NumRepetitions, 
 	SequenceGenerator,  ParallelOptions, TotalGates,
 	RBDraw, RBProtocol
