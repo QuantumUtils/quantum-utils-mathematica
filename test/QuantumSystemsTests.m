@@ -250,6 +250,34 @@ TestCase[$RegisteredTests,"QuantumSystems:VecForm",
 	]];
 
 
+(* ::Subsubsection::Closed:: *)
+(*Rotating Frame Conversions*)
+
+
+TestCase[$RegisteredTests, "QuantumSystems:RotatingFrameConversions:RotatingHamiltonian:TransformToItselfInvariant",
+	Module[{BaseHamiltonian, RandomTime, RandomMatrixSize},
+		RandomMatrixSize = RandomInteger[{1, 10}];
+		BaseHamiltonian = RandomHermitian[RandomMatrixSize];
+		RandomTime = RandomInteger[{1, 100}];
+		Chop[EffectiveHamiltonian[BaseHamiltonian, BaseHamiltonian][RandomTime]] ==
+			ConstantArray[0, {RandomMatrixSize, RandomMatrixSize}]
+	]
+];
+
+
+TestCase[$RegisteredTests, "QuantumSystems:RotatingFrameConversions:RotatingHamiltonian:FunctionOfTimeInvariant",
+	Module[{BaseHamiltonian, RandomTime, RandomMatrixSize, HamiltonianFunction},
+		RandomMatrixSize = RandomInteger[{1, 10}];
+		BaseHamiltonian = RandomHermitian[RandomMatrixSize];
+		RandomTime = RandomInteger[{1, 100}];
+		HamiltonianFunction = Function[{time}, BaseHamiltonian];
+		Chop[EffectiveHamiltonian[HamiltonianFunction, BaseHamiltonian][RandomTime]] == 
+		ConstantArray[0, {RandomMatrixSize, RandomMatrixSize}]
+	]
+];
+		
+
+
 (* ::Subsection::Closed:: *)
 (*Symbolic Evaluation*)
 

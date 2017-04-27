@@ -43,7 +43,7 @@ $QuantumSystemsUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc"
 (*States, Operators and Gates*)
 
 
-Unprotect[Spin,Cavity,QState,CGate,KetForm,VecForm,Ket,Bra,KetBra];
+Unprotect[Spin,Cavity,QState,CGate,KetForm,VecForm,EffectiveHamiltonian,RotatingHamiltonian,Ket,Bra,KetBra];
 
 
 AssignUsage[Spin,$QuantumSystemsUsages];
@@ -51,6 +51,8 @@ AssignUsage[Cavity,$QuantumSystemsUsages];
 AssignUsage[QState,$QuantumSystemsUsages];
 AssignUsage[KetForm,$QuantumSystemsUsages];
 AssignUsage[VecForm,$QuantumSystemsUsages];
+AssignUsage[EffectiveHamiltonian, $QuantumSystemsUsages];
+AssignUsage[RotatingHamiltonian, $QuantumSystemsUsages];
 AssignUsage[CGate,$QuantumSystemsUsages];
 
 
@@ -536,6 +538,31 @@ VecForm[obj_,opts:OptionsPattern[VecForm]]:=
 ]]
 
 VecForm[a__,opts:OptionsPattern[VecForm]]:=Map[VecForm[#,opts]&,{a}]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Rotating Frame Conversions*)
+
+
+EffectiveHamiltonian[BaseHamiltonian_, ReferenceHamiltonian_] := Function[{time},
+	RotatingHamiltonian[BaseHamiltonian, ReferenceHamiltonian][time] - ReferenceHamiltonian
+];
+
+
+
+RotatingHamiltonian[BaseHamiltonian_, ReferenceHamiltonian_] := Module[{EvaluatedBaseHamiltonian},
+	Function[{time},
+		EvaluatedBaseHamiltonian = If[
+			MatrixQ[BaseHamiltonian],
+			BaseHamiltonian,
+			BaseHamiltonian[time]
+		];
+		MatrixExp[I * time * ReferenceHamiltonian] .
+		EvaluatedBaseHamiltonian .
+		MatrixExp[-I * time * ReferenceHamiltonian]
+	]
+];
+
 
 
 (* ::Subsection::Closed:: *)
