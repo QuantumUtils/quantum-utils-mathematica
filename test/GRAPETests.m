@@ -79,9 +79,7 @@ TestCase[$RegisteredTests, "PulseDataStructure:InitializeHControl",
 TestCase[$RegisteredTests, "PulseDataStrucutre:InitializeHInternal",
 	Module[{p, Hinternal},
 	Hinternal = RandomHermitian[8];
-	p = Pulse[
-			InternalHamiltonian -> Hinternal,
-		];
+	p = Pulse[InternalHamiltonian -> Hinternal];
 	InternalHamiltonian[p] == Hinternal;
 ]];
 
@@ -106,8 +104,7 @@ TestCase[$RegisteredTests, "PulseDataStructure:InitializeUtarget",
 
 TestCase[$RegisteredTests, "FindPulse:SimplePulse",
 	Module[{
-		pulse, repetitions, Hint, HControl, controlRange, initialGuess, target, \[Phi]target,
-		initialState, finalState
+		pulse, Hint, HControl, controlRange, initialGuess, target, \[Phi]target
 	},
 		Hint = TP[Z];
 		HControl = 2\[Pi] * {TP[X], TP[Y]};
@@ -116,9 +113,7 @@ TestCase[$RegisteredTests, "FindPulse:SimplePulse",
 		\[Phi]target = 0.99;
 		initialGuess = RandomSmoothPulse[1, 10, controlRange];
 		pulse = FindPulse[initialGuess, target, \[Phi]target, controlRange, HControl, Hint];
-		initialState = RandomDensity[2];
-		finalState = (States@PulseSim[Hint,SimForm[pulse],InitialState->TP[U]])[[2]];
-		Abs[Tr[(target . initialState . ConjugateTranspose[target]) . finalState]] >= \[Phi]target;
+		Re[Tr[pulse[Target] . target / 2]] >= \[Phi]target;
 ];
 ]
 
@@ -129,8 +124,7 @@ TestCase[$RegisteredTests, "FindPulse:SimplePulse",
 
 TestCase[$RegisteredTests, "FindPulse:Repetitions",
 	Module[{
-		pulse, repetitions, Hint, HControl, controlRange, initialGuess, target, \[Phi]target,
-		initialState, finalState
+		pulse, repetitions, Hint, HControl, controlRange, initialGuess, target, \[Phi]target
 	},
 		Hint = TP[Z];
 		repetitions = 10;
@@ -140,9 +134,7 @@ TestCase[$RegisteredTests, "FindPulse:Repetitions",
 		\[Phi]target = 0.99;
 		initialGuess = RandomSmoothPulse[1, 10, controlRange];
 		pulse = FindPulse[initialGuess, target, \[Phi]target, controlRange, HControl, Hint, Repetitions -> repetitions];
-		initialState = RandomDensity[2];
-		finalState = (States@PulseSim[Hinternal,SimForm[pulse],InitialState->TP[U]])[[2]];
-		Abs[Tr[(target . initialState . ConjugateTranspose[target]) . finalState]] >= \[Phi]target;
+		Re[Tr[pulse[Target] . target / 2]] >= \[Phi]target;
 ];
 ]
 
