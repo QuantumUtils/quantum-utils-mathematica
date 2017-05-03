@@ -546,15 +546,12 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 
 
 PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{step=1,dt,dts,amps},
+	Module[{step=1,dt,dts,amps, hamiltonianSum},
 		{dts,amps} = SplitPulse[pulse];
 		(* Notice the delay equal on dt! Not a bug. *)
 		dt := dts[[step++]];
-		Fold[
-			MatrixExp[-I(Hint+#2.Hcontrol) dt].#1&,
-			IdentityMatrix[Length[Hint]],
-			amps
-		]
+		hamiltonianSum = Plus @@ (Map[(Hint + # . Hcontrol)&, amps]);
+		MatrixExp[-I * hamiltonianSum * dt]
 	]
 
 
