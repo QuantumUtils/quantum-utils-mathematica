@@ -1,0 +1,2312 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     95109,       2304]
+NotebookOptionsPosition[     92697,       2228]
+NotebookOutlinePosition[     93038,       2243]
+CellTagsIndexPosition[     92995,       2240]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Large Parameter Distribution Benchmark", "Chapter"],
+
+Cell["\<\
+It was identified that a major source of slowdown is optimizing over \
+parameters with wide distributions in grape. This benchmark will quantify the \
+slowdown by comparing the running time of ``FindPulse`` as a function of the \
+standard deviation of two parameters.\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<QuantumUtils`\>\"", "]"}], ";"}]], "Code"],
+
+Cell[CellGroupData[{
+
+Cell["Parameter Distributions", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"uniformDistribution", "[", 
+   RowBox[{
+   "parameter_", ",", " ", "minimum_", ",", " ", "maximum_", ",", " ", 
+    "numberOfPoints_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"{", "\n", "\t", 
+   RowBox[{
+    RowBox[{"ConstantArray", "[", 
+     RowBox[{
+      RowBox[{"1", "/", "numberOfPoints"}], ",", " ", "numberOfPoints"}], 
+     "]"}], ",", " ", "\n", "\t", 
+    RowBox[{"Array", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"(", 
+         RowBox[{"parameter", " ", "->", " ", "#"}], ")"}], "}"}], "&"}], ",",
+       " ", "numberOfPoints", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"minimum", ",", " ", "maximum"}], "}"}]}], "]"}]}], "\n", 
+   "}"}]}]], "Code",
+ CellChangeTimes->{3.702826519327735*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Single Distribution In Internal Hamiltonian", "Section"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "singleParameterInternalHamiltonianBenchmark", "[", "numberOfPoints_", 
+   "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "Hinternal", ",", " ", "dist", ",", " ", "controlRange", ",", " ", 
+      "initialGuess", ",", " ", "target", ",", " ", "Hcontrol", ",", " ", 
+      "tic", ",", " ", "toc"}], "}"}], ",", "\n", "\t", 
+    RowBox[{
+     RowBox[{"Hinternal", " ", "=", " ", 
+      RowBox[{"2", "\[Pi]", " ", "\[Delta]\[Omega]", " ", 
+       RowBox[{
+        RowBox[{"Spin", "[", "Z", "]"}], "[", 
+        RowBox[{"1", "/", "2"}], "]"}]}]}], ";", "\n", "\t", 
+     RowBox[{"dist", " ", "=", " ", 
+      RowBox[{"uniformDistribution", "[", 
+       RowBox[{"\[Delta]\[Omega]", ",", " ", 
+        RowBox[{"-", "2"}], ",", " ", "2", ",", " ", "numberOfPoints"}], 
+       "]"}]}], ";", "\n", "\t", 
+     RowBox[{"controlRange", " ", "=", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], " ", ",", " ", "1"}], "}"}]}], "}"}]}], ";", 
+     "\n", "\t", 
+     RowBox[{"initialGuess", ":=", 
+      RowBox[{"FromPulse", "[", 
+       RowBox[{"Pulse", "[", 
+        RowBox[{
+         RowBox[{"TimeSteps", " ", "\[Rule]", " ", 
+          RowBox[{"ConstantArray", "[", 
+           RowBox[{"0.1", ",", " ", "100"}], "]"}]}], ",", " ", 
+         RowBox[{"Pulse", " ", "\[Rule]", " ", 
+          RowBox[{"ConstantArray", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", "100"}], 
+           "]"}]}]}], "]"}], "]"}]}], ";", "\n", "\t", 
+     RowBox[{"target", "=", 
+      RowBox[{"MatrixExp", "[", 
+       RowBox[{
+        RowBox[{"-", "I"}], " ", "\[Pi]", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Spin", "[", "X", "]"}], "[", 
+          RowBox[{"1", "/", "2"}], "]"}], "/", "2"}]}], "]"}]}], ";", "\n", 
+     "\t", 
+     RowBox[{"Hcontrol", "=", 
+      RowBox[{"2", "\[Pi]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Spin", "[", "X", "]"}], "[", 
+          RowBox[{"1", "/", "2"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"Spin", "[", "Y", "]"}], "[", 
+          RowBox[{"1", "/", "2"}], "]"}]}], "}"}]}]}], ";", "\n", "\t", "\n", 
+     "\t", 
+     RowBox[{"tic", " ", "=", " ", 
+      RowBox[{"AbsoluteTime", "[", "]"}]}], ";", "\n", "\t", 
+     RowBox[{"FindPulse", "[", 
+      RowBox[{
+      "initialGuess", ",", "target", ",", "0.99", ",", "controlRange", ",", 
+       "Hcontrol", ",", "Hinternal", ",", 
+       RowBox[{"ParameterDistribution", "->", "dist"}]}], "]"}], ";", "\n", 
+     "\t", 
+     RowBox[{"toc", " ", "=", " ", 
+      RowBox[{"AbsoluteTime", "[", "]"}]}], ";", "\n", "\t", 
+     RowBox[{"toc", " ", "-", " ", "tic"}]}]}], "\n", "]"}]}]], "Code",
+ CellChangeTimes->{{3.702826415118956*^9, 3.702826422253899*^9}, {
+  3.702826540444525*^9, 3.70282654314181*^9}, {3.702826633143444*^9, 
+  3.702826741238105*^9}, {3.702826865055868*^9, 3.70282686783817*^9}, {
+  3.70282694677388*^9, 3.7028269969265823`*^9}, {3.702827033966593*^9, 
+  3.702827049841363*^9}, {3.702827080447929*^9, 3.7028270892708073`*^9}, {
+  3.70282713756459*^9, 3.702827145228664*^9}, {3.70282761371666*^9, 
+  3.702827614498374*^9}, {3.702827889213223*^9, 3.7028278900973253`*^9}, {
+  3.702828035195389*^9, 3.702828036110508*^9}, {3.702828094263652*^9, 
+  3.7028280973709517`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"repeatBenchmark", "[", "repetitions_", "]"}], " ", ":=", " ", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", "numberOfPoints", "}"}], ",", " ", 
+     RowBox[{"Mean", "[", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+        "singleParameterInternalHamiltonianBenchmark", "[", "numberOfPoints", 
+         "]"}], ",", " ", "repetitions"}], "]"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7028273142500563`*^9, 3.702827419780221*^9}, {
+  3.702827602057816*^9, 3.702827602550556*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"times", " ", "=", " ", 
+   RowBox[{"Map", "[", 
+    RowBox[{
+     RowBox[{"repeatBenchmark", "[", "10", "]"}], ",", " ", 
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", " ", "6"}], "]"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.702827181947715*^9, 3.7028272026420727`*^9}, {
+  3.702827274604418*^9, 3.702827279313026*^9}, {3.702827428230097*^9, 
+  3.7028274306736813`*^9}, {3.702827472729703*^9, 3.702827473962948*^9}, {
+  3.702827504641518*^9, 3.702827507094124*^9}, {3.702827752549573*^9, 
+  3.702827752972143*^9}, {3.702827895530958*^9, 3.70282789562074*^9}, {
+  3.702828160262206*^9, 3.7028281664892387`*^9}, {3.702828203164791*^9, 
+  3.702828203241563*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"times", ",", " ", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", " ", 
+   RowBox[{"PlotLabel", "\[Rule]", "\"\<Benchmark\>\""}], ",", " ", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Number of Points\>\"", ",", " ", "\"\<Time / s\>\""}], 
+     "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.702827261743033*^9, 3.702827270114544*^9}, {
+  3.702827820472217*^9, 3.702827866234296*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{}, {}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{1., 0.1603163}, {2., 0.6616727}, {3., 0.8487083}, {4., 
+      1.941256}, {5., 1.2417426}, {6., 4.5480811}}]}}, {}, {}, {{}, {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"Number of Points\"", TraditionalForm], 
+    FormBox["\"Time / s\"", TraditionalForm]},
+  AxesOrigin->{0., 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->{648., Automatic},
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotLabel->FormBox["\"Benchmark\"", TraditionalForm],
+  PlotRange->{{0., 6.}, {0, 4.5480811}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.7028273002590923`*^9, 3.7028274853092413`*^9, 3.702827556514134*^9, 
+   3.702827639711652*^9, 3.702827792796013*^9, {3.7028278379318113`*^9, 
+   3.7028278664978533`*^9}, 3.702828301806006*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["times"], "Input",
+ CellChangeTimes->{{3.702827558422427*^9, 3.702827558795143*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.03350585`4.976665633395937", ",", "0.0348377`4.993594468468774", ",", 
+   "0.0339996`4.983018801161328", ",", "0.1350012`5.581882622369217", ",", 
+   "0.04373495`5.092373627850301", ",", "0.2185562`5.7911081245577245", ",", 
+   "0.2436884`5.838379849985201", ",", "0.31799325`5.953962894867621", ",", 
+   "0.3317038`5.972295440323197", ",", "0.3729537`6.023199913555076"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.702827558965885*^9, 3.70282772402241*^9, 
+  3.702827792808827*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Hinternal", " ", "=", " ", 
+   RowBox[{"2", "\[Pi]", " ", "\[Delta]\[Omega]", " ", 
+    RowBox[{
+     RowBox[{"Spin", "[", "Z", "]"}], "[", 
+     RowBox[{"1", "/", "2"}], "]"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"dist", " ", "=", " ", 
+   RowBox[{"uniformDistribution", "[", 
+    RowBox[{"\[Delta]\[Omega]", ",", " ", 
+     RowBox[{"-", "2"}], ",", " ", "2", ",", " ", "6"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"controlRange", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], " ", ",", " ", "1"}], "}"}]}], "}"}]}], ";", "\t", 
+  
+  RowBox[{"initialGuess", ":=", 
+   RowBox[{"FromPulse", "[", 
+    RowBox[{"Pulse", "[", 
+     RowBox[{
+      RowBox[{"TimeSteps", " ", "\[Rule]", " ", 
+       RowBox[{"ConstantArray", "[", 
+        RowBox[{"0.1", ",", " ", "100"}], "]"}]}], ",", " ", 
+      RowBox[{"Pulse", " ", "\[Rule]", " ", 
+       RowBox[{"ConstantArray", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", "100"}], "]"}]}]}], 
+     "]"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"target", "=", 
+   RowBox[{"MatrixExp", "[", 
+    RowBox[{
+     RowBox[{"-", "I"}], " ", "\[Pi]", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spin", "[", "X", "]"}], "[", 
+       RowBox[{"1", "/", "2"}], "]"}], "/", "2"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Hcontrol", "=", 
+   RowBox[{"2", "\[Pi]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spin", "[", "X", "]"}], "[", 
+       RowBox[{"1", "/", "2"}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"Spin", "[", "Y", "]"}], "[", 
+       RowBox[{"1", "/", "2"}], "]"}]}], "}"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"tic", " ", "=", " ", 
+   RowBox[{"AbsoluteTime", "[", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"pulse", " ", "=", " ", 
+   RowBox[{"FindPulse", "[", 
+    RowBox[{
+    "initialGuess", ",", "target", ",", "0.99", ",", "controlRange", ",", 
+     "Hcontrol", ",", "Hinternal", ",", 
+     RowBox[{"ParameterDistribution", "->", "dist"}], ",", " ", 
+     RowBox[{"VerboseAscent", "\[Rule]", " ", "True"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"toc", " ", "=", " ", 
+   RowBox[{"AbsoluteTime", "[", "]"}]}], ";"}], "\n", 
+ RowBox[{"toc", " ", "-", " ", "tic"}]}], "Input",
+ CellChangeTimes->{{3.70282793560083*^9, 3.7028279902589417`*^9}, {
+  3.7028280442722473`*^9, 3.702828158002665*^9}, {3.702828308912629*^9, 
+  3.70282830905818*^9}, {3.702829114989609*^9, 3.7028291180428658`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"\"#\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"\"rawUtility\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"\"penalty\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"\"improvement\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"\"stepSize\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"\"bestMult\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"\"betaResetCt\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"\"toc (ms)\""}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.70282911985635*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.5000000000000007`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.5000000000000007`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"4"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"262.2110000000000000118`5.870195900297385"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291200670023`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"2"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.5232237982529534`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.023223798252952732`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.004`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"4"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"175.489999999999999995`5.695797367468447"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829120239768*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"3"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.5692891294750169`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.046065331222063466`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.005656854249492381`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"2"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"171.2369999999999999963`5.685142604068788"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291204125338`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"4"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.6143051379859503`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.04501600851093346`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.005656854249492381`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"162.0199999999999999553`5.6611136213319115"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829120579714*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"5"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.6450340582119729`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.030728920226022582`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.005656854249492381`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"161.7559999999999999893`5.660405392379603"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291207453327`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"6"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.674604184490236`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.029570126278263054`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"2"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"183.0879999999999999854`5.714204874091681"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829120932335*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"7"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.7299848385863945`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.055380654096158555`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"165.8400000000000000001`5.671234282581776"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829121100603*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"8"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.7651100504721553`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.03512521188576079`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"166.920999999999999984`5.674055971339988"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829121271536*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"9"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.7968380091410829`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.031727958668927636`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"166.9649999999999999693`5.674170435302623"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829121442162*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"10"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.8251366998797128`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.028298690738629895`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"167.5849999999999999692`5.67578013721289"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829121613019*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"11"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.8500972933207718`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.024960593441058943`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"159.4440000000000000075`5.654153174548019"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829121776709*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"12"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.8719028761590586`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.02180558283828682`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"166.882999999999999982`5.673957091815574"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829121945264*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"13"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.8907975995215105`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.018894723362451904`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"165.1459999999999999905`5.669413052607478"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829122116406*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"14"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9070594938216694`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.016261894300158897`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"177.7089999999999999931`5.701254416525582"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829122298073*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"15"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9209785850200811`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.013919091198411726`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"174.9060000000000000028`5.694349701329119"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291224739647`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"16"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9328406759306508`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.011862090910569667`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"157.0789999999999999843`5.647663121287476"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829122634543*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"17"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9429163351047423`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.010075659174091478`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"161.1490000000000000343`5.658772608365554"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291228008957`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"18"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9514542198451731`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008537884740430823`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"197.6849999999999999887`5.747518710536639"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829123088502*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"19"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9586777387896419`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.007223518944468821`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"182.5389999999999999765`5.712900660509253"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829123201158*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"20"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9647841177165246`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.006106378926882705`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"166.0599999999999999809`5.671810027083207"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829123352915*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"21"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9699450778093394`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.005160960092814748`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"159.9809999999999999957`5.655613400619814"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291235150957`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"22"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9743085072037785`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.004363429394439122`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"166.2640000000000000064`5.672343218098217"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829123687834*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"23"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9780006693497898`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.003692162146011313`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"166.1559999999999999833`5.672061022046864"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829123855114*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"24"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9811286295034926`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.003127960153702758`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"157.6549999999999999989`5.6492527423697805"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829124018188*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"25"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9837826890651372`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.0026540595616446616`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"185.3020000000000000245`5.719425100263744"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829124204022*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"26"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9860386982131387`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.002256009148001503`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"162.3250000000000000506`5.661930405040766"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7028291243698874`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"27"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9879601747152791`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.0019214765021403624`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"156.6740000000000000062`5.646541924914139"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829124530324*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"28"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9896001959281824`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.0016400212129032976`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"183.4709999999999999708`5.715112421564794"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.702829124719891*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  TemplateBox[{"29"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
+   TemplateBox[{"0.9910030564549333`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.001402860526750871`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0.008000000000000002`"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"1"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"0"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
+   TemplateBox[{"180.4299999999999999959`5.7078537426179095"}, "Row", 
+    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
+    InterpretationFunction -> (RowBox[{"Row", "[", 
+       RowBox[{
+         RowBox[{"{", #, "}"}], ",", 
+         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.70282912489083*^9}]
+}, Open  ]],
+
+Cell[BoxData["5.263045`7.172782076826597"], "Output",
+ CellChangeTimes->{{3.702827964552005*^9, 3.702827990666497*^9}, {
+   3.702828040167561*^9, 3.702828152669929*^9}, 3.702828315511785*^9, 
+   3.702829124996866*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["pulse"], "Input",
+ CellChangeTimes->{{3.702827974984536*^9, 3.702827975453248*^9}}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"Head", "Value"},
+    {"UtilityValue", "0.9910030564549333`"},
+    {"PenaltyValue", "0"},
+    {"ExitMessage", "\<\"Pulse of desired fidelity was found!\"\>"},
+    {"Target", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          FractionBox["1", 
+           SqrtBox["2"]], 
+          RowBox[{"-", 
+           FractionBox["\[ImaginaryI]", 
+            SqrtBox["2"]]}]},
+         {
+          RowBox[{"-", 
+           FractionBox["\[ImaginaryI]", 
+            SqrtBox["2"]]}], 
+          FractionBox["1", 
+           SqrtBox["2"]]}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]},
+    {"InternalHamiltonian", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{"\[Pi]", " ", "\[Delta]\[Omega]"}], "0"},
+         {"0", 
+          RowBox[{
+           RowBox[{"-", "\[Pi]"}], " ", "\[Delta]\[Omega]"}]}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]},
+    {"ControlHamiltonians", 
+     TemplateBox[{TagBox[
+        RowBox[{"(", "\[NoBreak]", 
+          
+          GridBox[{{"0", "\[Pi]"}, {"\[Pi]", "0"}}, RowSpacings -> 1, 
+           ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+           Center], "\[NoBreak]", ")"}], 
+        Function[BoxForm`e$, 
+         MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
+        RowBox[{"(", "\[NoBreak]", 
+          GridBox[{{"0", 
+             RowBox[{
+               RowBox[{"-", "\[ImaginaryI]"}], " ", "\[Pi]"}]}, {
+             RowBox[{"\[ImaginaryI]", " ", "\[Pi]"}], "0"}}, RowSpacings -> 1,
+            ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
+           Center], "\[NoBreak]", ")"}], 
+        Function[BoxForm`e$, 
+         MatrixForm[BoxForm`e$]]]},
+      "RowDefault"]},
+    {"AmplitudeRange", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "}"}]},
+    {"TimeSteps", 
+     RowBox[{"{", 
+      RowBox[{
+      "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`",
+        ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", 
+       "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.1`"}], "}"}]},
+    {"Pulse", 
+     TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {"0.12142437337789952`", "0.03137907533420784`", 
+          RowBox[{"-", "0.03304004671790081`"}], 
+          RowBox[{"-", "0.02098919820414091`"}], "0.019787646097663942`", 
+          "0.01984463431975543`", 
+          RowBox[{"-", "0.015571031286444836`"}], 
+          RowBox[{"-", "0.02353311627242969`"}], "0.01484354558273069`", 
+          "0.03651676056380127`", 
+          RowBox[{"-", "0.018126588476510663`"}], 
+          RowBox[{"-", "0.11262253278061696`"}], 
+          RowBox[{"-", "0.1474902245604674`"}], 
+          RowBox[{"-", "0.0831787305374834`"}], "0.009119461329918279`", 
+          "0.03735094158052257`", 
+          RowBox[{"-", "0.0003506489207347097`"}], 
+          RowBox[{"-", "0.02815927855325052`"}], 
+          RowBox[{"-", "0.003899030887194984`"}], "0.0274455421876038`", 
+          "0.009186325390947938`", 
+          RowBox[{"-", "0.03407196823929857`"}], 
+          RowBox[{"-", "0.02267865634942465`"}], "0.06378995210603906`", 
+          "0.14358158707921798`", "0.12839324332315116`", 
+          "0.035255912941386226`", 
+          RowBox[{"-", "0.03497264052460024`"}], 
+          RowBox[{"-", "0.023928658661317416`"}], "0.020568193745661354`", 
+          "0.022608490259673084`", 
+          RowBox[{"-", "0.015652138388296367`"}], 
+          RowBox[{"-", "0.02667991663459909`"}], "0.013836205311480361`", 
+          "0.04101126140981112`", 
+          RowBox[{"-", "0.011758762913998732`"}], 
+          RowBox[{"-", "0.11077920701243105`"}], 
+          RowBox[{"-", "0.15136324259523665`"}], 
+          RowBox[{"-", "0.08762239405801008`"}], "0.008732691586551211`", 
+          "0.03975658209148124`", "0.00050751202265012`", 
+          RowBox[{"-", "0.029928534987872693`"}], 
+          RowBox[{"-", "0.005140142335294499`"}], "0.028954015159532893`", 
+          "0.011167096661024653`", 
+          RowBox[{"-", "0.03530322825048122`"}], 
+          RowBox[{"-", "0.02695152164982743`"}], "0.06055748381774795`", 
+          "0.1442324068977535`", "0.13118784006780218`", 
+          "0.036564608689713674`", 
+          RowBox[{"-", "0.03602256086944725`"}], 
+          RowBox[{"-", "0.0250510654694583`"}], "0.021108700028818633`", 
+          "0.023716108850172137`", 
+          RowBox[{"-", "0.015870735581324926`"}], 
+          RowBox[{"-", "0.027943383323846268`"}], "0.013587838669876047`", 
+          "0.04267144336287804`", 
+          RowBox[{"-", "0.009651842433797525`"}], 
+          RowBox[{"-", "0.10999506869251624`"}], 
+          RowBox[{"-", "0.1517978579073197`"}], 
+          RowBox[{"-", "0.08789499204286313`"}], "0.009173027222649621`", 
+          "0.04015404303643598`", "0.0002736085247727355`", 
+          RowBox[{"-", "0.030305138632086726`"}], 
+          RowBox[{"-", "0.005020325776209771`"}], "0.02930750066426488`", 
+          "0.011129183427866368`", 
+          RowBox[{"-", "0.035606969044711126`"}], 
+          RowBox[{"-", "0.026925281805362355`"}], "0.06071883488231857`", 
+          "0.14352939251502614`", "0.12940300608137245`", 
+          "0.03502022422116032`", 
+          RowBox[{"-", "0.03603443265458233`"}], 
+          RowBox[{"-", "0.024086844824527182`"}], "0.02137308526927153`", 
+          "0.022911716921579943`", 
+          RowBox[{"-", "0.016287301669807366`"}], 
+          RowBox[{"-", "0.02707090147047849`"}], "0.014323055594957366`", 
+          "0.04138224915340119`", 
+          RowBox[{"-", "0.012132916757721554`"}], 
+          RowBox[{"-", "0.11045901371341466`"}], 
+          RowBox[{"-", "0.14874655253434207`"}], 
+          RowBox[{"-", "0.08392674680880544`"}], "0.01037280538107197`", 
+          "0.03844243721447702`", 
+          RowBox[{"-", "0.0010323452813600364`"}], 
+          RowBox[{"-", "0.029195794879137107`"}], 
+          RowBox[{"-", "0.0035268258509188934`"}], "0.028428998473436957`", 
+          "0.00903358523251929`", 
+          RowBox[{"-", "0.03495092619459798`"}], 
+          RowBox[{"-", "0.022608408273452674`"}], "0.06419397007279945`", 
+          "0.14148660482024902`"},
+         {"0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
+          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`"}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+      Function[BoxForm`e$, 
+       MatrixForm[BoxForm`e$]]]},
+    {"ParameterDistribution", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         FractionBox["1", "6"], ",", 
+         FractionBox["1", "6"], ",", 
+         FractionBox["1", "6"], ",", 
+         FractionBox["1", "6"], ",", 
+         FractionBox["1", "6"], ",", 
+         FractionBox["1", "6"]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
+           RowBox[{"-", "2"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
+           RowBox[{"-", 
+            FractionBox["6", "5"]}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
+           RowBox[{"-", 
+            FractionBox["2", "5"]}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
+           FractionBox["2", "5"]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
+           FractionBox["6", "5"]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Delta]\[Omega]", "\[Rule]", "2"}], "}"}]}], "}"}]}], 
+      "}"}]},
+    {"DistortionOperator", 
+     TagBox[
+      FormBox[
+       TagBox[
+        RowBox[{"IdentityDistortion", "[", "]"}],
+        HoldForm],
+       StandardForm],
+      Format]},
+    {"PulsePenalty", 
+     TagBox[
+      FormBox[
+       TagBox[
+        RowBox[{"ZeroPenalty", "[", "]"}],
+        HoldForm],
+       StandardForm],
+      Format]}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+   GridBoxBackground->{"Columns" -> {
+       RGBColor[0.87, 0.94, 1], None}, "Rows" -> {
+       RGBColor[0.88, 1, 0.88], None}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {13, 32}, "Rows" -> {{Automatic}}},
+   GridBoxItemStyle->{
+    "Columns" -> {{Automatic}}, "Rows" -> {"Subsubsubsection"}},
+   GridBoxSpacings->{"Columns" -> {{2}}, "Rows" -> {{0.8}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.7028279755994797`*^9, 3.702827992145289*^9}, {
+   3.7028280479346046`*^9, 3.702828107899928*^9}, 3.702828155708015*^9, 
+   3.7028283250540648`*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7028283489175987`*^9, 3.702828351777067*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1876, 1012},
+WindowMargins->{{22, Automatic}, {22, Automatic}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 57, 0, 66, "Chapter"],
+Cell[640, 24, 291, 5, 71, "Text"],
+Cell[934, 31, 95, 2, 54, "Code"],
+Cell[CellGroupData[{
+Cell[1054, 37, 42, 0, 65, "Section"],
+Cell[1099, 39, 770, 22, 119, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1906, 66, 62, 0, 65, "Section"],
+Cell[1971, 68, 3543, 85, 336, "Code"],
+Cell[5517, 155, 603, 15, 57, "Input"],
+Cell[6123, 172, 712, 14, 34, "Input"],
+Cell[CellGroupData[{
+Cell[6860, 190, 468, 10, 34, "Input"],
+Cell[7331, 202, 1810, 42, 391, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9178, 249, 97, 1, 32, "Input"],
+Cell[9278, 252, 527, 10, 34, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9842, 267, 2639, 74, 217, "Input"],
+Cell[CellGroupData[{
+Cell[12506, 345, 2238, 51, 27, "Print"],
+Cell[14747, 398, 2234, 51, 27, "Print"],
+Cell[16984, 451, 2233, 51, 27, "Print"],
+Cell[19220, 504, 2251, 51, 27, "Print"],
+Cell[21474, 557, 2249, 51, 27, "Print"],
+Cell[23726, 610, 2251, 51, 27, "Print"],
+Cell[25980, 663, 2248, 51, 27, "Print"],
+Cell[28231, 716, 2249, 51, 27, "Print"],
+Cell[30483, 769, 2247, 51, 27, "Print"],
+Cell[32733, 822, 2249, 51, 27, "Print"],
+Cell[34985, 875, 2249, 51, 27, "Print"],
+Cell[37237, 928, 2250, 51, 27, "Print"],
+Cell[39490, 981, 2248, 51, 27, "Print"],
+Cell[41741, 1034, 2250, 51, 27, "Print"],
+Cell[43994, 1087, 2250, 51, 27, "Print"],
+Cell[46247, 1140, 2252, 51, 27, "Print"],
+Cell[48502, 1193, 2250, 51, 27, "Print"],
+Cell[50755, 1246, 2252, 51, 27, "Print"],
+Cell[53010, 1299, 2250, 51, 27, "Print"],
+Cell[55263, 1352, 2250, 51, 27, "Print"],
+Cell[57516, 1405, 2250, 51, 27, "Print"],
+Cell[59769, 1458, 2252, 51, 27, "Print"],
+Cell[62024, 1511, 2250, 51, 27, "Print"],
+Cell[64277, 1564, 2250, 51, 27, "Print"],
+Cell[66530, 1617, 2251, 51, 27, "Print"],
+Cell[68784, 1670, 2251, 51, 27, "Print"],
+Cell[71038, 1723, 2252, 51, 27, "Print"],
+Cell[73293, 1776, 2251, 51, 27, "Print"],
+Cell[75547, 1829, 2251, 51, 27, "Print"],
+Cell[77801, 1882, 2250, 51, 27, "Print"]
+}, Open  ]],
+Cell[80066, 1936, 217, 3, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[80320, 1944, 97, 1, 32, "Input"],
+Cell[80420, 1947, 12140, 273, 646, "Output"]
+}, Open  ]],
+Cell[92575, 2223, 94, 1, 32, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
