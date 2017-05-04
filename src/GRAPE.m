@@ -2298,7 +2298,7 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*FindPulse*)
 
 
@@ -2514,7 +2514,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(********************** CHOOSE A DIRECTION ***********************)
 
-				Module[{distortedPulse, distortionJacobian},
+				Module[{distortedPulse, distortionJacobian, calculateUtilities},
 
 					(* Distort the current pulse and calculate the Jacobian with the control knobs. *)
 					(* The output may have distribution symbols included *)
@@ -2522,15 +2522,13 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 						{distortedPulse, distortionJacobian} = DistortionFn[pulse, True]
 					];
 
-					(* Now we do a big weighted sum over all elements of the distribution *)
-					{rawUtility, utility, gradient} = Sum[
-						Module[
+					(* Calculates the gradient for a given rule *)
+					calculateUtilities[parameterProbabilityAndRule_] := Module[
 							{reps, prob, objFunVal, objFunGrad, penaltyGrad, totalGrad},
 							
 							(* The replacements and probability of the current distribution element *)
-							reps=distReps[[d]];
-							prob=distPs[[d]];
-
+							reps=parameterProbabilityAndRule[[2]];
+							prob=parameterProbabilityAndRule[[1]];
 							(* If the distortion depends on the distribution, we evaluate it here, replacing what we can.
 							Anything else will get replaced in the call to UtilityGradient below. *)
 							If[distortionDependsOnDist,
@@ -2550,10 +2548,9 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 							(* Update the utility with the penalty *)
 							prob*{objFunVal, objFunVal - penalty, totalGrad}
-						],
-						{d,distNum}
-					];
-
+						];
+					{rawUtility, utility, gradient} = Total[ParallelMap[calculateUtilities, Transpose[{distPs, distReps}]]];
+					
 					(* Apply the mask to the gradient, so we can avoid bad controls. *)
 					gradient = derivMask * badControlLimitGradientMask * gradient;
 				];
