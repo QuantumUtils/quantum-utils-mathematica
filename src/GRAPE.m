@@ -533,11 +533,11 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Utility Function and Targets*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Unitary Propagators*)
 
 
@@ -546,12 +546,15 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 
 
 PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{step=1,dt,dts,amps, hamiltonianSum},
+	Module[{step=1,dt,dts,amps},
 		{dts,amps} = SplitPulse[pulse];
 		(* Notice the delay equal on dt! Not a bug. *)
 		dt := dts[[step++]];
-		hamiltonianSum = Plus @@ (Map[(Hint + # . Hcontrol)&, amps]);
-		MatrixExp[-I * hamiltonianSum * dt]
+		Fold[
+			MatrixExp[-I(Hint + #2.Hcontrol) dt].#1&,
+			IdentityMatrix[Length[Hint]],
+			amps
+		]
 	]
 
 
