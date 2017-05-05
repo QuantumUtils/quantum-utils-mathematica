@@ -58,6 +58,14 @@ End[];
 
 Begin["`UnitTests`"];
 
+(* ::Subsection:: *)
+(*PropagatorListFromPulse*)
+TestCase[$RegisteredTests, "PropagatorListFromPulse:AssertListCorrect",
+	Module[{randomPulse},
+		randomPulse = RandomPulse[1, 10, {{-1, 1}}];
+		Length[FromPulse[randomPulse]] == Length[PropagatorListFromPulse[randomPulse]]
+	]
+]
 
 (* ::Subsection:: *)
 (*Pulse Object*)
@@ -81,7 +89,7 @@ TestCase[$RegisteredTests, "PulseDataStrucutre:InitializeHInternal",
 	Hinternal = RandomHermitian[8];
 	p = Pulse[InternalHamiltonian -> Hinternal];
 	InternalHamiltonian[p] == Hinternal;
-]];
+]]
 
 TestCase[$RegisteredTests, "PulseDataStructure:InitializeUtarget",
 	Module[{p, target},
@@ -89,9 +97,9 @@ TestCase[$RegisteredTests, "PulseDataStructure:InitializeUtarget",
 		p = Pulse[
 			Target -> target
 		];
-		Target[p] == target;
+		Target[p] == target
 	]
-];
+]
 
 
 (* ::Subsection:: *)
@@ -114,7 +122,7 @@ TestCase[$RegisteredTests, "FindPulse:SimplePulse",
 		initialGuess = RandomSmoothPulse[1, 10, controlRange];
 		pulse = FindPulse[initialGuess, target, \[Phi]target, controlRange, HControl, Hint];
 		Re[Tr[pulse[Target] . target / 2]] >= \[Phi]target;
-];
+]
 ]
 
 
@@ -135,7 +143,7 @@ TestCase[$RegisteredTests, "FindPulse:Repetitions",
 		initialGuess = RandomSmoothPulse[1, 10, controlRange];
 		pulse = FindPulse[initialGuess, target, \[Phi]target, controlRange, HControl, Hint, Repetitions -> repetitions];
 		Re[Tr[pulse[Target] . target / 2]] >= \[Phi]target;
-];
+]
 ]
 
 

@@ -102,7 +102,7 @@ AssignUsage[
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Utility Function and Targets*)
 
 
@@ -533,11 +533,11 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Utility Function and Targets*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Unitary Propagators*)
 
 
@@ -545,25 +545,15 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 (*Takes a pulse and finds the overall unitary.*)
 
 
-PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{step=1,dt,dts,amps, hamiltonianSum},
-		{dts,amps} = SplitPulse[pulse];
-		(* Notice the delay equal on dt! Not a bug. *)
-		dt := dts[[step++]];
-		hamiltonianSum = Plus @@ (Map[(Hint + # . Hcontrol)&, amps]);
-		MatrixExp[-I * hamiltonianSum * dt]
-	]
-
-
 PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{dts,dt,step=1,amps},
-		{dts,amps} = SplitPulse[pulse];
-		dt := dts[[step++]];
-		Map[
-			MatrixExp[-I(Hint+#.Hcontrol)dt]&,
-			amps
-		]
-	]
+	ParallelMap[
+		MatrixExp[-I* (Hint+Drop[#, 1].Hcontrol)* First[#]]&,
+		pulse,
+		Method -> "CoarsestGrained"
+	];
+
+
+PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Dot @@ PropagatorListFromPulse[pulse, Hint, Hcontrol];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -2549,7 +2539,12 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 							(* Update the utility with the penalty *)
 							prob*{objFunVal, objFunVal - penalty, totalGrad}
 						];
-					{rawUtility, utility, gradient} = Total[ParallelMap[calculateUtilities, Transpose[{distPs, distReps}]]];
+					{rawUtility, utility, gradient} = Total[
+						ParallelMap[
+							calculateUtilities, 
+							Transpose[{distPs, distReps}], 
+							Method -> "CoarsestGrained"]
+						];
 					
 					(* Apply the mask to the gradient, so we can avoid bad controls. *)
 					gradient = derivMask * badControlLimitGradientMask * gradient;
@@ -2842,7 +2837,7 @@ ExportSHP[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End Package*)
 
 
