@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
@@ -73,7 +73,7 @@ AssignUsage[
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Pulses*)
 
 
@@ -553,10 +553,12 @@ PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
 	];
 
 
-PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Dot @@ PropagatorListFromPulse[pulse, Hint, Hcontrol];
+PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Fold[
+	Dot, PropagatorListFromPulse[pulse, Hint, Hcontrol]
+];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Target Unitary*)
 
 
@@ -588,7 +590,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 	];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Coherent Subspaces*)
 
 
@@ -635,7 +637,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Density Transfer*)
 
 
@@ -671,7 +673,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_DensityTransfer]:=
 	];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Distortions*)
 
 
@@ -700,7 +702,7 @@ ApplyInverseDistortion[distortion_,exampleInput_,pulseMat_]:=Module[{p,jac,dM,dL
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Distortion Operator Tools*)
 
 
@@ -959,7 +961,7 @@ TimeScaleDistortion[multiplier_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Linear Distortions*)
 
 
@@ -1225,7 +1227,7 @@ NonlinearTransferDistortion[gainFcn_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Differential Equation Distortions*)
 
 
