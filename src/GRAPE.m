@@ -581,10 +581,9 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 
 		Uforw=Rest[FoldList[#2.#1&,IdentityMatrix[dim],unitaries]];
 		Uback=Reverse[FoldList[#2\[ConjugateTranspose].#1&,Utarget,Reverse[Rest[unitaries]]]];
-		gradient=ParallelTable[
+		gradient=Table[
 			-2 Re[Tr[Uback[[i]]\[ConjugateTranspose].(I dts[[i]] Hcontrol[[j]].Uforw[[i]])]*Tr[Uforw[[i]]\[ConjugateTranspose].Uback[[i]]]],
-			{i,Length[unitaries]},{j,Length[Hcontrol]},
-			Method -> "CoarsestGrained"
+			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/dim^2;
 		utility=Utility[Last[Uforw],Utarget];
 		{utility,gradient}
@@ -624,15 +623,14 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 		Uforw=Rest[FoldList[#2.#1&,IdentityMatrix[dim],unitaries]];
 		Uback=Reverse[FoldList[#2\[ConjugateTranspose].#1&,IdentityMatrix[dim],Reverse[Rest[unitaries]]]];
 
-		derivs=ParallelTable[
+		derivs=Table[
 			Sum[
 				With[{Ubackj=Uback[[i]].Ys[[ss]].Xs[[ss]]\[ConjugateTranspose], ssDim2=Length[Xs[[ss,1]]]^2},
 					-2 Re[Tr[Ubackj\[ConjugateTranspose].(I dts[[i]] Hcontrol[[j]].Uforw[[i]])]*Tr[Uforw[[i]]\[ConjugateTranspose].Ubackj]]/ssDim2
 				],
 				{ss,numSubspaces}
 			],
-			{i,Length[unitaries]},{j,Length[Hcontrol]},
-			Method -> "CoarsestGrained"
+			{i,Length[unitaries]},{j,Length[Hcontrol]}
 		]/numSubspaces;
 		performIndex=Utility[Last[Uforw],target];
 		{performIndex,derivs}
