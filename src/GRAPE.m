@@ -552,7 +552,6 @@ PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
 		Method -> "CoarsestGrained"
 	];
 
-
 PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Fold[
 	Dot, PropagatorListFromPulse[pulse, Hint, Hcontrol]
 ];

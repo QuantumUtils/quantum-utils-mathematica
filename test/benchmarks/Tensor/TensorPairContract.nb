@@ -1,0 +1,459 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16120,        451]
+NotebookOptionsPosition[     15059,        409]
+NotebookOutlinePosition[     15399,        424]
+CellTagsIndexPosition[     15356,        421]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["TensorPairContract Benchmarks", "Chapter",
+ CellChangeTimes->{{3.703847842246635*^9, 3.703847853007702*^9}, {
+  3.703848650268075*^9, 3.703848651540169*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<QuantumUtils`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.7038478592030983`*^9, 3.703847865699211*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Benchmark Size of Square Tensor Multiplication", "Section",
+ CellChangeTimes->{{3.7038486722715178`*^9, 3.703848689967955*^9}, {
+  3.703848728009716*^9, 3.7038487329327507`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"FirstTensor", "[", "numberOfPoints_", "]"}], " ", ":=", " ", 
+   RowBox[{"With", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", " ", "=", " ", "numberOfPoints"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Array", "[", 
+      RowBox[{"RandomComplex", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"n", ",", " ", "n"}], "}"}]}], "]"}]}], "\[IndentingNewLine]",
+     "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.70384869253893*^9, 3.7038487766085567`*^9}, 
+   3.7038488266896152`*^9, {3.703848964299713*^9, 3.7038489742906923`*^9}, {
+   3.7038490142615337`*^9, 3.70384901441894*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"SecondTensor", "[", "numberOfPoints_", "]"}], " ", ":=", " ", 
+   RowBox[{"With", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", " ", "=", " ", "numberOfPoints"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Array", "[", 
+      RowBox[{"RandomComplex", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"n", ",", " ", "n"}], "}"}]}], "]"}]}], "\[IndentingNewLine]",
+     "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.703848796772539*^9, 3.7038488199616747`*^9}, {
+  3.703848976758069*^9, 3.703848981171318*^9}, {3.7038490171701202`*^9, 
+  3.703849017327899*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Benchmark", "[", "numberOfPoints_", "]"}], " ", ":=", " ", 
+   RowBox[{"With", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"a", " ", "=", " ", 
+        RowBox[{"FirstTensor", "[", "numberOfPoints", "]"}]}], ",", " ", 
+       RowBox[{"b", " ", "=", " ", 
+        RowBox[{"SecondTensor", "[", "numberOfPoints", "]"}]}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"AbsoluteTiming", "[", 
+       RowBox[{"TensorPairContract", "[", 
+        RowBox[{"a", ",", " ", "b", ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", " ", "1"}], "}"}]}], "]"}], "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.7038488423533897`*^9, 3.7038489050688553`*^9}, {
+  3.703849678583001*^9, 3.703849682590035*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DiscretePlot", "[", 
+  RowBox[{
+   RowBox[{"Benchmark", "[", "n", "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"n", ",", " ", "1", ",", " ", "1000"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.703848908721526*^9, 3.7038489468703737`*^9}, {
+  3.703849659715959*^9, 3.703849668847827*^9}, {3.703849888521078*^9, 
+  3.703849896243918*^9}, {3.7038503264974813`*^9, 3.7038503459566317`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.004766666666666667], 
+    AbsoluteThickness[1.6], {
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.004766666666666667],
+       AbsoluteThickness[1.6], Opacity[0.2], LineBox[{},
+       VertexColors->None]}, 
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.004766666666666667],
+       AbsoluteThickness[1.6], Opacity[0.2], 
+      LineBox[{{{1., 5.*^-6}, {1., 0}}, {{2., 3.*^-6}, {2., 0}}, {{3., 
+         3.*^-6}, {3., 0}}, {{4., 3.*^-6}, {4., 0}}, {{5., 3.*^-6}, {
+         5., 0}}, {{6., 2.*^-6}, {6., 0}}, {{7., 2.*^-6}, {7., 0}}, {{8., 
+         2.*^-6}, {8., 0}}, {{9., 2.*^-6}, {9., 0}}, {{10., 2.*^-6}, {
+         10., 0}}, {{11., 3.*^-6}, {11., 0}}, {{12., 2.*^-6}, {12., 0}}, {{
+         13., 2.*^-6}, {13., 0}}, {{14., 3.*^-6}, {14., 0}}, {{15., 3.*^-6}, {
+         15., 0}}, {{16., 4.*^-6}, {16., 0}}, {{17., 4.*^-6}, {17., 0}}, {{
+         18., 4.*^-6}, {18., 0}}, {{19., 4.*^-6}, {19., 0}}, {{20., 4.*^-6}, {
+         20., 0}}, {{21., 4.*^-6}, {21., 0}}, {{22., 4.*^-6}, {22., 0}}, {{
+         23., 4.*^-6}, {23., 0}}, {{24., 4.*^-6}, {24., 0}}, {{25., 6.*^-6}, {
+         25., 0}}, {{26., 4.*^-6}, {26., 0}}, {{27., 4.*^-6}, {27., 0}}, {{
+         28., 4.*^-6}, {28., 0}}, {{29., 4.*^-6}, {29., 0}}, {{30., 4.*^-6}, {
+         30., 0}}, {{31., 0.000014}, {31., 0}}, {{32., 6.*^-6}, {32., 0}}, {{
+         33., 3.*^-6}, {33., 0}}, {{34., 4.*^-6}, {34., 0}}, {{35., 4.*^-6}, {
+         35., 0}}, {{36., 6.*^-6}, {36., 0}}, {{37., 5.*^-6}, {37., 0}}, {{
+         38., 3.*^-6}, {38., 0}}, {{39., 3.*^-6}, {39., 0}}, {{40., 3.*^-6}, {
+         40., 0}}, {{41., 4.*^-6}, {41., 0}}, {{42., 4.*^-6}, {42., 0}}, {{
+         43., 5.*^-6}, {43., 0}}, {{44., 4.*^-6}, {44., 0}}, {{45., 4.*^-6}, {
+         45., 0}}, {{46., 4.*^-6}, {46., 0}}, {{47., 4.*^-6}, {47., 0}}, {{
+         48., 4.*^-6}, {48., 0}}, {{49., 5.*^-6}, {49., 0}}, {{50., 5.*^-6}, {
+         50., 0}}, {{51., 5.*^-6}, {51., 0}}, {{52., 6.*^-6}, {52., 0}}, {{
+         53., 7.*^-6}, {53., 0}}, {{54., 7.*^-6}, {54., 0}}, {{55., 6.*^-6}, {
+         55., 0}}, {{56., 6.*^-6}, {56., 0}}, {{57., 6.*^-6}, {57., 0}}, {{
+         58., 6.*^-6}, {58., 0}}, {{59., 7.*^-6}, {59., 0}}, {{60., 6.*^-6}, {
+         60., 0}}, {{61., 6.*^-6}, {61., 0}}, {{62., 8.*^-6}, {62., 0}}, {{
+         63., 9.*^-6}, {63., 0}}, {{64., 8.*^-6}, {64., 0}}, {{65., 8.*^-6}, {
+         65., 0}}, {{66., 7.*^-6}, {66., 0}}, {{67., 8.*^-6}, {67., 0}}, {{
+         68., 8.*^-6}, {68., 0}}, {{69., 7.*^-6}, {69., 0}}, {{70., 8.*^-6}, {
+         70., 0}}, {{71., 7.*^-6}, {71., 0}}, {{72., 8.*^-6}, {72., 0}}, {{
+         73., 8.*^-6}, {73., 0}}, {{74., 8.*^-6}, {74., 0}}, {{75., 8.*^-6}, {
+         75., 0}}, {{76., 8.*^-6}, {76., 0}}, {{77., 7.*^-6}, {77., 0}}, {{
+         78., 7.*^-6}, {78., 0}}, {{79., 8.*^-6}, {79., 0}}, {{80., 7.*^-6}, {
+         80., 0}}, {{81., 8.*^-6}, {81., 0}}, {{82., 8.*^-6}, {82., 0}}, {{
+         83., 8.*^-6}, {83., 0}}, {{84., 8.*^-6}, {84., 0}}, {{85., 8.*^-6}, {
+         85., 0}}, {{86., 8.*^-6}, {86., 0}}, {{87., 8.*^-6}, {87., 0}}, {{
+         88., 8.*^-6}, {88., 0}}, {{89., 8.*^-6}, {89., 0}}, {{90., 8.*^-6}, {
+         90., 0}}, {{91., 8.*^-6}, {91., 0}}, {{92., 8.*^-6}, {92., 0}}, {{
+         93., 8.*^-6}, {93., 0}}, {{94., 8.*^-6}, {94., 0}}, {{95., 8.*^-6}, {
+         95., 0}}, {{96., 8.*^-6}, {96., 0}}, {{97., 8.*^-6}, {97., 0}}, {{
+         98., 8.*^-6}, {98., 0}}, {{99., 8.*^-6}, {99., 0}}, {{100., 
+         7.*^-6}, {100., 0}}},
+       VertexColors->None]}}}, 
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.004766666666666667], 
+    AbsoluteThickness[1.6], {}, PointBox[CompressedData["
+1:eJxd0rtLA0EQx/HByjKFhYWFiogEEeP7mVtjojEx5nU+AoIgCnYi/gNT2tj5
+B9hbB9utBMHCQgQLUdQ2oJWWKg7CfgNH+NxvZ+Z273p2D2v7bSKy93P9/v/9
+3qOPg9eT5tdd2m64+C1xdJy8NrfDCbgD7nSnreb555U3d8HdcC/cB/ej/wDy
+JDyI9UPwsK2/NafgEXgUHoPH4Ql4Ep6Cp+35HswzyGfhOXgeTsORu9xJN1Lb
+LbML56nD+SyE9QpLBvUZF34/i2E/hSWLPIv+OczPof8ScliWkcOSR55H/5XQ
+CksB+y/Y+T5aXgytRbzfVdTDUkJeQv815LCUbX/PlpdddHFzdv/0YnklzB2s
+lXCeRy5V1FexX+QeudRQDyvsYamjvo75sMd6icPcxZgPe1jWMR9W2MOygXpY
+YQ/LJuphhT0sW6iHFfawNP7P7xsKAjUj
+     "]], {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesOrigin->{1, 0},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "MessagesHead" -> DiscretePlot, "AxisPadding" -> Scaled[0.02], 
+    "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[1.6]]}, "DomainPadding" -> Scaled[0.02], 
+    "PointSizeFunction" -> "SmallPointSize", "RangePadding" -> Scaled[0.05]},
+  PlotRange->{{1, 100}, {0, 0.000014}},
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.02]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.703848955092804*^9, 3.7038489920515537`*^9, {3.703849031607355*^9, 
+   3.703849037655786*^9}, 3.703849653779757*^9, {3.703850318456295*^9, 
+   3.703850336320715*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"T", " ", "=", " ", 
+  RowBox[{"Array", "[", 
+   RowBox[{"a", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", " ", "2"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.703848076710606*^9, 3.7038480824636593`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a", "[", 
+      RowBox[{"1", ",", "1"}], "]"}], ",", 
+     RowBox[{"a", "[", 
+      RowBox[{"1", ",", "2"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a", "[", 
+      RowBox[{"2", ",", "1"}], "]"}], ",", 
+     RowBox[{"a", "[", 
+      RowBox[{"2", ",", "2"}], "]"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.703848082803784*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"V", " ", "=", " ", 
+  RowBox[{"Array", "[", 
+   RowBox[{"a", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", " ", "2"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.703848084375836*^9, 3.703848087652214*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a", "[", 
+      RowBox[{"1", ",", "1"}], "]"}], ",", 
+     RowBox[{"a", "[", 
+      RowBox[{"1", ",", "2"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"a", "[", 
+      RowBox[{"2", ",", "1"}], "]"}], ",", 
+     RowBox[{"a", "[", 
+      RowBox[{"2", ",", "2"}], "]"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.703848088039792*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TensorPairContract", "[", 
+  RowBox[{"T", ",", " ", "V", ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", " ", "1"}], "}"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7038480902344103`*^9, 3.703848126632834*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "1"}], "]"}], "2"], "+", 
+      SuperscriptBox[
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}], "2"]}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}]}], "+", 
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "2"}], "]"}]}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}]}], "+", 
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "2"}], "]"}]}]}], ",", 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}], "2"], "+", 
+      SuperscriptBox[
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "2"}], "]"}], "2"]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.703848097867968*^9, 3.703848126971912*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"T", " ", ".", " ", "V"}]], "Input",
+ CellChangeTimes->{{3.703848130116748*^9, 3.703848130707511*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "1"}], "]"}], "2"], "+", 
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}]}]}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}]}], "+", 
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "2"}], "]"}]}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}]}], "+", 
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "2"}], "]"}]}]}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"a", "[", 
+        RowBox[{"1", ",", "2"}], "]"}], " ", 
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "1"}], "]"}]}], "+", 
+      SuperscriptBox[
+       RowBox[{"a", "[", 
+        RowBox[{"2", ",", "2"}], "]"}], "2"]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.703848130975316*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{855, 939},
+WindowMargins->{{Automatic, 107}, {Automatic, 49}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 163, 2, 66, "Chapter"],
+Cell[746, 26, 146, 2, 32, "Input"],
+Cell[CellGroupData[{
+Cell[917, 32, 184, 2, 65, "Section"],
+Cell[1104, 36, 679, 16, 103, "Input"],
+Cell[1786, 54, 654, 16, 103, "Input"],
+Cell[2443, 72, 900, 22, 103, "Input"],
+Cell[CellGroupData[{
+Cell[3368, 98, 418, 8, 34, "Input"],
+Cell[3789, 108, 6599, 128, 222, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10425, 241, 244, 6, 34, "Input"],
+Cell[10672, 249, 445, 15, 34, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11154, 269, 242, 6, 34, "Input"],
+Cell[11399, 277, 445, 15, 34, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11881, 297, 262, 6, 34, "Input"],
+Cell[12146, 305, 1305, 43, 65, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13488, 353, 125, 2, 32, "Input"],
+Cell[13616, 357, 1403, 47, 65, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
