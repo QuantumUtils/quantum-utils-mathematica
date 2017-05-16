@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preamble*)
 
 
@@ -73,7 +73,7 @@ AssignUsage[
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Pulses*)
 
 
@@ -102,7 +102,7 @@ AssignUsage[
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Utility Function and Targets*)
 
 
@@ -533,11 +533,11 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Utility Function and Targets*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Unitary Propagators*)
 
 
@@ -546,10 +546,9 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 
 
 PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
-	ParallelMap[
-		MatrixExp[-I* (Hint+Drop[#, 1].Hcontrol)* First[#]]&,
-		pulse,
-		Method -> "CoarsestGrained"
+	Map[
+		MatrixExp[-I* (Hint+Rest[#].Hcontrol)* First[#]]&,
+		pulse
 	];
 
 PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Fold[
@@ -557,7 +556,7 @@ PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Fold[
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Target Unitary*)
 
 
@@ -589,7 +588,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,Utarget_List]:=
 	];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Coherent Subspaces*)
 
 
@@ -636,7 +635,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_CoherentSubspaces]:=
 	];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Density Transfer*)
 
 
@@ -672,7 +671,7 @@ UtilityGradient[pulse_,Hint_,Hcontrol_,target_DensityTransfer]:=
 	];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Distortions*)
 
 
@@ -701,7 +700,7 @@ ApplyInverseDistortion[distortion_,exampleInput_,pulseMat_]:=Module[{p,jac,dM,dL
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Distortion Operator Tools*)
 
 
@@ -960,7 +959,7 @@ TimeScaleDistortion[multiplier_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Linear Distortions*)
 
 
@@ -1226,7 +1225,7 @@ NonlinearTransferDistortion[gainFcn_]:=DistortionOperator[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Differential Equation Distortions*)
 
 
@@ -2289,7 +2288,7 @@ InterpolatedLineSearch[opts : OptionsPattern[]] := Module[{minStepMul = OptionVa
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*FindPulse*)
 
 
@@ -2509,6 +2508,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 					(* Distort the current pulse and calculate the Jacobian with the control knobs. *)
 					(* The output may have distribution symbols included *)
+					Print["Calculating Initial Distortion"];
 					If[\[Not]distortionDependsOnDist,
 						{distortedPulse, distortionJacobian} = DistortionFn[pulse, True]
 					];
@@ -2540,6 +2540,7 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 							(* Update the utility with the penalty *)
 							prob*{objFunVal, objFunVal - penalty, totalGrad}
 						];
+					Print["Calculating Utilities to Determine Jacobian"];
 					{rawUtility, utility, gradient} = Total[
 						ParallelMap[
 							calculateUtilities, 
@@ -2629,16 +2630,25 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(************** CALCULATE STEP SIZE MULTIPLIER **************)
 				(* Evaluate the objective function at two points along the gradient direction *)
-				Module[{testFn},
-					testFn = With[{distortedPulse=DistortionFn[pulse+AddTimeSteps[0,#*stepSize*(\[Epsilon]max^2*#&/@goodDirec)], False]},
-							Sum[
-								With[{reps=distReps[[d]], prob=distPs[[d]]},
-									prob*(Utility[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
-										PulsePenaltyFn[distortedPulse/.reps, False])
-								],
-								{d, distNum}
-							]
-						]&;
+				Module[{testFn, calculateUtilityForReplacement},
+					
+					calculateUtilityForReplacement[probabilityAndRule_] := Function[{distortedPulse}, 
+						With[{reps=probabilityAndRule[[2]], prob=probabilityAndRule[[1]]},
+							prob*(Utility[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
+								PulsePenaltyFn[distortedPulse/.reps, False])
+						]];
+					
+					Print["Calculating Distortion for Step Size"];
+					
+					testFn = With[
+						{
+							distortedPulse=DistortionFn[pulse+AddTimeSteps[0,#*stepSize*((\[Epsilon]max^2*#)&/@goodDirec)], False]
+						},
+						Total[
+							ParallelMap[(calculateUtilityForReplacement[#][distortedPulse])&,
+							Transpose[{distPs, distReps}], 
+							Method -> "CoarsestGrained"]
+						]]&;
 					bestMult = lineSearchMeth[utility, testFn];
 				];
 				
@@ -2650,6 +2660,8 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(* Make sure that the pulse does not exceed the limits *)
 				pulse=OptionValue[PulseLegalizer][pulse,controlRange];
+				
+				Print["Updating Pulse"];
 
 				(* Pulse has changed; update best pulse for monitor *)
 				UpdateBestPulse;
@@ -2838,7 +2850,7 @@ ExportSHP[filename_, pulse_Pulse, scalePower_:Automatic, digits_:6] := Module[
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 

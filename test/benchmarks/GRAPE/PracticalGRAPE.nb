@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    928648,      16406]
-NotebookOptionsPosition[    924829,      16281]
-NotebookOutlinePosition[    925162,      16296]
-CellTagsIndexPosition[    925119,      16293]
+NotebookDataLength[    854174,      14835]
+NotebookOptionsPosition[    850772,      14721]
+NotebookOutlinePosition[    851113,      14736]
+CellTagsIndexPosition[    851070,      14733]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -30,7 +30,8 @@ Cell[BoxData["\<\"/home/mkononen/git/quantum-utils-mathematica/test/\
 benchmarks/GRAPE\"\>"], "Output",
  CellChangeTimes->{{3.703272485610722*^9, 3.703272494099434*^9}, 
    3.703273758288186*^9, 3.703274453893475*^9, 3.703274533447165*^9, 
-   3.703869397700738*^9}]
+   3.703869397700738*^9, 3.703872610907675*^9, 3.703882924130142*^9, 
+   3.703883135067129*^9}]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -54,7 +55,8 @@ Cell[BoxData[
     RowBox[{"2", ",", "\<\"local\"\>"}], "]"}]}], "}"}]], "Output",
  CellChangeTimes->{{3.703272482683545*^9, 3.703272496465679*^9}, 
    3.703273760462554*^9, 3.70327445611808*^9, 3.7032745360057383`*^9, 
-   3.703869403256378*^9}]
+   3.703869403256378*^9, 3.703872615143362*^9, 3.7038829273912077`*^9, 
+   3.703883138587954*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -361,7 +363,7 @@ gv9ighTXpU9I/pnds87sO4J/ZsFRhsyfCL74sn9Bs38j+EmrzZee/Yvgr9tQ
 8P3/fwQfAKunlgI=
         "]]},
       Annotation[#, 
-       "Charting`Private`Tag$1979#1"]& ], {}}, {{}, {}, {}}}, {}, {}},
+       "Charting`Private`Tag$2859#1"]& ], {}}, {{}, {}, {}}}, {}, {}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{True, True},
   AxesLabel->{None, None},
@@ -398,7 +400,7 @@ gv9ighTXpU9I/pnds87sO4J/ZsFRhsyfCL74sn9Bs38j+EmrzZee/Yvgr9tQ
    3.6947336753289895`*^9, 3.694993670793421*^9, {3.695064132435495*^9, 
    3.695064137103788*^9}, 3.6950745472323523`*^9, 3.703270667968543*^9, 
    3.7032724966362543`*^9, 3.703273760618915*^9, 3.703274456266893*^9, 
-   3.703274536140758*^9}]
+   3.703274536140758*^9, 3.7038831474860783`*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -756,49 +758,50 @@ RowBox[{\\\"{\\\", RowBox[{\\\"5.`*^-9\\\", \\\",\\\", \
 \\\"6.1047428444556854`*^10\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", \
 RowBox[{\\\"5.`*^-9\\\", \\\",\\\", \\\"6.1047428444556854`*^10\\\"}], \
 \\\"}\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"51\\\", \\\"\
-\[RightSkeleton]\\\"}]}], \\\"}\\\"}]\\).\"",2,69,17,25678533928612869338,
+\[RightSkeleton]\\\"}]}], \\\"}\\\"}]\\).\"",2,27,5,25678624061917317650,
    "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellChangeTimes->{3.703273760753332*^9, 3.7032744564075203`*^9, 
-  3.7032745362783127`*^9, 3.7038694166423473`*^9}],
+  3.7032745362783127`*^9, 3.7038694166423473`*^9, 3.703872628109943*^9, 
+  3.703882938803009*^9, 3.7038831567675543`*^9}],
 
 Cell[BoxData[
  GraphicsBox[{{}, {InsetBox[
      GraphicsBox[{{}, {{}, {}, 
         {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
          0.01388888888888889], AbsoluteThickness[1.6], LineBox[CompressedData["
-1:eJw9lgtQjWkYx48msokQpaZWItKkQlQ6W3+plHLU6V7ndC4ja9H9pqtPRak4
-KV20HMmybBmFbe2O2iNaM7ltdKNdalxXbOlyYsdl21nPe2bOnPl9//N/L8/z
-vM/7LZDHCCM1eDxexcT3v9//P0Mu6jWx7aVRVq6fH0Ce0m3TxHgq2pOcLUcY
-z0RedEuJfTTxHECmMCxiPA/p/Va2w4yNkaf2H9gWQ2wKz7o/nqoZm2H+Aj2L
-8ljiRSj8FGPgGUe8GKqzNgnT4oktIJmXIX/I2BKm7RcrmxOIrTBf80rpmURi
-a0jdlo0fSSK2xc85xpMrkomXo3LzzZUVKcQrcJ1/tle5k3glfJ6/UzekEtuh
-4Hzei+404lWY05jMN84gXg2zzptCRSaxPabuez/dYxexA44Yatl77yZ2RFiR
-W09VDvEamL0bn2m5l9gJmXVvq5/lE/PxOncsvbGQ+CsYVc1tSzlA7Azn9Blb
-Jh0kdoFnZ1P/wlJi4LJe06zaQ5+ZA2y33taXlpG+Ftr5drV6xNxafMjW+v0G
-87uiq/2n8Doan3NFnZ9w6RM2/zokJ8crf6D1cesw1N9Vz2frd8Pmqqi2V7mk
-T7CHtYNGNunucB/sS6qleHHuECk3ftLPIt0Du20D3RMovpwHHJ2M9e+zeK/H
-jHM6aRbMvx7ikWwPBxZvT+yN6fV9RPHmPPGiID56lMXbC4/rvksUFJDuhU7+
-bYdr+0nfgC9rvIut2P43wNgt1TeC4snzhk3BBYFtBeneOD5qrJd2mHQfZLrx
-HCy/Jd0HRQOcufcR0jcicyx34AUxtxHvo4YP6x4lXYBL0nO4wXQBxPePDy5h
-/k2ofHyucTkbfxMMCn89Ocrm90Veb+PNjMrPDF+U9aU7dZXT/32h6zi5Vofy
-r/JFkj0/y4Ll3w8Dr71W2tL+4YeGudddLRXk98PUrT7mJhQvlR9slPH+uqxe
-hdgSd9ddax/5hRis0kyalkd+Ib7oOB5qtof8Qox2uu4QsvPhj+FQzryG8gl/
-LPSuL5jHkd8fdiKTjmaqF5U/zsfd+U3J6iMAVrG3l7TQeUUArPlml1cQcwFY
-/8tdz3/SyR8AzTvPS8zY+Q7ESMQ3kh+ZPxA1AknCZVaPgVBmt5eupfpTBUK/
-/LFQwOovCNtqrw89oP0gCH8/vbX0CtUfF4Sd0QbHuik+qiD8GdX6ZrSI/MEY
-03nXMkjxRjDKE+9dUJaQPxhlt5Iie6geVcFow6TUBMovLwTTxssVHlSfCIG1
-YcgGC1avE7xsVugwy38ISg3HWhtY/kNhtKTWXllM/lDc+kv72BCtjwvFhbGB
-V/103lWh6HpoPruWzjsvDHAs/pRL+UIYxis1Tp1m8Q+DVkmAWkD9VhWGlEvi
-/nrWr8PhWz0WrEX9HOHIWlEcyVG/58LxMS69ewrpqnD4ydsebGd+ESrnnlJw
-1N8hwshRe319yjcnQs700wc+UD5VIkh2qWe8pfXyxJjS6ezUxPInxrjmnV2z
-Wf7EMHkVuegq1bNKDCxS2J1g/S8CZUXeudXEiMCVnjVuPaz+I3BmZrw6lsZT
-RSBbEXvvIIufBLpbPDRl1C8hQUtXnJEGq38JdDCn8xBbvwRZfZ18O9ofTwqt
-0gxDNe3fVArF1oDmlxQfSBHFbdI2ofhJpei4ZtmqoPuVkyLOy8XThe7faimW
-ixKaF9N9rZLi6nBvI+g+75Miv8Fiex6772U4tCr24yi9H5jKYJ5Rcz6HGDJk
-936vZ00slWGP6KnBIL1/cDIkv0xd3UJcLUPQZs3EE8QqGQafmHytIO6TQez8
-elUOe3+RI7hVeCCD2FQOgZFlVSox5Ch8oPVmJ7FUjouP6vOZzslR3RF4Mo3N
-P6E/i2xLZ/PLIRsvqWPj98mhXb/DPHOC/wWi5oUY
+1:eJw9lQlQU3cQxoNX5bBaRUU55KwXMNzlEPhACIegXIFwhSQFtcohhyBg9SEC
+AYRKLUWgRSxSRA0OKIKlMkGgRbCiVqxarVSt6EBBRXRkQGun3X9mMplfvve9
+t7v/3X160oSAmBk8Hq/s/fff3/8+z5zVtXLNi+OMXf//Ax1rh081M54L+QwV
+3aeMF0C1wGDZmnhidbQZTz9OZ6yBmqatibcZa6Elv3qeVwKxLl7r9fj1MNZH
+SVLHQ8EOYkOUNnwaMcb4Y8gH7uqWJBKvgv1EUZhNEvEaKN98NH2LsTEOns4Y
+SUwmNkWG7J31G8ZmGPvFKHNzCrE5PlDcSG5kbIF58u1l1xlb4kX6yINOxla4
+bVHTnMXYGiV9hedVGdtAXlF6KYY97xP49fRXHmbx2WLHpE/eaZaPHVoSdyxq
+Zfna47nb6/ZOVh8HyKw1Hw6xeq7DQp3jHo6MHRFbs2TnfXY+TjD01vhpmLEz
+lOWcE8euB6ZPfmTxA92fA+oWq/aeZfG4YFJ20WQf5cO5oHOf45TaLtJdcajR
+pW3VbtJdoVSVGXqEI309yg/p9VvmkL4eXWN9FrX5pLvBafvq0stFpLshT+Tc
+UVJCujv+NGp42/MV6e6QaS8p5ZeRzkd5JH/gj8Ok87Gnu9dzVznpHhiV5Hmt
+JuY80Ky48mw+Xc/zxNGE8RDvr0n3BDflcfjVIdK9sGJCp8+C4uG84DPUq6xd
+TLo3boir4n4tIN0bOWPD81PySN8AE705Ktr7Sd+AQhPtpSOsPj7oPpV2+cXn
+pPugNDZO0yqTdF+EOlstaaJ6c77Y/lqpPz6V9I1YuUVNGMvOZyOeiPM7T7H+
+2gSVlgYDCzpPbhOGHJoK3rJ+8sPdjksq6sTwg5vm2nMp1B+cH8zkqi76xAo/
+1I6u7FrO+scfCzUW+4QRwx9C1+j7d5nfH4Lc7/dX0f0V/ngyFetayfo7AM/a
+PVf0U3wIgO9fvXo2NC9cAO7J9vtdpvwUAdh7cU5TEcs/EItOPvBJpfogEHcu
+Cvu4DPIHonzlls3fUX8qApEuapu8sof8QagZmREzSeeBIDiFDGdpZJM/CMkG
++qba1L+KIGy7GcSfyiW/AD4TZnX1MvILgNnRJstYPwiQUFjZ7FRIfgHsA/qs
+PjxA/mDMSr72IJsYwfhN1pBzgpgLhmCVXFRMrAiG3uOlpx2YPwT3gu1a2+n+
+CIHp/Ig2A2IuBOdqet+kUjyKEGjU95/tYvMnxKszzSbLiCHES+HPtRzlwwlx
+hW97bA6xQohvi7MzTrD+DoWddo5QQoxQ7LYpW6FLzIUCOuqNv1O9FKGI0gge
+lbH6heHs1pZWLWKEQSPwy+eFbF+EIUbTJaOP5kcRhp2zdayu0vnwwmEoyOZ9
+sY/84Qjq0VRTyiJ/OGqfd86030v+cIwv6JaH0LzxImDnvXcgjeYNEdjZEcBv
+TSd/BKorjvTZUH8pIlC0+I2Pchr5IzGdEj3Xk/oRkcjOuqe/gJiLRN4B/sM0
+YkUk4s5MC4uYX4SgqG3m7vQ8iPC3zV7naIqHE2G1aHD8BMWrEMFxVtKF+5QP
+Lwqxa5I+u0b5IgrL1RoHhKx/oyCrlT8NZfWLgsNNya1OYp4Y6mkRrQeJdcUQ
+fViR30V+iCGolVvGUn3FYlQNuLfU0bxwYugkx7+ooXmqFqO+uP14Lps3Md52
+R8niaB4HxbBNmX0snr0/JLiQetWsnOqjK0FsZ2ziK5p3SGB6VOd8Ae0DsQTv
+jHgpwbTfOAmM66YMQ2h/VEtgmNfjK6P9opDgVvd120e0fwYlUBk9Ux3N9p8U
+FXrnLGcS60rxTU35y/Nsn0lRf+dIZjaxWAqHH9dqhbP9JoX10MT4OuJqKczj
+lZ4asX0pxVQ/v3IR8aAUdyzyN856z/8ABmeA6w==
           "]]}}, {}, {}, {{}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
@@ -806,7 +809,7 @@ P6E/i2xLZ/PLIRsvqWPj98mhXb/DPHOC/wWi5oUY
         FormBox[
         "\"\\!\\(\\*SuperscriptBox[\\(x10\\), \\(-6\\)]\\)\"", 
          TraditionalForm], None},
-      AxesOrigin->{0., 6.102790335806245*^10},
+      AxesOrigin->{0., 6.1030140769338295`*^10},
       DisplayFunction->Identity,
       Frame->{{False, False}, {False, False}},
       FrameLabel->{{None, None}, {None, None}},
@@ -824,7 +827,7 @@ P6E/i2xLZ/PLIRsvqWPj98mhXb/DPHOC/wWi5oUY
              Part[#, 1]], 
             (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
              Part[#, 2]]}& )}},
-      PlotRange->{{0., 151.}, {6.104786342792684*^10, 6.144706482521481*^10}},
+      PlotRange->{{0., 151.}, {6.104855981105484*^10, 6.141694064538573*^10}},
       
       PlotRangeClipping->True,
       PlotRangePadding->{{
@@ -953,7 +956,8 @@ XHDPbQ57nw9+DzR//734Ax7nfI4=
    3.6950744268934593`*^9, {3.6950744593772297`*^9, 3.695074494963208*^9}, 
    3.695078061257794*^9, {3.695078196820138*^9, 3.6950782172590027`*^9}, 
    3.7032706682827897`*^9, 3.703272497242413*^9, 3.70327376080648*^9, 
-   3.703274456475836*^9, 3.7032745363337584`*^9, 3.703869416787545*^9}],
+   3.703274456475836*^9, 3.7032745363337584`*^9, 3.703869416787545*^9, 
+   3.70387262821471*^9, 3.703882938924906*^9, 3.703883156825054*^9}],
 
 Cell[BoxData[
  TemplateBox[{
@@ -978,11 +982,12 @@ RowBox[{\\\"{\\\", RowBox[{\\\"5.`*^-9\\\", \\\",\\\", \
 \\\"6.1047428444556854`*^10\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", \
 RowBox[{\\\"5.`*^-9\\\", \\\",\\\", \\\"6.1047428444556854`*^10\\\"}], \
 \\\"}\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"51\\\", \\\"\
-\[RightSkeleton]\\\"}]}], \\\"}\\\"}]\\).\"",2,72,18,25678533928612869338,
+\[RightSkeleton]\\\"}]}], \\\"}\\\"}]\\).\"",2,30,6,25678624061917317650,
    "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellChangeTimes->{3.703273760753332*^9, 3.7032744564075203`*^9, 
-  3.7032745362783127`*^9, 3.703869416813258*^9}],
+  3.7032745362783127`*^9, 3.7038694166423473`*^9, 3.703872628109943*^9, 
+  3.703882938803009*^9, 3.7038831568530493`*^9}],
 
 Cell[BoxData[
  TemplateBox[{
@@ -1007,11 +1012,12 @@ RowBox[{\\\"{\\\", RowBox[{\\\"5.`*^-9\\\", \\\",\\\", \
 \\\"6.1047428444556854`*^10\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", \
 RowBox[{\\\"5.`*^-9\\\", \\\",\\\", \\\"6.1047428444556854`*^10\\\"}], \
 \\\"}\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"51\\\", \\\"\
-\[RightSkeleton]\\\"}]}], \\\"}\\\"}]\\).\"",2,72,19,25678533928612869338,
+\[RightSkeleton]\\\"}]}], \\\"}\\\"}]\\).\"",2,30,7,25678624061917317650,
    "Local"},
   "MessageTemplate"]], "Message", "MSG",
  CellChangeTimes->{3.703273760753332*^9, 3.7032744564075203`*^9, 
-  3.7032745362783127`*^9, 3.703869416813691*^9}],
+  3.7032745362783127`*^9, 3.7038694166423473`*^9, 3.703872628109943*^9, 
+  3.703882938803009*^9, 3.703883156853443*^9}],
 
 Cell[BoxData[
  TagBox[GridBox[{
@@ -1461,7 +1467,8 @@ Cell[BoxData[
    3.6950744268934593`*^9, {3.6950744593772297`*^9, 3.695074494963208*^9}, 
    3.695078061257794*^9, {3.695078196820138*^9, 3.6950782172590027`*^9}, 
    3.7032706682827897`*^9, 3.703272497242413*^9, 3.70327376080648*^9, 
-   3.703274456475836*^9, 3.7032745363337584`*^9, 3.7038694168166533`*^9}]
+   3.703274456475836*^9, 3.7032745363337584`*^9, 3.703869416787545*^9, 
+   3.70387262821471*^9, 3.703882938924906*^9, 3.7038831568566*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1495,7 +1502,8 @@ Cell[BoxData["151"], "Output",
    3.694993986799878*^9}, 3.695063966787065*^9, {3.695064003694799*^9, 
    3.6950640175050087`*^9}, 3.695074446946095*^9, 3.7032706683203163`*^9, 
    3.703272497261128*^9, 3.703273760834126*^9, 3.7032744565057793`*^9, 
-   3.703274536388238*^9, 3.703869417060761*^9}],
+   3.703274536388238*^9, 3.703869417060761*^9, 3.7038726284111567`*^9, 
+   3.7038829392264357`*^9, 3.703883157096965*^9}],
 
 Cell[BoxData["101"], "Output",
  CellChangeTimes->{
@@ -1521,7 +1529,8 @@ Cell[BoxData["101"], "Output",
    3.694993986799878*^9}, 3.695063966787065*^9, {3.695064003694799*^9, 
    3.6950640175050087`*^9}, 3.695074446946095*^9, 3.7032706683203163`*^9, 
    3.703272497261128*^9, 3.703273760834126*^9, 3.7032744565057793`*^9, 
-   3.703274536388238*^9, 3.703869417062503*^9}]
+   3.703274536388238*^9, 3.703869417060761*^9, 3.7038726284111567`*^9, 
+   3.7038829392264357`*^9, 3.7038831570976753`*^9}]
 }, Open  ]]
 }, Closed]],
 
@@ -1573,7 +1582,8 @@ Cell[BoxData["501"], "Output",
    3.695074565791298*^9, 3.695074580328754*^9}, 3.6950746174382143`*^9, 
    3.695078067591959*^9, 3.695078229105173*^9, 3.7032706683448367`*^9, 
    3.7032724972802143`*^9, 3.703273760865768*^9, 3.703274456538699*^9, 
-   3.70327453641995*^9, 3.703869418646491*^9}]
+   3.70327453641995*^9, 3.703869418646491*^9, 3.703872631121622*^9, 
+   3.703882941862794*^9, 3.703883159593719*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1967,7 +1977,8 @@ S17xJvD///X/AWoN9Dk=
    3.695074509076075*^9, 3.695074568399541*^9, 3.695078166716834*^9, 
    3.69507823389567*^9, 3.695078267056109*^9, {3.703270668538986*^9, 
    3.7032706883866377`*^9}, 3.703272497487121*^9, 3.70327376103864*^9, 
-   3.703274456716764*^9, 3.703274536760089*^9, 3.703869419316697*^9}]
+   3.703274456716764*^9, 3.703274536760089*^9, 3.703869419316697*^9, 
+   3.703882942300975*^9, 3.703883160072686*^9}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -2348,7 +2359,7 @@ Cell[BoxData["\<\"JointDistortion\"\>"], "Output",
    3.7032709720147038`*^9, 3.703271011480893*^9, 3.703271060880846*^9, 
    3.703272497813299*^9, 3.703272624517086*^9, 3.703272670673944*^9, 
    3.703273761124988*^9, 3.703274456794326*^9, 3.703274536864738*^9, 
-   3.7038694290367937`*^9}]
+   3.7038694290367937`*^9, 3.703883167775826*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2371,7 +2382,7 @@ Cell[BoxData[{
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"172.991852`", ",", "Null"}], "}"}]], "Output",
+  RowBox[{"58.702652`", ",", "Null"}], "}"}]], "Output",
  CellChangeTimes->{
   3.695074887339219*^9, 3.695078670087349*^9, 3.695592903437134*^9, 
    3.6955932816233935`*^9, 3.696040276677951*^9, 3.696040584128522*^9, 
@@ -2379,7 +2390,7 @@ Cell[BoxData[
    3.7002744507207174`*^9, 3.7032709432519617`*^9, 3.70327097674327*^9, 
    3.703271013146285*^9, 3.7032710896440463`*^9, {3.703272622438377*^9, 
    3.7032726389771147`*^9}, 3.7032729239013367`*^9, 3.7032738465363207`*^9, 
-   3.703274586290297*^9, 3.7038696037951717`*^9}],
+   3.703274586290297*^9, 3.7038696037951717`*^9, 3.7038846489801292`*^9}],
 
 Cell[BoxData[
  RowBox[{"{", "4", "}"}]], "Output",
@@ -2390,7 +2401,7 @@ Cell[BoxData[
    3.7002744507207174`*^9, 3.7032709432519617`*^9, 3.70327097674327*^9, 
    3.703271013146285*^9, 3.7032710896440463`*^9, {3.703272622438377*^9, 
    3.7032726389771147`*^9}, 3.7032729239013367`*^9, 3.7032738465363207`*^9, 
-   3.703274586290297*^9, 3.703869603796391*^9}]
+   3.703274586290297*^9, 3.7038696037951717`*^9, 3.703884648981818*^9}]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -3811,8 +3822,6 @@ Cell[BoxData[
   3.7032712560910683`*^9, 3.7032712862448497`*^9}, {3.703271376852356*^9, 
   3.7032713960893197`*^9}, {3.703274507996901*^9, 3.703274508102137*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{"Profile", "[", "\[IndentingNewLine]", 
   RowBox[{"FindPulse", "[", "\[IndentingNewLine]", 
@@ -3836,6 +3845,28 @@ Cell[BoxData[
  CellChangeTimes->{{3.703869729012991*^9, 3.703869770407689*^9}}],
 
 Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindPulse", "[", "\[IndentingNewLine]", 
+  RowBox[{
+  "initialGuess", ",", "\[IndentingNewLine]", "Utarget", ",", 
+   "\[IndentingNewLine]", "0.999", ",", "\[IndentingNewLine]", "controlRange",
+    ",", "\[IndentingNewLine]", "Hcontrol", ",", "\[IndentingNewLine]", 
+   "Hint", ",", "\[IndentingNewLine]", 
+   RowBox[{"DerivativeMask", "\[Rule]", " ", "mask"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"DistortionOperator", "\[Rule]", " ", "distortion"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParameterDistribution", "\[Rule]", " ", "dist"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"VerboseAscent", "\[Rule]", " ", "True"}], ",", " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{"SkipChecks", " ", "\[Rule]", " ", "True"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"MaximumIterations", " ", "\[Rule]", " ", "1"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.703883195204341*^9, 3.7038831981251097`*^9}, {
+  3.7038847156368313`*^9, 3.703884719746171*^9}}],
 
 Cell[BoxData[
  TemplateBox[{
@@ -3888,1603 +3919,12 @@ Cell[BoxData[
          RowBox[{"{", #, "}"}], ",", 
          RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
   "RowDefault"]], "Print",
- CellChangeTimes->{3.7038697734484043`*^9}],
+ CellChangeTimes->{3.703872665300943*^9, 3.703872804825116*^9, 
+  3.703882958519411*^9, 3.7038830524585733`*^9, 3.703883200238743*^9, 
+  3.703884720573284*^9}],
 
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27433372893880253`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.27433372893880253`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0008056561906438357`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.6490818975227365`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"8774.5989999999999999891`7.39477227178864"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869782315269*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"2"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27449390443355626`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.00016017549475372261`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0008056561906438357`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"8694.1130000000000000089`7.3907702740434"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869790943164*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"3"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.2744939044334097`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],TemplateBox[{
-     RowBox[{"-", "1.4654943925052066`*^-13"}]}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007220944573900644`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.8033199005911067`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"9065.8489999999999999804`7.4089534747074"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869800026759*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"4"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.2744939045149715`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"8.14152634198706`*^-11"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1.0655737704918034`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"9332.7659999999999999973`7.421555370415869"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869809356331*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"5"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.2744939045149728`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1.27675647831893`*^-15"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"2"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"8838.1399999999999999765`7.397905870191124"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869818207367*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"6"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27449390451497013`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],TemplateBox[{
-     RowBox[{"-", "1.3877787807814457`*^-15"}]}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"3"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"9142.3749999999999999822`7.412604024613646"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869827367112*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"7"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27449390451497013`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],TemplateBox[{
-     RowBox[{"-", "1.3877787807814457`*^-15"}]}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"4"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"9486.0559999999999999856`7.4286306776342155"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869836855817*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"8"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27449390451497013`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],TemplateBox[{
-     RowBox[{"-", "1.3877787807814457`*^-15"}]}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"5"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"9306.4549999999999999739`7.42032927521554"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.703869846166916*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"9"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27449390451497013`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],TemplateBox[{
-     RowBox[{"-", "1.3877787807814457`*^-15"}]}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"6"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"8744.8569999999999999979`7.393297705581833"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.7038698549179087`*^9}],
-
-Cell[BoxData[
- TemplateBox[{
-  TemplateBox[{"10"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 40]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "40"}]}], "]"}]& )],
-   TemplateBox[{"0.27449390451497013`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],TemplateBox[{
-     RowBox[{"-", "1.3877787807814457`*^-15"}]}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"0.0007453937934987551`"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"1"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"7"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )],
-   TemplateBox[{"8738.9549999999999999782`7.393004496511686"}, "Row", 
-    DisplayFunction -> (PaneBox[#, ImageSize -> 100]& ), 
-    InterpretationFunction -> (RowBox[{"Row", "[", 
-       RowBox[{
-         RowBox[{"{", #, "}"}], ",", 
-         RowBox[{"ImageSize", "\[Rule]", "100"}]}], "]"}]& )]},
-  "RowDefault"]], "Print",
- CellChangeTimes->{3.7038698636651087`*^9}]
-}, Open  ]],
-
-Cell[BoxData[
- TagBox[GridBox[{
-    {"Head", "Value"},
-    {"UtilityValue", "0.27449390451497013`"},
-    {"PenaltyValue", "0"},
-    {"ExitMessage", "\<\"The average improvement over 5 iterations was less \
-than MinimumImprovement.\"\>"},
-    {"Target", 
-     TagBox[
-      RowBox[{"(", "\[NoBreak]", GridBox[{
-         {
-          FractionBox["1", 
-           SqrtBox["2"]], 
-          RowBox[{"-", 
-           FractionBox["\[ImaginaryI]", 
-            SqrtBox["2"]]}]},
-         {
-          RowBox[{"-", 
-           FractionBox["\[ImaginaryI]", 
-            SqrtBox["2"]]}], 
-          FractionBox["1", 
-           SqrtBox["2"]]}
-        },
-        GridBoxAlignment->{
-         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.27999999999999997`], {
-             Offset[0.7]}, 
-            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {
-            Offset[0.2], {
-             Offset[0.4]}, 
-            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
-      Function[BoxForm`e$, 
-       MatrixForm[BoxForm`e$]]]},
-    {"InternalHamiltonian", 
-     TagBox[
-      RowBox[{"(", "\[NoBreak]", GridBox[{
-         {
-          RowBox[{
-           FractionBox["1", "2"], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", "6.157521601035994`*^10"}], "+", 
-             "\[Delta]\[Omega]"}], ")"}]}], "0"},
-         {"0", 
-          FractionBox[
-           RowBox[{"6.157521601035994`*^10", "-", "\[Delta]\[Omega]"}], "2"]}
-        },
-        GridBoxAlignment->{
-         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.27999999999999997`], {
-             Offset[0.7]}, 
-            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {
-            Offset[0.2], {
-             Offset[0.4]}, 
-            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
-      Function[BoxForm`e$, 
-       MatrixForm[BoxForm`e$]]]},
-    {"ControlHamiltonians", 
-     TemplateBox[{TagBox[
-        RowBox[{"(", "\[NoBreak]", 
-          GridBox[{{"0", 
-             FractionBox["1", "2"]}, {
-             FractionBox["1", "2"], "0"}}, RowSpacings -> 1, ColumnSpacings -> 
-           1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
-          "\[NoBreak]", ")"}], 
-        Function[BoxForm`e$, 
-         MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
-        RowBox[{"(", "\[NoBreak]", 
-          GridBox[{{"0", 
-             RowBox[{"-", 
-               FractionBox["\[ImaginaryI]", "2"]}]}, {
-             FractionBox["\[ImaginaryI]", "2"], "0"}}, RowSpacings -> 1, 
-           ColumnSpacings -> 1, RowAlignments -> Baseline, ColumnAlignments -> 
-           Center], "\[NoBreak]", ")"}], 
-        Function[BoxForm`e$, 
-         MatrixForm[BoxForm`e$]]],"\",\"",TagBox[
-        RowBox[{"(", "\[NoBreak]", 
-          GridBox[{{
-             FractionBox["1", "2"], "0"}, {"0", 
-             RowBox[{"-", 
-               FractionBox["1", "2"]}]}}, RowSpacings -> 1, ColumnSpacings -> 
-           1, RowAlignments -> Baseline, ColumnAlignments -> Center], 
-          "\[NoBreak]", ")"}], 
-        Function[BoxForm`e$, 
-         MatrixForm[BoxForm`e$]]]},
-      "RowDefault"]},
-    {"AmplitudeRange", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"-", "1.`"}], ",", "1.`"}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"-", "1.`"}], ",", "1.`"}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"5.559362359792497`*^10", ",", "6.236689735906457`*^10"}], 
-        "}"}]}], "}"}]},
-    {"TimeSteps", 
-     RowBox[{"{", 
-      RowBox[{
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"], ",", 
-       FractionBox["1", "200000000"]}], "}"}]},
-    {"Pulse", 
-     TagBox[
-      RowBox[{"(", "\[NoBreak]", GridBox[{
-         {"0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", "1.`", 
-          "1.`", "1.`", "1.`", "1.`", "1.`", "1.`"},
-         {"0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", 
-          "0.`", "0.`", "0.`", "0.`", "0.`", "0.`"},
-         {"5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.633522257787389`*^10", "5.633522257787389`*^10", 
-          "5.63352225778751`*^10", "5.6335222577879486`*^10", 
-          "5.63352225778825`*^10", "5.633522257788079`*^10", 
-          "5.633522257787601`*^10", "5.633522257787318`*^10", 
-          "5.633522257787526`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.636924967677193`*^10", 
-          "5.642653316270939`*^10", "5.651943551319782`*^10", 
-          "5.666267213802201`*^10", "5.687236099622979`*^10", 
-          "5.7163358567987564`*^10", "5.754535082766011`*^10", 
-          "5.801824595183362`*^10", "5.8567955224486374`*^10", 
-          "5.9164009166174`*^10", "5.976039367665933`*^10", 
-          "6.030036670655185`*^10", "6.0724909302021904`*^10", 
-          "6.098320597627586`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.1047428444556854`*^10", 
-          "6.1047428444556854`*^10", "6.098320597627586`*^10", 
-          "6.07249093020219`*^10", "6.030036670655184`*^10", 
-          "5.9760393676659325`*^10", "5.9164009166174`*^10", 
-          "5.8567955224486374`*^10", "5.801824595183361`*^10", 
-          "5.754535082766011`*^10", "5.716335856798756`*^10", 
-          "5.687236099622978`*^10", "5.666267213802201`*^10", 
-          "5.651943551319782`*^10", "5.642653316270939`*^10", 
-          "5.636924967677193`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10", "5.633563866894329`*^10", 
-          "5.633563866894329`*^10"}
-        },
-        GridBoxAlignment->{
-         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.27999999999999997`], {
-             Offset[0.7]}, 
-            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {
-            Offset[0.2], {
-             Offset[0.4]}, 
-            Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
-      Function[BoxForm`e$, 
-       MatrixForm[BoxForm`e$]]]},
-    {"ParameterDistribution", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"], ",", 
-         FractionBox["1", "10"]}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
-           RowBox[{"-", "1.759291886010284`*^7"}]}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
-           RowBox[{"-", "1.3683381335635543`*^7"}]}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
-           RowBox[{"-", "9.773843811168246`*^6"}]}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
-           RowBox[{"-", "5.864306286700947`*^6"}]}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", 
-           RowBox[{"-", "1.9547687622336503`*^6"}]}], "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", "1.9547687622336484`*^6"}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", "5.864306286700945`*^6"}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", "9.773843811168242`*^6"}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", "1.368338133563554`*^7"}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"\[Delta]\[Omega]", "\[Rule]", "1.759291886010284`*^7"}], 
-          "}"}]}], "}"}]}], "}"}]},
-    {"DistortionOperator", 
-     TagBox[
-      FormBox[
-       TagBox[
-        RowBox[{"IdentityDistortion", "[", "]"}],
-        HoldForm],
-       StandardForm],
-      Format]},
-    {"PulsePenalty", 
-     TagBox[
-      FormBox[
-       TagBox[
-        RowBox[{"ZeroPenalty", "[", "]"}],
-        HoldForm],
-       StandardForm],
-      Format]}
-   },
-   AutoDelete->False,
-   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Top}}},
-   GridBoxBackground->{"Columns" -> {
-       RGBColor[0.87, 0.94, 1], None}, "Rows" -> {
-       RGBColor[0.88, 1, 0.88], None}},
-   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
-   GridBoxItemSize->{"Columns" -> {13, 32}, "Rows" -> {{Automatic}}},
-   GridBoxItemStyle->{
-    "Columns" -> {{Automatic}}, "Rows" -> {"Subsubsubsection"}},
-   GridBoxSpacings->{"Columns" -> {{2}}, "Rows" -> {{0.8}}}],
-  "Grid"]], "Output",
- CellChangeTimes->{3.7038697456634817`*^9, 3.703869864908931*^9}]
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.703884584303526*^9, 3.7038851554891*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -16279,8 +14719,8 @@ qcVFUrWzZ+VXgLWC2ySH85d/f/7/87npP/xvAzlCmg==\
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{916, 1012},
-WindowMargins->{{22, Automatic}, {22, 46}},
+WindowSize->{916, 1036},
+WindowMargins->{{Automatic, 982}, {Automatic, 22}},
 FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
 StyleDefinitions->"Default.nb"
 ]
@@ -16297,114 +14737,103 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 196, 4, 32, "Input"],
-Cell[779, 28, 265, 4, 32, "Output"]
+Cell[779, 28, 335, 5, 32, "Output"]
 }, Open  ]],
-Cell[1059, 35, 236, 4, 55, "Input"],
+Cell[1129, 36, 236, 4, 55, "Input"],
 Cell[CellGroupData[{
-Cell[1320, 43, 126, 2, 32, "Input"],
-Cell[1449, 47, 406, 9, 34, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[1892, 61, 100, 1, 44, "Subsection"],
-Cell[1995, 64, 5422, 118, 658, "Input"],
-Cell[7420, 184, 96, 1, 32, "Input"],
-Cell[7519, 187, 763, 17, 103, "Input"]
+Cell[1390, 44, 126, 2, 32, "Input"],
+Cell[1519, 48, 478, 10, 34, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8319, 209, 110, 1, 45, "Subsection"],
-Cell[CellGroupData[{
-Cell[8454, 214, 105, 1, 35, "Subsubsection"],
-Cell[8562, 217, 1762, 43, 136, "Input"]
+Cell[2034, 63, 100, 1, 44, "Subsection"],
+Cell[2137, 66, 5422, 118, 658, "Input"],
+Cell[7562, 186, 96, 1, 32, "Input"],
+Cell[7661, 189, 763, 17, 103, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10361, 265, 268, 8, 37, "Subsubsection"],
-Cell[10632, 275, 1339, 36, 57, "Input"],
+Cell[8461, 211, 110, 1, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[11996, 315, 490, 10, 34, "Input"],
-Cell[12489, 327, 3454, 73, 234, "Output"]
+Cell[8596, 216, 105, 1, 35, "Subsubsection"],
+Cell[8704, 219, 1762, 43, 136, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10503, 267, 268, 8, 37, "Subsubsection"],
+Cell[10774, 277, 1339, 36, 57, "Input"],
+Cell[CellGroupData[{
+Cell[12138, 317, 490, 10, 34, "Input"],
+Cell[12631, 329, 3478, 73, 234, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15992, 406, 249, 7, 37, "Subsubsection"],
+Cell[16158, 408, 249, 7, 37, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[16266, 417, 11406, 316, 463, "Input"],
-Cell[27675, 735, 1739, 27, 70, "Message"],
-Cell[29417, 764, 9489, 191, 70, "Output"],
-Cell[38909, 957, 1738, 27, 70, "Message"],
-Cell[40650, 986, 1738, 27, 70, "Message"],
-Cell[42391, 1015, 21299, 448, 70, "Output"]
+Cell[16432, 419, 11406, 316, 463, "Input"],
+Cell[27841, 737, 1809, 28, 70, "Message"],
+Cell[29653, 767, 9560, 192, 70, "Output"],
+Cell[39216, 961, 1810, 28, 70, "Message"],
+Cell[41029, 991, 1808, 28, 70, "Message"],
+Cell[42840, 1021, 21364, 449, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[63727, 1468, 213, 3, 50, "Input"],
-Cell[63943, 1473, 1698, 24, 70, "Output"],
-Cell[65644, 1499, 1698, 24, 70, "Output"]
+Cell[64241, 1475, 213, 3, 50, "Input"],
+Cell[64457, 1480, 1772, 25, 70, "Output"],
+Cell[66232, 1507, 1774, 25, 70, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[67391, 1529, 108, 1, 29, "Subsubsection"],
+Cell[68055, 1538, 108, 1, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[67524, 1534, 756, 20, 56, "Input"],
-Cell[68283, 1556, 1341, 19, 32, "Output"]
+Cell[68188, 1543, 756, 20, 56, "Input"],
+Cell[68947, 1565, 1411, 20, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[69661, 1580, 1353, 33, 101, "Input"],
-Cell[71017, 1615, 20011, 354, 328, "Output"]
+Cell[70395, 1590, 1353, 33, 101, "Input"],
+Cell[71751, 1625, 20059, 355, 328, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[91089, 1976, 154, 2, 45, "Subsection"],
-Cell[91246, 1980, 335, 8, 54, "Text"],
-Cell[91584, 1990, 1218, 35, 80, "Input"]
+Cell[91871, 1987, 154, 2, 45, "Subsection"],
+Cell[92028, 1991, 335, 8, 54, "Text"],
+Cell[92366, 2001, 1218, 35, 80, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[92839, 2030, 110, 1, 45, "Subsection"],
-Cell[92952, 2033, 1887, 40, 104, "Input"],
-Cell[94842, 2075, 4439, 74, 306, "Input"],
+Cell[93621, 2041, 110, 1, 45, "Subsection"],
+Cell[93734, 2044, 1887, 40, 104, "Input"],
+Cell[95624, 2086, 4439, 74, 306, "Input"],
 Cell[CellGroupData[{
-Cell[99306, 2153, 8778, 187, 758, "Input"],
-Cell[108087, 2342, 533, 8, 32, "Output"]
+Cell[100088, 2164, 8778, 187, 758, "Input"],
+Cell[108869, 2353, 555, 8, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[108657, 2355, 728, 14, 56, "Input"],
-Cell[109388, 2371, 594, 10, 34, "Output"],
-Cell[109985, 2383, 556, 9, 32, "Output"]
+Cell[109461, 2366, 728, 14, 56, "Input"],
+Cell[110192, 2382, 617, 10, 34, "Output"],
+Cell[110812, 2394, 580, 9, 32, "Output"]
 }, Open  ]],
-Cell[110556, 2395, 2890, 72, 289, "Input"],
+Cell[111407, 2406, 2890, 72, 289, "Input"],
 Cell[CellGroupData[{
-Cell[113471, 2471, 376, 9, 34, "Input"],
-Cell[113850, 2482, 71870, 1212, 457, "Output"]
+Cell[114322, 2482, 376, 9, 34, "Input"],
+Cell[114701, 2493, 71870, 1212, 457, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[185769, 3700, 102, 1, 45, "Subsection"],
-Cell[185874, 3703, 5277, 93, 88, "Input"],
-Cell[191154, 3798, 634, 13, 34, "Input"],
+Cell[186620, 3711, 102, 1, 45, "Subsection"],
+Cell[186725, 3714, 5277, 93, 88, "Input"],
+Cell[192005, 3809, 634, 13, 34, "Input"],
+Cell[192642, 3824, 1021, 20, 351, "Input"],
 Cell[CellGroupData[{
-Cell[191813, 3815, 1021, 20, 351, "Input"],
-Cell[CellGroupData[{
-Cell[192859, 3839, 2241, 51, 27, "Print"],
-Cell[195103, 3892, 2268, 51, 27, "Print"],
-Cell[197374, 3945, 2252, 51, 27, "Print"],
-Cell[199629, 3998, 2287, 51, 48, "Print"],
-Cell[201919, 4051, 2270, 51, 48, "Print"],
-Cell[204192, 4104, 2252, 51, 48, "Print"],
-Cell[206447, 4157, 2272, 51, 48, "Print"],
-Cell[208722, 4210, 2273, 51, 48, "Print"],
-Cell[210998, 4263, 2271, 51, 48, "Print"],
-Cell[213272, 4316, 2274, 51, 48, "Print"],
-Cell[215549, 4369, 2275, 51, 48, "Print"]
-}, Open  ]],
-Cell[217839, 4423, 53382, 1063, 3606, "Output"]
+Cell[193688, 3848, 1016, 20, 330, "Input"],
+Cell[194707, 3870, 2357, 53, 27, "Print"],
+Cell[197067, 3925, 97, 1, 46, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[271258, 5491, 2424, 38, 307, "Input"],
-Cell[273685, 5531, 2285, 52, 27, "Print"],
-Cell[275973, 5585, 473, 7, 32, "Output"]
+Cell[197201, 3931, 2424, 38, 307, "Input"],
+Cell[199628, 3971, 2285, 52, 27, "Print"],
+Cell[201916, 4025, 473, 7, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[276483, 5597, 3861, 72, 281, "Input"],
-Cell[280347, 5671, 644454, 10606, 375, 498076, 8206, "CachedBoxData", \
+Cell[202426, 4037, 3861, 72, 281, "Input"],
+Cell[206290, 4111, 644454, 10606, 375, 498076, 8206, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]]
 }, Open  ]]
