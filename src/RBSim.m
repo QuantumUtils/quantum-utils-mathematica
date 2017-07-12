@@ -110,13 +110,15 @@ AssignUsage[
 
 
 Unprotect[
-	SimulateSequence, SimulateProtocol, PulseSubset
+	SimulateSequence, SimulateProtocol, PulseSubset, 
+	ExportSimulation, SimulationExportName
 ];
 
 
 AssignUsage[
 	{
-		SimulateSequence, SimulateProtocol, PulseSubset
+		SimulateSequence, SimulateProtocol, PulseSubset, 
+		ExportSimulation, SimulationExportName
 	},
 	$RBSimUsages
 ]
@@ -343,7 +345,7 @@ makeContainer[NoiseModel, {
 }];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Compiler*)
 
 
@@ -503,7 +505,7 @@ CompileSequence[gs_GateSet,sequence_,nm_NoiseModel,OptionsPattern[]]:=Module[
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*CompileGateNoise*)
 
 
@@ -563,8 +565,8 @@ CompileGateNoise[gs_GateSet,nm_NoiseModel,depth_,OptionsPattern[]]:=Module[{gate
 ]
 
 
-(* ::Subsection:: *)
-(*Simulator*)
+(* ::Subsection::Closed:: *)
+(*Simulator *)
 
 
 InheritOptions[SimulateSequence, {PulseSim}, {PulseSubset->All}];
@@ -578,15 +580,40 @@ SimulateSequence[seq_CompiledSequence, opt:OptionsPattern[]]:=Module[{},
 ]
 
 
+ExportSimulation[fileName_,gs_,protocol_,data_] := (
+	Export[
+		fileName<>".h5",
+		{
+			"Datasets"-> {
+			"SurvivalData"->data, 
+			"ProtocolName"->ProtocolName[protocol],
+			"SequenceLengths"-> SequenceLengths[protocol], 
+			"ExperimentTypes"->(ExperimentTypes[protocol]/@SequenceLengths[protocol]),
+			"Size"-> {Size[gs]},
+			 "Dimension"->{ Dimension[gs]},
+			"GateSetName"->GateSetName[gs]
+		},
+		"DataFormat"->Automatic
+		},
+		"Rules"
+	];
+	Print["Saved "<>fileName<>".h5"];
+)
+
+
+InheritOptions[SimulateProtocol, {CompileSequence}, {SimulationExportName->None}];
+
+
 (* ::Subsubsection::Closed:: *)
 (*General Simulator*)
 
 
-SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPattern[CompileSequence]] := Module[
+SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPattern[]] := Module[
 	{
 		simSeq, getSeq, 
 		j=0.0, doParallel,
-		seqLengths, experiments, totalGates
+		seqLengths, experiments, totalGates,
+		data
 	},
 
 	doParallel = $KernelCount > 0;
@@ -613,7 +640,7 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPatter
 	If[doParallel,
 		DistributeDefinitions[simSeq, getSeq];
 		SetSharedVariable[j];
-		Monitor[
+		data=Monitor[
 			Apply[
 				ParallelTable[
 					With[{seq = getSeq[#1,#2,i]}, 
@@ -627,8 +654,8 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPatter
 				{2}
 			],
 			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
-		],
-		Monitor[
+		];,
+		data=Monitor[
 			Apply[
 				Table[
 					With[{seq = getSeq[#1,#2,i]}, 
@@ -639,10 +666,14 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPatter
 				]&, 
 				experiments,
 				{2}
-			],
+			];,
 			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
 		]
-	]
+	];
+	If[OptionValue[SimulationExportName]=!=None,
+		ExportSimulation[OptionValue[SimulationExportName],gs,protocol,data]
+	];
+	data
 ]
 
 
@@ -650,11 +681,12 @@ SimulateProtocol[gs_GateSet, nm_NoiseModel, protocol_Protocol, opt:OptionsPatter
 (*GateNoiseGateSet Simulator*)
 
 
-SimulateProtocol[gs_GateNoiseGateSet, protocol_Protocol] := Module[
+SimulateProtocol[gs_GateNoiseGateSet, protocol_Protocol,OptionsPattern[]] := Module[
 	{
 		getSeq, 
 		j=0.0, doParallel,
-		seqLengths, experiments, totalGates
+		seqLengths, experiments, totalGates,
+		data
 	},
 
 	doParallel = $KernelCount > 0;
@@ -675,7 +707,7 @@ SimulateProtocol[gs_GateNoiseGateSet, protocol_Protocol] := Module[
 	If[doParallel,
 		DistributeDefinitions[getSeq];
 		SetSharedVariable[j];
-		Monitor[
+		data=Monitor[
 			Apply[
 				ParallelTable[
 					With[{seq = getSeq[#1,#2,i]}, 
@@ -689,8 +721,8 @@ SimulateProtocol[gs_GateNoiseGateSet, protocol_Protocol] := Module[
 				{2}
 			],
 			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
-		],
-		Monitor[
+		];,
+		data=Monitor[
 			Apply[
 				Table[
 					With[{seq = getSeq[#1,#2,i]}, 
@@ -703,8 +735,12 @@ SimulateProtocol[gs_GateNoiseGateSet, protocol_Protocol] := Module[
 				{2}
 			],
 			With[{x=j / totalGates},Row[{ProgressIndicator[x], x}]]
-		]
-	]
+		];
+	];
+	If[OptionValue[SimulationExportName]=!=None,
+		ExportSimulation[OptionValue[SimulationExportName],gs,protocol,data]
+	];
+	data
 ]
 
 
@@ -774,9 +810,6 @@ RBProtocol[seqLengths_,numSeqs_,shotsPerSeq_,\[Rho]_,M_]:=Module[{seqGen,gateSim
 		TotalGates -> (shotsPerSeq * numSeqs * Total[seqLengths+1])
 	]
 ]
-
-
-ParallelTable
 
 
 (* ::Subsection::Closed:: *)
@@ -869,7 +902,8 @@ Protect[
 
 
 Protect[
-	SimulateSequence, SimulateProtocol, PulseSubset
+	SimulateSequence, SimulateProtocol, PulseSubset, 
+	ExportSimulation, SimulationExportName
 ];
 
 
