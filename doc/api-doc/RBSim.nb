@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[    657403,      13132]
-NotebookOptionsPosition[    637838,      12552]
-NotebookOutlinePosition[    645840,      12773]
-CellTagsIndexPosition[    643648,      12718]
+NotebookDataLength[    660899,      13215]
+NotebookOptionsPosition[    640836,      12623]
+NotebookOutlinePosition[    649171,      12852]
+CellTagsIndexPosition[    646885,      12795]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -39,7 +39,8 @@ Cell[BoxData[{
   3.633371979509849*^9}, {3.633439263683157*^9, 3.6334392647382183`*^9}, {
   3.63448171195175*^9, 3.634481712372257*^9}, {3.697641680635879*^9, 
   3.697641681936212*^9}, {3.697641725681835*^9, 3.697641729048428*^9}, {
-  3.7005726662196407`*^9, 3.700572675447852*^9}}],
+  3.7005726662196407`*^9, 3.700572675447852*^9}, {3.7088677930645847`*^9, 
+  3.70886779316396*^9}}],
 
 Cell["\<\
 The following packages are needed to run some code found in this \
@@ -3418,7 +3419,7 @@ Cell[BoxData[
 }, Open  ]]
 }, Closed]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4253,8 +4254,8 @@ mjkB3w==
    3.700997194204596*^9, 3.700997200802184*^9}, 3.700998251860931*^9}]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
-}, Open  ]],
+}, Closed]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4269,7 +4270,7 @@ Cell[TextData[{
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox[",", "Input"],
- StyleBox["OptionsPattern[PulseSim]", "Input",
+ StyleBox["OptionsPattern[]", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox["]", "Input"],
@@ -4289,7 +4290,7 @@ Cell[TextData[{
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700661451880248*^9, 3.70066157933114*^9}, {
-  3.700664709830126*^9, 3.7006647206936893`*^9}}],
+   3.700664709830126*^9, 3.7006647206936893`*^9}, 3.7088674940928087`*^9}],
 
 Cell[TextData[{
  StyleBox["SimulateProtocol[", "Input"],
@@ -4301,7 +4302,7 @@ Cell[TextData[{
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox[",", "Input"],
- StyleBox["protocol_Protocol", "Input",
+ StyleBox["protocol_Protocol,OptionsPattern[]", "Input",
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox["]", "Input"],
@@ -4339,14 +4340,67 @@ Cell[TextData[{
   FontWeight->"Plain",
   FontSlant->"Italic"],
  StyleBox[". Otherwise, the output will be ragged, but with the same index \
-types.",
+types.\n\n",
+  FontWeight->"Plain"],
+ StyleBox["Additional Options\n",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0.5]],
+ StyleBox["SimulationExportName", "Input",
   FontWeight->"Plain"]
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.700664596625371*^9, 3.7006646971406*^9}, {
   3.700664742631546*^9, 3.700664745024555*^9}, {3.7008223463683434`*^9, 
-  3.7008224482606373`*^9}},
+  3.7008224482606373`*^9}, {3.708867501560278*^9, 3.708867504309717*^9}, {
+  3.70886776082659*^9, 3.7088677836718397`*^9}},
  CellTags->"SimulateProtocol::usage"],
+
+Cell[TextData[{
+ StyleBox["ExportSimulation[", "Input"],
+ StyleBox["fileName_,gs_GateSet", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox[",", "Input"],
+ StyleBox["protocol_Protocol,data", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " exports the data from a simulation of the protocol and ",
+ StyleBox["GateSet", "Input"],
+ " ",
+ StyleBox["gs", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". It is exported in the HDF5 format with a file extension \
+\[OpenCurlyDoubleQuote].h5\[CloseCurlyDoubleQuote] appended to the given ",
+ StyleBox["fileName", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ ". This function is called by ",
+ StyleBox["SimulateProtocol", "Input"],
+ " when a ",
+ StyleBox["SimulationExportName", "Input"],
+ " is provided. The following things are saved in the \
+\[OpenCurlyDoubleQuote]Datasets\[CloseCurlyDoubleQuote] group:\n\n\
+\[OpenCurlyDoubleQuote]SurvivalData\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]ProtocolName\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]SequenceLengths\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]ExperimentTypes\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]GateSetName\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]Size\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]Dimension\[CloseCurlyDoubleQuote]\n\nThe survival data \
+is generally a 4-dimensional ragged structure equal to the output of ",
+ StyleBox["SimulateProtocol", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.700664596625371*^9, 3.7006646971406*^9}, {
+  3.700664742631546*^9, 3.700664745024555*^9}, {3.7008223463683434`*^9, 
+  3.7008224482606373`*^9}, {3.708867501560278*^9, 3.708867504309717*^9}, {
+  3.70886776082659*^9, 3.7088677836718397`*^9}, {3.708869485912631*^9, 
+  3.708869695689084*^9}, {3.7088697309255333`*^9, 3.70886973137033*^9}},
+ CellTags->"ExportSimulation::usage"],
 
 Cell[CellGroupData[{
 
@@ -4363,8 +4417,25 @@ Cell[TextData[{
 }], "Text",
  CellDingbat->"\[FilledSquare]",
  CellChangeTimes->{{3.7009938677792463`*^9, 3.700993927899466*^9}},
- CellTags->"PulseSubset::usage"]
-}, Open  ]],
+ CellTags->"PulseSubset::usage"],
+
+Cell[TextData[{
+ StyleBox["SimulationExportName", "Input"],
+ " is an option for ",
+ StyleBox["SimulateProtocol", "Input"],
+ " specifying a file name (without file extension) to save the data to. The \
+extension \[OpenCurlyDoubleQuote].h5\[CloseCurlyDoubleQuote] is added \
+automatically. See ",
+ StyleBox["ExportSimulation", "Input"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.7009938677792463`*^9, 3.700993927899466*^9}, {
+  3.7088675705498466`*^9, 3.708867657743101*^9}, {3.7088677102530603`*^9, 
+  3.708867720861382*^9}, {3.70886806227707*^9, 3.708868064429893*^9}, {
+  3.708869728082992*^9, 3.708869759265551*^9}},
+ CellTags->"SimulationExportName::usage"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -12031,8 +12102,8 @@ Cell[BoxData[
    3.700999332153907*^9, 3.7009994075626087`*^9, 3.700999455771207*^9, 
    3.7009995394437103`*^9, 3.7009998057786913`*^9}]
 }, Open  ]]
-}, Open  ]]
-}, Open  ]],
+}, Closed]]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -12564,210 +12635,218 @@ CellTagsIndex->{
   Cell[751, 23, 520, 8, 44, "Subsection",
    CellTags->"Preamble::section"]},
  "GateSet::usage"->{
-  Cell[5368, 120, 2505, 72, 349, "Text",
+  Cell[5418, 121, 2505, 72, 349, "Text",
    CellTags->"GateSet::usage"]},
  "GateNoiseGateSet::usage"->{
-  Cell[7876, 194, 2749, 84, 413, "Text",
+  Cell[7926, 195, 2749, 84, 413, "Text",
    CellTags->"GateNoiseGateSet::usage"]},
  "GateSetName::usage"->{
-  Cell[10901, 287, 347, 9, 33, "Text",
+  Cell[10951, 288, 347, 9, 33, "Text",
    CellTags->"GateSetName::usage"]},
  "Size::usage"->{
-  Cell[11251, 298, 275, 8, 33, "Text",
+  Cell[11301, 299, 275, 8, 33, "Text",
    CellTags->"Size::usage"]},
  "Dimension::usage"->{
-  Cell[11529, 308, 310, 8, 33, "Text",
+  Cell[11579, 309, 310, 8, 33, "Text",
    CellTags->"Dimension::usage"]},
  "GateProduct::usage"->{
-  Cell[11842, 318, 680, 19, 33, "Text",
+  Cell[11892, 319, 680, 19, 33, "Text",
    CellTags->"GateProduct::usage"]},
  "GateInverse::usage"->{
-  Cell[12525, 339, 423, 11, 33, "Text",
+  Cell[12575, 340, 423, 11, 33, "Text",
    CellTags->"GateInverse::usage"]},
  "GateUnitary::usage"->{
-  Cell[12951, 352, 440, 13, 33, "Text",
+  Cell[13001, 353, 440, 13, 33, "Text",
    CellTags->"GateUnitary::usage"]},
  "GatePulse::usage"->{
-  Cell[13394, 367, 515, 16, 33, "Text",
+  Cell[13444, 368, 515, 16, 33, "Text",
    CellTags->"GatePulse::usage"]},
  "GateChannel::usage"->{
-  Cell[14320, 398, 1542, 52, 55, "Text",
+  Cell[14370, 399, 1542, 52, 55, "Text",
    CellTags->"GateChannel::usage"]},
  "$gaussianQubitGateSet::usage"->{
-  Cell[16007, 458, 341, 7, 33, "Text",
+  Cell[16057, 459, 341, 7, 33, "Text",
    CellTags->"$gaussianQubitGateSet::usage"]},
  "FramePotential::usage"->{
-  Cell[98434, 2095, 492, 16, 33, "Text",
+  Cell[98484, 2096, 492, 16, 33, "Text",
    CellTags->"FramePotential::usage"]},
  "TestGateSetPulses::usage"->{
-  Cell[98929, 2113, 954, 27, 121, "Text",
+  Cell[98979, 2114, 954, 27, 121, "Text",
    CellTags->"TestGateSetPulses::usage"]},
  "TestGateSetInverses::usage"->{
-  Cell[99886, 2142, 1178, 34, 121, "Text",
+  Cell[99936, 2143, 1178, 34, 121, "Text",
    CellTags->"TestGateSetInverses::usage"]},
  "TestGateSetProducts::usage"->{
-  Cell[101067, 2178, 1087, 33, 121, "Text",
+  Cell[101117, 2179, 1087, 33, 121, "Text",
    CellTags->"TestGateSetProducts::usage"]},
  "GateIndices::usage"->{
-  Cell[102157, 2213, 493, 15, 33, "Text",
+  Cell[102207, 2214, 493, 15, 33, "Text",
    CellTags->"GateIndices::usage"]},
  "TakeOverlap::usage"->{
-  Cell[102653, 2230, 498, 14, 33, "Text",
+  Cell[102703, 2231, 498, 14, 33, "Text",
    CellTags->"TakeOverlap::usage"]},
  "NoiseModel::usage"->{
-  Cell[107869, 2382, 1807, 47, 283, "Text",
+  Cell[107919, 2383, 1807, 47, 283, "Text",
    CellTags->"NoiseModel::usage"]},
  "GateNoise::usage"->{
-  Cell[109810, 2436, 1033, 37, 33, "Text",
+  Cell[109860, 2437, 1033, 37, 33, "Text",
    CellTags->"GateNoise::usage"]},
  "DistortionMultiplier::usage"->{
-  Cell[110846, 2475, 705, 14, 55, "Text",
+  Cell[110896, 2476, 705, 14, 55, "Text",
    CellTags->"DistortionMultiplier::usage"]},
  "StochasticNoise::usage"->{
-  Cell[111949, 2504, 636, 14, 55, "Text",
+  Cell[111999, 2505, 636, 14, 55, "Text",
    CellTags->"StochasticNoise::usage"]},
  "StaticNoise::usage"->{
-  Cell[112588, 2520, 583, 14, 55, "Text",
+  Cell[112638, 2521, 583, 14, 55, "Text",
    CellTags->"StaticNoise::usage"]},
  "Generator::usage"->{
-  Cell[113174, 2536, 434, 10, 33, "Text",
+  Cell[113224, 2537, 434, 10, 33, "Text",
    CellTags->"Generator::usage"]},
  "StepSize::link"->{
-  Cell[113611, 2548, 337, 9, 33, "Text",
+  Cell[113661, 2549, 337, 9, 33, "Text",
    CellTags->"StepSize::link"]},
  "Protocol::usage"->{
-  Cell[114205, 2569, 2729, 74, 429, "Text",
+  Cell[114255, 2570, 2729, 74, 429, "Text",
    CellTags->"Protocol::usage"]},
  "ProtocolName::usage"->{
-  Cell[117067, 2650, 304, 8, 33, "Text",
+  Cell[117117, 2651, 304, 8, 33, "Text",
    CellTags->"ProtocolName::usage"]},
  "SequenceLengths::usage"->{
-  Cell[117374, 2660, 522, 12, 33, "Text",
+  Cell[117424, 2661, 522, 12, 33, "Text",
    CellTags->"SequenceLengths::usage"]},
  "ExperimentTypes::usage"->{
-  Cell[117899, 2674, 824, 22, 33, "Text",
+  Cell[117949, 2675, 824, 22, 33, "Text",
    CellTags->"ExperimentTypes::usage"]},
  "NumSequenceDraws::usage"->{
-  Cell[118726, 2698, 993, 30, 33, "Text",
+  Cell[118776, 2699, 993, 30, 33, "Text",
    CellTags->"NumSequenceDraws::usage"]},
  "NumRepetitions::usage"->{
-  Cell[119722, 2730, 911, 28, 33, "Text",
+  Cell[119772, 2731, 911, 28, 33, "Text",
    CellTags->"NumRepetitions::usage"]},
  "SequenceGenerator::usage"->{
-  Cell[120636, 2760, 1246, 40, 55, "Text",
+  Cell[120686, 2761, 1246, 40, 55, "Text",
    CellTags->"SequenceGenerator::usage"]},
  "SimulationOptions::usage"->{
-  Cell[121885, 2802, 431, 11, 33, "Text",
+  Cell[121935, 2803, 431, 11, 33, "Text",
    CellTags->"SimulationOptions::usage"]},
  "SimulationParser::usage"->{
-  Cell[122319, 2815, 427, 11, 33, "Text",
+  Cell[122369, 2816, 427, 11, 33, "Text",
    CellTags->"SimulationParser::usage"]},
  "GateSimulator::usage"->{
-  Cell[122749, 2828, 1087, 37, 55, "Text",
+  Cell[122799, 2829, 1087, 37, 55, "Text",
    CellTags->"GateSimulator::usage"]},
  "ParallelOptions::usage"->{
-  Cell[123839, 2867, 457, 12, 33, "Text",
+  Cell[123889, 2868, 457, 12, 33, "Text",
    CellTags->"ParallelOptions::usage"]},
  "TotalGates::usage"->{
-  Cell[124299, 2881, 423, 10, 33, "Text",
+  Cell[124349, 2882, 423, 10, 33, "Text",
    CellTags->"TotalGates::usage"]},
  "RBDraw::usage"->{
-  Cell[124870, 2899, 854, 27, 55, "Text",
+  Cell[124920, 2900, 854, 27, 55, "Text",
    CellTags->"RBDraw::usage"]},
  "RBProtocol::usage"->{
-  Cell[125727, 2928, 1543, 52, 55, "Text",
+  Cell[125777, 2929, 1543, 52, 55, "Text",
    CellTags->"RBProtocol::usage"]},
  "GateNoiseProtocol::usage"->{
-  Cell[127273, 2982, 1154, 32, 55, "Text",
+  Cell[127323, 2983, 1154, 32, 55, "Text",
    CellTags->"GateNoiseProtocol::usage"]},
  "CompileSequence::usage"->{
-  Cell[142663, 3433, 1474, 46, 185, "Text",
+  Cell[142713, 3434, 1474, 46, 185, "Text",
    CellTags->"CompileSequence::usage"]},
  "CompiledSequence::usage"->{
-  Cell[144140, 3481, 1944, 49, 305, "Text",
+  Cell[144190, 3482, 1944, 49, 305, "Text",
    CellTags->"CompiledSequence::usage"]},
  "AllowFinalRingdown::usage"->{
-  Cell[146268, 3538, 519, 13, 33, "Text",
+  Cell[146318, 3539, 519, 13, 33, "Text",
    CellTags->"AllowFinalRingdown::usage"]},
  "PulseSequence::usage"->{
-  Cell[146996, 3559, 414, 12, 33, "Text",
+  Cell[147046, 3560, 414, 12, 33, "Text",
    CellTags->"PulseSequence::usage"]},
  "GateSequence::usage"->{
-  Cell[147616, 3579, 675, 18, 55, "Text",
+  Cell[147666, 3580, 675, 18, 55, "Text",
    CellTags->"GateSequence::usage"]},
  "UndistortedLongPulse::usage"->{
-  Cell[148294, 3599, 437, 11, 33, "Text",
+  Cell[148344, 3600, 437, 11, 33, "Text",
    CellTags->"UndistortedLongPulse::usage"]},
  "CompileGateNoise::usage"->{
-  Cell[177345, 4137, 223, 3, 33, "Text",
+  Cell[177395, 4138, 223, 3, 33, "Text",
    CellTags->"CompileGateNoise::usage"]},
  "SimulateSequence::usage"->{
-  Cell[182666, 4260, 181, 3, 65, "Section",
+  Cell[182716, 4261, 181, 3, 51, "Section",
    CellTags->"SimulateSequence::usage"]},
  "SimulateProtocol::usage"->{
-  Cell[183652, 4293, 1736, 55, 55, "Text",
+  Cell[183719, 4294, 2029, 62, 141, "Text",
    CellTags->"SimulateProtocol::usage"]},
+ "ExportSimulation::usage"->{
+  Cell[185751, 4358, 1942, 44, 143, "Text",
+   CellTags->"ExportSimulation::usage"]},
  "PulseSubset::usage"->{
-  Cell[185511, 4355, 358, 10, 33, "Text",
+  Cell[187816, 4409, 358, 10, 33, "Text",
    CellTags->"PulseSubset::usage"]},
+ "SimulationExportName::usage"->{
+  Cell[188177, 4421, 690, 15, 33, "Text",
+   CellTags->"SimulationExportName::usage"]},
  "PlotSequence::usage"->{
-  Cell[610164, 12046, 604, 20, 55, "Text",
+  Cell[613162, 12117, 604, 20, 33, "Text",
    CellTags->"PlotSequence::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Preamble::section", 638136, 12562},
- {"GateSet::usage", 638235, 12565},
- {"GateNoiseGateSet::usage", 638339, 12568},
- {"GateSetName::usage", 638447, 12571},
- {"Size::usage", 638541, 12574},
- {"Dimension::usage", 638633, 12577},
- {"GateProduct::usage", 638732, 12580},
- {"GateInverse::usage", 638834, 12583},
- {"GateUnitary::usage", 638936, 12586},
- {"GatePulse::usage", 639036, 12589},
- {"GateChannel::usage", 639136, 12592},
- {"$gaussianQubitGateSet::usage", 639249, 12595},
- {"FramePotential::usage", 639363, 12598},
- {"TestGateSetPulses::usage", 639475, 12601},
- {"TestGateSetInverses::usage", 639593, 12604},
- {"TestGateSetProducts::usage", 639714, 12607},
- {"GateIndices::usage", 639828, 12610},
- {"TakeOverlap::usage", 639932, 12613},
- {"NoiseModel::usage", 640035, 12616},
- {"GateNoise::usage", 640138, 12619},
- {"DistortionMultiplier::usage", 640250, 12622},
- {"StochasticNoise::usage", 640367, 12625},
- {"StaticNoise::usage", 640475, 12628},
- {"Generator::usage", 640577, 12631},
- {"StepSize::link", 640675, 12634},
- {"Protocol::usage", 640771, 12637},
- {"ProtocolName::usage", 640875, 12640},
- {"SequenceLengths::usage", 640983, 12643},
- {"ExperimentTypes::usage", 641095, 12646},
- {"NumSequenceDraws::usage", 641208, 12649},
- {"NumRepetitions::usage", 641320, 12652},
- {"SequenceGenerator::usage", 641433, 12655},
- {"SimulationOptions::usage", 641550, 12658},
- {"SimulationParser::usage", 641665, 12661},
- {"GateSimulator::usage", 641776, 12664},
- {"ParallelOptions::usage", 641887, 12667},
- {"TotalGates::usage", 641994, 12670},
- {"RBDraw::usage", 642092, 12673},
- {"RBProtocol::usage", 642190, 12676},
- {"GateNoiseProtocol::usage", 642300, 12679},
- {"CompileSequence::usage", 642415, 12682},
- {"CompiledSequence::usage", 642530, 12685},
- {"AllowFinalRingdown::usage", 642648, 12688},
- {"PulseSequence::usage", 642761, 12691},
- {"GateSequence::usage", 642868, 12694},
- {"UndistortedLongPulse::usage", 642982, 12697},
- {"CompileGateNoise::usage", 643100, 12700},
- {"SimulateSequence::usage", 643213, 12703},
- {"SimulateProtocol::usage", 643329, 12706},
- {"PulseSubset::usage", 643439, 12709},
- {"PlotSequence::usage", 643544, 12712}
+ {"Preamble::section", 641134, 12633},
+ {"GateSet::usage", 641233, 12636},
+ {"GateNoiseGateSet::usage", 641337, 12639},
+ {"GateSetName::usage", 641445, 12642},
+ {"Size::usage", 641539, 12645},
+ {"Dimension::usage", 641631, 12648},
+ {"GateProduct::usage", 641730, 12651},
+ {"GateInverse::usage", 641832, 12654},
+ {"GateUnitary::usage", 641934, 12657},
+ {"GatePulse::usage", 642034, 12660},
+ {"GateChannel::usage", 642134, 12663},
+ {"$gaussianQubitGateSet::usage", 642247, 12666},
+ {"FramePotential::usage", 642361, 12669},
+ {"TestGateSetPulses::usage", 642473, 12672},
+ {"TestGateSetInverses::usage", 642591, 12675},
+ {"TestGateSetProducts::usage", 642712, 12678},
+ {"GateIndices::usage", 642826, 12681},
+ {"TakeOverlap::usage", 642930, 12684},
+ {"NoiseModel::usage", 643033, 12687},
+ {"GateNoise::usage", 643136, 12690},
+ {"DistortionMultiplier::usage", 643248, 12693},
+ {"StochasticNoise::usage", 643365, 12696},
+ {"StaticNoise::usage", 643473, 12699},
+ {"Generator::usage", 643575, 12702},
+ {"StepSize::link", 643673, 12705},
+ {"Protocol::usage", 643769, 12708},
+ {"ProtocolName::usage", 643873, 12711},
+ {"SequenceLengths::usage", 643981, 12714},
+ {"ExperimentTypes::usage", 644093, 12717},
+ {"NumSequenceDraws::usage", 644206, 12720},
+ {"NumRepetitions::usage", 644318, 12723},
+ {"SequenceGenerator::usage", 644431, 12726},
+ {"SimulationOptions::usage", 644548, 12729},
+ {"SimulationParser::usage", 644663, 12732},
+ {"GateSimulator::usage", 644774, 12735},
+ {"ParallelOptions::usage", 644885, 12738},
+ {"TotalGates::usage", 644992, 12741},
+ {"RBDraw::usage", 645090, 12744},
+ {"RBProtocol::usage", 645188, 12747},
+ {"GateNoiseProtocol::usage", 645298, 12750},
+ {"CompileSequence::usage", 645413, 12753},
+ {"CompiledSequence::usage", 645528, 12756},
+ {"AllowFinalRingdown::usage", 645646, 12759},
+ {"PulseSequence::usage", 645759, 12762},
+ {"GateSequence::usage", 645866, 12765},
+ {"UndistortedLongPulse::usage", 645980, 12768},
+ {"CompileGateNoise::usage", 646098, 12771},
+ {"SimulateSequence::usage", 646211, 12774},
+ {"SimulateProtocol::usage", 646327, 12777},
+ {"ExportSimulation::usage", 646443, 12780},
+ {"PulseSubset::usage", 646554, 12783},
+ {"SimulationExportName::usage", 646667, 12786},
+ {"PlotSequence::usage", 646781, 12789}
  }
 *)
 (*NotebookFileOutline
@@ -12777,351 +12856,355 @@ Cell[422, 15, 304, 4, 66, "Chapter"],
 Cell[CellGroupData[{
 Cell[751, 23, 520, 8, 44, "Subsection",
  CellTags->"Preamble::section"],
-Cell[1274, 33, 559, 8, 55, "Input"],
-Cell[1836, 43, 182, 4, 33, "Text"]
+Cell[1274, 33, 609, 9, 55, "Input"],
+Cell[1886, 44, 182, 4, 33, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2055, 52, 326, 4, 44, "Subsection"],
-Cell[2384, 58, 531, 12, 39, "Output"]
+Cell[2105, 53, 326, 4, 44, "Subsection"],
+Cell[2434, 59, 531, 12, 39, "Output"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[2952, 75, 184, 2, 51, "Section"],
-Cell[3139, 79, 1863, 28, 187, "Text"],
-Cell[5005, 109, 103, 1, 35, "Subsubsection"]
+Cell[3002, 76, 184, 2, 51, "Section"],
+Cell[3189, 80, 1863, 28, 187, "Text"],
+Cell[5055, 110, 103, 1, 35, "Subsubsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5145, 115, 220, 3, 65, "Section"],
-Cell[5368, 120, 2505, 72, 349, "Text",
+Cell[5195, 116, 220, 3, 65, "Section"],
+Cell[5418, 121, 2505, 72, 349, "Text",
  CellTags->"GateSet::usage"],
-Cell[7876, 194, 2749, 84, 413, "Text",
+Cell[7926, 195, 2749, 84, 413, "Text",
  CellTags->"GateNoiseGateSet::usage"],
 Cell[CellGroupData[{
-Cell[10650, 282, 248, 3, 45, "Subsection"],
-Cell[10901, 287, 347, 9, 33, "Text",
+Cell[10700, 283, 248, 3, 45, "Subsection"],
+Cell[10951, 288, 347, 9, 33, "Text",
  CellTags->"GateSetName::usage"],
-Cell[11251, 298, 275, 8, 33, "Text",
+Cell[11301, 299, 275, 8, 33, "Text",
  CellTags->"Size::usage"],
-Cell[11529, 308, 310, 8, 33, "Text",
+Cell[11579, 309, 310, 8, 33, "Text",
  CellTags->"Dimension::usage"],
-Cell[11842, 318, 680, 19, 33, "Text",
+Cell[11892, 319, 680, 19, 33, "Text",
  CellTags->"GateProduct::usage"],
-Cell[12525, 339, 423, 11, 33, "Text",
+Cell[12575, 340, 423, 11, 33, "Text",
  CellTags->"GateInverse::usage"],
-Cell[12951, 352, 440, 13, 33, "Text",
+Cell[13001, 353, 440, 13, 33, "Text",
  CellTags->"GateUnitary::usage"],
-Cell[13394, 367, 515, 16, 33, "Text",
+Cell[13444, 368, 515, 16, 33, "Text",
  CellTags->"GatePulse::usage"],
-Cell[13912, 385, 405, 11, 33, "Text"],
-Cell[14320, 398, 1542, 52, 55, "Text",
+Cell[13962, 386, 405, 11, 33, "Text"],
+Cell[14370, 399, 1542, 52, 55, "Text",
  CellTags->"GateChannel::usage"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[15899, 455, 105, 1, 36, "Subsection"],
-Cell[16007, 458, 341, 7, 33, "Text",
+Cell[15949, 456, 105, 1, 36, "Subsection"],
+Cell[16057, 459, 341, 7, 33, "Text",
  CellTags->"$gaussianQubitGateSet::usage"],
 Cell[CellGroupData[{
-Cell[16373, 469, 190, 2, 35, "Subsubsection"],
+Cell[16423, 470, 190, 2, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[16588, 475, 279, 4, 55, "Input"],
-Cell[16870, 481, 120, 2, 70, "Output"],
-Cell[16993, 485, 119, 2, 70, "Output"]
+Cell[16638, 476, 279, 4, 55, "Input"],
+Cell[16920, 482, 120, 2, 70, "Output"],
+Cell[17043, 486, 119, 2, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[17149, 492, 390, 7, 32, "Input"],
-Cell[17542, 501, 7135, 183, 70, "Output"]
+Cell[17199, 493, 390, 7, 32, "Input"],
+Cell[17592, 502, 7135, 183, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[24714, 689, 954, 24, 78, "Input"],
-Cell[25671, 715, 72231, 1357, 70, "Output"]
+Cell[24764, 690, 954, 24, 78, "Input"],
+Cell[25721, 716, 72231, 1357, 70, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[97939, 2077, 199, 4, 34, "Input"],
-Cell[98141, 2083, 120, 2, 70, "Output"]
+Cell[97989, 2078, 199, 4, 34, "Input"],
+Cell[98191, 2084, 120, 2, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[98322, 2092, 109, 1, 37, "Subsection"],
-Cell[98434, 2095, 492, 16, 33, "Text",
+Cell[98372, 2093, 109, 1, 37, "Subsection"],
+Cell[98484, 2096, 492, 16, 33, "Text",
  CellTags->"FramePotential::usage"],
-Cell[98929, 2113, 954, 27, 121, "Text",
+Cell[98979, 2114, 954, 27, 121, "Text",
  CellTags->"TestGateSetPulses::usage"],
-Cell[99886, 2142, 1178, 34, 121, "Text",
+Cell[99936, 2143, 1178, 34, 121, "Text",
  CellTags->"TestGateSetInverses::usage"],
-Cell[101067, 2178, 1087, 33, 121, "Text",
+Cell[101117, 2179, 1087, 33, 121, "Text",
  CellTags->"TestGateSetProducts::usage"],
-Cell[102157, 2213, 493, 15, 33, "Text",
+Cell[102207, 2214, 493, 15, 33, "Text",
  CellTags->"GateIndices::usage"],
-Cell[102653, 2230, 498, 14, 33, "Text",
+Cell[102703, 2231, 498, 14, 33, "Text",
  CellTags->"TakeOverlap::usage"],
 Cell[CellGroupData[{
-Cell[103176, 2248, 163, 2, 35, "Subsubsection"],
-Cell[103342, 2252, 196, 4, 33, "Text"],
+Cell[103226, 2249, 163, 2, 35, "Subsubsection"],
+Cell[103392, 2253, 196, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[103563, 2260, 176, 3, 34, "Input"],
-Cell[103742, 2265, 122, 2, 70, "Output"]
+Cell[103613, 2261, 176, 3, 34, "Input"],
+Cell[103792, 2266, 122, 2, 70, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[103913, 2273, 107, 1, 29, "Subsubsection"],
-Cell[104023, 2276, 135, 1, 33, "Text"],
+Cell[103963, 2274, 107, 1, 29, "Subsubsection"],
+Cell[104073, 2277, 135, 1, 33, "Text"],
 Cell[CellGroupData[{
-Cell[104183, 2281, 156, 2, 32, "Input"],
-Cell[104342, 2285, 460, 9, 34, "Output"]
+Cell[104233, 2282, 156, 2, 32, "Input"],
+Cell[104392, 2286, 460, 9, 34, "Output"]
 }, Open  ]],
-Cell[104817, 2297, 382, 9, 33, "Text"],
+Cell[104867, 2298, 382, 9, 33, "Text"],
 Cell[CellGroupData[{
-Cell[105224, 2310, 194, 4, 32, "Input"],
-Cell[105421, 2316, 1449, 29, 228, "Output"]
+Cell[105274, 2311, 194, 4, 32, "Input"],
+Cell[105471, 2317, 1449, 29, 228, "Output"]
 }, Open  ]],
-Cell[106885, 2348, 375, 9, 33, "Text"],
+Cell[106935, 2349, 375, 9, 33, "Text"],
 Cell[CellGroupData[{
-Cell[107285, 2361, 162, 3, 32, "Input"],
-Cell[107450, 2366, 244, 5, 70, "Output"]
+Cell[107335, 2362, 162, 3, 32, "Input"],
+Cell[107500, 2367, 244, 5, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[107767, 2379, 99, 1, 51, "Section"],
-Cell[107869, 2382, 1807, 47, 283, "Text",
+Cell[107817, 2380, 99, 1, 51, "Section"],
+Cell[107919, 2383, 1807, 47, 283, "Text",
  CellTags->"NoiseModel::usage"],
 Cell[CellGroupData[{
-Cell[109701, 2433, 106, 1, 44, "Subsection"],
-Cell[109810, 2436, 1033, 37, 33, "Text",
+Cell[109751, 2434, 106, 1, 45, "Subsection"],
+Cell[109860, 2437, 1033, 37, 33, "Text",
  CellTags->"GateNoise::usage"],
-Cell[110846, 2475, 705, 14, 55, "Text",
+Cell[110896, 2476, 705, 14, 55, "Text",
  CellTags->"DistortionMultiplier::usage"],
-Cell[111554, 2491, 392, 11, 33, "Text"],
-Cell[111949, 2504, 636, 14, 55, "Text",
+Cell[111604, 2492, 392, 11, 33, "Text"],
+Cell[111999, 2505, 636, 14, 55, "Text",
  CellTags->"StochasticNoise::usage"],
-Cell[112588, 2520, 583, 14, 55, "Text",
+Cell[112638, 2521, 583, 14, 55, "Text",
  CellTags->"StaticNoise::usage"],
-Cell[113174, 2536, 434, 10, 33, "Text",
+Cell[113224, 2537, 434, 10, 33, "Text",
  CellTags->"Generator::usage"],
-Cell[113611, 2548, 337, 9, 33, "Text",
+Cell[113661, 2549, 337, 9, 33, "Text",
  CellTags->"StepSize::link"]
 }, Closed]],
-Cell[113963, 2560, 108, 1, 36, "Subsection"]
+Cell[114013, 2561, 108, 1, 37, "Subsection"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[114108, 2566, 94, 1, 51, "Section"],
-Cell[114205, 2569, 2729, 74, 429, "Text",
+Cell[114158, 2567, 94, 1, 51, "Section"],
+Cell[114255, 2570, 2729, 74, 429, "Text",
  CellTags->"Protocol::usage"],
 Cell[CellGroupData[{
-Cell[116959, 2647, 105, 1, 45, "Subsection"],
-Cell[117067, 2650, 304, 8, 33, "Text",
+Cell[117009, 2648, 105, 1, 45, "Subsection"],
+Cell[117117, 2651, 304, 8, 33, "Text",
  CellTags->"ProtocolName::usage"],
-Cell[117374, 2660, 522, 12, 33, "Text",
+Cell[117424, 2661, 522, 12, 33, "Text",
  CellTags->"SequenceLengths::usage"],
-Cell[117899, 2674, 824, 22, 33, "Text",
+Cell[117949, 2675, 824, 22, 33, "Text",
  CellTags->"ExperimentTypes::usage"],
-Cell[118726, 2698, 993, 30, 33, "Text",
+Cell[118776, 2699, 993, 30, 33, "Text",
  CellTags->"NumSequenceDraws::usage"],
-Cell[119722, 2730, 911, 28, 33, "Text",
+Cell[119772, 2731, 911, 28, 33, "Text",
  CellTags->"NumRepetitions::usage"],
-Cell[120636, 2760, 1246, 40, 55, "Text",
+Cell[120686, 2761, 1246, 40, 55, "Text",
  CellTags->"SequenceGenerator::usage"],
-Cell[121885, 2802, 431, 11, 33, "Text",
+Cell[121935, 2803, 431, 11, 33, "Text",
  CellTags->"SimulationOptions::usage"],
-Cell[122319, 2815, 427, 11, 33, "Text",
+Cell[122369, 2816, 427, 11, 33, "Text",
  CellTags->"SimulationParser::usage"],
-Cell[122749, 2828, 1087, 37, 55, "Text",
+Cell[122799, 2829, 1087, 37, 55, "Text",
  CellTags->"GateSimulator::usage"],
-Cell[123839, 2867, 457, 12, 33, "Text",
+Cell[123889, 2868, 457, 12, 33, "Text",
  CellTags->"ParallelOptions::usage"],
-Cell[124299, 2881, 423, 10, 33, "Text",
+Cell[124349, 2882, 423, 10, 33, "Text",
  CellTags->"TotalGates::usage"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[124759, 2896, 108, 1, 36, "Subsection"],
-Cell[124870, 2899, 854, 27, 55, "Text",
+Cell[124809, 2897, 108, 1, 36, "Subsection"],
+Cell[124920, 2900, 854, 27, 55, "Text",
  CellTags->"RBDraw::usage"],
-Cell[125727, 2928, 1543, 52, 55, "Text",
+Cell[125777, 2929, 1543, 52, 55, "Text",
  CellTags->"RBProtocol::usage"],
-Cell[127273, 2982, 1154, 32, 55, "Text",
+Cell[127323, 2983, 1154, 32, 55, "Text",
  CellTags->"GateNoiseProtocol::usage"],
 Cell[CellGroupData[{
-Cell[128452, 3018, 163, 2, 35, "Subsubsection"],
-Cell[128618, 3022, 274, 5, 33, "Text"],
-Cell[128895, 3029, 624, 19, 34, "Input"],
-Cell[129522, 3050, 207, 7, 33, "Text"],
+Cell[128502, 3019, 163, 2, 35, "Subsubsection"],
+Cell[128668, 3023, 274, 5, 33, "Text"],
+Cell[128945, 3030, 624, 19, 34, "Input"],
+Cell[129572, 3051, 207, 7, 33, "Text"],
 Cell[CellGroupData[{
-Cell[129754, 3061, 280, 5, 55, "Input"],
-Cell[130037, 3068, 148, 3, 32, "Output"],
-Cell[130188, 3073, 168, 4, 32, "Output"]
+Cell[129804, 3062, 280, 5, 55, "Input"],
+Cell[130087, 3069, 148, 3, 32, "Output"],
+Cell[130238, 3074, 168, 4, 32, "Output"]
 }, Open  ]],
-Cell[130371, 3080, 188, 4, 33, "Text"],
+Cell[130421, 3081, 188, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[130584, 3088, 496, 10, 34, "Input"],
-Cell[131083, 3100, 408, 8, 34, "Output"]
+Cell[130634, 3089, 496, 10, 34, "Input"],
+Cell[131133, 3101, 408, 8, 34, "Output"]
 }, Open  ]],
-Cell[131506, 3111, 125, 1, 33, "Text"],
+Cell[131556, 3112, 125, 1, 33, "Text"],
 Cell[CellGroupData[{
-Cell[131656, 3116, 221, 5, 32, "Input"],
-Cell[131880, 3123, 5934, 151, 70, "Output"]
+Cell[131706, 3117, 221, 5, 32, "Input"],
+Cell[131930, 3124, 5934, 151, 70, "Output"]
 }, Open  ]],
-Cell[137829, 3277, 261, 5, 33, "Text"],
+Cell[137879, 3278, 261, 5, 33, "Text"],
 Cell[CellGroupData[{
-Cell[138115, 3286, 316, 8, 34, "Input"],
-Cell[138434, 3296, 697, 20, 48, "Output"]
+Cell[138165, 3287, 316, 8, 34, "Input"],
+Cell[138484, 3297, 697, 20, 48, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[139180, 3322, 121, 1, 29, "Subsubsection"],
-Cell[139304, 3325, 172, 5, 33, "Text"],
+Cell[139230, 3323, 121, 1, 29, "Subsubsection"],
+Cell[139354, 3326, 172, 5, 33, "Text"],
 Cell[CellGroupData[{
-Cell[139501, 3334, 479, 10, 34, "Input"],
-Cell[139983, 3346, 394, 8, 32, "Output"]
+Cell[139551, 3335, 479, 10, 34, "Input"],
+Cell[140033, 3347, 394, 8, 32, "Output"]
 }, Open  ]],
-Cell[140392, 3357, 184, 4, 33, "Text"],
+Cell[140442, 3358, 184, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[140601, 3365, 176, 4, 32, "Input"],
-Cell[140780, 3371, 799, 24, 34, "Output"]
+Cell[140651, 3366, 176, 4, 32, "Input"],
+Cell[140830, 3372, 799, 24, 34, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[141616, 3400, 384, 9, 34, "Input"],
-Cell[142003, 3411, 287, 5, 34, "Output"]
+Cell[141666, 3401, 384, 9, 34, "Input"],
+Cell[142053, 3412, 287, 5, 34, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[142363, 3424, 96, 1, 65, "Section"],
+Cell[142413, 3425, 96, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[142484, 3429, 176, 2, 45, "Subsection"],
-Cell[142663, 3433, 1474, 46, 185, "Text",
+Cell[142534, 3430, 176, 2, 45, "Subsection"],
+Cell[142713, 3434, 1474, 46, 185, "Text",
  CellTags->"CompileSequence::usage"],
-Cell[144140, 3481, 1944, 49, 305, "Text",
+Cell[144190, 3482, 1944, 49, 305, "Text",
  CellTags->"CompiledSequence::usage"],
 Cell[CellGroupData[{
-Cell[146109, 3534, 156, 2, 35, "Subsubsection"],
-Cell[146268, 3538, 519, 13, 33, "Text",
+Cell[146159, 3535, 156, 2, 35, "Subsubsection"],
+Cell[146318, 3539, 519, 13, 33, "Text",
  CellTags->"AllowFinalRingdown::usage"],
-Cell[146790, 3553, 203, 4, 33, "Text"],
-Cell[146996, 3559, 414, 12, 33, "Text",
+Cell[146840, 3554, 203, 4, 33, "Text"],
+Cell[147046, 3560, 414, 12, 33, "Text",
  CellTags->"PulseSequence::usage"],
-Cell[147413, 3573, 200, 4, 33, "Text"],
-Cell[147616, 3579, 675, 18, 55, "Text",
+Cell[147463, 3574, 200, 4, 33, "Text"],
+Cell[147666, 3580, 675, 18, 55, "Text",
  CellTags->"GateSequence::usage"],
-Cell[148294, 3599, 437, 11, 33, "Text",
+Cell[148344, 3600, 437, 11, 33, "Text",
  CellTags->"UndistortedLongPulse::usage"],
-Cell[148734, 3612, 199, 4, 33, "Text"],
-Cell[148936, 3618, 205, 4, 33, "Text"]
+Cell[148784, 3613, 199, 4, 33, "Text"],
+Cell[148986, 3619, 205, 4, 33, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[149178, 3627, 98, 1, 29, "Subsubsection"],
-Cell[149279, 3630, 486, 9, 33, "Text"],
+Cell[149228, 3628, 98, 1, 29, "Subsubsection"],
+Cell[149329, 3631, 486, 9, 33, "Text"],
 Cell[CellGroupData[{
-Cell[149790, 3643, 970, 22, 57, "Input"],
-Cell[150763, 3667, 72, 1, 24, "Print"]
+Cell[149840, 3644, 970, 22, 57, "Input"],
+Cell[150813, 3668, 72, 1, 24, "Print"]
 }, Open  ]],
-Cell[150850, 3671, 98, 1, 33, "Text"],
+Cell[150900, 3672, 98, 1, 33, "Text"],
 Cell[CellGroupData[{
-Cell[150973, 3676, 592, 11, 34, "Input"],
-Cell[151568, 3689, 25558, 437, 219, "Output"]
+Cell[151023, 3677, 592, 11, 34, "Input"],
+Cell[151618, 3690, 25558, 437, 219, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[177187, 4133, 155, 2, 37, "Subsection"],
-Cell[177345, 4137, 223, 3, 33, "Text",
+Cell[177237, 4134, 155, 2, 37, "Subsection"],
+Cell[177395, 4138, 223, 3, 33, "Text",
  CellTags->"CompileGateNoise::usage"],
 Cell[CellGroupData[{
-Cell[177593, 4144, 98, 1, 35, "Subsubsection"],
-Cell[177694, 4147, 198, 5, 33, "Text"],
-Cell[177895, 4154, 1041, 21, 57, "Input"],
-Cell[178939, 4177, 183, 4, 33, "Text"],
+Cell[177643, 4145, 98, 1, 35, "Subsubsection"],
+Cell[177744, 4148, 198, 5, 33, "Text"],
+Cell[177945, 4155, 1041, 21, 57, "Input"],
+Cell[178989, 4178, 183, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[179147, 4185, 1378, 28, 34, "Input"],
-Cell[180528, 4215, 2065, 37, 374, "Output"]
+Cell[179197, 4186, 1378, 28, 34, "Input"],
+Cell[180578, 4216, 2065, 37, 374, "Output"]
 }, Open  ]]
 }, Closed]]
-}, Open  ]]
-}, Open  ]],
+}, Closed]]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[182666, 4260, 181, 3, 65, "Section",
+Cell[182716, 4261, 181, 3, 51, "Section",
  CellTags->"SimulateSequence::usage"],
-Cell[182850, 4265, 799, 26, 33, "Text"],
-Cell[183652, 4293, 1736, 55, 55, "Text",
+Cell[182900, 4266, 816, 26, 33, "Text"],
+Cell[183719, 4294, 2029, 62, 141, "Text",
  CellTags->"SimulateProtocol::usage"],
+Cell[185751, 4358, 1942, 44, 143, "Text",
+ CellTags->"ExportSimulation::usage"],
 Cell[CellGroupData[{
-Cell[185413, 4352, 95, 1, 45, "Subsection"],
-Cell[185511, 4355, 358, 10, 33, "Text",
- CellTags->"PulseSubset::usage"]
+Cell[187718, 4406, 95, 1, 45, "Subsection"],
+Cell[187816, 4409, 358, 10, 33, "Text",
+ CellTags->"PulseSubset::usage"],
+Cell[188177, 4421, 690, 15, 33, "Text",
+ CellTags->"SimulationExportName::usage"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[188904, 4441, 113, 1, 37, "Subsection"],
+Cell[CellGroupData[{
+Cell[189042, 4446, 651, 16, 79, "Input"],
+Cell[189696, 4464, 16516, 289, 265, "Output"]
 }, Open  ]],
+Cell[206227, 4756, 174, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[185906, 4370, 113, 1, 45, "Subsection"],
-Cell[CellGroupData[{
-Cell[186044, 4375, 651, 16, 79, "Input"],
-Cell[186698, 4393, 16516, 289, 265, "Output"]
+Cell[206426, 4764, 198, 3, 32, "Input"],
+Cell[206627, 4769, 3476, 86, 80, "Output"]
 }, Open  ]],
-Cell[203229, 4685, 174, 4, 33, "Text"],
+Cell[210118, 4858, 172, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[203428, 4693, 198, 3, 32, "Input"],
-Cell[203629, 4698, 3476, 86, 80, "Output"]
-}, Open  ]],
-Cell[207120, 4787, 172, 4, 33, "Text"],
-Cell[CellGroupData[{
-Cell[207317, 4795, 453, 10, 34, "Input"],
-Cell[207773, 4807, 184021, 3045, 375, 84549, 1413, "CachedBoxData", \
+Cell[210315, 4866, 453, 10, 34, "Input"],
+Cell[210771, 4878, 184021, 3045, 375, 84549, 1413, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]],
-Cell[391809, 7855, 187, 4, 33, "Text"],
+Cell[394807, 7926, 187, 4, 33, "Text"],
 Cell[CellGroupData[{
-Cell[392021, 7863, 534, 12, 34, "Input"],
-Cell[392558, 7877, 161509, 2675, 375, 65324, 1096, "CachedBoxData", \
+Cell[395019, 7934, 534, 12, 34, "Input"],
+Cell[395556, 7948, 161509, 2675, 375, 65324, 1096, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[554116, 10558, 143, 1, 37, "Subsection"],
-Cell[554262, 10561, 130, 1, 33, "Text"],
+Cell[557114, 10629, 143, 1, 37, "Subsection"],
+Cell[557260, 10632, 130, 1, 33, "Text"],
 Cell[CellGroupData[{
-Cell[554417, 10566, 2406, 56, 351, "Input"],
-Cell[556826, 10624, 7520, 145, 195, "Output"]
+Cell[557415, 10637, 2406, 56, 351, "Input"],
+Cell[559824, 10695, 7520, 145, 195, "Output"]
 }, Open  ]],
-Cell[564361, 10772, 164, 3, 33, "Text"],
+Cell[567359, 10843, 164, 3, 33, "Text"],
 Cell[CellGroupData[{
-Cell[564550, 10779, 367, 11, 34, "Input"],
-Cell[564920, 10792, 20380, 585, 136, "Output"]
+Cell[567548, 10850, 367, 11, 34, "Input"],
+Cell[567918, 10863, 20380, 585, 136, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[585349, 11383, 135, 1, 37, "Subsection"],
-Cell[585487, 11386, 198, 5, 33, "Text"],
+Cell[588347, 11454, 135, 1, 37, "Subsection"],
+Cell[588485, 11457, 198, 5, 33, "Text"],
 Cell[CellGroupData[{
-Cell[585710, 11395, 2236, 46, 148, "Input"],
-Cell[587949, 11443, 776, 14, 34, "Output"]
+Cell[588708, 11466, 2236, 46, 148, "Input"],
+Cell[590947, 11514, 776, 14, 34, "Output"]
 }, Open  ]],
-Cell[588740, 11460, 162, 2, 33, "Text"],
-Cell[588905, 11464, 1403, 25, 34, "Input"],
-Cell[590311, 11491, 202, 5, 33, "Text"],
+Cell[591738, 11531, 162, 2, 33, "Text"],
+Cell[591903, 11535, 1403, 25, 34, "Input"],
+Cell[593309, 11562, 202, 5, 33, "Text"],
 Cell[CellGroupData[{
-Cell[590538, 11500, 535, 15, 57, "Input"],
-Cell[591076, 11517, 291, 5, 34, "Output"],
-Cell[591370, 11524, 333, 8, 27, "PrintTemporary"]
+Cell[593536, 11571, 535, 15, 57, "Input"],
+Cell[594074, 11588, 291, 5, 34, "Output"],
+Cell[594368, 11595, 333, 8, 27, "PrintTemporary"]
 }, Open  ]],
-Cell[591718, 11535, 114, 1, 33, "Text"],
+Cell[594716, 11606, 114, 1, 33, "Text"],
 Cell[CellGroupData[{
-Cell[591857, 11540, 675, 21, 57, "Input"],
-Cell[592535, 11563, 8685, 234, 132, "Output"],
-Cell[601223, 11799, 8650, 232, 136, "Output"]
+Cell[594855, 11611, 675, 21, 57, "Input"],
+Cell[595533, 11634, 8685, 234, 115, "Output"],
+Cell[604221, 11870, 8650, 232, 115, "Output"]
 }, Open  ]]
-}, Open  ]]
-}, Open  ]],
+}, Closed]]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[609934, 12038, 100, 1, 65, "Section"],
+Cell[612932, 12109, 100, 1, 51, "Section"],
 Cell[CellGroupData[{
-Cell[610059, 12043, 102, 1, 45, "Subsection"],
-Cell[610164, 12046, 604, 20, 55, "Text",
+Cell[613057, 12114, 102, 1, 45, "Subsection"],
+Cell[613162, 12117, 604, 20, 33, "Text",
  CellTags->"PlotSequence::usage"],
 Cell[CellGroupData[{
-Cell[610793, 12070, 98, 1, 35, "Subsubsection"],
-Cell[610894, 12073, 551, 10, 33, "Text"],
+Cell[613791, 12141, 98, 1, 35, "Subsubsection"],
+Cell[613892, 12144, 551, 10, 33, "Text"],
 Cell[CellGroupData[{
-Cell[611470, 12087, 1066, 24, 80, "Input"],
-Cell[612539, 12113, 25235, 432, 70, "Output"]
+Cell[614468, 12158, 1066, 24, 80, "Input"],
+Cell[615537, 12184, 25235, 432, 70, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Closed]]
