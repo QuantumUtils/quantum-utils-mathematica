@@ -1,9 +1,5 @@
 # QuantumUtils for Mathematica
 
-
-**QuantumUtils for Mathematica is still a pre-alpha version, expect bugs until version 1.**
-
-
 QuantumUtils for Mathematica is a software library for quantum information scientists. Features include:
 
  - Multi-partite tensor manipulations
