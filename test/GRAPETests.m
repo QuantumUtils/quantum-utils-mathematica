@@ -22,7 +22,7 @@
 (*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THEIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLEFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS ORSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVERCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USEOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Preamble*)
 
 
@@ -34,6 +34,7 @@ BeginPackage["GRAPETests`"];
 
 
 Needs["QUDevTools`"];
+Needs["QuantumSystems`"];
 Needs["GRAPE`"];
 
 
@@ -51,15 +52,99 @@ $TestResults := RunTest[$RegisteredTests];
 End[];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Unit Tests*)
 
 
 Begin["`UnitTests`"];
 
+(* ::Subsection:: *)
+(*PropagatorListFromPulse*)
+TestCase[$RegisteredTests, "PropagatorListFromPulse:AssertListCorrect",
+	Module[{randomPulse},
+		randomPulse = RandomPulse[1, 10, {{-1, 1}}];
+		Length[FromPulse[randomPulse]] == Length[PropagatorListFromPulse[randomPulse]]
+	]
+]
 
-(* ::Subsection::Closed:: *)
-(*End*)
+(* ::Subsection:: *)
+(*Pulse Object*)
+
+
+(* ::Subsubsection:: *)
+(*Initialization*)
+
+
+TestCase[$RegisteredTests, "PulseDataStructure:InitializeHControl", 
+	Module[{p, HControl},
+		HControl = {RandomHermitian[8], RandomHermitian[8]};		
+		p = Pulse[
+			ControlHamiltonians -> HControl
+		];
+		ControlHamiltonians[p] == Hinternal;
+	]
+]
+TestCase[$RegisteredTests, "PulseDataStrucutre:InitializeHInternal",
+	Module[{p, Hinternal},
+	Hinternal = RandomHermitian[8];
+	p = Pulse[InternalHamiltonian -> Hinternal];
+	InternalHamiltonian[p] == Hinternal;
+]]
+
+TestCase[$RegisteredTests, "PulseDataStructure:InitializeUtarget",
+	Module[{p, target},
+		target = RandomUnitary[8];
+		p = Pulse[
+			Target -> target
+		];
+		Target[p] == target
+	]
+]
+
+
+(* ::Subsection:: *)
+(*FindPulse*)
+
+
+(* ::Subsubsection:: *)
+(*Simple Pulse*)
+
+
+TestCase[$RegisteredTests, "FindPulse:SimplePulse",
+	Module[{
+		pulse, Hint, HControl, controlRange, initialGuess, target, \[Phi]target
+	},
+		Hint = TP[Z];
+		HControl = 2\[Pi] * {TP[X], TP[Y]};
+		controlRange = {{-1, 1}, {-1, 1}};
+		target = RandomUnitary[2];
+		\[Phi]target = 0.99;
+		initialGuess = RandomSmoothPulse[1, 10, controlRange];
+		pulse = FindPulse[initialGuess, target, \[Phi]target, controlRange, HControl, Hint];
+		Re[Tr[pulse[Target] . target / 2]] >= \[Phi]target;
+]
+]
+
+
+(* ::Subsubsection:: *)
+(*Repetitions*)
+
+
+TestCase[$RegisteredTests, "FindPulse:Repetitions",
+	Module[{
+		pulse, repetitions, Hint, HControl, controlRange, initialGuess, target, \[Phi]target
+	},
+		Hint = TP[Z];
+		repetitions = 10;
+		HControl = 2\[Pi] * {TP[X], TP[Y]};
+		controlRange = {{-1, 1}, {-1, 1}};
+		target = RandomUnitary[2];
+		\[Phi]target = 0.99;
+		initialGuess = RandomSmoothPulse[1, 10, controlRange];
+		pulse = FindPulse[initialGuess, target, \[Phi]target, controlRange, HControl, Hint, Repetitions -> repetitions];
+		Re[Tr[pulse[Target] . target / 2]] >= \[Phi]target;
+]
+]
 
 
 End[];

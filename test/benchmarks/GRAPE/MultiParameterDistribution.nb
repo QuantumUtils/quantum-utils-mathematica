@@ -1,0 +1,260 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9034,        252]
+NotebookOptionsPosition[      8353,        225]
+NotebookOutlinePosition[      8692,        240]
+CellTagsIndexPosition[      8649,        237]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Double Parameter Distribution Benchmark", "Chapter",
+ CellChangeTimes->{{3.702898961860035*^9, 3.702898969043269*^9}}],
+
+Cell["\<\
+This notebook benchmarks a parameter distribution with multiple parameters\
+\>", "Text",
+ CellChangeTimes->{{3.702898971353223*^9, 3.7028989792124567`*^9}, {
+  3.70289904912554*^9, 3.702899060900813*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<QuantumUtils`\>\"", "]"}], ";"}]], "Code",
+ CellChangeTimes->{{3.702899071629066*^9, 3.702899076204163*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Parameter Distribution", "Section",
+ CellChangeTimes->{{3.702899096235221*^9, 3.702899099064702*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"uniformDistribution", "[", 
+   RowBox[{
+   "parameter_", ",", " ", "minimum_", ",", " ", "maximum_", ",", " ", 
+    "numberOfPoints_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"{", "\n", "\t", 
+   RowBox[{
+    RowBox[{"ConstantArray", "[", 
+     RowBox[{
+      RowBox[{"1", "/", "numberOfPoints"}], ",", " ", "numberOfPoints"}], 
+     "]"}], ",", " ", "\n", "\t", 
+    RowBox[{"Array", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"(", 
+         RowBox[{"parameter", " ", "->", " ", "#"}], ")"}], "}"}], "&"}], ",",
+       " ", "numberOfPoints", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"minimum", ",", " ", "maximum"}], "}"}]}], "]"}]}], "\n", 
+   "}"}]}]], "Code",
+ CellChangeTimes->{{3.702899280980422*^9, 3.70289933648042*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"twoParameterDistribution", "[", "numberOfPoints_", "]"}], ":=", 
+   " ", 
+   RowBox[{"ProductParameterDistribution", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"uniformDistribution", "[", 
+      RowBox[{
+       SubscriptBox["\[Delta]B", "0"], ",", " ", 
+       RowBox[{"-", "1"}], ",", " ", "1", ",", " ", "numberOfPoints"}], "]"}],
+      ",", " ", 
+     RowBox[{"uniformDistribution", "[", 
+      RowBox[{
+       SubscriptBox["\[Delta]B", "1"], ",", " ", 
+       RowBox[{"-", "1"}], ",", " ", "1", ",", " ", "numberOfPoints"}], 
+      "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Code",
+ CellChangeTimes->{3.702899895663148*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "twoParameterInternalHamiltonianBenchmark", "[", "numberOfPoints_", "]"}], 
+  " ", ":=", " ", 
+  RowBox[{"Module", "[", "\n", "\t", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "Hinternal", ",", " ", "dist", ",", " ", "controlRange", ",", " ", 
+      "initialGuess", ",", " ", "target", ",", " ", "Hcontrol", ",", " ", 
+      "tic", ",", " ", "toc"}], "}"}], ",", "\n", "\t", 
+    RowBox[{
+     RowBox[{"Hinternal", " ", "=", " ", 
+      RowBox[{"2", "\[Pi]", " ", 
+       SubscriptBox["\[Delta]B", "0"], " ", 
+       RowBox[{
+        RowBox[{"Spin", "[", "Z", "]"}], "[", 
+        RowBox[{"1", "/", "2"}], "]"}]}]}], ";", "\n", "\t", 
+     RowBox[{"dist", " ", "=", " ", 
+      RowBox[{"twoParameterDistribution", "[", "numberOfPoints", "]"}]}], ";",
+      "\n", "\t", 
+     RowBox[{"controlRange", " ", "=", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], " ", ",", " ", "1"}], "}"}]}], "}"}]}], ";", 
+     "\n", "\t", 
+     RowBox[{"initialGuess", ":=", 
+      RowBox[{"FromPulse", "[", 
+       RowBox[{"Pulse", "[", 
+        RowBox[{
+         RowBox[{"TimeSteps", " ", "\[Rule]", " ", 
+          RowBox[{"ConstantArray", "[", 
+           RowBox[{"0.1", ",", " ", "100"}], "]"}]}], ",", " ", 
+         RowBox[{"Pulse", " ", "\[Rule]", " ", 
+          RowBox[{"ConstantArray", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", "100"}], 
+           "]"}]}]}], "]"}], "]"}]}], ";", "\n", "\t", 
+     RowBox[{"target", "=", 
+      RowBox[{"MatrixExp", "[", 
+       RowBox[{
+        RowBox[{"-", "I"}], " ", "\[Pi]", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Spin", "[", "X", "]"}], "[", 
+          RowBox[{"1", "/", "2"}], "]"}], "/", "2"}]}], "]"}]}], ";", "\n", 
+     "\t", 
+     RowBox[{"Hcontrol", "=", 
+      RowBox[{"2", "\[Pi]", "*", 
+       RowBox[{"(", 
+        RowBox[{"1", " ", "+", " ", 
+         SubscriptBox["\[Delta]B", "1"]}], ")"}], "*", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Spin", "[", "X", "]"}], "[", 
+          RowBox[{"1", "/", "2"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"Spin", "[", "Y", "]"}], "[", 
+          RowBox[{"1", "/", "2"}], "]"}]}], "}"}]}]}], ";", "\n", "\t", "\n", 
+     "\t", 
+     RowBox[{"tic", " ", "=", " ", 
+      RowBox[{"AbsoluteTime", "[", "]"}]}], ";", "\n", "\t", 
+     RowBox[{"FindPulse", "[", 
+      RowBox[{
+      "initialGuess", ",", "target", ",", "0.99", ",", "controlRange", ",", 
+       "Hcontrol", ",", "Hinternal", ",", 
+       RowBox[{"ParameterDistribution", "->", "dist"}]}], "]"}], ";", "\n", 
+     "\t", 
+     RowBox[{"toc", " ", "=", " ", 
+      RowBox[{"AbsoluteTime", "[", "]"}]}], ";", "\n", "\t", 
+     RowBox[{"toc", " ", "-", " ", "tic"}]}]}], "\n", "]"}]}]], "Code",
+ CellChangeTimes->{{3.702826415118956*^9, 3.702826422253899*^9}, {
+  3.702826540444525*^9, 3.70282654314181*^9}, {3.702826633143444*^9, 
+  3.702826741238105*^9}, {3.702826865055868*^9, 3.70282686783817*^9}, {
+  3.70282694677388*^9, 3.7028269969265823`*^9}, {3.702827033966593*^9, 
+  3.702827049841363*^9}, {3.702827080447929*^9, 3.7028270892708073`*^9}, {
+  3.70282713756459*^9, 3.702827145228664*^9}, {3.70282761371666*^9, 
+  3.702827614498374*^9}, {3.702827889213223*^9, 3.7028278900973253`*^9}, {
+  3.702828035195389*^9, 3.702828036110508*^9}, {3.702828094263652*^9, 
+  3.7028280973709517`*^9}, {3.702899733004736*^9, 3.7028997745095367`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"repeatBenchmark", "[", "repetitions_", "]"}], " ", ":=", " ", 
+   RowBox[{"Function", "[", "\n", "\t", 
+    RowBox[{
+     RowBox[{"{", "numberOfPoints", "}"}], ",", " ", "\n", "\t", 
+     RowBox[{"Mean", "[", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+        "twoParameterInternalHamiltonianBenchmark", "[", "numberOfPoints", 
+         "]"}], ",", " ", "repetitions"}], "]"}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Code",
+ CellChangeTimes->{
+  3.702899793764675*^9, {3.702899904326583*^9, 3.7028999060078573`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"times", " ", "=", " ", 
+   RowBox[{"Map", "[", 
+    RowBox[{
+     RowBox[{"repeatBenchmark", "[", "10", "]"}], ",", " ", 
+     RowBox[{"Range", "[", 
+      RowBox[{"1", ",", " ", "6"}], "]"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.702827181947715*^9, 3.7028272026420727`*^9}, {
+  3.702827274604418*^9, 3.702827279313026*^9}, {3.702827428230097*^9, 
+  3.7028274306736813`*^9}, {3.702827472729703*^9, 3.702827473962948*^9}, {
+  3.702827504641518*^9, 3.702827507094124*^9}, {3.702827752549573*^9, 
+  3.702827752972143*^9}, {3.702827895530958*^9, 3.70282789562074*^9}, {
+  3.702828160262206*^9, 3.7028281664892387`*^9}, {3.702828203164791*^9, 
+  3.702828203241563*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"times", ",", " ", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", " ", 
+   RowBox[{"PlotLabel", "\[Rule]", "\"\<Benchmark\>\""}], ",", " ", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Number of Points\>\"", ",", " ", "\"\<Time / s\>\""}], 
+     "}"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.702827261743033*^9, 3.702827270114544*^9}, {
+  3.702827820472217*^9, 3.702827866234296*^9}}],
+
+Cell[BoxData["times"], "Input",
+ CellChangeTimes->{{3.702827261743033*^9, 3.702827270114544*^9}, {
+  3.702827820472217*^9, 3.702827866234296*^9}, {3.702899826150275*^9, 
+  3.702899827495799*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{916, 484},
+WindowMargins->{{Automatic, 22}, {22, Automatic}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 124, 1, 66, "Chapter"],
+Cell[707, 25, 214, 4, 31, "Text"],
+Cell[924, 31, 161, 3, 68, "Code"],
+Cell[CellGroupData[{
+Cell[1110, 38, 107, 1, 65, "Section"],
+Cell[1220, 41, 793, 22, 133, "Code"],
+Cell[2016, 65, 693, 17, 112, "Code"],
+Cell[2712, 84, 3627, 87, 350, "Code"],
+Cell[6342, 173, 599, 15, 134, "Code"],
+Cell[6944, 190, 712, 14, 48, "Input"],
+Cell[7659, 206, 468, 10, 57, "Input"],
+Cell[8130, 218, 195, 3, 32, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

@@ -545,28 +545,15 @@ With[{tp = Transpose[pulse[[All, -2;;]]]},
 (*Takes a pulse and finds the overall unitary.*)
 
 
-PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{step=1,dt,dts,amps},
-		{dts,amps} = SplitPulse[pulse];
-		(* Notice the delay equal on dt! Not a bug. *)
-		dt := dts[[step++]];
-		Fold[
-			MatrixExp[-I(Hint+#2.Hcontrol) dt].#1&,
-			IdentityMatrix[Length[Hint]],
-			amps
-		]
-	]
-
-
 PropagatorListFromPulse[pulse_,Hint_,Hcontrol_]:=
-	Module[{dts,dt,step=1,amps},
-		{dts,amps} = SplitPulse[pulse];
-		dt := dts[[step++]];
-		Map[
-			MatrixExp[-I(Hint+#.Hcontrol)dt]&,
-			amps
-		]
-	]
+	Map[
+		MatrixExp[-I* (Hint+Rest[#].Hcontrol)* First[#]]&,
+		pulse
+	];
+
+PropagatorFromPulse[pulse_,Hint_,Hcontrol_]:= Fold[
+	Dot, PropagatorListFromPulse[pulse, Hint, Hcontrol]
+];
 
 
 (* ::Subsubsection::Closed:: *)
@@ -2517,23 +2504,22 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(********************** CHOOSE A DIRECTION ***********************)
 
-				Module[{distortedPulse, distortionJacobian},
+				Module[{distortedPulse, distortionJacobian, calculateUtilities},
 
 					(* Distort the current pulse and calculate the Jacobian with the control knobs. *)
 					(* The output may have distribution symbols included *)
+					Print["Calculating Initial Distortion"];
 					If[\[Not]distortionDependsOnDist,
 						{distortedPulse, distortionJacobian} = DistortionFn[pulse, True]
 					];
 
-					(* Now we do a big weighted sum over all elements of the distribution *)
-					{rawUtility, utility, gradient} = Sum[
-						Module[
+					(* Calculates the gradient for a given rule *)
+					calculateUtilities[parameterProbabilityAndRule_] := Module[
 							{reps, prob, objFunVal, objFunGrad, penaltyGrad, totalGrad},
 							
 							(* The replacements and probability of the current distribution element *)
-							reps=distReps[[d]];
-							prob=distPs[[d]];
-
+							reps=parameterProbabilityAndRule[[2]];
+							prob=parameterProbabilityAndRule[[1]];
 							(* If the distortion depends on the distribution, we evaluate it here, replacing what we can.
 							Anything else will get replaced in the call to UtilityGradient below. *)
 							If[distortionDependsOnDist,
@@ -2553,10 +2539,15 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 							(* Update the utility with the penalty *)
 							prob*{objFunVal, objFunVal - penalty, totalGrad}
-						],
-						{d,distNum}
-					];
-
+						];
+					Print["Calculating Utilities to Determine Jacobian"];
+					{rawUtility, utility, gradient} = Total[
+						ParallelMap[
+							calculateUtilities, 
+							Transpose[{distPs, distReps}], 
+							Method -> "CoarsestGrained"]
+						];
+					
 					(* Apply the mask to the gradient, so we can avoid bad controls. *)
 					gradient = derivMask * badControlLimitGradientMask * gradient;
 				];
@@ -2639,16 +2630,25 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(************** CALCULATE STEP SIZE MULTIPLIER **************)
 				(* Evaluate the objective function at two points along the gradient direction *)
-				Module[{testFn},
-					testFn = With[{distortedPulse=DistortionFn[pulse+AddTimeSteps[0,#*stepSize*(\[Epsilon]max^2*#&/@goodDirec)], False]},
-							Sum[
-								With[{reps=distReps[[d]], prob=distPs[[d]]},
-									prob*(Utility[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
-										PulsePenaltyFn[distortedPulse/.reps, False])
-								],
-								{d, distNum}
-							]
-						]&;
+				Module[{testFn, calculateUtilityForReplacement},
+					
+					calculateUtilityForReplacement[probabilityAndRule_] := Function[{distortedPulse}, 
+						With[{reps=probabilityAndRule[[2]], prob=probabilityAndRule[[1]]},
+							prob*(Utility[PropagatorFromPulse[distortedPulse/.reps,Hint/.reps,Hcontrol/.reps], target/.reps] - 
+								PulsePenaltyFn[distortedPulse/.reps, False])
+						]];
+					
+					Print["Calculating Distortion for Step Size"];
+					
+					testFn = With[
+						{
+							distortedPulse=DistortionFn[pulse+AddTimeSteps[0,#*stepSize*((\[Epsilon]max^2*#)&/@goodDirec)], False]
+						},
+						Total[
+							ParallelMap[(calculateUtilityForReplacement[#][distortedPulse])&,
+							Transpose[{distPs, distReps}], 
+							Method -> "CoarsestGrained"]
+						]]&;
 					bestMult = lineSearchMeth[utility, testFn];
 				];
 				
@@ -2660,6 +2660,8 @@ FindPulse[initialGuess_,target_,\[Phi]target_,controlRange_,Hcontrol_,Hint_,Opti
 
 				(* Make sure that the pulse does not exceed the limits *)
 				pulse=OptionValue[PulseLegalizer][pulse,controlRange];
+				
+				Print["Updating Pulse"];
 
 				(* Pulse has changed; update best pulse for monitor *)
 				UpdateBestPulse;
