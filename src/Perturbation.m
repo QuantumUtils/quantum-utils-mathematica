@@ -40,7 +40,7 @@ $PerturbationsUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc",
 (*Usage Declarations*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Magnus Expansion*)
 
 
@@ -75,7 +75,7 @@ AssignUsage[FirstOrderEigenvector,$PerturbationsUsages];
 AssignUsage[SecondOrderEigenvalue,$PerturbationsUsages];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Zassenhaus Expansion*)
 
 
@@ -88,14 +88,24 @@ AssignUsage[ZassenhausExpansion,$PerturbationsUsages];
 AssignUsage[ClearZassenhausCache,$PerturbationsUsages];
 
 
-(* ::Section:: *)
+(* ::Subsection::Closed:: *)
+(*BCH Expansion *)
+
+
+Unprotect[BCHExpansion]
+
+
+AssignUsage[BCHExpansion,$PerturbationsUsages];
+
+
+(* ::Section::Closed:: *)
 (*Implementation*)
 
 
 Begin["`Private`"];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Magnus Expansion*)
 
 
@@ -196,7 +206,7 @@ MagnusConvergenceTest[{A_,t0_,tf_},opts:OptionsPattern[]]:=
 MagnusConvergenceTest[{A_,tf_},opts:OptionsPattern[]]:=MagnusConvergenceTest[{A,0,tf},opts]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Average Hamiltonian*)
 
 
@@ -363,7 +373,7 @@ SecondOrderEigenvalue[A_,B_,\[Lambda]_:All,output_:"sum"]:=
 	]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Zassenhaus Expansion*)
 
 
@@ -428,7 +438,7 @@ ZassenhausSeries[X_,Y_,n_]:=ZassenhausTerm[X,Y,#]&/@Range[0,n]
 
 
 (* ::Text:: *)
-(*Cached function*)
+(*Cached function *)
 
 
 Clear[ZassenhausExpansionCached];
@@ -450,13 +460,28 @@ ZassenhausExpansion[\[Lambda]_:1,X_,Y_,n_]:=ZassenhausExpansionCached[\[Lambda],
 
 
 (* ::Subsection::Closed:: *)
+(*BCH Expansion*)
+
+
+(* ::Text:: *)
+(*Computes Ad_(e^X)Y using a nested list to order n. *)
+
+
+(* ::Subsubsection:: *)
+(*BCH Expansion*)
+
+
+BCHExpansion[\[Lambda]_,X_,Y_,n_]:= First[Collect[Total[NestList[Com[#,X]&,Y,n]*(Factorial/@Range[n+1])*(Power[\[Lambda],#]&/@Range[0,n])],\[Lambda],#&,Defer[+##]&]];
+
+
+(* ::Subsection::Closed:: *)
 (*End Private*)
 
 
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
@@ -468,6 +493,7 @@ Protect[MagnusExpansionTerm,MagnusExpansion,MagnusConvergenceTest,ClearMagnusCac
 Protect[AverageHamiltonianTerm,AverageHamiltonian];
 Protect[FirstOrderEigenvector,SecondOrderEigenvalue];
 Protect[ZassenhausSeries,ZassenhausTerm,ZassenhausExpansion,ClearZassenhausCache];
+Protect[BCHExpansion];
 
 
 EndPackage[];
