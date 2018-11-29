@@ -23,7 +23,7 @@
 
 
 (* ::Subsection::Closed:: *)
-(*Preample*)
+(*Preamble*)
 
 
 BeginPackage["Visualization`",{"QUDoc`"}];
@@ -36,6 +36,7 @@ BeginPackage["Visualization`",{"QUDoc`"}];
 Needs["QUDevTools`"];
 Needs["Predicates`"];
 Needs["Tensor`"];
+Needs["QuantumChannel`"];
 
 
 $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc", "Visualization.nb"}]];
@@ -49,12 +50,13 @@ $VisualizationUsages = LoadUsages[FileNameJoin[{$QUDocumentationPath, "api-doc",
 (*Matrices*)
 
 
-Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm];
+Unprotect[ComplexMatrixPlot,BlockForm,MatrixListForm, HintonPlot,ChannelHintonPlot];
 
 
 AssignUsage[ComplexMatrixPlot,$VisualizationUsages];
 AssignUsage[BlockForm,$VisualizationUsages];
 AssignUsage[MatrixListForm,$VisualizationUsages];
+AssignUsage[{Gap, HintonPlot, ChannelHintonPlot}, $VisualizationUsages];
 
 
 (* ::Subsection::Closed:: *)
@@ -108,7 +110,7 @@ BlochPlot::color = "BlochPlotColor option value not understood.";
 Begin["`Private`"];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Matrices*)
 
 
@@ -145,6 +147,76 @@ BlockForm[mat_]:=BlockForm[mat,First@Last@FactorInteger[Length[mat],2]]
 
 
 MatrixListForm[mats_]:=Row[Riffle[MatrixForm/@mats,","]]
+
+
+Options[HintonPlot] = {
+	AxesLabel -> None,
+	"Gap" -> 0.05,
+	"Colors" -> {Black,Gray,White},
+	AxesStyle -> {},
+	"Normalization" -> Automatic
+};
+
+
+HintonPlot[dat_,OptionsPattern[]] := 
+	With[{
+		data=Re@Reverse[dat\[Transpose],{2}],
+		colors=OptionValue["Colors"]},
+	With[{
+		n=Dimensions[data][[1]],
+		m=Dimensions[data][[2]],
+		normdata=(1-OptionValue["Gap"]) data / If[OptionValue@"Normalization" === Automatic, Max[Abs[data]], OptionValue@"Normalization"],
+		graydata=Map[colors[[#]]&,Sign[data]+2,{2}]},
+    Module[{plot},
+        plot = Graphics[
+            {colors[[2]],Rectangle[{1/4,1/4},{n+3/4,m+3/4}]}~Join~
+            Table[
+                {
+                    graydata[[i,j]],
+                    Tooltip[Rectangle[
+                        {i-normdata[[i,j]]/2,j-normdata[[i,j]]/2},
+                        {i+normdata[[i,j]]/2,j+normdata[[i,j]]/2}
+                    ], data[[i,j]]]
+                },
+                {i,n}, {j,m}
+            ]
+        ];
+
+        If[OptionValue[AxesLabel]=!=None,
+            plot[[1]]=Join[
+                plot[[1]],
+               {Gray,Table[
+                    Style[Text[OptionValue[AxesLabel][[1,i]],{i,m+3/4},{0,-2}],OptionValue[AxesStyle]],
+                    {i,n}
+                ]},
+                {Gray,Table[
+                    Style[Text[Reverse[OptionValue[AxesLabel][[2]]][[j]],{0,j},{1,0}],OptionValue[AxesStyle]],
+                    {j,m}
+                ]}
+            ];
+        ];
+        plot
+    ]
+]];
+
+
+ChannelHintonPlot[chan_,opts:OptionsPattern[HintonPlot]]:=With[{
+		mtx=Unravel[First@Super[chan,Basis->"Pauli"],2],
+		nqIn=Log2 @ InputDim@ chan,
+		nqOut=Log2 @ OutputDim @ chan
+	},
+	HintonPlot[Chop @ mtx,
+		If[AnyMatchQ[AxesLabel->_,{opts}],
+			{opts},
+			Append[{opts},
+                 (*
+                      Note that we use PO, instead of Pauli, to suppress normalization in plot labels.
+                      It should be understood that the plot is with respect to the normalized basis,
+                      but that the normalizations are omitted for brevity.
+                  *)
+                 AxesLabel->(BasisLabels["PO", #, Join->True]&/@{nqOut,nqIn})]]
+            ]
+]
 
 
 (* ::Subsection::Closed:: *)
@@ -454,12 +526,12 @@ FourierListPlot[data_,{mint_,maxt_},function_,opt:OptionsPattern[ListPlot]]:=
 End[];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*End Package*)
 
 
 Protect[ComplexMatrixPlot,BlockForm,MatrixListForm];
-Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels];
+Protect[BlochPlot,BlochPlot2D,ListBlochPlot2D,BlochPlotColors,BlochPlotEndPoints,BlochPlotJoined,BlochPlotLabels,HintonPlot,ChannelHintonPlot];
 Protect[EigensystemForm];
 Protect[FourierListPlot];
 

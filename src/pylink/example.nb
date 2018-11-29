@@ -1,0 +1,216 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5808,        206]
+NotebookOptionsPosition[      4479,        153]
+NotebookOutlinePosition[      4973,        174]
+CellTagsIndexPosition[      4889,        169]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CheckPyVersion", "[", "]"}], "\[GreaterEqual]", 
+  RowBox[{"PyVersion", "[", 
+   RowBox[{"2", ",", "7"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6374711812880983`*^9, 3.63747118464948*^9}, {
+  3.637471624069996*^9, 3.6374716306196365`*^9}, {3.6374717441327653`*^9, 
+  3.6374717448732996`*^9}}],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.6374716990780663`*^9, 3.6374717454957085`*^9, 
+  3.637471834238076*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Get", "[", 
+  "\"\<!python -c \\\"import sys; print 'PyVersion[{0.major}, {0.minor}, \
+{0.micro}]'.format(sys.version_info)\\\"\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.6374709078983307`*^9, 3.637470939279337*^9}, {
+  3.63747097269359*^9, 3.6374710332458725`*^9}, {3.6374710637442584`*^9, 
+  3.637471069998454*^9}}],
+
+Cell[BoxData[
+ RowBox[{"PyVersion", "[", 
+  RowBox[{"2", ",", "7", ",", "8"}], "]"}]], "Output",
+ CellChangeTimes->{3.6374710706169147`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", "\"\<!python -c 'print True'\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.637470752299365*^9, 3.637470765014372*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Run", "[", "\"\<python --version\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.637470472914112*^9, 3.637470489646937*^9}}],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{{3.6374704785610824`*^9, 3.63747049006223*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "Lexicographic"}]], "Input",
+ CellChangeTimes->{{3.6374714389010544`*^9, 3.6374714426957436`*^9}}],
+
+Cell[BoxData[
+ StyleBox["\<\"Lexicographic represents the lexicographic ordering of \
+monomials.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.6374714430109854`*^9},
+ CellTags->"Info3637507442-5883763"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PyVersion", "[", 
+   RowBox[{"2", ",", "7", ",", "8"}], "]"}], "\[Equal]", 
+  RowBox[{"PyVersion", "[", 
+   RowBox[{"2", ",", "7", ",", "8"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6374715553191247`*^9, 3.637471562396141*^9}}],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.6374715628224416`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"SetEnvironment", "[", 
+  RowBox[{
+  "\"\<PYTHONPATH\>\"", " ", "\[Rule]", " ", 
+   "\"\<C:\\\\Users\\\\Chris\\\\Documents\\\\GitHub\\\\quantum-utils-\
+mathematica\\\\src\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.6374719628343973`*^9, 3.637471990670848*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExportString", "[", 
+  RowBox[{
+   RowBox[{"PyCall", "[", 
+    RowBox[{"foo", ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", " ", "2"}], "}"}]}], "]"}], ",", "\"\<String\>\""}], 
+  "]"}]], "Input"],
+
+Cell[BoxData["\<\"PyCall[foo, {1, 2}]\"\>"], "Output",
+ CellChangeTimes->{3.637472158785845*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ReadList", "[", 
+  RowBox[{"\"\<!python -m pylink\>\"", " ", "<>", " ", 
+   RowBox[{"ExportString", "[", 
+    RowBox[{
+     RowBox[{"PyCall", "[", 
+      RowBox[{"foo", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", " ", "2"}], "}"}], ",", 
+       RowBox[{"{", "}"}]}], "]"}], ",", "\"\<String\>\""}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.637471892976344*^9, 3.637471921956868*^9}, {
+  3.637472089908062*^9, 3.6374721457501564`*^9}, {3.63747224214174*^9, 
+  3.637472242780218*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", "}"}]], "Output",
+ CellChangeTimes->{{3.6374721249997873`*^9, 3.6374721463395615`*^9}, 
+   3.637472243376608*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PyCall", "[", "foo", "]"}]], "Input",
+ CellChangeTimes->{{3.6374720841973314`*^9, 3.6374720870193*^9}}],
+
+Cell[BoxData[
+ RowBox[{"PyCall", "[", 
+  RowBox[{"foo", ",", 
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"{", "}"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.6374720874035707`*^9}]
+}, Open  ]]
+},
+WindowSize->{759, 793},
+WindowMargins->{{Automatic, 332}, {27, Automatic}},
+FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3637507442-5883763"->{
+  Cell[2161, 72, 215, 4, 40, "Print",
+   CellTags->"Info3637507442-5883763"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3637507442-5883763", 4787, 163}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 330, 7, 31, "Input"],
+Cell[913, 31, 124, 2, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1074, 38, 343, 6, 72, "Input"],
+Cell[1420, 46, 140, 3, 31, "Output"]
+}, Open  ]],
+Cell[1575, 52, 152, 2, 31, "Input"],
+Cell[CellGroupData[{
+Cell[1752, 58, 145, 2, 31, "Input"],
+Cell[1900, 62, 95, 1, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2032, 68, 126, 2, 31, "Input"],
+Cell[2161, 72, 215, 4, 40, "Print",
+ CellTags->"Info3637507442-5883763"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2413, 81, 264, 6, 31, "Input"],
+Cell[2680, 89, 75, 1, 31, "Output"]
+}, Open  ]],
+Cell[2770, 93, 286, 6, 72, "Input"],
+Cell[CellGroupData[{
+Cell[3081, 103, 228, 7, 31, "Input"],
+Cell[3312, 112, 96, 1, 64, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3445, 118, 530, 13, 31, "Input"],
+Cell[3978, 133, 141, 3, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4156, 141, 127, 2, 31, "Input"],
+Cell[4286, 145, 177, 5, 31, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

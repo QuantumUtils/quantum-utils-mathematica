@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   1153302,      23282]
-NotebookOptionsPosition[   1144076,      22987]
-NotebookOutlinePosition[   1146266,      23052]
-CellTagsIndexPosition[   1145694,      23036]
+NotebookDataLength[   1164511,      23615]
+NotebookOptionsPosition[   1154267,      23288]
+NotebookOutlinePosition[   1156761,      23361]
+CellTagsIndexPosition[   1156102,      23343]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -45,13 +45,15 @@ documentation notebook.\
 
 Cell[BoxData[{
  RowBox[{"Needs", "[", "\"\<Tensor`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Needs", "[", "\"\<QuantumChannel`\>\"", 
+  "]"}], "\[IndentingNewLine]", 
  RowBox[{"Needs", "[", "\"\<QuantumSystems`\>\"", 
   "]"}], "\[IndentingNewLine]", 
  RowBox[{"Needs", "[", "\"\<QSim`\>\"", "]"}]}], "Input",
  CellChangeTimes->{{3.634314144340521*^9, 3.634314148861907*^9}, {
   3.635168647903007*^9, 3.635168651903873*^9}, {3.635173133962139*^9, 
-  3.6351731399802923`*^9}}]
-}, Closed]],
+  3.6351731399802923`*^9}, {3.6380867292922087`*^9, 3.638086737835305*^9}}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -76,7 +78,8 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Introduction and Overview", "Section",
- CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}}],
+ CellChangeTimes->{{3.633351563673402*^9, 3.633351567143589*^9}, {
+  3.638099193036283*^9, 3.638099193130165*^9}}],
 
 Cell["\<\
 This package provides tools for visualizing and plotting various quantities.\
@@ -2007,6 +2010,362 @@ Cell[BoxData[
   3.634315065427843*^9}]
 }, Open  ]]
 }, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["HintonPlot", "Subsection",
+ CellChangeTimes->{{3.6343136519607687`*^9, 3.634313663136846*^9}, {
+  3.638086159522276*^9, 3.6380861618329153`*^9}}],
+
+Cell[TextData[{
+ StyleBox["HintonPlot[", "Input"],
+ StyleBox["mtx", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " plots a real-valued matrix ",
+ StyleBox["mtx", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " as an array of squares. The size of each square indicates the magnitude of \
+that matrix element, while the color indicates positive (white) and negative \
+(black) elements. Tooltips on each square give the exact magnitude."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634313681543186*^9, 3.634313767583549*^9}, {
+  3.6380861687728405`*^9, 3.638086243363751*^9}, {3.638086320492544*^9, 
+  3.6380863299402494`*^9}},
+ CellTags->"HintonPlot::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Subsubsection",
+ CellChangeTimes->{{3.6381489367158732`*^9, 3.638148937745573*^9}}],
+
+Cell[TextData[{
+ StyleBox["Gap", "Input"],
+ " is an option for ",
+ StyleBox["HintonPlot", "Input"],
+ " which specifies the gap that should be left between full squares in the \
+plot."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.635175894438929*^9, 3.6351759179781713`*^9}, {
+  3.6381489455071125`*^9, 3.638148981015304*^9}},
+ CellTags->"Gap::usage"],
+
+Cell[BoxData[GridBox[{
+   {
+    StyleBox["Option", "Text",
+     FontWeight->Bold], 
+    StyleBox[
+     RowBox[{"Default", " ", "Value"}], "Text",
+     FontWeight->Bold], 
+    StyleBox["Description", "Text",
+     FontWeight->Bold]},
+   {"AxesLabel", "None", 
+    StyleBox[
+     RowBox[{
+     "AxesLabel", " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      "graphics", " ", "functions", " ", "that", " ", "specifies", " ", 
+      "labels", " ", "for", " ", 
+      RowBox[{"axes", ".", " "}]}], "Text"]},
+   {"Gap", "0.05`", 
+    StyleBox[
+     RowBox[{
+      TagBox[
+       StyleBox["Gap", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "is", " ", "an", " ", "option", " ", "for", " ", 
+      TagBox[
+       StyleBox["HintonPlot", "Input",
+        FontFamily->"Courier"],
+       DisplayForm], " ", "which", " ", "specifies", " ", "the", " ", "gap", 
+      " ", "that", " ", "should", " ", "be", " ", "left", " ", "between", " ",
+       "full", " ", "squares", " ", "in", " ", "the", " ", 
+      RowBox[{"plot", "."}]}], "Text"]}
+  },
+  GridBoxAlignment->{"Columns" -> {{Left}}},
+  GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{True}}},
+  GridBoxItemSize->{"Columns" -> {Automatic, Automatic, {
+       Scaled[0.5]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+    "RowsIndexed" -> {}}]], "Text",
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ CellChangeTimes->{3.638149108622855*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.634313799258635*^9, 3.634313800077886*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"HintonPlot", "[", 
+  RowBox[{"RandomReal", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "1"}], ",", " ", "1"}], "}"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"3", ",", "3"}], "}"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.634314243085985*^9, 3.634314279362772*^9}, {
+  3.638086258955757*^9, 3.6380863111757903`*^9}, {3.638086342516712*^9, 
+  3.6380863542032394`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {GrayLevel[
+    NCache[
+     Rational[1, 2], 0.5]], 
+   RectangleBox[NCache[{Rational[1, 4], Rational[1, 4]}, {0.25, 0.25}], 
+    NCache[{Rational[15, 4], Rational[15, 4]}, {3.75, 3.75}]], {
+    {GrayLevel[0], 
+     TagBox[
+      TooltipBox[RectangleBox[{1.0579594037398619`, 1.0579594037398619`}, {0.942040596260138, 0.942040596260138}],
+       RowBox[{"-", "0.11951580919720461`"}]],
+      Annotation[#, -0.11951580919720461`, "Tooltip"]& ]}, 
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{0.5280454668434887, 1.5280454668434889`}, {1.4719545331565111`, 2.471954533156511}],
+       "0.973198899485844`"],
+      Annotation[#, 0.973198899485844, "Tooltip"]& ]}, 
+    {GrayLevel[0], 
+     TagBox[
+      TooltipBox[RectangleBox[{1.475, 3.475}, {0.525, 2.525}],
+       RowBox[{"-", "0.9794788370058445`"}]],
+      Annotation[#, -0.9794788370058445, "Tooltip"]& ]}}, {
+    {GrayLevel[0], 
+     TagBox[
+      TooltipBox[RectangleBox[{2.108910471819128, 1.1089104718191278`}, {1.8910895281808722`, 0.8910895281808722}],
+       RowBox[{"-", "0.22458000478980455`"}]],
+      Annotation[#, -0.22458000478980455`, "Tooltip"]& ]}, 
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{1.9152839704108908`, 1.9152839704108908`}, {2.084716029589109, 2.084716029589109}],
+       "0.17468959607935464`"],
+      Annotation[#, 0.17468959607935464`, "Tooltip"]& ]}, 
+    {GrayLevel[0], 
+     TagBox[
+      TooltipBox[RectangleBox[{2.4598757349673988`, 3.4598757349673988`}, {1.5401242650326012`, 2.5401242650326012`}],
+       RowBox[{"-", "0.9482916843222644`"}]],
+      Annotation[#, -0.9482916843222644, "Tooltip"]& ]}}, {
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{2.651896507362168, 0.6518965073621679}, {3.348103492637832, 1.3481034926378321`}],
+       "0.7178105350033186`"],
+      Annotation[#, 0.7178105350033186, "Tooltip"]& ]}, 
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{2.9288782390948476`, 1.9288782390948473`}, {3.0711217609051524`, 2.0711217609051524`}],
+       "0.14665738875197176`"],
+      Annotation[#, 0.14665738875197176`, "Tooltip"]& ]}, 
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{2.6061559526935594`, 2.6061559526935594`}, {3.3938440473064406`, 3.3938440473064406`}],
+       "0.8121303356155525`"],
+      Annotation[#, 0.8121303356155525, "Tooltip"]& ]}}}]], "Output",
+ CellChangeTimes->{
+  3.6380863115981035`*^9, {3.6380863435894413`*^9, 3.6380863575614223`*^9}}]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ChannelHintonPlot", "Subsection",
+ CellChangeTimes->{{3.6343136519607687`*^9, 3.634313663136846*^9}, {
+  3.638086159522276*^9, 3.6380861618329153`*^9}, {3.638086382726696*^9, 
+  3.6380863844469414`*^9}}],
+
+Cell[TextData[{
+ StyleBox["ChannelHintonPlot[", "Input"],
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ StyleBox["]", "Input"],
+ " plots a quantum channel ",
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ " as a Hinton diagram, using the Pauli-basis superoperator representation of \
+",
+ StyleBox["chan", "Input",
+  FontWeight->"Plain",
+  FontSlant->"Italic"],
+ "."
+}], "Text",
+ CellDingbat->"\[FilledSquare]",
+ CellChangeTimes->{{3.634313681543186*^9, 3.634313767583549*^9}, {
+  3.6380861687728405`*^9, 3.638086243363751*^9}, {3.638086320492544*^9, 
+  3.6380863299402494`*^9}, {3.6380863858369284`*^9, 3.6380864553672423`*^9}},
+ CellTags->"ChannelHintonPlot::usage"],
+
+Cell[CellGroupData[{
+
+Cell["Example", "Subsubsection",
+ CellChangeTimes->{{3.634313799258635*^9, 3.634313800077886*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ChannelHintonPlot", "[", 
+  RowBox[{"FunctionChannel", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "/", "2"}], ")"}], 
+       RowBox[{
+        RowBox[{"TP", "[", "X", "]"}], ".", "#", ".", 
+        RowBox[{"TP", "[", "X", "]"}]}]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "/", "2"}], ")"}], 
+       RowBox[{"Tr", "[", "#", "]"}], 
+       RowBox[{"Projector", "[", 
+        RowBox[{"UnitVector", "[", 
+         RowBox[{"2", ",", "1"}], "]"}], "]"}]}]}], "&"}], ",", 
+    RowBox[{"InputDim", "\[Rule]", "2"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.634314243085985*^9, 3.634314279362772*^9}, {
+  3.638086258955757*^9, 3.6380863111757903`*^9}, {3.638086342516712*^9, 
+  3.6380863542032394`*^9}, {3.638086461359494*^9, 3.638086518360927*^9}, {
+  3.6380865839700603`*^9, 3.6380865965696535`*^9}, {3.638086638202485*^9, 
+  3.638086668764914*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  {GrayLevel[
+    NCache[
+     Rational[1, 2], 0.5]], 
+   RectangleBox[NCache[{Rational[1, 4], Rational[1, 4]}, {0.25, 0.25}], 
+    NCache[{Rational[19, 4], Rational[19, 4]}, {4.75, 4.75}]], {
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{0.7625, 0.7625}, {1.2375, 1.2375}],
+       FractionBox["1", "2"]],
+      Annotation[#, 
+       Rational[1, 2], "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{1., 2.}, {1., 2.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{1., 3.}, {1., 3.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{0.525, 3.525}, {1.475, 4.475}],
+       "1"],
+      Annotation[#, 1, "Tooltip"]& ]}}, {
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{2., 1.}, {2., 1.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{2., 2.}, {2., 2.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[1], 
+     TagBox[
+      TooltipBox[RectangleBox[{1.7625, 2.7625}, {2.2375, 3.2375}],
+       FractionBox["1", "2"]],
+      Annotation[#, 
+       Rational[1, 2], "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{2., 4.}, {2., 4.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}}, {
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{3., 1.}, {3., 1.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[0], 
+     TagBox[
+      TooltipBox[RectangleBox[{3.2375, 2.2375}, {2.7625, 1.7625}],
+       RowBox[{"-", 
+         FractionBox["1", "2"]}]],
+      Annotation[#, 
+       Rational[-1, 2], "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{3., 3.}, {3., 3.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{3., 4.}, {3., 4.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}}, {
+    {GrayLevel[0], 
+     TagBox[
+      TooltipBox[RectangleBox[{4.2375, 1.2375}, {3.7625, 0.7625}],
+       RowBox[{"-", 
+         FractionBox["1", "2"]}]],
+      Annotation[#, 
+       Rational[-1, 2], "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{4., 2.}, {4., 2.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{4., 3.}, {4., 3.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}, 
+    {GrayLevel[
+      NCache[
+       Rational[1, 2], 0.5]], 
+     TagBox[
+      TooltipBox[RectangleBox[{4., 4.}, {4., 4.}],
+       "0"],
+      Annotation[#, 0, "Tooltip"]& ]}}, 
+   InsetBox["\<\"I\"\>", NCache[{1, Rational[19, 4]}, {1, 4.75}], {0, -2}], 
+   InsetBox["\<\"X\"\>", NCache[{2, Rational[19, 4]}, {2, 4.75}], {0, -2}], 
+   InsetBox["\<\"Y\"\>", NCache[{3, Rational[19, 4]}, {3, 4.75}], {0, -2}], 
+   InsetBox["\<\"Z\"\>", NCache[{4, Rational[19, 4]}, {4, 4.75}], {0, -2}], 
+   InsetBox["\<\"Z\"\>", {0, 1}, {1, 0}], 
+   InsetBox["\<\"Y\"\>", {0, 2}, {1, 0}], 
+   InsetBox["\<\"X\"\>", {0, 3}, {1, 0}], 
+   InsetBox["\<\"I\"\>", {0, 4}, {1, 0}]}]], "Output",
+ CellChangeTimes->{
+  3.6380863115981035`*^9, {3.6380863435894413`*^9, 3.6380863575614223`*^9}, {
+   3.6380865064834986`*^9, 3.6380865189223175`*^9}, {3.638086588422076*^9, 
+   3.6380865968948555`*^9}, {3.638086646857444*^9, 3.638086669299281*^9}}]
+}, Open  ]]
+}, Closed]]
 }, Open  ]]
 }, Open  ]],
 
@@ -3266,7 +3625,7 @@ Cell[BoxData[GridBox[{
  GeneratedCell->True,
  CellAutoOverwrite->True,
  CellChangeTimes->{3.635178011264412*^9}]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -22985,8 +23344,8 @@ ez+CUF9ulzbTTPMhCILDeZ6Cv+l+yoJQOu8YcP0MO38QmqPS7idconrMbqhK
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1631, 1026},
-WindowMargins->{{Automatic, -1680}, {Automatic, 1050}},
+WindowSize->{1440, 880},
+WindowMargins->{{-10, Automatic}, {Automatic, -10}},
 FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -22995,58 +23354,99 @@ StyleDefinitions->"Default.nb"
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "ComplexMatrixPlot::usage"->{
-  Cell[3284, 99, 794, 19, 52, "Text",
-   CellTags->"ComplexMatrixPlot::usage"]},
- "BlockForm::usage"->{
-  Cell[73692, 1730, 1392, 51, 53, "Text",
-   CellTags->"BlockForm::usage"]},
- "MatrixListForm::usage"->{
-  Cell[80894, 1939, 631, 21, 32, "Text",
-   CellTags->"MatrixListForm::usage"]},
- "BlochPlot::usage"->{
-  Cell[83529, 2022, 11215, 347, 414, "Text",
-   CellTags->"BlochPlot::usage"]},
  "BlochPlotColors::usage"->{
-  Cell[94870, 2376, 433, 11, 32, "Text",
+  Cell[106947, 2734, 433, 11, 31, "Text",
    CellTags->"BlochPlotColors::usage"]},
  "BlochPlotEndPoints::usage"->{
-  Cell[95306, 2389, 381, 9, 32, "Text",
+  Cell[107383, 2747, 381, 9, 31, "Text",
    CellTags->"BlochPlotEndPoints::usage"]},
  "BlochPlotJoined::usage"->{
-  Cell[95690, 2400, 616, 21, 53, "Text",
+  Cell[107767, 2758, 616, 21, 51, "Text",
    CellTags->"BlochPlotJoined::usage"]},
  "BlochPlotLabels::usage"->{
-  Cell[96309, 2423, 364, 10, 32, "Text",
+  Cell[108386, 2781, 364, 10, 31, "Text",
+ "ComplexMatrixPlot::usage"->{
+  Cell[3465, 102, 794, 19, 52, "Text",
+   CellTags->"ComplexMatrixPlot::usage"]},
+ "BlockForm::usage"->{
+  Cell[73873, 1733, 1392, 51, 53, "Text",
+   CellTags->"BlockForm::usage"]},
+ "MatrixListForm::usage"->{
+  Cell[81075, 1942, 631, 21, 32, "Text",
+   CellTags->"MatrixListForm::usage"]},
+ "HintonPlot::usage"->{
+  Cell[83629, 2020, 727, 18, 52, "Text",
+   CellTags->"HintonPlot::usage"]},
+ "ComplexHintonPlot::usage"->{
+  Cell[87699, 2125, 724, 21, 32, "Text",
+   CellTags->"ComplexHintonPlot::usage"]},
+ "BlochPlot::usage"->{
+  Cell[93720, 2323, 11215, 347, 414, "Text",
+   CellTags->"BlochPlot::usage"]},
+ "BlochPlotColors::usage"->{
+  Cell[105061, 2677, 433, 11, 32, "Text",
+   CellTags->"BlochPlotColors::usage"]},
+ "BlochPlotEndPoints::usage"->{
+  Cell[105497, 2690, 381, 9, 32, "Text",
+   CellTags->"BlochPlotEndPoints::usage"]},
+ "BlochPlotJoined::usage"->{
+  Cell[105881, 2701, 616, 21, 53, "Text",
+   CellTags->"BlochPlotJoined::usage"]},
+ "BlochPlotLabels::usage"->{
+  Cell[106500, 2724, 364, 10, 32, "Text",
    CellTags->"BlochPlotLabels::usage"]},
+ "BlochPlot::usage"->{
+  Cell[95606, 2380, 11215, 347, 403, "Text",
+   CellTags->"BlochPlot::usage"]},
  "BlochPlot2D::usage"->{
-  Cell[960631, 18525, 342, 10, 32, "Text",
+  Cell[972708, 18883, 342, 10, 31, "Text",
    CellTags->"BlochPlot2D::usage"]},
- "ListBlochPlot2D::usage"->{
-  Cell[965276, 18657, 408, 9, 32, "Text",
-   CellTags->"ListBlochPlot2D::usage"]},
+ "BlockForm::usage"->{
+  Cell[73824, 1732, 1392, 51, 51, "Text",
+   CellTags->"BlockForm::usage"]},
+ "ChannelHintonPlot::usage"->{
+  Cell[89585, 2182, 724, 21, 31, "Text",
+   CellTags->"ChannelHintonPlot::usage"]},
+ "ComplexMatrixPlot::usage"->{
+  Cell[3416, 101, 794, 19, 50, "Text",
+   CellTags->"ComplexMatrixPlot::usage"]},
  "EigensystemForm::usage"->{
-  Cell[1066733, 21227, 430, 13, 32, "Text",
+  Cell[1078810, 21585, 430, 13, 31, "Text",
    CellTags->"EigensystemForm::usage"]},
  "FourierListPlot::usage"->{
-  Cell[1071375, 21374, 1117, 31, 74, "Text",
-   CellTags->"FourierListPlot::usage"]}
+  Cell[1083452, 21732, 1117, 31, 71, "Text",
+   CellTags->"FourierListPlot::usage"]},
+ "Gap::usage"->{
+  Cell[84435, 2044, 372, 10, 31, "Text",
+   CellTags->"Gap::usage"]},
+ "HintonPlot::usage"->{
+  Cell[83580, 2019, 727, 18, 50, "Text",
+   CellTags->"HintonPlot::usage"]},
+ "ListBlochPlot2D::usage"->{
+  Cell[977353, 19015, 408, 9, 31, "Text",
+   CellTags->"ListBlochPlot2D::usage"]},
+ "MatrixListForm::usage"->{
+  Cell[81026, 1941, 631, 21, 31, "Text",
+   CellTags->"MatrixListForm::usage"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ComplexMatrixPlot::usage", 1144383, 22997},
- {"BlockForm::usage", 1144487, 23000},
- {"MatrixListForm::usage", 1144592, 23003},
- {"BlochPlot::usage", 1144696, 23006},
- {"BlochPlotColors::usage", 1144805, 23009},
- {"BlochPlotEndPoints::usage", 1144919, 23012},
- {"BlochPlotJoined::usage", 1145032, 23015},
- {"BlochPlotLabels::usage", 1145143, 23018},
- {"BlochPlot2D::usage", 1145250, 23021},
- {"ListBlochPlot2D::usage", 1145359, 23024},
- {"EigensystemForm::usage", 1145471, 23027},
- {"FourierListPlot::usage", 1145585, 23030}
+ {"BlochPlotColors::usage", 1156460, 23355},
+ {"BlochPlotEndPoints::usage", 1156575, 23358},
+ {"BlochPlotJoined::usage", 1156689, 23361},
+ {"BlochPlotLabels::usage", 1156801, 23364},
+ {"BlochPlot::usage", 1156907, 23367},
+ {"BlochPlot2D::usage", 1157012, 23370},
+ {"BlockForm::usage", 1157115, 23373},
+ {"ChannelHintonPlot::usage", 1157223, 23376},
+ {"ComplexMatrixPlot::usage", 1157338, 23379},
+ {"EigensystemForm::usage", 1157449, 23382},
+ {"FourierListPlot::usage", 1157563, 23385},
+ {"Gap::usage", 1157666, 23388},
+ {"HintonPlot::usage", 1157760, 23391},
+ {"ListBlochPlot2D::usage", 1157866, 23394},
+ {"MatrixListForm::usage", 1157977, 23397}
  }
 *)
 (*NotebookFileOutline
@@ -23057,228 +23457,248 @@ Cell[CellGroupData[{
 Cell[816, 29, 240, 3, 44, "Subsection"],
 Cell[1059, 34, 194, 3, 32, "Input"],
 Cell[1256, 39, 182, 4, 31, "Text"],
-Cell[1441, 45, 395, 7, 77, "Input"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[1873, 57, 101, 1, 36, "Subsection"],
-Cell[1977, 60, 531, 12, 39, "Output"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[2545, 77, 110, 1, 51, "Section"],
-Cell[2658, 80, 166, 3, 31, "Text"]
+Cell[1441, 45, 527, 9, 99, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2861, 88, 240, 3, 65, "Section"],
+Cell[2005, 59, 101, 1, 44, "Subsection"],
+Cell[2109, 62, 531, 12, 39, "Output"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[3126, 95, 155, 2, 45, "Subsection"],
-Cell[3284, 99, 794, 19, 52, "Text",
+Cell[2677, 79, 159, 2, 51, "Section"],
+Cell[2839, 83, 166, 3, 31, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3042, 91, 240, 3, 65, "Section"],
+Cell[CellGroupData[{
+Cell[3307, 98, 155, 2, 45, "Subsection"],
+Cell[3465, 102, 794, 19, 52, "Text",
  CellTags->"ComplexMatrixPlot::usage"],
 Cell[CellGroupData[{
-Cell[4103, 122, 98, 1, 35, "Subsubsection"],
-Cell[4204, 125, 260, 7, 31, "Text"],
-Cell[4467, 134, 30860, 675, 2833, "Text"]
+Cell[4284, 125, 98, 1, 35, "Subsubsection"],
+Cell[4385, 128, 260, 7, 31, "Text"],
+Cell[4648, 137, 30860, 675, 2613, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[35364, 814, 151, 2, 29, "Subsubsection"],
-Cell[35518, 818, 158, 3, 31, "Text"],
+Cell[35545, 817, 151, 2, 29, "Subsubsection"],
+Cell[35699, 821, 158, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[35701, 825, 322, 10, 32, "Input"],
-Cell[36026, 837, 21240, 501, 296, "Output"]
+Cell[35882, 828, 322, 10, 32, "Input"],
+Cell[36207, 840, 21240, 501, 296, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[57315, 1344, 102, 1, 29, "Subsubsection"],
-Cell[57420, 1347, 166, 3, 31, "Text"],
+Cell[57496, 1347, 102, 1, 29, "Subsubsection"],
+Cell[57601, 1350, 166, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[57611, 1354, 809, 25, 32, "Input"],
-Cell[58423, 1381, 15057, 338, 297, "Output"]
+Cell[57792, 1357, 809, 25, 32, "Input"],
+Cell[58604, 1384, 15057, 338, 297, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[73541, 1726, 148, 2, 44, "Subsection"],
-Cell[73692, 1730, 1392, 51, 53, "Text",
+Cell[73722, 1729, 148, 2, 44, "Subsection"],
+Cell[73873, 1733, 1392, 51, 53, "Text",
  CellTags->"BlockForm::usage"],
 Cell[CellGroupData[{
-Cell[75109, 1785, 100, 1, 35, "Subsubsection"],
+Cell[75290, 1788, 100, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[75234, 1790, 308, 9, 32, "Input"],
-Cell[75545, 1801, 2398, 55, 116, "Output"]
+Cell[75415, 1793, 308, 9, 32, "Input"],
+Cell[75726, 1804, 2398, 55, 116, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[77980, 1861, 343, 10, 32, "Input"],
-Cell[78326, 1873, 2400, 56, 116, "Output"]
+Cell[78161, 1864, 343, 10, 32, "Input"],
+Cell[78507, 1876, 2400, 56, 116, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[80787, 1936, 104, 1, 44, "Subsection"],
-Cell[80894, 1939, 631, 21, 32, "Text",
+Cell[80968, 1939, 104, 1, 44, "Subsection"],
+Cell[81075, 1942, 631, 21, 32, "Text",
  CellTags->"MatrixListForm::usage"],
 Cell[CellGroupData[{
-Cell[81550, 1964, 98, 1, 35, "Subsubsection"],
+Cell[81731, 1967, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[81673, 1969, 285, 8, 32, "Input"],
-Cell[81961, 1979, 1272, 27, 80, "Output"]
+Cell[81854, 1972, 285, 8, 31, "Input"],
+Cell[82142, 1982, 1272, 27, 72, "Output"]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[83475, 2016, 151, 2, 44, "Subsection"],
+Cell[83629, 2020, 727, 18, 52, "Text",
+ CellTags->"HintonPlot::usage"],
+Cell[CellGroupData[{
+Cell[84332, 2041, 100, 1, 34, "Subsubsection"],
+Cell[84435, 2044, 372, 10, 31, "Text",
+ CellTags->"Gap::usage"],
+Cell[84810, 2056, 1420, 38, 80, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[86267, 2099, 98, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[86390, 2104, 426, 11, 31, "Input"],
+Cell[86819, 2117, 2493, 53, 374, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Closed]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89373, 2177, 209, 3, 43, "Subsection"],
+Cell[89585, 2182, 724, 21, 31, "Text",
+ CellTags->"ChannelHintonPlot::usage"],
+Cell[CellGroupData[{
+Cell[90334, 2207, 98, 1, 34, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[90457, 2212, 955, 24, 31, "Input"],
+Cell[91415, 2238, 3895, 126, 369, "Output"]
+}, Open  ]]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[83306, 2014, 98, 1, 65, "Section"],
+Cell[93497, 2315, 98, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[83429, 2019, 97, 1, 44, "Subsection"],
-Cell[83529, 2022, 11215, 347, 414, "Text",
+Cell[93620, 2320, 97, 1, 44, "Subsection"],
+Cell[93720, 2323, 11215, 347, 414, "Text",
  CellTags->"BlochPlot::usage"],
 Cell[CellGroupData[{
-Cell[94769, 2373, 98, 1, 35, "Subsubsection"],
-Cell[94870, 2376, 433, 11, 32, "Text",
+Cell[104960, 2674, 98, 1, 35, "Subsubsection"],
+Cell[105061, 2677, 433, 11, 32, "Text",
  CellTags->"BlochPlotColors::usage"],
-Cell[95306, 2389, 381, 9, 32, "Text",
+Cell[105497, 2690, 381, 9, 32, "Text",
  CellTags->"BlochPlotEndPoints::usage"],
-Cell[95690, 2400, 616, 21, 53, "Text",
+Cell[105881, 2701, 616, 21, 53, "Text",
  CellTags->"BlochPlotJoined::usage"],
-Cell[96309, 2423, 364, 10, 32, "Text",
+Cell[106500, 2724, 364, 10, 32, "Text",
  CellTags->"BlochPlotLabels::usage"],
-Cell[96676, 2435, 37221, 832, 3813, "Text"]
+Cell[106867, 2736, 37221, 832, 3813, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[133934, 3272, 102, 1, 29, "Subsubsection"],
-Cell[134039, 3275, 247, 5, 31, "Text"],
+Cell[144125, 3573, 102, 1, 29, "Subsubsection"],
+Cell[144230, 3576, 247, 5, 31, "Text"],
 Cell[CellGroupData[{
-Cell[134311, 3284, 447, 11, 32, "Input"],
-Cell[134761, 3297, 24349, 417, 375, "Output"]
+Cell[144502, 3585, 447, 11, 32, "Input"],
+Cell[144952, 3598, 24349, 417, 375, "Output"]
 }, Open  ]],
-Cell[159125, 3717, 176, 4, 31, "Text"],
+Cell[169316, 4018, 176, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[159326, 3725, 662, 20, 32, "Input"],
-Cell[159991, 3747, 30355, 557, 377, "Output"]
+Cell[169517, 4026, 662, 20, 32, "Input"],
+Cell[170182, 4048, 30355, 557, 377, "Output"]
 }, Open  ]],
-Cell[190361, 4307, 193, 4, 31, "Text"],
+Cell[200552, 4608, 193, 4, 31, "Text"],
 Cell[CellGroupData[{
-Cell[190579, 4315, 973, 29, 32, "Input"],
-Cell[191555, 4346, 36997, 693, 377, "Output"]
+Cell[200770, 4616, 973, 29, 32, "Input"],
+Cell[201746, 4647, 36997, 693, 377, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[228601, 5045, 102, 1, 29, "Subsubsection"],
+Cell[238792, 5346, 102, 1, 29, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[228728, 5050, 831, 19, 32, "Input"],
-Cell[229562, 5071, 68583, 1303, 367, "Output"]
+Cell[238919, 5351, 831, 19, 32, "Input"],
+Cell[239753, 5372, 68583, 1303, 367, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[298194, 6380, 147, 2, 29, "Subsubsection"],
-Cell[298344, 6384, 176, 2, 31, "Text"],
-Cell[298523, 6388, 945, 27, 55, "Input"],
-Cell[299471, 6417, 159, 3, 31, "Text"],
+Cell[308385, 6681, 147, 2, 29, "Subsubsection"],
+Cell[308535, 6685, 176, 2, 31, "Text"],
+Cell[308714, 6689, 945, 27, 55, "Input"],
+Cell[309662, 6718, 159, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[299655, 6424, 1082, 22, 121, "Input"],
-Cell[300740, 6448, 182234, 3316, 367, "Output"]
+Cell[309846, 6725, 1082, 22, 121, "Input"],
+Cell[310931, 6749, 182234, 3316, 367, "Output"]
 }, Open  ]],
-Cell[482989, 9767, 112, 1, 30, "Text"],
+Cell[493180, 10068, 112, 1, 30, "Text"],
 Cell[CellGroupData[{
-Cell[483126, 9772, 966, 24, 143, "Input"],
-Cell[484095, 9798, 155276, 2987, 367, "Output"]
+Cell[493317, 10073, 966, 24, 143, "Input"],
+Cell[494286, 10099, 155276, 2987, 367, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[639420, 12791, 202, 3, 29, "Subsubsection"],
-Cell[639625, 12796, 165, 3, 31, "Text"],
+Cell[649611, 13092, 202, 3, 29, "Subsubsection"],
+Cell[649816, 13097, 165, 3, 31, "Text"],
 Cell[CellGroupData[{
-Cell[639815, 12803, 1333, 33, 121, "Input"],
-Cell[641151, 12838, 134069, 2293, 217, "Output"]
+Cell[650006, 13104, 1333, 33, 121, "Input"],
+Cell[651342, 13139, 134069, 2293, 217, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[775269, 15137, 300, 4, 29, "Subsubsection"],
-Cell[775572, 15143, 285, 6, 32, "Text"],
+Cell[785460, 15438, 300, 4, 29, "Subsubsection"],
+Cell[785763, 15444, 285, 6, 32, "Text"],
 Cell[CellGroupData[{
-Cell[775882, 15153, 1867, 42, 209, "Input"],
-Cell[777752, 15197, 182716, 3318, 367, "Output"]
+Cell[786073, 15454, 1867, 42, 209, "Input"],
+Cell[787943, 15498, 182716, 3318, 367, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[960529, 18522, 99, 1, 44, "Subsection"],
-Cell[960631, 18525, 342, 10, 32, "Text",
- CellTags->"BlochPlot2D::usage"],
-Cell[CellGroupData[{
-Cell[960998, 18539, 100, 1, 35, "Subsubsection"],
-Cell[CellGroupData[{
-Cell[961123, 18544, 815, 28, 32, "Input"],
-Cell[961941, 18574, 3166, 73, 213, "Output"]
-}, Open  ]]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[965168, 18654, 105, 1, 44, "Subsection"],
-Cell[965276, 18657, 408, 9, 32, "Text",
+Cell[975359, 18955, 105, 1, 44, "Subsection"],
+Cell[975467, 18958, 408, 9, 32, "Text",
  CellTags->"ListBlochPlot2D::usage"],
 Cell[CellGroupData[{
-Cell[965709, 18670, 98, 1, 35, "Subsubsection"],
+Cell[975900, 18971, 98, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[965832, 18675, 461, 14, 51, "Input"],
-Cell[966296, 18691, 100134, 2520, 213, "Output"]
+Cell[976023, 18976, 461, 14, 51, "Input"],
+Cell[976487, 18992, 100134, 2520, 213, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1066503, 21219, 99, 1, 65, "Section"],
+Cell[1076694, 21520, 99, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[1066627, 21224, 103, 1, 45, "Subsection"],
-Cell[1066733, 21227, 430, 13, 32, "Text",
+Cell[1076818, 21525, 103, 1, 45, "Subsection"],
+Cell[1076924, 21528, 430, 13, 32, "Text",
  CellTags->"EigensystemForm::usage"],
 Cell[CellGroupData[{
-Cell[1067188, 21244, 97, 1, 35, "Subsubsection"],
+Cell[1077379, 21545, 97, 1, 35, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[1067310, 21249, 203, 5, 32, "Input"],
-Cell[1067516, 21256, 3298, 98, 114, "Output"]
+Cell[1077501, 21550, 203, 5, 32, "Input"],
+Cell[1077707, 21557, 3298, 98, 114, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1070887, 21362, 308, 4, 65, "Section"],
+Cell[1081078, 21663, 308, 4, 65, "Section"],
 Cell[CellGroupData[{
-Cell[1071220, 21370, 152, 2, 44, "Subsection"],
-Cell[1071375, 21374, 1117, 31, 74, "Text",
+Cell[1081411, 21671, 152, 2, 44, "Subsection"],
+Cell[1081566, 21675, 1117, 31, 74, "Text",
  CellTags->"FourierListPlot::usage"],
 Cell[CellGroupData[{
-Cell[1072517, 21409, 100, 1, 35, "Subsubsection"],
-Cell[1072620, 21412, 164, 5, 31, "Text"],
-Cell[1072787, 21419, 24844, 547, 2297, "Text"]
+Cell[1082708, 21710, 100, 1, 35, "Subsubsection"],
+Cell[1082811, 21713, 164, 5, 31, "Text"],
+Cell[1082978, 21720, 24844, 547, 2297, "Text"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[1097668, 21971, 204, 3, 29, "Subsubsection"],
-Cell[1097875, 21976, 181, 4, 31, "Text"],
-Cell[1098059, 21982, 817, 24, 32, "Input"],
+Cell[1107859, 22272, 204, 3, 29, "Subsubsection"],
+Cell[1108066, 22277, 181, 4, 31, "Text"],
+Cell[1108250, 22283, 817, 24, 32, "Input"],
 Cell[CellGroupData[{
-Cell[1098901, 22010, 517, 13, 32, "Input"],
-Cell[1099421, 22025, 4138, 78, 238, "Output"]
+Cell[1109092, 22311, 517, 13, 32, "Input"],
+Cell[1109612, 22326, 4138, 78, 238, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1103596, 22108, 668, 16, 55, "Input"],
-Cell[1104267, 22126, 19551, 392, 245, "Output"]
+Cell[1113787, 22409, 668, 16, 55, "Input"],
+Cell[1114458, 22427, 19551, 392, 245, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[1123867, 22524, 159, 2, 29, "Subsubsection"],
-Cell[1124029, 22528, 132, 1, 31, "Text"],
-Cell[1124164, 22531, 1243, 39, 55, "Input"],
+Cell[1134058, 22825, 159, 2, 29, "Subsubsection"],
+Cell[1134220, 22829, 132, 1, 31, "Text"],
+Cell[1134355, 22832, 1243, 39, 55, "Input"],
 Cell[CellGroupData[{
-Cell[1125432, 22574, 510, 13, 32, "Input"],
-Cell[1125945, 22589, 14182, 287, 242, "Output"]
+Cell[1135623, 22875, 510, 13, 32, "Input"],
+Cell[1136136, 22890, 14182, 287, 242, "Output"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[1140176, 22882, 158, 2, 29, "Subsubsection"],
-Cell[1140337, 22886, 186, 5, 32, "Text"],
-Cell[1140526, 22893, 702, 22, 32, "Input"],
+Cell[1150367, 23183, 158, 2, 29, "Subsubsection"],
+Cell[1150528, 23187, 186, 5, 32, "Text"],
+Cell[1150717, 23194, 702, 22, 32, "Input"],
 Cell[CellGroupData[{
-Cell[1141253, 22919, 426, 11, 32, "Input"],
-Cell[1141682, 22932, 2330, 48, 233, "Output"]
+Cell[1151444, 23220, 426, 11, 32, "Input"],
+Cell[1151873, 23233, 2330, 48, 233, "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
